@@ -3,15 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AZ-104 Exam Simulator</title>
+  <title>AZ-104 Exam Preparation Dashboard</title>
   <style>
     :root {
       --primary: #0078d4;
       --bg: #f3f2f1;
       --card-bg: #ffffff;
       --text: #323130;
+      --text-secondary: #605e5c;
       --border: #e1dfdd;
-      --danger: #d13438;
     }
 
     body {
@@ -19,320 +19,153 @@
       background-color: var(--bg);
       color: var(--text);
       margin: 0;
-      padding: 1.5rem;
+      padding: 2rem;
     }
 
-    .quiz-container {
-      max-width: 800px;
+    .container {
+      max-width: 1200px;
       margin: 0 auto;
+    }
+
+    header {
+      margin-bottom: 2.5rem;
+      text-align: center;
+    }
+
+    h1 {
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+      font-size: 2.2rem;
+    }
+
+    p.subtitle {
+      color: var(--text-secondary);
+      font-size: 1.1rem;
+    }
+
+    .domain-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .domain-card {
       background: var(--card-bg);
       border: 1px solid var(--border);
       border-radius: 8px;
-      padding: 2rem;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      padding: 1.5rem;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
     }
 
-    .quiz-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 2px solid var(--bg);
-      padding-bottom: 1rem;
-      margin-bottom: 1.5rem;
-    }
-
-    .badge {
-      background: #e1dfdd;
-      color: var(--text);
-      padding: 0.3rem 0.8rem;
-      border-radius: 12px;
-      font-size: 0.85rem;
+    .domain-title {
+      font-size: 1.25rem;
       font-weight: 600;
-    }
-
-    /* Timer Styling */
-    .timer-box {
-      font-size: 1.1rem;
-      font-weight: bold;
       color: var(--primary);
-      background: #eff6fc;
-      padding: 0.4rem 0.8rem;
-      border-radius: 6px;
-      border: 1px solid #c7e0f4;
+      border-bottom: 2px solid var(--bg);
+      padding-bottom: 0.75rem;
+      margin-top: 0;
+      margin-bottom: 1rem;
     }
 
-    .timer-box.warning {
-      color: var(--danger);
-      background: #fde8e8;
-      border-color: #f8d7da;
-      animation: pulse 1s infinite alternate;
+    .topic-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
     }
 
-    @keyframes pulse {
-      from { opacity: 1; }
-      to { opacity: 0.7; }
+    .topic-item {
+      margin-bottom: 0.5rem;
     }
 
-    .question-title {
-      font-size: 1.1rem;
-      font-weight: 600;
-      margin-bottom: 1.5rem;
-      line-height: 1.5;
-    }
-
-    .options-grid {
-      display: flex;
-      flex-direction: column;
-      gap: 0.75rem;
-      margin-bottom: 2rem;
-    }
-
-    .option {
-      padding: 0.8rem 1rem;
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-
-    .option:hover {
-      background-color: #f3f2f1;
-    }
-
-    .option.selected {
-      border-color: var(--primary);
-      background-color: #eff6fc;
-      font-weight: 600;
-    }
-
-    .nav-buttons {
-      display: flex;
-      justify-content: space-between;
-    }
-
-    button {
-      padding: 0.6rem 1.2rem;
-      border: none;
-      border-radius: 4px;
-      font-weight: 600;
-      cursor: pointer;
-    }
-
-    .btn-secondary {
-      background: #e1dfdd;
+    .topic-link {
+      display: block;
+      padding: 0.6rem 0.8rem;
       color: var(--text);
-    }
-
-    .btn-primary {
-      background: var(--primary);
-      color: white;
-    }
-
-    .btn-danger {
-      background: var(--danger);
-      color: white;
-    }
-
-    button:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-    }
-
-    .hidden { display: none; }
-
-    .review-item {
-      border-bottom: 1px solid var(--border);
-      padding: 1rem 0;
-    }
-
-    .explanation {
-      background: #f3f2f1;
-      padding: 0.8rem;
+      text-decoration: none;
       border-radius: 4px;
-      margin-top: 0.5rem;
+      transition: background-color 0.2s, color 0.2s;
+    }
+
+    .topic-link:hover {
+      background-color: #eff6fc;
+      color: var(--primary);
+      font-weight: 500;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 3rem;
+      color: var(--text-secondary);
       font-size: 0.9rem;
     }
   </style>
 </head>
 <body>
 
-  <div class="quiz-container">
-    
-    <!-- QUIZ VIEW -->
-    <div id="quiz-view">
-      <div class="quiz-header">
-        <span class="badge" id="subtopic-badge">AZ-104</span>
-        <div id="timer" class="timer-box">⏱️ 60:00</div>
-        <span id="question-number" style="font-weight: 600;">Question 1</span>
+  <div class="container">
+    <header>
+      <h1>AZ-104 Azure Administrator Practice Center</h1>
+      <p class="subtitle">Select a topic below to launch the practice test</p>
+    </header>
+
+    <div class="domain-grid">
+
+      <!-- Domain 1 -->
+      <div class="domain-card">
+        <h2 class="domain-title">1. Manage Azure Identities and Governance</h2>
+        <ul class="topic-list">
+          <li><a class="topic-link" href="./Manage-Azure-identities-and-governance/Manage-Microsoft-Entra-users-and-groups/">Manage Microsoft Entra users and groups</a></li>
+          <li><a class="topic-link" href="./Manage-Azure-identities-and-governance/Manage-access-to-Azure-resources/">Manage access to Azure resources</a></li>
+          <li><a class="topic-link" href="./Manage-Azure-identities-and-governance/Manage-Azure-subscriptions-and-governance/">Manage Azure subscriptions and governance</a></li>
+        </ul>
       </div>
 
-      <div class="question-title" id="question-text">Loading question...</div>
-      
-      <div class="options-grid" id="options-container"></div>
-
-      <div class="nav-buttons">
-        <button id="prev-btn" class="btn-secondary" disabled>Previous</button>
-        <button id="next-btn" class="btn-primary">Next</button>
-        <button id="submit-btn" class="btn-danger">Submit Exam</button>
+      <!-- Domain 2 -->
+      <div class="domain-card">
+        <h2 class="domain-title">2. Implement and Manage Storage</h2>
+        <ul class="topic-list">
+          <li><a class="topic-link" href="./Implement-and-manage-storage/Configure-access-to-storage/">Configure access to storage</a></li>
+          <li><a class="topic-link" href="./Implement-and-manage-storage/Configure-and-manage-storage-accounts/">Manage storage accounts</a></li>
+          <li><a class="topic-link" href="./Implement-and-manage-storage/Configure-Azure-Files-and-Azure-Blob-Storage/">Configure Azure files and Azure blob storage</a></li>
+        </ul>
       </div>
+
+      <!-- Domain 3 -->
+      <div class="domain-card">
+        <h2 class="domain-title">3. Deploy and Manage Azure Compute Resources</h2>
+        <ul class="topic-list">
+          <li><a class="topic-link" href="./Deploy-and-manage-Azure-compute-resources/Automate-deployment-of-resources-by-using-ARM-templates-or-Bicep-files/">Automate deployment using ARM templates or Bicep</a></li>
+          <li><a class="topic-link" href="./Deploy-and-manage-Azure-compute-resources/Create-and-configure-virtual-machines/">Create and configure virtual machines</a></li>
+          <li><a class="topic-link" href="./Deploy-and-manage-Azure-compute-resources/Provision-and-manage-containers-in-the-Azure-portal/">Provision and manage containers</a></li>
+          <li><a class="topic-link" href="./Deploy-and-manage-Azure-compute-resources/Create-and-configure-Azure-App-Service/">Create and configure Azure App Service</a></li>
+        </ul>
+      </div>
+
+      <!-- Domain 4 -->
+      <div class="domain-card">
+        <h2 class="domain-title">4. Implement and Manage Virtual Networking</h2>
+        <ul class="topic-list">
+          <li><a class="topic-link" href="./Implement-and-manage-virtual-networking/Configure-and-manage-virtual-networks-in-Azure/">Configure and manage virtual networks</a></li>
+          <li><a class="topic-link" href="./Implement-and-manage-virtual-networking/Configure-secure-access-to-virtual-networks/">Configure secure access to virtual networks</a></li>
+          <li><a class="topic-link" href="./Implement-and-manage-virtual-networking/Configure-name-resolution-and-load-balancing/">Configure name resolution and load balancing</a></li>
+        </ul>
+      </div>
+
+      <!-- Domain 5 -->
+      <div class="domain-card">
+        <h2 class="domain-title">5. Monitor and Maintain Azure Resources</h2>
+        <ul class="topic-list">
+          <li><a class="topic-link" href="./Monitor-and-maintain-Azure-resources/Monitor-resources-in-Azure/">Monitor resources in Azure</a></li>
+          <li><a class="topic-link" href="./Monitor-and-maintain-Azure-resources/Implement-backup-and-recovery/">Implement backup and recovery</a></li>
+        </ul>
+      </div>
+
     </div>
 
-    <!-- RESULTS VIEW -->
-    <div id="results-view" class="hidden">
-      <h2 id="score-text">Calculating Results...</h2>
-      <p id="time-spent-text" style="color: #605e5c;"></p>
-      <hr>
-      <h3>Detailed Review</h3>
-      <div id="results-breakdown"></div>
-      <br>
-      <button onclick="window.location.reload()" class="btn-primary">Retake Exam</button>
-    </div>
-
+    <footer>
+      <p>AZ-104 Quiz Bank Dashboard &bull; GitHub Pages Ready</p>
+    </footer>
   </div>
 
-  <script>
-    let quizData = [];
-    let currentIndex = 0;
-    let userAnswers = {};
-    
-    // Timer Variables (60 minutes = 3600 seconds)
-    const TOTAL_TIME_SECONDS = 3600; 
-    let timeRemaining = TOTAL_TIME_SECONDS;
-    let timerInterval = null;
-
-    async function loadQuizData() {
-      try {
-        const response = await fetch('questions.json');
-        
-        if (!response.ok) {
-          throw new Error(`HTTP Error ${response.status}: Could not find questions.json`);
-        }
-        
-        quizData = await response.json();
-        initQuiz();
-      } catch (error) {
-        console.error('Error loading questions:', error);
-        document.getElementById('question-text').innerHTML = 
-          `<span style="color: red; font-weight: bold;">Quiz Error: ${error.message}</span>`;
-      }
-    }
-
-    function initQuiz() {
-      if (!quizData || quizData.length === 0) return;
-      
-      renderQuestion();
-      startTimer();
-
-      document.getElementById('prev-btn').addEventListener('click', prevQuestion);
-      document.getElementById('next-btn').addEventListener('click', nextQuestion);
-      document.getElementById('submit-btn').addEventListener('click', () => submitExam(false));
-    }
-
-    function startTimer() {
-      updateTimerDisplay();
-      timerInterval = setInterval(() => {
-        timeRemaining--;
-        updateTimerDisplay();
-
-        if (timeRemaining <= 0) {
-          clearInterval(timerInterval);
-          alert("Time's up! Your exam will be submitted automatically.");
-          submitExam(true);
-        }
-      }, 1000);
-    }
-
-    function updateTimerDisplay() {
-      const minutes = Math.floor(timeRemaining / 60);
-      const seconds = timeRemaining % 60;
-      const displayString = `⏱️ ${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-      
-      const timerElement = document.getElementById('timer');
-      timerElement.innerText = displayString;
-
-      // Turn timer red when under 5 minutes (300 seconds)
-      if (timeRemaining <= 300) {
-        timerElement.classList.add('warning');
-      }
-    }
-
-    function renderQuestion() {
-      const q = quizData[currentIndex];
-      document.getElementById('subtopic-badge').innerText = q.subtopic || 'AZ-104';
-      document.getElementById('question-number').innerText = `Question ${currentIndex + 1} of ${quizData.length}`;
-      document.getElementById('question-text').innerText = q.question;
-
-      const container = document.getElementById('options-container');
-      container.innerHTML = '';
-
-      q.options.forEach((opt, idx) => {
-        const div = document.createElement('div');
-        div.className = `option ${userAnswers[currentIndex] === idx ? 'selected' : ''}`;
-        div.innerText = `${String.fromCharCode(65 + idx)}. ${opt}`;
-        div.onclick = () => selectOption(idx);
-        container.appendChild(div);
-      });
-
-      document.getElementById('prev-btn').disabled = currentIndex === 0;
-      document.getElementById('next-btn').disabled = currentIndex === quizData.length - 1;
-    }
-
-    function selectOption(index) {
-      userAnswers[currentIndex] = index;
-      renderQuestion();
-    }
-
-    function prevQuestion() {
-      if (currentIndex > 0) { currentIndex--; renderQuestion(); }
-    }
-
-    function nextQuestion() {
-      if (currentIndex < quizData.length - 1) { currentIndex++; renderQuestion(); }
-    }
-
-    function submitExam(isAutoSubmit = false) {
-      if (!isAutoSubmit && !confirm("Are you sure you want to submit your exam?")) return;
-
-      clearInterval(timerInterval);
-
-      document.getElementById('quiz-view').classList.add('hidden');
-      document.getElementById('results-view').classList.remove('hidden');
-
-      const secondsSpent = TOTAL_TIME_SECONDS - timeRemaining;
-      const minutesSpent = Math.floor(secondsSpent / 60);
-      const remainingSeconds = secondsSpent % 60;
-      
-      document.getElementById('time-spent-text').innerText = 
-        `Time Taken: ${minutesSpent} min ${remainingSeconds} sec`;
-
-      let score = 0;
-      const breakdown = document.getElementById('results-breakdown');
-      breakdown.innerHTML = '';
-
-      quizData.forEach((q, idx) => {
-        const isCorrect = userAnswers[idx] === q.correct;
-        if (isCorrect) score++;
-
-        const item = document.createElement('div');
-        item.className = 'review-item';
-        item.innerHTML = `
-          <h4>Q${idx + 1}: ${q.question}</h4>
-          <p><strong>Your Answer:</strong> ${userAnswers[idx] !== undefined ? q.options[userAnswers[idx]] : '<em>Unanswered</em>'} 
-             (${isCorrect ? '✅ Correct' : '❌ Incorrect'})</p>
-          <p><strong>Correct Answer:</strong> ${q.options[q.correct]}</p>
-          <div class="explanation">
-            <strong>Explanation:</strong> ${q.explanation.correctReason}<br/><br/>
-            <a href="${q.explanation.reference}" target="_blank">Microsoft Learn Reference</a>
-          </div>
-        `;
-        breakdown.appendChild(item);
-      });
-
-      const finalPct = Math.round((score / quizData.length) * 100);
-      document.getElementById('score-text').innerText = `Score: ${finalPct}% (${score}/${quizData.length}) - ${finalPct >= 70 ? 'PASS' : 'FAIL'}`;
-    }
-
-    document.addEventListener('DOMContentLoaded', loadQuizData);
-  </script>
 </body>
 </html>

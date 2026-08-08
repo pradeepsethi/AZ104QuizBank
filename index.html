@@ -1,168 +1,171 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AZ-104 Practice Exam Dashboard</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AZ-104 Exam Preparation Dashboard</title>
   <style>
     :root {
-      --primary: #0078D4;
-      --bg: #F3F2F1;
-      --card: #FFFFFF;
+      --primary: #0078d4;
+      --bg: #f3f2f1;
+      --card-bg: #ffffff;
       --text: #323130;
-      --border: #E1DFDD;
+      --text-secondary: #605e5c;
+      --border: #e1dfdd;
     }
+
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: var(--bg);
+      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+      background-color: var(--bg);
       color: var(--text);
       margin: 0;
-      padding: 30px 20px;
+      padding: 2rem;
     }
+
     .container {
-      max-width: 1000px;
+      max-width: 1200px;
       margin: 0 auto;
     }
+
     header {
-      background: var(--primary);
-      color: white;
-      padding: 25px 30px;
-      border-radius: 6px;
-      margin-bottom: 30px;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      margin-bottom: 2.5rem;
+      text-align: center;
     }
-    header h1 { margin: 0 0 5px 0; font-size: 1.8rem; }
-    header p { margin: 0; opacity: 0.9; font-size: 0.95rem; }
-    
+
+    h1 {
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+      font-size: 2.2rem;
+    }
+
+    p.subtitle {
+      color: var(--text-secondary);
+      font-size: 1.1rem;
+    }
+
+    .domain-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 1.5rem;
+    }
+
     .domain-card {
-      background: var(--card);
+      background: var(--card-bg);
       border: 1px solid var(--border);
-      border-radius: 6px;
-      padding: 20px 25px;
-      margin-bottom: 25px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+      border-radius: 8px;
+      padding: 1.5rem;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
     }
+
     .domain-title {
-      margin-top: 0;
+      font-size: 1.25rem;
+      font-weight: 600;
       color: var(--primary);
       border-bottom: 2px solid var(--bg);
-      padding-bottom: 10px;
-      font-size: 1.25rem;
+      padding-bottom: 0.75rem;
+      margin-top: 0;
+      margin-bottom: 1rem;
     }
+
     .topic-list {
       list-style: none;
       padding: 0;
-      margin: 15px 0 0 0;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 12px;
+      margin: 0;
     }
-    .topic-item a {
+
+    .topic-item {
+      margin-bottom: 0.5rem;
+    }
+
+    .topic-link {
       display: block;
-      padding: 12px 15px;
-      background: #FAFAFA;
-      border: 1px solid var(--border);
-      border-radius: 4px;
+      padding: 0.6rem 0.8rem;
       color: var(--text);
       text-decoration: none;
-      font-weight: 600;
-      font-size: 0.95rem;
-      transition: all 0.2s ease;
+      border-radius: 4px;
+      transition: background-color 0.2s, color 0.2s;
     }
-    .topic-item a:hover {
-      background: #DEECF9;
-      border-color: var(--primary);
+
+    .topic-link:hover {
+      background-color: #eff6fc;
       color: var(--primary);
-      transform: translateY(-1px);
+      font-weight: 500;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 3rem;
+      color: var(--text-secondary);
+      font-size: 0.9rem;
     }
   </style>
 </head>
 <body>
+
   <div class="container">
     <header>
-      <h1>AZ-104 Microsoft Azure Administrator</h1>
-      <p>Select a domain and topic module below to start practicing.</p>
+      <h1>AZ-104 Azure Administrator Practice Center</h1>
+      <p class="subtitle">Select a topic below to launch the practice test</p>
     </header>
 
-    <!-- DOMAIN 1 -->
-    <div class="domain-card">
-      <h2 class="domain-title">1. Manage Azure Identities and Governance (20–25%)</h2>
-      <ul class="topic-list">
-        <li class="topic-item">
-          <a href="./Manage Azure identities and governance/Manage Microsoft Entra users and groups/">Manage Microsoft Entra Users and Groups</a>
-        </li>
-        <li class="topic-item">
-          <a href="./Manage Azure identities and governance/Manage access to Azure resources/">Manage Access to Azure Resources</a>
-        </li>
-        <li class="topic-item">
-          <a href="./Manage Azure identities and governance/Manage Azure subscriptions and governance/">Manage Azure Subscriptions and Governance</a>
-        </li>
-      </ul>
+    <div class="domain-grid">
+
+      <!-- Domain 1 -->
+      <div class="domain-card">
+        <h2 class="domain-title">1. Manage Azure Identities and Governance</h2>
+        <ul class="topic-list">
+          <li><a class="topic-link" href="./Manage-Azure-identities-and-governance/Manage-Microsoft-Entra-users-and-groups/">Manage Microsoft Entra users and groups</a></li>
+          <li><a class="topic-link" href="./Manage-Azure-identities-and-governance/Manage-access-to-Azure-resources/">Manage access to Azure resources</a></li>
+          <li><a class="topic-link" href="./Manage-Azure-identities-and-governance/Manage-Azure-subscriptions-and-governance/">Manage Azure subscriptions and governance</a></li>
+        </ul>
+      </div>
+
+      <!-- Domain 2 -->
+      <div class="domain-card">
+        <h2 class="domain-title">2. Implement and Manage Storage</h2>
+        <ul class="topic-list">
+          <li><a class="topic-link" href="./Implement-and-manage-storage/Configure-access-to-storage/">Configure access to storage</a></li>
+          <li><a class="topic-link" href="./Implement-and-manage-storage/Manage-storage-accounts/">Manage storage accounts</a></li>
+          <li><a class="topic-link" href="./Implement-and-manage-storage/Configure-Azure-files-and-Azure-blob-storage/">Configure Azure files and Azure blob storage</a></li>
+        </ul>
+      </div>
+
+      <!-- Domain 3 -->
+      <div class="domain-card">
+        <h2 class="domain-title">3. Deploy and Manage Azure Compute Resources</h2>
+        <ul class="topic-list">
+          <li><a class="topic-link" href="./Deploy-and-manage-Azure-compute-resources/Automate-deployment-of-resources-by-using-ARM-templates-or-Bicep-files/">Automate deployment using ARM templates or Bicep</a></li>
+          <li><a class="topic-link" href="./Deploy-and-manage-Azure-compute-resources/Create-and-configure-virtual-machines/">Create and configure virtual machines</a></li>
+          <li><a class="topic-link" href="./Deploy-and-manage-Azure-compute-resources/Provision-and-manage-containers/">Provision and manage containers</a></li>
+          <li><a class="topic-link" href="./Deploy-and-manage-Azure-compute-resources/Create-and-configure-Azure-App-Service/">Create and configure Azure App Service</a></li>
+        </ul>
+      </div>
+
+      <!-- Domain 4 -->
+      <div class="domain-card">
+        <h2 class="domain-title">4. Implement and Manage Virtual Networking</h2>
+        <ul class="topic-list">
+          <li><a class="topic-link" href="./Implement-and-manage-virtual-networking/Configure-and-manage-virtual-networks/">Configure and manage virtual networks</a></li>
+          <li><a class="topic-link" href="./Implement-and-manage-virtual-networking/Configure-secure-access-to-virtual-networks/">Configure secure access to virtual networks</a></li>
+          <li><a class="topic-link" href="./Implement-and-manage-virtual-networking/Configure-name-resolution-and-load-balancing/">Configure name resolution and load balancing</a></li>
+        </ul>
+      </div>
+
+      <!-- Domain 5 -->
+      <div class="domain-card">
+        <h2 class="domain-title">5. Monitor and Maintain Azure Resources</h2>
+        <ul class="topic-list">
+          <li><a class="topic-link" href="./Monitor-and-maintain-Azure-resources/Monitor-resources-in-Azure/">Monitor resources in Azure</a></li>
+          <li><a class="topic-link" href="./Monitor-and-maintain-Azure-resources/Implement-backup-and-recovery/">Implement backup and recovery</a></li>
+        </ul>
+      </div>
+
     </div>
 
-    <!-- DOMAIN 2 -->
-    <div class="domain-card">
-      <h2 class="domain-title">2. Implement and Manage Storage (15–20%)</h2>
-      <ul class="topic-list">
-        <li class="topic-item">
-          <a href="./Implement and manage storage/Configure access to storage/">Configure Access to Storage</a>
-        </li>
-        <li class="topic-item">
-          <a href="./Implement and manage storage/Configure and manage storage accounts/">Configure and Manage Storage Accounts</a>
-        </li>
-        <li class="topic-item">
-          <a href="./Implement and manage storage/Configure Azure Files and Azure Blob Storage/">Configure Azure Files and Azure Blob Storage</a>
-        </li>
-      </ul>
-    </div>
-
-    <!-- DOMAIN 3 -->
-    <div class="domain-card">
-      <h2 class="domain-title">3. Deploy and Manage Azure Compute Resources (20–25%)</h2>
-      <ul class="topic-list">
-        <li class="topic-item">
-          <a href="./Deploy and manage Azure compute resources/Automate deployment of resources by using ARM templates or Bicep files/">Automate Deployment with Templates/Bicep</a>
-        </li>
-        <li class="topic-item">
-          <a href="./Deploy and manage Azure compute resources/Create and configure virtual machines/">Create and Configure Virtual Machines</a>
-        </li>
-        <li class="topic-item">
-          <a href="./Deploy and manage Azure compute resources/Provision and manage containers in the Azure portal/">Provision and Manage Containers</a>
-        </li>
-        <li class="topic-item">
-          <a href="./Deploy and manage Azure compute resources/Create and configure Azure App Service/">Create and Configure Azure App Service</a>
-        </li>
-      </ul>
-    </div>
-
-    <!-- DOMAIN 4 -->
-    <div class="domain-card">
-      <h2 class="domain-title">4. Implement and Manage Virtual Networking (15–20%)</h2>
-      <ul class="topic-list">
-        <li class="topic-item">
-          <a href="./Implement and manage virtual networking/Configure and manage virtual networks in Azure/">Configure and Manage Virtual Networks</a>
-        </li>
-        <li class="topic-item">
-          <a href="./Implement and manage virtual networking/Configure secure access to virtual networks/">Configure Secure Access to Virtual Networks</a>
-        </li>
-        <li class="topic-item">
-          <a href="./Implement and manage virtual networking/Configure name resolution and load balancing/">Configure Name Resolution and Load Balancing</a>
-        </li>
-      </ul>
-    </div>
-
-    <!-- DOMAIN 5 -->
-    <div class="domain-card">
-      <h2 class="domain-title">5. Monitor and Maintain Azure Resources (10–15%)</h2>
-      <ul class="topic-list">
-        <li class="topic-item">
-          <a href="./Monitor and maintain Azure resources/Monitor resources in Azure/">Monitor Resources in Azure</a>
-        </li>
-        <li class="topic-item">
-          <a href="./Monitor and maintain Azure resources/Implement backup and recovery/">Implement Backup and Recovery</a>
-        </li>
-      </ul>
-    </div>
+    <footer>
+      <p>AZ-104 Quiz Bank Dashboard &bull; GitHub Pages Ready</p>
+    </footer>
   </div>
+
 </body>
 </html>

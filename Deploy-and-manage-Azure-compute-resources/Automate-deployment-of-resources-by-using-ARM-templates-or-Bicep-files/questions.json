@@ -23,8 +23,7 @@
   {
     "id": 2,
     "subtopic": "Interpret an Azure Resource Manager template or a Bicep file",
-    "question": "You examine an ARM JSON template that contains the following parameter definition:\n\n\"adminPassword\": {\n  \"type\": \"securestring\",
-    \"metadata\": {\n    \"description\": \"Administrator password for the VM.\"\n  }\n}\n\nWhich statement accurately describes how Azure Resource Manager handles this parameter?",
+    "question": "You examine an ARM JSON template that contains the following parameter definition:\n\n\"adminPassword\": {\n  \"type\": \"securestring\", \"metadata\": {\n    \"description\": \"Administrator password for the VM.\"\n  }\n}\n\nWhich statement accurately describes how Azure Resource Manager handles this parameter?",
     "options": [
       "The value is stored in plain text in the deployment history but hidden from the Azure Portal UI.",
       "The parameter value is automatically stored in Azure Key Vault upon template deployment.",

@@ -1,0 +1,1037 @@
+[
+  {
+    "id": 1,
+    "subtopic": "Create users and groups",
+    "question": "You need to create 500 new users in Microsoft Entra ID. You want to minimize administrative effort. What should you use?",
+    "options": [
+      "The Bulk create users operation in the Microsoft Entra admin center with a CSV file.",
+      "The Azure CLI command 'az ad user create' in a loop.",
+      "A Resource Manager (ARM) template.",
+      "The Microsoft Graph PowerShell command 'New-MgUser' in a loop."
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "The 'Bulk create users' feature in the Entra admin center is specifically designed for high-volume user creation using a standardized CSV template, requiring the least amount of custom scripting.",
+      "incorrectReasons": [
+        "Azure CLI in a loop is more complex to implement and prone to API throttling compared to bulk operations.",
+        "ARM templates are used for deploying resources like VMs and VNets, not for creating user objects in Entra ID.",
+        "PowerShell loops work but require more manual script management than the built-in bulk upload tool."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/entra/identity/users/users-bulk-add"
+    }
+  },
+  {
+    "id": 2,
+    "subtopic": "Create users and groups",
+    "question": "You create a new Microsoft Entra group. You need to ensure that users are automatically added to the group based on their department attribute. Which group type and membership type should you use?",
+    "options": [
+      "Security group with Assigned membership",
+      "Security group with Dynamic User membership",
+      "Microsoft 365 group with Assigned membership",
+      "Distribution group with Dynamic User membership"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "A Security group with Dynamic User membership allows you to define rules (e.g., user.department -eq 'Sales') that automatically manage membership based on user attributes.",
+      "incorrectReasons": [
+        "Assigned membership requires manual addition of users.",
+        "Microsoft 365 groups with assigned membership still require manual management.",
+        "Distribution groups are used for email and do not support dynamic membership for identity management in the same way security groups do for Azure resources."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/entra/identity/users/groups-dynamic-membership"
+    }
+  },
+  {
+    "id": 3,
+    "subtopic": "Create users and groups",
+    "question": "You need to delegate the ability to reset passwords for users in a specific department without granting full Global Administrator rights. What should you create?",
+    "options": [
+      "A Dynamic Group",
+      "An Administrative Unit",
+      "A Custom RBAC Role at the Subscription level",
+      "A Conditional Access Policy"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Administrative Units (AUs) allow you to subdivide your directory and delegate administrative permissions (like Helpdesk Administrator) over a specific subset of users.",
+      "incorrectReasons": [
+        "Dynamic Groups manage membership but do not delegate administrative scope.",
+        "Subscription RBAC roles do not grant permissions to manage Entra ID user objects.",
+        "Conditional Access is used for controlling access to applications, not for delegating administrative tasks."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/entra/identity/role-based-access-control/administrative-units"
+    }
+  },
+  {
+    "id": 4,
+    "subtopic": "Create users and groups",
+    "question": "You are creating a dynamic group rule. You want to include all users whose job title starts with the word 'Manager'. Which syntax should you use?",
+    "options": [
+      "user.jobTitle -match \"Manager*\"",
+      "user.jobTitle -contains \"Manager\"",
+      "user.jobTitle -startsWith \"Manager\"",
+      "user.jobTitle -eq \"Manager*\""
+    ],
+    "correct": 2,
+    "explanation": {
+      "correctReason": "The '-startsWith' operator is the correct syntax in Microsoft Entra dynamic membership rules to check the beginning of a string attribute.",
+      "incorrectReasons": [
+        "'-match' is used for regular expressions and is not a standard dynamic rule operator.",
+        "'-contains' checks if the string exists anywhere in the attribute, not just at the start.",
+        "'-eq' checks for an exact match and does not support wildcards like '*' in dynamic rules."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/entra/identity/users/groups-dynamic-membership"
+    }
+  },
+  {
+    "id": 5,
+    "subtopic": "Create users and groups",
+    "question": "You need to create a group that supports collaboration, provides a shared mailbox, and a shared calendar for its members. Which group type should you choose?",
+    "options": [
+      "Security group",
+      "Distribution group",
+      "Mail-enabled security group",
+      "Microsoft 365 group"
+    ],
+    "correct": 3,
+    "explanation": {
+      "correctReason": "Microsoft 365 groups are designed for collaboration, providing a shared email, calendar, and SharePoint site.",
+      "incorrectReasons": [
+        "Security groups are used solely for granting access to resources.",
+        "Distribution groups are for sending emails to a list of people only.",
+        "Mail-enabled security groups grant resource access and have an email address but do not provide shared collaboration tools like calendars."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/entra/fundamentals/how-to-manage-groups"
+    }
+  },
+  {
+    "id": 6,
+    "subtopic": "Create users and groups",
+    "question": "Which of the following is a requirement for creating a Dynamic Group in Microsoft Entra ID?",
+    "options": [
+      "Microsoft Entra ID Free edition",
+      "Microsoft Entra ID P1 or P2 license",
+      "The group must be a Microsoft 365 group type",
+      "At least one Global Administrator must be a member of the group"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Dynamic group membership is a premium feature that requires at least a Microsoft Entra ID P1 license for each unique user that is a member of one or more dynamic groups.",
+      "incorrectReasons": [
+        "The Free edition does not support dynamic groups.",
+        "Security groups can also be dynamic; it is not restricted to M365 groups.",
+        "Admins do not need to be members; they only need the appropriate role to create the group."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/entra/identity/users/groups-dynamic-membership"
+    }
+  },
+  {
+    "id": 7,
+    "subtopic": "Create users and groups",
+    "question": "You have a CSV file containing 100 users. You use the 'Bulk upload' tool in the Entra admin center. The process fails for 5 users. Where can you find the specific reason for the failure?",
+    "options": [
+      "In the Azure Activity Log",
+      "By downloading the results CSV file from the 'Bulk operation results' page",
+      "In the user's individual 'Audit Logs' tab",
+      "By checking the 'Notifications' bell icon only"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "When a bulk operation completes, Azure provides a results CSV file that includes an 'Error' column detailing why specific rows failed to process.",
+      "incorrectReasons": [
+        "Activity Logs show that the bulk operation started/stopped but not row-level errors.",
+        "Audit logs might show successes but are harder to parse for specific bulk failure reasons.",
+        "The notifications icon only provides a high-level summary of success or failure."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/entra/identity/users/users-bulk-add#check-status"
+    }
+  },
+  {
+    "id": 8,
+    "subtopic": "Create users and groups",
+    "question": "A user named Admin1 needs to create groups in Microsoft Entra ID. Admin1 must also be able to assign members to those groups. Which directory role is the minimum required?",
+    "options": [
+      "User Administrator",
+      "Groups Administrator",
+      "Global Administrator",
+      "Directory Writers"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "The Groups Administrator role allows users to create and manage groups and their settings, including membership.",
+      "incorrectReasons": [
+        "User Administrator can manage users and some group settings but Groups Administrator is more specifically targeted.",
+        "Global Administrator has excessive permissions for this task.",
+        "Directory Writers is a legacy/service-oriented role and not typically assigned for standard group management."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/entra/identity/role-based-access-control/permissions-reference"
+    }
+  },
+  {
+    "id": 9,
+    "subtopic": "Create users and groups",
+    "question": "You are creating a new user using the Azure Portal. Which of the following is a mandatory field that must be completed during creation?",
+    "options": [
+      "Job Title",
+      "Usage Location",
+      "User Principal Name (UPN)",
+      "Department"
+    ],
+    "correct": 2,
+    "explanation": {
+      "correctReason": "The User Principal Name (UPN) is the unique identifier for the user and is mandatory for account creation.",
+      "incorrectReasons": [
+        "Job Title and Department are optional attributes.",
+        "Usage Location is optional during creation, though it is required later if you intend to assign a license."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/entra/fundamentals/how-to-create-delete-users"
+    }
+  },
+  {
+    "id": 10,
+    "subtopic": "Create users and groups",
+    "question": "You need to add a user from another Microsoft Entra tenant to your tenant to allow them to access a specific application. What should you create?",
+    "options": [
+      "A Member user",
+      "A Guest user",
+      "A Service Principal",
+      "A Managed Identity"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Guest users (B2B collaboration) allow you to invite users from external tenants to your own tenant for resource access.",
+      "incorrectReasons": [
+        "Member users are typically internal to the organization.",
+        "Service Principals are for applications, not human users.",
+        "Managed Identities are for Azure resources to authenticate to other services."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/entra/external-id/what-is-b2b"
+    }
+  },
+  {
+    "id": 11,
+    "subtopic": "Manage user and group properties",
+    "question": "You delete a user account by mistake. You need to restore the user. Within how many days must you perform the restoration?",
+    "options": [
+      "14 days",
+      "30 days",
+      "60 days",
+      "90 days"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Microsoft Entra ID retains deleted users in a 'soft-delete' state for 30 days, after which they are permanently deleted.",
+      "incorrectReasons": [
+        "14 days is incorrect for Entra ID object retention.",
+        "60 and 90 days are beyond the standard soft-delete window for Entra ID users."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/entra/identity/users/users-restore"
+    }
+  },
+  {
+    "id": 12,
+    "subtopic": "Manage user and group properties",
+    "question": "You need to update the department for 50 users. What is the most efficient way to perform this update?",
+    "options": [
+      "Edit each user profile individually in the portal.",
+      "Use the 'Bulk update' feature with a CSV file.",
+      "Use the 'Bulk create' feature with the same UPNs.",
+      "Delete the users and recreate them with the correct department."
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "The 'Bulk update' tool allows you to upload a CSV with existing UPNs and updated attribute values, which is efficient for large batches.",
+      "incorrectReasons": [
+        "Individual editing is too time-consuming for 50 users.",
+        "Bulk create will fail if the users already exist.",
+        "Deleting and recreating users causes data loss and SID/Object ID mismatches."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/entra/identity/users/users-bulk-add"
+    }
+  },
+  {
+    "id": 13,
+    "subtopic": "Manage user and group properties",
+    "question": "A user attempts to sign in but is blocked because their account is disabled. You need to enable the account. Which property in the user profile must you toggle?",
+    "options": [
+      "User Type",
+      "Account Status",
+      "Block sign-in",
+      "Job Title"
+    ],
+    "correct": 2,
+    "explanation": {
+      "correctReason": "The 'Block sign-in' property is a Yes/No toggle in the user profile that controls whether the user can authenticate.",
+      "incorrectReasons": [
+        "User Type (Member/Guest) does not control authentication status.",
+        "Account Status is not the specific name of the toggle in the portal; it is 'Block sign-in'.",
+        "Job Title is a descriptive attribute."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/entra/identity/users/users-edit-profile"
+    }
+  },
+  {
+    "id": 14,
+    "subtopic": "Manage user and group properties",
+    "question": "You want to change a Security group's membership type from 'Assigned' to 'Dynamic User'. What is a prerequisite for this change?",
+    "options": [
+      "The group must be empty.",
+      "The group must have at least one owner assigned.",
+      "You must have a Microsoft Entra ID P1 or P2 license.",
+      "The group must be a Microsoft 365 group."
+    ],
+    "correct": 2,
+    "explanation": {
+      "correctReason": "Dynamic membership features always require a premium (P1/P2) license for the users in the group.",
+      "incorrectReasons": [
+        "The group does not need to be empty; existing members will be evaluated against the new rule.",
+        "Owners are not a prerequisite for changing membership types.",
+        "Security groups support dynamic membership; they don't have to be M365 groups."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/entra/identity/users/groups-dynamic-membership"
+    }
+  },
+  {
+    "id": 15,
+    "subtopic": "Manage user and group properties",
+    "question": "Which attribute must be set on a user object before you can assign a Microsoft 365 license to that user?",
+    "options": [
+      "Usage Location",
+      "Department",
+      "Mobile Phone",
+      "Street Address"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Microsoft requires 'Usage Location' to be set to comply with local laws and regulations before a license can be assigned.",
+      "incorrectReasons": [
+        "Department, Mobile Phone, and Street Address are optional and do not block license assignment."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/entra/identity/users/licensing-groups-assign"
+    }
+  },
+  {
+    "id": 16,
+    "subtopic": "Manage user and group properties",
+    "question": "You need to identify who deleted a specific group in your Microsoft Entra tenant. Where should you look?",
+    "options": [
+      "The group's individual properties",
+      "Audit logs",
+      "Sign-in logs",
+      "Azure Advisor"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "The Entra ID Audit logs record all directory changes, including group creation, modification, and deletion, along with the user who performed the action.",
+      "incorrectReasons": [
+        "Individual properties are gone if the group is deleted.",
+        "Sign-in logs only show authentication attempts, not directory changes.",
+        "Azure Advisor provides recommendations for optimization, not activity history."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/entra/identity/monitoring-health/concept-audit-logs"
+    }
+  },
+  {
+    "id": 17,
+    "subtopic": "Manage user and group properties",
+    "question": "You are assigning a user the 'Directory Readers' role. Where is this role assignment managed?",
+    "options": [
+      "Access control (IAM) of the subscription",
+      "Assigned roles within the user's Entra profile",
+      "The 'Properties' blade of the Resource Group",
+      "The 'Configuration' blade of the Virtual Machine"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Directory roles (like Directory Readers) are Entra ID roles managed within the Entra ID 'Roles and administrators' blade or the user's individual profile.",
+      "incorrectReasons": [
+        "Access control (IAM) at the subscription level is for Azure RBAC (managing resources), not directory objects.",
+        "Resource Group and VM properties do not manage Entra ID directory roles."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/entra/identity/role-based-access-control/permissions-reference"
+    }
+  },
+  {
+    "id": 18,
+    "subtopic": "Manage user and group properties",
+    "question": "A user changes their legal name. You update their Display Name in the Azure Portal. Does this action automatically change their User Principal Name (UPN)?",
+    "options": [
+      "Yes, the UPN always matches the Display Name.",
+      "No, the UPN and Display Name are independent attributes.",
+      "Yes, if the user is a cloud-only user.",
+      "No, because UPNs can never be changed once a user is created."
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "The Display Name is a friendly name, while the UPN is the unique login identifier. Changing one does not affect the other.",
+      "incorrectReasons": [
+        "UPNs can be changed manually, but not automatically by a Display Name update.",
+        "Cloud-only vs Synced status doesn't change this fundamental independence of attributes."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/entra/identity/users/users-edit-profile"
+    }
+  },
+  {
+    "id": 19,
+    "subtopic": "Manage user and group properties",
+    "question": "You need to see the object ID for a specific group. Where is this most easily found?",
+    "options": [
+      "In the 'Overview' blade of the group in the portal",
+      "In the 'Activity Log' of the subscription",
+      "In the 'Billing' section of the Entra ID tenant",
+      "By looking at the user's MyStaff portal"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "The 'Overview' blade of any Entra ID object (User, Group, Application) displays the unique Object ID.",
+      "incorrectReasons": [
+        "Activity Log is for resource deployments.",
+        "Billing is for costs.",
+        "MyStaff is for delegated user management, not for viewing technical group IDs."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/entra/fundamentals/how-to-manage-groups"
+    }
+  },
+  {
+    "id": 20,
+    "subtopic": "Manage user and group properties",
+    "question": "You have a user account that was synchronized from an on-premises Active Directory. Where should you manage the 'Job Title' property for this user?",
+    "options": [
+      "Microsoft Entra admin center",
+      "Azure CLI",
+      "On-premises Active Directory",
+      "The user's Microsoft 365 profile page"
+    ],
+    "correct": 2,
+    "explanation": {
+      "correctReason": "For synchronized users, the on-premises AD remains the source of authority. Most attributes must be updated on-premises and then synced to Entra ID.",
+      "incorrectReasons": [
+        "Entra admin center and Azure CLI will prevent edits to synced attributes because they are read-only in the cloud.",
+        "The M365 profile page typically does not allow editing of synced organizational data."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/entra/identity/hybrid/connect/how-to-connect-sync-whatis"
+    }
+  },
+  {
+    "id": 21,
+    "subtopic": "Manage licenses in Microsoft Entra ID",
+    "question": "You want to assign licenses to users automatically based on their membership in a specific group. What is this feature called?",
+    "options": [
+      "Direct licensing",
+      "Dynamic licensing",
+      "Group-based licensing",
+      "Role-based licensing"
+    ],
+    "correct": 2,
+    "explanation": {
+      "correctReason": "Group-based licensing allows you to assign one or more product licenses to a group, which Entra ID then propagates to all members.",
+      "incorrectReasons": [
+        "Direct licensing is assigning to individual users.",
+        "Dynamic licensing is not the official term for this Entra ID feature.",
+        "Role-based licensing refers to permissions (RBAC), not product licenses like M365 E5."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/entra/identity/users/licensing-groups-assign"
+    }
+  },
+  {
+    "id": 22,
+    "subtopic": "Manage licenses in Microsoft Entra ID",
+    "question": "You assign a license to a group, but some users show a 'License assignment failed' state. What is the most common reason for this?",
+    "options": [
+      "The users are Guest users.",
+      "The users do not have a Usage Location specified.",
+      "The users are already members of another group.",
+      "The users have too many roles assigned."
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "License assignment requires a 'Usage Location' to be defined for the user to determine service availability and legal compliance.",
+      "incorrectReasons": [
+        "Guest users can be licensed.",
+        "Multiple group memberships are fine as long as there is no license conflict.",
+        "Directory roles do not affect license assignment."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/entra/identity/users/licensing-groups-assign"
+    }
+  },
+  {
+    "id": 23,
+    "subtopic": "Manage licenses in Microsoft Entra ID",
+    "question": "You have a group with an assigned Microsoft 365 E5 license. You remove a user from the group. What happens to the user's license?",
+    "options": [
+      "The license is immediately revoked.",
+      "The license remains for 30 days.",
+      "The license is converted to a trial license.",
+      "The license remains permanently until manually removed."
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "With group-based licensing, the license is tied to membership. Removing the user from the group triggers the removal of the license from that user.",
+      "incorrectReasons": [
+        "There is no 30-day grace period for identity object license removal in group-based licensing logic.",
+        "Licenses are not converted to trials automatically.",
+        "Group-based licensing is automated, so manual removal isn't required after group removal."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/entra/identity/users/licensing-group-advanced"
+    }
+  },
+  {
+    "id": 24,
+    "subtopic": "Manage licenses in Microsoft Entra ID",
+    "question": "You need to assign a license to a user but want to disable specific services within that license (e.g., disable Yammer). How should you do this?",
+    "options": [
+      "Use PowerShell only; it cannot be done in the portal.",
+      "In the 'Licenses' blade of the user, select the license and toggle the specific service off.",
+      "Create a custom license in Azure.",
+      "Assign a separate 'Service Block' group."
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "The Azure portal allows you to expand a license assignment and toggle individual service plans (like Yammer, Teams, or SharePoint) on or off for that assignment.",
+      "incorrectReasons": [
+        "This is fully supported in the portal.",
+        "You cannot create 'custom licenses' in Azure; you can only modify service plans within existing licenses.",
+        "There is no such thing as a 'Service Block' group in standard Entra ID licensing."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/entra/identity/users/licensing-groups-assign"
+    }
+  },
+  {
+    "id": 25,
+    "subtopic": "Manage licenses in Microsoft Entra ID",
+    "question": "Which Microsoft Entra ID edition is the minimum required to use Group-based licensing?",
+    "options": [
+      "Microsoft Entra ID Free",
+      "Microsoft Entra ID P1",
+      "Microsoft Entra ID P2",
+      "Microsoft 365 Apps for business"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Group-based licensing is a premium feature that requires at least Microsoft Entra ID P1 or an equivalent M365 license.",
+      "incorrectReasons": [
+        "The Free edition does not support this automation.",
+        "P2 is not the *minimum* required (though it includes it).",
+        "M365 Apps for business is a product license, not a directory edition."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/entra/identity/users/licensing-groups-assign"
+    }
+  },
+  {
+    "id": 26,
+    "subtopic": "Manage licenses in Microsoft Entra ID",
+    "question": "A user has an individual license assigned directly and is also a member of a group with the same license assigned. How many licenses are consumed for this user?",
+    "options": [
+      "One",
+      "Two",
+      "None, they cancel each other out.",
+      "One, but only if they are in the same department."
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Microsoft Entra ID treats direct assignments and group assignments as separate. If both are active, two licenses are technically consumed from your pool until one is removed.",
+      "incorrectReasons": [
+        "The system does not automatically merge these to save a license; you must manually remove the direct assignment to free it up.",
+        "They do not cancel each other out."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/entra/identity/users/licensing-group-advanced"
+    }
+  },
+  {
+    "id": 27,
+    "subtopic": "Manage licenses in Microsoft Entra ID",
+    "question": "You see a user with a license status of 'Inherited'. What does this mean?",
+    "options": [
+      "The license was assigned to them by a parent directory.",
+      "The license was assigned via a group membership.",
+      "The license was inherited from their manager's profile.",
+      "The user is a Guest user."
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "In the Licenses blade, 'Inherited' indicates that the user received the license through their membership in a group that has the license assigned.",
+      "incorrectReasons": [
+        "Licensing is not inherited from managers or parent directories (unless via group).",
+        "Guest users can have 'Direct' or 'Inherited' licenses just like members."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/entra/identity/users/licensing-groups-assign"
+    }
+  },
+  {
+    "id": 28,
+    "subtopic": "Manage licenses in Microsoft Entra ID",
+    "question": "You are out of available licenses in your tenant. You add a new user to a group that has group-based licensing enabled. What happens to that user?",
+    "options": [
+      "They are automatically given a 30-day trial.",
+      "They are added to the group but enter a 'License assignment failed' state.",
+      "The group creation fails for all members.",
+      "The oldest member of the group loses their license to make room."
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "If no licenses are available, Entra ID cannot fulfill the assignment, resulting in an error state for that specific user within the group licensing view.",
+      "incorrectReasons": [
+        "Trials are not automatic.",
+        "Other members are not affected by one member's failure.",
+        "Licenses are never automatically revoked from existing users to make room for new ones."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/entra/identity/users/licensing-groups-assign"
+    }
+  },
+  {
+    "id": 29,
+    "subtopic": "Manage licenses in Microsoft Entra ID",
+    "question": "You need to identify all users who have been assigned a license directly rather than through a group. Which tool is best for this at scale?",
+    "options": [
+      "Azure Portal notification area",
+      "Microsoft Entra admin center 'All users' list filtering",
+      "Microsoft Graph PowerShell script",
+      "Azure Advisor"
+    ],
+    "correct": 2,
+    "explanation": {
+      "correctReason": "PowerShell (Graph SDK) can programmatically check the 'assignmentMethod' of licenses for every user, which is significantly faster and more accurate for large environments than manual portal checks.",
+      "incorrectReasons": [
+        "The 'All users' list does not have a simple toggle to filter by assignment method (Direct vs Inherited) directly in the main view.",
+        "Notifications and Azure Advisor do not provide this data."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/powershell/microsoftgraph/overview"
+    }
+  },
+  {
+    "id": 30,
+    "subtopic": "Manage licenses in Microsoft Entra ID",
+    "question": "You want to ensure that only users in the 'Sales' department can be assigned a 'Dynamics 365' license. What is the best way to implement this?",
+    "options": [
+      "Create a dynamic group for 'Sales' and assign the license to that group.",
+      "Set a Conditional Access policy for the Dynamics 365 app.",
+      "Create an Administrative Unit for Sales.",
+      "Use an Azure Policy."
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "A dynamic group based on the department attribute combined with group-based licensing ensures that only those users receive the license and it is revoked if they leave the department.",
+      "incorrectReasons": [
+        "Conditional Access controls access to the app but does not manage the assignment of the license itself.",
+        "AUs delegate administration but don't automate license assignment logic.",
+        "Azure Policy is for resource configurations, not directory object licensing."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/entra/identity/users/licensing-groups-assign"
+    }
+  },
+  {
+    "id": 31,
+    "subtopic": "Manage external users",
+    "question": "You invite a guest user to your tenant. What is the initial state of the 'User Type' property for this user?",
+    "options": [
+      "Member",
+      "Guest",
+      "External",
+      "Standard"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "By default, users invited via B2B collaboration have their 'User Type' attribute set to 'Guest'.",
+      "incorrectReasons": [
+        "Member is the default for internal accounts.",
+        "External and Standard are not valid values for the 'User Type' attribute in Entra ID."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/entra/external-id/what-is-b2b"
+    }
+  },
+  {
+    "id": 32,
+    "subtopic": "Manage external users",
+    "question": "You need to prevent guest users from inviting other guests to your tenant. Which settings should you modify?",
+    "options": [
+      "Conditional Access Policies",
+      "External collaboration settings",
+      "User settings in the Entra ID 'Properties' blade",
+      "Access control (IAM) on the Root Management Group"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "The 'External collaboration settings' blade contains the specific toggle to allow or block guests from inviting other guests.",
+      "incorrectReasons": [
+        "Conditional Access controls sign-in, not directory permissions like invitations.",
+        "General user properties do not contain collaboration-specific restrictions.",
+        "IAM at the root level is for Azure resources."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/entra/external-id/external-collaboration-settings"
+    }
+  },
+  {
+    "id": 33,
+    "subtopic": "Manage external users",
+    "question": "A guest user from another organization needs to access your Azure resources. They do not have a Microsoft account or an Entra ID account. How can they authenticate?",
+    "options": [
+      "They cannot; they must create a Microsoft account.",
+      "By using Email One-Time Passcode (OTP).",
+      "They must be given a password in your tenant.",
+      "By using their local Windows login."
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Email One-Time Passcode (OTP) allows external users to authenticate using a code sent to their email address, removing the need for a Microsoft or Entra account.",
+      "incorrectReasons": [
+        "Microsoft accounts are not strictly required.",
+        "Providing local passwords is a legacy method (B2B guest accounts don't use local passwords by default).",
+        "Local Windows logins are not shared across the internet without specific hybrid setups."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/entra/external-id/one-time-passcode"
+    }
+  },
+  {
+    "id": 34,
+    "subtopic": "Manage external users",
+    "question": "You want to restrict B2B collaboration so that you can only invite users from a specific partner domain (e.g., 'partner.com'). What should you configure?",
+    "options": [
+      "Conditional Access",
+      "Collaboration restrictions in External collaboration settings",
+      "An Administrative Unit",
+      "A Cross-tenant access policy"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Under External collaboration settings, you can define 'Collaboration restrictions' to 'Allow invitations only to the specified domains'.",
+      "incorrectReasons": [
+        "Conditional Access blocks access to apps but not the directory invitation itself.",
+        "AUs don't control domain-level invitations.",
+        "Cross-tenant access policies manage how users move between tenants, but simple domain whitelisting is handled in collaboration settings."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/entra/external-id/allow-deny-list"
+    }
+  },
+  {
+    "id": 35,
+    "subtopic": "Manage external users",
+    "question": "What happens when an invited guest user clicks the link in their invitation email?",
+    "options": [
+      "They are prompted to create a password for your tenant.",
+      "They undergo the 'redemption' process and are redirected to your resources.",
+      "Their account in their home tenant is deleted.",
+      "They are automatically added to the 'Global Administrators' group."
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "The redemption process links the guest's external identity to the placeholder object in your directory.",
+      "incorrectReasons": [
+        "They don't create a new password; they use their existing home credentials.",
+        "It has no impact on their home tenant existence.",
+        "They are not granted any roles by default."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/entra/external-id/redemption-experience"
+    }
+  },
+  {
+    "id": 36,
+    "subtopic": "Manage external users",
+    "question": "You need to ensure that guest users must accept a 'Terms of Use' agreement before accessing your apps. Which feature should you use?",
+    "options": [
+      "Microsoft Entra ID Protection",
+      "Conditional Access with Terms of Use",
+      "SSPR",
+      "Azure Information Protection"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Terms of Use is a feature within Entra ID that is enforced via a Conditional Access policy, requiring users to acknowledge the agreement.",
+      "incorrectReasons": [
+        "ID Protection is for risk detection.",
+        "SSPR is for password management.",
+        "AIP is for data labeling and protection."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/entra/identity/conditional-access/terms-of-use"
+    }
+  },
+  {
+    "id": 37,
+    "subtopic": "Manage external users",
+    "question": "A guest user's email address has changed at their home organization. What should you do in your tenant?",
+    "options": [
+      "Nothing, Entra ID updates it automatically via sync.",
+      "Update the 'Email' attribute in the guest's profile in your tenant.",
+      "Delete and re-invite the user.",
+      "Ask them to create a new Microsoft account."
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "You can update the email address of a guest user in their profile properties in your tenant to reflect changes in their identity provider.",
+      "incorrectReasons": [
+        "It doesn't always update automatically across different B2B types.",
+        "Re-inviting is a last resort and disrupts access to existing shared items.",
+        "Microsoft accounts are not required."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/entra/identity/users/users-edit-profile"
+    }
+  },
+  {
+    "id": 38,
+    "subtopic": "Manage external users",
+    "question": "You want to automate the process of reviewing which guest users still need access to your resources. Which feature should you use?",
+    "options": [
+      "Access Reviews",
+      "Privileged Identity Management (PIM)",
+      "Log Analytics",
+      "Security Center"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Access Reviews (part of Entra ID Governance) allow you to schedule periodic reviews where group owners or the users themselves verify if access is still required.",
+      "incorrectReasons": [
+        "PIM is for managing administrative role assignments.",
+        "Log Analytics is for data querying.",
+        "Security Center is for infrastructure security posture."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/entra/id-governance/access-reviews-overview"
+    }
+  },
+  {
+    "id": 39,
+    "subtopic": "Manage external users",
+    "question": "A guest user is invited to a tenant. They cannot see the invitation email. You need to provide them with the redemption link manually. Where can you find it?",
+    "options": [
+      "In the 'Invitation accepted' property of the user profile.",
+      "In the 'Manage' section, click 'Resend invitation' and copy the URL.",
+      "In the Azure Activity Log.",
+      "It is generated randomly and cannot be retrieved twice."
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "The 'Resend invitation' feature in the user's profile blade allows you to copy the direct redemption URL if the email was blocked or lost.",
+      "incorrectReasons": [
+        "The 'Invitation accepted' property only shows a Yes/No status.",
+        "Activity Log doesn't store the specific URL.",
+        "It can be retrieved or regenerated by resending."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/entra/external-id/redemption-experience"
+    }
+  },
+  {
+    "id": 40,
+    "subtopic": "Manage external users",
+    "question": "Which license is required to use Microsoft Entra ID Access Reviews for guest users?",
+    "options": [
+      "Microsoft Entra ID Free",
+      "Microsoft Entra ID P1",
+      "Microsoft Entra ID P2",
+      "Office 365 Business"
+    ],
+    "correct": 2,
+    "explanation": {
+      "correctReason": "Access Reviews is a premium governance feature that requires Microsoft Entra ID P2 (or Microsoft Entra ID Governance) licenses.",
+      "incorrectReasons": [
+        "Free and P1 do not include Access Reviews.",
+        "Office 365 Business does not include advanced Entra ID governance."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/entra/id-governance/access-reviews-overview"
+    }
+  },
+  {
+    "id": 41,
+    "subtopic": "Configure self-service password reset (SSPR)",
+    "question": "You need to enable SSPR for a subset of users. What should you do first?",
+    "options": [
+      "Assign the Global Administrator role to those users.",
+      "Create a group containing the users.",
+      "Purchase a P2 license for every user in the tenant.",
+      "Enable 'Password writeback' in Microsoft Entra Connect."
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "When configuring SSPR, you can scope it to 'All', 'None', or 'Selected'. Choosing 'Selected' requires a group to identify the target users.",
+      "incorrectReasons": [
+        "Global Admins have SSPR enabled by default; you don't need to assign the role for standard users.",
+        "P1 is enough for SSPR; P2 is not strictly required unless using specific risk-based features.",
+        "Password writeback is only needed for hybrid environments, not as a first step for scoping."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/entra/identity/authentication/tutorial-enable-sspr"
+    }
+  },
+  {
+    "id": 42,
+    "subtopic": "Configure self-service password reset (SSPR)",
+    "question": "You want to require users to provide two different methods to reset their password. Where do you configure this?",
+    "options": [
+      "In the 'Methods available to users' blade of SSPR settings.",
+      "In the 'Authentication methods' policy blade.",
+      "In the 'Properties' blade of SSPR, set 'Number of methods required to reset' to 2.",
+      "In a Conditional Access policy."
+    ],
+    "correct": 2,
+    "explanation": {
+      "correctReason": "The SSPR configuration has a specific property named 'Number of methods required to reset' where you can choose 1 or 2.",
+      "incorrectReasons": [
+        "Methods available determines *which* methods can be used, not *how many*.",
+        "The authentication methods policy defines the registration requirements.",
+        "Conditional Access doesn't configure the inner logic of the SSPR workflow."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/entra/identity/authentication/concept-sspr-howitworks"
+    }
+  },
+  {
+    "id": 43,
+    "subtopic": "Configure self-service password reset (SSPR)",
+    "question": "Which authentication method for SSPR allows a user to receive a push notification on their smartphone?",
+    "options": [
+      "Mobile phone (SMS)",
+      "Office phone",
+      "Microsoft Authenticator app",
+      "Email"
+    ],
+    "correct": 2,
+    "explanation": {
+      "correctReason": "The Microsoft Authenticator app supports push notifications as a secure and convenient method for identity verification and SSPR.",
+      "incorrectReasons": [
+        "SMS and Office phone use voice/text codes, not app notifications.",
+        "Email sends a numerical code."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/entra/identity/authentication/concept-authentication-methods"
+    }
+  },
+  {
+    "id": 44,
+    "subtopic": "Configure self-service password reset (SSPR)",
+    "question": "You have a hybrid environment with Microsoft Entra Connect. Users reset their passwords in the cloud, and the change is updated in the on-premises AD. What is this feature?",
+    "options": [
+      "Password Synchronization",
+      "Password Writeback",
+      "Seamless SSO",
+      "Pass-through Authentication"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Password writeback is the specific component of Microsoft Entra Connect that allows cloud-initiated password changes to be synchronized back to on-premises AD.",
+      "incorrectReasons": [
+        "Password Synchronization is the flow from on-premises to the cloud.",
+        "Seamless SSO allows logging into cloud apps without a password prompt.",
+        "Pass-through Authentication validates cloud passwords against on-premises AD."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/entra/identity/authentication/concept-sspr-writeback"
+    }
+  },
+  {
+    "id": 45,
+    "subtopic": "Configure self-service password reset (SSPR)",
+    "question": "A user is prompted to register their security info (phone, email) the next time they sign in. Which SSPR setting controls this requirement?",
+    "options": [
+      "Registration -> Require users to register when signing in?",
+      "Properties -> Enabled",
+      "Notifications -> Notify users on password resets?",
+      "Customization -> Link to helpdesk"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "The 'Registration' section of SSPR settings contains the toggle 'Require users to register when signing in', which forces the registration workflow.",
+      "incorrectReasons": [
+        "Enabled just turns on the feature but doesn't force registration.",
+        "Notifications and Customization are for email alerts and branding."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/entra/identity/authentication/howto-sspr-deployment"
+    }
+  },
+  {
+    "id": 46,
+    "subtopic": "Configure self-service password reset (SSPR)",
+    "question": "You want to be notified every time an administrator resets their own password via SSPR. Where do you configure this?",
+    "options": [
+      "In the 'Notifications' blade of SSPR, set 'Notify all admins when other admins reset their password?' to Yes.",
+      "In Azure Monitor alerts.",
+      "In the individual administrator's profile.",
+      "In the Microsoft 365 Security & Compliance center."
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "The SSPR Notifications blade has a specific setting for alerting admins about other admins' SSPR activities.",
+      "incorrectReasons": [
+        "While Monitor can track this, the SSPR-specific toggle is the direct way to configure the notification.",
+        "It is a global SSPR setting, not a per-user setting."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/entra/identity/authentication/howto-sspr-deployment"
+    }
+  },
+  {
+    "id": 47,
+    "subtopic": "Configure self-service password reset (SSPR)",
+    "question": "A user tries to use SSPR but receives an error saying they are not enabled for it, even though they are in the 'Selected' group. What is a likely cause?",
+    "options": [
+      "They have not been assigned a Microsoft Entra ID P1 or P2 license.",
+      "They have too many authentication methods registered.",
+      "They are a member of too many groups.",
+      "Their account is currently locked."
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "SSPR for non-administrator users is a premium feature. If a user is scoped for SSPR but lacks a P1/P2 license, they will not be able to use it.",
+      "incorrectReasons": [
+        "Extra methods or group memberships do not disable the feature.",
+        "Locking is what SSPR is often used to resolve."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/entra/identity/authentication/concept-sspr-licensing"
+    }
+  },
+  {
+    "id": 48,
+    "subtopic": "Configure self-service password reset (SSPR)",
+    "question": "Which of the following methods CANNOT be used as a standalone authentication method for SSPR?",
+    "options": [
+      "Security questions",
+      "Mobile app code",
+      "Email",
+      "Office phone"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Microsoft has phased out Security Questions as a primary/secure method; while they can be used, they are generally considered less secure and often required in conjunction with other methods.",
+      "incorrectReasons": [
+        "Mobile app codes, Email, and Office phone are all fully supported standalone methods in the SSPR policy."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/entra/identity/authentication/concept-authentication-methods"
+    }
+  },
+  {
+    "id": 49,
+    "subtopic": "Configure self-service password reset (SSPR)",
+    "question": "You want to provide a specific URL to users so they can go directly to the SSPR portal. What is the standard Microsoft URL for this?",
+    "options": [
+      "https://aka.ms/sspr",
+      "https://passwordreset.microsoftonline.com",
+      "https://myprofile.microsoft.com",
+      "https://portal.azure.com/reset"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "The standard, user-facing URL for the Microsoft Entra password reset portal is https://passwordreset.microsoftonline.com.",
+      "incorrectReasons": [
+        "aka.ms/sspr is a shortcut but not the technical landing page.",
+        "MyProfile is for managing settings, not resetting a forgotten password.",
+        "The Azure Portal reset URL is not the standard consumer-facing reset page."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/entra/identity/authentication/concept-sspr-howitworks"
+    }
+  },
+  {
+    "id": 50,
+    "subtopic": "Configure self-service password reset (SSPR)",
+    "question": "In the SSPR settings, what does the 'Customization' blade allow you to do?",
+    "options": [
+      "Change the number of characters required in a password.",
+      "Provide a custom 'Contact your administrator' link or email.",
+      "Change the background color of the login page.",
+      "Upload a custom list of banned passwords."
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "The Customization blade allows you to define a specific email or URL that users see if they encounter an error during SSPR and need help from their internal IT team.",
+      "incorrectReasons": [
+        "Password length is a password policy setting.",
+        "Background colors are part of Company Branding, not SSPR customization.",
+        "Banned passwords are part of the 'Password Protection' settings."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/entra/identity/authentication/howto-sspr-customization"
+    }
+  }
+]
+```eof
+
+I have generated the 50 scenario-based questions for the AZ-104 exam. They are organized to cover the full spectrum of Microsoft Entra ID management tasks, from initial user creation to advanced SSPR and governance features. Good luck with your exam preparation!

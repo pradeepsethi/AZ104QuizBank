@@ -674,9 +674,9 @@
   {
     "id": 33,
     "subtopic": "Configure backup for an App Service",
-    "question": "You need to exclude a large log directory named `\nApp_Data\\Logs` from the automated App Service backup to keep the backup file size under limits. How can you accomplish this?",
+    "question": "You need to exclude a large log directory named `App_Data\\Logs` from the automated App Service backup to keep the backup file size under limits. How can you accomplish this?",
     "options": [
-      "Create a text file named `skipbackup.txt` inside the `\nApp_Data\\Logs` directory.",
+      "Create a text file named `skipbackup.txt` inside the `App_Data\\Logs` directory.",
       "Add `exclude-folder = Logs` to the `web.config` file.",
       "Set the application setting `WEBSITE_EXCLUDE_BACKUP_FOLDERS` to `App_Data\\Logs`.",
       "Configure an Azure Storage lifecycle rule to block log ingestion."

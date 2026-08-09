@@ -1,0 +1,1059 @@
+[
+  {
+    "id": 1,
+    "subtopic": "Manage built-in Azure roles",
+    "question": "You need to assign an Azure built-in role to a user who must manage virtual machine configurations, restart VMs, and connect to remote sessions, but must NOT be allowed to grant access to other users or manage resource permissions. Which built-in role should you assign?",
+    "options": [
+      "Owner",
+      "Contributor",
+      "Virtual Machine Contributor",
+      "User Access Administrator"
+    ],
+    "correct": 2,
+    "explanation": {
+      "correctReason": "Virtual Machine Contributor allows full management of virtual machines, including starting/restarting and managing configurations, but does not allow granting access to others or managing permissions.",
+      "incorrectReasons": [
+        "Owner allows full control including access delegate rights.",
+        "Contributor allows resource management but does not restrict management to only VMs, and cannot grant permissions.",
+        "User Access Administrator only manages user access and assignments, not VM operations."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/role-based-access-control/built-in-roles#virtual-machine-contributor"
+    }
+  },
+  {
+    "id": 2,
+    "subtopic": "Manage built-in Azure roles",
+    "question": "Your company wants to grant a contractor access to manage Azure Storage Account blob containers and upload data. The contractor must NOT be able to modify the storage account network rules or delete the storage account itself. Which TWO built-in roles should you assign? (Select TWO)",
+    "options": [
+      "Storage Account Contributor",
+      "Storage Blob Data Contributor",
+      "Reader",
+      "Owner",
+      "Storage Blob Data Reader"
+    ],
+    "correct": [1, 2],
+    "explanation": {
+      "correctReason": "Storage Blob Data Contributor grants read, write, and delete access to Azure Storage blob containers and data. Reader access at the storage account level allows browsing the storage account resource in the portal.",
+      "incorrectReasons": [
+        "Storage Account Contributor permits modifying account properties like firewall rules.",
+        "Owner provides administrative full access including permission grants.",
+        "Storage Blob Data Reader is read-only and does not allow uploading data."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/role-based-access-control/built-in-roles#storage-blob-data-contributor"
+    }
+  },
+  {
+    "id": 3,
+    "subtopic": "Assign roles at different scopes",
+    "question": "You have an Azure environment organized with Management Groups, Subscriptions, Resource Groups, and Resources. You assign the Reader role to User1 at the Management Group scope. Which resources can User1 read?",
+    "options": [
+      "Only resources directly inside the Management Group itself.",
+      "All resources in all subscriptions and resource groups under that Management Group.",
+      "Only resource groups created after the role assignment was made.",
+      "No resources, because role assignments cannot be made at the Management Group scope."
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Role assignments inherit down the hierarchy. Assigning a role at the Management Group scope applies that permission to all underlying Subscriptions, Resource Groups, and Resources.",
+      "incorrectReasons": [
+        "Management groups contain subscriptions and child management groups, not direct individual resources.",
+        "Role assignments apply immediately to all existing and future resources under the scope.",
+        "Management Group is a fully supported scope for Azure RBAC role assignments."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/role-based-access-control/scope-overview"
+    }
+  },
+  {
+    "id": 4,
+    "subtopic": "Assign roles at different scopes",
+    "question": "You need to grant an administrative team permissions to manage network resources across multiple resource groups without giving them permissions to virtual machines in those same resource groups. Which TWO approaches can achieve this with minimal administrative effort? (Select TWO)",
+    "options": [
+      "Assign Network Contributor role at the Subscription scope.",
+      "Assign Network Contributor role on each individual Network resource group.",
+      "Assign Contributor role at the Subscription scope.",
+      "Assign Owner role at the Resource Group scope for each network resource group.",
+      "Assign Virtual Machine Contributor role at the Resource Group scope."
+    ],
+    "correct": [0, 1],
+    "explanation": {
+      "correctReason": "Network Contributor grants management permissions specifically to networking resources (VNets, Subnets, NSGs) without granting control over VMs. Assigning it at subscription scope or target resource groups accomplishes the goal efficiently.",
+      "incorrectReasons": [
+        "Contributor grants permissions to all resources, including virtual machines.",
+        "Owner includes user permission management and control over non-network resources.",
+        "Virtual Machine Contributor gives control over VMs rather than networking resources."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/role-based-access-control/built-in-roles#network-contributor"
+    }
+  },
+  {
+    "id": 5,
+    "subtopic": "Interpret access assignments",
+    "question": "UserA is assigned the Reader role at the Subscription level and the Contributor role on ResourceGroup1. What effective permissions does UserA have on a storage account located inside ResourceGroup1?",
+    "options": [
+      "Reader access only, because Subscription level settings override Resource Group settings.",
+      "Contributor access, because permissions are additive in Azure RBAC.",
+      "No access, because conflicting roles cancel each other out.",
+      "Owner access, because Contributor automatically upgrades to Owner inside a Resource Group."
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Azure RBAC permissions are additive. Inherited Reader permission from the subscription combines with Contributor permission on the resource group, resulting in effective Contributor access.",
+      "incorrectReasons": [
+        "More permissive assignments do not get overridden by higher-level less permissive assignments.",
+        "Roles do not cancel each other out unless a explicit Deny Assignment is present.",
+        "Contributor does not upgrade to Owner automatically."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/role-based-access-control/rbac-and-directory-admin-roles#how-azure-rbac-works"
+    }
+  },
+  {
+    "id": 6,
+    "subtopic": "Interpret access assignments",
+    "question": "A user is assigned the Owner role at Subscription scope, but an Azure Blueprint / Managed Application places a Deny Assignment on a specific resource group prohibiting 'Action: *'. What is the user's effective permission on resources inside that resource group?",
+    "options": [
+      "Full Owner control because Owner role overrides Deny Assignments.",
+      "Read-only access to all resources.",
+      "No write/management operations permitted because Deny Assignments take precedence over allow assignments.",
+      "The user can grant access to others but cannot edit resources."
+    ],
+    "correct": 2,
+    "explanation": {
+      "correctReason": "In Azure RBAC, Deny Assignments explicitly block access and take precedence over all allow permissions, even for subscription Owners.",
+      "incorrectReasons": [
+        "Owner role does not override explicit Azure Deny Assignments created by Blueprints or Azure locks.",
+        "If 'Action: *' is blocked by the deny assignment, write/modify operations are denied.",
+        "Deny assignments block specified operations regardless of role inheritance."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/role-based-access-control/deny-assignments"
+    }
+  },
+  {
+    "id": 7,
+    "subtopic": "Manage built-in Azure roles",
+    "question": "Which built-in role allows a user to manage security policies, view security alerts, and view security recommendations in Microsoft Defender for Cloud, but does NOT allow modifying Azure resources?",
+    "options": [
+      "Security Admin",
+      "Security Reader",
+      "Reader",
+      "Contributor"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Security Reader has read-only rights in Defender for Cloud to view recommendations, alerts, and security policy, without rights to modify resources.",
+      "incorrectReasons": [
+        "Security Admin can modify security policies and clear alerts.",
+        "Reader provides general read access across Azure, not specific security-tailored views.",
+        "Contributor allows full resource modification."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/role-based-access-control/built-in-roles#security-reader"
+    }
+  },
+  {
+    "id": 8,
+    "subtopic": "Manage built-in Azure roles",
+    "question": "You need to delegate permission to reset virtual machine password credentials and restart virtual machines without allowing changes to virtual networks or storage accounts attached to them. Which built-in role provides this exact minimal permission?",
+    "options": [
+      "Virtual Machine Contributor",
+      "Virtual Machine User Login",
+      "Desktop Virtualization User",
+      "Virtual Machine Administrator Login"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Virtual Machine Contributor allows restarting VMs and resetting passwords via the VMAccess extension while scoping permissions strictly to virtual machine objects.",
+      "incorrectReasons": [
+        "Virtual Machine User Login only allows logging into a VM via Entra ID credentials without root/admin rights.",
+        "Desktop Virtualization User is for Azure Virtual Desktop session management.",
+        "Virtual Machine Administrator Login grants administrative login capabilities inside the VM OS, not Azure resource management permissions."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/role-based-access-control/built-in-roles#virtual-machine-contributor"
+    }
+  },
+  {
+    "id": 9,
+    "subtopic": "Assign roles at different scopes",
+    "question": "Which of the following represents the correct hierarchy of Azure RBAC scopes from broadest to narrowest scope?",
+    "options": [
+      "Subscription -> Management Group -> Resource Group -> Resource",
+      "Management Group -> Subscription -> Resource Group -> Resource",
+      "Tenant -> Resource Group -> Subscription -> Resource",
+      "Resource Group -> Management Group -> Subscription -> Resource"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "The correct Azure scope hierarchy from top to bottom is Management Group -> Subscription -> Resource Group -> Resource.",
+      "incorrectReasons": [
+        "Management Group is above Subscription in the scope hierarchy.",
+        "Tenant is the directory level, but RBAC management hierarchy flows MG -> Sub -> RG -> Resource.",
+        "Resource Group is beneath Subscription."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/role-based-access-control/scope-overview"
+    }
+  },
+  {
+    "id": 10,
+    "subtopic": "Assign roles at different scopes",
+    "question": "You want to automate role assignments using Azure CLI. Which parameter specifies the target scope when running `az role assignment create`?",
+    "options": [
+      "--scope",
+      "--target-resource",
+      "--resource-group",
+      "--assignee-scope"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "The `--scope` flag in `az role assignment create` defines the scope path (e.g., `/subscriptions/{sub-id}/resourceGroups/{rg-name}`).",
+      "incorrectReasons": [
+        "--target-resource is not a valid parameter for az role assignment create.",
+        "--resource-group can be part of scope construct but --scope is the standard parameter.",
+        "--assignee-scope is invalid syntax."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/cli/azure/role/assignment#az-role-assignment-create"
+    }
+  },
+  {
+    "id": 11,
+    "subtopic": "Interpret access assignments",
+    "question": "User1 is a member of GroupA and GroupB. GroupA is assigned Reader at Subscription scope. GroupB is assigned Contributor at Resource Group RG1 scope. Additionally, a direct role assignment grants User1 Owner on VM1 inside RG1. What is User1's effective access on VM1?",
+    "options": [
+      "Reader",
+      "Contributor",
+      "Owner",
+      "User Access Administrator"
+    ],
+    "correct": 2,
+    "explanation": {
+      "correctReason": "RBAC is additive. The most permissive applicable rule on the specific resource object (Owner granted directly on VM1) determines the effective permission for VM1.",
+      "incorrectReasons": [
+        "Reader inherited from Subscription does not restrict the higher explicit assignment on VM1.",
+        "Contributor inherited from RG1 is expanded by the direct Owner assignment on VM1.",
+        "User Access Administrator is a separate role for assigning access, not a VM management level."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/role-based-access-control/rbac-and-directory-admin-roles#how-azure-rbac-works"
+    }
+  },
+  {
+    "id": 12,
+    "subtopic": "Interpret access assignments",
+    "question": "Which tool in the Azure Portal allows an administrator to quickly view and troubleshoot effective permissions for a specific user, group, or service principal on a given resource?",
+    "options": [
+      "Check Access tab under Access Control (IAM)",
+      "Azure Advisor Recommendations",
+      "Microsoft Entra Audit logs",
+      "Activity log filter"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "The 'Check Access' tab in the Access Control (IAM) blade of any Azure resource allows checking explicit and inherited permissions for any identity.",
+      "incorrectReasons": [
+        "Azure Advisor provides performance and cost advice, not RBAC evaluation.",
+        "Entra Audit logs record identity directory changes, not resource RBAC effective calculation.",
+        "Activity log shows historical operations performed, not current effective rights."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/role-based-access-control/check-access"
+    }
+  },
+  {
+    "id": 13,
+    "subtopic": "Manage built-in Azure roles",
+    "question": "An auditor needs read-only access to view configuration settings and billing details for all Azure subscriptions in your organization. Which TWO roles must be assigned to fulfill this requirement? (Select TWO)",
+    "options": [
+      "Reader",
+      "Billing Reader",
+      "Cost Management Contributor",
+      "Owner",
+      "User Access Administrator"
+    ],
+    "correct": [0, 1],
+    "explanation": {
+      "correctReason": "Reader provides read-only access to Azure resources, while Billing Reader provides read access to billing data and invoices.",
+      "incorrectReasons": [
+        "Cost Management Contributor allows editing budgets and cost settings.",
+        "Owner provides full management including permission assignments.",
+        "User Access Administrator manages access control, not auditing."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/role-based-access-control/built-in-roles#billing-reader"
+    }
+  },
+  {
+    "id": 14,
+    "subtopic": "Assign roles at different scopes",
+    "question": "You need to grant a developers group the ability to create and manage web apps inside a specific resource group named RG-Web. You want to follow the principle of least privilege. Where should you make the role assignment?",
+    "options": [
+      "Website Contributor assigned at Subscription scope.",
+      "Website Contributor assigned at RG-Web scope.",
+      "Contributor assigned at Management Group scope.",
+      "Owner assigned at RG-Web scope."
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Assigning Website Contributor specifically at the RG-Web scope gives least privilege permissions limited to managing web apps inside RG-Web only.",
+      "incorrectReasons": [
+        "Assigning at Subscription scope grants web management rights across all resource groups in the subscription.",
+        "Contributor at Management Group scope gives broad control over all resources in all subscriptions.",
+        "Owner grants administrative rights to manage access, violating least privilege."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/role-based-access-control/best-practices"
+    }
+  },
+  {
+    "id": 15,
+    "subtopic": "Interpret access assignments",
+    "question": "A user is attempting to view keys on a Key Vault resource in Azure Portal but receives an Access Denied error. You verify that the user has the 'Reader' role assigned at the Resource Group scope. Why can't the user view the secrets?",
+    "options": [
+      "The Reader role does not include data plane actions such as reading Key Vault secrets/keys.",
+      "The Reader role only works at the Subscription scope.",
+      "Key Vault automatically blocks access if Multi-Factor Authentication is enabled.",
+      "The user must be assigned the Network Contributor role to view Key Vaults."
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Azure RBAC separates control plane actions (ARM management) from data plane actions. Reader role only grants control plane read access, not data plane access to Key Vault secrets/keys.",
+      "incorrectReasons": [
+        "Reader role operates at any valid scope.",
+        "MFA settings do not modify RBAC permissions.",
+        "Network Contributor manages networks, not Key Vault data secrets."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/key-vault/general/rbac-guide"
+    }
+  },
+  {
+    "id": 16,
+    "subtopic": "Manage built-in Azure roles",
+    "question": "Which built-in role can assign permissions to other users in Azure RBAC, but CANNOT create or modify Azure resources themselves?",
+    "options": [
+      "Owner",
+      "Contributor",
+      "User Access Administrator",
+      "Reader"
+    ],
+    "correct": 2,
+    "explanation": {
+      "correctReason": "User Access Administrator grants rights to manage user permissions (Microsoft.Authorization/*) without granting access to manage underlying resources (like creating VMs or Storage Accounts).",
+      "incorrectReasons": [
+        "Owner allows both user permission management AND full resource management.",
+        "Contributor allows resource management but CANNOT assign user permissions.",
+        "Reader is read-only and cannot assign permissions."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/role-based-access-control/built-in-roles#user-access-administrator"
+    }
+  },
+  {
+    "id": 17,
+    "subtopic": "Assign roles at different scopes",
+    "question": "You are creating an Azure PowerShell script to delegate access. Which cmdlet is used to assign an Azure RBAC role to a user at a specific resource group scope?",
+    "options": [
+      "New-AzRoleAssignment",
+      "Set-AzRoleDefinition",
+      "Grant-AzAccess",
+      "Add-AzEntraRoleAssignment"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "New-AzRoleAssignment is the Azure PowerShell cmdlet used to create Azure RBAC role assignments.",
+      "incorrectReasons": [
+        "Set-AzRoleDefinition creates or updates custom role definitions.",
+        "Grant-AzAccess is not a valid cmdlet.",
+        "Add-AzEntraRoleAssignment is not a standard cmdlet for Azure resource RBAC."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/powershell/module/az.resources/new-azroleassignment"
+    }
+  },
+  {
+    "id": 18,
+    "subtopic": "Interpret access assignments",
+    "question": "When reviewing role assignments for a resource group, you see a assignment listed as 'Inherited'. What does this indicate?",
+    "options": [
+      "The assignment was created directly on the resource group.",
+      "The assignment was granted at a higher scope, such as Subscription or Management Group.",
+      "The assignment is temporary and generated by Privileged Identity Management (PIM).",
+      "The assignment applies only to child resources created in the future."
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "'Inherited' indicates that the assignment was established at a higher scope in the resource hierarchy (Subscription or Management Group) and flows down automatically.",
+      "incorrectReasons": [
+        "Direct assignments show scope as 'This resource' or 'This resource group'.",
+        "PIM activations show activation state, not scope inheritance.",
+        "Inherited assignments apply to current and future resources under that scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/role-based-access-control/role-assignments-portal"
+    }
+  },
+  {
+    "id": 19,
+    "subtopic": "Manage built-in Azure roles",
+    "question": "You need to delegate management of Azure SQL databases to a database administration team. They should be able to create and manage SQL databases, but NOT manage virtual networks or grant permissions to others. Which built-in role should you assign?",
+    "options": [
+      "SQL DB Contributor",
+      "SQL Security Manager",
+      "Contributor",
+      "User Access Administrator"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "SQL DB Contributor grants permissions to manage SQL databases but not security policies, networking, or permission delegation.",
+      "incorrectReasons": [
+        "SQL Security Manager manages security policies on SQL resources, not general database administrative creation.",
+        "Contributor allows full resource creation across all resource types in the scope.",
+        "User Access Administrator manages RBAC assignments only."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/role-based-access-control/built-in-roles#sql-db-contributor"
+    }
+  },
+  {
+    "id": 20,
+    "subtopic": "Assign roles at different scopes",
+    "question": "You need to grant a service principal access to manage blobs in a single container named 'data' inside storage account 'stg1'. Which scope path must you use when creating the role assignment? (Select ONE)",
+    "options": [
+      "/subscriptions/{subId}/resourceGroups/{rgName}/providers/Microsoft.Storage/storageAccounts/stg1/blobServices/default/containers/data",
+      "/subscriptions/{subId}/resourceGroups/{rgName}/providers/Microsoft.Storage/storageAccounts/stg1",
+      "/subscriptions/{subId}/resourceGroups/{rgName}",
+      "/providers/Microsoft.Storage/containers/data"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "The full resource path down to the blob container (`/blobServices/default/containers/data`) provides the specific container-level scope for Azure RBAC.",
+      "incorrectReasons": [
+        "This scope grants access to all containers in the storage account.",
+        "This scope grants access to all storage accounts and resources in the resource group.",
+        "This is an invalid scope path missing subscription and resource group identifiers."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/role-based-access-control/scope-overview#resource-scope-example"
+    }
+  },
+  {
+    "id": 21,
+    "subtopic": "Interpret access assignments",
+    "question": "You add User1 to GroupA. GroupA is assigned the Contributor role at the Resource Group scope. Shortly after, you assign User1 the Reader role on the same Resource Group. What can User1 do inside the Resource Group?",
+    "options": [
+      "User1 can perform Contributor actions because permissions are additive.",
+      "User1 can only perform Reader actions because direct assignments override group assignments.",
+      "User1 has no access due to role conflict.",
+      "User1 is automatically removed from GroupA."
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Azure RBAC permissions are additive regardless of whether they come from direct assignments or group memberships.",
+      "incorrectReasons": [
+        "Direct assignments do not override group assignments in a restrictive manner; all allow permissions combine.",
+        "No conflict removal occurs; RBAC aggregates allowed actions.",
+        "Role assignments do not alter Entra group memberships."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/role-based-access-control/rbac-and-directory-admin-roles#how-azure-rbac-works"
+    }
+  },
+  {
+    "id": 22,
+    "subtopic": "Manage built-in Azure roles",
+    "question": "Which TWO built-in roles allow a user to manage Virtual Machine scale sets and individual Virtual Machines in Azure? (Select TWO)",
+    "options": [
+      "Contributor",
+      "Virtual Machine Contributor",
+      "Log Analytics Contributor",
+      "Network Contributor",
+      "Reader"
+    ],
+    "correct": [0, 1],
+    "explanation": {
+      "correctReason": "Both Contributor (all resources) and Virtual Machine Contributor (specifically compute resources) grant permissions to manage VM scale sets and VMs.",
+      "incorrectReasons": [
+        "Log Analytics Contributor manages workspace analytics data.",
+        "Network Contributor manages virtual network components.",
+        "Reader provides read-only access."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/role-based-access-control/built-in-roles#virtual-machine-contributor"
+    }
+  },
+  {
+    "id": 23,
+    "subtopic": "Assign roles at different scopes",
+    "question": "You have 10 subscriptions managed under a single Management Group named 'Core-MG'. You need to assign an audit group read access to all 10 subscriptions. What is the most efficient method?",
+    "options": [
+      "Assign Reader role at the Core-MG Management Group scope.",
+      "Assign Reader role on each of the 10 Subscriptions individually.",
+      "Assign Reader role on every Resource Group in all 10 subscriptions.",
+      "Assign Owner role at the Core-MG Management Group scope."
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Assigning the role at the Management Group scope cascades down to all child subscriptions automatically, reducing administrative overhead.",
+      "incorrectReasons": [
+        "Assigning at subscription scope requires 10 manual assignments.",
+        "Assigning at resource group scope requires hundreds of individual assignments.",
+        "Owner role provides write and access delegation capabilities, violating read-only requirements."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/role-based-access-control/scope-overview"
+    }
+  },
+  {
+    "id": 24,
+    "subtopic": "Interpret access assignments",
+    "question": "User1 attempts to delete a Virtual Machine in RG1. User1 has Contributor role on RG1, but the VM has a 'CanNotDelete' (Read-Only/Delete) Resource Lock applied. What will happen?",
+    "options": [
+      "The VM will be deleted because Contributor role overrides Resource Locks.",
+      "The deletion fails because Resource Locks block deletion regardless of RBAC permissions.",
+      "User1 will be prompted to elevate to Owner to delete the VM.",
+      "The VM will be moved to the Recycle Bin."
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Resource locks take precedence over RBAC permissions. A Delete/CanNotDelete lock blocks all users (including Owner/Contributor) from deleting the resource until the lock is removed.",
+      "incorrectReasons": [
+        "RBAC permissions do not bypass Resource Locks.",
+        "Elevating to Owner does not bypass the lock; the lock must be deleted first.",
+        "Azure resources do not have a Recycle Bin for VM deletion."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/lock-resources"
+    }
+  },
+  {
+    "id": 25,
+    "subtopic": "Manage built-in Azure roles",
+    "question": "Which built-in role provides permission to read Azure Monitor logs, metrics, and workload data, but does NOT allow reading resource secrets or modifying diagnostic configurations?",
+    "options": [
+      "Monitoring Reader",
+      "Monitoring Contributor",
+      "Log Analytics Reader",
+      "Reader"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Monitoring Reader grants read access to monitoring data (metrics, logs) across resources.",
+      "incorrectReasons": [
+        "Monitoring Contributor permits changing diagnostic settings and alert rules.",
+        "Log Analytics Reader provides access specifically to Log Analytics workspaces.",
+        "Reader provides general ARM resource settings read access."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/role-based-access-control/built-in-roles#monitoring-reader"
+    }
+  },
+  {
+    "id": 26,
+    "subtopic": "Assign roles at different scopes",
+    "question": "You are delegating access to a managed identity associated with an Azure Function app so it can write metrics to an Application Insights instance. Which TWO details do you need to create the role assignment? (Select TWO)",
+    "options": [
+      "The Principal ID of the Managed Identity",
+      "The specific Role Definition (e.g., Monitoring Metrics Publisher)",
+      "The tenant domain admin password",
+      "The Azure Subscription credit card on file",
+      "The Virtual Machine SKU size"
+    ],
+    "correct": [0, 1],
+    "explanation": {
+      "correctReason": "Creating a role assignment requires the assignee identity (Principal ID), the role definition (Role), and the target scope.",
+      "incorrectReasons": [
+        "Tenant passwords are never required for RBAC assignments.",
+        "Billing details are unrelated to resource permissions.",
+        "VM SKU size is irrelevant to RBAC."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/role-based-access-control/role-assignments-portal"
+    }
+  },
+  {
+    "id": 27,
+    "subtopic": "Interpret access assignments",
+    "question": "You examine an JSON assignment definition. The assignment lists `Actions: ['Microsoft.Compute/*']` and `NotActions: ['Microsoft.Compute/virtualMachines/write']`. What can the assigned user do with Virtual Machines?",
+    "options": [
+      "The user can read and delete VMs, but cannot create or modify VMs.",
+      "The user can perform all VM operations including write actions.",
+      "The user cannot view or list VMs.",
+      "The user can assign VM permissions to others."
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "NotActions subtracts specific permissions from the Actions array. `Microsoft.Compute/*` allows all compute actions, but subtracting `virtualMachines/write` prevents creating or updating VMs.",
+      "incorrectReasons": [
+        "NotActions explicitly subtracts write permission.",
+        "Read operations (`virtualMachines/read`) remain allowed by `Microsoft.Compute/*`.",
+        "Assigning permissions requires `Microsoft.Authorization/*` actions."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/role-based-access-control/role-definitions#notactions"
+    }
+  },
+  {
+    "id": 28,
+    "subtopic": "Manage built-in Azure roles",
+    "question": "Which built-in role is required for a user to manage Azure Backup policies, configure backups, and restore data on virtual machines?",
+    "options": [
+      "Backup Contributor",
+      "Virtual Machine Contributor",
+      "Backup Operator",
+      "Storage Account Contributor"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Backup Contributor lets you manage backup services, policies, and vault configurations.",
+      "incorrectReasons": [
+        "Virtual Machine Contributor manages VMs but not Backup Vault policies.",
+        "Backup Operator allows triggering backup and restore operations but not full backup management/policy configuration.",
+        "Storage Account Contributor manages storage accounts, not Azure Backup vaults."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/role-based-access-control/built-in-roles#backup-contributor"
+    }
+  },
+  {
+    "id": 29,
+    "subtopic": "Assign roles at different scopes",
+    "question": "A team of external consultants needs short-term access to a single storage container in Azure. What is the most secure scope to assign the 'Storage Blob Data Reader' role?",
+    "options": [
+      "Resource Group scope containing the storage account",
+      "Subscription scope",
+      "Individual Blob Container scope",
+      "Storage Account scope"
+    ],
+    "correct": 2,
+    "explanation": {
+      "correctReason": "Assigning the role at the specific container scope follows least-privilege principles by restricting access strictly to that container.",
+      "incorrectReasons": [
+        "Resource Group scope grants read access to all containers across all storage accounts in the RG.",
+        "Subscription scope grants read access to all data across the subscription.",
+        "Storage Account scope grants access to all containers in that account."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/role-based-access-control/best-practices"
+    }
+  },
+  {
+    "id": 30,
+    "subtopic": "Interpret access assignments",
+    "question": "A user named User1 is assigned the 'Reader' role at the subscription level. You assign User1 the 'Network Contributor' role on Resource Group RG1. Which THREE actions can User1 perform on Virtual Networks inside RG1? (Select THREE)",
+    "options": [
+      "Create new Subnets in RG1 Virtual Networks",
+      "Modify Network Security Group rules in RG1",
+      "Delete Virtual Networks in RG1",
+      "Grant other users access to RG1 Virtual Networks",
+      "Delete RG1 itself"
+    ],
+    "correct": [0, 1, 2],
+    "explanation": {
+      "correctReason": "Network Contributor gives full management access over networking resources in RG1 (subnets, NSGs, VNets).",
+      "incorrectReasons": [
+        "Network Contributor cannot grant access to others (requires User Access Admin or Owner).",
+        "Network Contributor cannot delete the Resource Group itself."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/role-based-access-control/built-in-roles#network-contributor"
+    }
+  },
+  {
+    "id": 31,
+    "subtopic": "Manage built-in Azure roles",
+    "question": "Which role should you assign to an automated CI/CD pipeline service principal that needs to build, deploy, and delete resources within a temporary deployment Resource Group?",
+    "options": [
+      "Contributor",
+      "Reader",
+      "User Access Administrator",
+      "Security Admin"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Contributor provides full rights to create, manage, and delete all types of Azure resources within the specified Resource Group.",
+      "incorrectReasons": [
+        "Reader cannot create or delete resources.",
+        "User Access Administrator only manages permissions.",
+        "Security Admin manages security policy settings, not deployment pipelines."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/role-based-access-control/built-in-roles#contributor"
+    }
+  },
+  {
+    "id": 32,
+    "subtopic": "Assign roles at different scopes",
+    "question": "You need to assign a role to a group using the Azure Portal. Arrange the administrative steps in the correct logical sequence.",
+    "options": [
+      "Navigate to target resource -> Select Access Control (IAM) -> Click Add role assignment -> Select Role -> Select Members -> Review + assign",
+      "Navigate to Microsoft Entra ID -> Select Groups -> Click Add Role -> Select Resource -> Save",
+      "Select Resource -> Click Locks -> Add Assignment -> Select Role -> Save",
+      "Navigate to Subscription -> Select Cost Management -> Add Role Assignment -> Save"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Standard Azure RBAC assignment flow in portal starts at the target resource scope, goes to IAM, clicks Add role assignment, chooses role, selects members, and completes assignment.",
+      "incorrectReasons": [
+        "Role assignments for Azure resources are initiated at the resource scope IAM blade, not Entra group settings.",
+        "Locks blade manages resource locks, not RBAC role assignments.",
+        "Cost Management is for billing and budgeting."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/role-based-access-control/role-assignments-portal"
+    }
+  },
+  {
+    "id": 33,
+    "subtopic": "Interpret access assignments",
+    "question": "An administrator evaluates permissions for User1 on a Storage Account. User1 is in Group1 (Storage Account Contributor on RG1) and Group2 (Reader on Subscription). Additionally, an explicit Deny Assignment blocks User1 from 'Microsoft.Storage/storageAccounts/listKeys/action'. Can User1 list storage account keys?",
+    "options": [
+      "No, because the Deny Assignment takes precedence over all inherited allow permissions.",
+      "Yes, because Group1 assignment gives Contributor access.",
+      "Yes, because permissions are additive.",
+      "No, because Reader role at Subscription scope cancels Contributor access."
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Deny assignments explicitly override any allow permissions granted through any role or group membership.",
+      "incorrectReasons": [
+        "Allow permissions from group memberships cannot override an explicit Deny assignment.",
+        "Additive rules only combine ALLOW statements when no DENY statement blocks the action.",
+        "Reader role does not cancel Contributor access; Deny assignment is the blocking factor."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/role-based-access-control/deny-assignments"
+    }
+  },
+  {
+    "id": 34,
+    "subtopic": "Manage built-in Azure roles",
+    "question": "Which built-in role allows a user to monitor and manage Azure Virtual Desktop host pools, app groups, and workspaces?",
+    "options": [
+      "Desktop Virtualization Contributor",
+      "Virtual Machine Contributor",
+      "Website Contributor",
+      "Logic App Contributor"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Desktop Virtualization Contributor provides full access to all Azure Virtual Desktop components.",
+      "incorrectReasons": [
+        "Virtual Machine Contributor manages underlying VMs, not AVD host pools and application groups.",
+        "Website Contributor manages Azure App Service web apps.",
+        "Logic App Contributor manages integration workflows."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/role-based-access-control/built-in-roles#desktop-virtualization-contributor"
+    }
+  },
+  {
+    "id": 35,
+    "subtopic": "Assign roles at different scopes",
+    "question": "You are assigning a role using Azure Bicep / ARM templates. Which property in the `Microsoft.Authorization/roleAssignments` resource schema defines the principal receiving the role?",
+    "options": [
+      "principalId",
+      "roleDefinitionId",
+      "scope",
+      "tenantId"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "`principalId` specifies the Object ID of the user, group, managed identity, or service principal receiving the assignment.",
+      "incorrectReasons": [
+        "`roleDefinitionId` specifies the GUID of the role being assigned.",
+        "`scope` defines the scope where assignment applies.",
+        "`tenantId` specifies the Microsoft Entra tenant."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/role-based-access-control/role-assignments-bicep"
+    }
+  },
+  {
+    "id": 36,
+    "subtopic": "Interpret access assignments",
+    "question": "A user needs to start and stop a Virtual Machine named VM-DB. You assign the user 'Virtual Machine Contributor' on VM-DB. When the user logs in, they cannot view the Virtual Network attached to VM-DB. What explains this behavior?",
+    "options": [
+      "Virtual Machine Contributor role only grants access to compute resources, not networking resources in other scopes.",
+      "Role assignments on individual VMs do not take effect for 24 hours.",
+      "The user must be an Azure AD Global Administrator to view virtual networks.",
+      "Virtual Machine Contributor role is deprecated."
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Virtual Machine Contributor grants access to the VM compute object itself. If the Virtual Network resides in a different scope where the user has no permissions, they cannot view the VNet details.",
+      "incorrectReasons": [
+        "Role assignments take effect almost immediately (within minutes).",
+        "Directory Global Admin is not required for resource management.",
+        "Virtual Machine Contributor is an active core built-in role."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/role-based-access-control/built-in-roles#virtual-machine-contributor"
+    }
+  },
+  {
+    "id": 37,
+    "subtopic": "Manage built-in Azure roles",
+    "question": "You need to delegate access to manage DNS zones in Azure DNS without granting access to virtual networks or virtual machines. Which built-in role should you assign?",
+    "options": [
+      "DNS Zone Contributor",
+      "Network Contributor",
+      "Contributor",
+      "Domain Admin"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "DNS Zone Contributor grants access to manage DNS zones and record sets in Azure DNS.",
+      "incorrectReasons": [
+        "Network Contributor grants access to VNets, NSGs, and broad networking components beyond DNS.",
+        "Contributor grants access to all resources.",
+        "Domain Admin is an Active Directory role, not an Azure RBAC role."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/role-based-access-control/built-in-roles#dns-zone-contributor"
+    }
+  },
+  {
+    "id": 38,
+    "subtopic": "Assign roles at different scopes",
+    "question": "Which TWO scopes are valid targets when assigning roles via the Azure Portal? (Select TWO)",
+    "options": [
+      "Management Group",
+      "Subscription",
+      "Azure AD Tenant root without subscription context",
+      "Individual Azure CLI script file",
+      "Local Workstation"
+    ],
+    "correct": [0, 1],
+    "explanation": {
+      "correctReason": "Management Groups and Subscriptions are valid Azure RBAC scopes.",
+      "incorrectReasons": [
+        "Azure RBAC requires resource hierarchy scope (MG, Sub, RG, Resource).",
+        "Local scripts or workstations are not Azure RBAC scope objects."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/role-based-access-control/scope-overview"
+    }
+  },
+  {
+    "id": 39,
+    "subtopic": "Interpret access assignments",
+    "question": "User1 has the 'Contributor' role assigned at Subscription scope. An admin creates a resource group RG-Locked and applies a 'ReadOnly' Resource Lock to RG-Locked. What operations can User1 perform inside RG-Locked?",
+    "options": [
+      "User1 can view resources inside RG-Locked, but cannot modify or delete them.",
+      "User1 can create and delete resources because Contributor overrides ReadOnly locks.",
+      "User1 has no access to view RG-Locked.",
+      "User1 can delete resources but cannot create new ones."
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "A ReadOnly lock prevents modifying or deleting resources inside the resource group, restricting even Contributors to read-only capabilities.",
+      "incorrectReasons": [
+        "Contributor permissions are restricted by ReadOnly locks.",
+        "User1 retains read permissions.",
+        "ReadOnly locks prevent both creation and deletion."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/lock-resources"
+    }
+  },
+  {
+    "id": 40,
+    "subtopic": "Manage built-in Azure roles",
+    "question": "Which built-in role provides full control over Azure Key Vault instances, including both management plane operations and data plane actions (vault keys, secrets, and certificates)?",
+    "options": [
+      "Key Vault Administrator",
+      "Key Vault Secrets Officer",
+      "Key Vault Reader",
+      "Key Vault Crypto User"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Key Vault Administrator provides full access to perform all management plane and data plane operations on Key Vaults.",
+      "incorrectReasons": [
+        "Key Vault Secrets Officer manages secrets data plane, but not full vault management.",
+        "Key Vault Reader allows reading metadata.",
+        "Key Vault Crypto User allows cryptographic operations on keys."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/role-based-access-control/built-in-roles#key-vault-administrator"
+    }
+  },
+  {
+    "id": 41,
+    "subtopic": "Assign roles at different scopes",
+    "question": "You need to assign the Reader role to a group named 'Auditors' across 3 separate resource groups using Azure CLI. Which approach is valid?",
+    "options": [
+      "Run `az role assignment create` 3 times, specifying each resource group ID in the `--scope` parameter.",
+      "Run `az role assignment create` once with `--scope all`.",
+      "Run `az group update` with `--add-role Reader`.",
+      "Run `az account set` specifying the 3 resource groups."
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Role assignments must be explicitly declared for each target scope when targeting distinct resource groups.",
+      "incorrectReasons": [
+        "`--scope all` is not valid Azure CLI syntax.",
+        "`az group update` modifies resource group tags/properties, not RBAC assignments.",
+        "`az account set` changes active subscription context."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/cli/azure/role/assignment#az-role-assignment-create"
+    }
+  },
+  {
+    "id": 42,
+    "subtopic": "Interpret access assignments",
+    "question": "You are reviewing permissions for an API application service principal. The app has 'Contributor' role on Subscription1 and 'Reader' role on Subscription2. Which statement accurately describes the app's capability?",
+    "options": [
+      "It can create resources in Subscription1 and read resources in Subscription2.",
+      "It can create resources in both subscriptions due to Contributor permissions.",
+      "It can only read resources in Subscription1 because Subscription2 restricts it.",
+      "It cannot perform actions until added to an Entra ID Security Group."
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Role assignments are scoped individually per subscription. Contributor applies to Subscription1 and Reader applies to Subscription2.",
+      "incorrectReasons": [
+        "Permissions on Subscription1 do not elevate access on Subscription2.",
+        "Subscription2 permissions do not downgrade access on Subscription1.",
+        "Service principals do not require group membership to execute RBAC actions."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/role-based-access-control/scope-overview"
+    }
+  },
+  {
+    "id": 43,
+    "subtopic": "Manage built-in Azure roles",
+    "question": "Which TWO built-in roles allow reading Azure Storage Account keys? (Select TWO)",
+    "options": [
+      "Owner",
+      "Contributor",
+      "Storage Blob Data Reader",
+      "Reader",
+      "Monitoring Reader"
+    ],
+    "correct": [0, 1],
+    "explanation": {
+      "correctReason": "Storage account keys grant full control over storage accounts. Roles with `Microsoft.Storage/storageAccounts/listKeys/action` (such as Owner and Contributor) can list storage account keys.",
+      "incorrectReasons": [
+        "Storage Blob Data Reader provides Data Plane access via Microsoft Entra, but cannot view account access keys.",
+        "Reader role explicitly excludes `listKeys/action`.",
+        "Monitoring Reader has no access to storage keys."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/role-based-access-control/built-in-roles#storage-account-contributor"
+    }
+  },
+  {
+    "id": 44,
+    "subtopic": "Assign roles at different scopes",
+    "question": "You need to assign a role to a user for an Azure Kubernetes Service (AKS) cluster resource. Which scope format represents the cluster resource scope?",
+    "options": [
+      "/subscriptions/{subId}/resourceGroups/{rgName}/providers/Microsoft.ContainerService/managedClusters/{clusterName}",
+      "/subscriptions/{subId}/providers/Microsoft.ContainerService/{clusterName}",
+      "/resourceGroups/{rgName}/managedClusters/{clusterName}",
+      "/tenants/{tenantId}/managedClusters/{clusterName}"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "The full Azure Resource Manager resource scope string includes subscription ID, resource group name, provider namespace, resource type, and resource name.",
+      "incorrectReasons": [
+        "Missing the resource group path element.",
+        "Missing the subscription ID and provider namespace elements.",
+        "Tenant scope does not map directly to resource provider paths."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/role-based-access-control/scope-overview#resource-scope-example"
+    }
+  },
+  {
+    "id": 45,
+    "subtopic": "Interpret access assignments",
+    "question": "User1 is assigned 'Virtual Machine Contributor' at RG1. User1 attempts to create a new VM inside RG1, but the operation fails during virtual network subnet selection. What is the most likely cause?",
+    "options": [
+      "The Virtual Network is in a different Resource Group where User1 has no write permissions.",
+      "Virtual Machine Contributor cannot create VMs.",
+      "User1 needs Global Administrator privileges.",
+      "The VM size is unavailable."
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "To attach a VM to a subnet, the user must have `Microsoft.Network/virtualNetworks/subnets/join/action` permission on the target subnet/VNet. If the VNet is in another RG, the VM creation fails.",
+      "incorrectReasons": [
+        "Virtual Machine Contributor allows creating VMs inside target scope.",
+        "Global Admin is an Entra ID directory role, not required for deployment.",
+        "SKU unavailability throws specific quota errors, not access permissions errors."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/role-based-access-control/built-in-roles#virtual-machine-contributor"
+    }
+  },
+  {
+    "id": 46,
+    "subtopic": "Manage built-in Azure roles",
+    "question": "Which built-in role is designed specifically to manage Cost Management features like viewing costs, configuring budgets, and exporting cost data without granting access to Azure resources?",
+    "options": [
+      "Cost Management Contributor",
+      "Billing Reader",
+      "Owner",
+      "Reader"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Cost Management Contributor allows managing cost management configurations, budgets, and exports.",
+      "incorrectReasons": [
+        "Billing Reader provides read-only access to invoices and billing data, but cannot configure budgets/exports.",
+        "Owner provides full management rights over resources and RBAC.",
+        "Reader cannot manage budgets or exports in Cost Management."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/role-based-access-control/built-in-roles#cost-management-contributor"
+    }
+  },
+  {
+    "id": 47,
+    "subtopic": "Assign roles at different scopes",
+    "question": "You use Privileged Identity Management (PIM) to make a role assignment 'Eligible' rather than 'Active'. What happens when the user requires the permission?",
+    "options": [
+      "The user must activate the role assignment in PIM before accessing the privileges.",
+      "The user automatically receives the permissions without taking action.",
+      "The user must be re-added to the Entra ID tenant.",
+      "An administrator must recreate the resource group."
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Eligible assignments require the user to perform an activation step (and optional approval/MFA) in PIM to gain temporary active permissions.",
+      "incorrectReasons": [
+        "Automatic access without activation is an 'Active' assignment, not 'Eligible'.",
+        "PIM does not modify directory membership.",
+        "Resource groups do not need recreation."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/entra/id-governance/privileged-identity-management/pim-configure"
+    }
+  },
+  {
+    "id": 48,
+    "subtopic": "Interpret access assignments",
+    "question": "Which TWO statements correctly describe Azure Custom Roles? (Select TWO)",
+    "options": [
+      "Custom roles can be stored at Management Group or Subscription assignable scopes.",
+      "Custom roles can combine custom Actions and NotActions definitions.",
+      "Custom roles automatically update when Microsoft adds actions to built-in roles.",
+      "Custom roles can be created by users with the Reader role.",
+      "Custom roles can be assigned across different Entra tenants."
+    ],
+    "correct": [0, 1],
+    "explanation": {
+      "correctReason": "Custom roles define `assignableScopes` (like Management Groups or Subscriptions) and specify precise `Actions` and `NotActions` arrays.",
+      "incorrectReasons": [
+        "Custom roles are static and do not auto-update when Microsoft modifies built-in roles.",
+        "Creating custom roles requires `Microsoft.Authorization/roleDefinitions/write` permissions (Owner/User Access Admin).",
+        "Custom roles are bound to the specific Entra directory tenant where created."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/role-based-access-control/custom-roles"
+    }
+  },
+  {
+    "id": 49,
+    "subtopic": "Manage built-in Azure roles",
+    "question": "Which built-in role grants permission to restart, start, stop, and configure Azure Logic Apps without granting permissions to other resources?",
+    "options": [
+      "Logic App Contributor",
+      "Website Contributor",
+      "Logic App Operator",
+      "Application Insights Component Contributor"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Logic App Contributor allows full management of Logic Apps.",
+      "incorrectReasons": [
+        "Website Contributor manages Web Apps.",
+        "Logic App Operator allows triggering workflows and reading run history, but not modifying configurations.",
+        "Application Insights Component Contributor manages telemetry insights."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/role-based-access-control/built-in-roles#logic-app-contributor"
+    }
+  },
+  {
+    "id": 50,
+    "subtopic": "Interpret access assignments",
+    "question": "You inspect a role assignment using Azure PowerShell `Get-AzRoleAssignment`. The output displays `ObjectType: ServicePrincipal`. What does this indicate?",
+    "options": [
+      "The role is assigned to an application identity or managed identity.",
+      "The role is assigned to a human user account.",
+      "The role is assigned to an Entra ID security group.",
+      "The assignment is invalid."
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "`ObjectType: ServicePrincipal` identifies that the assigned principal is an application registration or managed identity.",
+      "incorrectReasons": [
+        "Human user accounts display `ObjectType: User`.",
+        "Entra ID groups display `ObjectType: Group`.",
+        "ServicePrincipal is a completely valid object type in Azure RBAC."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/powershell/module/az.resources/get-azroleassignment"
+    }
+  }
+]

@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AZ-104 Exam Simulator</title>
+  <style>
+    :root {
+      --primary: #0078d4;
+      --bg: #f3f2f1;
+      --card-bg: #ffffff;
+      --text: #323130;
+      --border: #e1dfdd;
+      --danger: #d13438;
+      --success: #107c41;
+      --warning: #ffb900;
+    }
+
+    body {
+      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      margin: 0;
+      padding: 1.5rem;
+    }
+
+    .quiz-container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 2rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+
+    .quiz-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid var(--bg);
+      padding-bottom: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .badge {
+      background: #e1dfdd;
+      color: var(--text);
+      padding: 0.3rem 0.8rem;
+      border-radius: 12px;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    /* Timer Styling */
+    .timer-box {
+      font-size: 1.1rem;
+      font-weight: bold;
+      color: var(--primary);
+      background: #eff6fc;
+      padding: 0.4rem 0.8rem;
+      border-radius: 6px;
+      border: 1px solid #c7e0f4;
+    }
+
+    .timer-box.warning {
+      color: var(--danger);
+      background: #fde8e8;
+      border-color: #f8d7da;
+      animation: pulse 1s infinite alternate;
+    }
+
+    @keyframes pulse {
+      from { opacity: 1; }
+      to { opacity: 0.7; }
+    }
+
+    /* Question Navigator Palette */
+    .palette-container {
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .palette-title {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #605e5c;
+      margin-bottom: 0.5rem;
+    }
+
+    .question-palette {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+
+    .palette-btn {
+      width: 32px;
+      height: 32px;
+      padding: 0;
+      font-size: 0.85rem;
+      border-radius: 4px;
+      background: #f3f2f1;
+      color: var(--text);
+      border: 1px solid var(--border);
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+
+    .palette-btn:hover {
+      border-color: var(--primary);
+    }
+
+    .palette-btn.complete {
+      background: var(--success);
+      color: white;
+      border-color: var(--success);
+    }
+
+    .palette-btn.partial {
+      background: var(--warning);
+      color: #323130;
+      border-color: var(--warning);
+    }
+
+    .palette-btn.active {
+      outline: 2px solid var(--primary);
+      outline-offset: 1px;
+    }
+
+    .question-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+      line-height: 1.5;
+    }
+
+    .options-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin-bottom: 2rem;
+    }
+
+    .option {
+      padding: 0.8rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .option:hover {
+      background-color: #f3f2f1;
+    }
+
+    .option.selected {
+      border-color: var(--primary);
+      background-color: #eff6fc;
+      font-weight: 600;
+    }
+
+    .nav-buttons {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    button {
+      padding: 0.6rem 1.2rem;
+      border: none;
+      border-radius: 4px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .btn-secondary {
+      background: #e1dfdd;
+      color: var(--text);
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+    }
+
+    .btn-danger {
+      background: var(--danger);
+      color: white;
+    }
+
+    button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .hidden { display: none; }
+
+    .review-item {
+      border-bottom: 1px solid var(--border);
+      padding: 1rem 0;
+    }
+
+    .explanation {
+      background: #f3f2f1;
+      padding: 0.8rem;
+      border-radius: 4px;
+      margin-top: 0.5rem;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="quiz-container">
+    
+    <!-- QUIZ VIEW -->
+    <div id="quiz-view">
+      <div class="quiz-header">
+        <span class="badge" id="subtopic-badge">AZ-104</span>
+        <div id="timer" class="timer-box">⏱️ 60:00</div>
+        <span id="question-number" style="font-weight: 600;">Question 1</span>
+      </div>
+
+      <!-- Question Navigation Palette -->
+      <div class="palette-container">
+        <div class="palette-title">Question Tracker:</div>
+        <div id="question-palette" class="question-palette"></div>
+      </div>
+
+      <div class="question-title" id="question-text">Loading question...</div>
+      
+      <div class="options-grid" id="options-container"></div>
+
+      <div class="nav-buttons">
+        <button id="prev-btn" class="btn-secondary" disabled>Previous</button>
+        <button id="next-btn" class="btn-primary">Next</button>
+        <button id="submit-btn" class="btn-danger">Submit Exam</button>
+      </div>
+    </div>
+
+    <!-- RESULTS VIEW -->
+    <div id="results-view" class="hidden">
+      <h2 id="score-text">Calculating Results...</h2>
+      <p id="time-spent-text" style="color: #605e5c;"></p>
+      <hr>
+      <h3>Detailed Review</h3>
+      <div id="results-breakdown"></div>
+      <br>
+      <button onclick="window.location.reload()" class="btn-primary">Retake Exam</button>
+    </div>
+
+  </div>
+
+  <script>
+    let quizData = [];
+    let currentIndex = 0;
+    let userAnswers = {}; // Format: { 0: [1], 1: [0, 2] }
+    
+    // Timer Variables (60 minutes)
+    const TOTAL_TIME_SECONDS = 3600; 
+    let timeRemaining = TOTAL_TIME_SECONDS;
+    let timerInterval = null;
+
+    async function loadQuizData() {
+      try {
+        const response = await fetch('questions.json');
+        
+        if (!response.ok) {
+          throw new Error(`HTTP Error ${response.status}: Could not find questions.json`);
+        }
+        
+        quizData = await response.json();
+        initQuiz();
+      } catch (error) {
+        console.error('Error loading questions:', error);
+        document.getElementById('question-text').innerHTML = 
+          `<span style="color: red; font-weight: bold;">Quiz Error: ${error.message}</span>`;
+      }
+    }
+
+    function initQuiz() {
+      if (!quizData || quizData.length === 0) return;
+      
+      renderQuestion();
+      startTimer();
+
+      document.getElementById('prev-btn').addEventListener('click', prevQuestion);
+      document.getElementById('next-btn').addEventListener('click', nextQuestion);
+      document.getElementById('submit-btn').addEventListener('click', () => submitExam(false));
+    }
+
+    function startTimer() {
+      updateTimerDisplay();
+      timerInterval = setInterval(() => {
+        timeRemaining--;
+        updateTimerDisplay();
+
+        if (timeRemaining <= 0) {
+          clearInterval(timerInterval);
+          alert("Time's up! Your exam will be submitted automatically.");
+          submitExam(true);
+        }
+      }, 1000);
+    }
+
+    function updateTimerDisplay() {
+      const minutes = Math.floor(timeRemaining / 60);
+      const seconds = timeRemaining % 60;
+      const displayString = `⏱️ ${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+      
+      const timerElement = document.getElementById('timer');
+      timerElement.innerText = displayString;
+
+      if (timeRemaining <= 300) {
+        timerElement.classList.add('warning');
+      }
+    }
+
+    function renderQuestion() {
+      const q = quizData[currentIndex];
+
+      // Normalize correct answers array
+      const correctIndices = Array.isArray(q.correct) ? q.correct : [q.correct];
+      const requiredCount = correctIndices.length;
+      const isMultiple = requiredCount > 1;
+
+      if (!userAnswers[currentIndex]) {
+        userAnswers[currentIndex] = [];
+      }
+
+      document.getElementById('subtopic-badge').innerText = q.subtopic || 'AZ-104';
+      document.getElementById('question-number').innerText = `Question ${currentIndex + 1} of ${quizData.length}`;
+      
+      const instruction = isMultiple 
+        ? `(Select ${requiredCount} options)` 
+        : `(Select 1 option)`;
+      document.getElementById('question-text').innerHTML = `${q.question} <br><small style="color: #605e5c; font-weight: normal;">${instruction}</small>`;
+
+      const container = document.getElementById('options-container');
+      container.innerHTML = '';
+
+      const currentSelections = userAnswers[currentIndex];
+
+      q.options.forEach((opt, idx) => {
+        const isSelected = currentSelections.includes(idx);
+        const div = document.createElement('div');
+        div.className = `option ${isSelected ? 'selected' : ''}`;
+        
+        const icon = isMultiple 
+          ? (isSelected ? '☑️' : '⏹️') 
+          : (isSelected ? '🔘' : '⚪');
+
+        div.innerText = `${icon} ${String.fromCharCode(65 + idx)}. ${opt}`;
+        div.onclick = () => selectOption(idx, requiredCount, isMultiple);
+        container.appendChild(div);
+      });
+
+      document.getElementById('prev-btn').disabled = currentIndex === 0;
+      document.getElementById('next-btn').disabled = currentIndex === quizData.length - 1;
+
+      renderPalette();
+    }
+
+    function renderPalette() {
+      const paletteContainer = document.getElementById('question-palette');
+      paletteContainer.innerHTML = '';
+
+      quizData.forEach((q, idx) => {
+        const requiredCount = Array.isArray(q.correct) ? q.correct.length : 1;
+        const selections = userAnswers[idx] || [];
+        
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'palette-btn';
+        btn.innerText = idx + 1;
+
+        if (idx === currentIndex) {
+          btn.classList.add('active');
+        }
+        
+        if (selections.length === requiredCount) {
+          btn.classList.add('complete'); // Green
+        } else if (selections.length > 0) {
+          btn.classList.add('partial');  // Yellow
+        }
+
+        btn.onclick = () => {
+          currentIndex = idx;
+          renderQuestion();
+        };
+
+        paletteContainer.appendChild(btn);
+      });
+    }
+
+    function selectOption(index, requiredCount, isMultiple) {
+      let selections = userAnswers[currentIndex] || [];
+
+      if (!isMultiple) {
+        selections = [index];
+      } else {
+        if (selections.includes(index)) {
+          selections = selections.filter(i => i !== index);
+        } else {
+          if (selections.length >= requiredCount) {
+            selections.shift();
+          }
+          selections.push(index);
+        }
+      }
+
+      userAnswers[currentIndex] = selections;
+      renderQuestion();
+    }
+
+    function prevQuestion() {
+      if (currentIndex > 0) { currentIndex--; renderQuestion(); }
+    }
+
+    function nextQuestion() {
+      if (currentIndex < quizData.length - 1) { currentIndex++; renderQuestion(); }
+    }
+
+    function areArraysEqual(arr1 = [], arr2 = []) {
+      if (arr1.length !== arr2.length) return false;
+      const s1 = [...arr1].sort();
+      const s2 = [...arr2].sort();
+      return s1.every((val, index) => val === s2[index]);
+    }
+
+    function submitExam(isAutoSubmit = false) {
+      const incompleteIndices = [];
+      
+      quizData.forEach((q, idx) => {
+        const requiredCount = Array.isArray(q.correct) ? q.correct.length : 1;
+        const selections = userAnswers[idx] || [];
+        if (selections.length !== requiredCount) {
+          incompleteIndices.push(idx + 1);
+        }
+      });
+
+      if (!isAutoSubmit && incompleteIndices.length > 0) {
+        const missingList = incompleteIndices.join(', ');
+        const confirmMessage = `⚠️ WARNING: You have incomplete questions!\n\nQuestion(s) needing attention: ${missingList}\n\nAre you sure you want to submit anyway?`;
+        
+        if (!confirm(confirmMessage)) return;
+      } else if (!isAutoSubmit && !confirm("Are you sure you want to submit your exam?")) {
+        return;
+      }
+
+      clearInterval(timerInterval);
+
+      document.getElementById('quiz-view').classList.add('hidden');
+      document.getElementById('results-view').classList.remove('hidden');
+
+      const secondsSpent = TOTAL_TIME_SECONDS - timeRemaining;
+      const minutesSpent = Math.floor(secondsSpent / 60);
+      const remainingSeconds = secondsSpent % 60;
+      
+      document.getElementById('time-spent-text').innerText = 
+        `Time Taken: ${minutesSpent} min ${remainingSeconds} sec`;
+
+      let score = 0;
+      const breakdown = document.getElementById('results-breakdown');
+      breakdown.innerHTML = '';
+
+      quizData.forEach((q, idx) => {
+        const userChoice = userAnswers[idx] || [];
+        const correctAnswers = Array.isArray(q.correct) ? q.correct : [q.correct];
+        
+        const isCorrect = areArraysEqual(userChoice, correctAnswers);
+        if (isCorrect) score++;
+
+        const userText = userChoice.length > 0 
+          ? userChoice.map(i => q.options[i]).join(', ') 
+          : '<em>Unanswered</em>';
+
+        const correctText = correctAnswers.map(i => q.options[i]).join(', ');
+
+        const item = document.createElement('div');
+        item.className = 'review-item';
+        item.innerHTML = `
+          <h4>Q${idx + 1}: ${q.question}</h4>
+          <p><strong>Your Selection:</strong> ${userText} (${isCorrect ? '✅ Correct' : '❌ Incorrect'})</p>
+          <p><strong>Correct Answer(s):</strong> ${correctText}</p>
+          <div class="explanation">
+            <strong>Explanation:</strong> ${q.explanation.correctReason}<br/><br/>
+            <a href="${q.explanation.reference}" target="_blank">Microsoft Learn Reference</a>
+          </div>
+        `;
+        breakdown.appendChild(item);
+      });
+
+      const finalPct = Math.round((score / quizData.length) * 100);
+      document.getElementById('score-text').innerText = `Score: ${finalPct}% (${score}/${quizData.length}) - ${finalPct >= 70 ? 'PASS' : 'FAIL'}`;
+    }
+
+    document.addEventListener('DOMContentLoaded', loadQuizData);
+  </script>
+</body>
+</html>

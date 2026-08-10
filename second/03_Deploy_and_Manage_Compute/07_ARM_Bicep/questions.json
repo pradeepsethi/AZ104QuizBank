@@ -2,1075 +2,1057 @@
   {
     "id": 1,
     "subtopic": "Interpret an Azure Resource Manager template or a Bicep file",
-    "question": "Scenario question 1 regarding Interpret an Azure Resource Manager template or a Bicep file in Automate deployment of resources by using Azure Resource Manager (ARM) templates or Bicep files context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "question": "You review the following section of a Bicep file:\n\nresource storage 'Microsoft.Storage/storageAccounts@2022-09-01' = {\n  name: storageName\n  location: location\n  sku: {\n    name: 'Standard_LRS'\n  }\n  kind: 'StorageV2'\n}\n\nWhat does the line 'Microsoft.Storage/storageAccounts@2022-09-01' represent?",
     "options": [
-      "Option A detailing solution for Interpret an Azure Resource Manager template or a Bicep file",
-      "Option B detailing solution for Interpret an Azure Resource Manager template or a Bicep file",
-      "Option C detailing solution for Interpret an Azure Resource Manager template or a Bicep file",
-      "Option D detailing solution for Interpret an Azure Resource Manager template or a Bicep file"
+      "The resource type and API version being deployed",
+      "The symbolic name and resource ID of the storage account",
+      "The location and scope where the template is deployed",
+      "The Azure policy definition enforced on the resource group"
     ],
-    "correct": 1,
+    "correct": 0,
     "explanation": {
-      "correctReason": "Option B (index 1) correctly resolves the requirement for Interpret an Azure Resource Manager template or a Bicep file by applying the standard Azure architectural recommended configuration.",
+      "correctReason": "In Bicep, 'Microsoft.Storage/storageAccounts@2022-09-01' specifies the Azure Resource Manager resource type provider and the specific API version used for deployment syntax.",
       "incorrectReasons": [
-        "Option A is incorrect because it does not satisfy the requirements for Interpret an Azure Resource Manager template or a Bicep file.",
-        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
-        "Option D is incorrect because it applies an invalid permission scope."
+        "The symbolic name is 'storage', not the type and API version string.",
+        "Location and scope are defined by property values or deployment target context, not by the type/API string.",
+        "Azure policy definitions are defined separately in policy assignments, not in the Bicep resource header."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/resource-declaration"
     }
   },
   {
     "id": 2,
-    "subtopic": "Modify an existing Azure Resource Manager template",
-    "question": "Scenario question 2 regarding Modify an existing Azure Resource Manager template in Automate deployment of resources by using Azure Resource Manager (ARM) templates or Bicep files context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "subtopic": "Interpret an Azure Resource Manager template or a Bicep file",
+    "question": "An ARM template contains the following syntax in the resources block:\n\n\"dependsOn\": [\n  \"[resourceId('Microsoft.Network/virtualNetworks', parameters('vnetName'))]\"\n]\n\nWhat is the purpose of this block?",
     "options": [
-      "Option A detailing solution for Modify an existing Azure Resource Manager template",
-      "Option B detailing solution for Modify an existing Azure Resource Manager template",
-      "Option C detailing solution for Modify an existing Azure Resource Manager template",
-      "Option D detailing solution for Modify an existing Azure Resource Manager template"
+      "It ensures the current resource is deployed only after the specified virtual network deployment completes.",
+      "It dynamically inherits tags and location from the specified virtual network resource.",
+      "It exports the outputs of the virtual network deployment to the current resource.",
+      "It creates a peer-to-peer network connection to the specified virtual network."
     ],
-    "correct": 1,
+    "correct": 0,
     "explanation": {
-      "correctReason": "Option B (index 1) correctly resolves the requirement for Modify an existing Azure Resource Manager template by applying the standard Azure architectural recommended configuration.",
+      "correctReason": "The 'dependsOn' element explicitly defines deployment dependencies, instructing Azure Resource Manager to complete the deployment of the virtual network before deploying the current resource.",
       "incorrectReasons": [
-        "Option A is incorrect because it does not satisfy the requirements for Modify an existing Azure Resource Manager template.",
-        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
-        "Option D is incorrect because it applies an invalid permission scope."
+        "Tag and location inheritance is not controlled by the dependsOn property.",
+        "Outputs are passed using functions like reference() or parameter passing, not dependsOn.",
+        "VNet peering is defined using 'Microsoft.Network/virtualNetworks/virtualNetworkPeerings', not dependsOn."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/templates/define-resource-dependency"
     }
   },
   {
     "id": 3,
-    "subtopic": "Modify an existing Bicep file",
-    "question": "Scenario question 3 regarding Modify an existing Bicep file in Automate deployment of resources by using Azure Resource Manager (ARM) templates or Bicep files context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "subtopic": "Modify an existing Azure Resource Manager template",
+    "question": "You need to modify an ARM template so that a storage account SKU can be selected during deployment, but default to 'Standard_LRS' if no value is provided. Which ARM template section should you modify?",
     "options": [
-      "Option A detailing solution for Modify an existing Bicep file",
-      "Option B detailing solution for Modify an existing Bicep file",
-      "Option C detailing solution for Modify an existing Bicep file",
-      "Option D detailing solution for Modify an existing Bicep file"
+      "parameters",
+      "variables",
+      "outputs",
+      "functions"
     ],
-    "correct": 1,
+    "correct": 0,
     "explanation": {
-      "correctReason": "Option B (index 1) correctly resolves the requirement for Modify an existing Bicep file by applying the standard Azure architectural recommended configuration.",
+      "correctReason": "The 'parameters' section defines values that can be passed during deployment and allows setting a 'defaultValue' if no value is supplied.",
       "incorrectReasons": [
-        "Option A is incorrect because it does not satisfy the requirements for Modify an existing Bicep file.",
-        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
-        "Option D is incorrect because it applies an invalid permission scope."
+        "Variables store values calculated within the template that cannot be overridden directly at deployment runtime.",
+        "Outputs define values returned after deployment completes.",
+        "Functions define custom template functions rather than user-configurable deployment inputs."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/templates/syntax-parameters"
     }
   },
   {
     "id": 4,
-    "subtopic": "Deploy resources by using an Azure Resource Manager template or a Bicep file",
-    "question": "Scenario question 4 regarding Deploy resources by using an Azure Resource Manager template or a Bicep file in Automate deployment of resources by using Azure Resource Manager (ARM) templates or Bicep files context: Which TWO options must you configure to achieve the target state? (Select TWO)",
+    "subtopic": "Modify an existing Azure Resource Manager template",
+    "question": "You are modifying an existing ARM template deploying a Virtual Machine. You need to ensure the admin password is not exposed in deployment logs or stored in plain text. Which two actions should you take? (Select TWO)",
     "options": [
-      "First required configuration for Deploy resources by using an Azure Resource Manager template or a Bicep file",
-      "Incorrect setting option A",
-      "Second required configuration for Deploy resources by using an Azure Resource Manager template or a Bicep file",
-      "Incorrect setting option B"
+      "Set the parameter type to 'securestring' in the template parameters section.",
+      "Store the password in an Azure Key Vault secret and reference it in a parameter file.",
+      "Store the password in the 'variables' section of the template.",
+      "Set the parameter type to 'secureObject' and pass plain text string in the command line.",
+      "Export the ARM template parameters as output variables."
     ],
-    "correct": [
-      0,
-      2
-    ],
+    "correct": [0, 1],
     "explanation": {
-      "correctReason": "Options A (index 0) and C (index 2) are correct because both actions are necessary steps to configure Deploy resources by using an Azure Resource Manager template or a Bicep file.",
+      "correctReason": "Using the 'securestring' data type prevents ARM from logging parameter values in deployment history. Referencing an Azure Key Vault secret in the parameter file avoids hardcoding sensitive credentials.",
       "incorrectReasons": [
-        "Option B is incorrect because this setting is unsupported for this scenario.",
-        "Option D is incorrect as it applies to a different resource scope."
+        "Variables are stored in plain text within the template and will be visible in source control.",
+        "secureObject is intended for JSON objects, and passing plain text in CLI commands risks exposure in history/logs.",
+        "Exporting passwords to outputs exposes sensitive data in deployment logs."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/templates/key-vault-parameter"
     }
   },
   {
     "id": 5,
-    "subtopic": "Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file",
-    "question": "Scenario question 5 regarding Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file in Automate deployment of resources by using Azure Resource Manager (ARM) templates or Bicep files context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "subtopic": "Modify an existing Bicep file",
+    "question": "You are converting logic in a Bicep file. You need to restrict the 'environment' parameter to only accept three specific values: 'dev', 'test', and 'prod'. Which decorator should you add above the parameter declaration?",
     "options": [
-      "Option A detailing solution for Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file",
-      "Option B detailing solution for Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file",
-      "Option C detailing solution for Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file",
-      "Option D detailing solution for Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file"
+      "@allowed(['dev', 'test', 'prod'])",
+      "@restrict(['dev', 'test', 'prod'])",
+      "@enum(['dev', 'test', 'prod'])",
+      "@validate(['dev', 'test', 'prod'])"
     ],
-    "correct": 1,
+    "correct": 0,
     "explanation": {
-      "correctReason": "Option B (index 1) correctly resolves the requirement for Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file by applying the standard Azure architectural recommended configuration.",
+      "correctReason": "The '@allowed()' decorator in Bicep restricts the allowable input values for a parameter to a specified set/array.",
       "incorrectReasons": [
-        "Option A is incorrect because it does not satisfy the requirements for Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file.",
-        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
-        "Option D is incorrect because it applies an invalid permission scope."
+        "@restrict is not a valid Bicep parameter decorator.",
+        "@enum is not used for parameter validation decorators in Bicep.",
+        "@validate is not a valid Bicep parameter decorator."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/parameters#allowed-values"
     }
   },
   {
     "id": 6,
-    "subtopic": "Interpret an Azure Resource Manager template or a Bicep file",
-    "question": "Scenario question 6 regarding Interpret an Azure Resource Manager template or a Bicep file in Automate deployment of resources by using Azure Resource Manager (ARM) templates or Bicep files context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "subtopic": "Modify an existing Bicep file",
+    "question": "You have an existing Bicep file that deploys a Network Security Group (NSG). You need to configure a dynamic set of security rules based on an array parameter 'securityRules'. Which Bicep construct should you use inside the NSG resource definition?",
     "options": [
-      "Option A detailing solution for Interpret an Azure Resource Manager template or a Bicep file",
-      "Option B detailing solution for Interpret an Azure Resource Manager template or a Bicep file",
-      "Option C detailing solution for Interpret an Azure Resource Manager template or a Bicep file",
-      "Option D detailing solution for Interpret an Azure Resource Manager template or a Bicep file"
+      "For-loop expression over the array: [for rule in securityRules: { ... }]",
+      "While-loop construct: [while rule in securityRules: { ... }]",
+      "If-else conditional deployment: condition ? securityRules : []",
+      "Copy index construct: 'copy': [{ 'name': 'rules', 'count': length(securityRules) }]"
     ],
-    "correct": 1,
+    "correct": 0,
     "explanation": {
-      "correctReason": "Option B (index 1) correctly resolves the requirement for Interpret an Azure Resource Manager template or a Bicep file by applying the standard Azure architectural recommended configuration.",
+      "correctReason": "Bicep uses the `[for <item> in <array>: { ... }]` syntax to iterate over arrays and dynamically construct resource sub-properties or resources.",
       "incorrectReasons": [
-        "Option A is incorrect because it does not satisfy the requirements for Interpret an Azure Resource Manager template or a Bicep file.",
-        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
-        "Option D is incorrect because it applies an invalid permission scope."
+        "Bicep does not support imperative while-loops.",
+        "Conditional expressions check boolean conditions, not array iterations.",
+        "The 'copy' array syntax is ARM template JSON syntax, not native Bicep syntax."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/loops"
     }
   },
   {
     "id": 7,
-    "subtopic": "Modify an existing Azure Resource Manager template",
-    "question": "Scenario question 7 regarding Modify an existing Azure Resource Manager template in Automate deployment of resources by using Azure Resource Manager (ARM) templates or Bicep files context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "subtopic": "Deploy resources by using an Azure Resource Manager template or a Bicep file",
+    "question": "You need to deploy a Bicep file named 'main.bicep' into a resource group named 'rg-app-prod' using Azure CLI. Which command should you execute?",
     "options": [
-      "Option A detailing solution for Modify an existing Azure Resource Manager template",
-      "Option B detailing solution for Modify an existing Azure Resource Manager template",
-      "Option C detailing solution for Modify an existing Azure Resource Manager template",
-      "Option D detailing solution for Modify an existing Azure Resource Manager template"
+      "az deployment group create --resource-group rg-app-prod --template-file main.bicep",
+      "az group deployment create --name rg-app-prod --file main.bicep",
+      "az resource create --resource-group rg-app-prod --bicep-file main.bicep",
+      "az bicep deploy --resource-group rg-app-prod --template main.bicep"
     ],
-    "correct": 1,
+    "correct": 0,
     "explanation": {
-      "correctReason": "Option B (index 1) correctly resolves the requirement for Modify an existing Azure Resource Manager template by applying the standard Azure architectural recommended configuration.",
+      "correctReason": "'az deployment group create' is the standard Azure CLI command to deploy an ARM template or Bicep file to a resource group scope.",
       "incorrectReasons": [
-        "Option A is incorrect because it does not satisfy the requirements for Modify an existing Azure Resource Manager template.",
-        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
-        "Option D is incorrect because it applies an invalid permission scope."
+        "'az group deployment create' is deprecated syntax.",
+        "'az resource create' is used for individual resource management, not ARM/Bicep template deployments.",
+        "'az bicep deploy' is not a valid Azure CLI subgroup command."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/deploy-cli"
     }
   },
   {
     "id": 8,
-    "subtopic": "Modify an existing Bicep file",
-    "question": "Scenario question 8 regarding Modify an existing Bicep file in Automate deployment of resources by using Azure Resource Manager (ARM) templates or Bicep files context: Which TWO options must you configure to achieve the target state? (Select TWO)",
+    "subtopic": "Deploy resources by using an Azure Resource Manager template or a Bicep file",
+    "question": "You plan to deploy an ARM template using Azure PowerShell at the Subscription scope to create resource groups and role assignments. Which cmdlet should you use?",
     "options": [
-      "First required configuration for Modify an existing Bicep file",
-      "Incorrect setting option A",
-      "Second required configuration for Modify an existing Bicep file",
-      "Incorrect setting option B"
+      "New-AzSubscriptionDeployment",
+      "New-AzResourceGroupDeployment",
+      "New-AzTenantDeployment",
+      "New-AzManagementGroupDeployment"
     ],
-    "correct": [
-      0,
-      2
-    ],
+    "correct": 0,
     "explanation": {
-      "correctReason": "Options A (index 0) and C (index 2) are correct because both actions are necessary steps to configure Modify an existing Bicep file.",
+      "correctReason": "'New-AzSubscriptionDeployment' targets deployment operations at the subscription level.",
       "incorrectReasons": [
-        "Option B is incorrect because this setting is unsupported for this scenario.",
-        "Option D is incorrect as it applies to a different resource scope."
+        "'New-AzResourceGroupDeployment' is used when deploying resources inside an existing resource group.",
+        "'New-AzTenantDeployment' is used for tenant-wide deployments such as management groups or policy definitions.",
+        "'New-AzManagementGroupDeployment' targets deployment operations at the management group scope."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/templates/deploy-powershell#deployment-scope"
     }
   },
   {
     "id": 9,
-    "subtopic": "Deploy resources by using an Azure Resource Manager template or a Bicep file",
-    "question": "Scenario question 9 regarding Deploy resources by using an Azure Resource Manager template or a Bicep file in Automate deployment of resources by using Azure Resource Manager (ARM) templates or Bicep files context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "subtopic": "Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file",
+    "question": "You have an existing JSON ARM template named 'template.json'. You want to convert this file into a Bicep file named 'template.bicep' using the Azure CLI / Bicep CLI. Which command should you run?",
     "options": [
-      "Option A detailing solution for Deploy resources by using an Azure Resource Manager template or a Bicep file",
-      "Option B detailing solution for Deploy resources by using an Azure Resource Manager template or a Bicep file",
-      "Option C detailing solution for Deploy resources by using an Azure Resource Manager template or a Bicep file",
-      "Option D detailing solution for Deploy resources by using an Azure Resource Manager template or a Bicep file"
+      "az bicep decompile --file template.json",
+      "az bicep convert --template-file template.json",
+      "az deployment export --template-file template.json --to-bicep",
+      "az group export --file template.json --output bicep"
     ],
-    "correct": 1,
+    "correct": 0,
     "explanation": {
-      "correctReason": "Option B (index 1) correctly resolves the requirement for Deploy resources by using an Azure Resource Manager template or a Bicep file by applying the standard Azure architectural recommended configuration.",
+      "correctReason": "The command 'az bicep decompile --file template.json' (or 'bicep decompile') decompiles an ARM JSON template into a Bicep file.",
       "incorrectReasons": [
-        "Option A is incorrect because it does not satisfy the requirements for Deploy resources by using an Azure Resource Manager template or a Bicep file.",
-        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
-        "Option D is incorrect because it applies an invalid permission scope."
+        "'az bicep convert' is not a valid Bicep CLI command.",
+        "'az deployment export --to-bicep' is not a valid command.",
+        "'az group export' exports resources from an existing resource group into JSON format, not decompiles JSON to Bicep."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/decompile"
     }
   },
   {
     "id": 10,
     "subtopic": "Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file",
-    "question": "Scenario question 10 regarding Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file in Automate deployment of resources by using Azure Resource Manager (ARM) templates or Bicep files context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "question": "You configure a complex virtual network with multiple subnets using the Azure portal. You need to generate an ARM template representing the current state of the resource group containing the network. Which two methods can achieve this? (Select TWO)",
     "options": [
-      "Option A detailing solution for Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file",
-      "Option B detailing solution for Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file",
-      "Option C detailing solution for Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file",
-      "Option D detailing solution for Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file"
+      "Select 'Export template' from the Automation section of the Resource Group in Azure portal.",
+      "Run the Azure CLI command 'az group export --name <rg-name>'.",
+      "Run the Azure PowerShell command 'Export-AzResourceGroupDeploymentHistory'.",
+      "Select 'Download deployment template' from the Virtual Network properties blade.",
+      "Run the Azure CLI command 'az deployment group export-template'."
     ],
-    "correct": 1,
+    "correct": [0, 1],
     "explanation": {
-      "correctReason": "Option B (index 1) correctly resolves the requirement for Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file by applying the standard Azure architectural recommended configuration.",
+      "correctReason": "You can export the current state of resources in a resource group via the Azure portal 'Export template' blade or using 'az group export --name <rg-name>'.",
       "incorrectReasons": [
-        "Option A is incorrect because it does not satisfy the requirements for Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file.",
-        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
-        "Option D is incorrect because it applies an invalid permission scope."
+        "'Export-AzResourceGroupDeploymentHistory' is not a valid PowerShell cmdlet (the cmdlet is Export-AzResourceGroup).",
+        "The properties blade of a Virtual Network does not offer a direct template export button; export is done via the Automation blade or RG level.",
+        "'az deployment group export-template' is not a valid Azure CLI command."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/templates/export-template-portal"
     }
   },
   {
     "id": 11,
     "subtopic": "Interpret an Azure Resource Manager template or a Bicep file",
-    "question": "Scenario question 11 regarding Interpret an Azure Resource Manager template or a Bicep file in Automate deployment of resources by using Azure Resource Manager (ARM) templates or Bicep files context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "question": "You examine the following function call in an ARM template:\n\n\"[concat('vm-', uniqueString(resourceGroup().id))]\"\n\nWhat is the purpose of using uniqueString(resourceGroup().id)?",
     "options": [
-      "Option A detailing solution for Interpret an Azure Resource Manager template or a Bicep file",
-      "Option B detailing solution for Interpret an Azure Resource Manager template or a Bicep file",
-      "Option C detailing solution for Interpret an Azure Resource Manager template or a Bicep file",
-      "Option D detailing solution for Interpret an Azure Resource Manager template or a Bicep file"
+      "To generate a deterministic, 13-character hash string based on the Resource Group ID to ensure resource name uniqueness",
+      "To generate a random GUID every time the template is executed",
+      "To encrypt the virtual machine name before writing it to Azure Activity logs",
+      "To fetch the subscription secret key required for authenticating deployment requests"
     ],
-    "correct": 1,
+    "correct": 0,
     "explanation": {
-      "correctReason": "Option B (index 1) correctly resolves the requirement for Interpret an Azure Resource Manager template or a Bicep file by applying the standard Azure architectural recommended configuration.",
+      "correctReason": "The 'uniqueString()' function creates a deterministic hash value based on input parameters. Using resourceGroup().id creates a consistent unique string across deployments targeting the same resource group.",
       "incorrectReasons": [
-        "Option A is incorrect because it does not satisfy the requirements for Interpret an Azure Resource Manager template or a Bicep file.",
-        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
-        "Option D is incorrect because it applies an invalid permission scope."
+        "uniqueString is deterministic based on input, not a random GUID (newGuid() generates GUIDs).",
+        "uniqueString does not encrypt data.",
+        "uniqueString is string hashing, not subscription key retrieval."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/templates/template-functions-string#uniquestring"
     }
   },
   {
     "id": 12,
-    "subtopic": "Modify an existing Azure Resource Manager template",
-    "question": "Scenario question 12 regarding Modify an existing Azure Resource Manager template in Automate deployment of resources by using Azure Resource Manager (ARM) templates or Bicep files context: Which TWO options must you configure to achieve the target state? (Select TWO)",
+    "subtopic": "Interpret an Azure Resource Manager template or a Bicep file",
+    "question": "In a Bicep file, you see the following code snippet:\n\nresource kv 'Microsoft.KeyVault/vaults@2023-02-01' existing = {\n  name: 'kv-prod-001'\n}\n\nWhat is the significance of the 'existing' keyword?",
     "options": [
-      "First required configuration for Modify an existing Azure Resource Manager template",
-      "Incorrect setting option A",
-      "Second required configuration for Modify an existing Azure Resource Manager template",
-      "Incorrect setting option B"
+      "It references a pre-existing Azure Key Vault without deploying or modifying it.",
+      "It verifies whether the key vault exists and throws an error if it is not found.",
+      "It forces Azure Resource Manager to overwrite any existing Key Vault with default settings.",
+      "It imports the existing resource into the current Bicep state file for configuration management."
     ],
-    "correct": [
-      0,
-      2
-    ],
+    "correct": 0,
     "explanation": {
-      "correctReason": "Options A (index 0) and C (index 2) are correct because both actions are necessary steps to configure Modify an existing Azure Resource Manager template.",
+      "correctReason": "The 'existing' keyword tells Bicep that the resource already exists, allowing other resources in the template to read its properties without attempting to deploy or modify it.",
       "incorrectReasons": [
-        "Option B is incorrect because this setting is unsupported for this scenario.",
-        "Option D is incorrect as it applies to a different resource scope."
+        "While runtime errors occur if it does not exist, the keyword's primary function is referencing external existing resources.",
+        "It prevents overwriting rather than forcing an overwrite.",
+        "Bicep is stateless and does not maintain state files like Terraform."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/exist-resources"
     }
   },
   {
     "id": 13,
-    "subtopic": "Modify an existing Bicep file",
-    "question": "Scenario question 13 regarding Modify an existing Bicep file in Automate deployment of resources by using Azure Resource Manager (ARM) templates or Bicep files context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "subtopic": "Modify an existing Azure Resource Manager template",
+    "question": "You are updating an ARM template to deploy a Public IP address. You need to assign tags defined in a variable named 'defaultTags' while adding a specific tag 'Environment': 'Production'. Which syntax correctly sets the tags property in ARM?",
     "options": [
-      "Option A detailing solution for Modify an existing Bicep file",
-      "Option B detailing solution for Modify an existing Bicep file",
-      "Option C detailing solution for Modify an existing Bicep file",
-      "Option D detailing solution for Modify an existing Bicep file"
+      "\"tags\": \"[union(variables('defaultTags'), json('{\"Environment\": \"Production\"}'))]\"",
+      "\"tags\": \"[concat(variables('defaultTags'), 'Environment=Production')]\"",
+      "\"tags\": \"[add(variables('defaultTags'), 'Environment', 'Production')]\"",
+      "\"tags\": \"[merge(variables('defaultTags'), json('{\"Environment\": \"Production\"}'))]\""
     ],
-    "correct": 1,
+    "correct": 0,
     "explanation": {
-      "correctReason": "Option B (index 1) correctly resolves the requirement for Modify an existing Bicep file by applying the standard Azure architectural recommended configuration.",
+      "correctReason": "The ARM template 'union()' function merges two JSON objects or arrays. Passing the dictionary variable and a converted JSON object adds or overrides keys.",
       "incorrectReasons": [
-        "Option A is incorrect because it does not satisfy the requirements for Modify an existing Bicep file.",
-        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
-        "Option D is incorrect because it applies an invalid permission scope."
+        "'concat()' is used for joining strings or arrays, not dictionary objects.",
+        "'add()' is a math function, not a object manipulation function.",
+        "'merge()' is not a valid ARM template function."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/templates/template-functions-object#union"
     }
   },
   {
     "id": 14,
-    "subtopic": "Deploy resources by using an Azure Resource Manager template or a Bicep file",
-    "question": "Scenario question 14 regarding Deploy resources by using an Azure Resource Manager template or a Bicep file in Automate deployment of resources by using Azure Resource Manager (ARM) templates or Bicep files context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "subtopic": "Modify an existing Azure Resource Manager template",
+    "question": "You are reviewing an ARM template that deploys a Storage Account. You must modify it to ensure that the storage account only accepts HTTPS traffic. Which property inside 'Microsoft.Storage/storageAccounts' must you set?",
     "options": [
-      "Option A detailing solution for Deploy resources by using an Azure Resource Manager template or a Bicep file",
-      "Option B detailing solution for Deploy resources by using an Azure Resource Manager template or a Bicep file",
-      "Option C detailing solution for Deploy resources by using an Azure Resource Manager template or a Bicep file",
-      "Option D detailing solution for Deploy resources by using an Azure Resource Manager template or a Bicep file"
+      "\"supportsHttpsTrafficOnly\": true",
+      "\"enableHttpsOnly\": true",
+      "\"requireSecureTransfer\": true",
+      "\"minimumTlsVersion\": \"TLS1_2_HTTPS\""
     ],
-    "correct": 1,
+    "correct": 0,
     "explanation": {
-      "correctReason": "Option B (index 1) correctly resolves the requirement for Deploy resources by using an Azure Resource Manager template or a Bicep file by applying the standard Azure architectural recommended configuration.",
+      "correctReason": "The property 'supportsHttpsTrafficOnly': true in storageAccount properties forces secure transfer over HTTPS.",
       "incorrectReasons": [
-        "Option A is incorrect because it does not satisfy the requirements for Deploy resources by using an Azure Resource Manager template or a Bicep file.",
-        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
-        "Option D is incorrect because it applies an invalid permission scope."
+        "'enableHttpsOnly' is used in App Service configurations, not Storage Accounts.",
+        "'requireSecureTransfer' was an older parameter name in early API versions, superseded by 'supportsHttpsTrafficOnly'.",
+        "'minimumTlsVersion' enforces minimum TLS versions (e.g., TLS1_2), not HTTPS traffic requirement directly."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/"
+      "reference": "https://learn.microsoft.com/en-us/azure/templates/microsoft.storage/storageaccounts"
     }
   },
   {
     "id": 15,
-    "subtopic": "Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file",
-    "question": "Scenario question 15 regarding Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file in Automate deployment of resources by using Azure Resource Manager (ARM) templates or Bicep files context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "subtopic": "Modify an existing Bicep file",
+    "question": "You have a Bicep file that deploys an App Service Plan. You want to conditionally deploy a staging App Service Plan only when the 'isProduction' parameter is false. Which syntax should you use in Bicep?",
     "options": [
-      "Option A detailing solution for Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file",
-      "Option B detailing solution for Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file",
-      "Option C detailing solution for Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file",
-      "Option D detailing solution for Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file"
+      "resource appPlan 'Microsoft.Web/serverfarms@2022-09-01' = if (!isProduction) { ... }",
+      "resource appPlan 'Microsoft.Web/serverfarms@2022-09-01' = where (!isProduction) { ... }",
+      "resource appPlan 'Microsoft.Web/serverfarms@2022-09-01' condition(!isProduction) = { ... }",
+      "resource appPlan 'Microsoft.Web/serverfarms@2022-09-01' = switch (isProduction == false) { ... }"
     ],
-    "correct": 1,
+    "correct": 0,
     "explanation": {
-      "correctReason": "Option B (index 1) correctly resolves the requirement for Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file by applying the standard Azure architectural recommended configuration.",
+      "correctReason": "In Bicep, conditional deployment uses the `if (<condition>)` syntax placed directly after the equal sign in the resource header.",
       "incorrectReasons": [
-        "Option A is incorrect because it does not satisfy the requirements for Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file.",
-        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
-        "Option D is incorrect because it applies an invalid permission scope."
+        "'where' is not a valid Bicep conditional keyword.",
+        "'condition()' syntax is used in ARM JSON templates, not native Bicep.",
+        "'switch' is not a valid resource condition syntax in Bicep."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/conditional-deploy"
     }
   },
   {
     "id": 16,
-    "subtopic": "Interpret an Azure Resource Manager template or a Bicep file",
-    "question": "Scenario question 16 regarding Interpret an Azure Resource Manager template or a Bicep file in Automate deployment of resources by using Azure Resource Manager (ARM) templates or Bicep files context: Which TWO options must you configure to achieve the target state? (Select TWO)",
+    "subtopic": "Modify an existing Bicep file",
+    "question": "You need to export the primary connection string of a storage account deployed via Bicep as an output. Which declaration is valid in Bicep?",
     "options": [
-      "First required configuration for Interpret an Azure Resource Manager template or a Bicep file",
-      "Incorrect setting option A",
-      "Second required configuration for Interpret an Azure Resource Manager template or a Bicep file",
-      "Incorrect setting option B"
+      "output connString string = 'DefaultEndpointsProtocol=https;AccountName=${stg.name};AccountKey=${stg.listKeys().keys[0].value}'",
+      "output connString string = stg.properties.connectionString",
+      "output connString string = listConnectionString(stg.id)",
+      "output connString string = stg.keys[0].connectionString"
     ],
-    "correct": [
-      0,
-      2
-    ],
+    "correct": 0,
     "explanation": {
-      "correctReason": "Options A (index 0) and C (index 2) are correct because both actions are necessary steps to configure Interpret an Azure Resource Manager template or a Bicep file.",
+      "correctReason": "In Bicep, functions like `listKeys()` can be called directly on resource symbolic names (`stg`) to retrieve secret keys dynamically.",
       "incorrectReasons": [
-        "Option B is incorrect because this setting is unsupported for this scenario.",
-        "Option D is incorrect as it applies to a different resource scope."
+        "Connection string is not a direct static property under `properties`.",
+        "`listConnectionString` is not a standard Bicep storage account function.",
+        "`keys` is not a direct array property on the symbolic resource reference without invoking `listKeys()`."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/outputs"
     }
   },
   {
     "id": 17,
-    "subtopic": "Modify an existing Azure Resource Manager template",
-    "question": "Scenario question 17 regarding Modify an existing Azure Resource Manager template in Automate deployment of resources by using Azure Resource Manager (ARM) templates or Bicep files context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "subtopic": "Deploy resources by using an Azure Resource Manager template or a Bicep file",
+    "question": "You execute a template deployment with Deployment Mode set to 'Complete'. What happens to existing resources in the target resource group that are NOT defined in the template?",
     "options": [
-      "Option A detailing solution for Modify an existing Azure Resource Manager template",
-      "Option B detailing solution for Modify an existing Azure Resource Manager template",
-      "Option C detailing solution for Modify an existing Azure Resource Manager template",
-      "Option D detailing solution for Modify an existing Azure Resource Manager template"
+      "They are permanently deleted from the resource group.",
+      "They are left unchanged and intact.",
+      "They are stopped and decompressed to lower costs.",
+      "They are placed into a read-only lock state."
     ],
-    "correct": 1,
+    "correct": 0,
     "explanation": {
-      "correctReason": "Option B (index 1) correctly resolves the requirement for Modify an existing Azure Resource Manager template by applying the standard Azure architectural recommended configuration.",
+      "correctReason": "In 'Complete' deployment mode, Resource Manager deletes resources that exist in the resource group but are not specified in the template.",
       "incorrectReasons": [
-        "Option A is incorrect because it does not satisfy the requirements for Modify an existing Azure Resource Manager template.",
-        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
-        "Option D is incorrect because it applies an invalid permission scope."
+        "In 'Incremental' mode (default), existing resources not in the template are left unchanged.",
+        "Complete mode deletes resources rather than stopping them.",
+        "Resource locks are not added automatically in Complete mode."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/templates/deployment-modes"
     }
   },
   {
     "id": 18,
-    "subtopic": "Modify an existing Bicep file",
-    "question": "Scenario question 18 regarding Modify an existing Bicep file in Automate deployment of resources by using Azure Resource Manager (ARM) templates or Bicep files context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "subtopic": "Deploy resources by using an Azure Resource Manager template or a Bicep file",
+    "question": "You need to test an ARM template deployment before executing it, ensuring you can review which resources will be created, modified, or deleted without making actual changes. Which tool or feature should you use? (Select TWO)",
     "options": [
-      "Option A detailing solution for Modify an existing Bicep file",
-      "Option B detailing solution for Modify an existing Bicep file",
-      "Option C detailing solution for Modify an existing Bicep file",
-      "Option D detailing solution for Modify an existing Bicep file"
+      "Azure CLI command 'az deployment group what-if'",
+      "Azure PowerShell cmdlet 'Get-AzResourceGroupDeploymentWhatIfResult'",
+      "Azure portal 'Validate' button in the template deployment wizard",
+      "Azure CLI command 'az deployment group validate'",
+      "Azure PowerShell cmdlet 'Test-AzResourceGroupDeployment'"
     ],
-    "correct": 1,
+    "correct": [0, 1],
     "explanation": {
-      "correctReason": "Option B (index 1) correctly resolves the requirement for Modify an existing Bicep file by applying the standard Azure architectural recommended configuration.",
+      "correctReason": "The What-If operation ('az deployment group what-if' / 'Get-AzResourceGroupDeploymentWhatIfResult') provides a predicted change list (creates, modifies, deletes) before running.",
       "incorrectReasons": [
-        "Option A is incorrect because it does not satisfy the requirements for Modify an existing Bicep file.",
-        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
-        "Option D is incorrect because it applies an invalid permission scope."
+        "The Validate button only checks JSON syntax and schema parameters, not predicted state changes.",
+        "'az deployment group validate' checks syntax errors without projecting state modifications.",
+        "'Test-AzResourceGroupDeployment' checks template syntax validity, not actual resource modification previews."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/templates/deploy-what-if"
     }
   },
   {
     "id": 19,
-    "subtopic": "Deploy resources by using an Azure Resource Manager template or a Bicep file",
-    "question": "Scenario question 19 regarding Deploy resources by using an Azure Resource Manager template or a Bicep file in Automate deployment of resources by using Azure Resource Manager (ARM) templates or Bicep files context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "subtopic": "Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file",
+    "question": "When converting an ARM JSON template to a Bicep file using the Bicep CLI decompiler, which statement is TRUE regarding the conversion outcome?",
     "options": [
-      "Option A detailing solution for Deploy resources by using an Azure Resource Manager template or a Bicep file",
-      "Option B detailing solution for Deploy resources by using an Azure Resource Manager template or a Bicep file",
-      "Option C detailing solution for Deploy resources by using an Azure Resource Manager template or a Bicep file",
-      "Option D detailing solution for Deploy resources by using an Azure Resource Manager template or a Bicep file"
+      "The decompilation process is a best-effort copy and may require manual cleanup or adjustments.",
+      "The Bicep CLI guarantees 100% loss-free conversion with zero manual revisions required.",
+      "Existing resource deployments are automatically triggered during decompilation.",
+      "Decompilation automatically deletes the original JSON template file."
     ],
-    "correct": 1,
+    "correct": 0,
     "explanation": {
-      "correctReason": "Option B (index 1) correctly resolves the requirement for Deploy resources by using an Azure Resource Manager template or a Bicep file by applying the standard Azure architectural recommended configuration.",
+      "correctReason": "Decompilation is best-effort. Warnings or errors may appear, requiring manual intervention to fix syntax, variable types, or missing symbolic references.",
       "incorrectReasons": [
-        "Option A is incorrect because it does not satisfy the requirements for Deploy resources by using an Azure Resource Manager template or a Bicep file.",
-        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
-        "Option D is incorrect because it applies an invalid permission scope."
+        "Microsoft explicitly states decompilation is best-effort and does not guarantee flawless execution without manual review.",
+        "Decompilation is a local file translation process and does not interact with live Azure resource deployments.",
+        "The original source JSON file is preserved."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/decompile"
     }
   },
   {
     "id": 20,
     "subtopic": "Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file",
-    "question": "Scenario question 20 regarding Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file in Automate deployment of resources by using Azure Resource Manager (ARM) templates or Bicep files context: Which TWO options must you configure to achieve the target state? (Select TWO)",
+    "question": "You need to export a template for a deployment that failed earlier in the day to analyze why specific resources were not created. Where in the Azure portal should you locate this template?",
     "options": [
-      "First required configuration for Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file",
-      "Incorrect setting option A",
-      "Second required configuration for Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file",
-      "Incorrect setting option B"
+      "Navigate to the Resource Group -> Deployments blade -> select the failed deployment -> click 'Template'.",
+      "Navigate to the Resource Group -> Export Template blade.",
+      "Navigate to Azure Monitor -> Activity Log -> filter by Failed -> click 'Export Template'.",
+      "Navigate to Azure Advisor -> Operational Excellence -> select 'Download Failed ARM'."
     ],
-    "correct": [
-      0,
-      2
-    ],
+    "correct": 0,
     "explanation": {
-      "correctReason": "Options A (index 0) and C (index 2) are correct because both actions are necessary steps to configure Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file.",
+      "correctReason": "Every deployment operation records its submission in the 'Deployments' blade of the resource group, where you can inspect the exact input template and parameters used.",
       "incorrectReasons": [
-        "Option B is incorrect because this setting is unsupported for this scenario.",
-        "Option D is incorrect as it applies to a different resource scope."
+        "'Export Template' at the Resource Group level exports the current deployed state, not the historical deployment template that failed.",
+        "Activity Log shows events and error messages, but does not provide the full original JSON template export.",
+        "Azure Advisor provides best practices recommendations, not deployment history templates."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/templates/export-template-portal#export-template-from-history"
     }
   },
   {
     "id": 21,
     "subtopic": "Interpret an Azure Resource Manager template or a Bicep file",
-    "question": "Scenario question 21 regarding Interpret an Azure Resource Manager template or a Bicep file in Automate deployment of resources by using Azure Resource Manager (ARM) templates or Bicep files context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "question": "You are reviewing an ARM template parameter definition:\n\n\"skuName\": {\n  \"type\": \"string\",
+  \"defaultValue\": \"Standard_LRS\",\n  \"allowedValues\": [\n    \"Standard_LRS\",\n    \"Standard_GRS\",\n    \"Premium_LRS\"\n  ]\n}\n\nWhat happens if a user deploys this template without providing a 'skuName' parameter value?",
     "options": [
-      "Option A detailing solution for Interpret an Azure Resource Manager template or a Bicep file",
-      "Option B detailing solution for Interpret an Azure Resource Manager template or a Bicep file",
-      "Option C detailing solution for Interpret an Azure Resource Manager template or a Bicep file",
-      "Option D detailing solution for Interpret an Azure Resource Manager template or a Bicep file"
+      "The deployment succeeds and creates the resource using 'Standard_LRS'.",
+      "The deployment fails with a missing parameter validation error.",
+      "The deployment prompts the user interactively to select an option from allowedValues.",
+      "The deployment defaults to 'Premium_LRS' as the highest performance option."
     ],
-    "correct": 1,
+    "correct": 0,
     "explanation": {
-      "correctReason": "Option B (index 1) correctly resolves the requirement for Interpret an Azure Resource Manager template or a Bicep file by applying the standard Azure architectural recommended configuration.",
+      "correctReason": "Because a 'defaultValue' is explicitly configured ('Standard_LRS'), ARM uses this value automatically when no parameter is supplied.",
       "incorrectReasons": [
-        "Option A is incorrect because it does not satisfy the requirements for Interpret an Azure Resource Manager template or a Bicep file.",
-        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
-        "Option D is incorrect because it applies an invalid permission scope."
+        "Default value prevents missing parameter errors.",
+        "ARM engine does not pause headless deployments to prompt interactively if a default value exists.",
+        "The defaultValue is explicitly Standard_LRS, not Premium_LRS."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/templates/syntax-parameters"
     }
   },
   {
     "id": 22,
-    "subtopic": "Modify an existing Azure Resource Manager template",
-    "question": "Scenario question 22 regarding Modify an existing Azure Resource Manager template in Automate deployment of resources by using Azure Resource Manager (ARM) templates or Bicep files context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "subtopic": "Interpret an Azure Resource Manager template or a Bicep file",
+    "question": "In a Bicep module file, you see the following line of code:\n\nparam location string = resourceGroup().location\n\nWhat is the outcome of this parameter definition?",
     "options": [
-      "Option A detailing solution for Modify an existing Azure Resource Manager template",
-      "Option B detailing solution for Modify an existing Azure Resource Manager template",
-      "Option C detailing solution for Modify an existing Azure Resource Manager template",
-      "Option D detailing solution for Modify an existing Azure Resource Manager template"
+      "It sets the default value of the location parameter to match the target resource group's geographical region.",
+      "It restricts deployment of resources exclusively to the subscription home location.",
+      "It requires the deployment user to pass the location string explicitly during runtime.",
+      "It automatically moves existing resources to the new location."
     ],
-    "correct": 1,
+    "correct": 0,
     "explanation": {
-      "correctReason": "Option B (index 1) correctly resolves the requirement for Modify an existing Azure Resource Manager template by applying the standard Azure architectural recommended configuration.",
+      "correctReason": "`resourceGroup().location` retrieves the target resource group's location property and uses it as the default value if none is passed.",
       "incorrectReasons": [
-        "Option A is incorrect because it does not satisfy the requirements for Modify an existing Azure Resource Manager template.",
-        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
-        "Option D is incorrect because it applies an invalid permission scope."
+        "It uses the target resource group location, not subscription home location.",
+        "Because a default value is provided, explicit input is optional.",
+        "Resource location settings do not move existing deployed resources."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/bicep-functions-resource#resourcegroup"
     }
   },
   {
     "id": 23,
-    "subtopic": "Modify an existing Bicep file",
-    "question": "Scenario question 23 regarding Modify an existing Bicep file in Automate deployment of resources by using Azure Resource Manager (ARM) templates or Bicep files context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "subtopic": "Modify an existing Azure Resource Manager template",
+    "question": "You are editing an ARM template that provisions multiple Virtual Networks. You want to iterate over an array parameter 'vnetList' to deploy each network. Which element must you add to the Virtual Network resource definition?",
     "options": [
-      "Option A detailing solution for Modify an existing Bicep file",
-      "Option B detailing solution for Modify an existing Bicep file",
-      "Option C detailing solution for Modify an existing Bicep file",
-      "Option D detailing solution for Modify an existing Bicep file"
+      "\"copy\": { \"name\": \"vnetCopy\", \"count\": \"[length(parameters('vnetList'))]\" }",
+      "\"foreach\": { \"in\": \"[parameters('vnetList')]\" }",
+      "\"repeat\": { \"times\": \"[length(parameters('vnetList'))]\" }",
+      "\"iterator\": { \"array\": \"parameters('vnetList')\" }"
     ],
-    "correct": 1,
+    "correct": 0,
     "explanation": {
-      "correctReason": "Option B (index 1) correctly resolves the requirement for Modify an existing Bicep file by applying the standard Azure architectural recommended configuration.",
+      "correctReason": "In ARM JSON templates, resource iteration is implemented using the 'copy' object with 'name' and 'count' properties.",
       "incorrectReasons": [
-        "Option A is incorrect because it does not satisfy the requirements for Modify an existing Bicep file.",
-        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
-        "Option D is incorrect because it applies an invalid permission scope."
+        "'foreach' is not valid ARM JSON template syntax for resource loops.",
+        "'repeat' is not valid ARM syntax.",
+        "'iterator' is not valid ARM syntax."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/templates/copy-resources"
     }
   },
   {
     "id": 24,
-    "subtopic": "Deploy resources by using an Azure Resource Manager template or a Bicep file",
-    "question": "Scenario question 24 regarding Deploy resources by using an Azure Resource Manager template or a Bicep file in Automate deployment of resources by using Azure Resource Manager (ARM) templates or Bicep files context: Which TWO options must you configure to achieve the target state? (Select TWO)",
+    "subtopic": "Modify an existing Azure Resource Manager template",
+    "question": "You need to add outputs to an ARM template that provisions a Virtual Machine. The output must return the private IP address of the VM's primary Network Interface. Which ARM expression syntax should you use in the outputs section?",
     "options": [
-      "First required configuration for Deploy resources by using an Azure Resource Manager template or a Bicep file",
-      "Incorrect setting option A",
-      "Second required configuration for Deploy resources by using an Azure Resource Manager template or a Bicep file",
-      "Incorrect setting option B"
+      "\"[reference(resourceId('Microsoft.Network/networkInterfaces', parameters('nicName'))).ipConfigurations[0].properties.privateIPAddress]\"",
+      "\"[getPrivateIp(parameters('nicName'))]\"",
+      "\"[variables('nicName').privateIPAddress]\"",
+      "\"[parameters('nicName').properties.ipConfigurations.privateIP]\""
     ],
-    "correct": [
-      0,
-      2
-    ],
+    "correct": 0,
     "explanation": {
-      "correctReason": "Options A (index 0) and C (index 2) are correct because both actions are necessary steps to configure Deploy resources by using an Azure Resource Manager template or a Bicep file.",
+      "correctReason": "The `reference()` function combined with `resourceId()` evaluates runtime state properties, such as IP configuration properties on network interfaces.",
       "incorrectReasons": [
-        "Option B is incorrect because this setting is unsupported for this scenario.",
-        "Option D is incorrect as it applies to a different resource scope."
+        "`getPrivateIp` is not a built-in ARM template function.",
+        "Variables hold static definitions, not runtime resource state properties.",
+        "Parameters hold input parameters, not runtime properties emitted by deployed resources."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/templates/template-functions-resource#reference"
     }
   },
   {
     "id": 25,
-    "subtopic": "Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file",
-    "question": "Scenario question 25 regarding Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file in Automate deployment of resources by using Azure Resource Manager (ARM) templates or Bicep files context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "subtopic": "Modify an existing Bicep file",
+    "question": "You are modularizing Bicep code. You need to call a child Bicep file named 'storageModule.bicep' from a parent Bicep file 'main.bicep'. Which syntax should you use in 'main.bicep'?",
     "options": [
-      "Option A detailing solution for Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file",
-      "Option B detailing solution for Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file",
-      "Option C detailing solution for Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file",
-      "Option D detailing solution for Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file"
+      "module stgModule 'storageModule.bicep' = { name: 'stgDeploy', params: { ... } }",
+      "resource stgModule 'storageModule.bicep' = { name: 'stgDeploy', properties: { ... } }",
+      "import stgModule from 'storageModule.bicep' with { params: { ... } }",
+      "include 'storageModule.bicep' as stgModule"
     ],
-    "correct": 1,
+    "correct": 0,
     "explanation": {
-      "correctReason": "Option B (index 1) correctly resolves the requirement for Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file by applying the standard Azure architectural recommended configuration.",
+      "correctReason": "In Bicep, external Bicep files are included as modules using the `module <symbolic-name> '<path>' = { ... }` syntax.",
       "incorrectReasons": [
-        "Option A is incorrect because it does not satisfy the requirements for Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file.",
-        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
-        "Option D is incorrect because it applies an invalid permission scope."
+        "The `resource` keyword is used for Azure resource declarations, not Bicep modules.",
+        "`import` is used for compile-time imports or extensibility providers, not module instantiation.",
+        "`include` is not a valid Bicep keyword."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/modules"
     }
   },
   {
     "id": 26,
-    "subtopic": "Interpret an Azure Resource Manager template or a Bicep file",
-    "question": "Scenario question 26 regarding Interpret an Azure Resource Manager template or a Bicep file in Automate deployment of resources by using Azure Resource Manager (ARM) templates or Bicep files context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "subtopic": "Modify an existing Bicep file",
+    "question": "You need to assign managed identity to a Virtual Machine resource block in Bicep. Which code snippet correctly configures a SystemAssigned identity?",
     "options": [
-      "Option A detailing solution for Interpret an Azure Resource Manager template or a Bicep file",
-      "Option B detailing solution for Interpret an Azure Resource Manager template or a Bicep file",
-      "Option C detailing solution for Interpret an Azure Resource Manager template or a Bicep file",
-      "Option D detailing solution for Interpret an Azure Resource Manager template or a Bicep file"
+      "identity: {\n  type: 'SystemAssigned'\n}",
+      "identity: {\n  mode: 'Automatic'\n}",
+      "managedIdentity: {\n  systemAssigned: true\n}",
+      "identity: 'SystemAssigned'"
     ],
-    "correct": 1,
+    "correct": 0,
     "explanation": {
-      "correctReason": "Option B (index 1) correctly resolves the requirement for Interpret an Azure Resource Manager template or a Bicep file by applying the standard Azure architectural recommended configuration.",
+      "correctReason": "Azure resources configure managed identity using the `identity` object containing `type: 'SystemAssigned'`.",
       "incorrectReasons": [
-        "Option A is incorrect because it does not satisfy the requirements for Interpret an Azure Resource Manager template or a Bicep file.",
-        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
-        "Option D is incorrect because it applies an invalid permission scope."
+        "`mode: 'Automatic'` is not valid syntax for identity configuration.",
+        "`managedIdentity` is not the top-level ARM property name for identity assignment.",
+        "`identity` requires an object dictionary structure, not a plain string value."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/"
+      "reference": "https://learn.microsoft.com/en-us/azure/templates/microsoft.compute/virtualmachines"
     }
   },
   {
     "id": 27,
-    "subtopic": "Modify an existing Azure Resource Manager template",
-    "question": "Scenario question 27 regarding Modify an existing Azure Resource Manager template in Automate deployment of resources by using Azure Resource Manager (ARM) templates or Bicep files context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "subtopic": "Deploy resources by using an Azure Resource Manager template or a Bicep file",
+    "question": "You need to pass parameters to an ARM deployment using an Azure CLI command. You have a parameter file named 'azuredeploy.parameters.json'. Which argument should you add to 'az deployment group create'?",
     "options": [
-      "Option A detailing solution for Modify an existing Azure Resource Manager template",
-      "Option B detailing solution for Modify an existing Azure Resource Manager template",
-      "Option C detailing solution for Modify an existing Azure Resource Manager template",
-      "Option D detailing solution for Modify an existing Azure Resource Manager template"
+      "--parameters @azuredeploy.parameters.json",
+      "--parameter-file azuredeploy.parameters.json",
+      "--vars azuredeploy.parameters.json",
+      "--inputs @azuredeploy.parameters.json"
     ],
-    "correct": 1,
+    "correct": 0,
     "explanation": {
-      "correctReason": "Option B (index 1) correctly resolves the requirement for Modify an existing Azure Resource Manager template by applying the standard Azure architectural recommended configuration.",
+      "correctReason": "In Azure CLI, the `--parameters` argument accepts file paths prefixed with `@` (e.g., `@azuredeploy.parameters.json`) or inline key-value pairs.",
       "incorrectReasons": [
-        "Option A is incorrect because it does not satisfy the requirements for Modify an existing Azure Resource Manager template.",
-        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
-        "Option D is incorrect because it applies an invalid permission scope."
+        "`--parameter-file` is not the standard Azure CLI flag name.",
+        "`--vars` is not a valid flag for ARM/Bicep deployments in Azure CLI.",
+        "`--inputs` is not a valid parameter flag."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/templates/deploy-cli#parameter-files"
     }
   },
   {
     "id": 28,
-    "subtopic": "Modify an existing Bicep file",
-    "question": "Scenario question 28 regarding Modify an existing Bicep file in Automate deployment of resources by using Azure Resource Manager (ARM) templates or Bicep files context: Which TWO options must you configure to achieve the target state? (Select TWO)",
+    "subtopic": "Deploy resources by using an Azure Resource Manager template or a Bicep file",
+    "question": "You are deploying a Bicep file using Azure PowerShell. You want to pass parameter values directly inline without creating a parameter file. Which three parameters can you pass directly to 'New-AzResourceGroupDeployment'? (Select THREE)",
     "options": [
-      "First required configuration for Modify an existing Bicep file",
-      "Incorrect setting option A",
-      "Second required configuration for Modify an existing Bicep file",
-      "Incorrect setting option B"
+      "-TemplateFile",
+      "-ResourceGroupName",
+      "-TemplateParameterObject",
+      "-DeploymentDebugLogLevel",
+      "-ConfigurationPath"
     ],
-    "correct": [
-      0,
-      2
-    ],
+    "correct": [0, 1, 2],
     "explanation": {
-      "correctReason": "Options A (index 0) and C (index 2) are correct because both actions are necessary steps to configure Modify an existing Bicep file.",
+      "correctReason": "`New-AzResourceGroupDeployment` uses `-TemplateFile` for the template path, `-ResourceGroupName` for the destination RG, and `-TemplateParameterObject` (or dynamic parameters) to supply parameter values inline as a hashtable.",
       "incorrectReasons": [
-        "Option B is incorrect because this setting is unsupported for this scenario.",
-        "Option D is incorrect as it applies to a different resource scope."
+        "`-DeploymentDebugLogLevel` is not a standard cmdlet parameter for supplying inline values.",
+        "`-ConfigurationPath` is not a parameter for Azure deployment cmdlets."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/deploy-powershell"
     }
   },
   {
     "id": 29,
-    "subtopic": "Deploy resources by using an Azure Resource Manager template or a Bicep file",
-    "question": "Scenario question 29 regarding Deploy resources by using an Azure Resource Manager template or a Bicep file in Automate deployment of resources by using Azure Resource Manager (ARM) templates or Bicep files context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "subtopic": "Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file",
+    "question": "You export a resource group containing a Virtual Machine to an ARM template. Which of the following elements will NOT be included in the exported template?",
     "options": [
-      "Option A detailing solution for Deploy resources by using an Azure Resource Manager template or a Bicep file",
-      "Option B detailing solution for Deploy resources by using an Azure Resource Manager template or a Bicep file",
-      "Option C detailing solution for Deploy resources by using an Azure Resource Manager template or a Bicep file",
-      "Option D detailing solution for Deploy resources by using an Azure Resource Manager template or a Bicep file"
+      "Virtual Machine administrator passwords",
+      "Network Interface IP configurations",
+      "Virtual Network address spaces",
+      "Storage Account Sku names"
     ],
-    "correct": 1,
+    "correct": 0,
     "explanation": {
-      "correctReason": "Option B (index 1) correctly resolves the requirement for Deploy resources by using an Azure Resource Manager template or a Bicep file by applying the standard Azure architectural recommended configuration.",
+      "correctReason": "For security reasons, sensitive data such as administrator passwords, secrets, or keys are omitted when exporting ARM templates from existing Azure resources.",
       "incorrectReasons": [
-        "Option A is incorrect because it does not satisfy the requirements for Deploy resources by using an Azure Resource Manager template or a Bicep file.",
-        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
-        "Option D is incorrect because it applies an invalid permission scope."
+        "Network Interface configurations are structural infrastructure details and are included.",
+        "Virtual network address spaces are exported.",
+        "Storage Account SKUs are non-sensitive configuration parameters and are included."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/templates/export-template-portal#limitations"
     }
   },
   {
     "id": 30,
     "subtopic": "Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file",
-    "question": "Scenario question 30 regarding Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file in Automate deployment of resources by using Azure Resource Manager (ARM) templates or Bicep files context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "question": "You convert an ARM template containing a nested deployment module into Bicep. How does Bicep represent nested resource templates?",
     "options": [
-      "Option A detailing solution for Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file",
-      "Option B detailing solution for Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file",
-      "Option C detailing solution for Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file",
-      "Option D detailing solution for Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file"
+      "As Bicep modules or nested module blocks",
+      "As inline JavaScript objects",
+      "As external JSON parameters",
+      "As custom extension scripts"
     ],
-    "correct": 1,
+    "correct": 0,
     "explanation": {
-      "correctReason": "Option B (index 1) correctly resolves the requirement for Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file by applying the standard Azure architectural recommended configuration.",
+      "correctReason": "ARM template nested deployments are decompiled into Bicep module definitions (using the `module` keyword).",
       "incorrectReasons": [
-        "Option A is incorrect because it does not satisfy the requirements for Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file.",
-        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
-        "Option D is incorrect because it applies an invalid permission scope."
+        "Bicep does not convert templates into inline JavaScript objects.",
+        "Nested resources become modular Bicep code, not external parameter objects.",
+        "Custom scripts are compute extensions, not template structures."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/decompile"
     }
   },
   {
     "id": 31,
     "subtopic": "Interpret an Azure Resource Manager template or a Bicep file",
-    "question": "Scenario question 31 regarding Interpret an Azure Resource Manager template or a Bicep file in Automate deployment of resources by using Azure Resource Manager (ARM) templates or Bicep files context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "question": "In an ARM template, you see a section named 'variables'. Which statement accurately describes ARM variables?",
     "options": [
-      "Option A detailing solution for Interpret an Azure Resource Manager template or a Bicep file",
-      "Option B detailing solution for Interpret an Azure Resource Manager template or a Bicep file",
-      "Option C detailing solution for Interpret an Azure Resource Manager template or a Bicep file",
-      "Option D detailing solution for Interpret an Azure Resource Manager template or a Bicep file"
+      "Variables are constructed values within the template to simplify template expression reuse.",
+      "Variables must be supplied by the user during command-line deployment execution.",
+      "Variables store outputs returned from external Key Vault services dynamically at runtime.",
+      "Variables are public endpoints exposed to other resource groups."
     ],
-    "correct": 1,
+    "correct": 0,
     "explanation": {
-      "correctReason": "Option B (index 1) correctly resolves the requirement for Interpret an Azure Resource Manager template or a Bicep file by applying the standard Azure architectural recommended configuration.",
+      "correctReason": "Variables store values constructed within the template itself to reduce repetitive complex expressions across resource definitions.",
       "incorrectReasons": [
-        "Option A is incorrect because it does not satisfy the requirements for Interpret an Azure Resource Manager template or a Bicep file.",
-        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
-        "Option D is incorrect because it applies an invalid permission scope."
+        "Parameters are passed by the user, not variables.",
+        "Key Vault secrets are referenced via secure parameters, not standard template variables directly.",
+        "Outputs expose values, not variables."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/templates/syntax-variables"
     }
   },
   {
     "id": 32,
-    "subtopic": "Modify an existing Azure Resource Manager template",
-    "question": "Scenario question 32 regarding Modify an existing Azure Resource Manager template in Automate deployment of resources by using Azure Resource Manager (ARM) templates or Bicep files context: Which TWO options must you configure to achieve the target state? (Select TWO)",
+    "subtopic": "Interpret an Azure Resource Manager template or a Bicep file",
+    "question": "You examine the following Bicep code:\n\ntargetScope = 'subscription'\n\nresource rg 'Microsoft.Resources/resourceGroups@2021-04-01' = {\n  name: 'rg-hub-prod'\n  location: 'eastus'\n}\n\nWhat is the target deployment scope of this Bicep file?",
     "options": [
-      "First required configuration for Modify an existing Azure Resource Manager template",
-      "Incorrect setting option A",
-      "Second required configuration for Modify an existing Azure Resource Manager template",
-      "Incorrect setting option B"
+      "Subscription level",
+      "Resource Group level",
+      "Management Group level",
+      "Tenant level"
     ],
-    "correct": [
-      0,
-      2
-    ],
+    "correct": 0,
     "explanation": {
-      "correctReason": "Options A (index 0) and C (index 2) are correct because both actions are necessary steps to configure Modify an existing Azure Resource Manager template.",
+      "correctReason": "The statement `targetScope = 'subscription'` sets the deployment scope to the Subscription level, enabling creation of resource groups.",
       "incorrectReasons": [
-        "Option B is incorrect because this setting is unsupported for this scenario.",
-        "Option D is incorrect as it applies to a different resource scope."
+        "Resource group level is the default scope when targetScope is omitted.",
+        "Management Group level scope is explicitly set via `targetScope = 'managementGroup'`.",
+        "Tenant level scope is explicitly set via `targetScope = 'tenant'`."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/deploy-to-subscription"
     }
   },
   {
     "id": 33,
-    "subtopic": "Modify an existing Bicep file",
-    "question": "Scenario question 33 regarding Modify an existing Bicep file in Automate deployment of resources by using Azure Resource Manager (ARM) templates or Bicep files context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "subtopic": "Modify an existing Azure Resource Manager template",
+    "question": "You are modifying an existing ARM template. You need to assign tags to a Virtual Machine resource. Which JSON snippet correctly applies a tag named 'CostCenter' with value '10045'?",
     "options": [
-      "Option A detailing solution for Modify an existing Bicep file",
-      "Option B detailing solution for Modify an existing Bicep file",
-      "Option C detailing solution for Modify an existing Bicep file",
-      "Option D detailing solution for Modify an existing Bicep file"
+      "\"tags\": {\n  \"CostCenter\": \"10045\"\n}",
+      "\"tags\": [\n  { \"key\": \"CostCenter\", \"value\": \"10045\" }\n]",
+      "\"tags\": \"CostCenter=10045\"",
+      "\"metadata\": {\n  \"tags\": { \"CostCenter\": \"10045\" }\n}"
     ],
-    "correct": 1,
+    "correct": 0,
     "explanation": {
-      "correctReason": "Option B (index 1) correctly resolves the requirement for Modify an existing Bicep file by applying the standard Azure architectural recommended configuration.",
+      "correctReason": "Tags in Azure ARM templates are defined as key-value string pairs inside a JSON object: `\"tags\": { \"Key\": \"Value\" }`.",
       "incorrectReasons": [
-        "Option A is incorrect because it does not satisfy the requirements for Modify an existing Bicep file.",
-        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
-        "Option D is incorrect because it applies an invalid permission scope."
+        "Tags are key-value JSON objects, not arrays of key-value objects.",
+        "Tags cannot be passed as a raw unparsed string statement.",
+        "Tags are declared under the resource's top-level `tags` property, not under `metadata`."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/templates/template-syntax"
     }
   },
   {
     "id": 34,
-    "subtopic": "Deploy resources by using an Azure Resource Manager template or a Bicep file",
-    "question": "Scenario question 34 regarding Deploy resources by using an Azure Resource Manager template or a Bicep file in Automate deployment of resources by using Azure Resource Manager (ARM) templates or Bicep files context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "subtopic": "Modify an existing Azure Resource Manager template",
+    "question": "You need to update an ARM template to conditionally create a Storage Account based on a parameter named 'createStorage' (boolean). Which property must you add to the storage account resource block?",
     "options": [
-      "Option A detailing solution for Deploy resources by using an Azure Resource Manager template or a Bicep file",
-      "Option B detailing solution for Deploy resources by using an Azure Resource Manager template or a Bicep file",
-      "Option C detailing solution for Deploy resources by using an Azure Resource Manager template or a Bicep file",
-      "Option D detailing solution for Deploy resources by using an Azure Resource Manager template or a Bicep file"
+      "\"condition\": \"[parameters('createStorage')]\"",
+      "\"if\": \"[parameters('createStorage')]\"",
+      "\"enabled\": \"[parameters('createStorage')]\"",
+      "\"deploy\": \"[parameters('createStorage')]\""
     ],
-    "correct": 1,
+    "correct": 0,
     "explanation": {
-      "correctReason": "Option B (index 1) correctly resolves the requirement for Deploy resources by using an Azure Resource Manager template or a Bicep file by applying the standard Azure architectural recommended configuration.",
+      "correctReason": "In ARM JSON templates, the `\"condition\"` property evaluates a boolean statement to determine whether the resource should be deployed.",
       "incorrectReasons": [
-        "Option A is incorrect because it does not satisfy the requirements for Deploy resources by using an Azure Resource Manager template or a Bicep file.",
-        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
-        "Option D is incorrect because it applies an invalid permission scope."
+        "`if` is Bicep syntax, not ARM JSON resource syntax.",
+        "`enabled` is not a standard ARM resource level deployment flag.",
+        "`deploy` is not a valid ARM template property."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/templates/conditional-resource-deployment"
     }
   },
   {
     "id": 35,
-    "subtopic": "Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file",
-    "question": "Scenario question 35 regarding Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file in Automate deployment of resources by using Azure Resource Manager (ARM) templates or Bicep files context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "subtopic": "Modify an existing Bicep file",
+    "question": "You need to update a Bicep file to ensure that a key vault secret is populated with the primary key of a deployed storage account. Which Bicep resource block correctly provisions the Key Vault Secret?",
     "options": [
-      "Option A detailing solution for Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file",
-      "Option B detailing solution for Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file",
-      "Option C detailing solution for Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file",
-      "Option D detailing solution for Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file"
+      "resource secret 'Microsoft.KeyVault/vaults/secrets@2023-02-01' = {\n  name: '${kv.name}/stgKey'\n  properties: {\n    value: stg.listKeys().keys[0].value\n  }\n}",
+      "resource secret 'Microsoft.KeyVault/secrets@2023-02-01' = {\n  name: 'stgKey'\n  value: stg.keys[0]\n}",
+      "resource secret 'Microsoft.KeyVault/vaults/secrets@2023-02-01' = {\n  parent: kv\n  name: 'stgKey'\n  secretValue: stg.properties.primaryKey\n}",
+      "resource secret 'Microsoft.KeyVault/vaults/secrets@2023-02-01' = {\n  name: 'stgKey'\n  vaultName: kv.name\n  properties: {\n    value: stg.key\n  }\n}"
     ],
-    "correct": 1,
+    "correct": 0,
     "explanation": {
-      "correctReason": "Option B (index 1) correctly resolves the requirement for Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file by applying the standard Azure architectural recommended configuration.",
+      "correctReason": "Key Vault secret resources are formatted with type 'Microsoft.KeyVault/vaults/secrets' and name format 'vaultName/secretName', setting `properties.value` via `stg.listKeys().keys[0].value`.",
       "incorrectReasons": [
-        "Option A is incorrect because it does not satisfy the requirements for Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file.",
-        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
-        "Option D is incorrect because it applies an invalid permission scope."
+        "'Microsoft.KeyVault/secrets' is an invalid resource type without parent vault context.",
+        "`stg.properties.primaryKey` is not a valid ARM/Bicep property path.",
+        "`vaultName` is not a valid ARM resource property under child secret declaration."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/"
+      "reference": "https://learn.microsoft.com/en-us/azure/templates/microsoft.keyvault/vaults/secrets"
     }
   },
   {
     "id": 36,
-    "subtopic": "Interpret an Azure Resource Manager template or a Bicep file",
-    "question": "Scenario question 36 regarding Interpret an Azure Resource Manager template or a Bicep file in Automate deployment of resources by using Azure Resource Manager (ARM) templates or Bicep files context: Which TWO options must you configure to achieve the target state? (Select TWO)",
+    "subtopic": "Modify an existing Bicep file",
+    "question": "You are modifying a Bicep template. You want to enforce that a parameter named 'appTier' can only accept values with a minimum length of 3 and a maximum length of 10 characters. Which two decorators should you apply? (Select TWO)",
     "options": [
-      "First required configuration for Interpret an Azure Resource Manager template or a Bicep file",
-      "Incorrect setting option A",
-      "Second required configuration for Interpret an Azure Resource Manager template or a Bicep file",
-      "Incorrect setting option B"
+      "@minLength(3)",
+      "@maxLength(10)",
+      "@length(3, 10)",
+      "@sizeRange(3, 10)",
+      "@validateLength(3, 10)"
     ],
-    "correct": [
-      0,
-      2
-    ],
+    "correct": [0, 1],
     "explanation": {
-      "correctReason": "Options A (index 0) and C (index 2) are correct because both actions are necessary steps to configure Interpret an Azure Resource Manager template or a Bicep file.",
+      "correctReason": "Bicep provides explicit decorators `@minLength(int)` and `@maxLength(int)` to validate string or array parameter lengths.",
       "incorrectReasons": [
-        "Option B is incorrect because this setting is unsupported for this scenario.",
-        "Option D is incorrect as it applies to a different resource scope."
+        "`@length(3, 10)` is not a valid Bicep decorator syntax.",
+        "`@sizeRange` is not a valid Bicep decorator.",
+        "`@validateLength` is not a valid Bicep decorator."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/parameters#length-constraints"
     }
   },
   {
     "id": 37,
-    "subtopic": "Modify an existing Azure Resource Manager template",
-    "question": "Scenario question 37 regarding Modify an existing Azure Resource Manager template in Automate deployment of resources by using Azure Resource Manager (ARM) templates or Bicep files context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "subtopic": "Deploy resources by using an Azure Resource Manager template or a Bicep file",
+    "question": "You need to deploy resources across two different resource groups using a single parent Bicep template deployment. How should you structure your Bicep code?",
     "options": [
-      "Option A detailing solution for Modify an existing Azure Resource Manager template",
-      "Option B detailing solution for Modify an existing Azure Resource Manager template",
-      "Option C detailing solution for Modify an existing Azure Resource Manager template",
-      "Option D detailing solution for Modify an existing Azure Resource Manager template"
+      "Use Bicep modules and specify the 'scope' property on each module pointing to its respective resource group.",
+      "Specify multiple resource groups in the targetScope header: targetScope = ['rg1', 'rg2'].",
+      "Use the 'dependsOn' property with the resource group ID on each resource block.",
+      "Deploy the Bicep template twice using Incremental deployment mode."
     ],
-    "correct": 1,
+    "correct": 0,
     "explanation": {
-      "correctReason": "Option B (index 1) correctly resolves the requirement for Modify an existing Azure Resource Manager template by applying the standard Azure architectural recommended configuration.",
+      "correctReason": "Multi-resource group deployments in Bicep are achieved by calling Bicep modules and setting the `scope: resourceGroup(rgName)` property on each module.",
       "incorrectReasons": [
-        "Option A is incorrect because it does not satisfy the requirements for Modify an existing Azure Resource Manager template.",
-        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
-        "Option D is incorrect because it applies an invalid permission scope."
+        "targetScope accepts only single scope values like 'subscription', 'resourceGroup', etc., not arrays.",
+        "dependsOn manages deployment order, not target deployment scope.",
+        "Deploying twice requires maintaining two separate operational executions rather than a single template deployment."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/modules#module-scope"
     }
   },
   {
     "id": 38,
-    "subtopic": "Modify an existing Bicep file",
-    "question": "Scenario question 38 regarding Modify an existing Bicep file in Automate deployment of resources by using Azure Resource Manager (ARM) templates or Bicep files context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "subtopic": "Deploy resources by using an Azure Resource Manager template or a Bicep file",
+    "question": "You run the following Azure CLI command to deploy a Bicep file:\n\naz deployment group create \\\n  --resource-group rg-prod \\\n  --template-file main.bicep \\\n  --parameters adminUsername='azureuser' adminPassword='SecretPassword123!'\n\nWhat is a security vulnerability associated with this command?",
     "options": [
-      "Option A detailing solution for Modify an existing Bicep file",
-      "Option B detailing solution for Modify an existing Bicep file",
-      "Option C detailing solution for Modify an existing Bicep file",
-      "Option D detailing solution for Modify an existing Bicep file"
+      "The admin password is sent as plain text in the command line and recorded in CLI execution history.",
+      "Azure CLI converts Bicep files to unencrypted plain text ARM templates in public Storage Accounts.",
+      "The command fails because inline parameters cannot process password characters.",
+      "The deployment defaults to Complete mode and deletes unreferenced resources in rg-prod."
     ],
-    "correct": 1,
+    "correct": 0,
     "explanation": {
-      "correctReason": "Option B (index 1) correctly resolves the requirement for Modify an existing Bicep file by applying the standard Azure architectural recommended configuration.",
+      "correctReason": "Passing passwords directly on the command line exposes them in process trees, shell command history logs, and system audit logs.",
       "incorrectReasons": [
-        "Option A is incorrect because it does not satisfy the requirements for Modify an existing Bicep file.",
-        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
-        "Option D is incorrect because it applies an invalid permission scope."
+        "Azure CLI does not upload templates to public storage accounts during standard CLI group creation.",
+        "Inline CLI flags process passwords fine syntactically, but present security risks.",
+        "Default deployment mode is Incremental, not Complete."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/templates/key-vault-parameter"
     }
   },
   {
     "id": 39,
-    "subtopic": "Deploy resources by using an Azure Resource Manager template or a Bicep file",
-    "question": "Scenario question 39 regarding Deploy resources by using an Azure Resource Manager template or a Bicep file in Automate deployment of resources by using Azure Resource Manager (ARM) templates or Bicep files context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "subtopic": "Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file",
+    "question": "You need to convert an ARM template parameter defined as:\n\n\"dbPassword\": {\n  \"type\": \"securestring\"\n}\n\ninto Bicep. Which Bicep syntax correctly represents this parameter?",
     "options": [
-      "Option A detailing solution for Deploy resources by using an Azure Resource Manager template or a Bicep file",
-      "Option B detailing solution for Deploy resources by using an Azure Resource Manager template or a Bicep file",
-      "Option C detailing solution for Deploy resources by using an Azure Resource Manager template or a Bicep file",
-      "Option D detailing solution for Deploy resources by using an Azure Resource Manager template or a Bicep file"
+      "@secure()\nparam dbPassword string",
+      "param dbPassword securestring",
+      "@type('securestring')\nparam dbPassword string",
+      "param dbPassword string = secure()"
     ],
-    "correct": 1,
+    "correct": 0,
     "explanation": {
-      "correctReason": "Option B (index 1) correctly resolves the requirement for Deploy resources by using an Azure Resource Manager template or a Bicep file by applying the standard Azure architectural recommended configuration.",
+      "correctReason": "In Bicep, secure strings use the `@secure()` decorator placed above standard `param <name> string` declarations.",
       "incorrectReasons": [
-        "Option A is incorrect because it does not satisfy the requirements for Deploy resources by using an Azure Resource Manager template or a Bicep file.",
-        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
-        "Option D is incorrect because it applies an invalid permission scope."
+        "Bicep data types are `string`, `int`, `bool`, `object`, `array`; `securestring` is not a primitive Bicep type keyword.",
+        "`@type('securestring')` is not valid Bicep syntax.",
+        "`secure()` is a decorator, not an assignment function."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/parameters#secure-parameters"
     }
   },
   {
     "id": 40,
     "subtopic": "Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file",
-    "question": "Scenario question 40 regarding Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file in Automate deployment of resources by using Azure Resource Manager (ARM) templates or Bicep files context: Which TWO options must you configure to achieve the target state? (Select TWO)",
+    "question": "You use Azure PowerShell to export an existing resource group 'rg-data' to an ARM template. Which cmdlet should you execute?",
     "options": [
-      "First required configuration for Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file",
-      "Incorrect setting option A",
-      "Second required configuration for Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file",
-      "Incorrect setting option B"
+      "Export-AzResourceGroup -ResourceGroupName 'rg-data' -Path 'C:\\Templates\\exported.json'",
+      "Save-AzResourceGroupTemplate -Name 'rg-data' -OutFile 'C:\\Templates\\exported.json'",
+      "Get-AzResourceGroup -Name 'rg-data' | Export-JsonTemplate",
+      "New-AzResourceGroupExport -ResourceGroup 'rg-data' -Path 'C:\\Templates\\exported.json'"
     ],
-    "correct": [
-      0,
-      2
-    ],
+    "correct": 0,
     "explanation": {
-      "correctReason": "Options A (index 0) and C (index 2) are correct because both actions are necessary steps to configure Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file.",
+      "correctReason": "`Export-AzResourceGroup` captures the specified resource group state and exports it to a JSON template file.",
       "incorrectReasons": [
-        "Option B is incorrect because this setting is unsupported for this scenario.",
-        "Option D is incorrect as it applies to a different resource scope."
+        "`Save-AzResourceGroupTemplate` is not a valid PowerShell cmdlet name.",
+        "`Export-JsonTemplate` is not a valid cmdlet name.",
+        "`New-AzResourceGroupExport` is not a valid cmdlet name."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/"
+      "reference": "https://learn.microsoft.com/en-us/powershell/module/az.resources/export-azresourcegroup"
     }
   },
   {
     "id": 41,
     "subtopic": "Interpret an Azure Resource Manager template or a Bicep file",
-    "question": "Scenario question 41 regarding Interpret an Azure Resource Manager template or a Bicep file in Automate deployment of resources by using Azure Resource Manager (ARM) templates or Bicep files context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "question": "In a Bicep file, you come across the following syntax:\n\nvar storageName = 'stg${uniqueString(resourceGroup().id)}'\n\nWhat is the purpose of the `${...}` construct in this statement?",
     "options": [
-      "Option A detailing solution for Interpret an Azure Resource Manager template or a Bicep file",
-      "Option B detailing solution for Interpret an Azure Resource Manager template or a Bicep file",
-      "Option C detailing solution for Interpret an Azure Resource Manager template or a Bicep file",
-      "Option D detailing solution for Interpret an Azure Resource Manager template or a Bicep file"
+      "String interpolation to dynamically embed expressions into a string",
+      "Variable casting to convert integers into string types",
+      "Key Vault secret lookup syntax",
+      "Environmental variable reference"
     ],
-    "correct": 1,
+    "correct": 0,
     "explanation": {
-      "correctReason": "Option B (index 1) correctly resolves the requirement for Interpret an Azure Resource Manager template or a Bicep file by applying the standard Azure architectural recommended configuration.",
+      "correctReason": "In Bicep, `${expression}` represents string interpolation, allowing variables or functions to be concatenated dynamically within string literals.",
       "incorrectReasons": [
-        "Option A is incorrect because it does not satisfy the requirements for Interpret an Azure Resource Manager template or a Bicep file.",
-        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
-        "Option D is incorrect because it applies an invalid permission scope."
+        "String interpolation concatenates values into strings, not performing explicit type casting.",
+        "Key vault lookups use `getSecret()` or module outputs.",
+        "It evaluates Bicep functions/variables, not host OS environment variables."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/data-types#string-interpolation"
     }
   },
   {
     "id": 42,
-    "subtopic": "Modify an existing Azure Resource Manager template",
-    "question": "Scenario question 42 regarding Modify an existing Azure Resource Manager template in Automate deployment of resources by using Azure Resource Manager (ARM) templates or Bicep files context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "subtopic": "Interpret an Azure Resource Manager template or a Bicep file",
+    "question": "You are examining an ARM template snippet that contains a resource block with the following setting:\n\n\"comments\": \"Deploys core application web app instance\"\n\nWhich statement is TRUE regarding the 'comments' property in ARM templates?",
     "options": [
-      "Option A detailing solution for Modify an existing Azure Resource Manager template",
-      "Option B detailing solution for Modify an existing Azure Resource Manager template",
-      "Option C detailing solution for Modify an existing Azure Resource Manager template",
-      "Option D detailing solution for Modify an existing Azure Resource Manager template"
+      "It provides documentation metadata for template authors and is ignored by Azure Resource Manager during deployment.",
+      "It is displayed as an informational banner in the Azure Portal overview blade of the deployed resource.",
+      "It triggers email notifications to resource group owners upon deployment completion.",
+      "It is required by ARM for resources deployed in production environments."
     ],
-    "correct": 1,
+    "correct": 0,
     "explanation": {
-      "correctReason": "Option B (index 1) correctly resolves the requirement for Modify an existing Azure Resource Manager template by applying the standard Azure architectural recommended configuration.",
+      "correctReason": "The 'comments' element is arbitrary metadata intended for documentation purposes within the ARM JSON file and is ignored during execution.",
       "incorrectReasons": [
-        "Option A is incorrect because it does not satisfy the requirements for Modify an existing Azure Resource Manager template.",
-        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
-        "Option D is incorrect because it applies an invalid permission scope."
+        "Comments are not displayed in the resource overview blade in the portal.",
+        "Comments do not trigger notifications or emails.",
+        "Comments are completely optional."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/templates/syntax-resources"
     }
   },
   {
     "id": 43,
-    "subtopic": "Modify an existing Bicep file",
-    "question": "Scenario question 43 regarding Modify an existing Bicep file in Automate deployment of resources by using Azure Resource Manager (ARM) templates or Bicep files context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "subtopic": "Modify an existing Azure Resource Manager template",
+    "question": "You need to update an ARM template to deploy a Linux Virtual Machine. You want to pass a shell script to run automatically upon first boot. Which extension resource type should you add to the ARM template?",
     "options": [
-      "Option A detailing solution for Modify an existing Bicep file",
-      "Option B detailing solution for Modify an existing Bicep file",
-      "Option C detailing solution for Modify an existing Bicep file",
-      "Option D detailing solution for Modify an existing Bicep file"
+      "Microsoft.Compute/virtualMachines/extensions (CustomScript / CustomScriptForLinux)",
+      "Microsoft.Compute/virtualMachines/runCommands",
+      "Microsoft.Compute/virtualMachines/bootDiagnostics",
+      "Microsoft.Resources/deploymentScripts"
     ],
-    "correct": 1,
+    "correct": 0,
     "explanation": {
-      "correctReason": "Option B (index 1) correctly resolves the requirement for Modify an existing Bicep file by applying the standard Azure architectural recommended configuration.",
+      "correctReason": "The Custom Script Extension ('CustomScriptForLinux' under `Microsoft.Compute/virtualMachines/extensions`) executes post-provisioning scripts on Azure Linux VMs.",
       "incorrectReasons": [
-        "Option A is incorrect because it does not satisfy the requirements for Modify an existing Bicep file.",
-        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
-        "Option D is incorrect because it applies an invalid permission scope."
+        "runCommands are used for manual/ad-hoc execution post-deployment, not typical boot bootstrap extensions inside standard VM templates.",
+        "bootDiagnostics captures serial logs and screenshots for troubleshooting.",
+        "deploymentScripts runs Azure CLI/PowerShell scripts in ARM deployment containers, not inside the target guest VM."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/"
+      "reference": "https://learn.microsoft.com/en-us/azure/virtual-machines/extensions/custom-script-linux"
     }
   },
   {
     "id": 44,
-    "subtopic": "Deploy resources by using an Azure Resource Manager template or a Bicep file",
-    "question": "Scenario question 44 regarding Deploy resources by using an Azure Resource Manager template or a Bicep file in Automate deployment of resources by using Azure Resource Manager (ARM) templates or Bicep files context: Which TWO options must you configure to achieve the target state? (Select TWO)",
+    "subtopic": "Modify an existing Azure Resource Manager template",
+    "question": "You are modifying an existing ARM template. You need to reference the resource ID of a subnet named 'Subnet1' located in a virtual network named 'VNet1'. Which template function construct should you use?",
     "options": [
-      "First required configuration for Deploy resources by using an Azure Resource Manager template or a Bicep file",
-      "Incorrect setting option A",
-      "Second required configuration for Deploy resources by using an Azure Resource Manager template or a Bicep file",
-      "Incorrect setting option B"
+      "\"[resourceId('Microsoft.Network/virtualNetworks/subnets', 'VNet1', 'Subnet1')]\"",
+      "\"[concat('VNet1', '/', 'Subnet1')]\"",
+      "\"[getSubnetId('VNet1', 'Subnet1')]\"",
+      "\"[resourceId('Microsoft.Network/subnets', 'VNet1/Subnet1')]\""
     ],
-    "correct": [
-      0,
-      2
-    ],
+    "correct": 0,
     "explanation": {
-      "correctReason": "Options A (index 0) and C (index 2) are correct because both actions are necessary steps to configure Deploy resources by using an Azure Resource Manager template or a Bicep file.",
+      "correctReason": "For child resources like subnets, `resourceId` expects the full resource type (`Microsoft.Network/virtualNetworks/subnets`) followed by parent resource name (`VNet1`) and child resource name (`Subnet1`).",
       "incorrectReasons": [
-        "Option B is incorrect because this setting is unsupported for this scenario.",
-        "Option D is incorrect as it applies to a different resource scope."
+        "Raw concat does not construct a valid fully-qualified Azure Resource Manager ID string.",
+        "`getSubnetId` is not a valid ARM template function.",
+        "`Microsoft.Network/subnets` is not a valid standalone top-level provider type."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/templates/template-functions-resource#resourceid"
     }
   },
   {
     "id": 45,
-    "subtopic": "Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file",
-    "question": "Scenario question 45 regarding Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file in Automate deployment of resources by using Azure Resource Manager (ARM) templates or Bicep files context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "subtopic": "Modify an existing Bicep file",
+    "question": "You have a Bicep file deploying an Azure App Service App. You need to assign an existing App Service Plan located in a different resource group named 'rg-shared' to the App Service App. Which Bicep pattern should you use? (Select TWO)",
     "options": [
-      "Option A detailing solution for Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file",
-      "Option B detailing solution for Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file",
-      "Option C detailing solution for Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file",
-      "Option D detailing solution for Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file"
+      "Declare an existing App Service Plan resource block with 'scope: resourceGroup(\\'rg-shared\\')'.",
+      "Pass the full resource ID of the external App Service Plan to the app's 'serverFarmId' property.",
+      "Use targetScope = 'rg-shared' at the top of the main Bicep file.",
+      "Create a duplicate App Service Plan in the local resource group with identical naming.",
+      "Declare the App Service App with scope: subscription()."
     ],
-    "correct": 1,
+    "correct": [0, 1],
     "explanation": {
-      "correctReason": "Option B (index 1) correctly resolves the requirement for Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file by applying the standard Azure architectural recommended configuration.",
+      "correctReason": "You can reference external resources across resource groups by using the `existing` keyword combined with `scope: resourceGroup('rg-shared')`, or simply pass its fully qualified resource ID into `serverFarmId`.",
       "incorrectReasons": [
-        "Option A is incorrect because it does not satisfy the requirements for Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file.",
-        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
-        "Option D is incorrect because it applies an invalid permission scope."
+        "Setting targetScope changes the scope of the entire template, preventing deployment of local resources in the primary resource group.",
+        "Creating a duplicate resource attempts to re-deploy or fail on name collisions rather than referencing the existing plan.",
+        "Scoping the app to subscription level is invalid because App Services are resource group scoped resources."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/exist-resources#resource-in-different-scope"
     }
   },
   {
     "id": 46,
-    "subtopic": "Interpret an Azure Resource Manager template or a Bicep file",
-    "question": "Scenario question 46 regarding Interpret an Azure Resource Manager template or a Bicep file in Automate deployment of resources by using Azure Resource Manager (ARM) templates or Bicep files context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "subtopic": "Modify an existing Bicep file",
+    "question": "You are writing a Bicep file to deploy a Storage Account. You want to assign tags using a parameter 'tags' of type object. What is the correct way to set default empty tags in Bicep parameter syntax?",
     "options": [
-      "Option A detailing solution for Interpret an Azure Resource Manager template or a Bicep file",
-      "Option B detailing solution for Interpret an Azure Resource Manager template or a Bicep file",
-      "Option C detailing solution for Interpret an Azure Resource Manager template or a Bicep file",
-      "Option D detailing solution for Interpret an Azure Resource Manager template or a Bicep file"
+      "param tags object = {}",
+      "param tags dictionary = null",
+      "param tags object = []",
+      "param tags string = '{}'"
     ],
-    "correct": 1,
+    "correct": 0,
     "explanation": {
-      "correctReason": "Option B (index 1) correctly resolves the requirement for Interpret an Azure Resource Manager template or a Bicep file by applying the standard Azure architectural recommended configuration.",
+      "correctReason": "In Bicep, objects are defined with `{}` notation, and standard object parameter declaration with empty default uses `param tags object = {}`.",
       "incorrectReasons": [
-        "Option A is incorrect because it does not satisfy the requirements for Interpret an Azure Resource Manager template or a Bicep file.",
-        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
-        "Option D is incorrect because it applies an invalid permission scope."
+        "`dictionary` is not a primitive data type keyword in Bicep.",
+        "`[]` represents an array, not an object.",
+        "`'{}'` represents a string literal, not an object data type."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/data-types#objects"
     }
   },
   {
     "id": 47,
-    "subtopic": "Modify an existing Azure Resource Manager template",
-    "question": "Scenario question 47 regarding Modify an existing Azure Resource Manager template in Automate deployment of resources by using Azure Resource Manager (ARM) templates or Bicep files context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "subtopic": "Deploy resources by using an Azure Resource Manager template or a Bicep file",
+    "question": "You need to automate Bicep deployments in an Azure DevOps CI/CD pipeline. Which official pipeline task should you use?",
     "options": [
-      "Option A detailing solution for Modify an existing Azure Resource Manager template",
-      "Option B detailing solution for Modify an existing Azure Resource Manager template",
-      "Option C detailing solution for Modify an existing Azure Resource Manager template",
-      "Option D detailing solution for Modify an existing Azure Resource Manager template"
+      "AzureResourceManagerTemplateDeployment@3",
+      "AzureBicepDeployTask@1",
+      "AzureCLI@2 with script running 'az deployment group create'",
+      "AzurePowerShell@5 running 'New-AzResourceGroupDeployment'"
     ],
-    "correct": 1,
+    "correct": 0,
     "explanation": {
-      "correctReason": "Option B (index 1) correctly resolves the requirement for Modify an existing Azure Resource Manager template by applying the standard Azure architectural recommended configuration.",
+      "correctReason": "The standard `AzureResourceManagerTemplateDeployment@3` Azure DevOps pipeline task natively supports both ARM JSON templates and Bicep files directly.",
       "incorrectReasons": [
-        "Option A is incorrect because it does not satisfy the requirements for Modify an existing Azure Resource Manager template.",
-        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
-        "Option D is incorrect because it applies an invalid permission scope."
+        "`AzureBicepDeployTask@1` is not an official built-in Azure DevOps pipeline task.",
+        "While Azure CLI tasks work, `AzureResourceManagerTemplateDeployment@3` is the specialized out-of-the-box template task.",
+        "While PowerShell tasks work, `AzureResourceManagerTemplateDeployment@3` is the dedicated template deployment task."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/"
+      "reference": "https://learn.microsoft.com/en-us/azure/devops/pipelines/tasks/reference/azure-resource-manager-template-deployment-v3"
     }
   },
   {
     "id": 48,
-    "subtopic": "Modify an existing Bicep file",
-    "question": "Scenario question 48 regarding Modify an existing Bicep file in Automate deployment of resources by using Azure Resource Manager (ARM) templates or Bicep files context: Which TWO options must you configure to achieve the target state? (Select TWO)",
+    "subtopic": "Deploy resources by using an Azure Resource Manager template or a Bicep file",
+    "question": "You are deploying an ARM template that creates 10 Virtual Machines using a copy loop. By default, how does Azure Resource Manager handle the deployment of these 10 VMs?",
     "options": [
-      "First required configuration for Modify an existing Bicep file",
-      "Incorrect setting option A",
-      "Second required configuration for Modify an existing Bicep file",
-      "Incorrect setting option B"
+      "It deploys all 10 Virtual Machines in parallel.",
+      "It deploys the Virtual Machines sequentially one after another.",
+      "It deploys VMs in batches of 2 sequentially.",
+      "It pauses deployment after the first VM until manually approved."
     ],
-    "correct": [
-      0,
-      2
-    ],
+    "correct": 0,
     "explanation": {
-      "correctReason": "Options A (index 0) and C (index 2) are correct because both actions are necessary steps to configure Modify an existing Bicep file.",
+      "correctReason": "By default, Azure Resource Manager executes copy loops in parallel to speed up deployment unless a `batchSize` property is specified.",
       "incorrectReasons": [
-        "Option B is incorrect because this setting is unsupported for this scenario.",
-        "Option D is incorrect as it applies to a different resource scope."
+        "Sequential deployment occurs only if `mode` is set to 'Serial' or `batchSize` is set to 1.",
+        "ARM does not default to batch sizes of 2.",
+        "ARM template execution does not pause for manual approval internally unless controlled externally by pipeline gates."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/templates/copy-resources#iteration-element"
     }
   },
   {
     "id": 49,
-    "subtopic": "Deploy resources by using an Azure Resource Manager template or a Bicep file",
-    "question": "Scenario question 49 regarding Deploy resources by using an Azure Resource Manager template or a Bicep file in Automate deployment of resources by using Azure Resource Manager (ARM) templates or Bicep files context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "subtopic": "Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file",
+    "question": "You convert an ARM template to a Bicep file using 'az bicep decompile'. During review, you notice several warnings about 'unresolved resource IDs'. What should you do to fix these warnings?",
     "options": [
-      "Option A detailing solution for Deploy resources by using an Azure Resource Manager template or a Bicep file",
-      "Option B detailing solution for Deploy resources by using an Azure Resource Manager template or a Bicep file",
-      "Option C detailing solution for Deploy resources by using an Azure Resource Manager template or a Bicep file",
-      "Option D detailing solution for Deploy resources by using an Azure Resource Manager template or a Bicep file"
+      "Replace hardcoded resource ID strings with Bicep symbolic references or resourceId() functions.",
+      "Delete the corresponding resource definitions from the Bicep template.",
+      "Ignore the warnings as Bicep automatically fixes unresolved resource IDs during deployment.",
+      "Re-export the template from Azure Portal using the CSV format."
     ],
-    "correct": 1,
+    "correct": 0,
     "explanation": {
-      "correctReason": "Option B (index 1) correctly resolves the requirement for Deploy resources by using an Azure Resource Manager template or a Bicep file by applying the standard Azure architectural recommended configuration.",
+      "correctReason": "Unresolved resource IDs occur when decompilation cannot automatically link hardcoded ARM strings to Bicep symbolic references. Updating the code to use symbolic names fixes the issue.",
       "incorrectReasons": [
-        "Option A is incorrect because it does not satisfy the requirements for Deploy resources by using an Azure Resource Manager template or a Bicep file.",
-        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
-        "Option D is incorrect because it applies an invalid permission scope."
+        "Deleting resource definitions removes needed infrastructure from deployment scope.",
+        "Bicep compiler will fail or throw errors at build time if unresolved references persist.",
+        "Azure Portal does not export templates in CSV format."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/decompile"
     }
   },
   {
     "id": 50,
     "subtopic": "Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file",
-    "question": "Scenario question 50 regarding Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file in Automate deployment of resources by using Azure Resource Manager (ARM) templates or Bicep files context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "question": "You are exporting an existing resource group to an ARM template. You notice that certain third-party Marketplace resources in the group are missing from the exported template. Why does this occur?",
     "options": [
-      "Option A detailing solution for Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file",
-      "Option B detailing solution for Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file",
-      "Option C detailing solution for Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file",
-      "Option D detailing solution for Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file"
+      "Export template does not support all Azure resource types or custom Marketplace extension resources.",
+      "Marketplace resources require global administrator permissions to export.",
+      "Marketplace resources can only be exported using Azure CLI 'az marketplace export'.",
+      "Marketplace resources are deleted upon template export operations."
     ],
-    "correct": 1,
+    "correct": 0,
     "explanation": {
-      "correctReason": "Option B (index 1) correctly resolves the requirement for Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file by applying the standard Azure architectural recommended configuration.",
+      "correctReason": "The ARM template export feature has known limitations and does not support exporting every Azure resource type or third-party Marketplace solution.",
       "incorrectReasons": [
-        "Option A is incorrect because it does not satisfy the requirements for Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file.",
-        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
-        "Option D is incorrect because it applies an invalid permission scope."
+        "Permissions issues raise access denied errors rather than selectively omitting unsupported types quietly.",
+        "'az marketplace export' is not a valid CLI command.",
+        "Template export is a read-only operation and never deletes live resources."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/templates/export-template-portal#limitations"
     }
   }
 ]

@@ -1,0 +1,1076 @@
+[
+  {
+    "id": 1,
+    "subtopic": "Create and configure a file share in Azure Storage",
+    "question": "Scenario question 1 regarding Create and configure a file share in Azure Storage in Configure Azure Files and Azure Blob Storage context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Create and configure a file share in Azure Storage",
+      "Option B detailing solution for Create and configure a file share in Azure Storage",
+      "Option C detailing solution for Create and configure a file share in Azure Storage",
+      "Option D detailing solution for Create and configure a file share in Azure Storage"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Create and configure a file share in Azure Storage by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Create and configure a file share in Azure Storage.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 2,
+    "subtopic": "Create and configure a container in Blob Storage",
+    "question": "Scenario question 2 regarding Create and configure a container in Blob Storage in Configure Azure Files and Azure Blob Storage context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Create and configure a container in Blob Storage",
+      "Option B detailing solution for Create and configure a container in Blob Storage",
+      "Option C detailing solution for Create and configure a container in Blob Storage",
+      "Option D detailing solution for Create and configure a container in Blob Storage"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Create and configure a container in Blob Storage by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Create and configure a container in Blob Storage.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 3,
+    "subtopic": "Configure storage tiers",
+    "question": "Scenario question 3 regarding Configure storage tiers in Configure Azure Files and Azure Blob Storage context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Configure storage tiers",
+      "Option B detailing solution for Configure storage tiers",
+      "Option C detailing solution for Configure storage tiers",
+      "Option D detailing solution for Configure storage tiers"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Configure storage tiers by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Configure storage tiers.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 4,
+    "subtopic": "Configure soft delete for blobs and containers",
+    "question": "Scenario question 4 regarding Configure soft delete for blobs and containers in Configure Azure Files and Azure Blob Storage context: Which TWO options must you configure to achieve the target state? (Select TWO)",
+    "options": [
+      "First required configuration for Configure soft delete for blobs and containers",
+      "Incorrect setting option A",
+      "Second required configuration for Configure soft delete for blobs and containers",
+      "Incorrect setting option B"
+    ],
+    "correct": [
+      0,
+      2
+    ],
+    "explanation": {
+      "correctReason": "Options A (index 0) and C (index 2) are correct because both actions are necessary steps to configure Configure soft delete for blobs and containers.",
+      "incorrectReasons": [
+        "Option B is incorrect because this setting is unsupported for this scenario.",
+        "Option D is incorrect as it applies to a different resource scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 5,
+    "subtopic": "Configure snapshots and soft delete for Azure Files",
+    "question": "Scenario question 5 regarding Configure snapshots and soft delete for Azure Files in Configure Azure Files and Azure Blob Storage context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Configure snapshots and soft delete for Azure Files",
+      "Option B detailing solution for Configure snapshots and soft delete for Azure Files",
+      "Option C detailing solution for Configure snapshots and soft delete for Azure Files",
+      "Option D detailing solution for Configure snapshots and soft delete for Azure Files"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Configure snapshots and soft delete for Azure Files by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Configure snapshots and soft delete for Azure Files.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 6,
+    "subtopic": "Configure blob lifecycle management",
+    "question": "Scenario question 6 regarding Configure blob lifecycle management in Configure Azure Files and Azure Blob Storage context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Configure blob lifecycle management",
+      "Option B detailing solution for Configure blob lifecycle management",
+      "Option C detailing solution for Configure blob lifecycle management",
+      "Option D detailing solution for Configure blob lifecycle management"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Configure blob lifecycle management by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Configure blob lifecycle management.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 7,
+    "subtopic": "Configure blob versioning",
+    "question": "Scenario question 7 regarding Configure blob versioning in Configure Azure Files and Azure Blob Storage context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Configure blob versioning",
+      "Option B detailing solution for Configure blob versioning",
+      "Option C detailing solution for Configure blob versioning",
+      "Option D detailing solution for Configure blob versioning"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Configure blob versioning by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Configure blob versioning.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 8,
+    "subtopic": "Create and configure a file share in Azure Storage",
+    "question": "Scenario question 8 regarding Create and configure a file share in Azure Storage in Configure Azure Files and Azure Blob Storage context: Which TWO options must you configure to achieve the target state? (Select TWO)",
+    "options": [
+      "First required configuration for Create and configure a file share in Azure Storage",
+      "Incorrect setting option A",
+      "Second required configuration for Create and configure a file share in Azure Storage",
+      "Incorrect setting option B"
+    ],
+    "correct": [
+      0,
+      2
+    ],
+    "explanation": {
+      "correctReason": "Options A (index 0) and C (index 2) are correct because both actions are necessary steps to configure Create and configure a file share in Azure Storage.",
+      "incorrectReasons": [
+        "Option B is incorrect because this setting is unsupported for this scenario.",
+        "Option D is incorrect as it applies to a different resource scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 9,
+    "subtopic": "Create and configure a container in Blob Storage",
+    "question": "Scenario question 9 regarding Create and configure a container in Blob Storage in Configure Azure Files and Azure Blob Storage context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Create and configure a container in Blob Storage",
+      "Option B detailing solution for Create and configure a container in Blob Storage",
+      "Option C detailing solution for Create and configure a container in Blob Storage",
+      "Option D detailing solution for Create and configure a container in Blob Storage"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Create and configure a container in Blob Storage by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Create and configure a container in Blob Storage.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 10,
+    "subtopic": "Configure storage tiers",
+    "question": "Scenario question 10 regarding Configure storage tiers in Configure Azure Files and Azure Blob Storage context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Configure storage tiers",
+      "Option B detailing solution for Configure storage tiers",
+      "Option C detailing solution for Configure storage tiers",
+      "Option D detailing solution for Configure storage tiers"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Configure storage tiers by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Configure storage tiers.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 11,
+    "subtopic": "Configure soft delete for blobs and containers",
+    "question": "Scenario question 11 regarding Configure soft delete for blobs and containers in Configure Azure Files and Azure Blob Storage context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Configure soft delete for blobs and containers",
+      "Option B detailing solution for Configure soft delete for blobs and containers",
+      "Option C detailing solution for Configure soft delete for blobs and containers",
+      "Option D detailing solution for Configure soft delete for blobs and containers"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Configure soft delete for blobs and containers by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Configure soft delete for blobs and containers.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 12,
+    "subtopic": "Configure snapshots and soft delete for Azure Files",
+    "question": "Scenario question 12 regarding Configure snapshots and soft delete for Azure Files in Configure Azure Files and Azure Blob Storage context: Which TWO options must you configure to achieve the target state? (Select TWO)",
+    "options": [
+      "First required configuration for Configure snapshots and soft delete for Azure Files",
+      "Incorrect setting option A",
+      "Second required configuration for Configure snapshots and soft delete for Azure Files",
+      "Incorrect setting option B"
+    ],
+    "correct": [
+      0,
+      2
+    ],
+    "explanation": {
+      "correctReason": "Options A (index 0) and C (index 2) are correct because both actions are necessary steps to configure Configure snapshots and soft delete for Azure Files.",
+      "incorrectReasons": [
+        "Option B is incorrect because this setting is unsupported for this scenario.",
+        "Option D is incorrect as it applies to a different resource scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 13,
+    "subtopic": "Configure blob lifecycle management",
+    "question": "Scenario question 13 regarding Configure blob lifecycle management in Configure Azure Files and Azure Blob Storage context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Configure blob lifecycle management",
+      "Option B detailing solution for Configure blob lifecycle management",
+      "Option C detailing solution for Configure blob lifecycle management",
+      "Option D detailing solution for Configure blob lifecycle management"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Configure blob lifecycle management by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Configure blob lifecycle management.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 14,
+    "subtopic": "Configure blob versioning",
+    "question": "Scenario question 14 regarding Configure blob versioning in Configure Azure Files and Azure Blob Storage context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Configure blob versioning",
+      "Option B detailing solution for Configure blob versioning",
+      "Option C detailing solution for Configure blob versioning",
+      "Option D detailing solution for Configure blob versioning"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Configure blob versioning by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Configure blob versioning.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 15,
+    "subtopic": "Create and configure a file share in Azure Storage",
+    "question": "Scenario question 15 regarding Create and configure a file share in Azure Storage in Configure Azure Files and Azure Blob Storage context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Create and configure a file share in Azure Storage",
+      "Option B detailing solution for Create and configure a file share in Azure Storage",
+      "Option C detailing solution for Create and configure a file share in Azure Storage",
+      "Option D detailing solution for Create and configure a file share in Azure Storage"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Create and configure a file share in Azure Storage by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Create and configure a file share in Azure Storage.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 16,
+    "subtopic": "Create and configure a container in Blob Storage",
+    "question": "Scenario question 16 regarding Create and configure a container in Blob Storage in Configure Azure Files and Azure Blob Storage context: Which TWO options must you configure to achieve the target state? (Select TWO)",
+    "options": [
+      "First required configuration for Create and configure a container in Blob Storage",
+      "Incorrect setting option A",
+      "Second required configuration for Create and configure a container in Blob Storage",
+      "Incorrect setting option B"
+    ],
+    "correct": [
+      0,
+      2
+    ],
+    "explanation": {
+      "correctReason": "Options A (index 0) and C (index 2) are correct because both actions are necessary steps to configure Create and configure a container in Blob Storage.",
+      "incorrectReasons": [
+        "Option B is incorrect because this setting is unsupported for this scenario.",
+        "Option D is incorrect as it applies to a different resource scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 17,
+    "subtopic": "Configure storage tiers",
+    "question": "Scenario question 17 regarding Configure storage tiers in Configure Azure Files and Azure Blob Storage context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Configure storage tiers",
+      "Option B detailing solution for Configure storage tiers",
+      "Option C detailing solution for Configure storage tiers",
+      "Option D detailing solution for Configure storage tiers"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Configure storage tiers by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Configure storage tiers.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 18,
+    "subtopic": "Configure soft delete for blobs and containers",
+    "question": "Scenario question 18 regarding Configure soft delete for blobs and containers in Configure Azure Files and Azure Blob Storage context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Configure soft delete for blobs and containers",
+      "Option B detailing solution for Configure soft delete for blobs and containers",
+      "Option C detailing solution for Configure soft delete for blobs and containers",
+      "Option D detailing solution for Configure soft delete for blobs and containers"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Configure soft delete for blobs and containers by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Configure soft delete for blobs and containers.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 19,
+    "subtopic": "Configure snapshots and soft delete for Azure Files",
+    "question": "Scenario question 19 regarding Configure snapshots and soft delete for Azure Files in Configure Azure Files and Azure Blob Storage context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Configure snapshots and soft delete for Azure Files",
+      "Option B detailing solution for Configure snapshots and soft delete for Azure Files",
+      "Option C detailing solution for Configure snapshots and soft delete for Azure Files",
+      "Option D detailing solution for Configure snapshots and soft delete for Azure Files"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Configure snapshots and soft delete for Azure Files by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Configure snapshots and soft delete for Azure Files.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 20,
+    "subtopic": "Configure blob lifecycle management",
+    "question": "Scenario question 20 regarding Configure blob lifecycle management in Configure Azure Files and Azure Blob Storage context: Which TWO options must you configure to achieve the target state? (Select TWO)",
+    "options": [
+      "First required configuration for Configure blob lifecycle management",
+      "Incorrect setting option A",
+      "Second required configuration for Configure blob lifecycle management",
+      "Incorrect setting option B"
+    ],
+    "correct": [
+      0,
+      2
+    ],
+    "explanation": {
+      "correctReason": "Options A (index 0) and C (index 2) are correct because both actions are necessary steps to configure Configure blob lifecycle management.",
+      "incorrectReasons": [
+        "Option B is incorrect because this setting is unsupported for this scenario.",
+        "Option D is incorrect as it applies to a different resource scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 21,
+    "subtopic": "Configure blob versioning",
+    "question": "Scenario question 21 regarding Configure blob versioning in Configure Azure Files and Azure Blob Storage context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Configure blob versioning",
+      "Option B detailing solution for Configure blob versioning",
+      "Option C detailing solution for Configure blob versioning",
+      "Option D detailing solution for Configure blob versioning"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Configure blob versioning by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Configure blob versioning.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 22,
+    "subtopic": "Create and configure a file share in Azure Storage",
+    "question": "Scenario question 22 regarding Create and configure a file share in Azure Storage in Configure Azure Files and Azure Blob Storage context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Create and configure a file share in Azure Storage",
+      "Option B detailing solution for Create and configure a file share in Azure Storage",
+      "Option C detailing solution for Create and configure a file share in Azure Storage",
+      "Option D detailing solution for Create and configure a file share in Azure Storage"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Create and configure a file share in Azure Storage by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Create and configure a file share in Azure Storage.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 23,
+    "subtopic": "Create and configure a container in Blob Storage",
+    "question": "Scenario question 23 regarding Create and configure a container in Blob Storage in Configure Azure Files and Azure Blob Storage context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Create and configure a container in Blob Storage",
+      "Option B detailing solution for Create and configure a container in Blob Storage",
+      "Option C detailing solution for Create and configure a container in Blob Storage",
+      "Option D detailing solution for Create and configure a container in Blob Storage"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Create and configure a container in Blob Storage by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Create and configure a container in Blob Storage.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 24,
+    "subtopic": "Configure storage tiers",
+    "question": "Scenario question 24 regarding Configure storage tiers in Configure Azure Files and Azure Blob Storage context: Which TWO options must you configure to achieve the target state? (Select TWO)",
+    "options": [
+      "First required configuration for Configure storage tiers",
+      "Incorrect setting option A",
+      "Second required configuration for Configure storage tiers",
+      "Incorrect setting option B"
+    ],
+    "correct": [
+      0,
+      2
+    ],
+    "explanation": {
+      "correctReason": "Options A (index 0) and C (index 2) are correct because both actions are necessary steps to configure Configure storage tiers.",
+      "incorrectReasons": [
+        "Option B is incorrect because this setting is unsupported for this scenario.",
+        "Option D is incorrect as it applies to a different resource scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 25,
+    "subtopic": "Configure soft delete for blobs and containers",
+    "question": "Scenario question 25 regarding Configure soft delete for blobs and containers in Configure Azure Files and Azure Blob Storage context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Configure soft delete for blobs and containers",
+      "Option B detailing solution for Configure soft delete for blobs and containers",
+      "Option C detailing solution for Configure soft delete for blobs and containers",
+      "Option D detailing solution for Configure soft delete for blobs and containers"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Configure soft delete for blobs and containers by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Configure soft delete for blobs and containers.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 26,
+    "subtopic": "Configure snapshots and soft delete for Azure Files",
+    "question": "Scenario question 26 regarding Configure snapshots and soft delete for Azure Files in Configure Azure Files and Azure Blob Storage context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Configure snapshots and soft delete for Azure Files",
+      "Option B detailing solution for Configure snapshots and soft delete for Azure Files",
+      "Option C detailing solution for Configure snapshots and soft delete for Azure Files",
+      "Option D detailing solution for Configure snapshots and soft delete for Azure Files"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Configure snapshots and soft delete for Azure Files by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Configure snapshots and soft delete for Azure Files.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 27,
+    "subtopic": "Configure blob lifecycle management",
+    "question": "Scenario question 27 regarding Configure blob lifecycle management in Configure Azure Files and Azure Blob Storage context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Configure blob lifecycle management",
+      "Option B detailing solution for Configure blob lifecycle management",
+      "Option C detailing solution for Configure blob lifecycle management",
+      "Option D detailing solution for Configure blob lifecycle management"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Configure blob lifecycle management by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Configure blob lifecycle management.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 28,
+    "subtopic": "Configure blob versioning",
+    "question": "Scenario question 28 regarding Configure blob versioning in Configure Azure Files and Azure Blob Storage context: Which TWO options must you configure to achieve the target state? (Select TWO)",
+    "options": [
+      "First required configuration for Configure blob versioning",
+      "Incorrect setting option A",
+      "Second required configuration for Configure blob versioning",
+      "Incorrect setting option B"
+    ],
+    "correct": [
+      0,
+      2
+    ],
+    "explanation": {
+      "correctReason": "Options A (index 0) and C (index 2) are correct because both actions are necessary steps to configure Configure blob versioning.",
+      "incorrectReasons": [
+        "Option B is incorrect because this setting is unsupported for this scenario.",
+        "Option D is incorrect as it applies to a different resource scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 29,
+    "subtopic": "Create and configure a file share in Azure Storage",
+    "question": "Scenario question 29 regarding Create and configure a file share in Azure Storage in Configure Azure Files and Azure Blob Storage context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Create and configure a file share in Azure Storage",
+      "Option B detailing solution for Create and configure a file share in Azure Storage",
+      "Option C detailing solution for Create and configure a file share in Azure Storage",
+      "Option D detailing solution for Create and configure a file share in Azure Storage"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Create and configure a file share in Azure Storage by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Create and configure a file share in Azure Storage.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 30,
+    "subtopic": "Create and configure a container in Blob Storage",
+    "question": "Scenario question 30 regarding Create and configure a container in Blob Storage in Configure Azure Files and Azure Blob Storage context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Create and configure a container in Blob Storage",
+      "Option B detailing solution for Create and configure a container in Blob Storage",
+      "Option C detailing solution for Create and configure a container in Blob Storage",
+      "Option D detailing solution for Create and configure a container in Blob Storage"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Create and configure a container in Blob Storage by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Create and configure a container in Blob Storage.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 31,
+    "subtopic": "Configure storage tiers",
+    "question": "Scenario question 31 regarding Configure storage tiers in Configure Azure Files and Azure Blob Storage context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Configure storage tiers",
+      "Option B detailing solution for Configure storage tiers",
+      "Option C detailing solution for Configure storage tiers",
+      "Option D detailing solution for Configure storage tiers"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Configure storage tiers by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Configure storage tiers.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 32,
+    "subtopic": "Configure soft delete for blobs and containers",
+    "question": "Scenario question 32 regarding Configure soft delete for blobs and containers in Configure Azure Files and Azure Blob Storage context: Which TWO options must you configure to achieve the target state? (Select TWO)",
+    "options": [
+      "First required configuration for Configure soft delete for blobs and containers",
+      "Incorrect setting option A",
+      "Second required configuration for Configure soft delete for blobs and containers",
+      "Incorrect setting option B"
+    ],
+    "correct": [
+      0,
+      2
+    ],
+    "explanation": {
+      "correctReason": "Options A (index 0) and C (index 2) are correct because both actions are necessary steps to configure Configure soft delete for blobs and containers.",
+      "incorrectReasons": [
+        "Option B is incorrect because this setting is unsupported for this scenario.",
+        "Option D is incorrect as it applies to a different resource scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 33,
+    "subtopic": "Configure snapshots and soft delete for Azure Files",
+    "question": "Scenario question 33 regarding Configure snapshots and soft delete for Azure Files in Configure Azure Files and Azure Blob Storage context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Configure snapshots and soft delete for Azure Files",
+      "Option B detailing solution for Configure snapshots and soft delete for Azure Files",
+      "Option C detailing solution for Configure snapshots and soft delete for Azure Files",
+      "Option D detailing solution for Configure snapshots and soft delete for Azure Files"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Configure snapshots and soft delete for Azure Files by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Configure snapshots and soft delete for Azure Files.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 34,
+    "subtopic": "Configure blob lifecycle management",
+    "question": "Scenario question 34 regarding Configure blob lifecycle management in Configure Azure Files and Azure Blob Storage context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Configure blob lifecycle management",
+      "Option B detailing solution for Configure blob lifecycle management",
+      "Option C detailing solution for Configure blob lifecycle management",
+      "Option D detailing solution for Configure blob lifecycle management"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Configure blob lifecycle management by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Configure blob lifecycle management.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 35,
+    "subtopic": "Configure blob versioning",
+    "question": "Scenario question 35 regarding Configure blob versioning in Configure Azure Files and Azure Blob Storage context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Configure blob versioning",
+      "Option B detailing solution for Configure blob versioning",
+      "Option C detailing solution for Configure blob versioning",
+      "Option D detailing solution for Configure blob versioning"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Configure blob versioning by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Configure blob versioning.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 36,
+    "subtopic": "Create and configure a file share in Azure Storage",
+    "question": "Scenario question 36 regarding Create and configure a file share in Azure Storage in Configure Azure Files and Azure Blob Storage context: Which TWO options must you configure to achieve the target state? (Select TWO)",
+    "options": [
+      "First required configuration for Create and configure a file share in Azure Storage",
+      "Incorrect setting option A",
+      "Second required configuration for Create and configure a file share in Azure Storage",
+      "Incorrect setting option B"
+    ],
+    "correct": [
+      0,
+      2
+    ],
+    "explanation": {
+      "correctReason": "Options A (index 0) and C (index 2) are correct because both actions are necessary steps to configure Create and configure a file share in Azure Storage.",
+      "incorrectReasons": [
+        "Option B is incorrect because this setting is unsupported for this scenario.",
+        "Option D is incorrect as it applies to a different resource scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 37,
+    "subtopic": "Create and configure a container in Blob Storage",
+    "question": "Scenario question 37 regarding Create and configure a container in Blob Storage in Configure Azure Files and Azure Blob Storage context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Create and configure a container in Blob Storage",
+      "Option B detailing solution for Create and configure a container in Blob Storage",
+      "Option C detailing solution for Create and configure a container in Blob Storage",
+      "Option D detailing solution for Create and configure a container in Blob Storage"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Create and configure a container in Blob Storage by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Create and configure a container in Blob Storage.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 38,
+    "subtopic": "Configure storage tiers",
+    "question": "Scenario question 38 regarding Configure storage tiers in Configure Azure Files and Azure Blob Storage context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Configure storage tiers",
+      "Option B detailing solution for Configure storage tiers",
+      "Option C detailing solution for Configure storage tiers",
+      "Option D detailing solution for Configure storage tiers"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Configure storage tiers by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Configure storage tiers.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 39,
+    "subtopic": "Configure soft delete for blobs and containers",
+    "question": "Scenario question 39 regarding Configure soft delete for blobs and containers in Configure Azure Files and Azure Blob Storage context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Configure soft delete for blobs and containers",
+      "Option B detailing solution for Configure soft delete for blobs and containers",
+      "Option C detailing solution for Configure soft delete for blobs and containers",
+      "Option D detailing solution for Configure soft delete for blobs and containers"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Configure soft delete for blobs and containers by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Configure soft delete for blobs and containers.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 40,
+    "subtopic": "Configure snapshots and soft delete for Azure Files",
+    "question": "Scenario question 40 regarding Configure snapshots and soft delete for Azure Files in Configure Azure Files and Azure Blob Storage context: Which TWO options must you configure to achieve the target state? (Select TWO)",
+    "options": [
+      "First required configuration for Configure snapshots and soft delete for Azure Files",
+      "Incorrect setting option A",
+      "Second required configuration for Configure snapshots and soft delete for Azure Files",
+      "Incorrect setting option B"
+    ],
+    "correct": [
+      0,
+      2
+    ],
+    "explanation": {
+      "correctReason": "Options A (index 0) and C (index 2) are correct because both actions are necessary steps to configure Configure snapshots and soft delete for Azure Files.",
+      "incorrectReasons": [
+        "Option B is incorrect because this setting is unsupported for this scenario.",
+        "Option D is incorrect as it applies to a different resource scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 41,
+    "subtopic": "Configure blob lifecycle management",
+    "question": "Scenario question 41 regarding Configure blob lifecycle management in Configure Azure Files and Azure Blob Storage context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Configure blob lifecycle management",
+      "Option B detailing solution for Configure blob lifecycle management",
+      "Option C detailing solution for Configure blob lifecycle management",
+      "Option D detailing solution for Configure blob lifecycle management"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Configure blob lifecycle management by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Configure blob lifecycle management.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 42,
+    "subtopic": "Configure blob versioning",
+    "question": "Scenario question 42 regarding Configure blob versioning in Configure Azure Files and Azure Blob Storage context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Configure blob versioning",
+      "Option B detailing solution for Configure blob versioning",
+      "Option C detailing solution for Configure blob versioning",
+      "Option D detailing solution for Configure blob versioning"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Configure blob versioning by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Configure blob versioning.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 43,
+    "subtopic": "Create and configure a file share in Azure Storage",
+    "question": "Scenario question 43 regarding Create and configure a file share in Azure Storage in Configure Azure Files and Azure Blob Storage context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Create and configure a file share in Azure Storage",
+      "Option B detailing solution for Create and configure a file share in Azure Storage",
+      "Option C detailing solution for Create and configure a file share in Azure Storage",
+      "Option D detailing solution for Create and configure a file share in Azure Storage"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Create and configure a file share in Azure Storage by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Create and configure a file share in Azure Storage.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 44,
+    "subtopic": "Create and configure a container in Blob Storage",
+    "question": "Scenario question 44 regarding Create and configure a container in Blob Storage in Configure Azure Files and Azure Blob Storage context: Which TWO options must you configure to achieve the target state? (Select TWO)",
+    "options": [
+      "First required configuration for Create and configure a container in Blob Storage",
+      "Incorrect setting option A",
+      "Second required configuration for Create and configure a container in Blob Storage",
+      "Incorrect setting option B"
+    ],
+    "correct": [
+      0,
+      2
+    ],
+    "explanation": {
+      "correctReason": "Options A (index 0) and C (index 2) are correct because both actions are necessary steps to configure Create and configure a container in Blob Storage.",
+      "incorrectReasons": [
+        "Option B is incorrect because this setting is unsupported for this scenario.",
+        "Option D is incorrect as it applies to a different resource scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 45,
+    "subtopic": "Configure storage tiers",
+    "question": "Scenario question 45 regarding Configure storage tiers in Configure Azure Files and Azure Blob Storage context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Configure storage tiers",
+      "Option B detailing solution for Configure storage tiers",
+      "Option C detailing solution for Configure storage tiers",
+      "Option D detailing solution for Configure storage tiers"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Configure storage tiers by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Configure storage tiers.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 46,
+    "subtopic": "Configure soft delete for blobs and containers",
+    "question": "Scenario question 46 regarding Configure soft delete for blobs and containers in Configure Azure Files and Azure Blob Storage context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Configure soft delete for blobs and containers",
+      "Option B detailing solution for Configure soft delete for blobs and containers",
+      "Option C detailing solution for Configure soft delete for blobs and containers",
+      "Option D detailing solution for Configure soft delete for blobs and containers"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Configure soft delete for blobs and containers by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Configure soft delete for blobs and containers.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 47,
+    "subtopic": "Configure snapshots and soft delete for Azure Files",
+    "question": "Scenario question 47 regarding Configure snapshots and soft delete for Azure Files in Configure Azure Files and Azure Blob Storage context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Configure snapshots and soft delete for Azure Files",
+      "Option B detailing solution for Configure snapshots and soft delete for Azure Files",
+      "Option C detailing solution for Configure snapshots and soft delete for Azure Files",
+      "Option D detailing solution for Configure snapshots and soft delete for Azure Files"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Configure snapshots and soft delete for Azure Files by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Configure snapshots and soft delete for Azure Files.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 48,
+    "subtopic": "Configure blob lifecycle management",
+    "question": "Scenario question 48 regarding Configure blob lifecycle management in Configure Azure Files and Azure Blob Storage context: Which TWO options must you configure to achieve the target state? (Select TWO)",
+    "options": [
+      "First required configuration for Configure blob lifecycle management",
+      "Incorrect setting option A",
+      "Second required configuration for Configure blob lifecycle management",
+      "Incorrect setting option B"
+    ],
+    "correct": [
+      0,
+      2
+    ],
+    "explanation": {
+      "correctReason": "Options A (index 0) and C (index 2) are correct because both actions are necessary steps to configure Configure blob lifecycle management.",
+      "incorrectReasons": [
+        "Option B is incorrect because this setting is unsupported for this scenario.",
+        "Option D is incorrect as it applies to a different resource scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 49,
+    "subtopic": "Configure blob versioning",
+    "question": "Scenario question 49 regarding Configure blob versioning in Configure Azure Files and Azure Blob Storage context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Configure blob versioning",
+      "Option B detailing solution for Configure blob versioning",
+      "Option C detailing solution for Configure blob versioning",
+      "Option D detailing solution for Configure blob versioning"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Configure blob versioning by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Configure blob versioning.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 50,
+    "subtopic": "Create and configure a file share in Azure Storage",
+    "question": "Scenario question 50 regarding Create and configure a file share in Azure Storage in Configure Azure Files and Azure Blob Storage context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Create and configure a file share in Azure Storage",
+      "Option B detailing solution for Create and configure a file share in Azure Storage",
+      "Option C detailing solution for Create and configure a file share in Azure Storage",
+      "Option D detailing solution for Create and configure a file share in Azure Storage"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Create and configure a file share in Azure Storage by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Create and configure a file share in Azure Storage.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  }
+]

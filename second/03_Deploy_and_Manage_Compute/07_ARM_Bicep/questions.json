@@ -1,0 +1,1076 @@
+[
+  {
+    "id": 1,
+    "subtopic": "Interpret an Azure Resource Manager template or a Bicep file",
+    "question": "Scenario question 1 regarding Interpret an Azure Resource Manager template or a Bicep file in Automate deployment of resources by using Azure Resource Manager (ARM) templates or Bicep files context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Interpret an Azure Resource Manager template or a Bicep file",
+      "Option B detailing solution for Interpret an Azure Resource Manager template or a Bicep file",
+      "Option C detailing solution for Interpret an Azure Resource Manager template or a Bicep file",
+      "Option D detailing solution for Interpret an Azure Resource Manager template or a Bicep file"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Interpret an Azure Resource Manager template or a Bicep file by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Interpret an Azure Resource Manager template or a Bicep file.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 2,
+    "subtopic": "Modify an existing Azure Resource Manager template",
+    "question": "Scenario question 2 regarding Modify an existing Azure Resource Manager template in Automate deployment of resources by using Azure Resource Manager (ARM) templates or Bicep files context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Modify an existing Azure Resource Manager template",
+      "Option B detailing solution for Modify an existing Azure Resource Manager template",
+      "Option C detailing solution for Modify an existing Azure Resource Manager template",
+      "Option D detailing solution for Modify an existing Azure Resource Manager template"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Modify an existing Azure Resource Manager template by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Modify an existing Azure Resource Manager template.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 3,
+    "subtopic": "Modify an existing Bicep file",
+    "question": "Scenario question 3 regarding Modify an existing Bicep file in Automate deployment of resources by using Azure Resource Manager (ARM) templates or Bicep files context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Modify an existing Bicep file",
+      "Option B detailing solution for Modify an existing Bicep file",
+      "Option C detailing solution for Modify an existing Bicep file",
+      "Option D detailing solution for Modify an existing Bicep file"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Modify an existing Bicep file by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Modify an existing Bicep file.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 4,
+    "subtopic": "Deploy resources by using an Azure Resource Manager template or a Bicep file",
+    "question": "Scenario question 4 regarding Deploy resources by using an Azure Resource Manager template or a Bicep file in Automate deployment of resources by using Azure Resource Manager (ARM) templates or Bicep files context: Which TWO options must you configure to achieve the target state? (Select TWO)",
+    "options": [
+      "First required configuration for Deploy resources by using an Azure Resource Manager template or a Bicep file",
+      "Incorrect setting option A",
+      "Second required configuration for Deploy resources by using an Azure Resource Manager template or a Bicep file",
+      "Incorrect setting option B"
+    ],
+    "correct": [
+      0,
+      2
+    ],
+    "explanation": {
+      "correctReason": "Options A (index 0) and C (index 2) are correct because both actions are necessary steps to configure Deploy resources by using an Azure Resource Manager template or a Bicep file.",
+      "incorrectReasons": [
+        "Option B is incorrect because this setting is unsupported for this scenario.",
+        "Option D is incorrect as it applies to a different resource scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 5,
+    "subtopic": "Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file",
+    "question": "Scenario question 5 regarding Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file in Automate deployment of resources by using Azure Resource Manager (ARM) templates or Bicep files context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file",
+      "Option B detailing solution for Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file",
+      "Option C detailing solution for Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file",
+      "Option D detailing solution for Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 6,
+    "subtopic": "Interpret an Azure Resource Manager template or a Bicep file",
+    "question": "Scenario question 6 regarding Interpret an Azure Resource Manager template or a Bicep file in Automate deployment of resources by using Azure Resource Manager (ARM) templates or Bicep files context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Interpret an Azure Resource Manager template or a Bicep file",
+      "Option B detailing solution for Interpret an Azure Resource Manager template or a Bicep file",
+      "Option C detailing solution for Interpret an Azure Resource Manager template or a Bicep file",
+      "Option D detailing solution for Interpret an Azure Resource Manager template or a Bicep file"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Interpret an Azure Resource Manager template or a Bicep file by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Interpret an Azure Resource Manager template or a Bicep file.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 7,
+    "subtopic": "Modify an existing Azure Resource Manager template",
+    "question": "Scenario question 7 regarding Modify an existing Azure Resource Manager template in Automate deployment of resources by using Azure Resource Manager (ARM) templates or Bicep files context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Modify an existing Azure Resource Manager template",
+      "Option B detailing solution for Modify an existing Azure Resource Manager template",
+      "Option C detailing solution for Modify an existing Azure Resource Manager template",
+      "Option D detailing solution for Modify an existing Azure Resource Manager template"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Modify an existing Azure Resource Manager template by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Modify an existing Azure Resource Manager template.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 8,
+    "subtopic": "Modify an existing Bicep file",
+    "question": "Scenario question 8 regarding Modify an existing Bicep file in Automate deployment of resources by using Azure Resource Manager (ARM) templates or Bicep files context: Which TWO options must you configure to achieve the target state? (Select TWO)",
+    "options": [
+      "First required configuration for Modify an existing Bicep file",
+      "Incorrect setting option A",
+      "Second required configuration for Modify an existing Bicep file",
+      "Incorrect setting option B"
+    ],
+    "correct": [
+      0,
+      2
+    ],
+    "explanation": {
+      "correctReason": "Options A (index 0) and C (index 2) are correct because both actions are necessary steps to configure Modify an existing Bicep file.",
+      "incorrectReasons": [
+        "Option B is incorrect because this setting is unsupported for this scenario.",
+        "Option D is incorrect as it applies to a different resource scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 9,
+    "subtopic": "Deploy resources by using an Azure Resource Manager template or a Bicep file",
+    "question": "Scenario question 9 regarding Deploy resources by using an Azure Resource Manager template or a Bicep file in Automate deployment of resources by using Azure Resource Manager (ARM) templates or Bicep files context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Deploy resources by using an Azure Resource Manager template or a Bicep file",
+      "Option B detailing solution for Deploy resources by using an Azure Resource Manager template or a Bicep file",
+      "Option C detailing solution for Deploy resources by using an Azure Resource Manager template or a Bicep file",
+      "Option D detailing solution for Deploy resources by using an Azure Resource Manager template or a Bicep file"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Deploy resources by using an Azure Resource Manager template or a Bicep file by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Deploy resources by using an Azure Resource Manager template or a Bicep file.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 10,
+    "subtopic": "Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file",
+    "question": "Scenario question 10 regarding Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file in Automate deployment of resources by using Azure Resource Manager (ARM) templates or Bicep files context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file",
+      "Option B detailing solution for Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file",
+      "Option C detailing solution for Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file",
+      "Option D detailing solution for Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 11,
+    "subtopic": "Interpret an Azure Resource Manager template or a Bicep file",
+    "question": "Scenario question 11 regarding Interpret an Azure Resource Manager template or a Bicep file in Automate deployment of resources by using Azure Resource Manager (ARM) templates or Bicep files context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Interpret an Azure Resource Manager template or a Bicep file",
+      "Option B detailing solution for Interpret an Azure Resource Manager template or a Bicep file",
+      "Option C detailing solution for Interpret an Azure Resource Manager template or a Bicep file",
+      "Option D detailing solution for Interpret an Azure Resource Manager template or a Bicep file"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Interpret an Azure Resource Manager template or a Bicep file by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Interpret an Azure Resource Manager template or a Bicep file.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 12,
+    "subtopic": "Modify an existing Azure Resource Manager template",
+    "question": "Scenario question 12 regarding Modify an existing Azure Resource Manager template in Automate deployment of resources by using Azure Resource Manager (ARM) templates or Bicep files context: Which TWO options must you configure to achieve the target state? (Select TWO)",
+    "options": [
+      "First required configuration for Modify an existing Azure Resource Manager template",
+      "Incorrect setting option A",
+      "Second required configuration for Modify an existing Azure Resource Manager template",
+      "Incorrect setting option B"
+    ],
+    "correct": [
+      0,
+      2
+    ],
+    "explanation": {
+      "correctReason": "Options A (index 0) and C (index 2) are correct because both actions are necessary steps to configure Modify an existing Azure Resource Manager template.",
+      "incorrectReasons": [
+        "Option B is incorrect because this setting is unsupported for this scenario.",
+        "Option D is incorrect as it applies to a different resource scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 13,
+    "subtopic": "Modify an existing Bicep file",
+    "question": "Scenario question 13 regarding Modify an existing Bicep file in Automate deployment of resources by using Azure Resource Manager (ARM) templates or Bicep files context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Modify an existing Bicep file",
+      "Option B detailing solution for Modify an existing Bicep file",
+      "Option C detailing solution for Modify an existing Bicep file",
+      "Option D detailing solution for Modify an existing Bicep file"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Modify an existing Bicep file by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Modify an existing Bicep file.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 14,
+    "subtopic": "Deploy resources by using an Azure Resource Manager template or a Bicep file",
+    "question": "Scenario question 14 regarding Deploy resources by using an Azure Resource Manager template or a Bicep file in Automate deployment of resources by using Azure Resource Manager (ARM) templates or Bicep files context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Deploy resources by using an Azure Resource Manager template or a Bicep file",
+      "Option B detailing solution for Deploy resources by using an Azure Resource Manager template or a Bicep file",
+      "Option C detailing solution for Deploy resources by using an Azure Resource Manager template or a Bicep file",
+      "Option D detailing solution for Deploy resources by using an Azure Resource Manager template or a Bicep file"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Deploy resources by using an Azure Resource Manager template or a Bicep file by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Deploy resources by using an Azure Resource Manager template or a Bicep file.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 15,
+    "subtopic": "Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file",
+    "question": "Scenario question 15 regarding Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file in Automate deployment of resources by using Azure Resource Manager (ARM) templates or Bicep files context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file",
+      "Option B detailing solution for Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file",
+      "Option C detailing solution for Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file",
+      "Option D detailing solution for Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 16,
+    "subtopic": "Interpret an Azure Resource Manager template or a Bicep file",
+    "question": "Scenario question 16 regarding Interpret an Azure Resource Manager template or a Bicep file in Automate deployment of resources by using Azure Resource Manager (ARM) templates or Bicep files context: Which TWO options must you configure to achieve the target state? (Select TWO)",
+    "options": [
+      "First required configuration for Interpret an Azure Resource Manager template or a Bicep file",
+      "Incorrect setting option A",
+      "Second required configuration for Interpret an Azure Resource Manager template or a Bicep file",
+      "Incorrect setting option B"
+    ],
+    "correct": [
+      0,
+      2
+    ],
+    "explanation": {
+      "correctReason": "Options A (index 0) and C (index 2) are correct because both actions are necessary steps to configure Interpret an Azure Resource Manager template or a Bicep file.",
+      "incorrectReasons": [
+        "Option B is incorrect because this setting is unsupported for this scenario.",
+        "Option D is incorrect as it applies to a different resource scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 17,
+    "subtopic": "Modify an existing Azure Resource Manager template",
+    "question": "Scenario question 17 regarding Modify an existing Azure Resource Manager template in Automate deployment of resources by using Azure Resource Manager (ARM) templates or Bicep files context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Modify an existing Azure Resource Manager template",
+      "Option B detailing solution for Modify an existing Azure Resource Manager template",
+      "Option C detailing solution for Modify an existing Azure Resource Manager template",
+      "Option D detailing solution for Modify an existing Azure Resource Manager template"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Modify an existing Azure Resource Manager template by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Modify an existing Azure Resource Manager template.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 18,
+    "subtopic": "Modify an existing Bicep file",
+    "question": "Scenario question 18 regarding Modify an existing Bicep file in Automate deployment of resources by using Azure Resource Manager (ARM) templates or Bicep files context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Modify an existing Bicep file",
+      "Option B detailing solution for Modify an existing Bicep file",
+      "Option C detailing solution for Modify an existing Bicep file",
+      "Option D detailing solution for Modify an existing Bicep file"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Modify an existing Bicep file by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Modify an existing Bicep file.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 19,
+    "subtopic": "Deploy resources by using an Azure Resource Manager template or a Bicep file",
+    "question": "Scenario question 19 regarding Deploy resources by using an Azure Resource Manager template or a Bicep file in Automate deployment of resources by using Azure Resource Manager (ARM) templates or Bicep files context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Deploy resources by using an Azure Resource Manager template or a Bicep file",
+      "Option B detailing solution for Deploy resources by using an Azure Resource Manager template or a Bicep file",
+      "Option C detailing solution for Deploy resources by using an Azure Resource Manager template or a Bicep file",
+      "Option D detailing solution for Deploy resources by using an Azure Resource Manager template or a Bicep file"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Deploy resources by using an Azure Resource Manager template or a Bicep file by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Deploy resources by using an Azure Resource Manager template or a Bicep file.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 20,
+    "subtopic": "Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file",
+    "question": "Scenario question 20 regarding Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file in Automate deployment of resources by using Azure Resource Manager (ARM) templates or Bicep files context: Which TWO options must you configure to achieve the target state? (Select TWO)",
+    "options": [
+      "First required configuration for Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file",
+      "Incorrect setting option A",
+      "Second required configuration for Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file",
+      "Incorrect setting option B"
+    ],
+    "correct": [
+      0,
+      2
+    ],
+    "explanation": {
+      "correctReason": "Options A (index 0) and C (index 2) are correct because both actions are necessary steps to configure Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file.",
+      "incorrectReasons": [
+        "Option B is incorrect because this setting is unsupported for this scenario.",
+        "Option D is incorrect as it applies to a different resource scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 21,
+    "subtopic": "Interpret an Azure Resource Manager template or a Bicep file",
+    "question": "Scenario question 21 regarding Interpret an Azure Resource Manager template or a Bicep file in Automate deployment of resources by using Azure Resource Manager (ARM) templates or Bicep files context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Interpret an Azure Resource Manager template or a Bicep file",
+      "Option B detailing solution for Interpret an Azure Resource Manager template or a Bicep file",
+      "Option C detailing solution for Interpret an Azure Resource Manager template or a Bicep file",
+      "Option D detailing solution for Interpret an Azure Resource Manager template or a Bicep file"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Interpret an Azure Resource Manager template or a Bicep file by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Interpret an Azure Resource Manager template or a Bicep file.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 22,
+    "subtopic": "Modify an existing Azure Resource Manager template",
+    "question": "Scenario question 22 regarding Modify an existing Azure Resource Manager template in Automate deployment of resources by using Azure Resource Manager (ARM) templates or Bicep files context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Modify an existing Azure Resource Manager template",
+      "Option B detailing solution for Modify an existing Azure Resource Manager template",
+      "Option C detailing solution for Modify an existing Azure Resource Manager template",
+      "Option D detailing solution for Modify an existing Azure Resource Manager template"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Modify an existing Azure Resource Manager template by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Modify an existing Azure Resource Manager template.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 23,
+    "subtopic": "Modify an existing Bicep file",
+    "question": "Scenario question 23 regarding Modify an existing Bicep file in Automate deployment of resources by using Azure Resource Manager (ARM) templates or Bicep files context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Modify an existing Bicep file",
+      "Option B detailing solution for Modify an existing Bicep file",
+      "Option C detailing solution for Modify an existing Bicep file",
+      "Option D detailing solution for Modify an existing Bicep file"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Modify an existing Bicep file by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Modify an existing Bicep file.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 24,
+    "subtopic": "Deploy resources by using an Azure Resource Manager template or a Bicep file",
+    "question": "Scenario question 24 regarding Deploy resources by using an Azure Resource Manager template or a Bicep file in Automate deployment of resources by using Azure Resource Manager (ARM) templates or Bicep files context: Which TWO options must you configure to achieve the target state? (Select TWO)",
+    "options": [
+      "First required configuration for Deploy resources by using an Azure Resource Manager template or a Bicep file",
+      "Incorrect setting option A",
+      "Second required configuration for Deploy resources by using an Azure Resource Manager template or a Bicep file",
+      "Incorrect setting option B"
+    ],
+    "correct": [
+      0,
+      2
+    ],
+    "explanation": {
+      "correctReason": "Options A (index 0) and C (index 2) are correct because both actions are necessary steps to configure Deploy resources by using an Azure Resource Manager template or a Bicep file.",
+      "incorrectReasons": [
+        "Option B is incorrect because this setting is unsupported for this scenario.",
+        "Option D is incorrect as it applies to a different resource scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 25,
+    "subtopic": "Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file",
+    "question": "Scenario question 25 regarding Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file in Automate deployment of resources by using Azure Resource Manager (ARM) templates or Bicep files context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file",
+      "Option B detailing solution for Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file",
+      "Option C detailing solution for Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file",
+      "Option D detailing solution for Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 26,
+    "subtopic": "Interpret an Azure Resource Manager template or a Bicep file",
+    "question": "Scenario question 26 regarding Interpret an Azure Resource Manager template or a Bicep file in Automate deployment of resources by using Azure Resource Manager (ARM) templates or Bicep files context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Interpret an Azure Resource Manager template or a Bicep file",
+      "Option B detailing solution for Interpret an Azure Resource Manager template or a Bicep file",
+      "Option C detailing solution for Interpret an Azure Resource Manager template or a Bicep file",
+      "Option D detailing solution for Interpret an Azure Resource Manager template or a Bicep file"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Interpret an Azure Resource Manager template or a Bicep file by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Interpret an Azure Resource Manager template or a Bicep file.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 27,
+    "subtopic": "Modify an existing Azure Resource Manager template",
+    "question": "Scenario question 27 regarding Modify an existing Azure Resource Manager template in Automate deployment of resources by using Azure Resource Manager (ARM) templates or Bicep files context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Modify an existing Azure Resource Manager template",
+      "Option B detailing solution for Modify an existing Azure Resource Manager template",
+      "Option C detailing solution for Modify an existing Azure Resource Manager template",
+      "Option D detailing solution for Modify an existing Azure Resource Manager template"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Modify an existing Azure Resource Manager template by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Modify an existing Azure Resource Manager template.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 28,
+    "subtopic": "Modify an existing Bicep file",
+    "question": "Scenario question 28 regarding Modify an existing Bicep file in Automate deployment of resources by using Azure Resource Manager (ARM) templates or Bicep files context: Which TWO options must you configure to achieve the target state? (Select TWO)",
+    "options": [
+      "First required configuration for Modify an existing Bicep file",
+      "Incorrect setting option A",
+      "Second required configuration for Modify an existing Bicep file",
+      "Incorrect setting option B"
+    ],
+    "correct": [
+      0,
+      2
+    ],
+    "explanation": {
+      "correctReason": "Options A (index 0) and C (index 2) are correct because both actions are necessary steps to configure Modify an existing Bicep file.",
+      "incorrectReasons": [
+        "Option B is incorrect because this setting is unsupported for this scenario.",
+        "Option D is incorrect as it applies to a different resource scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 29,
+    "subtopic": "Deploy resources by using an Azure Resource Manager template or a Bicep file",
+    "question": "Scenario question 29 regarding Deploy resources by using an Azure Resource Manager template or a Bicep file in Automate deployment of resources by using Azure Resource Manager (ARM) templates or Bicep files context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Deploy resources by using an Azure Resource Manager template or a Bicep file",
+      "Option B detailing solution for Deploy resources by using an Azure Resource Manager template or a Bicep file",
+      "Option C detailing solution for Deploy resources by using an Azure Resource Manager template or a Bicep file",
+      "Option D detailing solution for Deploy resources by using an Azure Resource Manager template or a Bicep file"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Deploy resources by using an Azure Resource Manager template or a Bicep file by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Deploy resources by using an Azure Resource Manager template or a Bicep file.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 30,
+    "subtopic": "Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file",
+    "question": "Scenario question 30 regarding Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file in Automate deployment of resources by using Azure Resource Manager (ARM) templates or Bicep files context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file",
+      "Option B detailing solution for Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file",
+      "Option C detailing solution for Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file",
+      "Option D detailing solution for Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 31,
+    "subtopic": "Interpret an Azure Resource Manager template or a Bicep file",
+    "question": "Scenario question 31 regarding Interpret an Azure Resource Manager template or a Bicep file in Automate deployment of resources by using Azure Resource Manager (ARM) templates or Bicep files context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Interpret an Azure Resource Manager template or a Bicep file",
+      "Option B detailing solution for Interpret an Azure Resource Manager template or a Bicep file",
+      "Option C detailing solution for Interpret an Azure Resource Manager template or a Bicep file",
+      "Option D detailing solution for Interpret an Azure Resource Manager template or a Bicep file"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Interpret an Azure Resource Manager template or a Bicep file by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Interpret an Azure Resource Manager template or a Bicep file.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 32,
+    "subtopic": "Modify an existing Azure Resource Manager template",
+    "question": "Scenario question 32 regarding Modify an existing Azure Resource Manager template in Automate deployment of resources by using Azure Resource Manager (ARM) templates or Bicep files context: Which TWO options must you configure to achieve the target state? (Select TWO)",
+    "options": [
+      "First required configuration for Modify an existing Azure Resource Manager template",
+      "Incorrect setting option A",
+      "Second required configuration for Modify an existing Azure Resource Manager template",
+      "Incorrect setting option B"
+    ],
+    "correct": [
+      0,
+      2
+    ],
+    "explanation": {
+      "correctReason": "Options A (index 0) and C (index 2) are correct because both actions are necessary steps to configure Modify an existing Azure Resource Manager template.",
+      "incorrectReasons": [
+        "Option B is incorrect because this setting is unsupported for this scenario.",
+        "Option D is incorrect as it applies to a different resource scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 33,
+    "subtopic": "Modify an existing Bicep file",
+    "question": "Scenario question 33 regarding Modify an existing Bicep file in Automate deployment of resources by using Azure Resource Manager (ARM) templates or Bicep files context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Modify an existing Bicep file",
+      "Option B detailing solution for Modify an existing Bicep file",
+      "Option C detailing solution for Modify an existing Bicep file",
+      "Option D detailing solution for Modify an existing Bicep file"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Modify an existing Bicep file by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Modify an existing Bicep file.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 34,
+    "subtopic": "Deploy resources by using an Azure Resource Manager template or a Bicep file",
+    "question": "Scenario question 34 regarding Deploy resources by using an Azure Resource Manager template or a Bicep file in Automate deployment of resources by using Azure Resource Manager (ARM) templates or Bicep files context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Deploy resources by using an Azure Resource Manager template or a Bicep file",
+      "Option B detailing solution for Deploy resources by using an Azure Resource Manager template or a Bicep file",
+      "Option C detailing solution for Deploy resources by using an Azure Resource Manager template or a Bicep file",
+      "Option D detailing solution for Deploy resources by using an Azure Resource Manager template or a Bicep file"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Deploy resources by using an Azure Resource Manager template or a Bicep file by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Deploy resources by using an Azure Resource Manager template or a Bicep file.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 35,
+    "subtopic": "Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file",
+    "question": "Scenario question 35 regarding Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file in Automate deployment of resources by using Azure Resource Manager (ARM) templates or Bicep files context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file",
+      "Option B detailing solution for Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file",
+      "Option C detailing solution for Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file",
+      "Option D detailing solution for Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 36,
+    "subtopic": "Interpret an Azure Resource Manager template or a Bicep file",
+    "question": "Scenario question 36 regarding Interpret an Azure Resource Manager template or a Bicep file in Automate deployment of resources by using Azure Resource Manager (ARM) templates or Bicep files context: Which TWO options must you configure to achieve the target state? (Select TWO)",
+    "options": [
+      "First required configuration for Interpret an Azure Resource Manager template or a Bicep file",
+      "Incorrect setting option A",
+      "Second required configuration for Interpret an Azure Resource Manager template or a Bicep file",
+      "Incorrect setting option B"
+    ],
+    "correct": [
+      0,
+      2
+    ],
+    "explanation": {
+      "correctReason": "Options A (index 0) and C (index 2) are correct because both actions are necessary steps to configure Interpret an Azure Resource Manager template or a Bicep file.",
+      "incorrectReasons": [
+        "Option B is incorrect because this setting is unsupported for this scenario.",
+        "Option D is incorrect as it applies to a different resource scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 37,
+    "subtopic": "Modify an existing Azure Resource Manager template",
+    "question": "Scenario question 37 regarding Modify an existing Azure Resource Manager template in Automate deployment of resources by using Azure Resource Manager (ARM) templates or Bicep files context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Modify an existing Azure Resource Manager template",
+      "Option B detailing solution for Modify an existing Azure Resource Manager template",
+      "Option C detailing solution for Modify an existing Azure Resource Manager template",
+      "Option D detailing solution for Modify an existing Azure Resource Manager template"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Modify an existing Azure Resource Manager template by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Modify an existing Azure Resource Manager template.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 38,
+    "subtopic": "Modify an existing Bicep file",
+    "question": "Scenario question 38 regarding Modify an existing Bicep file in Automate deployment of resources by using Azure Resource Manager (ARM) templates or Bicep files context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Modify an existing Bicep file",
+      "Option B detailing solution for Modify an existing Bicep file",
+      "Option C detailing solution for Modify an existing Bicep file",
+      "Option D detailing solution for Modify an existing Bicep file"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Modify an existing Bicep file by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Modify an existing Bicep file.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 39,
+    "subtopic": "Deploy resources by using an Azure Resource Manager template or a Bicep file",
+    "question": "Scenario question 39 regarding Deploy resources by using an Azure Resource Manager template or a Bicep file in Automate deployment of resources by using Azure Resource Manager (ARM) templates or Bicep files context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Deploy resources by using an Azure Resource Manager template or a Bicep file",
+      "Option B detailing solution for Deploy resources by using an Azure Resource Manager template or a Bicep file",
+      "Option C detailing solution for Deploy resources by using an Azure Resource Manager template or a Bicep file",
+      "Option D detailing solution for Deploy resources by using an Azure Resource Manager template or a Bicep file"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Deploy resources by using an Azure Resource Manager template or a Bicep file by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Deploy resources by using an Azure Resource Manager template or a Bicep file.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 40,
+    "subtopic": "Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file",
+    "question": "Scenario question 40 regarding Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file in Automate deployment of resources by using Azure Resource Manager (ARM) templates or Bicep files context: Which TWO options must you configure to achieve the target state? (Select TWO)",
+    "options": [
+      "First required configuration for Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file",
+      "Incorrect setting option A",
+      "Second required configuration for Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file",
+      "Incorrect setting option B"
+    ],
+    "correct": [
+      0,
+      2
+    ],
+    "explanation": {
+      "correctReason": "Options A (index 0) and C (index 2) are correct because both actions are necessary steps to configure Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file.",
+      "incorrectReasons": [
+        "Option B is incorrect because this setting is unsupported for this scenario.",
+        "Option D is incorrect as it applies to a different resource scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 41,
+    "subtopic": "Interpret an Azure Resource Manager template or a Bicep file",
+    "question": "Scenario question 41 regarding Interpret an Azure Resource Manager template or a Bicep file in Automate deployment of resources by using Azure Resource Manager (ARM) templates or Bicep files context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Interpret an Azure Resource Manager template or a Bicep file",
+      "Option B detailing solution for Interpret an Azure Resource Manager template or a Bicep file",
+      "Option C detailing solution for Interpret an Azure Resource Manager template or a Bicep file",
+      "Option D detailing solution for Interpret an Azure Resource Manager template or a Bicep file"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Interpret an Azure Resource Manager template or a Bicep file by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Interpret an Azure Resource Manager template or a Bicep file.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 42,
+    "subtopic": "Modify an existing Azure Resource Manager template",
+    "question": "Scenario question 42 regarding Modify an existing Azure Resource Manager template in Automate deployment of resources by using Azure Resource Manager (ARM) templates or Bicep files context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Modify an existing Azure Resource Manager template",
+      "Option B detailing solution for Modify an existing Azure Resource Manager template",
+      "Option C detailing solution for Modify an existing Azure Resource Manager template",
+      "Option D detailing solution for Modify an existing Azure Resource Manager template"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Modify an existing Azure Resource Manager template by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Modify an existing Azure Resource Manager template.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 43,
+    "subtopic": "Modify an existing Bicep file",
+    "question": "Scenario question 43 regarding Modify an existing Bicep file in Automate deployment of resources by using Azure Resource Manager (ARM) templates or Bicep files context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Modify an existing Bicep file",
+      "Option B detailing solution for Modify an existing Bicep file",
+      "Option C detailing solution for Modify an existing Bicep file",
+      "Option D detailing solution for Modify an existing Bicep file"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Modify an existing Bicep file by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Modify an existing Bicep file.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 44,
+    "subtopic": "Deploy resources by using an Azure Resource Manager template or a Bicep file",
+    "question": "Scenario question 44 regarding Deploy resources by using an Azure Resource Manager template or a Bicep file in Automate deployment of resources by using Azure Resource Manager (ARM) templates or Bicep files context: Which TWO options must you configure to achieve the target state? (Select TWO)",
+    "options": [
+      "First required configuration for Deploy resources by using an Azure Resource Manager template or a Bicep file",
+      "Incorrect setting option A",
+      "Second required configuration for Deploy resources by using an Azure Resource Manager template or a Bicep file",
+      "Incorrect setting option B"
+    ],
+    "correct": [
+      0,
+      2
+    ],
+    "explanation": {
+      "correctReason": "Options A (index 0) and C (index 2) are correct because both actions are necessary steps to configure Deploy resources by using an Azure Resource Manager template or a Bicep file.",
+      "incorrectReasons": [
+        "Option B is incorrect because this setting is unsupported for this scenario.",
+        "Option D is incorrect as it applies to a different resource scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 45,
+    "subtopic": "Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file",
+    "question": "Scenario question 45 regarding Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file in Automate deployment of resources by using Azure Resource Manager (ARM) templates or Bicep files context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file",
+      "Option B detailing solution for Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file",
+      "Option C detailing solution for Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file",
+      "Option D detailing solution for Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 46,
+    "subtopic": "Interpret an Azure Resource Manager template or a Bicep file",
+    "question": "Scenario question 46 regarding Interpret an Azure Resource Manager template or a Bicep file in Automate deployment of resources by using Azure Resource Manager (ARM) templates or Bicep files context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Interpret an Azure Resource Manager template or a Bicep file",
+      "Option B detailing solution for Interpret an Azure Resource Manager template or a Bicep file",
+      "Option C detailing solution for Interpret an Azure Resource Manager template or a Bicep file",
+      "Option D detailing solution for Interpret an Azure Resource Manager template or a Bicep file"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Interpret an Azure Resource Manager template or a Bicep file by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Interpret an Azure Resource Manager template or a Bicep file.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 47,
+    "subtopic": "Modify an existing Azure Resource Manager template",
+    "question": "Scenario question 47 regarding Modify an existing Azure Resource Manager template in Automate deployment of resources by using Azure Resource Manager (ARM) templates or Bicep files context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Modify an existing Azure Resource Manager template",
+      "Option B detailing solution for Modify an existing Azure Resource Manager template",
+      "Option C detailing solution for Modify an existing Azure Resource Manager template",
+      "Option D detailing solution for Modify an existing Azure Resource Manager template"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Modify an existing Azure Resource Manager template by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Modify an existing Azure Resource Manager template.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 48,
+    "subtopic": "Modify an existing Bicep file",
+    "question": "Scenario question 48 regarding Modify an existing Bicep file in Automate deployment of resources by using Azure Resource Manager (ARM) templates or Bicep files context: Which TWO options must you configure to achieve the target state? (Select TWO)",
+    "options": [
+      "First required configuration for Modify an existing Bicep file",
+      "Incorrect setting option A",
+      "Second required configuration for Modify an existing Bicep file",
+      "Incorrect setting option B"
+    ],
+    "correct": [
+      0,
+      2
+    ],
+    "explanation": {
+      "correctReason": "Options A (index 0) and C (index 2) are correct because both actions are necessary steps to configure Modify an existing Bicep file.",
+      "incorrectReasons": [
+        "Option B is incorrect because this setting is unsupported for this scenario.",
+        "Option D is incorrect as it applies to a different resource scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 49,
+    "subtopic": "Deploy resources by using an Azure Resource Manager template or a Bicep file",
+    "question": "Scenario question 49 regarding Deploy resources by using an Azure Resource Manager template or a Bicep file in Automate deployment of resources by using Azure Resource Manager (ARM) templates or Bicep files context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Deploy resources by using an Azure Resource Manager template or a Bicep file",
+      "Option B detailing solution for Deploy resources by using an Azure Resource Manager template or a Bicep file",
+      "Option C detailing solution for Deploy resources by using an Azure Resource Manager template or a Bicep file",
+      "Option D detailing solution for Deploy resources by using an Azure Resource Manager template or a Bicep file"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Deploy resources by using an Azure Resource Manager template or a Bicep file by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Deploy resources by using an Azure Resource Manager template or a Bicep file.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 50,
+    "subtopic": "Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file",
+    "question": "Scenario question 50 regarding Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file in Automate deployment of resources by using Azure Resource Manager (ARM) templates or Bicep files context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file",
+      "Option B detailing solution for Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file",
+      "Option C detailing solution for Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file",
+      "Option D detailing solution for Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  }
+]

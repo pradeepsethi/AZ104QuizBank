@@ -1,0 +1,1076 @@
+[
+  {
+    "id": 1,
+    "subtopic": "Create and configure virtual networks and subnets",
+    "question": "Scenario question 1 regarding Create and configure virtual networks and subnets in Configure and manage virtual networks in Azure context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Create and configure virtual networks and subnets",
+      "Option B detailing solution for Create and configure virtual networks and subnets",
+      "Option C detailing solution for Create and configure virtual networks and subnets",
+      "Option D detailing solution for Create and configure virtual networks and subnets"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Create and configure virtual networks and subnets by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Create and configure virtual networks and subnets.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 2,
+    "subtopic": "Create and configure virtual network peering",
+    "question": "Scenario question 2 regarding Create and configure virtual network peering in Configure and manage virtual networks in Azure context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Create and configure virtual network peering",
+      "Option B detailing solution for Create and configure virtual network peering",
+      "Option C detailing solution for Create and configure virtual network peering",
+      "Option D detailing solution for Create and configure virtual network peering"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Create and configure virtual network peering by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Create and configure virtual network peering.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 3,
+    "subtopic": "Configure public IP addresses",
+    "question": "Scenario question 3 regarding Configure public IP addresses in Configure and manage virtual networks in Azure context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Configure public IP addresses",
+      "Option B detailing solution for Configure public IP addresses",
+      "Option C detailing solution for Configure public IP addresses",
+      "Option D detailing solution for Configure public IP addresses"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Configure public IP addresses by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Configure public IP addresses.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 4,
+    "subtopic": "Configure user-defined network routes",
+    "question": "Scenario question 4 regarding Configure user-defined network routes in Configure and manage virtual networks in Azure context: Which TWO options must you configure to achieve the target state? (Select TWO)",
+    "options": [
+      "First required configuration for Configure user-defined network routes",
+      "Incorrect setting option A",
+      "Second required configuration for Configure user-defined network routes",
+      "Incorrect setting option B"
+    ],
+    "correct": [
+      0,
+      2
+    ],
+    "explanation": {
+      "correctReason": "Options A (index 0) and C (index 2) are correct because both actions are necessary steps to configure Configure user-defined network routes.",
+      "incorrectReasons": [
+        "Option B is incorrect because this setting is unsupported for this scenario.",
+        "Option D is incorrect as it applies to a different resource scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 5,
+    "subtopic": "Troubleshoot network connectivity",
+    "question": "Scenario question 5 regarding Troubleshoot network connectivity in Configure and manage virtual networks in Azure context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Troubleshoot network connectivity",
+      "Option B detailing solution for Troubleshoot network connectivity",
+      "Option C detailing solution for Troubleshoot network connectivity",
+      "Option D detailing solution for Troubleshoot network connectivity"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Troubleshoot network connectivity by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Troubleshoot network connectivity.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 6,
+    "subtopic": "Create and configure virtual networks and subnets",
+    "question": "Scenario question 6 regarding Create and configure virtual networks and subnets in Configure and manage virtual networks in Azure context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Create and configure virtual networks and subnets",
+      "Option B detailing solution for Create and configure virtual networks and subnets",
+      "Option C detailing solution for Create and configure virtual networks and subnets",
+      "Option D detailing solution for Create and configure virtual networks and subnets"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Create and configure virtual networks and subnets by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Create and configure virtual networks and subnets.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 7,
+    "subtopic": "Create and configure virtual network peering",
+    "question": "Scenario question 7 regarding Create and configure virtual network peering in Configure and manage virtual networks in Azure context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Create and configure virtual network peering",
+      "Option B detailing solution for Create and configure virtual network peering",
+      "Option C detailing solution for Create and configure virtual network peering",
+      "Option D detailing solution for Create and configure virtual network peering"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Create and configure virtual network peering by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Create and configure virtual network peering.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 8,
+    "subtopic": "Configure public IP addresses",
+    "question": "Scenario question 8 regarding Configure public IP addresses in Configure and manage virtual networks in Azure context: Which TWO options must you configure to achieve the target state? (Select TWO)",
+    "options": [
+      "First required configuration for Configure public IP addresses",
+      "Incorrect setting option A",
+      "Second required configuration for Configure public IP addresses",
+      "Incorrect setting option B"
+    ],
+    "correct": [
+      0,
+      2
+    ],
+    "explanation": {
+      "correctReason": "Options A (index 0) and C (index 2) are correct because both actions are necessary steps to configure Configure public IP addresses.",
+      "incorrectReasons": [
+        "Option B is incorrect because this setting is unsupported for this scenario.",
+        "Option D is incorrect as it applies to a different resource scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 9,
+    "subtopic": "Configure user-defined network routes",
+    "question": "Scenario question 9 regarding Configure user-defined network routes in Configure and manage virtual networks in Azure context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Configure user-defined network routes",
+      "Option B detailing solution for Configure user-defined network routes",
+      "Option C detailing solution for Configure user-defined network routes",
+      "Option D detailing solution for Configure user-defined network routes"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Configure user-defined network routes by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Configure user-defined network routes.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 10,
+    "subtopic": "Troubleshoot network connectivity",
+    "question": "Scenario question 10 regarding Troubleshoot network connectivity in Configure and manage virtual networks in Azure context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Troubleshoot network connectivity",
+      "Option B detailing solution for Troubleshoot network connectivity",
+      "Option C detailing solution for Troubleshoot network connectivity",
+      "Option D detailing solution for Troubleshoot network connectivity"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Troubleshoot network connectivity by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Troubleshoot network connectivity.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 11,
+    "subtopic": "Create and configure virtual networks and subnets",
+    "question": "Scenario question 11 regarding Create and configure virtual networks and subnets in Configure and manage virtual networks in Azure context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Create and configure virtual networks and subnets",
+      "Option B detailing solution for Create and configure virtual networks and subnets",
+      "Option C detailing solution for Create and configure virtual networks and subnets",
+      "Option D detailing solution for Create and configure virtual networks and subnets"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Create and configure virtual networks and subnets by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Create and configure virtual networks and subnets.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 12,
+    "subtopic": "Create and configure virtual network peering",
+    "question": "Scenario question 12 regarding Create and configure virtual network peering in Configure and manage virtual networks in Azure context: Which TWO options must you configure to achieve the target state? (Select TWO)",
+    "options": [
+      "First required configuration for Create and configure virtual network peering",
+      "Incorrect setting option A",
+      "Second required configuration for Create and configure virtual network peering",
+      "Incorrect setting option B"
+    ],
+    "correct": [
+      0,
+      2
+    ],
+    "explanation": {
+      "correctReason": "Options A (index 0) and C (index 2) are correct because both actions are necessary steps to configure Create and configure virtual network peering.",
+      "incorrectReasons": [
+        "Option B is incorrect because this setting is unsupported for this scenario.",
+        "Option D is incorrect as it applies to a different resource scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 13,
+    "subtopic": "Configure public IP addresses",
+    "question": "Scenario question 13 regarding Configure public IP addresses in Configure and manage virtual networks in Azure context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Configure public IP addresses",
+      "Option B detailing solution for Configure public IP addresses",
+      "Option C detailing solution for Configure public IP addresses",
+      "Option D detailing solution for Configure public IP addresses"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Configure public IP addresses by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Configure public IP addresses.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 14,
+    "subtopic": "Configure user-defined network routes",
+    "question": "Scenario question 14 regarding Configure user-defined network routes in Configure and manage virtual networks in Azure context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Configure user-defined network routes",
+      "Option B detailing solution for Configure user-defined network routes",
+      "Option C detailing solution for Configure user-defined network routes",
+      "Option D detailing solution for Configure user-defined network routes"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Configure user-defined network routes by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Configure user-defined network routes.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 15,
+    "subtopic": "Troubleshoot network connectivity",
+    "question": "Scenario question 15 regarding Troubleshoot network connectivity in Configure and manage virtual networks in Azure context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Troubleshoot network connectivity",
+      "Option B detailing solution for Troubleshoot network connectivity",
+      "Option C detailing solution for Troubleshoot network connectivity",
+      "Option D detailing solution for Troubleshoot network connectivity"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Troubleshoot network connectivity by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Troubleshoot network connectivity.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 16,
+    "subtopic": "Create and configure virtual networks and subnets",
+    "question": "Scenario question 16 regarding Create and configure virtual networks and subnets in Configure and manage virtual networks in Azure context: Which TWO options must you configure to achieve the target state? (Select TWO)",
+    "options": [
+      "First required configuration for Create and configure virtual networks and subnets",
+      "Incorrect setting option A",
+      "Second required configuration for Create and configure virtual networks and subnets",
+      "Incorrect setting option B"
+    ],
+    "correct": [
+      0,
+      2
+    ],
+    "explanation": {
+      "correctReason": "Options A (index 0) and C (index 2) are correct because both actions are necessary steps to configure Create and configure virtual networks and subnets.",
+      "incorrectReasons": [
+        "Option B is incorrect because this setting is unsupported for this scenario.",
+        "Option D is incorrect as it applies to a different resource scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 17,
+    "subtopic": "Create and configure virtual network peering",
+    "question": "Scenario question 17 regarding Create and configure virtual network peering in Configure and manage virtual networks in Azure context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Create and configure virtual network peering",
+      "Option B detailing solution for Create and configure virtual network peering",
+      "Option C detailing solution for Create and configure virtual network peering",
+      "Option D detailing solution for Create and configure virtual network peering"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Create and configure virtual network peering by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Create and configure virtual network peering.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 18,
+    "subtopic": "Configure public IP addresses",
+    "question": "Scenario question 18 regarding Configure public IP addresses in Configure and manage virtual networks in Azure context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Configure public IP addresses",
+      "Option B detailing solution for Configure public IP addresses",
+      "Option C detailing solution for Configure public IP addresses",
+      "Option D detailing solution for Configure public IP addresses"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Configure public IP addresses by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Configure public IP addresses.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 19,
+    "subtopic": "Configure user-defined network routes",
+    "question": "Scenario question 19 regarding Configure user-defined network routes in Configure and manage virtual networks in Azure context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Configure user-defined network routes",
+      "Option B detailing solution for Configure user-defined network routes",
+      "Option C detailing solution for Configure user-defined network routes",
+      "Option D detailing solution for Configure user-defined network routes"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Configure user-defined network routes by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Configure user-defined network routes.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 20,
+    "subtopic": "Troubleshoot network connectivity",
+    "question": "Scenario question 20 regarding Troubleshoot network connectivity in Configure and manage virtual networks in Azure context: Which TWO options must you configure to achieve the target state? (Select TWO)",
+    "options": [
+      "First required configuration for Troubleshoot network connectivity",
+      "Incorrect setting option A",
+      "Second required configuration for Troubleshoot network connectivity",
+      "Incorrect setting option B"
+    ],
+    "correct": [
+      0,
+      2
+    ],
+    "explanation": {
+      "correctReason": "Options A (index 0) and C (index 2) are correct because both actions are necessary steps to configure Troubleshoot network connectivity.",
+      "incorrectReasons": [
+        "Option B is incorrect because this setting is unsupported for this scenario.",
+        "Option D is incorrect as it applies to a different resource scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 21,
+    "subtopic": "Create and configure virtual networks and subnets",
+    "question": "Scenario question 21 regarding Create and configure virtual networks and subnets in Configure and manage virtual networks in Azure context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Create and configure virtual networks and subnets",
+      "Option B detailing solution for Create and configure virtual networks and subnets",
+      "Option C detailing solution for Create and configure virtual networks and subnets",
+      "Option D detailing solution for Create and configure virtual networks and subnets"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Create and configure virtual networks and subnets by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Create and configure virtual networks and subnets.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 22,
+    "subtopic": "Create and configure virtual network peering",
+    "question": "Scenario question 22 regarding Create and configure virtual network peering in Configure and manage virtual networks in Azure context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Create and configure virtual network peering",
+      "Option B detailing solution for Create and configure virtual network peering",
+      "Option C detailing solution for Create and configure virtual network peering",
+      "Option D detailing solution for Create and configure virtual network peering"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Create and configure virtual network peering by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Create and configure virtual network peering.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 23,
+    "subtopic": "Configure public IP addresses",
+    "question": "Scenario question 23 regarding Configure public IP addresses in Configure and manage virtual networks in Azure context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Configure public IP addresses",
+      "Option B detailing solution for Configure public IP addresses",
+      "Option C detailing solution for Configure public IP addresses",
+      "Option D detailing solution for Configure public IP addresses"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Configure public IP addresses by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Configure public IP addresses.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 24,
+    "subtopic": "Configure user-defined network routes",
+    "question": "Scenario question 24 regarding Configure user-defined network routes in Configure and manage virtual networks in Azure context: Which TWO options must you configure to achieve the target state? (Select TWO)",
+    "options": [
+      "First required configuration for Configure user-defined network routes",
+      "Incorrect setting option A",
+      "Second required configuration for Configure user-defined network routes",
+      "Incorrect setting option B"
+    ],
+    "correct": [
+      0,
+      2
+    ],
+    "explanation": {
+      "correctReason": "Options A (index 0) and C (index 2) are correct because both actions are necessary steps to configure Configure user-defined network routes.",
+      "incorrectReasons": [
+        "Option B is incorrect because this setting is unsupported for this scenario.",
+        "Option D is incorrect as it applies to a different resource scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 25,
+    "subtopic": "Troubleshoot network connectivity",
+    "question": "Scenario question 25 regarding Troubleshoot network connectivity in Configure and manage virtual networks in Azure context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Troubleshoot network connectivity",
+      "Option B detailing solution for Troubleshoot network connectivity",
+      "Option C detailing solution for Troubleshoot network connectivity",
+      "Option D detailing solution for Troubleshoot network connectivity"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Troubleshoot network connectivity by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Troubleshoot network connectivity.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 26,
+    "subtopic": "Create and configure virtual networks and subnets",
+    "question": "Scenario question 26 regarding Create and configure virtual networks and subnets in Configure and manage virtual networks in Azure context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Create and configure virtual networks and subnets",
+      "Option B detailing solution for Create and configure virtual networks and subnets",
+      "Option C detailing solution for Create and configure virtual networks and subnets",
+      "Option D detailing solution for Create and configure virtual networks and subnets"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Create and configure virtual networks and subnets by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Create and configure virtual networks and subnets.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 27,
+    "subtopic": "Create and configure virtual network peering",
+    "question": "Scenario question 27 regarding Create and configure virtual network peering in Configure and manage virtual networks in Azure context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Create and configure virtual network peering",
+      "Option B detailing solution for Create and configure virtual network peering",
+      "Option C detailing solution for Create and configure virtual network peering",
+      "Option D detailing solution for Create and configure virtual network peering"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Create and configure virtual network peering by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Create and configure virtual network peering.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 28,
+    "subtopic": "Configure public IP addresses",
+    "question": "Scenario question 28 regarding Configure public IP addresses in Configure and manage virtual networks in Azure context: Which TWO options must you configure to achieve the target state? (Select TWO)",
+    "options": [
+      "First required configuration for Configure public IP addresses",
+      "Incorrect setting option A",
+      "Second required configuration for Configure public IP addresses",
+      "Incorrect setting option B"
+    ],
+    "correct": [
+      0,
+      2
+    ],
+    "explanation": {
+      "correctReason": "Options A (index 0) and C (index 2) are correct because both actions are necessary steps to configure Configure public IP addresses.",
+      "incorrectReasons": [
+        "Option B is incorrect because this setting is unsupported for this scenario.",
+        "Option D is incorrect as it applies to a different resource scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 29,
+    "subtopic": "Configure user-defined network routes",
+    "question": "Scenario question 29 regarding Configure user-defined network routes in Configure and manage virtual networks in Azure context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Configure user-defined network routes",
+      "Option B detailing solution for Configure user-defined network routes",
+      "Option C detailing solution for Configure user-defined network routes",
+      "Option D detailing solution for Configure user-defined network routes"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Configure user-defined network routes by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Configure user-defined network routes.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 30,
+    "subtopic": "Troubleshoot network connectivity",
+    "question": "Scenario question 30 regarding Troubleshoot network connectivity in Configure and manage virtual networks in Azure context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Troubleshoot network connectivity",
+      "Option B detailing solution for Troubleshoot network connectivity",
+      "Option C detailing solution for Troubleshoot network connectivity",
+      "Option D detailing solution for Troubleshoot network connectivity"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Troubleshoot network connectivity by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Troubleshoot network connectivity.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 31,
+    "subtopic": "Create and configure virtual networks and subnets",
+    "question": "Scenario question 31 regarding Create and configure virtual networks and subnets in Configure and manage virtual networks in Azure context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Create and configure virtual networks and subnets",
+      "Option B detailing solution for Create and configure virtual networks and subnets",
+      "Option C detailing solution for Create and configure virtual networks and subnets",
+      "Option D detailing solution for Create and configure virtual networks and subnets"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Create and configure virtual networks and subnets by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Create and configure virtual networks and subnets.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 32,
+    "subtopic": "Create and configure virtual network peering",
+    "question": "Scenario question 32 regarding Create and configure virtual network peering in Configure and manage virtual networks in Azure context: Which TWO options must you configure to achieve the target state? (Select TWO)",
+    "options": [
+      "First required configuration for Create and configure virtual network peering",
+      "Incorrect setting option A",
+      "Second required configuration for Create and configure virtual network peering",
+      "Incorrect setting option B"
+    ],
+    "correct": [
+      0,
+      2
+    ],
+    "explanation": {
+      "correctReason": "Options A (index 0) and C (index 2) are correct because both actions are necessary steps to configure Create and configure virtual network peering.",
+      "incorrectReasons": [
+        "Option B is incorrect because this setting is unsupported for this scenario.",
+        "Option D is incorrect as it applies to a different resource scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 33,
+    "subtopic": "Configure public IP addresses",
+    "question": "Scenario question 33 regarding Configure public IP addresses in Configure and manage virtual networks in Azure context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Configure public IP addresses",
+      "Option B detailing solution for Configure public IP addresses",
+      "Option C detailing solution for Configure public IP addresses",
+      "Option D detailing solution for Configure public IP addresses"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Configure public IP addresses by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Configure public IP addresses.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 34,
+    "subtopic": "Configure user-defined network routes",
+    "question": "Scenario question 34 regarding Configure user-defined network routes in Configure and manage virtual networks in Azure context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Configure user-defined network routes",
+      "Option B detailing solution for Configure user-defined network routes",
+      "Option C detailing solution for Configure user-defined network routes",
+      "Option D detailing solution for Configure user-defined network routes"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Configure user-defined network routes by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Configure user-defined network routes.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 35,
+    "subtopic": "Troubleshoot network connectivity",
+    "question": "Scenario question 35 regarding Troubleshoot network connectivity in Configure and manage virtual networks in Azure context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Troubleshoot network connectivity",
+      "Option B detailing solution for Troubleshoot network connectivity",
+      "Option C detailing solution for Troubleshoot network connectivity",
+      "Option D detailing solution for Troubleshoot network connectivity"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Troubleshoot network connectivity by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Troubleshoot network connectivity.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 36,
+    "subtopic": "Create and configure virtual networks and subnets",
+    "question": "Scenario question 36 regarding Create and configure virtual networks and subnets in Configure and manage virtual networks in Azure context: Which TWO options must you configure to achieve the target state? (Select TWO)",
+    "options": [
+      "First required configuration for Create and configure virtual networks and subnets",
+      "Incorrect setting option A",
+      "Second required configuration for Create and configure virtual networks and subnets",
+      "Incorrect setting option B"
+    ],
+    "correct": [
+      0,
+      2
+    ],
+    "explanation": {
+      "correctReason": "Options A (index 0) and C (index 2) are correct because both actions are necessary steps to configure Create and configure virtual networks and subnets.",
+      "incorrectReasons": [
+        "Option B is incorrect because this setting is unsupported for this scenario.",
+        "Option D is incorrect as it applies to a different resource scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 37,
+    "subtopic": "Create and configure virtual network peering",
+    "question": "Scenario question 37 regarding Create and configure virtual network peering in Configure and manage virtual networks in Azure context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Create and configure virtual network peering",
+      "Option B detailing solution for Create and configure virtual network peering",
+      "Option C detailing solution for Create and configure virtual network peering",
+      "Option D detailing solution for Create and configure virtual network peering"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Create and configure virtual network peering by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Create and configure virtual network peering.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 38,
+    "subtopic": "Configure public IP addresses",
+    "question": "Scenario question 38 regarding Configure public IP addresses in Configure and manage virtual networks in Azure context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Configure public IP addresses",
+      "Option B detailing solution for Configure public IP addresses",
+      "Option C detailing solution for Configure public IP addresses",
+      "Option D detailing solution for Configure public IP addresses"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Configure public IP addresses by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Configure public IP addresses.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 39,
+    "subtopic": "Configure user-defined network routes",
+    "question": "Scenario question 39 regarding Configure user-defined network routes in Configure and manage virtual networks in Azure context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Configure user-defined network routes",
+      "Option B detailing solution for Configure user-defined network routes",
+      "Option C detailing solution for Configure user-defined network routes",
+      "Option D detailing solution for Configure user-defined network routes"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Configure user-defined network routes by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Configure user-defined network routes.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 40,
+    "subtopic": "Troubleshoot network connectivity",
+    "question": "Scenario question 40 regarding Troubleshoot network connectivity in Configure and manage virtual networks in Azure context: Which TWO options must you configure to achieve the target state? (Select TWO)",
+    "options": [
+      "First required configuration for Troubleshoot network connectivity",
+      "Incorrect setting option A",
+      "Second required configuration for Troubleshoot network connectivity",
+      "Incorrect setting option B"
+    ],
+    "correct": [
+      0,
+      2
+    ],
+    "explanation": {
+      "correctReason": "Options A (index 0) and C (index 2) are correct because both actions are necessary steps to configure Troubleshoot network connectivity.",
+      "incorrectReasons": [
+        "Option B is incorrect because this setting is unsupported for this scenario.",
+        "Option D is incorrect as it applies to a different resource scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 41,
+    "subtopic": "Create and configure virtual networks and subnets",
+    "question": "Scenario question 41 regarding Create and configure virtual networks and subnets in Configure and manage virtual networks in Azure context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Create and configure virtual networks and subnets",
+      "Option B detailing solution for Create and configure virtual networks and subnets",
+      "Option C detailing solution for Create and configure virtual networks and subnets",
+      "Option D detailing solution for Create and configure virtual networks and subnets"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Create and configure virtual networks and subnets by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Create and configure virtual networks and subnets.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 42,
+    "subtopic": "Create and configure virtual network peering",
+    "question": "Scenario question 42 regarding Create and configure virtual network peering in Configure and manage virtual networks in Azure context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Create and configure virtual network peering",
+      "Option B detailing solution for Create and configure virtual network peering",
+      "Option C detailing solution for Create and configure virtual network peering",
+      "Option D detailing solution for Create and configure virtual network peering"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Create and configure virtual network peering by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Create and configure virtual network peering.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 43,
+    "subtopic": "Configure public IP addresses",
+    "question": "Scenario question 43 regarding Configure public IP addresses in Configure and manage virtual networks in Azure context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Configure public IP addresses",
+      "Option B detailing solution for Configure public IP addresses",
+      "Option C detailing solution for Configure public IP addresses",
+      "Option D detailing solution for Configure public IP addresses"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Configure public IP addresses by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Configure public IP addresses.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 44,
+    "subtopic": "Configure user-defined network routes",
+    "question": "Scenario question 44 regarding Configure user-defined network routes in Configure and manage virtual networks in Azure context: Which TWO options must you configure to achieve the target state? (Select TWO)",
+    "options": [
+      "First required configuration for Configure user-defined network routes",
+      "Incorrect setting option A",
+      "Second required configuration for Configure user-defined network routes",
+      "Incorrect setting option B"
+    ],
+    "correct": [
+      0,
+      2
+    ],
+    "explanation": {
+      "correctReason": "Options A (index 0) and C (index 2) are correct because both actions are necessary steps to configure Configure user-defined network routes.",
+      "incorrectReasons": [
+        "Option B is incorrect because this setting is unsupported for this scenario.",
+        "Option D is incorrect as it applies to a different resource scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 45,
+    "subtopic": "Troubleshoot network connectivity",
+    "question": "Scenario question 45 regarding Troubleshoot network connectivity in Configure and manage virtual networks in Azure context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Troubleshoot network connectivity",
+      "Option B detailing solution for Troubleshoot network connectivity",
+      "Option C detailing solution for Troubleshoot network connectivity",
+      "Option D detailing solution for Troubleshoot network connectivity"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Troubleshoot network connectivity by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Troubleshoot network connectivity.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 46,
+    "subtopic": "Create and configure virtual networks and subnets",
+    "question": "Scenario question 46 regarding Create and configure virtual networks and subnets in Configure and manage virtual networks in Azure context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Create and configure virtual networks and subnets",
+      "Option B detailing solution for Create and configure virtual networks and subnets",
+      "Option C detailing solution for Create and configure virtual networks and subnets",
+      "Option D detailing solution for Create and configure virtual networks and subnets"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Create and configure virtual networks and subnets by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Create and configure virtual networks and subnets.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 47,
+    "subtopic": "Create and configure virtual network peering",
+    "question": "Scenario question 47 regarding Create and configure virtual network peering in Configure and manage virtual networks in Azure context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Create and configure virtual network peering",
+      "Option B detailing solution for Create and configure virtual network peering",
+      "Option C detailing solution for Create and configure virtual network peering",
+      "Option D detailing solution for Create and configure virtual network peering"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Create and configure virtual network peering by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Create and configure virtual network peering.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 48,
+    "subtopic": "Configure public IP addresses",
+    "question": "Scenario question 48 regarding Configure public IP addresses in Configure and manage virtual networks in Azure context: Which TWO options must you configure to achieve the target state? (Select TWO)",
+    "options": [
+      "First required configuration for Configure public IP addresses",
+      "Incorrect setting option A",
+      "Second required configuration for Configure public IP addresses",
+      "Incorrect setting option B"
+    ],
+    "correct": [
+      0,
+      2
+    ],
+    "explanation": {
+      "correctReason": "Options A (index 0) and C (index 2) are correct because both actions are necessary steps to configure Configure public IP addresses.",
+      "incorrectReasons": [
+        "Option B is incorrect because this setting is unsupported for this scenario.",
+        "Option D is incorrect as it applies to a different resource scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 49,
+    "subtopic": "Configure user-defined network routes",
+    "question": "Scenario question 49 regarding Configure user-defined network routes in Configure and manage virtual networks in Azure context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Configure user-defined network routes",
+      "Option B detailing solution for Configure user-defined network routes",
+      "Option C detailing solution for Configure user-defined network routes",
+      "Option D detailing solution for Configure user-defined network routes"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Configure user-defined network routes by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Configure user-defined network routes.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 50,
+    "subtopic": "Troubleshoot network connectivity",
+    "question": "Scenario question 50 regarding Troubleshoot network connectivity in Configure and manage virtual networks in Azure context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Troubleshoot network connectivity",
+      "Option B detailing solution for Troubleshoot network connectivity",
+      "Option C detailing solution for Troubleshoot network connectivity",
+      "Option D detailing solution for Troubleshoot network connectivity"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Troubleshoot network connectivity by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Troubleshoot network connectivity.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  }
+]

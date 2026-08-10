@@ -1,0 +1,1076 @@
+[
+  {
+    "id": 1,
+    "subtopic": "Create a virtual machine",
+    "question": "Scenario question 1 regarding Create a virtual machine in Create and configure virtual machines context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Create a virtual machine",
+      "Option B detailing solution for Create a virtual machine",
+      "Option C detailing solution for Create a virtual machine",
+      "Option D detailing solution for Create a virtual machine"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Create a virtual machine by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Create a virtual machine.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 2,
+    "subtopic": "Configure Azure Disk Encryption",
+    "question": "Scenario question 2 regarding Configure Azure Disk Encryption in Create and configure virtual machines context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Configure Azure Disk Encryption",
+      "Option B detailing solution for Configure Azure Disk Encryption",
+      "Option C detailing solution for Configure Azure Disk Encryption",
+      "Option D detailing solution for Configure Azure Disk Encryption"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Configure Azure Disk Encryption by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Configure Azure Disk Encryption.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 3,
+    "subtopic": "Move a virtual machine to another resource group, subscription, or region",
+    "question": "Scenario question 3 regarding Move a virtual machine to another resource group, subscription, or region in Create and configure virtual machines context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Move a virtual machine to another resource group, subscription, or region",
+      "Option B detailing solution for Move a virtual machine to another resource group, subscription, or region",
+      "Option C detailing solution for Move a virtual machine to another resource group, subscription, or region",
+      "Option D detailing solution for Move a virtual machine to another resource group, subscription, or region"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Move a virtual machine to another resource group, subscription, or region by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Move a virtual machine to another resource group, subscription, or region.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 4,
+    "subtopic": "Manage virtual machine sizes",
+    "question": "Scenario question 4 regarding Manage virtual machine sizes in Create and configure virtual machines context: Which TWO options must you configure to achieve the target state? (Select TWO)",
+    "options": [
+      "First required configuration for Manage virtual machine sizes",
+      "Incorrect setting option A",
+      "Second required configuration for Manage virtual machine sizes",
+      "Incorrect setting option B"
+    ],
+    "correct": [
+      0,
+      2
+    ],
+    "explanation": {
+      "correctReason": "Options A (index 0) and C (index 2) are correct because both actions are necessary steps to configure Manage virtual machine sizes.",
+      "incorrectReasons": [
+        "Option B is incorrect because this setting is unsupported for this scenario.",
+        "Option D is incorrect as it applies to a different resource scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 5,
+    "subtopic": "Manage virtual machine disks",
+    "question": "Scenario question 5 regarding Manage virtual machine disks in Create and configure virtual machines context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Manage virtual machine disks",
+      "Option B detailing solution for Manage virtual machine disks",
+      "Option C detailing solution for Manage virtual machine disks",
+      "Option D detailing solution for Manage virtual machine disks"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Manage virtual machine disks by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Manage virtual machine disks.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 6,
+    "subtopic": "Deploy virtual machines to availability zones and availability sets",
+    "question": "Scenario question 6 regarding Deploy virtual machines to availability zones and availability sets in Create and configure virtual machines context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Deploy virtual machines to availability zones and availability sets",
+      "Option B detailing solution for Deploy virtual machines to availability zones and availability sets",
+      "Option C detailing solution for Deploy virtual machines to availability zones and availability sets",
+      "Option D detailing solution for Deploy virtual machines to availability zones and availability sets"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Deploy virtual machines to availability zones and availability sets by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Deploy virtual machines to availability zones and availability sets.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 7,
+    "subtopic": "Deploy and configure Azure Virtual Machine Scale Sets",
+    "question": "Scenario question 7 regarding Deploy and configure Azure Virtual Machine Scale Sets in Create and configure virtual machines context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Deploy and configure Azure Virtual Machine Scale Sets",
+      "Option B detailing solution for Deploy and configure Azure Virtual Machine Scale Sets",
+      "Option C detailing solution for Deploy and configure Azure Virtual Machine Scale Sets",
+      "Option D detailing solution for Deploy and configure Azure Virtual Machine Scale Sets"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Deploy and configure Azure Virtual Machine Scale Sets by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Deploy and configure Azure Virtual Machine Scale Sets.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 8,
+    "subtopic": "Create a virtual machine",
+    "question": "Scenario question 8 regarding Create a virtual machine in Create and configure virtual machines context: Which TWO options must you configure to achieve the target state? (Select TWO)",
+    "options": [
+      "First required configuration for Create a virtual machine",
+      "Incorrect setting option A",
+      "Second required configuration for Create a virtual machine",
+      "Incorrect setting option B"
+    ],
+    "correct": [
+      0,
+      2
+    ],
+    "explanation": {
+      "correctReason": "Options A (index 0) and C (index 2) are correct because both actions are necessary steps to configure Create a virtual machine.",
+      "incorrectReasons": [
+        "Option B is incorrect because this setting is unsupported for this scenario.",
+        "Option D is incorrect as it applies to a different resource scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 9,
+    "subtopic": "Configure Azure Disk Encryption",
+    "question": "Scenario question 9 regarding Configure Azure Disk Encryption in Create and configure virtual machines context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Configure Azure Disk Encryption",
+      "Option B detailing solution for Configure Azure Disk Encryption",
+      "Option C detailing solution for Configure Azure Disk Encryption",
+      "Option D detailing solution for Configure Azure Disk Encryption"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Configure Azure Disk Encryption by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Configure Azure Disk Encryption.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 10,
+    "subtopic": "Move a virtual machine to another resource group, subscription, or region",
+    "question": "Scenario question 10 regarding Move a virtual machine to another resource group, subscription, or region in Create and configure virtual machines context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Move a virtual machine to another resource group, subscription, or region",
+      "Option B detailing solution for Move a virtual machine to another resource group, subscription, or region",
+      "Option C detailing solution for Move a virtual machine to another resource group, subscription, or region",
+      "Option D detailing solution for Move a virtual machine to another resource group, subscription, or region"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Move a virtual machine to another resource group, subscription, or region by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Move a virtual machine to another resource group, subscription, or region.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 11,
+    "subtopic": "Manage virtual machine sizes",
+    "question": "Scenario question 11 regarding Manage virtual machine sizes in Create and configure virtual machines context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Manage virtual machine sizes",
+      "Option B detailing solution for Manage virtual machine sizes",
+      "Option C detailing solution for Manage virtual machine sizes",
+      "Option D detailing solution for Manage virtual machine sizes"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Manage virtual machine sizes by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Manage virtual machine sizes.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 12,
+    "subtopic": "Manage virtual machine disks",
+    "question": "Scenario question 12 regarding Manage virtual machine disks in Create and configure virtual machines context: Which TWO options must you configure to achieve the target state? (Select TWO)",
+    "options": [
+      "First required configuration for Manage virtual machine disks",
+      "Incorrect setting option A",
+      "Second required configuration for Manage virtual machine disks",
+      "Incorrect setting option B"
+    ],
+    "correct": [
+      0,
+      2
+    ],
+    "explanation": {
+      "correctReason": "Options A (index 0) and C (index 2) are correct because both actions are necessary steps to configure Manage virtual machine disks.",
+      "incorrectReasons": [
+        "Option B is incorrect because this setting is unsupported for this scenario.",
+        "Option D is incorrect as it applies to a different resource scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 13,
+    "subtopic": "Deploy virtual machines to availability zones and availability sets",
+    "question": "Scenario question 13 regarding Deploy virtual machines to availability zones and availability sets in Create and configure virtual machines context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Deploy virtual machines to availability zones and availability sets",
+      "Option B detailing solution for Deploy virtual machines to availability zones and availability sets",
+      "Option C detailing solution for Deploy virtual machines to availability zones and availability sets",
+      "Option D detailing solution for Deploy virtual machines to availability zones and availability sets"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Deploy virtual machines to availability zones and availability sets by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Deploy virtual machines to availability zones and availability sets.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 14,
+    "subtopic": "Deploy and configure Azure Virtual Machine Scale Sets",
+    "question": "Scenario question 14 regarding Deploy and configure Azure Virtual Machine Scale Sets in Create and configure virtual machines context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Deploy and configure Azure Virtual Machine Scale Sets",
+      "Option B detailing solution for Deploy and configure Azure Virtual Machine Scale Sets",
+      "Option C detailing solution for Deploy and configure Azure Virtual Machine Scale Sets",
+      "Option D detailing solution for Deploy and configure Azure Virtual Machine Scale Sets"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Deploy and configure Azure Virtual Machine Scale Sets by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Deploy and configure Azure Virtual Machine Scale Sets.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 15,
+    "subtopic": "Create a virtual machine",
+    "question": "Scenario question 15 regarding Create a virtual machine in Create and configure virtual machines context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Create a virtual machine",
+      "Option B detailing solution for Create a virtual machine",
+      "Option C detailing solution for Create a virtual machine",
+      "Option D detailing solution for Create a virtual machine"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Create a virtual machine by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Create a virtual machine.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 16,
+    "subtopic": "Configure Azure Disk Encryption",
+    "question": "Scenario question 16 regarding Configure Azure Disk Encryption in Create and configure virtual machines context: Which TWO options must you configure to achieve the target state? (Select TWO)",
+    "options": [
+      "First required configuration for Configure Azure Disk Encryption",
+      "Incorrect setting option A",
+      "Second required configuration for Configure Azure Disk Encryption",
+      "Incorrect setting option B"
+    ],
+    "correct": [
+      0,
+      2
+    ],
+    "explanation": {
+      "correctReason": "Options A (index 0) and C (index 2) are correct because both actions are necessary steps to configure Configure Azure Disk Encryption.",
+      "incorrectReasons": [
+        "Option B is incorrect because this setting is unsupported for this scenario.",
+        "Option D is incorrect as it applies to a different resource scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 17,
+    "subtopic": "Move a virtual machine to another resource group, subscription, or region",
+    "question": "Scenario question 17 regarding Move a virtual machine to another resource group, subscription, or region in Create and configure virtual machines context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Move a virtual machine to another resource group, subscription, or region",
+      "Option B detailing solution for Move a virtual machine to another resource group, subscription, or region",
+      "Option C detailing solution for Move a virtual machine to another resource group, subscription, or region",
+      "Option D detailing solution for Move a virtual machine to another resource group, subscription, or region"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Move a virtual machine to another resource group, subscription, or region by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Move a virtual machine to another resource group, subscription, or region.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 18,
+    "subtopic": "Manage virtual machine sizes",
+    "question": "Scenario question 18 regarding Manage virtual machine sizes in Create and configure virtual machines context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Manage virtual machine sizes",
+      "Option B detailing solution for Manage virtual machine sizes",
+      "Option C detailing solution for Manage virtual machine sizes",
+      "Option D detailing solution for Manage virtual machine sizes"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Manage virtual machine sizes by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Manage virtual machine sizes.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 19,
+    "subtopic": "Manage virtual machine disks",
+    "question": "Scenario question 19 regarding Manage virtual machine disks in Create and configure virtual machines context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Manage virtual machine disks",
+      "Option B detailing solution for Manage virtual machine disks",
+      "Option C detailing solution for Manage virtual machine disks",
+      "Option D detailing solution for Manage virtual machine disks"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Manage virtual machine disks by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Manage virtual machine disks.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 20,
+    "subtopic": "Deploy virtual machines to availability zones and availability sets",
+    "question": "Scenario question 20 regarding Deploy virtual machines to availability zones and availability sets in Create and configure virtual machines context: Which TWO options must you configure to achieve the target state? (Select TWO)",
+    "options": [
+      "First required configuration for Deploy virtual machines to availability zones and availability sets",
+      "Incorrect setting option A",
+      "Second required configuration for Deploy virtual machines to availability zones and availability sets",
+      "Incorrect setting option B"
+    ],
+    "correct": [
+      0,
+      2
+    ],
+    "explanation": {
+      "correctReason": "Options A (index 0) and C (index 2) are correct because both actions are necessary steps to configure Deploy virtual machines to availability zones and availability sets.",
+      "incorrectReasons": [
+        "Option B is incorrect because this setting is unsupported for this scenario.",
+        "Option D is incorrect as it applies to a different resource scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 21,
+    "subtopic": "Deploy and configure Azure Virtual Machine Scale Sets",
+    "question": "Scenario question 21 regarding Deploy and configure Azure Virtual Machine Scale Sets in Create and configure virtual machines context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Deploy and configure Azure Virtual Machine Scale Sets",
+      "Option B detailing solution for Deploy and configure Azure Virtual Machine Scale Sets",
+      "Option C detailing solution for Deploy and configure Azure Virtual Machine Scale Sets",
+      "Option D detailing solution for Deploy and configure Azure Virtual Machine Scale Sets"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Deploy and configure Azure Virtual Machine Scale Sets by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Deploy and configure Azure Virtual Machine Scale Sets.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 22,
+    "subtopic": "Create a virtual machine",
+    "question": "Scenario question 22 regarding Create a virtual machine in Create and configure virtual machines context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Create a virtual machine",
+      "Option B detailing solution for Create a virtual machine",
+      "Option C detailing solution for Create a virtual machine",
+      "Option D detailing solution for Create a virtual machine"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Create a virtual machine by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Create a virtual machine.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 23,
+    "subtopic": "Configure Azure Disk Encryption",
+    "question": "Scenario question 23 regarding Configure Azure Disk Encryption in Create and configure virtual machines context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Configure Azure Disk Encryption",
+      "Option B detailing solution for Configure Azure Disk Encryption",
+      "Option C detailing solution for Configure Azure Disk Encryption",
+      "Option D detailing solution for Configure Azure Disk Encryption"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Configure Azure Disk Encryption by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Configure Azure Disk Encryption.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 24,
+    "subtopic": "Move a virtual machine to another resource group, subscription, or region",
+    "question": "Scenario question 24 regarding Move a virtual machine to another resource group, subscription, or region in Create and configure virtual machines context: Which TWO options must you configure to achieve the target state? (Select TWO)",
+    "options": [
+      "First required configuration for Move a virtual machine to another resource group, subscription, or region",
+      "Incorrect setting option A",
+      "Second required configuration for Move a virtual machine to another resource group, subscription, or region",
+      "Incorrect setting option B"
+    ],
+    "correct": [
+      0,
+      2
+    ],
+    "explanation": {
+      "correctReason": "Options A (index 0) and C (index 2) are correct because both actions are necessary steps to configure Move a virtual machine to another resource group, subscription, or region.",
+      "incorrectReasons": [
+        "Option B is incorrect because this setting is unsupported for this scenario.",
+        "Option D is incorrect as it applies to a different resource scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 25,
+    "subtopic": "Manage virtual machine sizes",
+    "question": "Scenario question 25 regarding Manage virtual machine sizes in Create and configure virtual machines context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Manage virtual machine sizes",
+      "Option B detailing solution for Manage virtual machine sizes",
+      "Option C detailing solution for Manage virtual machine sizes",
+      "Option D detailing solution for Manage virtual machine sizes"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Manage virtual machine sizes by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Manage virtual machine sizes.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 26,
+    "subtopic": "Manage virtual machine disks",
+    "question": "Scenario question 26 regarding Manage virtual machine disks in Create and configure virtual machines context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Manage virtual machine disks",
+      "Option B detailing solution for Manage virtual machine disks",
+      "Option C detailing solution for Manage virtual machine disks",
+      "Option D detailing solution for Manage virtual machine disks"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Manage virtual machine disks by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Manage virtual machine disks.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 27,
+    "subtopic": "Deploy virtual machines to availability zones and availability sets",
+    "question": "Scenario question 27 regarding Deploy virtual machines to availability zones and availability sets in Create and configure virtual machines context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Deploy virtual machines to availability zones and availability sets",
+      "Option B detailing solution for Deploy virtual machines to availability zones and availability sets",
+      "Option C detailing solution for Deploy virtual machines to availability zones and availability sets",
+      "Option D detailing solution for Deploy virtual machines to availability zones and availability sets"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Deploy virtual machines to availability zones and availability sets by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Deploy virtual machines to availability zones and availability sets.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 28,
+    "subtopic": "Deploy and configure Azure Virtual Machine Scale Sets",
+    "question": "Scenario question 28 regarding Deploy and configure Azure Virtual Machine Scale Sets in Create and configure virtual machines context: Which TWO options must you configure to achieve the target state? (Select TWO)",
+    "options": [
+      "First required configuration for Deploy and configure Azure Virtual Machine Scale Sets",
+      "Incorrect setting option A",
+      "Second required configuration for Deploy and configure Azure Virtual Machine Scale Sets",
+      "Incorrect setting option B"
+    ],
+    "correct": [
+      0,
+      2
+    ],
+    "explanation": {
+      "correctReason": "Options A (index 0) and C (index 2) are correct because both actions are necessary steps to configure Deploy and configure Azure Virtual Machine Scale Sets.",
+      "incorrectReasons": [
+        "Option B is incorrect because this setting is unsupported for this scenario.",
+        "Option D is incorrect as it applies to a different resource scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 29,
+    "subtopic": "Create a virtual machine",
+    "question": "Scenario question 29 regarding Create a virtual machine in Create and configure virtual machines context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Create a virtual machine",
+      "Option B detailing solution for Create a virtual machine",
+      "Option C detailing solution for Create a virtual machine",
+      "Option D detailing solution for Create a virtual machine"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Create a virtual machine by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Create a virtual machine.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 30,
+    "subtopic": "Configure Azure Disk Encryption",
+    "question": "Scenario question 30 regarding Configure Azure Disk Encryption in Create and configure virtual machines context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Configure Azure Disk Encryption",
+      "Option B detailing solution for Configure Azure Disk Encryption",
+      "Option C detailing solution for Configure Azure Disk Encryption",
+      "Option D detailing solution for Configure Azure Disk Encryption"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Configure Azure Disk Encryption by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Configure Azure Disk Encryption.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 31,
+    "subtopic": "Move a virtual machine to another resource group, subscription, or region",
+    "question": "Scenario question 31 regarding Move a virtual machine to another resource group, subscription, or region in Create and configure virtual machines context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Move a virtual machine to another resource group, subscription, or region",
+      "Option B detailing solution for Move a virtual machine to another resource group, subscription, or region",
+      "Option C detailing solution for Move a virtual machine to another resource group, subscription, or region",
+      "Option D detailing solution for Move a virtual machine to another resource group, subscription, or region"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Move a virtual machine to another resource group, subscription, or region by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Move a virtual machine to another resource group, subscription, or region.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 32,
+    "subtopic": "Manage virtual machine sizes",
+    "question": "Scenario question 32 regarding Manage virtual machine sizes in Create and configure virtual machines context: Which TWO options must you configure to achieve the target state? (Select TWO)",
+    "options": [
+      "First required configuration for Manage virtual machine sizes",
+      "Incorrect setting option A",
+      "Second required configuration for Manage virtual machine sizes",
+      "Incorrect setting option B"
+    ],
+    "correct": [
+      0,
+      2
+    ],
+    "explanation": {
+      "correctReason": "Options A (index 0) and C (index 2) are correct because both actions are necessary steps to configure Manage virtual machine sizes.",
+      "incorrectReasons": [
+        "Option B is incorrect because this setting is unsupported for this scenario.",
+        "Option D is incorrect as it applies to a different resource scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 33,
+    "subtopic": "Manage virtual machine disks",
+    "question": "Scenario question 33 regarding Manage virtual machine disks in Create and configure virtual machines context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Manage virtual machine disks",
+      "Option B detailing solution for Manage virtual machine disks",
+      "Option C detailing solution for Manage virtual machine disks",
+      "Option D detailing solution for Manage virtual machine disks"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Manage virtual machine disks by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Manage virtual machine disks.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 34,
+    "subtopic": "Deploy virtual machines to availability zones and availability sets",
+    "question": "Scenario question 34 regarding Deploy virtual machines to availability zones and availability sets in Create and configure virtual machines context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Deploy virtual machines to availability zones and availability sets",
+      "Option B detailing solution for Deploy virtual machines to availability zones and availability sets",
+      "Option C detailing solution for Deploy virtual machines to availability zones and availability sets",
+      "Option D detailing solution for Deploy virtual machines to availability zones and availability sets"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Deploy virtual machines to availability zones and availability sets by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Deploy virtual machines to availability zones and availability sets.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 35,
+    "subtopic": "Deploy and configure Azure Virtual Machine Scale Sets",
+    "question": "Scenario question 35 regarding Deploy and configure Azure Virtual Machine Scale Sets in Create and configure virtual machines context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Deploy and configure Azure Virtual Machine Scale Sets",
+      "Option B detailing solution for Deploy and configure Azure Virtual Machine Scale Sets",
+      "Option C detailing solution for Deploy and configure Azure Virtual Machine Scale Sets",
+      "Option D detailing solution for Deploy and configure Azure Virtual Machine Scale Sets"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Deploy and configure Azure Virtual Machine Scale Sets by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Deploy and configure Azure Virtual Machine Scale Sets.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 36,
+    "subtopic": "Create a virtual machine",
+    "question": "Scenario question 36 regarding Create a virtual machine in Create and configure virtual machines context: Which TWO options must you configure to achieve the target state? (Select TWO)",
+    "options": [
+      "First required configuration for Create a virtual machine",
+      "Incorrect setting option A",
+      "Second required configuration for Create a virtual machine",
+      "Incorrect setting option B"
+    ],
+    "correct": [
+      0,
+      2
+    ],
+    "explanation": {
+      "correctReason": "Options A (index 0) and C (index 2) are correct because both actions are necessary steps to configure Create a virtual machine.",
+      "incorrectReasons": [
+        "Option B is incorrect because this setting is unsupported for this scenario.",
+        "Option D is incorrect as it applies to a different resource scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 37,
+    "subtopic": "Configure Azure Disk Encryption",
+    "question": "Scenario question 37 regarding Configure Azure Disk Encryption in Create and configure virtual machines context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Configure Azure Disk Encryption",
+      "Option B detailing solution for Configure Azure Disk Encryption",
+      "Option C detailing solution for Configure Azure Disk Encryption",
+      "Option D detailing solution for Configure Azure Disk Encryption"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Configure Azure Disk Encryption by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Configure Azure Disk Encryption.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 38,
+    "subtopic": "Move a virtual machine to another resource group, subscription, or region",
+    "question": "Scenario question 38 regarding Move a virtual machine to another resource group, subscription, or region in Create and configure virtual machines context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Move a virtual machine to another resource group, subscription, or region",
+      "Option B detailing solution for Move a virtual machine to another resource group, subscription, or region",
+      "Option C detailing solution for Move a virtual machine to another resource group, subscription, or region",
+      "Option D detailing solution for Move a virtual machine to another resource group, subscription, or region"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Move a virtual machine to another resource group, subscription, or region by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Move a virtual machine to another resource group, subscription, or region.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 39,
+    "subtopic": "Manage virtual machine sizes",
+    "question": "Scenario question 39 regarding Manage virtual machine sizes in Create and configure virtual machines context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Manage virtual machine sizes",
+      "Option B detailing solution for Manage virtual machine sizes",
+      "Option C detailing solution for Manage virtual machine sizes",
+      "Option D detailing solution for Manage virtual machine sizes"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Manage virtual machine sizes by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Manage virtual machine sizes.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 40,
+    "subtopic": "Manage virtual machine disks",
+    "question": "Scenario question 40 regarding Manage virtual machine disks in Create and configure virtual machines context: Which TWO options must you configure to achieve the target state? (Select TWO)",
+    "options": [
+      "First required configuration for Manage virtual machine disks",
+      "Incorrect setting option A",
+      "Second required configuration for Manage virtual machine disks",
+      "Incorrect setting option B"
+    ],
+    "correct": [
+      0,
+      2
+    ],
+    "explanation": {
+      "correctReason": "Options A (index 0) and C (index 2) are correct because both actions are necessary steps to configure Manage virtual machine disks.",
+      "incorrectReasons": [
+        "Option B is incorrect because this setting is unsupported for this scenario.",
+        "Option D is incorrect as it applies to a different resource scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 41,
+    "subtopic": "Deploy virtual machines to availability zones and availability sets",
+    "question": "Scenario question 41 regarding Deploy virtual machines to availability zones and availability sets in Create and configure virtual machines context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Deploy virtual machines to availability zones and availability sets",
+      "Option B detailing solution for Deploy virtual machines to availability zones and availability sets",
+      "Option C detailing solution for Deploy virtual machines to availability zones and availability sets",
+      "Option D detailing solution for Deploy virtual machines to availability zones and availability sets"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Deploy virtual machines to availability zones and availability sets by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Deploy virtual machines to availability zones and availability sets.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 42,
+    "subtopic": "Deploy and configure Azure Virtual Machine Scale Sets",
+    "question": "Scenario question 42 regarding Deploy and configure Azure Virtual Machine Scale Sets in Create and configure virtual machines context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Deploy and configure Azure Virtual Machine Scale Sets",
+      "Option B detailing solution for Deploy and configure Azure Virtual Machine Scale Sets",
+      "Option C detailing solution for Deploy and configure Azure Virtual Machine Scale Sets",
+      "Option D detailing solution for Deploy and configure Azure Virtual Machine Scale Sets"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Deploy and configure Azure Virtual Machine Scale Sets by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Deploy and configure Azure Virtual Machine Scale Sets.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 43,
+    "subtopic": "Create a virtual machine",
+    "question": "Scenario question 43 regarding Create a virtual machine in Create and configure virtual machines context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Create a virtual machine",
+      "Option B detailing solution for Create a virtual machine",
+      "Option C detailing solution for Create a virtual machine",
+      "Option D detailing solution for Create a virtual machine"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Create a virtual machine by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Create a virtual machine.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 44,
+    "subtopic": "Configure Azure Disk Encryption",
+    "question": "Scenario question 44 regarding Configure Azure Disk Encryption in Create and configure virtual machines context: Which TWO options must you configure to achieve the target state? (Select TWO)",
+    "options": [
+      "First required configuration for Configure Azure Disk Encryption",
+      "Incorrect setting option A",
+      "Second required configuration for Configure Azure Disk Encryption",
+      "Incorrect setting option B"
+    ],
+    "correct": [
+      0,
+      2
+    ],
+    "explanation": {
+      "correctReason": "Options A (index 0) and C (index 2) are correct because both actions are necessary steps to configure Configure Azure Disk Encryption.",
+      "incorrectReasons": [
+        "Option B is incorrect because this setting is unsupported for this scenario.",
+        "Option D is incorrect as it applies to a different resource scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 45,
+    "subtopic": "Move a virtual machine to another resource group, subscription, or region",
+    "question": "Scenario question 45 regarding Move a virtual machine to another resource group, subscription, or region in Create and configure virtual machines context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Move a virtual machine to another resource group, subscription, or region",
+      "Option B detailing solution for Move a virtual machine to another resource group, subscription, or region",
+      "Option C detailing solution for Move a virtual machine to another resource group, subscription, or region",
+      "Option D detailing solution for Move a virtual machine to another resource group, subscription, or region"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Move a virtual machine to another resource group, subscription, or region by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Move a virtual machine to another resource group, subscription, or region.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 46,
+    "subtopic": "Manage virtual machine sizes",
+    "question": "Scenario question 46 regarding Manage virtual machine sizes in Create and configure virtual machines context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Manage virtual machine sizes",
+      "Option B detailing solution for Manage virtual machine sizes",
+      "Option C detailing solution for Manage virtual machine sizes",
+      "Option D detailing solution for Manage virtual machine sizes"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Manage virtual machine sizes by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Manage virtual machine sizes.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 47,
+    "subtopic": "Manage virtual machine disks",
+    "question": "Scenario question 47 regarding Manage virtual machine disks in Create and configure virtual machines context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Manage virtual machine disks",
+      "Option B detailing solution for Manage virtual machine disks",
+      "Option C detailing solution for Manage virtual machine disks",
+      "Option D detailing solution for Manage virtual machine disks"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Manage virtual machine disks by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Manage virtual machine disks.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 48,
+    "subtopic": "Deploy virtual machines to availability zones and availability sets",
+    "question": "Scenario question 48 regarding Deploy virtual machines to availability zones and availability sets in Create and configure virtual machines context: Which TWO options must you configure to achieve the target state? (Select TWO)",
+    "options": [
+      "First required configuration for Deploy virtual machines to availability zones and availability sets",
+      "Incorrect setting option A",
+      "Second required configuration for Deploy virtual machines to availability zones and availability sets",
+      "Incorrect setting option B"
+    ],
+    "correct": [
+      0,
+      2
+    ],
+    "explanation": {
+      "correctReason": "Options A (index 0) and C (index 2) are correct because both actions are necessary steps to configure Deploy virtual machines to availability zones and availability sets.",
+      "incorrectReasons": [
+        "Option B is incorrect because this setting is unsupported for this scenario.",
+        "Option D is incorrect as it applies to a different resource scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 49,
+    "subtopic": "Deploy and configure Azure Virtual Machine Scale Sets",
+    "question": "Scenario question 49 regarding Deploy and configure Azure Virtual Machine Scale Sets in Create and configure virtual machines context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Deploy and configure Azure Virtual Machine Scale Sets",
+      "Option B detailing solution for Deploy and configure Azure Virtual Machine Scale Sets",
+      "Option C detailing solution for Deploy and configure Azure Virtual Machine Scale Sets",
+      "Option D detailing solution for Deploy and configure Azure Virtual Machine Scale Sets"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Deploy and configure Azure Virtual Machine Scale Sets by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Deploy and configure Azure Virtual Machine Scale Sets.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 50,
+    "subtopic": "Create a virtual machine",
+    "question": "Scenario question 50 regarding Create a virtual machine in Create and configure virtual machines context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Create a virtual machine",
+      "Option B detailing solution for Create a virtual machine",
+      "Option C detailing solution for Create a virtual machine",
+      "Option D detailing solution for Create a virtual machine"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Create a virtual machine by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Create a virtual machine.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  }
+]

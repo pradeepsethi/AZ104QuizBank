@@ -1,0 +1,1076 @@
+[
+  {
+    "id": 1,
+    "subtopic": "Configure Azure Storage firewalls and virtual networks",
+    "question": "Scenario question 1 regarding Configure Azure Storage firewalls and virtual networks in Configure access to storage context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Configure Azure Storage firewalls and virtual networks",
+      "Option B detailing solution for Configure Azure Storage firewalls and virtual networks",
+      "Option C detailing solution for Configure Azure Storage firewalls and virtual networks",
+      "Option D detailing solution for Configure Azure Storage firewalls and virtual networks"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Configure Azure Storage firewalls and virtual networks by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Configure Azure Storage firewalls and virtual networks.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 2,
+    "subtopic": "Create and use shared access signature (SAS) tokens",
+    "question": "Scenario question 2 regarding Create and use shared access signature (SAS) tokens in Configure access to storage context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Create and use shared access signature (SAS) tokens",
+      "Option B detailing solution for Create and use shared access signature (SAS) tokens",
+      "Option C detailing solution for Create and use shared access signature (SAS) tokens",
+      "Option D detailing solution for Create and use shared access signature (SAS) tokens"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Create and use shared access signature (SAS) tokens by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Create and use shared access signature (SAS) tokens.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 3,
+    "subtopic": "Configure stored access policies",
+    "question": "Scenario question 3 regarding Configure stored access policies in Configure access to storage context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Configure stored access policies",
+      "Option B detailing solution for Configure stored access policies",
+      "Option C detailing solution for Configure stored access policies",
+      "Option D detailing solution for Configure stored access policies"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Configure stored access policies by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Configure stored access policies.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 4,
+    "subtopic": "Manage access keys",
+    "question": "Scenario question 4 regarding Manage access keys in Configure access to storage context: Which TWO options must you configure to achieve the target state? (Select TWO)",
+    "options": [
+      "First required configuration for Manage access keys",
+      "Incorrect setting option A",
+      "Second required configuration for Manage access keys",
+      "Incorrect setting option B"
+    ],
+    "correct": [
+      0,
+      2
+    ],
+    "explanation": {
+      "correctReason": "Options A (index 0) and C (index 2) are correct because both actions are necessary steps to configure Manage access keys.",
+      "incorrectReasons": [
+        "Option B is incorrect because this setting is unsupported for this scenario.",
+        "Option D is incorrect as it applies to a different resource scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 5,
+    "subtopic": "Configure identity-based access for Azure Files",
+    "question": "Scenario question 5 regarding Configure identity-based access for Azure Files in Configure access to storage context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Configure identity-based access for Azure Files",
+      "Option B detailing solution for Configure identity-based access for Azure Files",
+      "Option C detailing solution for Configure identity-based access for Azure Files",
+      "Option D detailing solution for Configure identity-based access for Azure Files"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Configure identity-based access for Azure Files by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Configure identity-based access for Azure Files.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 6,
+    "subtopic": "Configure Azure Storage firewalls and virtual networks",
+    "question": "Scenario question 6 regarding Configure Azure Storage firewalls and virtual networks in Configure access to storage context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Configure Azure Storage firewalls and virtual networks",
+      "Option B detailing solution for Configure Azure Storage firewalls and virtual networks",
+      "Option C detailing solution for Configure Azure Storage firewalls and virtual networks",
+      "Option D detailing solution for Configure Azure Storage firewalls and virtual networks"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Configure Azure Storage firewalls and virtual networks by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Configure Azure Storage firewalls and virtual networks.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 7,
+    "subtopic": "Create and use shared access signature (SAS) tokens",
+    "question": "Scenario question 7 regarding Create and use shared access signature (SAS) tokens in Configure access to storage context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Create and use shared access signature (SAS) tokens",
+      "Option B detailing solution for Create and use shared access signature (SAS) tokens",
+      "Option C detailing solution for Create and use shared access signature (SAS) tokens",
+      "Option D detailing solution for Create and use shared access signature (SAS) tokens"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Create and use shared access signature (SAS) tokens by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Create and use shared access signature (SAS) tokens.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 8,
+    "subtopic": "Configure stored access policies",
+    "question": "Scenario question 8 regarding Configure stored access policies in Configure access to storage context: Which TWO options must you configure to achieve the target state? (Select TWO)",
+    "options": [
+      "First required configuration for Configure stored access policies",
+      "Incorrect setting option A",
+      "Second required configuration for Configure stored access policies",
+      "Incorrect setting option B"
+    ],
+    "correct": [
+      0,
+      2
+    ],
+    "explanation": {
+      "correctReason": "Options A (index 0) and C (index 2) are correct because both actions are necessary steps to configure Configure stored access policies.",
+      "incorrectReasons": [
+        "Option B is incorrect because this setting is unsupported for this scenario.",
+        "Option D is incorrect as it applies to a different resource scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 9,
+    "subtopic": "Manage access keys",
+    "question": "Scenario question 9 regarding Manage access keys in Configure access to storage context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Manage access keys",
+      "Option B detailing solution for Manage access keys",
+      "Option C detailing solution for Manage access keys",
+      "Option D detailing solution for Manage access keys"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Manage access keys by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Manage access keys.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 10,
+    "subtopic": "Configure identity-based access for Azure Files",
+    "question": "Scenario question 10 regarding Configure identity-based access for Azure Files in Configure access to storage context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Configure identity-based access for Azure Files",
+      "Option B detailing solution for Configure identity-based access for Azure Files",
+      "Option C detailing solution for Configure identity-based access for Azure Files",
+      "Option D detailing solution for Configure identity-based access for Azure Files"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Configure identity-based access for Azure Files by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Configure identity-based access for Azure Files.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 11,
+    "subtopic": "Configure Azure Storage firewalls and virtual networks",
+    "question": "Scenario question 11 regarding Configure Azure Storage firewalls and virtual networks in Configure access to storage context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Configure Azure Storage firewalls and virtual networks",
+      "Option B detailing solution for Configure Azure Storage firewalls and virtual networks",
+      "Option C detailing solution for Configure Azure Storage firewalls and virtual networks",
+      "Option D detailing solution for Configure Azure Storage firewalls and virtual networks"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Configure Azure Storage firewalls and virtual networks by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Configure Azure Storage firewalls and virtual networks.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 12,
+    "subtopic": "Create and use shared access signature (SAS) tokens",
+    "question": "Scenario question 12 regarding Create and use shared access signature (SAS) tokens in Configure access to storage context: Which TWO options must you configure to achieve the target state? (Select TWO)",
+    "options": [
+      "First required configuration for Create and use shared access signature (SAS) tokens",
+      "Incorrect setting option A",
+      "Second required configuration for Create and use shared access signature (SAS) tokens",
+      "Incorrect setting option B"
+    ],
+    "correct": [
+      0,
+      2
+    ],
+    "explanation": {
+      "correctReason": "Options A (index 0) and C (index 2) are correct because both actions are necessary steps to configure Create and use shared access signature (SAS) tokens.",
+      "incorrectReasons": [
+        "Option B is incorrect because this setting is unsupported for this scenario.",
+        "Option D is incorrect as it applies to a different resource scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 13,
+    "subtopic": "Configure stored access policies",
+    "question": "Scenario question 13 regarding Configure stored access policies in Configure access to storage context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Configure stored access policies",
+      "Option B detailing solution for Configure stored access policies",
+      "Option C detailing solution for Configure stored access policies",
+      "Option D detailing solution for Configure stored access policies"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Configure stored access policies by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Configure stored access policies.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 14,
+    "subtopic": "Manage access keys",
+    "question": "Scenario question 14 regarding Manage access keys in Configure access to storage context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Manage access keys",
+      "Option B detailing solution for Manage access keys",
+      "Option C detailing solution for Manage access keys",
+      "Option D detailing solution for Manage access keys"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Manage access keys by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Manage access keys.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 15,
+    "subtopic": "Configure identity-based access for Azure Files",
+    "question": "Scenario question 15 regarding Configure identity-based access for Azure Files in Configure access to storage context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Configure identity-based access for Azure Files",
+      "Option B detailing solution for Configure identity-based access for Azure Files",
+      "Option C detailing solution for Configure identity-based access for Azure Files",
+      "Option D detailing solution for Configure identity-based access for Azure Files"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Configure identity-based access for Azure Files by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Configure identity-based access for Azure Files.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 16,
+    "subtopic": "Configure Azure Storage firewalls and virtual networks",
+    "question": "Scenario question 16 regarding Configure Azure Storage firewalls and virtual networks in Configure access to storage context: Which TWO options must you configure to achieve the target state? (Select TWO)",
+    "options": [
+      "First required configuration for Configure Azure Storage firewalls and virtual networks",
+      "Incorrect setting option A",
+      "Second required configuration for Configure Azure Storage firewalls and virtual networks",
+      "Incorrect setting option B"
+    ],
+    "correct": [
+      0,
+      2
+    ],
+    "explanation": {
+      "correctReason": "Options A (index 0) and C (index 2) are correct because both actions are necessary steps to configure Configure Azure Storage firewalls and virtual networks.",
+      "incorrectReasons": [
+        "Option B is incorrect because this setting is unsupported for this scenario.",
+        "Option D is incorrect as it applies to a different resource scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 17,
+    "subtopic": "Create and use shared access signature (SAS) tokens",
+    "question": "Scenario question 17 regarding Create and use shared access signature (SAS) tokens in Configure access to storage context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Create and use shared access signature (SAS) tokens",
+      "Option B detailing solution for Create and use shared access signature (SAS) tokens",
+      "Option C detailing solution for Create and use shared access signature (SAS) tokens",
+      "Option D detailing solution for Create and use shared access signature (SAS) tokens"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Create and use shared access signature (SAS) tokens by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Create and use shared access signature (SAS) tokens.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 18,
+    "subtopic": "Configure stored access policies",
+    "question": "Scenario question 18 regarding Configure stored access policies in Configure access to storage context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Configure stored access policies",
+      "Option B detailing solution for Configure stored access policies",
+      "Option C detailing solution for Configure stored access policies",
+      "Option D detailing solution for Configure stored access policies"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Configure stored access policies by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Configure stored access policies.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 19,
+    "subtopic": "Manage access keys",
+    "question": "Scenario question 19 regarding Manage access keys in Configure access to storage context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Manage access keys",
+      "Option B detailing solution for Manage access keys",
+      "Option C detailing solution for Manage access keys",
+      "Option D detailing solution for Manage access keys"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Manage access keys by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Manage access keys.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 20,
+    "subtopic": "Configure identity-based access for Azure Files",
+    "question": "Scenario question 20 regarding Configure identity-based access for Azure Files in Configure access to storage context: Which TWO options must you configure to achieve the target state? (Select TWO)",
+    "options": [
+      "First required configuration for Configure identity-based access for Azure Files",
+      "Incorrect setting option A",
+      "Second required configuration for Configure identity-based access for Azure Files",
+      "Incorrect setting option B"
+    ],
+    "correct": [
+      0,
+      2
+    ],
+    "explanation": {
+      "correctReason": "Options A (index 0) and C (index 2) are correct because both actions are necessary steps to configure Configure identity-based access for Azure Files.",
+      "incorrectReasons": [
+        "Option B is incorrect because this setting is unsupported for this scenario.",
+        "Option D is incorrect as it applies to a different resource scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 21,
+    "subtopic": "Configure Azure Storage firewalls and virtual networks",
+    "question": "Scenario question 21 regarding Configure Azure Storage firewalls and virtual networks in Configure access to storage context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Configure Azure Storage firewalls and virtual networks",
+      "Option B detailing solution for Configure Azure Storage firewalls and virtual networks",
+      "Option C detailing solution for Configure Azure Storage firewalls and virtual networks",
+      "Option D detailing solution for Configure Azure Storage firewalls and virtual networks"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Configure Azure Storage firewalls and virtual networks by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Configure Azure Storage firewalls and virtual networks.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 22,
+    "subtopic": "Create and use shared access signature (SAS) tokens",
+    "question": "Scenario question 22 regarding Create and use shared access signature (SAS) tokens in Configure access to storage context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Create and use shared access signature (SAS) tokens",
+      "Option B detailing solution for Create and use shared access signature (SAS) tokens",
+      "Option C detailing solution for Create and use shared access signature (SAS) tokens",
+      "Option D detailing solution for Create and use shared access signature (SAS) tokens"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Create and use shared access signature (SAS) tokens by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Create and use shared access signature (SAS) tokens.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 23,
+    "subtopic": "Configure stored access policies",
+    "question": "Scenario question 23 regarding Configure stored access policies in Configure access to storage context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Configure stored access policies",
+      "Option B detailing solution for Configure stored access policies",
+      "Option C detailing solution for Configure stored access policies",
+      "Option D detailing solution for Configure stored access policies"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Configure stored access policies by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Configure stored access policies.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 24,
+    "subtopic": "Manage access keys",
+    "question": "Scenario question 24 regarding Manage access keys in Configure access to storage context: Which TWO options must you configure to achieve the target state? (Select TWO)",
+    "options": [
+      "First required configuration for Manage access keys",
+      "Incorrect setting option A",
+      "Second required configuration for Manage access keys",
+      "Incorrect setting option B"
+    ],
+    "correct": [
+      0,
+      2
+    ],
+    "explanation": {
+      "correctReason": "Options A (index 0) and C (index 2) are correct because both actions are necessary steps to configure Manage access keys.",
+      "incorrectReasons": [
+        "Option B is incorrect because this setting is unsupported for this scenario.",
+        "Option D is incorrect as it applies to a different resource scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 25,
+    "subtopic": "Configure identity-based access for Azure Files",
+    "question": "Scenario question 25 regarding Configure identity-based access for Azure Files in Configure access to storage context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Configure identity-based access for Azure Files",
+      "Option B detailing solution for Configure identity-based access for Azure Files",
+      "Option C detailing solution for Configure identity-based access for Azure Files",
+      "Option D detailing solution for Configure identity-based access for Azure Files"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Configure identity-based access for Azure Files by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Configure identity-based access for Azure Files.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 26,
+    "subtopic": "Configure Azure Storage firewalls and virtual networks",
+    "question": "Scenario question 26 regarding Configure Azure Storage firewalls and virtual networks in Configure access to storage context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Configure Azure Storage firewalls and virtual networks",
+      "Option B detailing solution for Configure Azure Storage firewalls and virtual networks",
+      "Option C detailing solution for Configure Azure Storage firewalls and virtual networks",
+      "Option D detailing solution for Configure Azure Storage firewalls and virtual networks"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Configure Azure Storage firewalls and virtual networks by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Configure Azure Storage firewalls and virtual networks.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 27,
+    "subtopic": "Create and use shared access signature (SAS) tokens",
+    "question": "Scenario question 27 regarding Create and use shared access signature (SAS) tokens in Configure access to storage context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Create and use shared access signature (SAS) tokens",
+      "Option B detailing solution for Create and use shared access signature (SAS) tokens",
+      "Option C detailing solution for Create and use shared access signature (SAS) tokens",
+      "Option D detailing solution for Create and use shared access signature (SAS) tokens"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Create and use shared access signature (SAS) tokens by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Create and use shared access signature (SAS) tokens.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 28,
+    "subtopic": "Configure stored access policies",
+    "question": "Scenario question 28 regarding Configure stored access policies in Configure access to storage context: Which TWO options must you configure to achieve the target state? (Select TWO)",
+    "options": [
+      "First required configuration for Configure stored access policies",
+      "Incorrect setting option A",
+      "Second required configuration for Configure stored access policies",
+      "Incorrect setting option B"
+    ],
+    "correct": [
+      0,
+      2
+    ],
+    "explanation": {
+      "correctReason": "Options A (index 0) and C (index 2) are correct because both actions are necessary steps to configure Configure stored access policies.",
+      "incorrectReasons": [
+        "Option B is incorrect because this setting is unsupported for this scenario.",
+        "Option D is incorrect as it applies to a different resource scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 29,
+    "subtopic": "Manage access keys",
+    "question": "Scenario question 29 regarding Manage access keys in Configure access to storage context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Manage access keys",
+      "Option B detailing solution for Manage access keys",
+      "Option C detailing solution for Manage access keys",
+      "Option D detailing solution for Manage access keys"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Manage access keys by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Manage access keys.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 30,
+    "subtopic": "Configure identity-based access for Azure Files",
+    "question": "Scenario question 30 regarding Configure identity-based access for Azure Files in Configure access to storage context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Configure identity-based access for Azure Files",
+      "Option B detailing solution for Configure identity-based access for Azure Files",
+      "Option C detailing solution for Configure identity-based access for Azure Files",
+      "Option D detailing solution for Configure identity-based access for Azure Files"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Configure identity-based access for Azure Files by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Configure identity-based access for Azure Files.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 31,
+    "subtopic": "Configure Azure Storage firewalls and virtual networks",
+    "question": "Scenario question 31 regarding Configure Azure Storage firewalls and virtual networks in Configure access to storage context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Configure Azure Storage firewalls and virtual networks",
+      "Option B detailing solution for Configure Azure Storage firewalls and virtual networks",
+      "Option C detailing solution for Configure Azure Storage firewalls and virtual networks",
+      "Option D detailing solution for Configure Azure Storage firewalls and virtual networks"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Configure Azure Storage firewalls and virtual networks by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Configure Azure Storage firewalls and virtual networks.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 32,
+    "subtopic": "Create and use shared access signature (SAS) tokens",
+    "question": "Scenario question 32 regarding Create and use shared access signature (SAS) tokens in Configure access to storage context: Which TWO options must you configure to achieve the target state? (Select TWO)",
+    "options": [
+      "First required configuration for Create and use shared access signature (SAS) tokens",
+      "Incorrect setting option A",
+      "Second required configuration for Create and use shared access signature (SAS) tokens",
+      "Incorrect setting option B"
+    ],
+    "correct": [
+      0,
+      2
+    ],
+    "explanation": {
+      "correctReason": "Options A (index 0) and C (index 2) are correct because both actions are necessary steps to configure Create and use shared access signature (SAS) tokens.",
+      "incorrectReasons": [
+        "Option B is incorrect because this setting is unsupported for this scenario.",
+        "Option D is incorrect as it applies to a different resource scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 33,
+    "subtopic": "Configure stored access policies",
+    "question": "Scenario question 33 regarding Configure stored access policies in Configure access to storage context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Configure stored access policies",
+      "Option B detailing solution for Configure stored access policies",
+      "Option C detailing solution for Configure stored access policies",
+      "Option D detailing solution for Configure stored access policies"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Configure stored access policies by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Configure stored access policies.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 34,
+    "subtopic": "Manage access keys",
+    "question": "Scenario question 34 regarding Manage access keys in Configure access to storage context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Manage access keys",
+      "Option B detailing solution for Manage access keys",
+      "Option C detailing solution for Manage access keys",
+      "Option D detailing solution for Manage access keys"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Manage access keys by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Manage access keys.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 35,
+    "subtopic": "Configure identity-based access for Azure Files",
+    "question": "Scenario question 35 regarding Configure identity-based access for Azure Files in Configure access to storage context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Configure identity-based access for Azure Files",
+      "Option B detailing solution for Configure identity-based access for Azure Files",
+      "Option C detailing solution for Configure identity-based access for Azure Files",
+      "Option D detailing solution for Configure identity-based access for Azure Files"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Configure identity-based access for Azure Files by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Configure identity-based access for Azure Files.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 36,
+    "subtopic": "Configure Azure Storage firewalls and virtual networks",
+    "question": "Scenario question 36 regarding Configure Azure Storage firewalls and virtual networks in Configure access to storage context: Which TWO options must you configure to achieve the target state? (Select TWO)",
+    "options": [
+      "First required configuration for Configure Azure Storage firewalls and virtual networks",
+      "Incorrect setting option A",
+      "Second required configuration for Configure Azure Storage firewalls and virtual networks",
+      "Incorrect setting option B"
+    ],
+    "correct": [
+      0,
+      2
+    ],
+    "explanation": {
+      "correctReason": "Options A (index 0) and C (index 2) are correct because both actions are necessary steps to configure Configure Azure Storage firewalls and virtual networks.",
+      "incorrectReasons": [
+        "Option B is incorrect because this setting is unsupported for this scenario.",
+        "Option D is incorrect as it applies to a different resource scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 37,
+    "subtopic": "Create and use shared access signature (SAS) tokens",
+    "question": "Scenario question 37 regarding Create and use shared access signature (SAS) tokens in Configure access to storage context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Create and use shared access signature (SAS) tokens",
+      "Option B detailing solution for Create and use shared access signature (SAS) tokens",
+      "Option C detailing solution for Create and use shared access signature (SAS) tokens",
+      "Option D detailing solution for Create and use shared access signature (SAS) tokens"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Create and use shared access signature (SAS) tokens by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Create and use shared access signature (SAS) tokens.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 38,
+    "subtopic": "Configure stored access policies",
+    "question": "Scenario question 38 regarding Configure stored access policies in Configure access to storage context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Configure stored access policies",
+      "Option B detailing solution for Configure stored access policies",
+      "Option C detailing solution for Configure stored access policies",
+      "Option D detailing solution for Configure stored access policies"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Configure stored access policies by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Configure stored access policies.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 39,
+    "subtopic": "Manage access keys",
+    "question": "Scenario question 39 regarding Manage access keys in Configure access to storage context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Manage access keys",
+      "Option B detailing solution for Manage access keys",
+      "Option C detailing solution for Manage access keys",
+      "Option D detailing solution for Manage access keys"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Manage access keys by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Manage access keys.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 40,
+    "subtopic": "Configure identity-based access for Azure Files",
+    "question": "Scenario question 40 regarding Configure identity-based access for Azure Files in Configure access to storage context: Which TWO options must you configure to achieve the target state? (Select TWO)",
+    "options": [
+      "First required configuration for Configure identity-based access for Azure Files",
+      "Incorrect setting option A",
+      "Second required configuration for Configure identity-based access for Azure Files",
+      "Incorrect setting option B"
+    ],
+    "correct": [
+      0,
+      2
+    ],
+    "explanation": {
+      "correctReason": "Options A (index 0) and C (index 2) are correct because both actions are necessary steps to configure Configure identity-based access for Azure Files.",
+      "incorrectReasons": [
+        "Option B is incorrect because this setting is unsupported for this scenario.",
+        "Option D is incorrect as it applies to a different resource scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 41,
+    "subtopic": "Configure Azure Storage firewalls and virtual networks",
+    "question": "Scenario question 41 regarding Configure Azure Storage firewalls and virtual networks in Configure access to storage context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Configure Azure Storage firewalls and virtual networks",
+      "Option B detailing solution for Configure Azure Storage firewalls and virtual networks",
+      "Option C detailing solution for Configure Azure Storage firewalls and virtual networks",
+      "Option D detailing solution for Configure Azure Storage firewalls and virtual networks"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Configure Azure Storage firewalls and virtual networks by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Configure Azure Storage firewalls and virtual networks.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 42,
+    "subtopic": "Create and use shared access signature (SAS) tokens",
+    "question": "Scenario question 42 regarding Create and use shared access signature (SAS) tokens in Configure access to storage context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Create and use shared access signature (SAS) tokens",
+      "Option B detailing solution for Create and use shared access signature (SAS) tokens",
+      "Option C detailing solution for Create and use shared access signature (SAS) tokens",
+      "Option D detailing solution for Create and use shared access signature (SAS) tokens"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Create and use shared access signature (SAS) tokens by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Create and use shared access signature (SAS) tokens.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 43,
+    "subtopic": "Configure stored access policies",
+    "question": "Scenario question 43 regarding Configure stored access policies in Configure access to storage context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Configure stored access policies",
+      "Option B detailing solution for Configure stored access policies",
+      "Option C detailing solution for Configure stored access policies",
+      "Option D detailing solution for Configure stored access policies"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Configure stored access policies by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Configure stored access policies.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 44,
+    "subtopic": "Manage access keys",
+    "question": "Scenario question 44 regarding Manage access keys in Configure access to storage context: Which TWO options must you configure to achieve the target state? (Select TWO)",
+    "options": [
+      "First required configuration for Manage access keys",
+      "Incorrect setting option A",
+      "Second required configuration for Manage access keys",
+      "Incorrect setting option B"
+    ],
+    "correct": [
+      0,
+      2
+    ],
+    "explanation": {
+      "correctReason": "Options A (index 0) and C (index 2) are correct because both actions are necessary steps to configure Manage access keys.",
+      "incorrectReasons": [
+        "Option B is incorrect because this setting is unsupported for this scenario.",
+        "Option D is incorrect as it applies to a different resource scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 45,
+    "subtopic": "Configure identity-based access for Azure Files",
+    "question": "Scenario question 45 regarding Configure identity-based access for Azure Files in Configure access to storage context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Configure identity-based access for Azure Files",
+      "Option B detailing solution for Configure identity-based access for Azure Files",
+      "Option C detailing solution for Configure identity-based access for Azure Files",
+      "Option D detailing solution for Configure identity-based access for Azure Files"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Configure identity-based access for Azure Files by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Configure identity-based access for Azure Files.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 46,
+    "subtopic": "Configure Azure Storage firewalls and virtual networks",
+    "question": "Scenario question 46 regarding Configure Azure Storage firewalls and virtual networks in Configure access to storage context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Configure Azure Storage firewalls and virtual networks",
+      "Option B detailing solution for Configure Azure Storage firewalls and virtual networks",
+      "Option C detailing solution for Configure Azure Storage firewalls and virtual networks",
+      "Option D detailing solution for Configure Azure Storage firewalls and virtual networks"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Configure Azure Storage firewalls and virtual networks by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Configure Azure Storage firewalls and virtual networks.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 47,
+    "subtopic": "Create and use shared access signature (SAS) tokens",
+    "question": "Scenario question 47 regarding Create and use shared access signature (SAS) tokens in Configure access to storage context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Create and use shared access signature (SAS) tokens",
+      "Option B detailing solution for Create and use shared access signature (SAS) tokens",
+      "Option C detailing solution for Create and use shared access signature (SAS) tokens",
+      "Option D detailing solution for Create and use shared access signature (SAS) tokens"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Create and use shared access signature (SAS) tokens by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Create and use shared access signature (SAS) tokens.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 48,
+    "subtopic": "Configure stored access policies",
+    "question": "Scenario question 48 regarding Configure stored access policies in Configure access to storage context: Which TWO options must you configure to achieve the target state? (Select TWO)",
+    "options": [
+      "First required configuration for Configure stored access policies",
+      "Incorrect setting option A",
+      "Second required configuration for Configure stored access policies",
+      "Incorrect setting option B"
+    ],
+    "correct": [
+      0,
+      2
+    ],
+    "explanation": {
+      "correctReason": "Options A (index 0) and C (index 2) are correct because both actions are necessary steps to configure Configure stored access policies.",
+      "incorrectReasons": [
+        "Option B is incorrect because this setting is unsupported for this scenario.",
+        "Option D is incorrect as it applies to a different resource scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 49,
+    "subtopic": "Manage access keys",
+    "question": "Scenario question 49 regarding Manage access keys in Configure access to storage context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Manage access keys",
+      "Option B detailing solution for Manage access keys",
+      "Option C detailing solution for Manage access keys",
+      "Option D detailing solution for Manage access keys"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Manage access keys by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Manage access keys.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 50,
+    "subtopic": "Configure identity-based access for Azure Files",
+    "question": "Scenario question 50 regarding Configure identity-based access for Azure Files in Configure access to storage context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Configure identity-based access for Azure Files",
+      "Option B detailing solution for Configure identity-based access for Azure Files",
+      "Option C detailing solution for Configure identity-based access for Azure Files",
+      "Option D detailing solution for Configure identity-based access for Azure Files"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Configure identity-based access for Azure Files by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Configure identity-based access for Azure Files.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  }
+]

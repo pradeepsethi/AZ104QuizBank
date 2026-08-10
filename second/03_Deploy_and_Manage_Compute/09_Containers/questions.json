@@ -1,0 +1,1076 @@
+[
+  {
+    "id": 1,
+    "subtopic": "Create and manage an Azure container registry",
+    "question": "Scenario question 1 regarding Create and manage an Azure container registry in Provision and manage containers in the Azure portal context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Create and manage an Azure container registry",
+      "Option B detailing solution for Create and manage an Azure container registry",
+      "Option C detailing solution for Create and manage an Azure container registry",
+      "Option D detailing solution for Create and manage an Azure container registry"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Create and manage an Azure container registry by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Create and manage an Azure container registry.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 2,
+    "subtopic": "Provision a container by using Azure Container Instances",
+    "question": "Scenario question 2 regarding Provision a container by using Azure Container Instances in Provision and manage containers in the Azure portal context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Provision a container by using Azure Container Instances",
+      "Option B detailing solution for Provision a container by using Azure Container Instances",
+      "Option C detailing solution for Provision a container by using Azure Container Instances",
+      "Option D detailing solution for Provision a container by using Azure Container Instances"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Provision a container by using Azure Container Instances by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Provision a container by using Azure Container Instances.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 3,
+    "subtopic": "Provision a container by using Azure Container Apps",
+    "question": "Scenario question 3 regarding Provision a container by using Azure Container Apps in Provision and manage containers in the Azure portal context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Provision a container by using Azure Container Apps",
+      "Option B detailing solution for Provision a container by using Azure Container Apps",
+      "Option C detailing solution for Provision a container by using Azure Container Apps",
+      "Option D detailing solution for Provision a container by using Azure Container Apps"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Provision a container by using Azure Container Apps by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Provision a container by using Azure Container Apps.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 4,
+    "subtopic": "Manage sizing and scaling for containers, including Azure Container Instances and Azure Container Apps",
+    "question": "Scenario question 4 regarding Manage sizing and scaling for containers, including Azure Container Instances and Azure Container Apps in Provision and manage containers in the Azure portal context: Which TWO options must you configure to achieve the target state? (Select TWO)",
+    "options": [
+      "First required configuration for Manage sizing and scaling for containers, including Azure Container Instances and Azure Container Apps",
+      "Incorrect setting option A",
+      "Second required configuration for Manage sizing and scaling for containers, including Azure Container Instances and Azure Container Apps",
+      "Incorrect setting option B"
+    ],
+    "correct": [
+      0,
+      2
+    ],
+    "explanation": {
+      "correctReason": "Options A (index 0) and C (index 2) are correct because both actions are necessary steps to configure Manage sizing and scaling for containers, including Azure Container Instances and Azure Container Apps.",
+      "incorrectReasons": [
+        "Option B is incorrect because this setting is unsupported for this scenario.",
+        "Option D is incorrect as it applies to a different resource scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 5,
+    "subtopic": "Create and manage an Azure container registry",
+    "question": "Scenario question 5 regarding Create and manage an Azure container registry in Provision and manage containers in the Azure portal context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Create and manage an Azure container registry",
+      "Option B detailing solution for Create and manage an Azure container registry",
+      "Option C detailing solution for Create and manage an Azure container registry",
+      "Option D detailing solution for Create and manage an Azure container registry"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Create and manage an Azure container registry by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Create and manage an Azure container registry.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 6,
+    "subtopic": "Provision a container by using Azure Container Instances",
+    "question": "Scenario question 6 regarding Provision a container by using Azure Container Instances in Provision and manage containers in the Azure portal context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Provision a container by using Azure Container Instances",
+      "Option B detailing solution for Provision a container by using Azure Container Instances",
+      "Option C detailing solution for Provision a container by using Azure Container Instances",
+      "Option D detailing solution for Provision a container by using Azure Container Instances"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Provision a container by using Azure Container Instances by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Provision a container by using Azure Container Instances.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 7,
+    "subtopic": "Provision a container by using Azure Container Apps",
+    "question": "Scenario question 7 regarding Provision a container by using Azure Container Apps in Provision and manage containers in the Azure portal context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Provision a container by using Azure Container Apps",
+      "Option B detailing solution for Provision a container by using Azure Container Apps",
+      "Option C detailing solution for Provision a container by using Azure Container Apps",
+      "Option D detailing solution for Provision a container by using Azure Container Apps"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Provision a container by using Azure Container Apps by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Provision a container by using Azure Container Apps.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 8,
+    "subtopic": "Manage sizing and scaling for containers, including Azure Container Instances and Azure Container Apps",
+    "question": "Scenario question 8 regarding Manage sizing and scaling for containers, including Azure Container Instances and Azure Container Apps in Provision and manage containers in the Azure portal context: Which TWO options must you configure to achieve the target state? (Select TWO)",
+    "options": [
+      "First required configuration for Manage sizing and scaling for containers, including Azure Container Instances and Azure Container Apps",
+      "Incorrect setting option A",
+      "Second required configuration for Manage sizing and scaling for containers, including Azure Container Instances and Azure Container Apps",
+      "Incorrect setting option B"
+    ],
+    "correct": [
+      0,
+      2
+    ],
+    "explanation": {
+      "correctReason": "Options A (index 0) and C (index 2) are correct because both actions are necessary steps to configure Manage sizing and scaling for containers, including Azure Container Instances and Azure Container Apps.",
+      "incorrectReasons": [
+        "Option B is incorrect because this setting is unsupported for this scenario.",
+        "Option D is incorrect as it applies to a different resource scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 9,
+    "subtopic": "Create and manage an Azure container registry",
+    "question": "Scenario question 9 regarding Create and manage an Azure container registry in Provision and manage containers in the Azure portal context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Create and manage an Azure container registry",
+      "Option B detailing solution for Create and manage an Azure container registry",
+      "Option C detailing solution for Create and manage an Azure container registry",
+      "Option D detailing solution for Create and manage an Azure container registry"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Create and manage an Azure container registry by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Create and manage an Azure container registry.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 10,
+    "subtopic": "Provision a container by using Azure Container Instances",
+    "question": "Scenario question 10 regarding Provision a container by using Azure Container Instances in Provision and manage containers in the Azure portal context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Provision a container by using Azure Container Instances",
+      "Option B detailing solution for Provision a container by using Azure Container Instances",
+      "Option C detailing solution for Provision a container by using Azure Container Instances",
+      "Option D detailing solution for Provision a container by using Azure Container Instances"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Provision a container by using Azure Container Instances by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Provision a container by using Azure Container Instances.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 11,
+    "subtopic": "Provision a container by using Azure Container Apps",
+    "question": "Scenario question 11 regarding Provision a container by using Azure Container Apps in Provision and manage containers in the Azure portal context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Provision a container by using Azure Container Apps",
+      "Option B detailing solution for Provision a container by using Azure Container Apps",
+      "Option C detailing solution for Provision a container by using Azure Container Apps",
+      "Option D detailing solution for Provision a container by using Azure Container Apps"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Provision a container by using Azure Container Apps by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Provision a container by using Azure Container Apps.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 12,
+    "subtopic": "Manage sizing and scaling for containers, including Azure Container Instances and Azure Container Apps",
+    "question": "Scenario question 12 regarding Manage sizing and scaling for containers, including Azure Container Instances and Azure Container Apps in Provision and manage containers in the Azure portal context: Which TWO options must you configure to achieve the target state? (Select TWO)",
+    "options": [
+      "First required configuration for Manage sizing and scaling for containers, including Azure Container Instances and Azure Container Apps",
+      "Incorrect setting option A",
+      "Second required configuration for Manage sizing and scaling for containers, including Azure Container Instances and Azure Container Apps",
+      "Incorrect setting option B"
+    ],
+    "correct": [
+      0,
+      2
+    ],
+    "explanation": {
+      "correctReason": "Options A (index 0) and C (index 2) are correct because both actions are necessary steps to configure Manage sizing and scaling for containers, including Azure Container Instances and Azure Container Apps.",
+      "incorrectReasons": [
+        "Option B is incorrect because this setting is unsupported for this scenario.",
+        "Option D is incorrect as it applies to a different resource scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 13,
+    "subtopic": "Create and manage an Azure container registry",
+    "question": "Scenario question 13 regarding Create and manage an Azure container registry in Provision and manage containers in the Azure portal context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Create and manage an Azure container registry",
+      "Option B detailing solution for Create and manage an Azure container registry",
+      "Option C detailing solution for Create and manage an Azure container registry",
+      "Option D detailing solution for Create and manage an Azure container registry"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Create and manage an Azure container registry by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Create and manage an Azure container registry.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 14,
+    "subtopic": "Provision a container by using Azure Container Instances",
+    "question": "Scenario question 14 regarding Provision a container by using Azure Container Instances in Provision and manage containers in the Azure portal context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Provision a container by using Azure Container Instances",
+      "Option B detailing solution for Provision a container by using Azure Container Instances",
+      "Option C detailing solution for Provision a container by using Azure Container Instances",
+      "Option D detailing solution for Provision a container by using Azure Container Instances"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Provision a container by using Azure Container Instances by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Provision a container by using Azure Container Instances.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 15,
+    "subtopic": "Provision a container by using Azure Container Apps",
+    "question": "Scenario question 15 regarding Provision a container by using Azure Container Apps in Provision and manage containers in the Azure portal context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Provision a container by using Azure Container Apps",
+      "Option B detailing solution for Provision a container by using Azure Container Apps",
+      "Option C detailing solution for Provision a container by using Azure Container Apps",
+      "Option D detailing solution for Provision a container by using Azure Container Apps"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Provision a container by using Azure Container Apps by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Provision a container by using Azure Container Apps.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 16,
+    "subtopic": "Manage sizing and scaling for containers, including Azure Container Instances and Azure Container Apps",
+    "question": "Scenario question 16 regarding Manage sizing and scaling for containers, including Azure Container Instances and Azure Container Apps in Provision and manage containers in the Azure portal context: Which TWO options must you configure to achieve the target state? (Select TWO)",
+    "options": [
+      "First required configuration for Manage sizing and scaling for containers, including Azure Container Instances and Azure Container Apps",
+      "Incorrect setting option A",
+      "Second required configuration for Manage sizing and scaling for containers, including Azure Container Instances and Azure Container Apps",
+      "Incorrect setting option B"
+    ],
+    "correct": [
+      0,
+      2
+    ],
+    "explanation": {
+      "correctReason": "Options A (index 0) and C (index 2) are correct because both actions are necessary steps to configure Manage sizing and scaling for containers, including Azure Container Instances and Azure Container Apps.",
+      "incorrectReasons": [
+        "Option B is incorrect because this setting is unsupported for this scenario.",
+        "Option D is incorrect as it applies to a different resource scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 17,
+    "subtopic": "Create and manage an Azure container registry",
+    "question": "Scenario question 17 regarding Create and manage an Azure container registry in Provision and manage containers in the Azure portal context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Create and manage an Azure container registry",
+      "Option B detailing solution for Create and manage an Azure container registry",
+      "Option C detailing solution for Create and manage an Azure container registry",
+      "Option D detailing solution for Create and manage an Azure container registry"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Create and manage an Azure container registry by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Create and manage an Azure container registry.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 18,
+    "subtopic": "Provision a container by using Azure Container Instances",
+    "question": "Scenario question 18 regarding Provision a container by using Azure Container Instances in Provision and manage containers in the Azure portal context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Provision a container by using Azure Container Instances",
+      "Option B detailing solution for Provision a container by using Azure Container Instances",
+      "Option C detailing solution for Provision a container by using Azure Container Instances",
+      "Option D detailing solution for Provision a container by using Azure Container Instances"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Provision a container by using Azure Container Instances by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Provision a container by using Azure Container Instances.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 19,
+    "subtopic": "Provision a container by using Azure Container Apps",
+    "question": "Scenario question 19 regarding Provision a container by using Azure Container Apps in Provision and manage containers in the Azure portal context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Provision a container by using Azure Container Apps",
+      "Option B detailing solution for Provision a container by using Azure Container Apps",
+      "Option C detailing solution for Provision a container by using Azure Container Apps",
+      "Option D detailing solution for Provision a container by using Azure Container Apps"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Provision a container by using Azure Container Apps by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Provision a container by using Azure Container Apps.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 20,
+    "subtopic": "Manage sizing and scaling for containers, including Azure Container Instances and Azure Container Apps",
+    "question": "Scenario question 20 regarding Manage sizing and scaling for containers, including Azure Container Instances and Azure Container Apps in Provision and manage containers in the Azure portal context: Which TWO options must you configure to achieve the target state? (Select TWO)",
+    "options": [
+      "First required configuration for Manage sizing and scaling for containers, including Azure Container Instances and Azure Container Apps",
+      "Incorrect setting option A",
+      "Second required configuration for Manage sizing and scaling for containers, including Azure Container Instances and Azure Container Apps",
+      "Incorrect setting option B"
+    ],
+    "correct": [
+      0,
+      2
+    ],
+    "explanation": {
+      "correctReason": "Options A (index 0) and C (index 2) are correct because both actions are necessary steps to configure Manage sizing and scaling for containers, including Azure Container Instances and Azure Container Apps.",
+      "incorrectReasons": [
+        "Option B is incorrect because this setting is unsupported for this scenario.",
+        "Option D is incorrect as it applies to a different resource scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 21,
+    "subtopic": "Create and manage an Azure container registry",
+    "question": "Scenario question 21 regarding Create and manage an Azure container registry in Provision and manage containers in the Azure portal context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Create and manage an Azure container registry",
+      "Option B detailing solution for Create and manage an Azure container registry",
+      "Option C detailing solution for Create and manage an Azure container registry",
+      "Option D detailing solution for Create and manage an Azure container registry"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Create and manage an Azure container registry by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Create and manage an Azure container registry.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 22,
+    "subtopic": "Provision a container by using Azure Container Instances",
+    "question": "Scenario question 22 regarding Provision a container by using Azure Container Instances in Provision and manage containers in the Azure portal context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Provision a container by using Azure Container Instances",
+      "Option B detailing solution for Provision a container by using Azure Container Instances",
+      "Option C detailing solution for Provision a container by using Azure Container Instances",
+      "Option D detailing solution for Provision a container by using Azure Container Instances"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Provision a container by using Azure Container Instances by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Provision a container by using Azure Container Instances.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 23,
+    "subtopic": "Provision a container by using Azure Container Apps",
+    "question": "Scenario question 23 regarding Provision a container by using Azure Container Apps in Provision and manage containers in the Azure portal context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Provision a container by using Azure Container Apps",
+      "Option B detailing solution for Provision a container by using Azure Container Apps",
+      "Option C detailing solution for Provision a container by using Azure Container Apps",
+      "Option D detailing solution for Provision a container by using Azure Container Apps"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Provision a container by using Azure Container Apps by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Provision a container by using Azure Container Apps.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 24,
+    "subtopic": "Manage sizing and scaling for containers, including Azure Container Instances and Azure Container Apps",
+    "question": "Scenario question 24 regarding Manage sizing and scaling for containers, including Azure Container Instances and Azure Container Apps in Provision and manage containers in the Azure portal context: Which TWO options must you configure to achieve the target state? (Select TWO)",
+    "options": [
+      "First required configuration for Manage sizing and scaling for containers, including Azure Container Instances and Azure Container Apps",
+      "Incorrect setting option A",
+      "Second required configuration for Manage sizing and scaling for containers, including Azure Container Instances and Azure Container Apps",
+      "Incorrect setting option B"
+    ],
+    "correct": [
+      0,
+      2
+    ],
+    "explanation": {
+      "correctReason": "Options A (index 0) and C (index 2) are correct because both actions are necessary steps to configure Manage sizing and scaling for containers, including Azure Container Instances and Azure Container Apps.",
+      "incorrectReasons": [
+        "Option B is incorrect because this setting is unsupported for this scenario.",
+        "Option D is incorrect as it applies to a different resource scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 25,
+    "subtopic": "Create and manage an Azure container registry",
+    "question": "Scenario question 25 regarding Create and manage an Azure container registry in Provision and manage containers in the Azure portal context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Create and manage an Azure container registry",
+      "Option B detailing solution for Create and manage an Azure container registry",
+      "Option C detailing solution for Create and manage an Azure container registry",
+      "Option D detailing solution for Create and manage an Azure container registry"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Create and manage an Azure container registry by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Create and manage an Azure container registry.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 26,
+    "subtopic": "Provision a container by using Azure Container Instances",
+    "question": "Scenario question 26 regarding Provision a container by using Azure Container Instances in Provision and manage containers in the Azure portal context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Provision a container by using Azure Container Instances",
+      "Option B detailing solution for Provision a container by using Azure Container Instances",
+      "Option C detailing solution for Provision a container by using Azure Container Instances",
+      "Option D detailing solution for Provision a container by using Azure Container Instances"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Provision a container by using Azure Container Instances by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Provision a container by using Azure Container Instances.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 27,
+    "subtopic": "Provision a container by using Azure Container Apps",
+    "question": "Scenario question 27 regarding Provision a container by using Azure Container Apps in Provision and manage containers in the Azure portal context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Provision a container by using Azure Container Apps",
+      "Option B detailing solution for Provision a container by using Azure Container Apps",
+      "Option C detailing solution for Provision a container by using Azure Container Apps",
+      "Option D detailing solution for Provision a container by using Azure Container Apps"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Provision a container by using Azure Container Apps by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Provision a container by using Azure Container Apps.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 28,
+    "subtopic": "Manage sizing and scaling for containers, including Azure Container Instances and Azure Container Apps",
+    "question": "Scenario question 28 regarding Manage sizing and scaling for containers, including Azure Container Instances and Azure Container Apps in Provision and manage containers in the Azure portal context: Which TWO options must you configure to achieve the target state? (Select TWO)",
+    "options": [
+      "First required configuration for Manage sizing and scaling for containers, including Azure Container Instances and Azure Container Apps",
+      "Incorrect setting option A",
+      "Second required configuration for Manage sizing and scaling for containers, including Azure Container Instances and Azure Container Apps",
+      "Incorrect setting option B"
+    ],
+    "correct": [
+      0,
+      2
+    ],
+    "explanation": {
+      "correctReason": "Options A (index 0) and C (index 2) are correct because both actions are necessary steps to configure Manage sizing and scaling for containers, including Azure Container Instances and Azure Container Apps.",
+      "incorrectReasons": [
+        "Option B is incorrect because this setting is unsupported for this scenario.",
+        "Option D is incorrect as it applies to a different resource scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 29,
+    "subtopic": "Create and manage an Azure container registry",
+    "question": "Scenario question 29 regarding Create and manage an Azure container registry in Provision and manage containers in the Azure portal context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Create and manage an Azure container registry",
+      "Option B detailing solution for Create and manage an Azure container registry",
+      "Option C detailing solution for Create and manage an Azure container registry",
+      "Option D detailing solution for Create and manage an Azure container registry"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Create and manage an Azure container registry by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Create and manage an Azure container registry.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 30,
+    "subtopic": "Provision a container by using Azure Container Instances",
+    "question": "Scenario question 30 regarding Provision a container by using Azure Container Instances in Provision and manage containers in the Azure portal context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Provision a container by using Azure Container Instances",
+      "Option B detailing solution for Provision a container by using Azure Container Instances",
+      "Option C detailing solution for Provision a container by using Azure Container Instances",
+      "Option D detailing solution for Provision a container by using Azure Container Instances"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Provision a container by using Azure Container Instances by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Provision a container by using Azure Container Instances.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 31,
+    "subtopic": "Provision a container by using Azure Container Apps",
+    "question": "Scenario question 31 regarding Provision a container by using Azure Container Apps in Provision and manage containers in the Azure portal context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Provision a container by using Azure Container Apps",
+      "Option B detailing solution for Provision a container by using Azure Container Apps",
+      "Option C detailing solution for Provision a container by using Azure Container Apps",
+      "Option D detailing solution for Provision a container by using Azure Container Apps"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Provision a container by using Azure Container Apps by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Provision a container by using Azure Container Apps.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 32,
+    "subtopic": "Manage sizing and scaling for containers, including Azure Container Instances and Azure Container Apps",
+    "question": "Scenario question 32 regarding Manage sizing and scaling for containers, including Azure Container Instances and Azure Container Apps in Provision and manage containers in the Azure portal context: Which TWO options must you configure to achieve the target state? (Select TWO)",
+    "options": [
+      "First required configuration for Manage sizing and scaling for containers, including Azure Container Instances and Azure Container Apps",
+      "Incorrect setting option A",
+      "Second required configuration for Manage sizing and scaling for containers, including Azure Container Instances and Azure Container Apps",
+      "Incorrect setting option B"
+    ],
+    "correct": [
+      0,
+      2
+    ],
+    "explanation": {
+      "correctReason": "Options A (index 0) and C (index 2) are correct because both actions are necessary steps to configure Manage sizing and scaling for containers, including Azure Container Instances and Azure Container Apps.",
+      "incorrectReasons": [
+        "Option B is incorrect because this setting is unsupported for this scenario.",
+        "Option D is incorrect as it applies to a different resource scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 33,
+    "subtopic": "Create and manage an Azure container registry",
+    "question": "Scenario question 33 regarding Create and manage an Azure container registry in Provision and manage containers in the Azure portal context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Create and manage an Azure container registry",
+      "Option B detailing solution for Create and manage an Azure container registry",
+      "Option C detailing solution for Create and manage an Azure container registry",
+      "Option D detailing solution for Create and manage an Azure container registry"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Create and manage an Azure container registry by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Create and manage an Azure container registry.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 34,
+    "subtopic": "Provision a container by using Azure Container Instances",
+    "question": "Scenario question 34 regarding Provision a container by using Azure Container Instances in Provision and manage containers in the Azure portal context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Provision a container by using Azure Container Instances",
+      "Option B detailing solution for Provision a container by using Azure Container Instances",
+      "Option C detailing solution for Provision a container by using Azure Container Instances",
+      "Option D detailing solution for Provision a container by using Azure Container Instances"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Provision a container by using Azure Container Instances by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Provision a container by using Azure Container Instances.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 35,
+    "subtopic": "Provision a container by using Azure Container Apps",
+    "question": "Scenario question 35 regarding Provision a container by using Azure Container Apps in Provision and manage containers in the Azure portal context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Provision a container by using Azure Container Apps",
+      "Option B detailing solution for Provision a container by using Azure Container Apps",
+      "Option C detailing solution for Provision a container by using Azure Container Apps",
+      "Option D detailing solution for Provision a container by using Azure Container Apps"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Provision a container by using Azure Container Apps by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Provision a container by using Azure Container Apps.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 36,
+    "subtopic": "Manage sizing and scaling for containers, including Azure Container Instances and Azure Container Apps",
+    "question": "Scenario question 36 regarding Manage sizing and scaling for containers, including Azure Container Instances and Azure Container Apps in Provision and manage containers in the Azure portal context: Which TWO options must you configure to achieve the target state? (Select TWO)",
+    "options": [
+      "First required configuration for Manage sizing and scaling for containers, including Azure Container Instances and Azure Container Apps",
+      "Incorrect setting option A",
+      "Second required configuration for Manage sizing and scaling for containers, including Azure Container Instances and Azure Container Apps",
+      "Incorrect setting option B"
+    ],
+    "correct": [
+      0,
+      2
+    ],
+    "explanation": {
+      "correctReason": "Options A (index 0) and C (index 2) are correct because both actions are necessary steps to configure Manage sizing and scaling for containers, including Azure Container Instances and Azure Container Apps.",
+      "incorrectReasons": [
+        "Option B is incorrect because this setting is unsupported for this scenario.",
+        "Option D is incorrect as it applies to a different resource scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 37,
+    "subtopic": "Create and manage an Azure container registry",
+    "question": "Scenario question 37 regarding Create and manage an Azure container registry in Provision and manage containers in the Azure portal context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Create and manage an Azure container registry",
+      "Option B detailing solution for Create and manage an Azure container registry",
+      "Option C detailing solution for Create and manage an Azure container registry",
+      "Option D detailing solution for Create and manage an Azure container registry"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Create and manage an Azure container registry by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Create and manage an Azure container registry.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 38,
+    "subtopic": "Provision a container by using Azure Container Instances",
+    "question": "Scenario question 38 regarding Provision a container by using Azure Container Instances in Provision and manage containers in the Azure portal context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Provision a container by using Azure Container Instances",
+      "Option B detailing solution for Provision a container by using Azure Container Instances",
+      "Option C detailing solution for Provision a container by using Azure Container Instances",
+      "Option D detailing solution for Provision a container by using Azure Container Instances"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Provision a container by using Azure Container Instances by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Provision a container by using Azure Container Instances.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 39,
+    "subtopic": "Provision a container by using Azure Container Apps",
+    "question": "Scenario question 39 regarding Provision a container by using Azure Container Apps in Provision and manage containers in the Azure portal context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Provision a container by using Azure Container Apps",
+      "Option B detailing solution for Provision a container by using Azure Container Apps",
+      "Option C detailing solution for Provision a container by using Azure Container Apps",
+      "Option D detailing solution for Provision a container by using Azure Container Apps"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Provision a container by using Azure Container Apps by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Provision a container by using Azure Container Apps.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 40,
+    "subtopic": "Manage sizing and scaling for containers, including Azure Container Instances and Azure Container Apps",
+    "question": "Scenario question 40 regarding Manage sizing and scaling for containers, including Azure Container Instances and Azure Container Apps in Provision and manage containers in the Azure portal context: Which TWO options must you configure to achieve the target state? (Select TWO)",
+    "options": [
+      "First required configuration for Manage sizing and scaling for containers, including Azure Container Instances and Azure Container Apps",
+      "Incorrect setting option A",
+      "Second required configuration for Manage sizing and scaling for containers, including Azure Container Instances and Azure Container Apps",
+      "Incorrect setting option B"
+    ],
+    "correct": [
+      0,
+      2
+    ],
+    "explanation": {
+      "correctReason": "Options A (index 0) and C (index 2) are correct because both actions are necessary steps to configure Manage sizing and scaling for containers, including Azure Container Instances and Azure Container Apps.",
+      "incorrectReasons": [
+        "Option B is incorrect because this setting is unsupported for this scenario.",
+        "Option D is incorrect as it applies to a different resource scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 41,
+    "subtopic": "Create and manage an Azure container registry",
+    "question": "Scenario question 41 regarding Create and manage an Azure container registry in Provision and manage containers in the Azure portal context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Create and manage an Azure container registry",
+      "Option B detailing solution for Create and manage an Azure container registry",
+      "Option C detailing solution for Create and manage an Azure container registry",
+      "Option D detailing solution for Create and manage an Azure container registry"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Create and manage an Azure container registry by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Create and manage an Azure container registry.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 42,
+    "subtopic": "Provision a container by using Azure Container Instances",
+    "question": "Scenario question 42 regarding Provision a container by using Azure Container Instances in Provision and manage containers in the Azure portal context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Provision a container by using Azure Container Instances",
+      "Option B detailing solution for Provision a container by using Azure Container Instances",
+      "Option C detailing solution for Provision a container by using Azure Container Instances",
+      "Option D detailing solution for Provision a container by using Azure Container Instances"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Provision a container by using Azure Container Instances by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Provision a container by using Azure Container Instances.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 43,
+    "subtopic": "Provision a container by using Azure Container Apps",
+    "question": "Scenario question 43 regarding Provision a container by using Azure Container Apps in Provision and manage containers in the Azure portal context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Provision a container by using Azure Container Apps",
+      "Option B detailing solution for Provision a container by using Azure Container Apps",
+      "Option C detailing solution for Provision a container by using Azure Container Apps",
+      "Option D detailing solution for Provision a container by using Azure Container Apps"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Provision a container by using Azure Container Apps by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Provision a container by using Azure Container Apps.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 44,
+    "subtopic": "Manage sizing and scaling for containers, including Azure Container Instances and Azure Container Apps",
+    "question": "Scenario question 44 regarding Manage sizing and scaling for containers, including Azure Container Instances and Azure Container Apps in Provision and manage containers in the Azure portal context: Which TWO options must you configure to achieve the target state? (Select TWO)",
+    "options": [
+      "First required configuration for Manage sizing and scaling for containers, including Azure Container Instances and Azure Container Apps",
+      "Incorrect setting option A",
+      "Second required configuration for Manage sizing and scaling for containers, including Azure Container Instances and Azure Container Apps",
+      "Incorrect setting option B"
+    ],
+    "correct": [
+      0,
+      2
+    ],
+    "explanation": {
+      "correctReason": "Options A (index 0) and C (index 2) are correct because both actions are necessary steps to configure Manage sizing and scaling for containers, including Azure Container Instances and Azure Container Apps.",
+      "incorrectReasons": [
+        "Option B is incorrect because this setting is unsupported for this scenario.",
+        "Option D is incorrect as it applies to a different resource scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 45,
+    "subtopic": "Create and manage an Azure container registry",
+    "question": "Scenario question 45 regarding Create and manage an Azure container registry in Provision and manage containers in the Azure portal context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Create and manage an Azure container registry",
+      "Option B detailing solution for Create and manage an Azure container registry",
+      "Option C detailing solution for Create and manage an Azure container registry",
+      "Option D detailing solution for Create and manage an Azure container registry"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Create and manage an Azure container registry by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Create and manage an Azure container registry.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 46,
+    "subtopic": "Provision a container by using Azure Container Instances",
+    "question": "Scenario question 46 regarding Provision a container by using Azure Container Instances in Provision and manage containers in the Azure portal context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Provision a container by using Azure Container Instances",
+      "Option B detailing solution for Provision a container by using Azure Container Instances",
+      "Option C detailing solution for Provision a container by using Azure Container Instances",
+      "Option D detailing solution for Provision a container by using Azure Container Instances"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Provision a container by using Azure Container Instances by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Provision a container by using Azure Container Instances.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 47,
+    "subtopic": "Provision a container by using Azure Container Apps",
+    "question": "Scenario question 47 regarding Provision a container by using Azure Container Apps in Provision and manage containers in the Azure portal context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Provision a container by using Azure Container Apps",
+      "Option B detailing solution for Provision a container by using Azure Container Apps",
+      "Option C detailing solution for Provision a container by using Azure Container Apps",
+      "Option D detailing solution for Provision a container by using Azure Container Apps"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Provision a container by using Azure Container Apps by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Provision a container by using Azure Container Apps.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 48,
+    "subtopic": "Manage sizing and scaling for containers, including Azure Container Instances and Azure Container Apps",
+    "question": "Scenario question 48 regarding Manage sizing and scaling for containers, including Azure Container Instances and Azure Container Apps in Provision and manage containers in the Azure portal context: Which TWO options must you configure to achieve the target state? (Select TWO)",
+    "options": [
+      "First required configuration for Manage sizing and scaling for containers, including Azure Container Instances and Azure Container Apps",
+      "Incorrect setting option A",
+      "Second required configuration for Manage sizing and scaling for containers, including Azure Container Instances and Azure Container Apps",
+      "Incorrect setting option B"
+    ],
+    "correct": [
+      0,
+      2
+    ],
+    "explanation": {
+      "correctReason": "Options A (index 0) and C (index 2) are correct because both actions are necessary steps to configure Manage sizing and scaling for containers, including Azure Container Instances and Azure Container Apps.",
+      "incorrectReasons": [
+        "Option B is incorrect because this setting is unsupported for this scenario.",
+        "Option D is incorrect as it applies to a different resource scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 49,
+    "subtopic": "Create and manage an Azure container registry",
+    "question": "Scenario question 49 regarding Create and manage an Azure container registry in Provision and manage containers in the Azure portal context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Create and manage an Azure container registry",
+      "Option B detailing solution for Create and manage an Azure container registry",
+      "Option C detailing solution for Create and manage an Azure container registry",
+      "Option D detailing solution for Create and manage an Azure container registry"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Create and manage an Azure container registry by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Create and manage an Azure container registry.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 50,
+    "subtopic": "Provision a container by using Azure Container Instances",
+    "question": "Scenario question 50 regarding Provision a container by using Azure Container Instances in Provision and manage containers in the Azure portal context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Provision a container by using Azure Container Instances",
+      "Option B detailing solution for Provision a container by using Azure Container Instances",
+      "Option C detailing solution for Provision a container by using Azure Container Instances",
+      "Option D detailing solution for Provision a container by using Azure Container Instances"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Provision a container by using Azure Container Instances by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Provision a container by using Azure Container Instances.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  }
+]

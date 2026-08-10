@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AZ-104 Practice Exam</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: #f4f6f9;
+      color: #333;
+      margin: 0;
+      padding: 20px;
+    }
+    .quiz-container {
+      max-width: 850px;
+      margin: 0 auto;
+      background: #fff;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid #e0e0e0;
+      padding-bottom: 15px;
+      margin-bottom: 15px;
+    }
+    .timer-container {
+      font-size: 1.1rem;
+      font-weight: bold;
+      background: #eef5fc;
+      color: #0078d4;
+      padding: 6px 14px;
+      border-radius: 20px;
+      border: 1px solid #0078d4;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .timer-container.warning {
+      background: #fde8e8;
+      color: #d13438;
+      border-color: #d13438;
+      animation: pulse 1s infinite alternate;
+    }
+    @keyframes pulse {
+      from { opacity: 1; }
+      to { opacity: 0.7; }
+    }
+    .subtopic {
+      font-size: 0.85rem;
+      color: #0078d4;
+      text-transform: uppercase;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+    .question-title {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 15px;
+    }
+
+    /* Question Navigator Palette */
+    .question-palette {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 20px;
+      padding: 10px;
+      background: #f0f2f5;
+      border-radius: 6px;
+    }
+    .palette-btn {
+      width: 32px;
+      height: 32px;
+      border: 1px solid #ccc;
+      background: #fff;
+      border-radius: 4px;
+      font-size: 0.85rem;
+      font-weight: bold;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .palette-btn.active {
+      border: 2px solid #0078d4;
+      font-weight: bold;
+    }
+    .palette-btn.answered {
+      background-color: #deecf9;
+      color: #0078d4;
+      border-color: #0078d4;
+    }
+    .palette-btn.unanswered {
+      background-color: #fff0f0;
+      color: #d13438;
+      border-color: #f2acac;
+    }
+
+    /* Options */
+    .options-container {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 25px;
+    }
+    .option-btn {
+      padding: 12px 16px;
+      border: 2px solid #d1d1d1;
+      border-radius: 6px;
+      background-color: #f9f9f9;
+      text-align: left;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: all 0.2s ease;
+    }
+    .option-btn:hover {
+      background-color: #eef5fc;
+      border-color: #0078d4;
+    }
+    .option-btn.selected {
+      background-color: #deecf9;
+      border-color: #0078d4;
+      font-weight: 600;
+    }
+
+    /* Status indicators */
+    .status-badge {
+      font-size: 0.85rem;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-weight: 600;
+      margin-left: 8px;
+    }
+    .status-badge.unanswered {
+      background-color: #fde8e8;
+      color: #d13438;
+    }
+    .status-badge.answered {
+      background-color: #e1dfdd;
+      color: #323130;
+    }
+
+    /* Navigation */
+    .navigation {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    button.nav-btn {
+      padding: 10px 20px;
+      border: none;
+      background-color: #0078d4;
+      color: white;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+    button.nav-btn:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+    }
+
+    /* Breakdown */
+    .breakdown-card {
+      border: 1px solid #ddd;
+      padding: 15px;
+      border-radius: 6px;
+      margin-bottom: 15px;
+      background: #fafafa;
+    }
+    .breakdown-card.correct { border-left: 6px solid #107c41; }
+    .breakdown-card.incorrect { border-left: 6px solid #d13438; }
+  </style>
+</head>
+<body>
+
+<div class="quiz-container">
+  <div id="quiz-screen">
+    <div class="header">
+      <h2>AZ-104 Practice Exam</h2>
+      
+      <!-- Timer Display -->
+      <div id="timer-box" class="timer-container">
+        <span>⏱️</span> <span id="timer">100:00</span>
+      </div>
+
+      <div>
+        <span id="question-tracker">Question 1 of --</span>
+        <span id="status-badge" class="status-badge unanswered">Unanswered</span>
+      </div>
+    </div>
+
+    <!-- Question Navigator Palette -->
+    <div id="question-palette" class="question-palette"></div>
+    
+    <div id="subtopic" class="subtopic">---</div>
+    <div id="question-text" class="question-title">Loading questions...</div>
+    
+    <div id="options-container" class="options-container"></div>
+    
+    <div class="navigation">
+      <button id="prev-btn" class="nav-btn" onclick="navigate(-1)" disabled>Previous</button>
+      <button id="next-btn" class="nav-btn" onclick="navigate(1)">Next</button>
+      <button id="submit-btn" class="nav-btn" style="background-color: #107c41;" onclick="submitExam(false)">Submit Exam</button>
+    </div>
+  </div>
+
+  <div id="results-screen" style="display: none;">
+    <h2>Exam Results</h2>
+    <h3 id="final-score"></h3>
+    <div id="results-breakdown"></div>
+  </div>
+</div>
+
+<script>
+  let quizData = [];
+  let currentQuestionIdx = 0;
+  let userAnswers = {}; // Map of question index -> array of selected option indices
+
+  // Timer configuration
+  let timeRemainingSeconds = 100 * 60; // 100 minutes total
+  let timerInterval = null;
+
+  function startTimer() {
+    updateTimerDisplay();
+    timerInterval = setInterval(() => {
+      timeRemainingSeconds--;
+      updateTimerDisplay();
+
+      if (timeRemainingSeconds <= 0) {
+        clearInterval(timerInterval);
+        alert("⏱️ Time is up! Your exam is being submitted automatically.");
+        submitExam(true); // Force submit on timeout
+      }
+    }, 1000);
+  }
+
+  function updateTimerDisplay() {
+    const minutes = Math.floor(timeRemainingSeconds / 60);
+    const seconds = timeRemainingSeconds % 60;
+    const formattedTime = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+    
+    const timerElem = document.getElementById('timer');
+    const timerBox = document.getElementById('timer-box');
+    
+    if (timerElem) timerElem.innerText = formattedTime;
+
+    // Visual warning when under 5 minutes (300 seconds)
+    if (timeRemainingSeconds <= 300 && timerBox) {
+      timerBox.classList.add('warning');
+    }
+  }
+
+  function areArraysEqual(arr1, arr2) {
+    if (!arr1 || !arr2) return false;
+    if (arr1.length !== arr2.length) return false;
+    const s1 = [...arr1].sort((a, b) => a - b);
+    const s2 = [...arr2].sort((a, b) => a - b);
+    return s1.every((val, idx) => val === s2[idx]);
+  }
+
+  // Load and automatically shuffle options on load
+  async function loadQuizData() {
+    try {
+      const response = await fetch('questions.json');
+      if (!response.ok) throw new Error(`HTTP Error ${response.status}`);
+      
+      const rawData = await response.json();
+
+      // AUTOMATIC SHUFFLE & OPTION MAPPING LOGIC
+      quizData = rawData.map(q => {
+        const isSingle = typeof q.correct === 'number';
+        const correctList = isSingle ? [q.correct] : q.correct;
+
+        // Map original options with indices
+        const mapped = q.options.map((opt, idx) => ({ text: opt, originalIdx: idx }));
+
+        // Fisher-Yates Shuffle
+        for (let i = mapped.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [mapped[i], mapped[j]] = [mapped[j], mapped[i]];
+        }
+
+        // Remap original correct indices to new positions
+        const newCorrect = correctList.map(oldIdx => 
+          mapped.findIndex(item => item.originalIdx === oldIdx)
+        );
+
+        return {
+          ...q,
+          options: mapped.map(item => item.text),
+          correct: isSingle ? newCorrect[0] : newCorrect.sort((a, b) => a - b)
+        };
+      });
+
+      // Default timer to 2 minutes per question if 50 questions
+      timeRemainingSeconds = quizData.length * 120; 
+
+      renderPalette();
+      renderQuestion();
+      startTimer();
+    } catch (error) {
+      console.error("Error loading quiz:", error);
+      document.getElementById('question-text').innerText = "Failed to load quiz data. Check questions.json file.";
+    }
+  }
+
+  function renderPalette() {
+    const palette = document.getElementById('question-palette');
+    palette.innerHTML = '';
+
+    quizData.forEach((_, idx) => {
+      const btn = document.createElement('button');
+      const isAnswered = userAnswers[idx] && userAnswers[idx].length > 0;
+      
+      btn.className = `palette-btn ${isAnswered ? 'answered' : 'unanswered'}${idx === currentQuestionIdx ? ' active' : ''}`;
+      btn.innerText = idx + 1;
+      btn.onclick = () => jumpToQuestion(idx);
+      palette.appendChild(btn);
+    });
+  }
+
+  function renderQuestion() {
+    const q = quizData[currentQuestionIdx];
+    document.getElementById('question-tracker').innerText = `Question ${currentQuestionIdx + 1} of ${quizData.length}`;
+    document.getElementById('subtopic').innerText = q.subtopic || '';
+    document.getElementById('question-text').innerText = q.question;
+
+    const selectedOptions = userAnswers[currentQuestionIdx] || [];
+    const isAnswered = selectedOptions.length > 0;
+
+    // Status Badge Indicator
+    const badge = document.getElementById('status-badge');
+    badge.innerText = isAnswered ? 'Answered' : 'Unanswered';
+    badge.className = `status-badge ${isAnswered ? 'answered' : 'unanswered'}`;
+
+    const optionsContainer = document.getElementById('options-container');
+    optionsContainer.innerHTML = '';
+
+    const isMultiSelect = Array.isArray(q.correct);
+
+    q.options.forEach((optText, optIdx) => {
+      const btn = document.createElement('button');
+      btn.className = 'option-btn' + (selectedOptions.includes(optIdx) ? ' selected' : '');
+      btn.innerText = optText;
+      btn.onclick = () => selectOption(optIdx, isMultiSelect);
+      optionsContainer.appendChild(btn);
+    });
+
+    // Update Navigation Buttons
+    document.getElementById('prev-btn').disabled = currentQuestionIdx === 0;
+    document.getElementById('next-btn').disabled = currentQuestionIdx === quizData.length - 1;
+
+    renderPalette();
+  }
+
+  function selectOption(optIdx, isMultiSelect) {
+    if (!userAnswers[currentQuestionIdx]) {
+      userAnswers[currentQuestionIdx] = [];
+    }
+
+    if (isMultiSelect) {
+      const existsIdx = userAnswers[currentQuestionIdx].indexOf(optIdx);
+      if (existsIdx > -1) {
+        userAnswers[currentQuestionIdx].splice(existsIdx, 1);
+      } else {
+        userAnswers[currentQuestionIdx].push(optIdx);
+      }
+    } else {
+      userAnswers[currentQuestionIdx] = [optIdx];
+    }
+
+    renderQuestion();
+  }
+
+  function jumpToQuestion(index) {
+    currentQuestionIdx = index;
+    renderQuestion();
+  }
+
+  function navigate(direction) {
+    currentQuestionIdx += direction;
+    renderQuestion();
+  }
+
+  function submitExam(isAutoSubmit = false) {
+    // Check for missing/unanswered questions if manual submission
+    if (!isAutoSubmit) {
+      const unansweredIndices = [];
+      quizData.forEach((_, idx) => {
+        if (!userAnswers[idx] || userAnswers[idx].length === 0) {
+          unansweredIndices.push(idx + 1);
+        }
+      });
+
+      if (unansweredIndices.length > 0) {
+        const confirmSubmit = confirm(
+          `Warning: You have ${unansweredIndices.length} unanswered question(s)!\nQuestions: ${unansweredIndices.join(', ')}\n\nAre you sure you want to submit?`
+        );
+        if (!confirmSubmit) return;
+      }
+    }
+
+    // Stop timer
+    if (timerInterval) clearInterval(timerInterval);
+
+    let score = 0;
+    const breakdownContainer = document.getElementById('results-breakdown');
+    breakdownContainer.innerHTML = '';
+
+    quizData.forEach((q, idx) => {
+      const userChoice = userAnswers[idx] || [];
+      const correctChoice = Array.isArray(q.correct) ? q.correct : [q.correct];
+      const isCorrect = areArraysEqual(userChoice, correctChoice);
+
+      if (isCorrect) score++;
+
+      const card = document.createElement('div');
+      card.className = `breakdown-card ${isCorrect ? 'correct' : 'incorrect'}`;
+      
+      const userSelectedText = userChoice.length > 0 
+        ? userChoice.map(i => q.options[i]).join(', ') 
+        : '<em>None selected</em>';
+        
+      const correctText = correctChoice.map(i => q.options[i]).join(', ');
+
+      card.innerHTML = `
+        <h4>Q${idx + 1}: ${q.question}</h4>
+        <p><strong>Result:</strong> ${isCorrect ? '✅ Correct' : '❌ Incorrect'}</p>
+        <p><strong>Your Selection:</strong> ${userSelectedText}</p>
+        <p><strong>Correct Option(s):</strong> ${correctText}</p>
+        <p><strong>Explanation:</strong> ${q.explanation?.correctReason || 'N/A'}</p>
+      `;
+      breakdownContainer.appendChild(card);
+    });
+
+    document.getElementById('quiz-screen').style.display = 'none';
+    document.getElementById('results-screen').style.display = 'block';
+    document.getElementById('final-score').innerText = `You scored ${score} out of ${quizData.length} (${((score / quizData.length) * 100).toFixed(1)}%)`;
+  }
+
+  // Initialize
+  loadQuizData();
+</script>
+</body>
+</html>

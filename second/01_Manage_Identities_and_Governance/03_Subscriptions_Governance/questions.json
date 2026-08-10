@@ -1,0 +1,1076 @@
+[
+  {
+    "id": 1,
+    "subtopic": "Implement and manage Azure Policy",
+    "question": "Scenario question 1 regarding Implement and manage Azure Policy in Manage Azure subscriptions and governance context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Implement and manage Azure Policy",
+      "Option B detailing solution for Implement and manage Azure Policy",
+      "Option C detailing solution for Implement and manage Azure Policy",
+      "Option D detailing solution for Implement and manage Azure Policy"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Implement and manage Azure Policy by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Implement and manage Azure Policy.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 2,
+    "subtopic": "Configure resource locks",
+    "question": "Scenario question 2 regarding Configure resource locks in Manage Azure subscriptions and governance context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Configure resource locks",
+      "Option B detailing solution for Configure resource locks",
+      "Option C detailing solution for Configure resource locks",
+      "Option D detailing solution for Configure resource locks"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Configure resource locks by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Configure resource locks.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 3,
+    "subtopic": "Apply and manage tags on resources",
+    "question": "Scenario question 3 regarding Apply and manage tags on resources in Manage Azure subscriptions and governance context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Apply and manage tags on resources",
+      "Option B detailing solution for Apply and manage tags on resources",
+      "Option C detailing solution for Apply and manage tags on resources",
+      "Option D detailing solution for Apply and manage tags on resources"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Apply and manage tags on resources by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Apply and manage tags on resources.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 4,
+    "subtopic": "Manage resource groups",
+    "question": "Scenario question 4 regarding Manage resource groups in Manage Azure subscriptions and governance context: Which TWO options must you configure to achieve the target state? (Select TWO)",
+    "options": [
+      "First required configuration for Manage resource groups",
+      "Incorrect setting option A",
+      "Second required configuration for Manage resource groups",
+      "Incorrect setting option B"
+    ],
+    "correct": [
+      0,
+      2
+    ],
+    "explanation": {
+      "correctReason": "Options A (index 0) and C (index 2) are correct because both actions are necessary steps to configure Manage resource groups.",
+      "incorrectReasons": [
+        "Option B is incorrect because this setting is unsupported for this scenario.",
+        "Option D is incorrect as it applies to a different resource scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 5,
+    "subtopic": "Manage subscriptions",
+    "question": "Scenario question 5 regarding Manage subscriptions in Manage Azure subscriptions and governance context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Manage subscriptions",
+      "Option B detailing solution for Manage subscriptions",
+      "Option C detailing solution for Manage subscriptions",
+      "Option D detailing solution for Manage subscriptions"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Manage subscriptions by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Manage subscriptions.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 6,
+    "subtopic": "Manage costs by using alerts, budgets, and Azure Advisor recommendations",
+    "question": "Scenario question 6 regarding Manage costs by using alerts, budgets, and Azure Advisor recommendations in Manage Azure subscriptions and governance context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Manage costs by using alerts, budgets, and Azure Advisor recommendations",
+      "Option B detailing solution for Manage costs by using alerts, budgets, and Azure Advisor recommendations",
+      "Option C detailing solution for Manage costs by using alerts, budgets, and Azure Advisor recommendations",
+      "Option D detailing solution for Manage costs by using alerts, budgets, and Azure Advisor recommendations"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Manage costs by using alerts, budgets, and Azure Advisor recommendations by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Manage costs by using alerts, budgets, and Azure Advisor recommendations.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 7,
+    "subtopic": "Configure management groups",
+    "question": "Scenario question 7 regarding Configure management groups in Manage Azure subscriptions and governance context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Configure management groups",
+      "Option B detailing solution for Configure management groups",
+      "Option C detailing solution for Configure management groups",
+      "Option D detailing solution for Configure management groups"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Configure management groups by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Configure management groups.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 8,
+    "subtopic": "Implement and manage Azure Policy",
+    "question": "Scenario question 8 regarding Implement and manage Azure Policy in Manage Azure subscriptions and governance context: Which TWO options must you configure to achieve the target state? (Select TWO)",
+    "options": [
+      "First required configuration for Implement and manage Azure Policy",
+      "Incorrect setting option A",
+      "Second required configuration for Implement and manage Azure Policy",
+      "Incorrect setting option B"
+    ],
+    "correct": [
+      0,
+      2
+    ],
+    "explanation": {
+      "correctReason": "Options A (index 0) and C (index 2) are correct because both actions are necessary steps to configure Implement and manage Azure Policy.",
+      "incorrectReasons": [
+        "Option B is incorrect because this setting is unsupported for this scenario.",
+        "Option D is incorrect as it applies to a different resource scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 9,
+    "subtopic": "Configure resource locks",
+    "question": "Scenario question 9 regarding Configure resource locks in Manage Azure subscriptions and governance context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Configure resource locks",
+      "Option B detailing solution for Configure resource locks",
+      "Option C detailing solution for Configure resource locks",
+      "Option D detailing solution for Configure resource locks"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Configure resource locks by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Configure resource locks.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 10,
+    "subtopic": "Apply and manage tags on resources",
+    "question": "Scenario question 10 regarding Apply and manage tags on resources in Manage Azure subscriptions and governance context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Apply and manage tags on resources",
+      "Option B detailing solution for Apply and manage tags on resources",
+      "Option C detailing solution for Apply and manage tags on resources",
+      "Option D detailing solution for Apply and manage tags on resources"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Apply and manage tags on resources by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Apply and manage tags on resources.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 11,
+    "subtopic": "Manage resource groups",
+    "question": "Scenario question 11 regarding Manage resource groups in Manage Azure subscriptions and governance context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Manage resource groups",
+      "Option B detailing solution for Manage resource groups",
+      "Option C detailing solution for Manage resource groups",
+      "Option D detailing solution for Manage resource groups"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Manage resource groups by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Manage resource groups.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 12,
+    "subtopic": "Manage subscriptions",
+    "question": "Scenario question 12 regarding Manage subscriptions in Manage Azure subscriptions and governance context: Which TWO options must you configure to achieve the target state? (Select TWO)",
+    "options": [
+      "First required configuration for Manage subscriptions",
+      "Incorrect setting option A",
+      "Second required configuration for Manage subscriptions",
+      "Incorrect setting option B"
+    ],
+    "correct": [
+      0,
+      2
+    ],
+    "explanation": {
+      "correctReason": "Options A (index 0) and C (index 2) are correct because both actions are necessary steps to configure Manage subscriptions.",
+      "incorrectReasons": [
+        "Option B is incorrect because this setting is unsupported for this scenario.",
+        "Option D is incorrect as it applies to a different resource scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 13,
+    "subtopic": "Manage costs by using alerts, budgets, and Azure Advisor recommendations",
+    "question": "Scenario question 13 regarding Manage costs by using alerts, budgets, and Azure Advisor recommendations in Manage Azure subscriptions and governance context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Manage costs by using alerts, budgets, and Azure Advisor recommendations",
+      "Option B detailing solution for Manage costs by using alerts, budgets, and Azure Advisor recommendations",
+      "Option C detailing solution for Manage costs by using alerts, budgets, and Azure Advisor recommendations",
+      "Option D detailing solution for Manage costs by using alerts, budgets, and Azure Advisor recommendations"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Manage costs by using alerts, budgets, and Azure Advisor recommendations by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Manage costs by using alerts, budgets, and Azure Advisor recommendations.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 14,
+    "subtopic": "Configure management groups",
+    "question": "Scenario question 14 regarding Configure management groups in Manage Azure subscriptions and governance context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Configure management groups",
+      "Option B detailing solution for Configure management groups",
+      "Option C detailing solution for Configure management groups",
+      "Option D detailing solution for Configure management groups"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Configure management groups by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Configure management groups.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 15,
+    "subtopic": "Implement and manage Azure Policy",
+    "question": "Scenario question 15 regarding Implement and manage Azure Policy in Manage Azure subscriptions and governance context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Implement and manage Azure Policy",
+      "Option B detailing solution for Implement and manage Azure Policy",
+      "Option C detailing solution for Implement and manage Azure Policy",
+      "Option D detailing solution for Implement and manage Azure Policy"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Implement and manage Azure Policy by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Implement and manage Azure Policy.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 16,
+    "subtopic": "Configure resource locks",
+    "question": "Scenario question 16 regarding Configure resource locks in Manage Azure subscriptions and governance context: Which TWO options must you configure to achieve the target state? (Select TWO)",
+    "options": [
+      "First required configuration for Configure resource locks",
+      "Incorrect setting option A",
+      "Second required configuration for Configure resource locks",
+      "Incorrect setting option B"
+    ],
+    "correct": [
+      0,
+      2
+    ],
+    "explanation": {
+      "correctReason": "Options A (index 0) and C (index 2) are correct because both actions are necessary steps to configure Configure resource locks.",
+      "incorrectReasons": [
+        "Option B is incorrect because this setting is unsupported for this scenario.",
+        "Option D is incorrect as it applies to a different resource scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 17,
+    "subtopic": "Apply and manage tags on resources",
+    "question": "Scenario question 17 regarding Apply and manage tags on resources in Manage Azure subscriptions and governance context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Apply and manage tags on resources",
+      "Option B detailing solution for Apply and manage tags on resources",
+      "Option C detailing solution for Apply and manage tags on resources",
+      "Option D detailing solution for Apply and manage tags on resources"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Apply and manage tags on resources by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Apply and manage tags on resources.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 18,
+    "subtopic": "Manage resource groups",
+    "question": "Scenario question 18 regarding Manage resource groups in Manage Azure subscriptions and governance context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Manage resource groups",
+      "Option B detailing solution for Manage resource groups",
+      "Option C detailing solution for Manage resource groups",
+      "Option D detailing solution for Manage resource groups"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Manage resource groups by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Manage resource groups.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 19,
+    "subtopic": "Manage subscriptions",
+    "question": "Scenario question 19 regarding Manage subscriptions in Manage Azure subscriptions and governance context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Manage subscriptions",
+      "Option B detailing solution for Manage subscriptions",
+      "Option C detailing solution for Manage subscriptions",
+      "Option D detailing solution for Manage subscriptions"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Manage subscriptions by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Manage subscriptions.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 20,
+    "subtopic": "Manage costs by using alerts, budgets, and Azure Advisor recommendations",
+    "question": "Scenario question 20 regarding Manage costs by using alerts, budgets, and Azure Advisor recommendations in Manage Azure subscriptions and governance context: Which TWO options must you configure to achieve the target state? (Select TWO)",
+    "options": [
+      "First required configuration for Manage costs by using alerts, budgets, and Azure Advisor recommendations",
+      "Incorrect setting option A",
+      "Second required configuration for Manage costs by using alerts, budgets, and Azure Advisor recommendations",
+      "Incorrect setting option B"
+    ],
+    "correct": [
+      0,
+      2
+    ],
+    "explanation": {
+      "correctReason": "Options A (index 0) and C (index 2) are correct because both actions are necessary steps to configure Manage costs by using alerts, budgets, and Azure Advisor recommendations.",
+      "incorrectReasons": [
+        "Option B is incorrect because this setting is unsupported for this scenario.",
+        "Option D is incorrect as it applies to a different resource scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 21,
+    "subtopic": "Configure management groups",
+    "question": "Scenario question 21 regarding Configure management groups in Manage Azure subscriptions and governance context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Configure management groups",
+      "Option B detailing solution for Configure management groups",
+      "Option C detailing solution for Configure management groups",
+      "Option D detailing solution for Configure management groups"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Configure management groups by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Configure management groups.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 22,
+    "subtopic": "Implement and manage Azure Policy",
+    "question": "Scenario question 22 regarding Implement and manage Azure Policy in Manage Azure subscriptions and governance context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Implement and manage Azure Policy",
+      "Option B detailing solution for Implement and manage Azure Policy",
+      "Option C detailing solution for Implement and manage Azure Policy",
+      "Option D detailing solution for Implement and manage Azure Policy"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Implement and manage Azure Policy by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Implement and manage Azure Policy.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 23,
+    "subtopic": "Configure resource locks",
+    "question": "Scenario question 23 regarding Configure resource locks in Manage Azure subscriptions and governance context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Configure resource locks",
+      "Option B detailing solution for Configure resource locks",
+      "Option C detailing solution for Configure resource locks",
+      "Option D detailing solution for Configure resource locks"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Configure resource locks by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Configure resource locks.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 24,
+    "subtopic": "Apply and manage tags on resources",
+    "question": "Scenario question 24 regarding Apply and manage tags on resources in Manage Azure subscriptions and governance context: Which TWO options must you configure to achieve the target state? (Select TWO)",
+    "options": [
+      "First required configuration for Apply and manage tags on resources",
+      "Incorrect setting option A",
+      "Second required configuration for Apply and manage tags on resources",
+      "Incorrect setting option B"
+    ],
+    "correct": [
+      0,
+      2
+    ],
+    "explanation": {
+      "correctReason": "Options A (index 0) and C (index 2) are correct because both actions are necessary steps to configure Apply and manage tags on resources.",
+      "incorrectReasons": [
+        "Option B is incorrect because this setting is unsupported for this scenario.",
+        "Option D is incorrect as it applies to a different resource scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 25,
+    "subtopic": "Manage resource groups",
+    "question": "Scenario question 25 regarding Manage resource groups in Manage Azure subscriptions and governance context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Manage resource groups",
+      "Option B detailing solution for Manage resource groups",
+      "Option C detailing solution for Manage resource groups",
+      "Option D detailing solution for Manage resource groups"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Manage resource groups by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Manage resource groups.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 26,
+    "subtopic": "Manage subscriptions",
+    "question": "Scenario question 26 regarding Manage subscriptions in Manage Azure subscriptions and governance context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Manage subscriptions",
+      "Option B detailing solution for Manage subscriptions",
+      "Option C detailing solution for Manage subscriptions",
+      "Option D detailing solution for Manage subscriptions"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Manage subscriptions by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Manage subscriptions.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 27,
+    "subtopic": "Manage costs by using alerts, budgets, and Azure Advisor recommendations",
+    "question": "Scenario question 27 regarding Manage costs by using alerts, budgets, and Azure Advisor recommendations in Manage Azure subscriptions and governance context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Manage costs by using alerts, budgets, and Azure Advisor recommendations",
+      "Option B detailing solution for Manage costs by using alerts, budgets, and Azure Advisor recommendations",
+      "Option C detailing solution for Manage costs by using alerts, budgets, and Azure Advisor recommendations",
+      "Option D detailing solution for Manage costs by using alerts, budgets, and Azure Advisor recommendations"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Manage costs by using alerts, budgets, and Azure Advisor recommendations by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Manage costs by using alerts, budgets, and Azure Advisor recommendations.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 28,
+    "subtopic": "Configure management groups",
+    "question": "Scenario question 28 regarding Configure management groups in Manage Azure subscriptions and governance context: Which TWO options must you configure to achieve the target state? (Select TWO)",
+    "options": [
+      "First required configuration for Configure management groups",
+      "Incorrect setting option A",
+      "Second required configuration for Configure management groups",
+      "Incorrect setting option B"
+    ],
+    "correct": [
+      0,
+      2
+    ],
+    "explanation": {
+      "correctReason": "Options A (index 0) and C (index 2) are correct because both actions are necessary steps to configure Configure management groups.",
+      "incorrectReasons": [
+        "Option B is incorrect because this setting is unsupported for this scenario.",
+        "Option D is incorrect as it applies to a different resource scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 29,
+    "subtopic": "Implement and manage Azure Policy",
+    "question": "Scenario question 29 regarding Implement and manage Azure Policy in Manage Azure subscriptions and governance context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Implement and manage Azure Policy",
+      "Option B detailing solution for Implement and manage Azure Policy",
+      "Option C detailing solution for Implement and manage Azure Policy",
+      "Option D detailing solution for Implement and manage Azure Policy"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Implement and manage Azure Policy by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Implement and manage Azure Policy.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 30,
+    "subtopic": "Configure resource locks",
+    "question": "Scenario question 30 regarding Configure resource locks in Manage Azure subscriptions and governance context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Configure resource locks",
+      "Option B detailing solution for Configure resource locks",
+      "Option C detailing solution for Configure resource locks",
+      "Option D detailing solution for Configure resource locks"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Configure resource locks by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Configure resource locks.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 31,
+    "subtopic": "Apply and manage tags on resources",
+    "question": "Scenario question 31 regarding Apply and manage tags on resources in Manage Azure subscriptions and governance context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Apply and manage tags on resources",
+      "Option B detailing solution for Apply and manage tags on resources",
+      "Option C detailing solution for Apply and manage tags on resources",
+      "Option D detailing solution for Apply and manage tags on resources"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Apply and manage tags on resources by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Apply and manage tags on resources.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 32,
+    "subtopic": "Manage resource groups",
+    "question": "Scenario question 32 regarding Manage resource groups in Manage Azure subscriptions and governance context: Which TWO options must you configure to achieve the target state? (Select TWO)",
+    "options": [
+      "First required configuration for Manage resource groups",
+      "Incorrect setting option A",
+      "Second required configuration for Manage resource groups",
+      "Incorrect setting option B"
+    ],
+    "correct": [
+      0,
+      2
+    ],
+    "explanation": {
+      "correctReason": "Options A (index 0) and C (index 2) are correct because both actions are necessary steps to configure Manage resource groups.",
+      "incorrectReasons": [
+        "Option B is incorrect because this setting is unsupported for this scenario.",
+        "Option D is incorrect as it applies to a different resource scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 33,
+    "subtopic": "Manage subscriptions",
+    "question": "Scenario question 33 regarding Manage subscriptions in Manage Azure subscriptions and governance context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Manage subscriptions",
+      "Option B detailing solution for Manage subscriptions",
+      "Option C detailing solution for Manage subscriptions",
+      "Option D detailing solution for Manage subscriptions"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Manage subscriptions by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Manage subscriptions.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 34,
+    "subtopic": "Manage costs by using alerts, budgets, and Azure Advisor recommendations",
+    "question": "Scenario question 34 regarding Manage costs by using alerts, budgets, and Azure Advisor recommendations in Manage Azure subscriptions and governance context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Manage costs by using alerts, budgets, and Azure Advisor recommendations",
+      "Option B detailing solution for Manage costs by using alerts, budgets, and Azure Advisor recommendations",
+      "Option C detailing solution for Manage costs by using alerts, budgets, and Azure Advisor recommendations",
+      "Option D detailing solution for Manage costs by using alerts, budgets, and Azure Advisor recommendations"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Manage costs by using alerts, budgets, and Azure Advisor recommendations by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Manage costs by using alerts, budgets, and Azure Advisor recommendations.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 35,
+    "subtopic": "Configure management groups",
+    "question": "Scenario question 35 regarding Configure management groups in Manage Azure subscriptions and governance context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Configure management groups",
+      "Option B detailing solution for Configure management groups",
+      "Option C detailing solution for Configure management groups",
+      "Option D detailing solution for Configure management groups"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Configure management groups by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Configure management groups.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 36,
+    "subtopic": "Implement and manage Azure Policy",
+    "question": "Scenario question 36 regarding Implement and manage Azure Policy in Manage Azure subscriptions and governance context: Which TWO options must you configure to achieve the target state? (Select TWO)",
+    "options": [
+      "First required configuration for Implement and manage Azure Policy",
+      "Incorrect setting option A",
+      "Second required configuration for Implement and manage Azure Policy",
+      "Incorrect setting option B"
+    ],
+    "correct": [
+      0,
+      2
+    ],
+    "explanation": {
+      "correctReason": "Options A (index 0) and C (index 2) are correct because both actions are necessary steps to configure Implement and manage Azure Policy.",
+      "incorrectReasons": [
+        "Option B is incorrect because this setting is unsupported for this scenario.",
+        "Option D is incorrect as it applies to a different resource scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 37,
+    "subtopic": "Configure resource locks",
+    "question": "Scenario question 37 regarding Configure resource locks in Manage Azure subscriptions and governance context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Configure resource locks",
+      "Option B detailing solution for Configure resource locks",
+      "Option C detailing solution for Configure resource locks",
+      "Option D detailing solution for Configure resource locks"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Configure resource locks by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Configure resource locks.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 38,
+    "subtopic": "Apply and manage tags on resources",
+    "question": "Scenario question 38 regarding Apply and manage tags on resources in Manage Azure subscriptions and governance context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Apply and manage tags on resources",
+      "Option B detailing solution for Apply and manage tags on resources",
+      "Option C detailing solution for Apply and manage tags on resources",
+      "Option D detailing solution for Apply and manage tags on resources"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Apply and manage tags on resources by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Apply and manage tags on resources.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 39,
+    "subtopic": "Manage resource groups",
+    "question": "Scenario question 39 regarding Manage resource groups in Manage Azure subscriptions and governance context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Manage resource groups",
+      "Option B detailing solution for Manage resource groups",
+      "Option C detailing solution for Manage resource groups",
+      "Option D detailing solution for Manage resource groups"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Manage resource groups by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Manage resource groups.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 40,
+    "subtopic": "Manage subscriptions",
+    "question": "Scenario question 40 regarding Manage subscriptions in Manage Azure subscriptions and governance context: Which TWO options must you configure to achieve the target state? (Select TWO)",
+    "options": [
+      "First required configuration for Manage subscriptions",
+      "Incorrect setting option A",
+      "Second required configuration for Manage subscriptions",
+      "Incorrect setting option B"
+    ],
+    "correct": [
+      0,
+      2
+    ],
+    "explanation": {
+      "correctReason": "Options A (index 0) and C (index 2) are correct because both actions are necessary steps to configure Manage subscriptions.",
+      "incorrectReasons": [
+        "Option B is incorrect because this setting is unsupported for this scenario.",
+        "Option D is incorrect as it applies to a different resource scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 41,
+    "subtopic": "Manage costs by using alerts, budgets, and Azure Advisor recommendations",
+    "question": "Scenario question 41 regarding Manage costs by using alerts, budgets, and Azure Advisor recommendations in Manage Azure subscriptions and governance context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Manage costs by using alerts, budgets, and Azure Advisor recommendations",
+      "Option B detailing solution for Manage costs by using alerts, budgets, and Azure Advisor recommendations",
+      "Option C detailing solution for Manage costs by using alerts, budgets, and Azure Advisor recommendations",
+      "Option D detailing solution for Manage costs by using alerts, budgets, and Azure Advisor recommendations"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Manage costs by using alerts, budgets, and Azure Advisor recommendations by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Manage costs by using alerts, budgets, and Azure Advisor recommendations.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 42,
+    "subtopic": "Configure management groups",
+    "question": "Scenario question 42 regarding Configure management groups in Manage Azure subscriptions and governance context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Configure management groups",
+      "Option B detailing solution for Configure management groups",
+      "Option C detailing solution for Configure management groups",
+      "Option D detailing solution for Configure management groups"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Configure management groups by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Configure management groups.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 43,
+    "subtopic": "Implement and manage Azure Policy",
+    "question": "Scenario question 43 regarding Implement and manage Azure Policy in Manage Azure subscriptions and governance context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Implement and manage Azure Policy",
+      "Option B detailing solution for Implement and manage Azure Policy",
+      "Option C detailing solution for Implement and manage Azure Policy",
+      "Option D detailing solution for Implement and manage Azure Policy"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Implement and manage Azure Policy by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Implement and manage Azure Policy.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 44,
+    "subtopic": "Configure resource locks",
+    "question": "Scenario question 44 regarding Configure resource locks in Manage Azure subscriptions and governance context: Which TWO options must you configure to achieve the target state? (Select TWO)",
+    "options": [
+      "First required configuration for Configure resource locks",
+      "Incorrect setting option A",
+      "Second required configuration for Configure resource locks",
+      "Incorrect setting option B"
+    ],
+    "correct": [
+      0,
+      2
+    ],
+    "explanation": {
+      "correctReason": "Options A (index 0) and C (index 2) are correct because both actions are necessary steps to configure Configure resource locks.",
+      "incorrectReasons": [
+        "Option B is incorrect because this setting is unsupported for this scenario.",
+        "Option D is incorrect as it applies to a different resource scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 45,
+    "subtopic": "Apply and manage tags on resources",
+    "question": "Scenario question 45 regarding Apply and manage tags on resources in Manage Azure subscriptions and governance context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Apply and manage tags on resources",
+      "Option B detailing solution for Apply and manage tags on resources",
+      "Option C detailing solution for Apply and manage tags on resources",
+      "Option D detailing solution for Apply and manage tags on resources"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Apply and manage tags on resources by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Apply and manage tags on resources.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 46,
+    "subtopic": "Manage resource groups",
+    "question": "Scenario question 46 regarding Manage resource groups in Manage Azure subscriptions and governance context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Manage resource groups",
+      "Option B detailing solution for Manage resource groups",
+      "Option C detailing solution for Manage resource groups",
+      "Option D detailing solution for Manage resource groups"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Manage resource groups by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Manage resource groups.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 47,
+    "subtopic": "Manage subscriptions",
+    "question": "Scenario question 47 regarding Manage subscriptions in Manage Azure subscriptions and governance context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Manage subscriptions",
+      "Option B detailing solution for Manage subscriptions",
+      "Option C detailing solution for Manage subscriptions",
+      "Option D detailing solution for Manage subscriptions"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Manage subscriptions by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Manage subscriptions.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 48,
+    "subtopic": "Manage costs by using alerts, budgets, and Azure Advisor recommendations",
+    "question": "Scenario question 48 regarding Manage costs by using alerts, budgets, and Azure Advisor recommendations in Manage Azure subscriptions and governance context: Which TWO options must you configure to achieve the target state? (Select TWO)",
+    "options": [
+      "First required configuration for Manage costs by using alerts, budgets, and Azure Advisor recommendations",
+      "Incorrect setting option A",
+      "Second required configuration for Manage costs by using alerts, budgets, and Azure Advisor recommendations",
+      "Incorrect setting option B"
+    ],
+    "correct": [
+      0,
+      2
+    ],
+    "explanation": {
+      "correctReason": "Options A (index 0) and C (index 2) are correct because both actions are necessary steps to configure Manage costs by using alerts, budgets, and Azure Advisor recommendations.",
+      "incorrectReasons": [
+        "Option B is incorrect because this setting is unsupported for this scenario.",
+        "Option D is incorrect as it applies to a different resource scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 49,
+    "subtopic": "Configure management groups",
+    "question": "Scenario question 49 regarding Configure management groups in Manage Azure subscriptions and governance context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Configure management groups",
+      "Option B detailing solution for Configure management groups",
+      "Option C detailing solution for Configure management groups",
+      "Option D detailing solution for Configure management groups"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Configure management groups by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Configure management groups.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 50,
+    "subtopic": "Implement and manage Azure Policy",
+    "question": "Scenario question 50 regarding Implement and manage Azure Policy in Manage Azure subscriptions and governance context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Implement and manage Azure Policy",
+      "Option B detailing solution for Implement and manage Azure Policy",
+      "Option C detailing solution for Implement and manage Azure Policy",
+      "Option D detailing solution for Implement and manage Azure Policy"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Implement and manage Azure Policy by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Implement and manage Azure Policy.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  }
+]

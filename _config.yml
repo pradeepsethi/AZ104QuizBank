@@ -1,6 +1,7 @@
 # Folders and files to exclude from the live GitHub Pages website
 exclude:
   - scripts
+  - backups
   - .gitignore
   - README.md
   - "*.ps1"

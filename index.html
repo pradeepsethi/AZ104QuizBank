@@ -1,171 +1,178 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AZ-104 Exam Preparation Dashboard</title>
-  <style>
-    :root {
-      --primary: #0078d4;
-      --bg: #f3f2f1;
-      --card-bg: #ffffff;
-      --text: #323130;
-      --text-secondary: #605e5c;
-      --border: #e1dfdd;
-    }
-
-    body {
-      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
-      background-color: var(--bg);
-      color: var(--text);
-      margin: 0;
-      padding: 2rem;
-    }
-
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    header {
-      margin-bottom: 2.5rem;
-      text-align: center;
-    }
-
-    h1 {
-      color: var(--primary);
-      margin-bottom: 0.5rem;
-      font-size: 2.2rem;
-    }
-
-    p.subtitle {
-      color: var(--text-secondary);
-      font-size: 1.1rem;
-    }
-
-    .domain-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-      gap: 1.5rem;
-    }
-
-    .domain-card {
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 1.5rem;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-    }
-
-    .domain-title {
-      font-size: 1.25rem;
-      font-weight: 600;
-      color: var(--primary);
-      border-bottom: 2px solid var(--bg);
-      padding-bottom: 0.75rem;
-      margin-top: 0;
-      margin-bottom: 1rem;
-    }
-
-    .topic-list {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-
-    .topic-item {
-      margin-bottom: 0.5rem;
-    }
-
-    .topic-link {
-      display: block;
-      padding: 0.6rem 0.8rem;
-      color: var(--text);
-      text-decoration: none;
-      border-radius: 4px;
-      transition: background-color 0.2s, color 0.2s;
-    }
-
-    .topic-link:hover {
-      background-color: #eff6fc;
-      color: var(--primary);
-      font-weight: 500;
-    }
-
-    footer {
-      text-align: center;
-      margin-top: 3rem;
-      color: var(--text-secondary);
-      font-size: 0.9rem;
-    }
-  </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AZ-104: Microsoft Azure Administrator Practice Bank</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
 
-  <div class="container">
-    <header>
-      <h1>AZ-104 Azure Administrator Practice Center</h1>
-      <p class="subtitle">Select a topic below to launch the practice test</p>
-    </header>
+  <!-- APP HEADER -->
+  <header class="app-header">
+    <div class="header-content">
+      <div>
+        <h1>AZ-104: Microsoft Azure Administrator</h1>
+        <p>Interactive Practice Quiz Bank & Exam Preparation by Domain</p>
+      </div>
+    </div>
+  </header>
 
-    <div class="domain-grid">
+  <!-- MAIN CONTAINER -->
+  <main class="main-container">
+
+    <!-- DOMAINS GRID CONTAINER -->
+    <div class="domains-grid">
 
       <!-- Domain 1 -->
-      <div class="domain-card">
-        <h2 class="domain-title">1. Manage Azure Identities and Governance</h2>
+      <section class="domain-card">
+        <div class="domain-header">
+          <h2>Domain 1: Manage Azure Identities and Governance</h2>
+          <span class="weight-badge">15–20%</span>
+        </div>
         <ul class="topic-list">
-          <li><a class="topic-link" href="./Manage-Azure-identities-and-governance/Manage-Microsoft-Entra-users-and-groups/">Manage Microsoft Entra users and groups</a></li>
-          <li><a class="topic-link" href="./Manage-Azure-identities-and-governance/Manage-access-to-Azure-resources/">Manage access to Azure resources</a></li>
-          <li><a class="topic-link" href="./Manage-Azure-identities-and-governance/Manage-Azure-subscriptions-and-governance/">Manage Azure subscriptions and governance</a></li>
+          <li>
+            <a href="topic.html?topic=d1_topic1&title=Entra%20Users%20%26%20Groups" class="topic-link">
+              <span>Entra Users &amp; Groups</span>
+              <span class="arrow-icon">→</span>
+            </a>
+          </li>
+          <li>
+            <a href="topic.html?topic=d1_topic2&title=Access%20to%20Azure%20Resources%20(RBAC)" class="topic-link">
+              <span>Access to Azure Resources (RBAC)</span>
+              <span class="arrow-icon">→</span>
+            </a>
+          </li>
+          <li>
+            <a href="topic.html?topic=d1_topic3&title=Subscriptions%20%26%20Governance" class="topic-link">
+              <span>Subscriptions &amp; Governance</span>
+              <span class="arrow-icon">→</span>
+            </a>
+          </li>
         </ul>
-      </div>
+      </section>
 
       <!-- Domain 2 -->
-      <div class="domain-card">
-        <h2 class="domain-title">2. Implement and Manage Storage</h2>
+      <section class="domain-card">
+        <div class="domain-header">
+          <h2>Domain 2: Implement and Manage Storage</h2>
+          <span class="weight-badge">15–20%</span>
+        </div>
         <ul class="topic-list">
-          <li><a class="topic-link" href="./Implement-and-manage-storage/Configure-access-to-storage/">Configure access to storage</a></li>
-          <li><a class="topic-link" href="./Implement-and-manage-storage/Configure-and-manage-storage-accounts/">Manage storage accounts</a></li>
-          <li><a class="topic-link" href="./Implement-and-manage-storage/Configure-Azure-Files-and-Azure-Blob-Storage/">Configure Azure files and Azure blob storage</a></li>
+          <li>
+            <a href="topic.html?topic=d2_topic1&title=Storage%20Accounts%20%26%20Replication" class="topic-link">
+              <span>Storage Accounts &amp; Replication</span>
+              <span class="arrow-icon">→</span>
+            </a>
+          </li>
+          <li>
+            <a href="topic.html?topic=d2_topic2&title=Configure%20Azure%20Blob%20%26%20Files" class="topic-link">
+              <span>Configure Azure Blob &amp; Azure Files</span>
+              <span class="arrow-icon">→</span>
+            </a>
+          </li>
+          <li>
+            <a href="topic.html?topic=d2_topic3&title=Storage%20Security%20%26%20Data%20Protection" class="topic-link">
+              <span>Storage Security &amp; Data Protection</span>
+              <span class="arrow-icon">→</span>
+            </a>
+          </li>
         </ul>
-      </div>
+      </section>
 
       <!-- Domain 3 -->
-      <div class="domain-card">
-        <h2 class="domain-title">3. Deploy and Manage Azure Compute Resources</h2>
+      <section class="domain-card">
+        <div class="domain-header">
+          <h2>Domain 3: Deploy and Manage Azure Compute Resources</h2>
+          <span class="weight-badge">20–25%</span>
+        </div>
         <ul class="topic-list">
-          <li><a class="topic-link" href="./Deploy-and-manage-Azure-compute-resources/Automate-deployment-of-resources-by-using-ARM-templates-or-Bicep-files/">Automate deployment using ARM templates or Bicep</a></li>
-          <li><a class="topic-link" href="./Deploy-and-manage-Azure-compute-resources/Create-and-configure-virtual-machines/">Create and configure virtual machines</a></li>
-          <li><a class="topic-link" href="./Deploy-and-manage-Azure-compute-resources/Provision-and-manage-containers-in-the-Azure-portal/">Provision and manage containers</a></li>
-          <li><a class="topic-link" href="./Deploy-and-manage-Azure-compute-resources/Create-and-configure-Azure-App-Service/">Create and configure Azure App Service</a></li>
+          <li>
+            <a href="topic.html?topic=d3_topic1&title=Virtual%20Machines%20%26%20Scale%20Sets" class="topic-link">
+              <span>Virtual Machines &amp; Scale Sets</span>
+              <span class="arrow-icon">→</span>
+            </a>
+          </li>
+          <li>
+            <a href="topic.html?topic=d3_topic2&title=Azure%20App%20Services" class="topic-link">
+              <span>Azure App Services</span>
+              <span class="arrow-icon">→</span>
+            </a>
+          </li>
+          <li>
+            <a href="topic.html?topic=d3_topic3&title=Azure%20Containers%20(ACI%20%26%20AKS)" class="topic-link">
+              <span>Azure Containers (ACI &amp; AKS)</span>
+              <span class="arrow-icon">→</span>
+            </a>
+          </li>
         </ul>
-      </div>
+      </section>
 
       <!-- Domain 4 -->
-      <div class="domain-card">
-        <h2 class="domain-title">4. Implement and Manage Virtual Networking</h2>
+      <section class="domain-card">
+        <div class="domain-header">
+          <h2>Domain 4: Configure and Manage Virtual Networking</h2>
+          <span class="weight-badge">20–25%</span>
+        </div>
         <ul class="topic-list">
-          <li><a class="topic-link" href="./Implement-and-manage-virtual-networking/Configure-and-manage-virtual-networks-in-Azure/">Configure and manage virtual networks</a></li>
-          <li><a class="topic-link" href="./Implement-and-manage-virtual-networking/Configure-secure-access-to-virtual-networks/">Configure secure access to virtual networks</a></li>
-          <li><a class="topic-link" href="./Implement-and-manage-virtual-networking/Configure-name-resolution-and-load-balancing/">Configure name resolution and load balancing</a></li>
+          <li>
+            <a href="topic.html?topic=d4_topic1&title=Virtual%20Networks%20%26%20Peering" class="topic-link">
+              <span>Virtual Networks &amp; Peering</span>
+              <span class="arrow-icon">→</span>
+            </a>
+          </li>
+          <li>
+            <a href="topic.html?topic=d4_topic2&title=Network%20Security%20Groups%20(NSGs)" class="topic-link">
+              <span>Network Security Groups (NSGs)</span>
+              <span class="arrow-icon">→</span>
+            </a>
+          </li>
+          <li>
+            <a href="topic.html?topic=d4_topic3&title=Azure%20Load%20Balancing%20%26%20DNS" class="topic-link">
+              <span>Azure Load Balancing &amp; DNS</span>
+              <span class="arrow-icon">→</span>
+            </a>
+          </li>
+          <li>
+            <a href="topic.html?topic=d4_topic4&title=VPN%20Gateway%20%26%20ExpressRoute" class="topic-link">
+              <span>VPN Gateway &amp; ExpressRoute</span>
+              <span class="arrow-icon">→</span>
+            </a>
+          </li>
         </ul>
-      </div>
+      </section>
 
       <!-- Domain 5 -->
-      <div class="domain-card">
-        <h2 class="domain-title">5. Monitor and Maintain Azure Resources</h2>
+      <section class="domain-card">
+        <div class="domain-header">
+          <h2>Domain 5: Monitor and Maintain Azure Resources</h2>
+          <span class="weight-badge">10–15%</span>
+        </div>
         <ul class="topic-list">
-          <li><a class="topic-link" href="./Monitor-and-maintain-Azure-resources/Monitor-resources-in-Azure/">Monitor resources in Azure</a></li>
-          <li><a class="topic-link" href="./Monitor-and-maintain-Azure-resources/Implement-backup-and-recovery/">Implement backup and recovery</a></li>
+          <li>
+            <a href="topic.html?topic=d5_topic1&title=Azure%20Monitor%20%26%20Metrics" class="topic-link">
+              <span>Azure Monitor &amp; Metrics</span>
+              <span class="arrow-icon">→</span>
+            </a>
+          </li>
+          <li>
+            <a href="topic.html?topic=d5_topic2&title=Log%20Analytics%20Workspaces" class="topic-link">
+              <span>Log Analytics Workspaces</span>
+              <span class="arrow-icon">→</span>
+            </a>
+          </li>
+          <li>
+            <a href="topic.html?topic=d5_topic3&title=Azure%20Backup%20%26%20Site%20Recovery" class="topic-link">
+              <span>Azure Backup &amp; Site Recovery (ASR)</span>
+              <span class="arrow-icon">→</span>
+            </a>
+          </li>
         </ul>
-      </div>
+      </section>
 
     </div>
 
-    <footer>
-      <p>AZ-104 Quiz Bank Dashboard &bull; GitHub Pages Ready</p>
-    </footer>
-  </div>
+  </main>
 
 </body>
 </html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Topic Practice - AZ-104</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="quiz-container">
+    
+    <!-- Topic Navigation Header -->
+    <header class="quiz-header">
+      <div>
+        <a href="index.html" class="back-link">← Back to All Topics</a>
+        <h1 id="active-topic-title">Topic Practice</h1>
+      </div>
+      <div class="set-picker">
+        <label for="set-select"><strong>Practice Set:</strong></label>
+        <select id="set-select" class="select-input-sm">
+          <option value="set1" selected>Set 1</option>
+          <option value="set2">Set 2</option>
+          <option value="set3">Set 3</option>
+        </select>
+      </div>
+    </header>
+
+    <!-- Quiz Status Tracker -->
+    <div id="quiz-info" class="quiz-info">
+      <span id="question-tracker">Question 1 of 0</span>
+      <span id="timer">Time: 30s</span>
+    </div>
+
+    <!-- Progress Bar -->
+    <div id="progress-container" class="progress-container">
+      <div id="progress-bar" class="progress-bar"></div>
+    </div>
+
+    <!-- Question Palette / Quick Nav -->
+    <div id="question-palette" class="question-palette">
+      <!-- Quick jump buttons generated dynamically -->
+    </div>
+
+    <!-- Question Container -->
+    <section id="question-screen" class="screen">
+      <h3 id="question-text">Loading questions...</h3>
+      <div id="options-container" class="options-container">
+        <!-- Options populated dynamically -->
+      </div>
+
+      <!-- Navigation Controls -->
+      <div class="controls-bar">
+        <button id="prev-btn" class="btn secondary-btn" disabled>← Previous</button>
+        <div class="right-controls">
+          <button id="next-btn" class="btn primary-btn">Next →</button>
+          <button id="submit-btn" class="btn submit-btn hidden">Submit Quiz 🚀</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Results Screen -->
+    <section id="result-screen" class="screen hidden">
+      <h2>Topic Practice Completed!</h2>
+      <div class="score-card">
+        <p class="score-label">Your Score</p>
+        <p id="final-score" class="score-value">0 / 0</p>
+        <p id="score-percentage" class="score-percentage">0%</p>
+      </div>
+      <div id="review-container" class="review-container">
+        <h3>Answer Review & Explanations</h3>
+        <ul id="review-list" class="review-list"></ul>
+      </div>
+      <a href="index.html" class="btn primary-btn">← Back to Main Menu</a>
+    </section>
+
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

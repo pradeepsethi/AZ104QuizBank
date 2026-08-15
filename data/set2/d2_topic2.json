@@ -1,0 +1,1064 @@
+[
+  {
+    "id": 1,
+    "subtopic": "Create and configure storage accounts",
+    "question": "You plan to deploy a Standard General-purpose v2 Azure Storage account named storageaccount1. What is the naming requirement for storageaccount1?",
+    "options": [
+      "Must be between 3 and 24 characters long and contain only lowercase letters and numbers.",
+      "Must be between 3 and 63 characters long and can contain hyphens.",
+      "Must be unique only within the containing resource group.",
+      "Can contain uppercase letters, lowercase letters, numbers, and underscores."
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Azure Storage account names must be globally unique, between 3 and 24 characters in length, and contain only lowercase letters and numbers.",
+      "incorrectReasons": [
+        "Hyphens are not permitted in storage account names, and the maximum length is 24 characters, not 63.",
+        "Storage account names must be globally unique across all of Azure, not just within a resource group.",
+        "Uppercase letters and underscores are not allowed in storage account names."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/resource-name-rules#microsoftstorage"
+    }
+  },
+  {
+    "id": 2,
+    "subtopic": "Configure Azure Storage redundancy",
+    "question": "You need to configure an Azure Storage account to provide maximum availability against a datacenter failure within a single region while ensuring that data is synchronously replicated across three availability zones. Which redundancy option should you choose?",
+    "options": [
+      "Zone-redundant storage (ZRS)",
+      "Locally-redundant storage (LRS)",
+      "Geo-redundant storage (GRS)",
+      "Read-access geo-redundant storage (RA-GRS)"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Zone-redundant storage (ZRS) synchronously replicates data across three Azure availability zones within the primary region, providing high availability for intra-region datacenter failures.",
+      "incorrectReasons": [
+        "Locally-redundant storage (LRS) replicates data synchronously three times within a single physical datacenter in the primary region, making it vulnerable to datacenter-level failures.",
+        "Geo-redundant storage (GRS) uses LRS in the primary region and asynchronously replicates data to a secondary paired region; it does not synchronously replicate across three zones in the primary region.",
+        "Read-access geo-redundant storage (RA-GRS) adds read access to the secondary region of a GRS account, but relies on LRS in the primary region."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/storage/common/storage-redundancy"
+    }
+  },
+  {
+    "id": 3,
+    "subtopic": "Configure object replication",
+    "question": "You plan to configure object replication between a source storage account (storage1) and a destination storage account (storage2). Which two prerequisites must be enabled on both storage accounts before setting up object replication? (Select TWO)",
+    "options": [
+      "Blob versioning",
+      "Change feed",
+      "Hierarchical namespace",
+      "Soft delete for containers",
+      "Infrastructure encryption"
+    ],
+    "correct": [0, 1],
+    "explanation": {
+      "correctReason": "Object replication requires both blob versioning and change feed to be enabled on both the source and destination storage accounts.",
+      "incorrectReasons": [
+        "Hierarchical namespace (Azure Data Lake Storage Gen2) is not required for standard object replication and actually restricts object replication capabilities.",
+        "Soft delete for containers is not a prerequisite for object replication.",
+        "Infrastructure encryption enables double encryption at rest and is unrelated to object replication functionality."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/storage/blobs/object-replication-overview"
+    }
+  },
+  {
+    "id": 4,
+    "subtopic": "Configure storage account encryption",
+    "question": "You need to enforce customer-managed keys (CMK) stored in Azure Key Vault for an Azure Storage account. Which identity feature should you assign to the storage account to allow it to securely access the Key Vault?",
+    "options": [
+      "Managed Identity (System-assigned or User-assigned)",
+      "Shared Access Signature (SAS) Token",
+      "Storage Account Access Key 1",
+      "Service Principal with Client Secret"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "To authenticate Azure Storage with Azure Key Vault for customer-managed keys (CMK), you must assign a System-assigned or User-assigned Managed Identity to the storage account and grant it appropriate key access permissions in Key Vault.",
+      "incorrectReasons": [
+        "SAS tokens authenticate client requests to Azure Storage resources, not Azure Storage connections to Azure Key Vault.",
+        "Storage Account Access Keys grant access to the storage account itself, not to Key Vault.",
+        "While Service Principals with secrets can authenticate applications, Azure Storage uses Managed Identities directly for native Key Vault integration without secret management overhead."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/storage/common/customer-managed-keys-configure-key-vault"
+    }
+  },
+  {
+    "id": 5,
+    "subtopic": "Manage data by using Azure Storage Explorer and AzCopy",
+    "question": "You need to copy a large blob container from an on-premises file server to an Azure Blob Storage container using AzCopy v10. You want to ensure the command syncs only new or modified files. Which AzCopy command mode or parameter should you use?",
+    "options": [
+      "azcopy sync",
+      "azcopy copy --overwrite=false",
+      "azcopy make",
+      "azcopy jobs resume"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "`azcopy sync` compares filenames and last-modified timestamps to replicate source directories to destination containers, uploading only new or modified files.",
+      "incorrectReasons": [
+        "`azcopy copy --overwrite=false` skips existing files with matching names but does not perform full delta comparisons like timestamp checks or source-destination deletions when needed.",
+        "`azcopy make` creates a new container or file share; it does not transfer files.",
+        "`azcopy jobs resume` resumes an interrupted job script, rather than syncing directory deltas."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/storage/common/storage-use-azcopy-sync"
+    }
+  },
+  {
+    "id": 6,
+    "subtopic": "Create and configure storage accounts",
+    "question": "You are creating a storage account that will host high-throughput, low-latency workloads for Azure Unmanaged Disks and small random read/write operations. Which storage account performance tier and type should you select?",
+    "options": [
+      "Premium Block Blobs",
+      "Standard General-purpose v2",
+      "Premium Page Blobs",
+      "Premium File Shares"
+    ],
+    "correct": 2,
+    "explanation": {
+      "correctReason": "Premium Page Blobs are backed by Solid State Drives (SSDs) and optimized for frequent random read and write operations, such as virtual machine VHD disks.",
+      "incorrectReasons": [
+        "Premium Block Blobs are optimized for high transaction rates and streaming large amounts of unstructured data, not random 8KB page read/write operations for unmanaged disks.",
+        "Standard General-purpose v2 uses magnetic hard disk drives (HDDs) and does not provide low-latency performance required for high-throughput disk workloads.",
+        "Premium File Shares serve SMB/NFS file share workloads, not page blob VHD operations."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/storage/common/storage-account-overview#types-of-storage-accounts"
+    }
+  },
+  {
+    "id": 7,
+    "subtopic": "Configure Azure Storage redundancy",
+    "question": "You have a Geo-redundant storage (GRS) account named storageaccount1. Under what circumstance does Microsoft initiate an account failover from the primary region to the secondary region?",
+    "options": [
+      "When a primary region experience results in major data center failure and Microsoft declares an unrecoverable disaster.",
+      "Automatically whenever the latency in the primary region exceeds 100 ms.",
+      "Automatically every 30 days for maintenance checks.",
+      "Whenever the secondary region's RPO reaches zero."
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Microsoft-managed failover is initiated by Microsoft in rare emergency situations where a primary region experiences an extended outage or disaster with no estimated time of recovery.",
+      "incorrectReasons": [
+        "Latency spikes do not trigger an automated regional account failover by Microsoft.",
+        "Microsoft does not initiate failovers for routine maintenance checks.",
+        "An RPO of zero indicates no data loss, not a trigger condition for regional failover."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/storage/common/storage-disaster-recovery-guidance"
+    }
+  },
+  {
+    "id": 8,
+    "subtopic": "Configure object replication",
+    "question": "You need to configure object replication between container1 in storageaccount1 (source) and container2 in storageaccount2 (destination). Which two scope settings can be configured in an object replication policy rule? (Select TWO)",
+    "options": [
+      "All blobs in the source container",
+      "Blobs matching specified prefix filters",
+      "Blobs with a specific minimum file size only",
+      "Blobs in the Archive access tier only",
+      "Blobs encrypted with Customer-Managed Keys only"
+    ],
+    "correct": [0, 1],
+    "explanation": {
+      "correctReason": "Object replication rules support replicating all blobs in a container or filtering blobs using prefix matches (e.g., matching specific directory virtual paths or filename prefixes).",
+      "incorrectReasons": [
+        "Object replication policy rules do not support filtering by file size.",
+        "Replication applies to Hot and Cool tier blobs; blobs in the Archive tier cannot be replicated until rehydrated.",
+        "Encryption key type filter is not a rule filtering option in object replication policies."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/storage/blobs/object-replication-overview#replication-policies-and-rules"
+    }
+  },
+  {
+    "id": 9,
+    "subtopic": "Configure storage account encryption",
+    "question": "You need to ensure that data stored in Azure Storage is protected using double encryption (encryption at the service layer and encryption at the infrastructure layer). Which feature must be enabled during storage account creation?",
+    "options": [
+      "Infrastructure Encryption",
+      "Customer-managed keys (CMK)",
+      "Secure Transfer Required",
+      "Blob Versioning"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Enabling Infrastructure Encryption creates double encryption (two layers of AES-256 encryption at the hardware/infrastructure level and service level) for data at rest.",
+      "incorrectReasons": [
+        "Customer-managed keys allow control over the root key at the service layer, but do not automatically enable double encryption at the infrastructure layer unless Infrastructure Encryption is explicitly turned on.",
+        "Secure Transfer Required enforces HTTPS in-transit, not at-rest infrastructure double encryption.",
+        "Blob Versioning protects against accidental overwrites and deletions, not data encryption."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/storage/common/infrastructure-encryption-enable"
+    }
+  },
+  {
+    "id": 10,
+    "subtopic": "Manage data by using Azure Storage Explorer and AzCopy",
+    "question": "You are using Azure Storage Explorer to manage resources in an Azure Storage account. Which three authentication methods can you use in Storage Explorer to connect to a Blob container? (Select THREE)",
+    "options": [
+      "Microsoft Entra ID (OAuth)",
+      "Shared Access Signature (SAS) URI",
+      "Account name and key",
+      "Azure ExpressRoute Circuit Key",
+      "TLS Certificate Private Key file",
+      "RADIUS Server Credentials"
+    ],
+    "correct": [0, 1, 2],
+    "explanation": {
+      "correctReason": "Azure Storage Explorer supports connecting to Blob containers using Microsoft Entra ID (OAuth), Shared Access Signature (SAS) tokens/URIs, and Storage Account name and key.",
+      "incorrectReasons": [
+        "ExpressRoute circuit keys connect network infrastructure, not Azure Storage Explorer blob scopes.",
+        "TLS Certificate private key files are used for client transport security, not container authorization in Storage Explorer.",
+        "RADIUS server credentials handle network user authentication, not storage data plane access."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/vs-azure-tools-storage-manage-with-storage-explorer"
+    }
+  },
+  {
+    "id": 11,
+    "subtopic": "Create and configure storage accounts",
+    "question": "You plan to deploy Azure Data Lake Storage Gen2 capabilities on a General-purpose v2 storage account. Which setting must you enable during or after account creation?",
+    "options": [
+      "Hierarchical namespace",
+      "NFS v3 protocol support",
+      "SFTP (SSH File Transfer Protocol)",
+      "Large file shares"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Enabling the Hierarchical namespace setting converts standard Azure Blob storage into Azure Data Lake Storage Gen2, organizing objects into file system directories for analytics workloads.",
+      "incorrectReasons": [
+        "NFS v3 protocol support can be enabled for specific Linux workloads, but Hierarchical namespace is the defining setting for Data Lake Storage Gen2.",
+        "SFTP enables file transfer client connections, but does not enable Data Lake Storage Gen2 features.",
+        "Large file shares apply to Azure Files, expanding capacity up to 100 TiB, unrelated to ADLS Gen2."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/storage/blobs/data-lake-storage-namespace"
+    }
+  },
+  {
+    "id": 12,
+    "subtopic": "Configure Azure Storage redundancy",
+    "question": "You have a Geo-redundant storage (GRS) account. You need to provide applications with immediate read access to data in the secondary region without initiating a storage account failover. Which redundancy type should you convert the storage account to?",
+    "options": [
+      "Read-access geo-redundant storage (RA-GRS)",
+      "Zone-redundant storage (ZRS)",
+      "Locally-redundant storage (LRS)",
+      "Geo-zone-redundant storage (GZRS)"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Read-access geo-redundant storage (RA-GRS) provides read-only access to replicated data in the secondary region via a dedicated secondary endpoint (`<accountname>-secondary.blob.core.windows.net`).",
+      "incorrectReasons": [
+        "Zone-redundant storage (ZRS) keeps all replicas inside a single primary region and does not have a secondary region endpoint.",
+        "Locally-redundant storage (LRS) keeps all replicas in one datacenter within the primary region.",
+        "Geo-zone-redundant storage (GZRS) provides geo-replication but requires converting to RA-GZRS to enable secondary endpoint read access without failover."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/storage/common/storage-redundancy"
+    }
+  },
+  {
+    "id": 13,
+    "subtopic": "Configure object replication",
+    "question": "Which two restrictions apply when configuring Azure Storage object replication between two storage accounts? (Select TWO)",
+    "options": [
+      "Object replication is supported only for Blob storage (Hot and Cool tiers).",
+      "Source and destination containers must be defined before creating the replication rule.",
+      "Object replication supports Azure Files shares directly.",
+      "Blobs in the source container can be in the Archive tier.",
+      "Object replication can be configured between more than two accounts in a circular chain."
+    ],
+    "correct": [0, 1],
+    "explanation": {
+      "correctReason": "Object replication is supported exclusively for Block Blobs in the Hot and Cool tiers, and destination containers must exist prior to rule creation.",
+      "incorrectReasons": [
+        "Object replication is a Blob service feature and does not support Azure Files shares.",
+        "Blobs in the Archive tier cannot be replicated until rehydrated to Hot or Cool.",
+        "Circular replication chains across multiple accounts are not supported."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/storage/blobs/object-replication-overview#prerequisites-and-limitations"
+    }
+  },
+  {
+    "id": 14,
+    "subtopic": "Configure storage account encryption",
+    "question": "By default, how is data encrypted at rest in an Azure Storage account?",
+    "options": [
+      "Using Microsoft-managed keys with 256-bit AES encryption.",
+      "Using customer-managed keys stored in Azure Key Vault.",
+      "Data is unencrypted unless Azure Disk Encryption is enabled.",
+      "Using BitLocker Drive Encryption managed by the subscription owner."
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "All Azure Storage accounts use Azure Storage Service Encryption (SSE) with 256-bit AES encryption managed by Microsoft by default.",
+      "incorrectReasons": [
+        "Customer-managed keys are an optional configuration, not the default.",
+        "Data at rest in Azure Storage is always encrypted by default; it cannot be disabled.",
+        "BitLocker is used for virtual machine disks, not object storage in PaaS storage accounts."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/storage/common/storage-service-encryption"
+    }
+  },
+  {
+    "id": 15,
+    "subtopic": "Manage data by using Azure Storage Explorer and AzCopy",
+    "question": "You need to upload a 50 GB file to Azure Blob Storage using AzCopy from a Windows server. Which environment variable or parameter can you configure to increase or optimize throughput on high-bandwidth networks?",
+    "options": [
+      "AZCOPY_CONCURRENCY_VALUE",
+      "AZCOPY_LOG_LEVEL",
+      "AZCOPY_BUFFER_GB",
+      "AZCOPY_MAX_RETRY_COUNT"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "The `AZCOPY_CONCURRENCY_VALUE` environment variable configures the number of concurrent network requests AzCopy can initiate, optimizing throughput for high-bandwidth connections.",
+      "incorrectReasons": [
+        "`AZCOPY_LOG_LEVEL` sets log verbosity (DEBUG, INFO, ERROR), not network transfer concurrency.",
+        "`AZCOPY_BUFFER_GB` is not a valid environment variable for throughput tuning.",
+        "`AZCOPY_MAX_RETRY_COUNT` sets the maximum number of network retry attempts upon failure."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/storage/common/storage-use-azcopy-optimize"
+    }
+  },
+  {
+    "id": 16,
+    "subtopic": "Create and configure storage accounts",
+    "question": "You need to configure storageaccount1 to require secure network communication. Which setting should you verify is enabled on the storage account?",
+    "options": [
+      "Secure transfer required (Enable HTTP traffic = Disabled)",
+      "Allow cross-tenant replication",
+      "Enable blob anonymous access",
+      "Allow Storage Account Key Access"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Enabling 'Secure transfer required' enforces TLS/HTTPS for all incoming requests to the storage account and rejects unencrypted HTTP requests.",
+      "incorrectReasons": [
+        "Cross-tenant replication enables copying blobs across Entra ID tenants, which is unrelated to HTTPS transport security.",
+        "Blob anonymous access allows unauthenticated public read requests, which weakens security.",
+        "Allow Storage Account Key Access allows Shared Key authentication, distinct from transport security."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/storage/common/storage-require-secure-transfer"
+    }
+  },
+  {
+    "id": 17,
+    "subtopic": "Configure Azure Storage redundancy",
+    "question": "You need to convert a General-purpose v2 storage account from Locally-redundant storage (LRS) to Zone-redundant storage (ZRS) in the East US region without downtime. How can you accomplish this conversion?",
+    "options": [
+      "Perform a live migration request to Microsoft Support or request a conversion in the Azure portal.",
+      "Manually copy all data to a new ZRS storage account using AzCopy and delete the old account.",
+      "Change the Redundancy dropdown setting in the Configuration tab of the storage account directly.",
+      "Initiate a customer-managed account failover."
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Converting from LRS to ZRS in regions that support ZRS can be performed via a live conversion (conversion request) without downtime.",
+      "incorrectReasons": [
+        "Manual copy using AzCopy causes potential application downtime or synchronization overhead.",
+        "Directly changing the Redundancy dropdown in the Azure portal from LRS to ZRS without live migration support is restricted or triggers underlying asynchronous conversion workflows.",
+        "Account failovers apply to geo-redundant storage (GRS/RA-GRS) to fail over to a secondary region, not LRS to ZRS intra-region conversion."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/storage/common/redundancy-migration"
+    }
+  },
+  {
+    "id": 18,
+    "subtopic": "Configure object replication",
+    "question": "Which Azure feature must be enabled on a destination storage account before object replication can copy updated blob content from the source account?",
+    "options": [
+      "Blob Versioning",
+      "Public Blob Access",
+      "Blob Index Tags",
+      "Immutable Storage policies"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Destination storage accounts must have Blob Versioning enabled so that new and updated object versions replicated from the source account are saved properly.",
+      "incorrectReasons": [
+        "Public Blob Access is not required for object replication; replication occurs securely via Azure platform controls.",
+        "Blob Index Tags assist with querying blobs, not replicating object content.",
+        "Immutable Storage policies enforce legal/compliance holds and write-once-read-many (WORM) states, which can conflict with or block object replication writes."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/storage/blobs/object-replication-overview#prerequisites-and-limitations"
+    }
+  },
+  {
+    "id": 19,
+    "subtopic": "Configure storage account encryption",
+    "question": "You plan to configure customer-managed keys (CMK) for storageaccount1 using an Azure Key Vault named keyvault1. Which two properties must be enabled on keyvault1 to protect customer-managed keys from permanent loss? (Select TWO)",
+    "options": [
+      "Soft Delete",
+      "Purge Protection",
+      "Enabled for Deployment",
+      "Enabled for Disk Encryption",
+      "RBAC Authorization override"
+    ],
+    "correct": [0, 1],
+    "explanation": {
+      "correctReason": "Azure Storage requires that the backing Azure Key Vault has both Soft Delete and Purge Protection enabled to prevent accidental or malicious deletion of encryption keys, which would render storage data unreadable.",
+      "incorrectReasons": [
+        "Enabled for Deployment allows Azure Virtual Machines to retrieve certificates/secrets during OS deployment, not storage account CMK.",
+        "Enabled for Disk Encryption is required for Azure Disk Encryption (ADE) VHDs, not storage account service-level CMK.",
+        "RBAC Authorization override is not a valid Key Vault setting."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/storage/common/customer-managed-keys-configure-key-vault"
+    }
+  },
+  {
+    "id": 20,
+    "subtopic": "Manage data by using Azure Storage Explorer and AzCopy",
+    "question": "You need to log in to AzCopy on a Linux virtual machine using a User-assigned Managed Identity with client ID `11111111-1111-1111-1111-111111111111`. Which command should you execute?",
+    "options": [
+      "azcopy login --identity --identity-client-id 11111111-1111-1111-1111-111111111111",
+      "azcopy login --tenant-id 11111111-1111-1111-1111-111111111111",
+      "azcopy login --service-principal --application-id 11111111-1111-1111-1111-111111111111",
+      "azcopy login --use-device-code"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "`azcopy login --identity --identity-client-id <client-id>` authenticates AzCopy using a specific User-assigned Managed Identity.",
+      "incorrectReasons": [
+        "`azcopy login --tenant-id` specifies the Microsoft Entra tenant ID, not a user-assigned client identity.",
+        "`azcopy login --service-principal` requires client secrets or certificates, which are not used for Managed Identities.",
+        "`azcopy login --use-device-code` prompts an interactive user login via web browser, not a managed identity authentication flow."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/storage/common/storage-use-azcopy-v10#authenticate-with-a-managed-identity"
+    }
+  },
+  {
+    "id": 21,
+    "subtopic": "Create and configure storage accounts",
+    "question": "You need to restrict anonymous public read access to all containers in an existing storage account named storageacc2. What setting should you configure on storageacc2?",
+    "options": [
+      "Set Allow Blob anonymous access to Disabled.",
+      "Set Minimum TLS version to 1.3.",
+      "Set Secure Transfer Required to Disabled.",
+      "Disable Shared Key access."
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Setting 'Allow Blob anonymous access' to Disabled overrides container-level settings and blocks all unauthenticated public access requests across the entire storage account.",
+      "incorrectReasons": [
+        "TLS version controls transport encryption security protocols, not public anonymous authorization permissions.",
+        "Disabling Secure Transfer Required allows insecure HTTP traffic, which reduces security rather than restricting public access.",
+        "Disabling Shared Key access blocks storage key authorization, forcing Entra ID, but does not explicitly control anonymous blob container access."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/storage/blobs/anonymous-read-access-configure"
+    }
+  },
+  {
+    "id": 22,
+    "subtopic": "Configure Azure Storage redundancy",
+    "question": "Which two Azure Storage redundancy options replicate data across geographically separated paired regions (geo-replication)? (Select TWO)",
+    "options": [
+      "Geo-redundant storage (GRS)",
+      "Geo-zone-redundant storage (GZRS)",
+      "Locally-redundant storage (LRS)",
+      "Zone-redundant storage (ZRS)",
+      "Read-access zone-redundant storage (RA-ZRS)"
+    ],
+    "correct": [0, 1],
+    "explanation": {
+      "correctReason": "Both GRS and GZRS replicate data to a secondary paired region hundreds of miles away from the primary region.",
+      "incorrectReasons": [
+        "LRS keeps data in a single datacenter in the primary region.",
+        "ZRS replicates data across three availability zones within a single region.",
+        "RA-ZRS is not a standard Azure Storage redundancy option (RA applies to GRS and GZRS)."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/storage/common/storage-redundancy"
+    }
+  },
+  {
+    "id": 23,
+    "subtopic": "Configure object replication",
+    "question": "You create an object replication policy between two storage accounts. How long after a blob is written or updated in the source account does Azure guarantee object replication completes?",
+    "options": [
+      "Azure Storage does not provide a fixed SLA for completion time; replication occurs asynchronously.",
+      "Replication is guaranteed synchronous within 5 seconds.",
+      "Replication completes strictly within 15 minutes per SLA.",
+      "Replication occurs in batch windows every 24 hours."
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Object replication is an asynchronous process. Most block blobs replicate quickly, but Azure Storage does not provide a strict Service Level Agreement (SLA) on completion time.",
+      "incorrectReasons": [
+        "Object replication is asynchronous, not synchronous.",
+        "15 minutes is not a guaranteed SLA for object replication.",
+        "Replication runs continuously as changes occur, not in scheduled 24-hour batch windows."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/storage/blobs/object-replication-overview"
+    }
+  },
+  {
+    "id": 24,
+    "subtopic": "Configure storage account encryption",
+    "question": "You need to configure encryption keys for individual blob containers or individual blobs within a single storage account using different Customer-Managed Keys. Which feature enables this granular encryption model?",
+    "options": [
+      "Encryption Scopes",
+      "Infrastructure Encryption",
+      "Blob Index Tags",
+      "Stored Access Policies"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Encryption Scopes allow you to manage encryption keys at the container or individual blob level, using either Microsoft-managed keys or different Customer-Managed Keys (CMK) within the same storage account.",
+      "incorrectReasons": [
+        "Infrastructure encryption enables double encryption at the storage account level, not key variation per container.",
+        "Blob Index Tags enable key-value searching on blobs, not encryption management.",
+        "Stored Access Policies manage SAS token permissions and dates, not encryption keys."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/storage/blobs/encryption-scope-overview"
+    }
+  },
+  {
+    "id": 25,
+    "subtopic": "Manage data by using Azure Storage Explorer and AzCopy",
+    "question": "You need to copy all blobs from a container in storageaccount1 to a container in storageaccount2 directly over the Azure network without downloading the data to your local machine. Which AzCopy command parameter enables direct service-to-service transfers?",
+    "options": [
+      "AzCopy executes service-to-service transfers automatically when source and destination are Azure Storage URIs.",
+      "--s2s-preserve-access-tier=true",
+      "--local-download=false",
+      "--direct-network-copy=true"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "When both the source and destination URIs in an `azcopy copy` command point to Azure Storage endpoints, AzCopy performs a direct service-to-service copy over the Azure platform network.",
+      "incorrectReasons": [
+        "`--s2s-preserve-access-tier` preserves blob access tiers during service-to-service copies, but service-to-service routing happens natively without needing this flag.",
+        "`--local-download=false` is an invalid AzCopy parameter.",
+        "`--direct-network-copy=true` is an invalid AzCopy parameter."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/storage/common/storage-use-azcopy-blobs-copy"
+    }
+  },
+  {
+    "id": 26,
+    "subtopic": "Create and configure storage accounts",
+    "question": "You need to change the minimum TLS version required for incoming requests to a storage account named storage1. What is the recommended minimum TLS version to enforce according to Azure security baselines?",
+    "options": [
+      "TLS 1.2",
+      "TLS 1.0",
+      "TLS 1.1",
+      "TLS 1.3"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Microsoft Azure recommends and enforces TLS 1.2 as the minimum security baseline version for all storage account client communication.",
+      "incorrectReasons": [
+        "TLS 1.0 is deprecated due to cryptographic vulnerabilities.",
+        "TLS 1.1 is deprecated due to security vulnerabilities.",
+        "TLS 1.2 is the standard configurable baseline across Azure Storage services; while TLS 1.3 is supported on platform connections, TLS 1.2 is the primary required baseline setting in portal options."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/storage/common/transport-layer-security-configure-minimum-version"
+    }
+  },
+  {
+    "id": 27,
+    "subtopic": "Configure Azure Storage redundancy",
+    "question": "You have a storage account configured with Geo-zone-redundant storage (GZRS). Which statement accurately describes how data is replicated in this configuration?",
+    "options": [
+      "Data is synchronously replicated across three availability zones in the primary region, and asynchronously replicated to a secondary paired region.",
+      "Data is synchronously replicated to three physical datacenters in the secondary region only.",
+      "Data is asynchronously replicated across three availability zones in the primary region.",
+      "Data is synchronously replicated to two availability zones in the primary region and one zone in the secondary region."
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "GZRS combines the high availability of ZRS (synchronous replication across three availability zones in the primary region) with geo-redundancy (asynchronous replication to a secondary paired region).",
+      "incorrectReasons": [
+        "GZRS replicates synchronously across zones in the primary region first, not exclusively in the secondary region.",
+        "Inter-zone replication in the primary region is synchronous, not asynchronous.",
+        "GZRS does not split three availability zones between primary and secondary regions; it uses ZRS locally plus full region replication."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/storage/common/storage-redundancy"
+    }
+  },
+  {
+    "id": 28,
+    "subtopic": "Configure object replication",
+    "question": "You need to verify the status of object replication for a specific blob in the source storage account. Which two status values can appear in the Object Replication Status property of the blob? (Select TWO)",
+    "options": [
+      "Complete",
+      "Failed",
+      "In-Progress",
+      "Synchronized",
+      "Archived"
+    ],
+    "correct": [0, 1],
+    "explanation": {
+      "correctReason": "The Object Replication Status property of a blob can display values including 'Complete' (successful replication) or 'Failed' (replication attempt failed).",
+      "incorrectReasons": [
+        "'In-Progress' is represented by status pending or void before completion, but 'Complete' and 'Failed' are explicit status outcomes.",
+        "'Synchronized' is not a standard status value for object replication.",
+        "'Archived' refers to an access tier, not an object replication state."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/storage/blobs/object-replication-overview#verify-the-replication-status-of-a-blob"
+    }
+  },
+  {
+    "id": 29,
+    "subtopic": "Configure storage account encryption",
+    "question": "You are updating a storage account to use Customer-Managed Keys (CMK) for encryption. What happens to existing data in the storage account when you switch from Microsoft-managed keys to Customer-Managed Keys?",
+    "options": [
+      "Existing data remains encrypted and is seamlessly re-encrypted using the new Customer-Managed Key without data loss or downtime.",
+      "Existing data is deleted and must be restored from backup.",
+      "Existing data remains encrypted with Microsoft-managed keys; only new data uses Customer-Managed Keys.",
+      "The storage account must be taken offline during key migration."
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Switching a storage account from Microsoft-managed keys to Customer-Managed Keys automatically re-encrypts existing data transparently without downtime or data loss.",
+      "incorrectReasons": [
+        "Existing data is not deleted when enabling CMK.",
+        "Existing data is re-encrypted with the new key, rather than being left on legacy keys indefinitely.",
+        "Key updates occur online without requiring offline downtime."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/storage/common/customer-managed-keys-overview"
+    }
+  },
+  {
+    "id": 30,
+    "subtopic": "Manage data by using Azure Storage Explorer and AzCopy",
+    "question": "You need to download a Blob container named backupexport from Azure Storage to an on-premises folder `C:\\Backups` using AzCopy. Which command should you run?",
+    "options": [
+      "azcopy copy \"https://storageaccount1.blob.core.windows.net/backupexport?<SAS-Token>\" \"C:\\Backups\" --recursive",
+      "azcopy download \"https://storageaccount1.blob.core.windows.net/backupexport\" \"C:\\Backups\"",
+      "azcopy sync \"C:\\Backups\" \"https://storageaccount1.blob.core.windows.net/backupexport\"",
+      "azcopy export --source backupexport --destination \"C:\\Backups\""
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "The syntax `azcopy copy <source-URI> <destination-path> --recursive` downloads all blobs from a container to a local directory path.",
+      "incorrectReasons": [
+        "`azcopy download` is not a valid top-level AzCopy command mode (use `azcopy copy`).",
+        "`azcopy sync` in the listed order syncs local files TO the cloud container, which is the reverse of downloading.",
+        "`azcopy export` is an invalid AzCopy command."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/storage/common/storage-use-azcopy-blobs-download"
+    }
+  },
+  {
+    "id": 31,
+    "subtopic": "Create and configure storage accounts",
+    "question": "Which storage account type supports NFS v3 protocol file access for Linux workloads directly against Blob storage?",
+    "options": [
+      "Premium Block Blobs or Standard General-purpose v2 with Hierarchical Namespace enabled",
+      "Standard General-purpose v1",
+      "Premium Page Blobs",
+      "Azure Queue Storage accounts"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "NFS v3 protocol support in Azure Blob storage requires Hierarchical Namespace to be enabled on Premium Block Blob or Standard General-purpose v2 storage accounts.",
+      "incorrectReasons": [
+        "General-purpose v1 storage accounts do not support NFS v3 protocol features.",
+        "Premium Page Blobs support unmanaged VHD disk files, not NFS file systems.",
+        "Queue storage accounts host messaging queues, not blob file structures."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/storage/blobs/network-file-system-protocol-support"
+    }
+  },
+  {
+    "id": 32,
+    "subtopic": "Configure Azure Storage redundancy",
+    "question": "You need to minimize costs for storing non-critical, reproducible data in Azure Storage. High availability and redundancy across multiple physical locations are not required. Which redundancy option offers the lowest cost?",
+    "options": [
+      "Locally-redundant storage (LRS)",
+      "Zone-redundant storage (ZRS)",
+      "Geo-redundant storage (GRS)",
+      "Read-access geo-redundant storage (RA-GRS)"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Locally-redundant storage (LRS) keeps three copies of data within a single datacenter, making it the least expensive redundancy option in Azure Storage.",
+      "incorrectReasons": [
+        "ZRS replicates across three zones and incurs higher costs than LRS.",
+        "GRS replicates to a secondary region and incurs additional storage and network replication costs.",
+        "RA-GRS adds read endpoints to GRS and is significantly more expensive than LRS."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/storage/common/storage-redundancy"
+    }
+  },
+  {
+    "id": 33,
+    "subtopic": "Configure object replication",
+    "question": "You configure object replication between two storage accounts located in different Azure regions. What happens if a blob in the source container is updated or overwritten?",
+    "options": [
+      "The new version of the blob in the source container is asynchronously replicated to the destination container.",
+      "The replication rule breaks and enters an error state.",
+      "The original blob version in the destination container is permanently overwritten without versioning.",
+      "Updates are blocked until the administrator manually approves the sync."
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "When a blob is updated in the source container, a new version is created (since versioning is required) and that new version is asynchronously replicated to the destination container.",
+      "incorrectReasons": [
+        "Blob updates are standard operational triggers for object replication and do not break replication rules.",
+        "Destination versioning ensures version history is preserved rather than unrecoverably overwritten.",
+        "Object replication runs automatically without manual administrative approvals."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/storage/blobs/object-replication-overview"
+    }
+  },
+  {
+    "id": 34,
+    "subtopic": "Configure storage account encryption",
+    "question": "Which three key types or stores are supported when configuring Customer-Managed Keys (CMK) for Azure Storage encryption? (Select THREE)",
+    "options": [
+      "Azure Key Vault",
+      "Azure Key Vault Managed HSM",
+      "Software-protected or Hardware-protected keys in Key Vault",
+      "Local XML file on an Azure VM",
+      "AWS KMS key ARN",
+      "BitLocker recovery key exported to active directory"
+    ],
+    "correct": [0, 1, 2],
+    "explanation": {
+      "correctReason": "Azure Storage CMK supports storing keys in standard Azure Key Vault, Azure Key Vault Managed Hardware Security Modules (HSM), and software- or hardware-protected keys within Key Vault.",
+      "incorrectReasons": [
+        "Storing raw encryption keys in local XML files on VMs is insecure and unsupported for Azure Storage CMK.",
+        "AWS KMS key ARNs are third-party cloud resources not natively integrated into Azure Storage encryption settings.",
+        "BitLocker recovery keys manage OS disk volumes, not Azure PaaS storage account encryption."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/storage/common/customer-managed-keys-overview"
+    }
+  },
+  {
+    "id": 35,
+    "subtopic": "Manage data by using Azure Storage Explorer and AzCopy",
+    "question": "You need to assign permissions in Azure Storage Explorer to allow a user to manage files in an Azure File Share using Microsoft Entra ID. Which RBAC role must be assigned to the user?",
+    "options": [
+      "Storage File Data SMB Share Contributor",
+      "Storage Blob Data Contributor",
+      "Storage Account Contributor",
+      "Virtual Machine Contributor"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Storage File Data SMB Share Contributor grants read, write, and delete access to Azure Storage file shares.",
+      "incorrectReasons": [
+        "Storage Blob Data Contributor grants access to Blob containers, not Azure Files.",
+        "Storage Account Contributor manages management plane settings, not data plane SMB file operations.",
+        "Virtual Machine Contributor manages VM resources, unrelated to file share permissions."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/storage/files/storage-files-identity-auth-active-directory-domain-service-assign-roles"
+    }
+  },
+  {
+    "id": 36,
+    "subtopic": "Create and configure storage accounts",
+    "question": "You need to configure a storage account to host a static website. Which container is automatically created in the storage account when you enable the static website feature?",
+    "options": [
+      "$web",
+      "$logs",
+      "root",
+      "public"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Enabling the static website feature on an Azure Storage account automatically creates a container named `$web` to host static web content (e.g., `index.html`).",
+      "incorrectReasons": [
+        "`$logs` is automatically created when Storage Analytics logging is enabled.",
+        "`root` is not an automatically created container name for static websites.",
+        "`public` is a custom container name and not automatically generated."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/storage/blobs/storage-blob-static-website"
+    }
+  },
+  {
+    "id": 37,
+    "subtopic": "Configure Azure Storage redundancy",
+    "question": "You perform a manual customer-managed account failover on a Read-access geo-redundant storage (RA-GRS) account named storage3. What happens to storage3 after the failover completes?",
+    "options": [
+      "The secondary region becomes the new primary region, and the redundancy type is converted to Locally-redundant storage (LRS).",
+      "The storage account automatically converts to Zone-redundant storage (ZRS) in the new primary region.",
+      "The original primary region data is immediately restored automatically.",
+      "The account access keys are permanently destroyed."
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "When an account failover completes, the secondary region becomes the new primary region, and the account redundancy automatically switches to Locally-redundant storage (LRS). Re-enabling geo-redundancy requires manual reconfiguration.",
+      "incorrectReasons": [
+        "Failover converts the new primary region storage to LRS, not ZRS.",
+        "Original primary region data is not automatically restored; the new primary operates independently post-failover.",
+        "Access keys remain intact and functional after account failover."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/storage/common/storage-disaster-recovery-guidance"
+    }
+  },
+  {
+    "id": 38,
+    "subtopic": "Configure object replication",
+    "question": "You plan to set up object replication between two containers in different Azure regions. Which two permissions/roles must the administrative user configuring object replication have on both storage accounts? (Select TWO)",
+    "options": [
+      "Storage Account Contributor or Owner",
+      "Storage Blob Data Owner",
+      "Network Contributor",
+      "Key Vault Contributor",
+      "Security Admin"
+    ],
+    "correct": [0, 1],
+    "explanation": {
+      "correctReason": "Setting up object replication policies requires management plane privileges (Storage Account Contributor or Owner) and data plane rights (Storage Blob Data Owner or appropriate data roles) to configure rules across containers.",
+      "incorrectReasons": [
+        "Network Contributor manages VNets and NSGs, not storage object replication rules.",
+        "Key Vault Contributor manages Key Vault secrets/keys, unrelated to object replication setup.",
+        "Security Admin manages Microsoft Defender settings, not storage replication configuration."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/storage/blobs/object-replication-configure"
+    }
+  },
+  {
+    "id": 39,
+    "subtopic": "Configure storage account encryption",
+    "question": "You want to configure Customer-Managed Keys (CMK) for a storage account. You want Azure to automatically update the storage account encryption key whenever a new version of the key is created in Azure Key Vault. How should you set the key version during configuration?",
+    "options": [
+      "Set the key version setting to Automatic (leave key version blank/omitted).",
+      "Specify the exact 32-character GUID key version string.",
+      "Enable Azure Key Vault auto-rotation triggers in Event Grid.",
+      "Re-encrypt the storage account daily using Azure Automation."
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Omitting the specific key version parameter (or selecting automatic update) configures Azure Storage to monitor the Key Vault and automatically use the latest active version of the key.",
+      "incorrectReasons": [
+        "Specifying an explicit key version GUID pins the storage account to that exact static version, requiring manual updates when keys rotate.",
+        "Event Grid triggers are not required for native automatic CMK version updates.",
+        "Daily re-encryption via Automation runbooks is unnecessary due to native key version monitoring."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/storage/common/customer-managed-keys-configure-key-vault"
+    }
+  },
+  {
+    "id": 40,
+    "subtopic": "Manage data by using Azure Storage Explorer and AzCopy",
+    "question": "You need to remove blobs from an Azure Blob storage container that do not exist in the source local directory when running an `azcopy sync` command. Which flag must you include?",
+    "options": [
+      "--delete-destination=true",
+      "--remove-missing=true",
+      "--purge=true",
+      "--clean-destination=true"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "The flag `--delete-destination=true` (or `prompt`) in `azcopy sync` deletes files at the destination if they are absent at the source.",
+      "incorrectReasons": [
+        "`--remove-missing=true` is an invalid AzCopy flag.",
+        "`--purge=true` is an invalid AzCopy flag.",
+        "`--clean-destination=true` is an invalid AzCopy flag."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/storage/common/storage-use-azcopy-sync"
+    }
+  },
+  {
+    "id": 41,
+    "subtopic": "Create and configure storage accounts",
+    "question": "You are creating an Azure Storage account. You need to store relational database backups that require high capacity at minimal cost. Fast read performance is not required. Which access tier should you configure as default for uploaded blobs?",
+    "options": [
+      "Cool or Cold",
+      "Hot",
+      "Premium",
+      "Archive"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "The Cool (or Cold) access tier is optimized for storing data that is infrequently accessed and stored for at least 30 (or 90) days, offering lower storage costs than the Hot tier.",
+      "incorrectReasons": [
+        "The Hot access tier has higher storage costs and lower transaction costs, which is unneeded for backup storage.",
+        "Premium performance tiers use SSDs and are significantly more expensive.",
+        "Archive tier cannot be set as the account-level default access tier; it must be set at the individual blob level."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/storage/blobs/access-tiers-overview"
+    }
+  },
+  {
+    "id": 42,
+    "subtopic": "Configure Azure Storage redundancy",
+    "question": "You manage a storage account configured as Read-access geo-redundant storage (RA-GRS). How is the read-only secondary endpoint URL formatted for the Blob service?",
+    "options": [
+      "https://<accountname>-secondary.blob.core.windows.net",
+      "https://<accountname>.secondary.blob.core.windows.net",
+      "https://<accountname>-read.blob.core.windows.net",
+      "https://<accountname>.blob.core.windows.net/secondary"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "The secondary read endpoint appends `-secondary` directly to the storage account name: `https://<accountname>-secondary.blob.core.windows.net`.",
+      "incorrectReasons": [
+        "`<accountname>.secondary.blob.core.windows.net` uses an incorrect domain structure.",
+        "`<accountname>-read.blob.core.windows.net` uses an invalid suffix.",
+        "`<accountname>.blob.core.windows.net/secondary` points to a virtual container folder, not a secondary geo-endpoint."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/storage/common/storage-redundancy"
+    }
+  },
+  {
+    "id": 43,
+    "subtopic": "Configure object replication",
+    "question": "You need to copy blobs between two storage accounts using object replication. Which storage account replication types are supported for source and destination accounts? (Select TWO)",
+    "options": [
+      "Locally-redundant storage (LRS)",
+      "Change feed enabled Zone-redundant storage (ZRS)",
+      "Read-access geo-redundant storage (RA-GRS)",
+      "Premium Page Blob storage accounts",
+      "Azure Queue Storage accounts"
+    ],
+    "correct": [0, 1],
+    "explanation": {
+      "correctReason": "Object replication supports standard General-purpose v2 storage accounts configured with LRS, ZRS, GRS, or RA-GRS.",
+      "incorrectReasons": [
+        "RA-GRS is supported, but among the options provided, LRS and ZRS are foundational replication modes supported for object replication source/destination accounts.",
+        "Premium Page Blob storage accounts host disk VHDs and do not support blob object replication.",
+        "Queue storage accounts host queue messages, not blob object replication."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/storage/blobs/object-replication-overview#prerequisites-and-limitations"
+    }
+  },
+  {
+    "id": 44,
+    "subtopic": "Configure storage account encryption",
+    "question": "You want to require that all new containers created in a storage account use a specific Encryption Scope by default. Where should you configure this requirement?",
+    "options": [
+      "In the container properties when creating a new container.",
+      "In the Azure Subscription policy settings.",
+      "In the Key Vault access policy.",
+      "In the storage account firewall settings."
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "When creating a container, you can specify a default Encryption Scope to automatically apply that scope to all blobs uploaded to that container.",
+      "incorrectReasons": [
+        "Subscription policy settings can enforce governance, but default container encryption scope configuration is applied at container creation.",
+        "Key Vault access policies handle vault authorization, not container properties.",
+        "Storage firewall settings control IP/VNet network access, not blob encryption scopes."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/storage/blobs/encryption-scope-manage"
+    }
+  },
+  {
+    "id": 45,
+    "subtopic": "Manage data by using Azure Storage Explorer and AzCopy",
+    "question": "Which AzCopy command displays the progress and status of active or recently completed data transfer jobs?",
+    "options": [
+      "azcopy jobs list",
+      "azcopy status",
+      "azcopy jobs show",
+      "azcopy monitor"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "`azcopy jobs list` lists all active or recently executed AzCopy job IDs and their summary statuses.",
+      "incorrectReasons": [
+        "`azcopy status` is an invalid top-level command.",
+        "`azcopy jobs show <job-id>` requires specifying a job ID to view details of a single job.",
+        "`azcopy monitor` is an invalid command."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/storage/common/storage-use-azcopy-v10#view-and-manage-jobs"
+    }
+  },
+  {
+    "id": 46,
+    "subtopic": "Create and configure storage accounts",
+    "question": "You need to prevent objects in an Azure Blob container from being overwritten or deleted for a fixed retention interval of 365 days to meet regulatory compliance requirements. Which feature should you enable?",
+    "options": [
+      "Time-based retention policy (Immutable Storage)",
+      "Legal hold",
+      "Blob Versioning",
+      "Soft delete for blobs"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "A time-based retention policy in Immutable Storage enforces Write-Once-Read-Many (WORM) state, preventing blobs from being deleted or modified for a user-specified interval (e.g., 365 days).",
+      "incorrectReasons": [
+        "A legal hold keeps immutable data locked until explicitly removed by an admin, rather than expiring automatically after a fixed 365-day interval.",
+        "Blob Versioning keeps historical copies when overwritten, but does not prevent deletion of current versions if permissions allow.",
+        "Soft delete retains deleted blobs in a trash state for recovery, but does not block overwrites or deletions during active retention."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/storage/blobs/immutable-time-based-retention-policy-overview"
+    }
+  },
+  {
+    "id": 47,
+    "subtopic": "Configure Azure Storage redundancy",
+    "question": "You have a storage account with Locally-redundant storage (LRS). A physical disk failure occurs in the datacenter where your data resides. What happens to your data?",
+    "options": [
+      "Azure automatically recovers data from one of the other two local synchronous replicas without service disruption.",
+      "Data is permanently lost because LRS keeps only one copy.",
+      "You must manually initiate a restore from Azure Backup.",
+      "Data is failover-switched to a secondary Azure region."
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "LRS maintains three synchronous copies of your data within a single datacenter. If a single disk or drive fails, Azure automatically serves traffic from one of the healthy replicas.",
+      "incorrectReasons": [
+        "LRS maintains three replicas, not just one.",
+        "Manual restore is not required for a single drive failure due to synchronous triple replication.",
+        "LRS does not replicate to a secondary region."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/storage/common/storage-redundancy#locally-redundant-storage"
+    }
+  },
+  {
+    "id": 48,
+    "subtopic": "Configure object replication",
+    "question": "Which metric or log tool can you monitor to check object replication metrics, such as total bytes replicated or replication latency between source and destination containers?",
+    "options": [
+      "Azure Monitor metrics for Storage accounts",
+      "Network Watcher Connection Monitor",
+      "Azure Advisor security recommendations",
+      "Storage Account Activity Log"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Azure Monitor provides native metrics for Azure Storage, including blob metrics to track object replication progress and latency.",
+      "incorrectReasons": [
+        "Network Watcher tracks IaaS packet flows and network connectivity, not PaaS object replication metrics.",
+        "Azure Advisor provides cost, performance, and security best practice recommendations.",
+        "Activity Log records control plane management operations (e.g., policy creation), not data plane replication throughput."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/storage/blobs/object-replication-overview#monitor-object-replication"
+    }
+  },
+  {
+    "id": 49,
+    "subtopic": "Configure storage account encryption",
+    "question": "You want to configure Customer-Managed Keys (CMK) for an Azure Storage account using Azure Key Vault. What happens if the Managed Identity of the storage account loses access permissions to the Key Vault?",
+    "options": [
+      "All read and write requests to the storage account begin failing with error 403 / Access Denied.",
+      "The storage account automatically reverts to Microsoft-managed keys.",
+      "Data becomes unencrypted on disk.",
+      "The storage account is automatically deleted after 24 hours."
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "If the storage account loses access to the key in Key Vault, Azure Storage cannot wrap/unwrap the data encryption keys, causing all read and write requests to fail to protect data security.",
+      "incorrectReasons": [
+        "The account does not revert to Microsoft-managed keys automatically to preserve security boundaries.",
+        "Data at rest remains encrypted on disk; access to read or decrypt it is blocked.",
+        "Storage accounts are not deleted due to Key Vault permission errors."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/storage/common/customer-managed-keys-overview"
+    }
+  },
+  {
+    "id": 50,
+    "subtopic": "Manage data by using Azure Storage Explorer and AzCopy",
+    "question": "Which command-line tool is best suited for scriptable, high-performance, asynchronous file copy operations between on-premises storage and Azure Blob storage?",
+    "options": [
+      "AzCopy",
+      "Azure PowerShell `Get-AzStorageBlob`",
+      "Azure CLI `az storage blob show`",
+      "Robocopy"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "AzCopy is a command-line utility specifically designed and optimized for high-performance, scriptable bulk data transfers to and from Azure Blob, File, and Table storage.",
+      "incorrectReasons": [
+        "`Get-AzStorageBlob` lists blob properties rather than performing high-throughput parallel data transfers.",
+        "`az storage blob show` displays single blob metadata, not bulk data transfer execution.",
+        "Robocopy manages Windows file transfers locally or over SMB, but does not natively interface with Azure Blob Storage REST APIs."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/storage/common/storage-use-azcopy-v10"
+    }
+  }
+]

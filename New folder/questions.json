@@ -1,0 +1,1076 @@
+[
+  {
+    "id": 1,
+    "subtopic": "Create users and groups",
+    "question": "Scenario question 1 regarding Create users and groups in Manage Microsoft Entra users and groups context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Create users and groups",
+      "Option B detailing solution for Create users and groups",
+      "Option C detailing solution for Create users and groups",
+      "Option D detailing solution for Create users and groups"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Create users and groups by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Create users and groups.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 2,
+    "subtopic": "Manage user and group properties",
+    "question": "Scenario question 2 regarding Manage user and group properties in Manage Microsoft Entra users and groups context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Manage user and group properties",
+      "Option B detailing solution for Manage user and group properties",
+      "Option C detailing solution for Manage user and group properties",
+      "Option D detailing solution for Manage user and group properties"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Manage user and group properties by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Manage user and group properties.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 3,
+    "subtopic": "Manage licenses in Microsoft Entra ID",
+    "question": "Scenario question 3 regarding Manage licenses in Microsoft Entra ID in Manage Microsoft Entra users and groups context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Manage licenses in Microsoft Entra ID",
+      "Option B detailing solution for Manage licenses in Microsoft Entra ID",
+      "Option C detailing solution for Manage licenses in Microsoft Entra ID",
+      "Option D detailing solution for Manage licenses in Microsoft Entra ID"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Manage licenses in Microsoft Entra ID by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Manage licenses in Microsoft Entra ID.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 4,
+    "subtopic": "Manage external users",
+    "question": "Scenario question 4 regarding Manage external users in Manage Microsoft Entra users and groups context: Which TWO options must you configure to achieve the target state? (Select TWO)",
+    "options": [
+      "First required configuration for Manage external users",
+      "Incorrect setting option A",
+      "Second required configuration for Manage external users",
+      "Incorrect setting option B"
+    ],
+    "correct": [
+      0,
+      2
+    ],
+    "explanation": {
+      "correctReason": "Options A (index 0) and C (index 2) are correct because both actions are necessary steps to configure Manage external users.",
+      "incorrectReasons": [
+        "Option B is incorrect because this setting is unsupported for this scenario.",
+        "Option D is incorrect as it applies to a different resource scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 5,
+    "subtopic": "Configure self-service password reset (SSPR)",
+    "question": "Scenario question 5 regarding Configure self-service password reset (SSPR) in Manage Microsoft Entra users and groups context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Configure self-service password reset (SSPR)",
+      "Option B detailing solution for Configure self-service password reset (SSPR)",
+      "Option C detailing solution for Configure self-service password reset (SSPR)",
+      "Option D detailing solution for Configure self-service password reset (SSPR)"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Configure self-service password reset (SSPR) by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Configure self-service password reset (SSPR).",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 6,
+    "subtopic": "Create users and groups",
+    "question": "Scenario question 6 regarding Create users and groups in Manage Microsoft Entra users and groups context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Create users and groups",
+      "Option B detailing solution for Create users and groups",
+      "Option C detailing solution for Create users and groups",
+      "Option D detailing solution for Create users and groups"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Create users and groups by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Create users and groups.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 7,
+    "subtopic": "Manage user and group properties",
+    "question": "Scenario question 7 regarding Manage user and group properties in Manage Microsoft Entra users and groups context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Manage user and group properties",
+      "Option B detailing solution for Manage user and group properties",
+      "Option C detailing solution for Manage user and group properties",
+      "Option D detailing solution for Manage user and group properties"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Manage user and group properties by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Manage user and group properties.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 8,
+    "subtopic": "Manage licenses in Microsoft Entra ID",
+    "question": "Scenario question 8 regarding Manage licenses in Microsoft Entra ID in Manage Microsoft Entra users and groups context: Which TWO options must you configure to achieve the target state? (Select TWO)",
+    "options": [
+      "First required configuration for Manage licenses in Microsoft Entra ID",
+      "Incorrect setting option A",
+      "Second required configuration for Manage licenses in Microsoft Entra ID",
+      "Incorrect setting option B"
+    ],
+    "correct": [
+      0,
+      2
+    ],
+    "explanation": {
+      "correctReason": "Options A (index 0) and C (index 2) are correct because both actions are necessary steps to configure Manage licenses in Microsoft Entra ID.",
+      "incorrectReasons": [
+        "Option B is incorrect because this setting is unsupported for this scenario.",
+        "Option D is incorrect as it applies to a different resource scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 9,
+    "subtopic": "Manage external users",
+    "question": "Scenario question 9 regarding Manage external users in Manage Microsoft Entra users and groups context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Manage external users",
+      "Option B detailing solution for Manage external users",
+      "Option C detailing solution for Manage external users",
+      "Option D detailing solution for Manage external users"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Manage external users by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Manage external users.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 10,
+    "subtopic": "Configure self-service password reset (SSPR)",
+    "question": "Scenario question 10 regarding Configure self-service password reset (SSPR) in Manage Microsoft Entra users and groups context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Configure self-service password reset (SSPR)",
+      "Option B detailing solution for Configure self-service password reset (SSPR)",
+      "Option C detailing solution for Configure self-service password reset (SSPR)",
+      "Option D detailing solution for Configure self-service password reset (SSPR)"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Configure self-service password reset (SSPR) by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Configure self-service password reset (SSPR).",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 11,
+    "subtopic": "Create users and groups",
+    "question": "Scenario question 11 regarding Create users and groups in Manage Microsoft Entra users and groups context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Create users and groups",
+      "Option B detailing solution for Create users and groups",
+      "Option C detailing solution for Create users and groups",
+      "Option D detailing solution for Create users and groups"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Create users and groups by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Create users and groups.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 12,
+    "subtopic": "Manage user and group properties",
+    "question": "Scenario question 12 regarding Manage user and group properties in Manage Microsoft Entra users and groups context: Which TWO options must you configure to achieve the target state? (Select TWO)",
+    "options": [
+      "First required configuration for Manage user and group properties",
+      "Incorrect setting option A",
+      "Second required configuration for Manage user and group properties",
+      "Incorrect setting option B"
+    ],
+    "correct": [
+      0,
+      2
+    ],
+    "explanation": {
+      "correctReason": "Options A (index 0) and C (index 2) are correct because both actions are necessary steps to configure Manage user and group properties.",
+      "incorrectReasons": [
+        "Option B is incorrect because this setting is unsupported for this scenario.",
+        "Option D is incorrect as it applies to a different resource scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 13,
+    "subtopic": "Manage licenses in Microsoft Entra ID",
+    "question": "Scenario question 13 regarding Manage licenses in Microsoft Entra ID in Manage Microsoft Entra users and groups context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Manage licenses in Microsoft Entra ID",
+      "Option B detailing solution for Manage licenses in Microsoft Entra ID",
+      "Option C detailing solution for Manage licenses in Microsoft Entra ID",
+      "Option D detailing solution for Manage licenses in Microsoft Entra ID"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Manage licenses in Microsoft Entra ID by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Manage licenses in Microsoft Entra ID.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 14,
+    "subtopic": "Manage external users",
+    "question": "Scenario question 14 regarding Manage external users in Manage Microsoft Entra users and groups context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Manage external users",
+      "Option B detailing solution for Manage external users",
+      "Option C detailing solution for Manage external users",
+      "Option D detailing solution for Manage external users"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Manage external users by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Manage external users.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 15,
+    "subtopic": "Configure self-service password reset (SSPR)",
+    "question": "Scenario question 15 regarding Configure self-service password reset (SSPR) in Manage Microsoft Entra users and groups context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Configure self-service password reset (SSPR)",
+      "Option B detailing solution for Configure self-service password reset (SSPR)",
+      "Option C detailing solution for Configure self-service password reset (SSPR)",
+      "Option D detailing solution for Configure self-service password reset (SSPR)"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Configure self-service password reset (SSPR) by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Configure self-service password reset (SSPR).",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 16,
+    "subtopic": "Create users and groups",
+    "question": "Scenario question 16 regarding Create users and groups in Manage Microsoft Entra users and groups context: Which TWO options must you configure to achieve the target state? (Select TWO)",
+    "options": [
+      "First required configuration for Create users and groups",
+      "Incorrect setting option A",
+      "Second required configuration for Create users and groups",
+      "Incorrect setting option B"
+    ],
+    "correct": [
+      0,
+      2
+    ],
+    "explanation": {
+      "correctReason": "Options A (index 0) and C (index 2) are correct because both actions are necessary steps to configure Create users and groups.",
+      "incorrectReasons": [
+        "Option B is incorrect because this setting is unsupported for this scenario.",
+        "Option D is incorrect as it applies to a different resource scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 17,
+    "subtopic": "Manage user and group properties",
+    "question": "Scenario question 17 regarding Manage user and group properties in Manage Microsoft Entra users and groups context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Manage user and group properties",
+      "Option B detailing solution for Manage user and group properties",
+      "Option C detailing solution for Manage user and group properties",
+      "Option D detailing solution for Manage user and group properties"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Manage user and group properties by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Manage user and group properties.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 18,
+    "subtopic": "Manage licenses in Microsoft Entra ID",
+    "question": "Scenario question 18 regarding Manage licenses in Microsoft Entra ID in Manage Microsoft Entra users and groups context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Manage licenses in Microsoft Entra ID",
+      "Option B detailing solution for Manage licenses in Microsoft Entra ID",
+      "Option C detailing solution for Manage licenses in Microsoft Entra ID",
+      "Option D detailing solution for Manage licenses in Microsoft Entra ID"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Manage licenses in Microsoft Entra ID by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Manage licenses in Microsoft Entra ID.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 19,
+    "subtopic": "Manage external users",
+    "question": "Scenario question 19 regarding Manage external users in Manage Microsoft Entra users and groups context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Manage external users",
+      "Option B detailing solution for Manage external users",
+      "Option C detailing solution for Manage external users",
+      "Option D detailing solution for Manage external users"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Manage external users by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Manage external users.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 20,
+    "subtopic": "Configure self-service password reset (SSPR)",
+    "question": "Scenario question 20 regarding Configure self-service password reset (SSPR) in Manage Microsoft Entra users and groups context: Which TWO options must you configure to achieve the target state? (Select TWO)",
+    "options": [
+      "First required configuration for Configure self-service password reset (SSPR)",
+      "Incorrect setting option A",
+      "Second required configuration for Configure self-service password reset (SSPR)",
+      "Incorrect setting option B"
+    ],
+    "correct": [
+      0,
+      2
+    ],
+    "explanation": {
+      "correctReason": "Options A (index 0) and C (index 2) are correct because both actions are necessary steps to configure Configure self-service password reset (SSPR).",
+      "incorrectReasons": [
+        "Option B is incorrect because this setting is unsupported for this scenario.",
+        "Option D is incorrect as it applies to a different resource scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 21,
+    "subtopic": "Create users and groups",
+    "question": "Scenario question 21 regarding Create users and groups in Manage Microsoft Entra users and groups context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Create users and groups",
+      "Option B detailing solution for Create users and groups",
+      "Option C detailing solution for Create users and groups",
+      "Option D detailing solution for Create users and groups"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Create users and groups by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Create users and groups.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 22,
+    "subtopic": "Manage user and group properties",
+    "question": "Scenario question 22 regarding Manage user and group properties in Manage Microsoft Entra users and groups context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Manage user and group properties",
+      "Option B detailing solution for Manage user and group properties",
+      "Option C detailing solution for Manage user and group properties",
+      "Option D detailing solution for Manage user and group properties"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Manage user and group properties by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Manage user and group properties.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 23,
+    "subtopic": "Manage licenses in Microsoft Entra ID",
+    "question": "Scenario question 23 regarding Manage licenses in Microsoft Entra ID in Manage Microsoft Entra users and groups context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Manage licenses in Microsoft Entra ID",
+      "Option B detailing solution for Manage licenses in Microsoft Entra ID",
+      "Option C detailing solution for Manage licenses in Microsoft Entra ID",
+      "Option D detailing solution for Manage licenses in Microsoft Entra ID"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Manage licenses in Microsoft Entra ID by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Manage licenses in Microsoft Entra ID.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 24,
+    "subtopic": "Manage external users",
+    "question": "Scenario question 24 regarding Manage external users in Manage Microsoft Entra users and groups context: Which TWO options must you configure to achieve the target state? (Select TWO)",
+    "options": [
+      "First required configuration for Manage external users",
+      "Incorrect setting option A",
+      "Second required configuration for Manage external users",
+      "Incorrect setting option B"
+    ],
+    "correct": [
+      0,
+      2
+    ],
+    "explanation": {
+      "correctReason": "Options A (index 0) and C (index 2) are correct because both actions are necessary steps to configure Manage external users.",
+      "incorrectReasons": [
+        "Option B is incorrect because this setting is unsupported for this scenario.",
+        "Option D is incorrect as it applies to a different resource scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 25,
+    "subtopic": "Configure self-service password reset (SSPR)",
+    "question": "Scenario question 25 regarding Configure self-service password reset (SSPR) in Manage Microsoft Entra users and groups context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Configure self-service password reset (SSPR)",
+      "Option B detailing solution for Configure self-service password reset (SSPR)",
+      "Option C detailing solution for Configure self-service password reset (SSPR)",
+      "Option D detailing solution for Configure self-service password reset (SSPR)"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Configure self-service password reset (SSPR) by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Configure self-service password reset (SSPR).",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 26,
+    "subtopic": "Create users and groups",
+    "question": "Scenario question 26 regarding Create users and groups in Manage Microsoft Entra users and groups context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Create users and groups",
+      "Option B detailing solution for Create users and groups",
+      "Option C detailing solution for Create users and groups",
+      "Option D detailing solution for Create users and groups"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Create users and groups by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Create users and groups.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 27,
+    "subtopic": "Manage user and group properties",
+    "question": "Scenario question 27 regarding Manage user and group properties in Manage Microsoft Entra users and groups context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Manage user and group properties",
+      "Option B detailing solution for Manage user and group properties",
+      "Option C detailing solution for Manage user and group properties",
+      "Option D detailing solution for Manage user and group properties"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Manage user and group properties by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Manage user and group properties.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 28,
+    "subtopic": "Manage licenses in Microsoft Entra ID",
+    "question": "Scenario question 28 regarding Manage licenses in Microsoft Entra ID in Manage Microsoft Entra users and groups context: Which TWO options must you configure to achieve the target state? (Select TWO)",
+    "options": [
+      "First required configuration for Manage licenses in Microsoft Entra ID",
+      "Incorrect setting option A",
+      "Second required configuration for Manage licenses in Microsoft Entra ID",
+      "Incorrect setting option B"
+    ],
+    "correct": [
+      0,
+      2
+    ],
+    "explanation": {
+      "correctReason": "Options A (index 0) and C (index 2) are correct because both actions are necessary steps to configure Manage licenses in Microsoft Entra ID.",
+      "incorrectReasons": [
+        "Option B is incorrect because this setting is unsupported for this scenario.",
+        "Option D is incorrect as it applies to a different resource scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 29,
+    "subtopic": "Manage external users",
+    "question": "Scenario question 29 regarding Manage external users in Manage Microsoft Entra users and groups context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Manage external users",
+      "Option B detailing solution for Manage external users",
+      "Option C detailing solution for Manage external users",
+      "Option D detailing solution for Manage external users"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Manage external users by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Manage external users.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 30,
+    "subtopic": "Configure self-service password reset (SSPR)",
+    "question": "Scenario question 30 regarding Configure self-service password reset (SSPR) in Manage Microsoft Entra users and groups context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Configure self-service password reset (SSPR)",
+      "Option B detailing solution for Configure self-service password reset (SSPR)",
+      "Option C detailing solution for Configure self-service password reset (SSPR)",
+      "Option D detailing solution for Configure self-service password reset (SSPR)"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Configure self-service password reset (SSPR) by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Configure self-service password reset (SSPR).",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 31,
+    "subtopic": "Create users and groups",
+    "question": "Scenario question 31 regarding Create users and groups in Manage Microsoft Entra users and groups context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Create users and groups",
+      "Option B detailing solution for Create users and groups",
+      "Option C detailing solution for Create users and groups",
+      "Option D detailing solution for Create users and groups"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Create users and groups by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Create users and groups.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 32,
+    "subtopic": "Manage user and group properties",
+    "question": "Scenario question 32 regarding Manage user and group properties in Manage Microsoft Entra users and groups context: Which TWO options must you configure to achieve the target state? (Select TWO)",
+    "options": [
+      "First required configuration for Manage user and group properties",
+      "Incorrect setting option A",
+      "Second required configuration for Manage user and group properties",
+      "Incorrect setting option B"
+    ],
+    "correct": [
+      0,
+      2
+    ],
+    "explanation": {
+      "correctReason": "Options A (index 0) and C (index 2) are correct because both actions are necessary steps to configure Manage user and group properties.",
+      "incorrectReasons": [
+        "Option B is incorrect because this setting is unsupported for this scenario.",
+        "Option D is incorrect as it applies to a different resource scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 33,
+    "subtopic": "Manage licenses in Microsoft Entra ID",
+    "question": "Scenario question 33 regarding Manage licenses in Microsoft Entra ID in Manage Microsoft Entra users and groups context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Manage licenses in Microsoft Entra ID",
+      "Option B detailing solution for Manage licenses in Microsoft Entra ID",
+      "Option C detailing solution for Manage licenses in Microsoft Entra ID",
+      "Option D detailing solution for Manage licenses in Microsoft Entra ID"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Manage licenses in Microsoft Entra ID by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Manage licenses in Microsoft Entra ID.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 34,
+    "subtopic": "Manage external users",
+    "question": "Scenario question 34 regarding Manage external users in Manage Microsoft Entra users and groups context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Manage external users",
+      "Option B detailing solution for Manage external users",
+      "Option C detailing solution for Manage external users",
+      "Option D detailing solution for Manage external users"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Manage external users by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Manage external users.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 35,
+    "subtopic": "Configure self-service password reset (SSPR)",
+    "question": "Scenario question 35 regarding Configure self-service password reset (SSPR) in Manage Microsoft Entra users and groups context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Configure self-service password reset (SSPR)",
+      "Option B detailing solution for Configure self-service password reset (SSPR)",
+      "Option C detailing solution for Configure self-service password reset (SSPR)",
+      "Option D detailing solution for Configure self-service password reset (SSPR)"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Configure self-service password reset (SSPR) by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Configure self-service password reset (SSPR).",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 36,
+    "subtopic": "Create users and groups",
+    "question": "Scenario question 36 regarding Create users and groups in Manage Microsoft Entra users and groups context: Which TWO options must you configure to achieve the target state? (Select TWO)",
+    "options": [
+      "First required configuration for Create users and groups",
+      "Incorrect setting option A",
+      "Second required configuration for Create users and groups",
+      "Incorrect setting option B"
+    ],
+    "correct": [
+      0,
+      2
+    ],
+    "explanation": {
+      "correctReason": "Options A (index 0) and C (index 2) are correct because both actions are necessary steps to configure Create users and groups.",
+      "incorrectReasons": [
+        "Option B is incorrect because this setting is unsupported for this scenario.",
+        "Option D is incorrect as it applies to a different resource scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 37,
+    "subtopic": "Manage user and group properties",
+    "question": "Scenario question 37 regarding Manage user and group properties in Manage Microsoft Entra users and groups context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Manage user and group properties",
+      "Option B detailing solution for Manage user and group properties",
+      "Option C detailing solution for Manage user and group properties",
+      "Option D detailing solution for Manage user and group properties"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Manage user and group properties by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Manage user and group properties.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 38,
+    "subtopic": "Manage licenses in Microsoft Entra ID",
+    "question": "Scenario question 38 regarding Manage licenses in Microsoft Entra ID in Manage Microsoft Entra users and groups context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Manage licenses in Microsoft Entra ID",
+      "Option B detailing solution for Manage licenses in Microsoft Entra ID",
+      "Option C detailing solution for Manage licenses in Microsoft Entra ID",
+      "Option D detailing solution for Manage licenses in Microsoft Entra ID"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Manage licenses in Microsoft Entra ID by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Manage licenses in Microsoft Entra ID.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 39,
+    "subtopic": "Manage external users",
+    "question": "Scenario question 39 regarding Manage external users in Manage Microsoft Entra users and groups context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Manage external users",
+      "Option B detailing solution for Manage external users",
+      "Option C detailing solution for Manage external users",
+      "Option D detailing solution for Manage external users"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Manage external users by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Manage external users.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 40,
+    "subtopic": "Configure self-service password reset (SSPR)",
+    "question": "Scenario question 40 regarding Configure self-service password reset (SSPR) in Manage Microsoft Entra users and groups context: Which TWO options must you configure to achieve the target state? (Select TWO)",
+    "options": [
+      "First required configuration for Configure self-service password reset (SSPR)",
+      "Incorrect setting option A",
+      "Second required configuration for Configure self-service password reset (SSPR)",
+      "Incorrect setting option B"
+    ],
+    "correct": [
+      0,
+      2
+    ],
+    "explanation": {
+      "correctReason": "Options A (index 0) and C (index 2) are correct because both actions are necessary steps to configure Configure self-service password reset (SSPR).",
+      "incorrectReasons": [
+        "Option B is incorrect because this setting is unsupported for this scenario.",
+        "Option D is incorrect as it applies to a different resource scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 41,
+    "subtopic": "Create users and groups",
+    "question": "Scenario question 41 regarding Create users and groups in Manage Microsoft Entra users and groups context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Create users and groups",
+      "Option B detailing solution for Create users and groups",
+      "Option C detailing solution for Create users and groups",
+      "Option D detailing solution for Create users and groups"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Create users and groups by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Create users and groups.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 42,
+    "subtopic": "Manage user and group properties",
+    "question": "Scenario question 42 regarding Manage user and group properties in Manage Microsoft Entra users and groups context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Manage user and group properties",
+      "Option B detailing solution for Manage user and group properties",
+      "Option C detailing solution for Manage user and group properties",
+      "Option D detailing solution for Manage user and group properties"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Manage user and group properties by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Manage user and group properties.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 43,
+    "subtopic": "Manage licenses in Microsoft Entra ID",
+    "question": "Scenario question 43 regarding Manage licenses in Microsoft Entra ID in Manage Microsoft Entra users and groups context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Manage licenses in Microsoft Entra ID",
+      "Option B detailing solution for Manage licenses in Microsoft Entra ID",
+      "Option C detailing solution for Manage licenses in Microsoft Entra ID",
+      "Option D detailing solution for Manage licenses in Microsoft Entra ID"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Manage licenses in Microsoft Entra ID by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Manage licenses in Microsoft Entra ID.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 44,
+    "subtopic": "Manage external users",
+    "question": "Scenario question 44 regarding Manage external users in Manage Microsoft Entra users and groups context: Which TWO options must you configure to achieve the target state? (Select TWO)",
+    "options": [
+      "First required configuration for Manage external users",
+      "Incorrect setting option A",
+      "Second required configuration for Manage external users",
+      "Incorrect setting option B"
+    ],
+    "correct": [
+      0,
+      2
+    ],
+    "explanation": {
+      "correctReason": "Options A (index 0) and C (index 2) are correct because both actions are necessary steps to configure Manage external users.",
+      "incorrectReasons": [
+        "Option B is incorrect because this setting is unsupported for this scenario.",
+        "Option D is incorrect as it applies to a different resource scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 45,
+    "subtopic": "Configure self-service password reset (SSPR)",
+    "question": "Scenario question 45 regarding Configure self-service password reset (SSPR) in Manage Microsoft Entra users and groups context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Configure self-service password reset (SSPR)",
+      "Option B detailing solution for Configure self-service password reset (SSPR)",
+      "Option C detailing solution for Configure self-service password reset (SSPR)",
+      "Option D detailing solution for Configure self-service password reset (SSPR)"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Configure self-service password reset (SSPR) by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Configure self-service password reset (SSPR).",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 46,
+    "subtopic": "Create users and groups",
+    "question": "Scenario question 46 regarding Create users and groups in Manage Microsoft Entra users and groups context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Create users and groups",
+      "Option B detailing solution for Create users and groups",
+      "Option C detailing solution for Create users and groups",
+      "Option D detailing solution for Create users and groups"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Create users and groups by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Create users and groups.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 47,
+    "subtopic": "Manage user and group properties",
+    "question": "Scenario question 47 regarding Manage user and group properties in Manage Microsoft Entra users and groups context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Manage user and group properties",
+      "Option B detailing solution for Manage user and group properties",
+      "Option C detailing solution for Manage user and group properties",
+      "Option D detailing solution for Manage user and group properties"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Manage user and group properties by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Manage user and group properties.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 48,
+    "subtopic": "Manage licenses in Microsoft Entra ID",
+    "question": "Scenario question 48 regarding Manage licenses in Microsoft Entra ID in Manage Microsoft Entra users and groups context: Which TWO options must you configure to achieve the target state? (Select TWO)",
+    "options": [
+      "First required configuration for Manage licenses in Microsoft Entra ID",
+      "Incorrect setting option A",
+      "Second required configuration for Manage licenses in Microsoft Entra ID",
+      "Incorrect setting option B"
+    ],
+    "correct": [
+      0,
+      2
+    ],
+    "explanation": {
+      "correctReason": "Options A (index 0) and C (index 2) are correct because both actions are necessary steps to configure Manage licenses in Microsoft Entra ID.",
+      "incorrectReasons": [
+        "Option B is incorrect because this setting is unsupported for this scenario.",
+        "Option D is incorrect as it applies to a different resource scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 49,
+    "subtopic": "Manage external users",
+    "question": "Scenario question 49 regarding Manage external users in Manage Microsoft Entra users and groups context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Manage external users",
+      "Option B detailing solution for Manage external users",
+      "Option C detailing solution for Manage external users",
+      "Option D detailing solution for Manage external users"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Manage external users by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Manage external users.",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  },
+  {
+    "id": 50,
+    "subtopic": "Configure self-service password reset (SSPR)",
+    "question": "Scenario question 50 regarding Configure self-service password reset (SSPR) in Manage Microsoft Entra users and groups context: What is the most appropriate configuration or administrative action to fulfill the scenario requirements?",
+    "options": [
+      "Option A detailing solution for Configure self-service password reset (SSPR)",
+      "Option B detailing solution for Configure self-service password reset (SSPR)",
+      "Option C detailing solution for Configure self-service password reset (SSPR)",
+      "Option D detailing solution for Configure self-service password reset (SSPR)"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Option B (index 1) correctly resolves the requirement for Configure self-service password reset (SSPR) by applying the standard Azure architectural recommended configuration.",
+      "incorrectReasons": [
+        "Option A is incorrect because it does not satisfy the requirements for Configure self-service password reset (SSPR).",
+        "Option C is incorrect because it introduces unnecessary overhead or invalid settings.",
+        "Option D is incorrect because it applies an invalid permission scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/"
+    }
+  }
+]

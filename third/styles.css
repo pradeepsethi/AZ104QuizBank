@@ -1,0 +1,22 @@
+.selection-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  text-align: left;
+  margin-bottom: 12px;
+}
+
+.select-input {
+  width: 100%;
+  padding: 10px 14px;
+  border: 2px solid var(--border-color);
+  border-radius: 8px;
+  font-size: 1rem;
+  background-color: #f9fafb;
+  cursor: pointer;
+}
+
+.select-input:focus {
+  border-color: var(--primary);
+  outline: none;
+}

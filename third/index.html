@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AZ-104 Practice Exam Platform</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="quiz-container">
+    <!-- Header Section -->
+    <header class="quiz-header">
+      <h1 id="quiz-title">AZ-104 Practice Exam</h1>
+      <div id="quiz-info" class="quiz-info hidden">
+        <span id="question-tracker">Question 1 of 15</span>
+        <span id="timer">Time: 30s</span>
+      </div>
+    </header>
+
+    <!-- Progress Bar -->
+    <div id="progress-container" class="progress-container hidden">
+      <div id="progress-bar" class="progress-bar"></div>
+    </div>
+
+    <!-- Start Screen -->
+    <section id="start-screen" class="screen active">
+      <h2>Select Exam Module</h2>
+      <p>Choose a practice set and domain topic to begin your preparation.</p>
+      
+      <div class="selection-group">
+        <label for="set-select"><strong>Practice Set:</strong></label>
+        <select id="set-select" class="select-input">
+          <option value="set1">Set 1</option>
+          <option value="set2">Set 2</option>
+          <option value="set3">Set 3</option>
+        </select>
+      </div>
+
+      <div class="selection-group">
+        <label for="topic-select"><strong>Exam Topic:</strong></label>
+        <select id="topic-select" class="select-input">
+          <option value="all">All Topics (Full Practice Set)</option>
+          <optgroup label="Domain 1: Identity & Governance">
+            <option value="d1_topic1">Entra users and groups</option>
+            <option value="d1_topic2">Access to Azure resources (RBAC)</option>
+            <option value="d1_topic3">Subscriptions and governance</option>
+          </optgroup>
+          <optgroup label="Domain 2: Storage">
+            <option value="d2_topic1">Configure access to storage</option>
+            <option value="d2_topic2">Storage accounts</option>
+            <option value="d2_topic3">Files and Blob Storage</option>
+          </optgroup>
+          <optgroup label="Domain 3: Compute">
+            <option value="d3_topic1">ARM / Bicep templates</option>
+            <option value="d3_topic2">Virtual machines</option>
+            <option value="d3_topic3">Containers</option>
+            <option value="d3_topic4">App Service</option>
+          </optgroup>
+          <optgroup label="Domain 4: Networking">
+            <option value="d4_topic1">Virtual networks (VNets)</option>
+            <option value="d4_topic2">Secure access to VNets</option>
+            <option value="d4_topic3">Name resolution & load balancing</option>
+          </optgroup>
+          <optgroup label="Domain 5: Monitor & Backup">
+            <option value="d5_topic1">Monitor resources</option>
+            <option value="d5_topic2">Backup and recovery</option>
+          </optgroup>
+        </select>
+      </div>
+
+      <button id="start-btn" class="btn primary-btn">Start Practice Exam</button>
+    </section>
+
+    <!-- Question Screen -->
+    <section id="question-screen" class="screen hidden">
+      <h2 id="question-text">Question loading...</h2>
+      <div id="options-container" class="options-container">
+        <!-- Options generated dynamically -->
+      </div>
+      <div class="controls">
+        <button id="next-btn" class="btn primary-btn hidden">Next Question</button>
+      </div>
+    </section>
+
+    <!-- Results Screen -->
+    <section id="result-screen" class="screen hidden">
+      <h2>Exam Completed!</h2>
+      <div class="score-card">
+        <p class="score-label">Your Score</p>
+        <p id="final-score" class="score-value">0 / 0</p>
+        <p id="score-percentage" class="score-percentage">0%</p>
+      </div>
+      <div id="review-container" class="review-container">
+        <h3>Answer Review & Explanations</h3>
+        <ul id="review-list" class="review-list"></ul>
+      </div>
+      <button id="restart-btn" class="btn primary-btn">Main Menu</button>
+    </section>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

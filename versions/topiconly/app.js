@@ -7,15 +7,11 @@ let totalTimeSeconds = 0;
 
 // Parse Query Parameters
 const urlParams = new URLSearchParams(window.location.search);
-const quizMode = urlParams.get('mode') || 'topic'; // 'topic', 'domain', or 'exam'
-const topicId = urlParams.get('topic') || 'd1_topic1';
-const domainId = urlParams.get('domain') || 'd1';
-const examId = urlParams.get('exam') || 'e1';
-const quizTitle = urlParams.get('title') || 'Practice Quiz';
+const topicId = urlParams.get('topic') || 'd3_topic1';
+const topicTitle = urlParams.get('title') || 'Entra Users & Groups';
 
 // DOM Elements
 const activeTopicTitle = document.getElementById('active-topic-title');
-const selectorLabel = document.getElementById('selector-label');
 const setSelect = document.getElementById('set-select');
 const questionTracker = document.getElementById('question-tracker');
 const timerDisplay = document.getElementById('timer');
@@ -37,19 +33,10 @@ const scorePercentage = document.getElementById('score-percentage');
 const reviewList = document.getElementById('review-list');
 
 document.addEventListener('DOMContentLoaded', () => {
-  // PAGE GUARD: Only execute quiz logic on topic.html (where questionScreen exists)
-  if (!document.getElementById('question-screen')) {
-    return;
-  }
-
   if (activeTopicTitle) {
-    activeTopicTitle.textContent = quizTitle;
+    activeTopicTitle.textContent = topicTitle;
   }
 
-  // Configure UI & dropdown labels
-  configureSelectorDropdown();
-
-  // Start initial quiz session
   startQuizSession();
 
   if (setSelect) {
@@ -63,30 +50,10 @@ document.addEventListener('DOMContentLoaded', () => {
   if (submitBtn) submitBtn.addEventListener('click', () => confirmAndSubmitQuiz(false));
 });
 
-function configureSelectorDropdown() {
-  if (!setSelect || !selectorLabel) return;
-
-  if (quizMode === 'exam') {
-    selectorLabel.textContent = 'Exam Set:';
-    setSelect.innerHTML = `
-      <option value="e1" ${examId === 'e1' ? 'selected' : ''}>Full Exam 1 (e1.json)</option>
-      <option value="e2" ${examId === 'e2' ? 'selected' : ''}>Full Exam 2 (e2.json)</option>
-      <option value="e3" ${examId === 'e3' ? 'selected' : ''}>Full Exam 3 (e3.json)</option>
-    `;
-  } else {
-    selectorLabel.textContent = 'Practice Set:';
-    setSelect.innerHTML = `
-      <option value="set1" selected>Set 1</option>
-      <option value="set2">Set 2</option>
-      <option value="set3">Set 3</option>
-    `;
-  }
-}
-
 async function startQuizSession() {
   clearInterval(timerInterval);
 
-  const selectedValue = setSelect ? setSelect.value : (quizMode === 'exam' ? 'e1' : 'set1');
+  const selectedSet = setSelect ? setSelect.value : 'set1';
 
   if (questionScreen) questionScreen.classList.remove('hidden');
   if (quizInfo) quizInfo.classList.remove('hidden');
@@ -94,10 +61,10 @@ async function startQuizSession() {
   if (questionPalette) questionPalette.classList.remove('hidden');
   if (resultScreen) resultScreen.classList.add('hidden');
 
-  await loadQuestions(selectedValue);
+  await loadQuestions(selectedSet, topicId);
 
   if (!questions || questions.length === 0) {
-    if (questionText) questionText.textContent = `No questions found for selection: "${selectedValue}". Check folder path.`;
+    if (questionText) questionText.textContent = `No questions found for this topic in ${selectedSet.toUpperCase()}.`;
     if (optionsContainer) optionsContainer.innerHTML = '';
     if (questionPalette) questionPalette.innerHTML = '';
     if (questionTracker) questionTracker.textContent = 'Question 0 of 0';
@@ -110,49 +77,28 @@ async function startQuizSession() {
 
   currentQuestionIndex = 0;
   userSelections = new Array(questions.length).fill(null).map(() => []);
-  totalTimeSeconds = questions.length * 2 * 60; // 2 minutes per question
+  totalTimeSeconds = questions.length * 2 * 60;
 
   renderPalette();
   showQuestion();
   startGlobalTimer();
 }
 
-async function loadQuestions(selection) {
+async function loadQuestions(setName, topic) {
   questions = [];
-
   try {
-    let fetchUrl = '';
-
-    if (quizMode === 'exam') {
-      // Direct path: data/exams/e1.json
-      fetchUrl = `data/exams/${selection}.json?t=${Date.now()}`;
-
-    } else if (quizMode === 'domain') {
-      // Direct path: data/domains/set1/d1.json
-      fetchUrl = `data/domains/${selection}/${domainId}.json?t=${Date.now()}`;
-
-    } else if (quizMode === 'topic') {
-      // Direct path: data/topics/set1/d1_topic1.json
-      fetchUrl = `data/topics/${selection}/${topicId}.json?t=${Date.now()}`;
-    }
-
-    const response = await fetch(fetchUrl);
+    const response = await fetch(`data/${setName}/${topic}.json?t=${Date.now()}`);
     if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-
     questions = await response.json();
-
-    // Randomize question sequence
     questions = questions.sort(() => Math.random() - 0.5);
-
   } catch (error) {
-    console.error(`Error loading file for ${quizMode} mode:`, error);
+    console.error(`Could not load data/${setName}/${topic}.json`, error);
   }
 }
 
 function renderPalette() {
   if (!questionPalette) return;
   questionPalette.innerHTML = '';
-
   questions.forEach((_, idx) => {
     const paletteItem = document.createElement('button');
     paletteItem.classList.add('palette-btn');

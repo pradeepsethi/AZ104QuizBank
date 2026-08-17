@@ -1,0 +1,1052 @@
+[
+  {
+    "id": 1,
+    "subtopic": "Implement and manage Azure Policy",
+    "question": "You need to assign an Azure Policy definition to a resource group named RG1. The policy must automatically remediate existing non-compliant virtual machines in RG1 by installing the Log Analytics agent. Which policy effect requires a managed identity during assignment to perform remediation?",
+    "options": [
+      "DeployIfNotExists",
+      "AuditIfNotExists",
+      "Deny",
+      "Disabled"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "The DeployIfNotExists (and Modify) policy effects require a managed identity (system-assigned or user-assigned) so Azure Policy can execute deployment and configuration tasks to remediate existing non-compliant resources.",
+      "incorrectReasons": [
+        "AuditIfNotExists only logs compliance evaluation results without making changes, so no managed identity or elevated permissions are required.",
+        "Deny blocks the creation or update of non-compliant resources at request time and does not remediate existing resources.",
+        "Disabled turns off evaluation for the policy definition and performs no action."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/governance/policy/concepts/effects#deployifnotexists"
+    }
+  },
+  {
+    "id": 2,
+    "subtopic": "Implement and manage Azure Policy",
+    "question": "An administrator wants to prevent users from creating virtual machines of specific SKUs (e.g., Standard_G series) across Subscription1. Which Azure Policy effect should be used in the custom policy definition?",
+    "options": [
+      "Deny",
+      "Audit",
+      "Disabled",
+      "Modify"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "The Deny effect prevents Resource Manager request evaluation if the request matches specified non-compliant parameters, blocking the creation of disallowed VM SKUs.",
+      "incorrectReasons": [
+        "Audit allows creation of the resource but logs a warning in compliance reports.",
+        "Disabled turns policy evaluation off completely.",
+        "Modify alters properties or tags on existing/incoming resources rather than blocking creation."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/governance/policy/concepts/effects#deny"
+    }
+  },
+  {
+    "id": 3,
+    "subtopic": "Implement and manage Azure Policy",
+    "question": "You have assigned a built-in policy initiative to Subscription1 that includes a DeployIfNotExists policy. You need to fix existing resources that were marked non-compliant before the policy was assigned. What feature should you trigger in Azure Policy?",
+    "options": [
+      "A remediation task",
+      "An evaluation trigger via Azure CLI",
+      "An exemption assignment",
+      "A policy definition update"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Remediation tasks are created specifically for policies with DeployIfNotExists or Modify effects to bring existing non-compliant resources into compliance.",
+      "incorrectReasons": [
+        "Re-triggering compliance evaluation re-scans resources but does not automatically change non-compliant resources.",
+        "An exemption waives compliance requirements for selected resources rather than fixing them.",
+        "Updating the definition does not automatically remediate existing resources."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/governance/policy/how-to/remediate-resources"
+    }
+  },
+  {
+    "id": 4,
+    "subtopic": "Implement and manage Azure Policy",
+    "question": "You create a custom Azure Policy definition to mandate specific storage account configurations. You want to group this policy with several other related policies into a single manageable unit. What object should you create?",
+    "options": [
+      "An initiative definition",
+      "A management group",
+      "A blueprint definition",
+      "A resource group"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "An initiative definition (also known as a policy set) groups multiple individual policy definitions together to simplify assignment and management toward a single goal.",
+      "incorrectReasons": [
+        "A management group is a scope container for subscriptions, not a policy grouping object.",
+        "Azure Blueprints is a deployment orchestration tool (and legacy feature being replaced by Deployment Stacks), not the primary policy grouping concept.",
+        "A resource group is a container that holds related Azure resources."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/governance/policy/concepts/initiative-definition-structure"
+    }
+  },
+  {
+    "id": 5,
+    "subtopic": "Implement and manage Azure Policy",
+    "question": "A team requires a temporary waiver for a policy that enforces tagging on production storage accounts in ResourceGroup1. You do not want to remove or modify the underlying policy assignment. What should you create in Azure Policy?",
+    "options": [
+      "An exemption",
+      "A remediation task",
+      "An initiative definition",
+      "A policy parameter override"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Policy exemptions allow specific scopes (such as a resource group or resource) to be exempted from policy evaluation without modifying or removing the overall policy assignment.",
+      "incorrectReasons": [
+        "A remediation task deploys compliance configurations to non-compliant resources.",
+        "An initiative definition groups multiple policies together.",
+        "Overriding parameters changes policy behavior across the assignment, not just for a specific exempted scenario."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/governance/policy/concepts/exemption-structure"
+    }
+  },
+  {
+    "id": 6,
+    "subtopic": "Implement and manage Azure Policy",
+    "question": "You assign an Azure Policy with the Audit effect to a management group containing five subscriptions. When will Azure Policy evaluate compliance for existing resources in these subscriptions?",
+    "options": [
+      "Automatically every 24 hours and upon triggering an explicit compliance evaluation scan",
+      "Every 5 minutes automatically",
+      "Only when a resource modification request is submitted via ARM",
+      "Only when manually executed by an global administrator"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Azure Policy automatically evaluates existing resources once every 24 hours. Compliance scans can also be triggered manually on demand.",
+      "incorrectReasons": [
+        "Evaluation every 5 minutes is incorrect and would cause excessive processing overhead.",
+        "Resource modification triggers evaluation for that specific resource, but existing untouched resources are still scanned during periodic 24-hour cycles.",
+        "Periodic evaluation happens automatically without requiring manual global admin intervention."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/governance/policy/concepts/eval-triggers"
+    }
+  },
+  {
+    "id": 7,
+    "subtopic": "Implement and manage Azure Policy",
+    "question": "You create an Azure Policy definition. Which structural JSON section defines the conditions under which the policy effect is triggered?",
+    "options": [
+      "if condition inside policyRule",
+      "parameters section",
+      "metadata section",
+      "targetScope section"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "The `policyRule` element contains `if` and `then` blocks; the `if` block defines the logical conditions that trigger the policy effect defined in `then`.",
+      "incorrectReasons": [
+        "The `parameters` section defines configurable input values passed into the policy definition.",
+        "The `metadata` section stores descriptive information such as version, category, and author.",
+        "The `targetScope` property restricts where policy definitions can be defined (e.g., Tenant or Subscription)."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/governance/policy/concepts/definition-structure#policy-rule"
+    }
+  },
+  {
+    "id": 8,
+    "subtopic": "Configure resource locks",
+    "question": "A resource group named RG-Prod contains a virtual machine named VM1 and a virtual network named VNet1. You apply a ReadOnly resource lock to RG-Prod. What is the effect of this lock on VM1?",
+    "options": [
+      "Authorized users can view VM1 properties but cannot start, stop, or modify VM1.",
+      "Authorized users can start and stop VM1, but cannot delete it.",
+      "Authorized users can delete VM1, but cannot modify its virtual network interface.",
+      "The lock applies only to RG-Prod metadata and has no effect on VM1."
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "A ReadOnly lock on a scope prevents all write, update, and action operations on resources within that scope, including control-plane POST actions like starting or stopping a virtual machine.",
+      "incorrectReasons": [
+        "Starting and stopping a VM requires POST requests that are blocked by a ReadOnly lock (CanNotDelete allows start/stop operations).",
+        "A ReadOnly lock prevents deletion as well as modifications.",
+        "Resource locks are inherited by child resources within the parent scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/lock-resources#considerations-before-applying-locks"
+    }
+  },
+  {
+    "id": 9,
+    "subtopic": "Configure resource locks",
+    "question": "You need to prevent accidental deletion of a production Azure SQL Database named SQLDB1 while still allowing developers to update database schemas and execute queries. Which resource lock type should you apply directly to SQLDB1?",
+    "options": [
+      "CanNotDelete (Delete)",
+      "ReadOnly",
+      "WriteOnly",
+      "NoAccess"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "A CanNotDelete (Delete) lock allows authorized users to read and modify resource configurations, but prevents deleting the resource.",
+      "incorrectReasons": [
+        "A ReadOnly lock would block necessary write and update management operations.",
+        "WriteOnly is not a valid Azure resource lock type.",
+        "NoAccess is not a valid Azure resource lock type."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/lock-resources#lock-types"
+    }
+  },
+  {
+    "id": 10,
+    "subtopic": "Configure resource locks",
+    "question": "You have a storage account named storage1 protected by a CanNotDelete lock. A user assigned the Owner role on Subscription1 attempts to delete storage1 using the Azure portal. What will occur?",
+    "options": [
+      "The deletion request fails until the lock is explicitly removed.",
+      "The deletion succeeds because the Owner role bypasses resource locks.",
+      "The storage account is moved to a soft-deleted state automatically.",
+      "The lock is removed automatically and storage1 is deleted."
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Resource locks take precedence over RBAC permissions. Even users with the Owner role cannot delete or modify locked resources until the lock is explicitly removed.",
+      "incorrectReasons": [
+        "Owner permissions do not automatically bypass resource locks.",
+        "Resource locks block ARM management operations directly; soft-delete features depend on resource settings, but ARM deletion fails first.",
+        "Locks are never removed automatically during a delete attempt."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/lock-resources#who-can-create-or-delete-locks"
+    }
+  },
+  {
+    "id": 11,
+    "subtopic": "Configure resource locks",
+    "question": "Subscription1 contains ResourceGroup1. ResourceGroup1 has a CanNotDelete lock applied. You create a new storage account named storage2 inside ResourceGroup1. What is the locking behavior for storage2?",
+    "options": [
+      "storage2 inherits the CanNotDelete lock from ResourceGroup1.",
+      "storage2 has no lock until a lock is explicitly created on storage2.",
+      "storage2 inherits a ReadOnly lock automatically.",
+      "The operation fails because new resources cannot be created in locked resource groups."
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Resource locks are inherited down the resource hierarchy. Any child resource created inside a resource group inherits the resource group's locks.",
+      "incorrectReasons": [
+        "Locks are inherited automatically by child resources, so storage2 is locked.",
+        "Lock types do not convert upon inheritance; it remains a CanNotDelete lock.",
+        "CanNotDelete locks allow creation of new resources within the resource group."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/lock-resources#lock-inheritance"
+    }
+  },
+  {
+    "id": 12,
+    "subtopic": "Configure resource locks",
+    "question": "Which Azure RBAC permission is required for a user to create or delete resource locks on a resource scope?",
+    "options": [
+      "Microsoft.Authorization/locks/*",
+      "Microsoft.Resources/subscriptions/resourceGroups/write",
+      "Microsoft.Management/managementGroups/write",
+      "Microsoft.Security/policies/write"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "To create or delete resource locks, a principal must have access to `Microsoft.Authorization/*` or `Microsoft.Authorization/locks/*` actions, which are included in Owner and User Access Administrator roles.",
+      "incorrectReasons": [
+        "Resource group write permissions allow modifying resource groups, but not managing authorization locks.",
+        "Management group write permissions manage governance structure, not resource locks directly.",
+        "Security policy write permissions deal with Defender and Security Center policies."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/lock-resources#who-can-create-or-delete-locks"
+    }
+  },
+  {
+    "id": 13,
+    "subtopic": "Configure resource locks",
+    "question": "An administrator applies a ReadOnly lock to a storage account named logs1. Which operation will continue to function successfully for application clients?",
+    "options": [
+      "Reading blob contents using storage account data-plane SAS tokens",
+      "Regenerating storage account access keys",
+      "Creating new containers using Azure Resource Manager",
+      "Changing the storage account access tier"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Resource locks protect control-plane (ARM) management operations. Data-plane operations (such as reading blobs via SAS tokens or storage keys) are not restricted by ARM resource locks unless the management request requires key listing via ARM.",
+      "incorrectReasons": [
+        "Regenerating account keys is an ARM POST action that is blocked by a ReadOnly lock.",
+        "Creating new containers via ARM management calls is a write operation blocked by a ReadOnly lock.",
+        "Changing storage access tier is an ARM control-plane modification blocked by a ReadOnly lock."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/lock-resources#considerations-before-applying-locks"
+    }
+  },
+  {
+    "id": 14,
+    "subtopic": "Configure resource locks",
+    "question": "You apply a CanNotDelete lock to an Azure Virtual Network named VNet-Hub. You later decide to move VNet-Hub to a different resource group. What must you do first?",
+    "options": [
+      "Remove the CanNotDelete lock from VNet-Hub.",
+      "Change the lock type from CanNotDelete to ReadOnly.",
+      "Upgrade your RBAC permissions to Global Administrator.",
+      "Disable all subnet delegations in VNet-Hub."
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Moving a resource requires delete operations from the source resource group and write operations to the target. A CanNotDelete lock on the resource blocks resource moves until removed.",
+      "incorrectReasons": [
+        "Changing to ReadOnly would further restrict management operations and block the move.",
+        "Global Administrator is an Azure AD identity role and does not override ARM resource locks.",
+        "Subnet delegation does not affect the lock status or move operation requirements."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/lock-resources#considerations-before-applying-locks"
+    }
+  },
+  {
+    "id": 15,
+    "subtopic": "Apply and manage tags on resources",
+    "question": "You assign a tag `Environment = Production` to a resource group named RG-Data. You deploy a new storage account named storedata1 inside RG-Data. What tag will storedata1 have immediately after deployment?",
+    "options": [
+      "No tags",
+      "Environment = Production",
+      "Environment = Default",
+      "Inherited = True"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Tags applied to a resource group are NOT automatically inherited by resources inside that resource group.",
+      "incorrectReasons": [
+        "Automatic tag inheritance does not occur natively in ARM without Azure Policy enforcement.",
+        "Default tags are not automatically synthesized by Azure ARM.",
+        "Inherited tags are not created or populated by default."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/tag-resources#inheritance"
+    }
+  },
+  {
+    "id": 16,
+    "subtopic": "Apply and manage tags on resources",
+    "question": "You need to automatically copy missing tags from a parent resource group to all new resources deployed into that resource group. What solution should you implement?",
+    "options": [
+      "An Azure Policy using the Modify effect",
+      "An Azure Automation Runbook triggered daily",
+      "A CanNotDelete resource lock on the resource group",
+      "A custom Azure RBAC role definition"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Azure Policy with a Modify effect can be configured to evaluate resources during creation or update and copy missing tags from the parent resource group.",
+      "incorrectReasons": [
+        "Automation runbooks execute asynchronously on schedules, not synchronously during resource deployment.",
+        "Resource locks manage deletion/write safety, not metadata tagging.",
+        "RBAC roles grant permissions to identities but cannot execute logic to copy tags."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/governance/policy/tutorials/transform-with-modify"
+    }
+  },
+  {
+    "id": 17,
+    "subtopic": "Apply and manage tags on resources",
+    "question": "Which of the following limitations applies to Azure resource tagging?",
+    "options": [
+      "Each resource, resource group, and subscription can have a maximum of 50 tag name-value pairs.",
+      "Tag names are case-sensitive and can contain up to 2,048 characters.",
+      "Tags can be applied to all Azure resource types without exception.",
+      "Tag values cannot exceed 10 characters in length."
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Azure resource limits dictate a maximum of 50 tag name-value pairs directly on each resource, resource group, or subscription.",
+      "incorrectReasons": [
+        "Tag names are case-insensitive for operations, and tag names are limited to 512 characters (values to 256 characters).",
+        "Not all Azure resource types support tagging (e.g., classical legacy resources or certain child hidden resources).",
+        "Tag values can be up to 256 characters long, not limited to 10."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/tag-resources#limitations"
+    }
+  },
+  {
+    "id": 18,
+    "subtopic": "Apply and manage tags on resources",
+    "question": "You need to locate all virtual machines across multiple resource groups that have the tag `CostCenter = 1004` using Azure CLI. Which command should you execute?",
+    "options": [
+      "az resource list --tag CostCenter=1004 --resource-type Microsoft.Compute/virtualMachines",
+      "az vm list-by-tags --name CostCenter --value 1004",
+      "az tag list --resource-id CostCenter=1004",
+      "az group list --query \"[?tags.CostCenter=='1004']\""
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "`az resource list` with the `--tag` and `--resource-type` parameters queries all resources matching the tag key/value pair filtered by the VM resource type.",
+      "incorrectReasons": [
+        "`az vm list-by-tags` is not a valid Azure CLI command.",
+        "`az tag list` displays tag definitions, not resource filtering by tags.",
+        "`az group list` queries resource groups rather than individual virtual machines across groups."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/cli/azure/resource#az-resource-list"
+    }
+  },
+  {
+    "id": 19,
+    "subtopic": "Apply and manage tags on resources",
+    "question": "You deploy an Azure Storage account. You attach the tag `Dept = Finance`. Later, an administrator uses Cost Management to view cost details. Where can tags be used in Cost Analysis?",
+    "options": [
+      "As a filter or grouping dimension for cost and usage details",
+      "To automatically apply spending discounts to tagged resources",
+      "To force automatic shutdown of tagged resources when budgets are met",
+      "To change the currency of the billing invoice"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Tags appear in cost reporting data, allowing organizations to group, categorize, and filter costs in Cost Analysis based on custom metadata like business department or environment.",
+      "incorrectReasons": [
+        "Tags do not affect pricing tiers or discounts.",
+        "Budgets and action groups manage automated actions, not tags directly.",
+        "Billing currencies are set at the agreement/account level, independent of resource tags."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/cost-management-billing/costs/group-filter"
+    }
+  },
+  {
+    "id": 20,
+    "subtopic": "Apply and manage tags on resources",
+    "question": "You want to append a new tag `Owner = Admin1` to an existing resource named VM1 without overwriting its existing tags (`Dept = IT`). Which PowerShell command correctly appends the tag?",
+    "options": [
+      "$r = Get-AzResource -ResourceName VM1; $r.Tags[\"Owner\"]=\"Admin1\"; Set-AzResource -ResourceId $r.ResourceId -Tag $r.Tags -Force",
+      "New-AzTag -ResourceId (Get-AzResource -ResourceName VM1).ResourceId -Tag @{Owner=\"Admin1\"}",
+      "Set-AzResource -ResourceName VM1 -Tag @{Owner=\"Admin1\"} -Force",
+      "Update-AzTag -Name VM1 -Tag @{Owner=\"Admin1\"} -Operation Replace"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "To append tags without overwriting existing ones, you must retrieve the current tag dictionary, add or update the new key-value pair, and pass the combined collection back to `Set-AzResource` or use `Update-AzTag -Operation Merge`.",
+      "incorrectReasons": [
+        "`New-AzTag` creates or replaces the entire tag set on a resource unless specified properly with merge operations.",
+        "Passing a raw hash table directly to `Set-AzResource` replaces all existing tags with only the new hashtable.",
+        "`-Operation Replace` replaces all existing tags on the resource instead of merging."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/tag-resources-powershell"
+    }
+  },
+  {
+    "id": 21,
+    "subtopic": "Apply and manage tags on resources",
+    "question": "You have an Azure Policy assigned with the Modify effect to add a required tag `BusinessUnit = Core` to resources. A deployment template creates a resource without this tag. What happens during deployment?",
+    "options": [
+      "The resource is created successfully, and the tag BusinessUnit = Core is added during deployment.",
+      "The deployment fails because the tag was missing in the template.",
+      "The deployment succeeds, but the resource is permanently flagged as non-compliant.",
+      "The deployment is delayed for 24 hours until the next policy evaluation cycle."
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "The Modify effect evaluates the resource properties during creation or update and automatically injects/appends the missing tag before ARM finalizes creation.",
+      "incorrectReasons": [
+        "The Modify effect alters the request to make it compliant rather than blocking deployment (which would be the Deny effect).",
+        "Because the Modify effect adds the tag during evaluation, the resource becomes compliant.",
+        "Modify policies process during the ARM request payload phase synchronously."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/governance/policy/concepts/effects#modify"
+    }
+  },
+  {
+    "id": 22,
+    "subtopic": "Manage resource groups",
+    "question": "You delete a resource group named RG-Test that contains a virtual machine, a virtual network, and two storage accounts. What happens to the resources inside RG-Test?",
+    "options": [
+      "All resources contained inside RG-Test are deleted permanently.",
+      "The virtual machine is deleted, but the storage accounts are moved to the Default resource group.",
+      "The resource group deletion fails until all resources inside it are manually deleted first.",
+      "All resources are automatically backed up to Azure Vault before deletion."
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Deleting a resource group deletes all resources contained within that resource group in an orchestrated deletion sequence managed by ARM.",
+      "incorrectReasons": [
+        "Resources are not automatically migrated to another resource group upon deletion.",
+        "ARM allows deleting non-empty resource groups and handles child resource removal automatically.",
+        "Automatic vault backups are not created as part of standard resource group deletion."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/manage-resource-groups-portal#delete-resource-group"
+    }
+  },
+  {
+    "id": 23,
+    "subtopic": "Manage resource groups",
+    "question": "You need to move a storage account named store1 from ResourceGroupA to ResourceGroupB within the same subscription. Which statement correctly describes a requirement for moving this resource?",
+    "options": [
+      "Both source and target resource groups are locked during the move operation.",
+      "The storage account data will be offline and inaccessible for up to 4 hours during the move.",
+      "The resource ID of store1 remains unchanged after the move.",
+      "Moving a resource requires changing the Azure region of store1."
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "During a resource move operation, both the source and target resource groups are write-locked until the move completes.",
+      "incorrectReasons": [
+        "Moving a storage account is a management plane metadata operation and does not take data-plane storage offline.",
+        "The resource ID changes because the resource group path segment in the URI changes.",
+        "Moving a resource to another resource group does not move or change its physical region."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/move-resource-group-and-subscription"
+    }
+  },
+  {
+    "id": 24,
+    "subtopic": "Manage resource groups",
+    "question": "You plan to deploy an Azure ARM template to a resource group named RG1. What scope must be specified in the template deployment command if you are targeting RG1?",
+    "options": [
+      "Resource Group scope",
+      "Subscription scope",
+      "Management Group scope",
+      "Tenant scope"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Deployments targeted at deploying resources like VMs, storage accounts, and VNets within a specific resource group use the Resource Group deployment scope (`az deployment group create` / `New-AzResourceGroupDeployment`).",
+      "incorrectReasons": [
+        "Subscription scope deployments are used to create resource groups, policies, or role assignments across a subscription.",
+        "Management Group scope deployments create policies or subscriptions within a management group.",
+        "Tenant scope deployments create resources at the root tenant level (e.g., management groups)."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/templates/deploy-to-resource-group"
+    }
+  },
+  {
+    "id": 25,
+    "subtopic": "Manage resource groups",
+    "question": "A virtual machine named VM1 resides in ResourceGroup1. VM1 is connected to a virtual network named VNet1 located in ResourceGroup2 within the same subscription. Is this cross-resource group reference supported?",
+    "options": [
+      "Yes, resources in different resource groups can communicate and connect to each other.",
+      "No, a VM can only connect to virtual networks in its own resource group.",
+      "Yes, but only if both resource groups have identical resource locks.",
+      "No, cross-resource group networking requires an Azure ExpressRoute circuit."
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Azure resources can interact with resources in different resource groups (and subscriptions), provided appropriate network configurations and RBAC permissions are present.",
+      "incorrectReasons": [
+        "Resource group boundaries do not dictate network connectivity limits.",
+        "Resource locks control management plane operations, not resource cross-referencing.",
+        "ExpressRoute is for hybrid on-premises connectivity, not cross-resource group communication within Azure."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/overview#resource-groups"
+    }
+  },
+  {
+    "id": 26,
+    "subtopic": "Manage resource groups",
+    "question": "You need to grant a user named User1 permission to create new resource groups in Subscription1 without giving User1 full Owner access to the subscription. Which built-in RBAC role should you assign to User1 on Subscription1?",
+    "options": [
+      "Resource Group Contributor (or custom role with Microsoft.Resources/subscriptions/resourceGroups/write)",
+      "Reader",
+      "Storage Account Contributor",
+      "User Access Administrator"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Creating a resource group requires `Microsoft.Resources/subscriptions/resourceGroups/write` permission on the subscription, which Contributor or a custom role provides.",
+      "incorrectReasons": [
+        "Reader provides read-only permissions and cannot create resources or resource groups.",
+        "Storage Account Contributor manages storage accounts, not subscription resource groups.",
+        "User Access Administrator manages RBAC role assignments, not resource deployment."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/role-based-access-control/built-in-roles"
+    }
+  },
+  {
+    "id": 27,
+    "subtopic": "Manage resource groups",
+    "question": "You export an ARM template from an existing resource group RG-App. What does the exported JSON template contain?",
+    "options": [
+      "The JSON definitions and properties of all supported resources currently in RG-App",
+      "A complete binary snapshot of all virtual machine hard drives in RG-App",
+      "All cost management historical data and metric logs for RG-App",
+      "The Microsoft Entra user identity list associated with RG-App"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Exporting a template from a resource group generates an ARM template JSON file representing the schema, properties, and configuration of resources inside that resource group.",
+      "incorrectReasons": [
+        "Exporting templates creates declarative infrastructure-as-code definitions, not OS disk VHD backups.",
+        "Templates do not include telemetry or cost data.",
+        "Templates do not include user lists or tenant directory identity objects."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/templates/export-template-portal"
+    }
+  },
+  {
+    "id": 28,
+    "subtopic": "Manage resource groups",
+    "question": "Which of the following resources CANNOT be moved between Azure resource groups?",
+    "options": [
+      "Azure Key Vault HSM hardware security modules (in specific configurations) or unsupported third-party marketplace resources",
+      "Standard Azure Storage accounts",
+      "Azure Virtual Machines and their attached managed disks",
+      "Azure Virtual Networks and Network Security Groups"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Certain resources (such as specific specialized security hardware, AD Domain Services, or select partner solutions) have documented move limitations and cannot be transferred across resource groups.",
+      "incorrectReasons": [
+        "Standard Azure storage accounts fully support move operations.",
+        "Virtual machines and managed disks fully support move operations.",
+        "VNets and NSGs fully support move operations."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/move-support-resources"
+    }
+  },
+  {
+    "id": 29,
+    "subtopic": "Manage subscriptions",
+    "question": "You need to transfer ownership of an Azure subscription to a different Microsoft Entra tenant. What impact does this transfer have on existing Azure RBAC role assignments at the subscription scope?",
+    "options": [
+      "All RBAC role assignments are permanently removed during the tenant transfer.",
+      "RBAC role assignments are automatically converted to equivalent Microsoft Entra roles.",
+      "RBAC role assignments remain unchanged and valid in the target tenant.",
+      "RBAC role assignments are disabled for 30 days then reactivated."
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Transferring a subscription to a different Microsoft Entra directory removes all existing Azure RBAC role assignments because security principals (users, groups, service principals) are bound to the source tenant.",
+      "incorrectReasons": [
+        "Azure RBAC roles do not convert to Entra ID roles automatically.",
+        "Identities from the source directory are not present in the target directory, so assignments cannot remain valid.",
+        "Role assignments are removed immediately, not temporarily disabled."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/role-based-access-control/transfer-subscription"
+    }
+  },
+  {
+    "id": 30,
+    "subtopic": "Manage subscriptions",
+    "question": "You need to increase the default quota limit for the number of vCPUs in an Azure region for Subscription1. What should you do in the Azure portal?",
+    "options": [
+      "Submit a Support Request under Service and subscription limits (quotas)",
+      "Assign the Global Administrator role to your user account",
+      "Create a custom Azure Policy definition with the Modify effect",
+      "Upgrade Subscription1 to an Enterprise Agreement (EA) plan"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Subscription quota limits for resources like vCPU cores are increased by creating a quota increase support request in the Azure portal.",
+      "incorrectReasons": [
+        "Global Admin permissions do not automatically override regional infrastructure quotas.",
+        "Azure Policy enforces governance rules; it cannot increase physical backend subscription resource limits.",
+        "Upgrading an agreement tier does not automatically adjust specific regional resource core limits without request evaluation."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-portal/supportability/per-vm-quota-requests"
+    }
+  },
+  {
+    "id": 31,
+    "subtopic": "Manage subscriptions",
+    "question": "An administrator needs to deploy a custom application that registers a new resource provider (`Microsoft.ContainerService`) on Subscription1. The administrator receives a `MissingSubscriptionRegistration` error. What command resolves this?",
+    "options": [
+      "az provider register --namespace Microsoft.ContainerService",
+      "az feature register --namespace Microsoft.ContainerService --name AKS",
+      "az resource policy create --name RegisterProvider",
+      "az group deployment create --resource-group Default"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "The `az provider register` command explicitly registers the specified resource provider with the active subscription, allowing resources of that type to be deployed.",
+      "incorrectReasons": [
+        "`az feature register` registers preview features within an already registered provider, not the provider namespace itself.",
+        "Policies do not register resource providers.",
+        "Resource group deployments fail if the required resource provider is unregistered."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/resource-providers-and-types"
+    }
+  },
+  {
+    "id": 32,
+    "subtopic": "Manage subscriptions",
+    "question": "You are assigning Azure RBAC roles to grant a user permission to view billing details and download invoices for an Azure Pay-As-You-Go subscription. Which role assignment provides least privilege?",
+    "options": [
+      "Billing Reader",
+      "Owner",
+      "Contributor",
+      "User Access Administrator"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "The Billing Reader role grants read-only access to subscription billing data, invoices, and cost details without granting permission to manage resources.",
+      "incorrectReasons": [
+        "Owner grants full control over subscription resources and access management, violating least privilege.",
+        "Contributor grants control over all technical resources but does not focus specifically on least privilege for billing data.",
+        "User Access Administrator manages RBAC assignments, not billing operations."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/cost-management-billing/manage/understand-mca-roles"
+    }
+  },
+  {
+    "id": 33,
+    "subtopic": "Manage subscriptions",
+    "question": "Which component serves as the top-level container for organizing subscriptions into a single unified hierarchy for access, policy, and compliance management?",
+    "options": [
+      "Management Groups",
+      "Resource Groups",
+      "Resource Lock containers",
+      "Tenant Root Group"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Management groups provide containers above subscriptions to manage access, policy, and compliance across multiple subscriptions.",
+      "incorrectReasons": [
+        "Resource groups exist within subscriptions to hold deployed resources.",
+        "Resource locks are governance objects, not parent containers for subscriptions.",
+        "The Tenant Root Group is the default top-level management group, but Management Groups as a concept describe the overall structural hierarchy."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/governance/management-groups/overview"
+    }
+  },
+  {
+    "id": 34,
+    "subtopic": "Manage subscriptions",
+    "question": "You cancel an Azure subscription named Sub1. What happens to the data stored inside resources within Sub1 immediately after cancellation?",
+    "options": [
+      "Resources are disabled, and data is retained for a grace period (typically 30–90 days) before permanent deletion.",
+      "All data in all resources is permanently and instantly destroyed immediately.",
+      "Data is automatically exported to a public storage account.",
+      "Resources continue running without charge for 6 months."
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "When a subscription is canceled, resources are disabled immediately, but data is retained during a retention grace period (usually 30 to 90 days) allowing reactivation before permanent purge.",
+      "incorrectReasons": [
+        "Data is not purged instantaneously to protect against accidental account cancellation.",
+        "Data is never exported to public locations automatically.",
+        "Resources are deprovisioned/disabled immediately; they do not run free of charge."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/cost-management-billing/manage/cancel-azure-subscription"
+    }
+  },
+  {
+    "id": 35,
+    "subtopic": "Manage subscriptions",
+    "question": "You need to rename an Azure subscription named 'Dev-Sub' to 'Development-Subscription'. Which administrative tool or interface can be used to perform this task?",
+    "options": [
+      "Azure portal, Azure CLI, or Azure PowerShell",
+      "Azure portal only; PowerShell and CLI do not support renaming subscriptions",
+      "Microsoft Entra Admin Center only",
+      "Subscription names cannot be changed once created"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Subscriptions can be easily renamed using the Azure portal, Azure CLI (`az account subscription rename`), or Azure PowerShell (`Rename-AzSubscription`).",
+      "incorrectReasons": [
+        "Azure CLI and PowerShell fully support subscription renaming commands.",
+        "The Microsoft Entra admin center manages identity objects, not Azure subscription metadata properties.",
+        "Subscription names are display properties and can be modified at any time."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/cost-management-billing/manage/rename-subscription"
+    }
+  },
+  {
+    "id": 36,
+    "subtopic": "Manage costs by using alerts, budgets, and Azure Advisor recommendations",
+    "question": "You configure an Azure Cost Management Budget of $1,000 USD per month for Subscription1. You want to receive an email notification when actual spending reaches $800 USD. What threshold setting should you configure in the budget?",
+    "options": [
+      "An Actual cost alert threshold set at 80%",
+      "A Forecasted cost alert threshold set at 100%",
+      "An Actual cost alert threshold set at 120%",
+      "A Forecasted cost alert threshold set at 80%"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Setting an Actual cost threshold at 80% triggers a notification as soon as accrued real-time charges hit $800 USD (80% of $1,000).",
+      "incorrectReasons": [
+        "A forecasted threshold at 100% triggers when Azure projects total spending will reach $1,000 by month-end, regardless of current spending.",
+        "120% would trigger at $1,200 USD expenditure.",
+        "Forecasted 80% triggers when predicted costs reach $800 USD, rather than relying on actual accrued charges."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/cost-management-billing/costs/tutorial-acm-create-budgets"
+    }
+  },
+  {
+    "id": 37,
+    "subtopic": "Manage costs by using alerts, budgets, and Azure Advisor recommendations",
+    "question": "You want an automated action to execute (such as stopping virtual machines) whenever an Azure Budget threshold is breached. What object should you associate with the Azure Budget notification?",
+    "options": [
+      "An Action Group",
+      "An Azure Policy initiative",
+      "A Management Group lock",
+      "An Azure Advisor recommendation filter"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Azure Budgets integrate with Azure Monitor Action Groups, enabling automated actions (such as running webhooks, Azure Functions, or Automation Runbooks) when budget thresholds are breached.",
+      "incorrectReasons": [
+        "Azure Policy evaluates resource compliance configurations, not budget spending thresholds.",
+        "Management group locks block management plane changes, not spending breaches.",
+        "Advisor filter rules customize recommendation visibility."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/cost-management-billing/costs/tutorial-acm-create-budgets#configure-action-groups"
+    }
+  },
+  {
+    "id": 38,
+    "subtopic": "Manage costs by using alerts, budgets, and Azure Advisor recommendations",
+    "question": "Where in Azure Advisor should an administrator navigate to identify underutilized virtual machines that can be shut down or resized to reduce monthly subscription costs?",
+    "options": [
+      "Cost recommendation category",
+      "Operational Excellence category",
+      "Security category",
+      "Performance category"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "The Cost recommendation category in Azure Advisor analyzes resource usage (such as CPU/network utilization on VMs) to highlight underutilized resources that can be resized or shut down.",
+      "incorrectReasons": [
+        "Operational Excellence focuses on deployment best practices, process efficiency, and management.",
+        "Security provides Microsoft Defender for Cloud security recommendations.",
+        "Performance provides recommendations to optimize application speed and responsiveness."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/advisor/advisor-cost-recommendations"
+    }
+  },
+  {
+    "id": 39,
+    "subtopic": "Manage costs by using alerts, budgets, and Azure Advisor recommendations",
+    "question": "You set up a forecasted budget alert threshold set to 100% of a $5,000 USD monthly budget. Under what condition will an alert notification be generated?",
+    "options": [
+      "When Azure's cost projection algorithms calculate that total spending will reach $5,000 USD by the end of the billing period",
+      "Only after actual accrued costs exceed $5,000 USD",
+      "When actual spending reaches $2,500 USD (50% threshold)",
+      "When a single resource costs more than $5,000 USD to deploy"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Forecasted cost alerts trigger when projected future consumption models indicate spending will reach or exceed the target threshold before the end of the budget period.",
+      "incorrectReasons": [
+        "Actual cost alerts require real spending to hit the threshold value first.",
+        "50% actual spending triggers an actual 50% threshold alert, not a 100% forecasted alert.",
+        "Budget alerts evaluate aggregated period costs, not individual resource deployment price quotes."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/cost-management-billing/costs/cost-mgt-alerts-monitor-usage-spending"
+    }
+  },
+  {
+    "id": 40,
+    "subtopic": "Manage costs by using alerts, budgets, and Azure Advisor recommendations",
+    "question": "You are reviewing Azure Advisor cost recommendations for Subscription1. Which recommendation specifically helps reduce compute costs for steady-state workloads running continuously over 1 to 3 years?",
+    "options": [
+      "Purchase Azure Reserved VM Instances (RIs) or Savings Plans",
+      "Apply ReadOnly locks to all virtual machines",
+      "Convert all virtual machines to B-series burstable SKUs",
+      "Enable soft delete on virtual machine OS disks"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Azure Advisor recommends purchasing Reserved Instances or Azure Savings Plans when it detects virtual machines running continuously, offering discounts up to 72% over pay-as-you-go pricing.",
+      "incorrectReasons": [
+        "Resource locks protect resources from deletion or modification but do not affect pricing.",
+        "B-series burstable VMs are suited for workloads with idle bursts, not high steady-state performance workloads.",
+        "Soft delete retains deleted storage data and does not reduce active compute costs."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/advisor/advisor-cost-recommendations#buy-reserved-virtual-machine-instances-to-save-money-over-pay-as-you-go-costs"
+    }
+  },
+  {
+    "id": 41,
+    "subtopic": "Manage costs by using alerts, budgets, and Azure Advisor recommendations",
+    "question": "You create an Azure Cost Management budget for a resource group named RG-App. What is the evaluation frequency for budget progress and cost alert triggers?",
+    "options": [
+      "Evaluated every 4 to 12 hours based on updated cost data processing",
+      "Evaluated in real-time instantly as REST API requests are made",
+      "Evaluated once per month on the last calendar day",
+      "Evaluated every 5 minutes"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Cost Management processes usage and cost telemetry periodically; budget evaluations and alerts typically run every 4 to 12 hours as billing data is ingested.",
+      "incorrectReasons": [
+        "Billing ingestion is not real-time, so instant REST API budget checks do not occur.",
+        "Budget alerts process throughout the month as daily usage accumulates, not just on the last day.",
+        "5-minute budget evaluation is faster than consumption telemetry generation."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/cost-management-billing/costs/troubleshoot-cost-alerts"
+    }
+  },
+  {
+    "id": 42,
+    "subtopic": "Manage costs by using alerts, budgets, and Azure Advisor recommendations",
+    "question": "You need to export monthly cost and usage details automatically to an Azure Storage account container for deep analysis in Power BI. What feature of Azure Cost Management should you configure?",
+    "options": [
+      "Exports",
+      "Budgets",
+      "Cost Analysis view export to CSV (manual)",
+      "Advisor recommendation digest"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "The Exports feature in Azure Cost Management allows you to schedule daily, weekly, or monthly automated exports of full cost and usage data to an Azure Blob storage account.",
+      "incorrectReasons": [
+        "Budgets trigger notifications based on spend thresholds, but do not export raw telemetry files automatically.",
+        "Manual portal CSV downloads are not automated processes.",
+        "Advisor digests send email summaries of recommendations, not raw cost usage records."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/cost-management-billing/costs/tutorial-export-acm-data"
+    }
+  },
+  {
+    "id": 43,
+    "subtopic": "Configure management groups",
+    "question": "You have 20 Azure subscriptions. You need to assign the same Azure Policy definition to all 20 subscriptions. What is the most efficient administrative approach?",
+    "options": [
+      "Group the subscriptions into a Management Group and assign the policy at the Management Group scope.",
+      "Assign the policy individually to each of the 20 subscriptions.",
+      "Assign the policy to every resource group in every subscription.",
+      "Move all 20 subscriptions into a single resource group."
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Assigning Azure Policy at the Management Group scope ensures that all child subscriptions placed within that management group inherit the policy automatically.",
+      "incorrectReasons": [
+        "Assigning policy individually to 20 subscriptions requires repetitive manual effort and increases administrative overhead.",
+        "Assigning policy at the resource group level scales poorly compared to top-level inheritance.",
+        "Subscriptions cannot be placed inside resource groups; resource groups exist inside subscriptions."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/governance/management-groups/overview"
+    }
+  },
+  {
+    "id": 44,
+    "subtopic": "Configure management groups",
+    "question": "What is the maximum depth hierarchy limit for Azure Management Groups (excluding the Tenant Root Group)?",
+    "options": [
+      "6 levels",
+      "10 levels",
+      "3 levels",
+      "Unlimited levels"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Azure Management Groups support a maximum hierarchy depth of 6 levels below the Tenant Root Group.",
+      "incorrectReasons": [
+        "10 levels exceeds the official Azure platform limit.",
+        "3 levels is incorrect; up to 6 levels are allowed.",
+        "Hierarchy levels are capped by platform limits."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/governance/management-groups/overview#hierarchy-of-management-groups-and-subscriptions"
+    }
+  },
+  {
+    "id": 45,
+    "subtopic": "Configure management groups",
+    "question": "When a new Azure subscription is created in a tenant, where is it placed by default within the Management Group hierarchy?",
+    "options": [
+      "Under the Tenant Root Group (or designated default management group)",
+      "Under a newly created management group named after the user",
+      "In an unassigned detached state outside the management group hierarchy",
+      "Under the highest-numbered custom management group"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "New subscriptions are automatically placed under the Tenant Root Group, unless a custom default management group is explicitly configured for the directory.",
+      "incorrectReasons": [
+        "Azure does not create personalized management groups per user account automatically.",
+        "All subscriptions in a tenant always exist within the single tenant management group tree.",
+        "Subscriptions are not placed under arbitrary custom groups without explicit assignment rules."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/governance/management-groups/overview#tenant-root-group"
+    }
+  },
+  {
+    "id": 46,
+    "subtopic": "Configure management groups",
+    "question": "An administrator needs to grant a security auditor access to review compliance policies across all subscriptions in the tenant. Which role assigned at the Tenant Root Group provides read-only governance visibility across all descendant subscriptions?",
+    "options": [
+      "Resource Policy Reader (or Reader) assigned at the Tenant Root Group scope",
+      "Owner assigned at the individual subscription level only",
+      "Global Administrator in Microsoft Entra ID",
+      "User Access Administrator at the Resource Group scope"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "RBAC role assignments are inherited down the management group tree. Assigning Reader / Resource Policy Reader at the Tenant Root Group scope grants read visibility across all underlying subscriptions.",
+      "incorrectReasons": [
+        "Assigning roles on individual subscriptions requires manual maintenance and does not cover newly created subscriptions automatically.",
+        "Global Administrator is an Azure AD directory role, not an ARM data/management plane RBAC role unless elevated explicitly.",
+        "Resource Group scope assignment restricts visibility to that single resource group."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/governance/management-groups/overview#management-group-access"
+    }
+  },
+  {
+    "id": 47,
+    "subtopic": "Configure management groups",
+    "question": "How many total Management Groups can be created within a single Microsoft Entra tenant limit?",
+    "options": [
+      "10,000",
+      "1,000",
+      "500",
+      "100,000"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "A single Microsoft Entra directory tenant supports up to 10,000 management groups.",
+      "incorrectReasons": [
+        "1,000 is lower than the actual Azure limit.",
+        "500 is lower than the actual Azure limit.",
+        "100,000 exceeds the documented limit."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/governance/management-groups/overview#limitations"
+    }
+  },
+  {
+    "id": 48,
+    "subtopic": "Configure management groups",
+    "question": "You have a management group hierarchy: `Root -> MG-Prod -> MG-App1`. A custom Azure Policy definition is assigned at `MG-Prod`. What is the policy's effect on a subscription placed under `MG-App1`?",
+    "options": [
+      "The subscription inherits the policy assigned at MG-Prod.",
+      "The policy applies only to resources directly under MG-Prod and ignores MG-App1.",
+      "The policy assignment fails because policies can only be assigned at the subscription level.",
+      "The policy is evaluated only if the subscription owner explicitly approves the policy."
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Governance settings (Azure Policy and RBAC assignments) inherit down through the management group tree to all child management groups, subscriptions, resource groups, and resources.",
+      "incorrectReasons": [
+        "Inheritance applies to all descendant nodes in the management group tree, including child management groups.",
+        "Policies can be assigned at Tenant Root, Management Group, Subscription, or Resource Group scopes.",
+        "Policy enforcement does not require approval from subscription owners."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/governance/management-groups/overview#hierarchy-of-management-groups-and-subscriptions"
+    }
+  },
+  {
+    "id": 49,
+    "subtopic": "Configure management groups",
+    "question": "You need to move Subscription1 from ManagementGroupA to ManagementGroupB. Which RBAC permission is required on BOTH ManagementGroupA and ManagementGroupB to complete this move?",
+    "options": [
+      "Management Group Contributor (or custom role with Microsoft.Management/managementGroups/subscriptions/write)",
+      "Reader",
+      "Billing Reader",
+      "Security Admin"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Moving a subscription between management groups requires write permissions on subscription relationships (`Microsoft.Management/managementGroups/subscriptions/write`) at both source and target management groups.",
+      "incorrectReasons": [
+        "Reader role provides read access only and cannot move resources or subscription associations.",
+        "Billing Reader manages invoice data visibility, not management group organization.",
+        "Security Admin manages security alerts and policies, not structural management group movements."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/governance/management-groups/manage#permissions-for-managing-management-groups"
+    }
+  },
+  {
+    "id": 50,
+    "subtopic": "Configure management groups",
+    "question": "Which statement accurately describes the Tenant Root Management Group in Azure?",
+    "options": [
+      "It is automatically created at the top of the hierarchy, contains all management groups and subscriptions in the directory, and cannot be deleted.",
+      "It can be deleted by a Global Administrator when no longer needed.",
+      "It can only contain up to 5 subscriptions.",
+      "It is created manually using Azure CLI after deploying the first subscription."
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "The Tenant Root Group is built-in and automatically synthesized at the top of the management group hierarchy for every directory. It holds all subscriptions and management groups and cannot be moved or deleted.",
+      "incorrectReasons": [
+        "The Tenant Root Group is permanent and cannot be deleted.",
+        "There is no limit of 5 subscriptions under the Tenant Root Group.",
+        "The Tenant Root Group is created automatically by Azure governance infrastructure; it does not require manual CLI creation."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/governance/management-groups/overview#tenant-root-group"
+    }
+  }
+]

@@ -1,0 +1,1052 @@
+[
+  {
+    "id": 1,
+    "subtopic": "Create and manage an Azure container registry",
+    "question": "You plan to create an Azure Container Registry (ACR) to store container images for a mission-critical application. The registry must support geo-replication across multiple Azure regions and enable Private Link endpoint integration. Which SKU should you select?",
+    "options": [
+      "Basic",
+      "Standard",
+      "Premium",
+      "Developer"
+    ],
+    "correct": 2,
+    "explanation": {
+      "correctReason": "The Premium SKU of Azure Container Registry supports advanced features including geo-replication, private endpoints via Azure Private Link, content trust, and customer-managed keys.",
+      "incorrectReasons": [
+        "Basic SKU provides cost-optimized entry-level registry capabilities without geo-replication or Private Link support.",
+        "Standard SKU offers increased storage and throughput over Basic, but lacks geo-replication and Private Link capabilities.",
+        "Developer is not a valid Azure Container Registry SKU tier."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/container-registry/container-registry-skus"
+    }
+  },
+  {
+    "id": 2,
+    "subtopic": "Create and manage an Azure container registry",
+    "question": "You need to authenticate an automated CI/CD deployment pipeline to pull images from an Azure Container Registry (ACR) without using personal user credentials or enabling the admin account. Which authentication method adheres to Microsoft security best practices?",
+    "options": [
+      "Enable the ACR Admin Account and store credentials in pipeline secrets.",
+      "Configure an Azure Active Directory (Azure AD/Entra ID) Service Principal with AcrPull permissions.",
+      "Use anonymous access enabled on the container registry repositories.",
+      "Create a local SSH key pair and upload the public key to ACR."
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Using an Azure AD Service Principal assigned the AcrPull role provides secure, scope-based token authentication suitable for automated pipelines and avoids using shared administrative credentials.",
+      "incorrectReasons": [
+        "Enabling the admin account uses shared single-identity credentials and is discouraged for production CI/CD pipelines.",
+        "Anonymous access exposes registry images publicly without any authentication requirement.",
+        "ACR authentication does not support SSH key uploads for pull operations."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/container-registry/container-registry-authentication"
+    }
+  },
+  {
+    "id": 3,
+    "subtopic": "Create and manage an Azure container registry",
+    "question": "You are configuring image retention policies in an Azure Container Registry (ACR). You must ensure untagged images (manifests) are automatically deleted after 7 days. What feature should you configure?",
+    "options": [
+      "ACR Purge task",
+      "Content Trust policy",
+      "Soft delete for blobs",
+      "ACR Container Repository Lock"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "ACR Purge is an ACR Tasks feature that allows scheduling scheduled cleanups to automatically delete untagged manifest images older than a specified duration.",
+      "incorrectReasons": [
+        "Content Trust ensures image integrity and signing, but does not perform automated deletion of untagged manifests.",
+        "Soft delete retains deleted storage objects for recovery rather than purging untagged registry manifests.",
+        "Container Repository Lock prevents modifications or deletions of repositories rather than automatically purging untagged images."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/container-registry/container-registry-auto-purge"
+    }
+  },
+  {
+    "id": 4,
+    "subtopic": "Create and manage an Azure container registry",
+    "question": "You need to prevent developers from overwriting existing container image tags in an Azure Container Registry (ACR) to guarantee immutable deployments. Which setting or feature should you apply?",
+    "options": [
+      "Set policy status for image immutability / tag locking.",
+      "Enable Content Trust on the registry.",
+      "Disable the Admin User account.",
+      "Configure soft delete on the registry storage account."
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Locking an image tag or repository (using target write-lock or immutability policy) prevents image tags from being overwritten, deleted, or altered.",
+      "incorrectReasons": [
+        "Content Trust requires images to be signed before pushing, but does not prevent tag overwrites by authorized signers.",
+        "Disabling the admin user impacts credential authentication, not tag write/overwrite permissions.",
+        "Soft delete affects deleted blob retention, not tag immutability."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/container-registry/container-registry-image-lock"
+    }
+  },
+  {
+    "id": 5,
+    "subtopic": "Create and manage an Azure container registry",
+    "question": "Your company has an Azure Container Registry named 'myregistry' in the Premium tier. You need to ensure container images are available locally in both 'East US' and 'West Europe' with low latency pull times. How should you configure ACR?",
+    "options": [
+      "Create a second Azure Container Registry in West Europe and run continuous script-based image replication.",
+      "Configure Geo-replication in 'myregistry' and add the 'West Europe' region.",
+      "Deploy an Azure Content Delivery Network (CDN) in front of 'myregistry'.",
+      "Export the registry images as TAR archives into a geo-redundant storage account (RA-GRS)."
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Geo-replication is a native feature of the Premium SKU that allows a single container registry to serve multiple regions, providing local, low-latency image pulls in each configured region.",
+      "incorrectReasons": [
+        "Creating a separate registry requires managing distinct endpoints and manual replication logic.",
+        "Azure CDN is not a supported or native feature for caching container image layers directly in ACR.",
+        "Exporting images to storage accounts disables native docker pull workflows."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/container-registry/container-registry-geo-replication"
+    }
+  },
+  {
+    "id": 6,
+    "subtopic": "Create and manage an Azure container registry",
+    "question": "You run the command `az acr build --registry myregistry --image webapp:v1 .` from a local workspace. What does this command do?",
+    "options": [
+      "It compiles the source code locally and pushes the compiled image to 'myregistry'.",
+      "It uploads the local source context to Azure, builds the container image in the cloud using ACR Tasks, and stores the image in 'myregistry'.",
+      "It provisions a new Azure Container Instance to build the container image.",
+      "It creates an ACR Webhook that triggers whenever new code is committed locally."
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "`az acr build` packages local source code, uploads it to Azure Container Registry, and triggers a cloud-based build using ACR Tasks without requiring Docker installed locally.",
+      "incorrectReasons": [
+        "It does not perform local Docker compilation; the build process is offloaded to ACR Tasks in Azure.",
+        "It uses ACR Tasks build agents, not an Azure Container Instance.",
+        "It executes an immediate image build task rather than configuring a repository webhook."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/container-registry/container-registry-quickstart-task-cli"
+    }
+  },
+  {
+    "id": 7,
+    "subtopic": "Create and manage an Azure container registry",
+    "question": "You need to automatically trigger an Azure Function whenever a new container image tag with the prefix 'prod-' is pushed to your Azure Container Registry. What mechanism should you create in ACR?",
+    "options": [
+      "ACR Webhook",
+      "ACR Scope Map",
+      "Event Grid System Topic subscription disabled for webhooks",
+      "Diagnostic Setting targeting Log Analytics"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "ACR Webhooks listen for specific registry events (like image push or delete) and send HTTP notifications directly to target endpoints like Azure Functions.",
+      "incorrectReasons": [
+        "Scope maps define repository access permissions for repository-scoped tokens.",
+        "An Event Grid subscription without a webhook or configured handler will not invoke the function.",
+        "Diagnostic settings stream logs and metrics to monitoring solutions, not event-driven workflow handlers."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/container-registry/container-registry-webhook"
+    }
+  },
+  {
+    "id": 8,
+    "subtopic": "Create and manage an Azure container registry",
+    "question": "An enterprise requires that container images stored in Azure Container Registry are digitally signed to guarantee image provenance and prevent untrusted images from being deployed. Which feature must be enabled?",
+    "options": [
+      "Content Trust",
+      "Customer-Managed Keys (CMK)",
+      "Vulnerability Scanning",
+      "Container Insights"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Content Trust (Docker Content Trust implementation in ACR) enables digital signing of images using publisher keys to ensure integrity and authenticity.",
+      "incorrectReasons": [
+        "Customer-Managed Keys encrypt data at rest, but do not digitally sign image manifests.",
+        "Vulnerability Scanning scans for OS and library vulnerabilities, not image signatures.",
+        "Container Insights monitors performance and telemetry of container workloads."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/container-registry/container-registry-content-trust"
+    }
+  },
+  {
+    "id": 9,
+    "subtopic": "Create and manage an Azure container registry",
+    "question": "You are deploying an Azure Container Registry behind a firewall. You need to ensure network access is restricted to specific public IP addresses while keeping public endpoint enabled. Which feature should you configure?",
+    "options": [
+      "IP rule/Firewall network rules under the Registry Networking settings",
+      "Azure Network Security Group (NSG) attached directly to ACR",
+      "Internal Load Balancer rules",
+      "Azure Route Table associated with ACR"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "ACR allows configuring IP firewall rules under its networking tab (available in Premium SKU) to restrict access to specific public CIDR ranges or static IP addresses.",
+      "incorrectReasons": [
+        "NSGs cannot be attached directly to a PaaS Azure Container Registry standard service endpoint.",
+        "Load balancers are used for distributing traffic across VM compute instances, not for configuring PaaS registry access control lists.",
+        "Route tables route subnet traffic and cannot be attached directly to a registry."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/container-registry/container-registry-access-selected-networks"
+    }
+  },
+  {
+    "id": 10,
+    "subtopic": "Create and manage an Azure container registry",
+    "question": "You need to grant a third-party developer team read-only access to a single repository named 'mobile-app' inside an Azure Container Registry containing dozens of repositories. Which feature should you use?",
+    "options": [
+      "Repository-scoped tokens with an associated Scope Map",
+      "AcrPull role assigned at the Resource Group scope",
+      "The ACR Admin User credentials",
+      "Azure AD Owner role on the registry"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Repository-scoped tokens paired with Scope Maps allow granular access control for specific repositories and actions (e.g., read-only on 'mobile-app') rather than entire registry-wide access.",
+      "incorrectReasons": [
+        "Assigning AcrPull at the Resource Group level grants pull access to all repositories in all registries within that group.",
+        "The Admin user account provides full read/write administrative access to all repositories in the registry.",
+        "Owner role grants full management plane control over all resources."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/container-registry/container-registry-repository-scoped-permissions"
+    }
+  },
+  {
+    "id": 11,
+    "subtopic": "Create and manage an Azure container registry",
+    "question": "You are deploying an Azure Container Registry using Azure CLI. Which command successfully creates a Premium SKU registry named 'acrtarget123' in the resource group 'rg-containers'?",
+    "options": [
+      "az acr create --resource-group rg-containers --name acrtarget123 --sku Premium",
+      "az container registry create --group rg-containers --name acrtarget123 --tier Premium",
+      "az acr deploy --resource-group rg-containers --name acrtarget123 --sku Premium",
+      "az container create --resource-group rg-containers --name acrtarget123 --sku Premium"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "`az acr create --resource-group rg-containers --name acrtarget123 --sku Premium` is the valid Azure CLI command to provision an Azure Container Registry.",
+      "incorrectReasons": [
+        "'az container registry create' is not the correct CLI syntax.",
+        "'az acr deploy' is an invalid CLI command.",
+        "'az container create' is used to provision Azure Container Instances, not registries."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/cli/azure/acr#az-acr-create"
+    }
+  },
+  {
+    "id": 12,
+    "subtopic": "Create and manage an Azure container registry",
+    "question": "You need to configure encryption for container images at rest in Azure Container Registry using keys managed in your own Azure Key Vault. Which requirement must be met?",
+    "options": [
+      "The ACR must be created with the Premium SKU, and a user-assigned or system-assigned managed identity must be enabled on the ACR.",
+      "The ACR must be on the Basic SKU with public access enabled.",
+      "The Key Vault must be configured with public access disabled and soft-delete disabled.",
+      "The registry images must be encrypted locally before executing `docker push`."
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Customer-Managed Keys (CMK) encryption for ACR requires the Premium SKU and an identity (user-assigned or system-assigned) to grant ACR access to the Key Vault key.",
+      "incorrectReasons": [
+        "Basic SKU does not support Customer-Managed Keys (CMK) encryption.",
+        "Soft-delete and purge protection are required settings on Key Vault for CMK usage.",
+        "Encryption at rest with CMK is handled server-side by ACR, not client-side prior to docker push."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/container-registry/container-registry-customer-managed-keys"
+    }
+  },
+  {
+    "id": 13,
+    "subtopic": "Provision a container by using Azure Container Instances",
+    "question": "You need to deploy a single container instance running a stateless web application using Azure Container Instances (ACI). The application requires a public IP address and port 80 exposed. Which command parameter set provides this capability in Azure CLI?",
+    "options": [
+      "az container create --resource-group rg1 --name myapp --image mcr.microsoft.com/azuredocs/aci-helloworld --ip-address Public --ports 80",
+      "az acr create --resource-group rg1 --name myapp --image mcr.microsoft.com/azuredocs/aci-helloworld --port 80",
+      "az containerapp create --resource-group rg1 --name myapp --image mcr.microsoft.com/azuredocs/aci-helloworld --external-port 80",
+      "az vm create --resource-group rg1 --name myapp --image aci-helloworld --public-ip 80"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "The `az container create` command with `--ip-address Public` and `--ports 80` correctly provisions an Azure Container Instance exposed on port 80 with a public IP address.",
+      "incorrectReasons": [
+        "`az acr create` provisions a Container Registry, not a container instance.",
+        "`az containerapp create` provisions an Azure Container App, which is a different service than ACI.",
+        "`az vm create` provisions a Virtual Machine, not an ACI container group."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/container-instances/container-instances-quickstart-cli"
+    }
+  },
+  {
+    "id": 14,
+    "subtopic": "Provision a container by using Azure Container Instances",
+    "question": "You are deploying an Azure Container Instance (ACI) that must mount a persistent file share to store log files across container restarts. Which storage resource should you use for native container volume mounting in ACI?",
+    "options": [
+      "Azure Files share",
+      "Azure Blob storage container (Block Blobs)",
+      "Azure Queue storage",
+      "Azure Managed Disks (Ultra Disk)"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Azure Container Instances natively supports mounting an Azure Files share as a SMB/NFS volume directly into a container group.",
+      "incorrectReasons": [
+        "Block Blob storage cannot be natively mounted as a standard file volume in ACI without third-party tools or BlobFuse drivers.",
+        "Queue storage is a messaging system, not a mountable file system.",
+        "Azure Managed Disks cannot be directly attached as volume mounts to Azure Container Instances."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/container-instances/container-instances-volume-azure-files"
+    }
+  },
+  {
+    "id": 15,
+    "subtopic": "Provision a container by using Azure Container Instances",
+    "question": "You need to run two containers together in Azure Container Instances (ACI): an application container and a sidecar logging container. They must share local storage volume and network lifecycle. What deployment construct in ACI supports this configuration?",
+    "options": [
+      "Container Group",
+      "Container App Environment",
+      "Virtual Node",
+      "Availability Set"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "A Container Group in ACI is a collection of containers that get scheduled on the same host machine, sharing lifecycle, local network, and storage volumes (similar to a Pod in Kubernetes).",
+      "incorrectReasons": [
+        "Container App Environment is a hosting boundary for Azure Container Apps, not ACI.",
+        "Virtual Node is an AKS integration feature allowing AKS to burst workloads into ACI.",
+        "Availability Sets are VM high-availability constructs."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/container-instances/container-instances-container-groups"
+    }
+  },
+  {
+    "id": 16,
+    "subtopic": "Provision a container by using Azure Container Instances",
+    "question": "You are deploying an Azure Container Instance (ACI) into an existing Azure Virtual Network to process internal database requests securely. What networking configuration requirement applies to ACI subnet delegation?",
+    "options": [
+      "The subnet must be delegated specifically to `Microsoft.ContainerInstance/containerGroups` and contain no other resource types.",
+      "The subnet must be configured with a public NAT Gateway.",
+      "The subnet must have an Network Security Group (NSG) that allows all inbound internet traffic.",
+      "The subnet must be delegated to `Microsoft.Web/serverFarms`."
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Deploying container groups into a VNet requires a dedicated subnet delegated exclusively to `Microsoft.ContainerInstance/containerGroups`.",
+      "incorrectReasons": [
+        "A NAT gateway is not mandatory unless specific outbound internet SNAT requirements are configured.",
+        "Inbound internet access is not required for internal private network container workloads.",
+        "`Microsoft.Web/serverFarms` delegation is used for App Service VNet integration, not ACI."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/container-instances/container-instances-vnet"
+    }
+  },
+  {
+    "id": 17,
+    "subtopic": "Provision a container by using Azure Container Instances",
+    "question": "You need to configure environment variables for an Azure Container Instance deployment. One variable contains a database connection secret. How should you pass the secret securely in the ARM template or CLI deployment?",
+    "options": [
+      "Use `secureValue` properties for the secret environment variable.",
+      "Pass the connection string in the standard `environmentVariables` plain-text array.",
+      "Store the connection string in the container's Dockerfile CMD statement.",
+      "Base64-encode the string and put it in public metadata tags."
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "ACI supports `secureValue` for environment variables, which prevents values from showing in plain text in deployment definitions, inspection commands, or portal views.",
+      "incorrectReasons": [
+        "Standard environment variables display values in clear text in resource properties and CLI outputs.",
+        "Hardcoding secrets in Dockerfiles bakes credentials into image layers accessible to anyone with pull rights.",
+        "Base64 encoding is not encryption and metadata tags are readable by any user with viewer permissions."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/container-instances/container-instances-environment-variables#secure-values"
+    }
+  },
+  {
+    "id": 18,
+    "subtopic": "Provision a container by using Azure Container Instances",
+    "question": "You deploy an Azure Container Instance to execute a batch data processing script once every night. The container should run until completion and then stop without restarting automatically. Which restart policy should you set?",
+    "options": [
+      "Never or OnFailure",
+      "Always",
+      "Continuous",
+      "RestartForever"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Setting `restartPolicy` to `OnFailure` or `Never` ensures that once a task or batch job finishes execution (exit code 0), the container stops rather than looping continuously.",
+      "incorrectReasons": [
+        "`Always` continuously restarts the container upon completion, causing an endless execution loop for batch jobs.",
+        "`Continuous` is not a valid ACI restart policy property value.",
+        "`RestartForever` is not a valid ACI restart policy property value."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/container-instances/container-instances-restart-policy"
+    }
+  },
+  {
+    "id": 19,
+    "subtopic": "Provision a container by using Azure Container Instances",
+    "question": "You deploy a container group in Azure Container Instances (ACI) containing two containers: ContainerA listens on port 8080 and ContainerB listens on port 8080. The deployment fails. Why did the deployment fail?",
+    "options": [
+      "Containers in the same container group share the localhost network namespace and cannot bind to the same port.",
+      "ACI does not support multi-container groups.",
+      "ACI only supports port 80 and port 443.",
+      "Containers in a group must be deployed in different resource groups."
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "All containers within an ACI container group share an IP address and network namespace (localhost). Therefore, two containers in the same group cannot bind to identical ports.",
+      "incorrectReasons": [
+        "ACI fully supports multi-container groups.",
+        "ACI supports exposing any valid TCP/UDP port numbers.",
+        "All containers in a container group share identical deployment scope and resource group."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/container-instances/container-instances-container-groups#networking"
+    }
+  },
+  {
+    "id": 20,
+    "subtopic": "Provision a container by using Azure Container Instances",
+    "question": "You need to access an internal Azure SQL Database from an Azure Container Instance without storing database passwords in environment variables or configuration files. What identity mechanism should you configure on ACI?",
+    "options": [
+      "Managed Identity (System-assigned or User-assigned)",
+      "ACR Admin Account",
+      "Shared Access Signature (SAS) token in image metadata",
+      "Root user SSH certificates"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "ACI supports managed identities, allowing the container instance to authenticate directly to Azure services like Azure SQL without hardcoding credentials.",
+      "incorrectReasons": [
+        "ACR Admin Account is for pulling images from ACR, not for authenticating to Azure SQL.",
+        "SAS tokens apply to Storage accounts and still require token secret management.",
+        "SSH certificates do not handle Azure AD resource authentication."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/container-instances/container-instances-managed-identity"
+    }
+  },
+  {
+    "id": 21,
+    "subtopic": "Provision a container by using Azure Container Instances",
+    "question": "You need to deploy an Azure Container Instance using an image stored in a private Azure Container Registry named 'myregistry.azurecr.io'. Which parameters must you provide during container creation?",
+    "options": [
+      "--registry-login-server, --registry-username, and --registry-password (or use a Managed Identity with AcrPull)",
+      "--admin-enabled true and --ssh-key",
+      "--vnet-name and --subnet-name only",
+      "--dns-name-label and --connection-string"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "To pull an image from a private registry like ACR, ACI needs image registry credentials (`--registry-login-server`, `--registry-username`, `--registry-password`) or a Managed Identity assigned AcrPull access.",
+      "incorrectReasons": [
+        "Admin enabled and SSH keys do not supply ACR pull authentication parameters to ACI.",
+        "Networking options do not grant image access rights to private registries.",
+        "DNS label and connection string parameters are unrelated to container image pull authentication."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/container-instances/container-instances-using-azure-container-registry"
+    }
+  },
+  {
+    "id": 22,
+    "subtopic": "Provision a container by using Azure Container Instances",
+    "question": "You need to troubleshoot a container in Azure Container Instances that fails immediately after launch. Which Azure CLI command should you run to view output from standard stdout/stderr streams?",
+    "options": [
+      "az container logs --resource-group rg1 --name mycontainergroup",
+      "az container attach --resource-group rg1 --name mycontainergroup",
+      "az container exec --resource-group rg1 --name mycontainergroup --exec-command \"cat /var/log\"",
+      "az monitor metrics list --resource rg1/mycontainergroup"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "`az container logs` fetches console output (stdout and stderr) generated by containers in a specified container group.",
+      "incorrectReasons": [
+        "`az container attach` streams live output for running containers, but does not retrieve history for containers that have already exited.",
+        "`az container exec` requires a running container process to run commands inside the container shell.",
+        "`az monitor metrics list` returns numeric performance metrics (CPU, memory), not standard log output."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/cli/azure/container#az-container-logs"
+    }
+  },
+  {
+    "id": 23,
+    "subtopic": "Provision a container by using Azure Container Instances",
+    "question": "You need to mount a temporary workspace directory shared between two containers in the same ACI Container Group. Data in this directory does not need to persist after the container group stops. What volume type should you specify?",
+    "options": [
+      "emptyDir",
+      "azureFile",
+      "gitRepo",
+      "secret"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "An `emptyDir` volume provides an ephemeral directory that is shared among containers within a container group and cleared when the group terminates.",
+      "incorrectReasons": [
+        "`azureFile` mounts an Azure Files share for persistent storage.",
+        "`gitRepo` clones a Git repository into a volume at startup.",
+        "`secret` volume passes sensitive keys or passwords as files into containers."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/container-instances/container-instances-volume-emptydir"
+    }
+  },
+  {
+    "id": 24,
+    "subtopic": "Provision a container by using Azure Container Instances",
+    "question": "You are deploying an Azure Container Instance that requires running custom startup commands that override the default Docker ENTRYPOINT. Which CLI parameter allows you to pass a custom command array?",
+    "options": [
+      "--command-line",
+      "--startup-script",
+      "--entrypoint-override",
+      "--init-cmd"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "The `--command-line` parameter in `az container create` overrides the default startup command/ENTRYPOINT defined in the container image.",
+      "incorrectReasons": [
+        "--startup-script is not a valid parameter for `az container create`.",
+        "--entrypoint-override is not a valid parameter for `az container create`.",
+        "--init-cmd is not a valid parameter for `az container create`."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/cli/azure/container#az-container-create"
+    }
+  },
+  {
+    "id": 25,
+    "subtopic": "Provision a container by using Azure Container Apps",
+    "question": "You need to deploy a microservice application using Azure Container Apps. The application consists of multiple microservices that require built-in service discovery and zero-downtime revision management. What host resource provides the secure boundary and shared virtual network for these container apps?",
+    "options": [
+      "Container App Environment",
+      "Container Group",
+      "App Service Plan",
+      "Kubernetes Cluster Subnet"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "An Azure Container Apps Environment is a secure boundary around a group of container apps that share a virtual network, log analytics workspace, and internal service discovery.",
+      "incorrectReasons": [
+        "Container Group is an ACI construct.",
+        "App Service Plan is an Azure App Service construct.",
+        "Kubernetes Cluster Subnet refers to low-level AKS networking."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/container-apps/environment"
+    }
+  },
+  {
+    "id": 26,
+    "subtopic": "Provision a container by using Azure Container Apps",
+    "question": "You are deploying a web application using Azure Container Apps. You need to enable incoming HTTPS requests from the public internet. Which setting should you configure on the Container App?",
+    "options": [
+      "Enable Ingress, set target port, and set visibility to 'External' (Accepting traffic from anywhere)",
+      "Configure Private Link Endpoint only",
+      "Enable Azure Front Door integration in the Dockerfile",
+      "Set container restart policy to Always with exposed port 443"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "In Azure Container Apps, configuring Ingress with target port and setting type/visibility to 'External' enables public HTTPS ingress routing to the app.",
+      "incorrectReasons": [
+        "Private Link limits traffic internally and blocks public internet access.",
+        "Azure Front Door cannot be configured inside a Dockerfile.",
+        "Restart policy controls process lifecycle, not ingress routing."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/container-apps/ingress-overview"
+    }
+  },
+  {
+    "id": 27,
+    "subtopic": "Provision a container by using Azure Container Apps",
+    "question": "You want to deploy a blue/green revision strategy for an application hosted in Azure Container Apps. You deploy a new revision. How do you split web traffic so 20% goes to the new revision and 80% stays with the old revision?",
+    "options": [
+      "Configure Traffic Splitting under ingress settings specifying revision weights.",
+      "Modify the Azure Load Balancer probe threshold.",
+      "Deploy a second Container App Environment and use DNS round-robin.",
+      "Set environment variable `TRAFFIC_SPLIT=20:80` inside the container."
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Azure Container Apps natively supports revision management and ingress traffic splitting, enabling percentages (weights) of incoming request traffic to be routed across multiple active revisions.",
+      "incorrectReasons": [
+        "Load balancer health probes manage healthy/unhealthy nodes, not percentage traffic splitting across application revisions.",
+        "DNS round-robin does not guarantee accurate weighted traffic distribution between application revisions.",
+        "Environment variables within containers cannot control external ingress routing."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/container-apps/revisions-manage"
+    }
+  },
+  {
+    "id": 28,
+    "subtopic": "Provision a container by using Azure Container Apps",
+    "question": "You need to deploy a microservice on Azure Container Apps that communicates with another microservice in the same environment using internal DNS names. How should the client app address the internal service?",
+    "options": [
+      "Use `http://<APP_NAME>` directly within the same Container Apps Environment.",
+      "Use the public IP address assigned to the resource group.",
+      "Use `http://localhost:<PORT>` for all services.",
+      "Use an Azure ExpressRoute circuit identifier."
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Apps within the same Container Apps Environment share internal service discovery. An application with internal ingress can be addressed directly via `http://<APP_NAME>` (or `<APP_NAME>.<ENV_NAME>`).",
+      "incorrectReasons": [
+        "Public IP addresses are not used for internal service-to-service communication.",
+        "`localhost` only targets containers within the exact same pod/replica, not separate Container Apps.",
+        "ExpressRoute connects on-premises networks to Azure, not internal Container Apps."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/container-apps/connect-apps"
+    }
+  },
+  {
+    "id": 29,
+    "subtopic": "Provision a container by using Azure Container Apps",
+    "question": "You deploy an update to an Azure Container App configured for Single revision mode. What happens to the running replica when the new revision deployment completes?",
+    "options": [
+      "The existing revision is replaced automatically by the new revision, and only one active revision exists.",
+      "Both revisions run simultaneously and split traffic 50/50 indefinitely.",
+      "The deployment fails because multiple revisions require Multiple revision mode.",
+      "The old revision is deleted along with all environment logs."
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "In Single revision mode, creating a new deployment automatically deactivates the previous revision so that exactly one active revision exists at a time.",
+      "incorrectReasons": [
+        "Traffic splitting requires Multiple revision mode.",
+        "Single revision mode automatically replaces the active revision without failing.",
+        "Logs remain preserved in Log Analytics regardless of revision deactivation."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/container-apps/revisions"
+    }
+  },
+  {
+    "id": 30,
+    "subtopic": "Provision a container by using Azure Container Apps",
+    "question": "You are deploying an Azure Container App and need to securely pass a secret stored in Azure Key Vault to your container environment. What feature should you configure?",
+    "options": [
+      "Configure a Managed Identity on the Container App, grant Key Vault secrets permission, and reference the Key Vault secret URI in app secrets.",
+      "Hardcode the Key Vault secret key directly in the container app YAML file.",
+      "Store secrets in public environment variables during CLI deployment.",
+      "Use Docker volume mounts pointing to local host storage paths."
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Azure Container Apps supports referencing Azure Key Vault secrets directly by enabling Managed Identity on the app and giving it secret read permissions in Key Vault.",
+      "incorrectReasons": [
+        "Hardcoding secrets in YAML files exposes sensitive credentials in source code control.",
+        "Public environment variables do not protect secrets in portal UI or API calls.",
+        "Local host paths do not link to cloud-hosted Azure Key Vault instances."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/container-apps/manage-secrets"
+    }
+  },
+  {
+    "id": 31,
+    "subtopic": "Provision a container by using Azure Container Apps",
+    "question": "You need to deploy an Azure Container App into an enterprise Azure Virtual Network (VNet). What network infrastructure requirement is needed?",
+    "options": [
+      "A delegated subnet passed during the creation of the Container Apps Environment.",
+      "An Azure Application Gateway attached directly to each container instance.",
+      "A public IP address assigned to every container replica.",
+      "Peering with the Azure Arc management VNet."
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Custom VNet integration for Azure Container Apps is configured at the Container Apps Environment level by providing a dedicated delegated subnet during environment creation.",
+      "incorrectReasons": [
+        "Application Gateways are not required or attached directly to individual container instances.",
+        "Individual container replicas do not receive public IP addresses; ingress is handled via the environment infrastructure.",
+        "Azure Arc is not a mandatory dependency for ACA VNet integration."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/container-apps/vnet-custom"
+    }
+  },
+  {
+    "id": 32,
+    "subtopic": "Provision a container by using Azure Container Apps",
+    "question": "You need to configure a background processing container app that listens to an Azure Service Bus Queue in Azure Container Apps. The container should not accept inbound HTTP requests. How should ingress be configured?",
+    "options": [
+      "Disable ingress completely on the Container App.",
+      "Set ingress to Internal and port to 0.",
+      "Set ingress to External with HTTP disabled.",
+      "Configure a custom domain with no IP bindings."
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Background workers or event-driven scale processing workloads that poll queues do not require HTTP endpoints, so ingress should be disabled.",
+      "incorrectReasons": [
+        "Setting internal ingress still exposes an internal HTTP port unnecessarily.",
+        "External ingress exposes endpoints to public networks.",
+        "Binding custom domains without IP bindings is invalid ingress configuration."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/container-apps/ingress-overview"
+    }
+  },
+  {
+    "id": 33,
+    "subtopic": "Provision a container by using Azure Container Apps",
+    "question": "You need to automate container application deployments using GitHub Actions and Azure CLI. Which Azure CLI extension must be installed to manage Container Apps?",
+    "options": [
+      "containerapp",
+      "azure-container",
+      "aci-app",
+      "k8s-app"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "The `containerapp` extension adds Container Apps management capabilities (`az containerapp`) to the Azure CLI.",
+      "incorrectReasons": [
+        "`azure-container` is not a valid extension name.",
+        "`aci-app` is not a valid extension name.",
+        "`k8s-app` is not a valid extension name."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/container-apps/get-started"
+    }
+  },
+  {
+    "id": 34,
+    "subtopic": "Provision a container by using Azure Container Apps",
+    "question": "In Azure Container Apps, what underlying technology manages automatic container scaling, including scaling down to zero replicas?",
+    "options": [
+      "KEDA (Kubernetes Event-driven Autoscaling)",
+      "Azure Monitor Autoscale Engine",
+      "Virtual Machine Scale Sets (VMSS) autoscale",
+      "Docker Swarm autoscaler"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Azure Container Apps uses KEDA (Kubernetes Event-driven Autoscaling) under the hood to drive event-based autoscaling, allowing scale-to-zero capabilities for supported triggers.",
+      "incorrectReasons": [
+        "Azure Monitor Autoscale scales VMSS and App Service, but is not the core scaling engine for ACA replicas.",
+        "VMSS autoscale manages underlying host VMs, not container replicas in ACA.",
+        "Docker Swarm is not used in Azure Container Apps."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/container-apps/scale-app"
+    }
+  },
+  {
+    "id": 35,
+    "subtopic": "Provision a container by using Azure Container Apps",
+    "question": "You are deploying an Azure Container App that requires sidecar containers for logging and proxying requests. How are sidecars configured in Azure Container Apps?",
+    "options": [
+      "By adding multiple container definitions in the app's template containers array.",
+      "By deploying two separate Container Apps into different environments.",
+      "By configuring an Azure API Management policy.",
+      "By installing Docker-in-Docker inside the primary container."
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "An Azure Container App template allows defining multiple containers in its `containers` specification, where additional containers run as sidecars alongside the main application container.",
+      "incorrectReasons": [
+        "Deploying separate Container Apps puts containers into different lifecycle boundaries, not local sidecars.",
+        "API Management policies manage API requests, not container co-location.",
+        "Docker-in-Docker is bad practice and not necessary for ACA sidecar deployments."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/container-apps/containers"
+    }
+  },
+  {
+    "id": 36,
+    "subtopic": "Provision a container by using Azure Container Apps",
+    "question": "You need to update an environment variable for a running Azure Container App. What is created in Azure Container Apps when you apply this configuration change?",
+    "options": [
+      "A new immutable Revision",
+      "A new Container App Environment",
+      "A new Azure Subscription",
+      "A duplicate Container Group"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Changes to revision-scope settings (like container images, environment variables, resource allocations, or scale rules) trigger the creation of a new immutable Revision.",
+      "incorrectReasons": [
+        "Updating an app configuration does not provision a new top-level environment.",
+        "Subscriptions are billing containers, completely unrelated to app revisions.",
+        "Container Groups are ACI objects, not ACA Revisions."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/container-apps/revisions"
+    }
+  },
+  {
+    "id": 37,
+    "subtopic": "Manage sizing and scaling for containers, including Azure Container Instances and Azure Container Apps",
+    "question": "You are deploying a container group in Azure Container Instances (ACI). You need to specify resource requests for the container group. Which statement regarding CPU and Memory resource allocation in ACI is correct?",
+    "options": [
+      "Resource allocation is configured at the container level, and the container group sum represents total allocated resources.",
+      "CPU and memory are allocated at the resource group level and dynamically split among all containers.",
+      "ACI dynamically adjusts CPU without limits based on host node usage.",
+      "Memory can only be allocated in increments of 16 GB per container."
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "In ACI, resources (CPU cores and memory in GB) are defined for individual containers within a container group. The total resources for the container group are the sum of resources requested by each container.",
+      "incorrectReasons": [
+        "Resources are specified per container/container group, not pooled at the resource group level.",
+        "ACI enforces explicit CPU limits requested in the container group specification.",
+        "Memory can be specified down to fractional numbers (e.g., 0.5 GB, 1.5 GB)."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/container-instances/container-instances-container-groups#resource-allocation"
+    }
+  },
+  {
+    "id": 38,
+    "subtopic": "Manage sizing and scaling for containers, including Azure Container Instances and Azure Container Apps",
+    "question": "You need to automatically scale an Azure Container App based on the number of concurrent HTTP requests. What scale rule trigger should you configure?",
+    "options": [
+      "HTTP scale rule",
+      "Cron scale rule",
+      "Azure Queue scale rule",
+      "CPU percentage rule"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Azure Container Apps natively provides HTTP scaling rules based on the number of concurrent HTTP requests targeting the application.",
+      "incorrectReasons": [
+        "Cron rules scale applications based on scheduled time triggers.",
+        "Azure Queue rules scale based on message count in storage queues.",
+        "CPU percentage rules scale based on compute load, not HTTP request concurrency."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/container-apps/scale-app#http"
+    }
+  },
+  {
+    "id": 39,
+    "subtopic": "Manage sizing and scaling for containers, including Azure Container Instances and Azure Container Apps",
+    "question": "You have an Azure Container App that processes message bursts from an Azure Storage Queue. You want the app to scale down to 0 replicas when the queue is empty to eliminate compute costs, and scale up to a maximum of 10 replicas. How should you set `minReplicas` and `maxReplicas`?",
+    "options": [
+      "minReplicas = 0, maxReplicas = 10",
+      "minReplicas = 1, maxReplicas = 10",
+      "minReplicas = 0, maxReplicas = 0",
+      "minReplicas = 10, maxReplicas = 100"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Setting `minReplicas` to 0 enables scale-to-zero when no queue messages are present, avoiding compute charges. Setting `maxReplicas` to 10 caps upper scale limits.",
+      "incorrectReasons": [
+        "Setting minReplicas = 1 ensures at least one replica is always running and charging compute costs.",
+        "Setting maxReplicas = 0 prevents any replicas from running ever.",
+        "Setting minReplicas = 10 forces 10 replicas to run continuously regardless of queue load."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/container-apps/scale-app"
+    }
+  },
+  {
+    "id": 40,
+    "subtopic": "Manage sizing and scaling for containers, including Azure Container Instances and Azure Container Apps",
+    "question": "How does scaling differ natively between Azure Container Instances (ACI) and Azure Container Apps (ACA)?",
+    "options": [
+      "ACI does not support native event-driven horizontal autoscaling of container replicas, whereas ACA supports horizontal autoscaling driven by KEDA.",
+      "ACI scales replicas dynamically up to 1,000 instances, while ACA only supports manual vertical scaling.",
+      "ACI supports scale-to-zero autoscaling based on queue length, while ACA does not.",
+      "Neither service supports scaling; containers must be managed via Virtual Machine Scale Sets."
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "ACI is designed for running standalone container instances or static container groups without native horizontal autoscaling. ACA includes native KEDA-driven horizontal autoscaling (including scale to zero).",
+      "incorrectReasons": [
+        "ACI does not have built-in horizontal autoscalers, while ACA supports auto-scaling.",
+        "ACA supports scale-to-zero, whereas ACI container groups do not horizontally scale to zero dynamically without deleting the instance.",
+        "Both services support container execution without managing underlying VM scale sets directly."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/container-apps/compare-options"
+    }
+  },
+  {
+    "id": 41,
+    "subtopic": "Manage sizing and scaling for containers, including Azure Container Instances and Azure Container Apps",
+    "question": "You are sizing an Azure Container App replica that performs heavy memory-intensive calculations. Which combination of CPU cores and Memory allocation is valid in Azure Container Apps core consumption profile?",
+    "options": [
+      "0.5 CPU cores and 1.0 GiB Memory",
+      "0.5 CPU cores and 32.0 GiB Memory",
+      "10 CPU cores and 0.1 GiB Memory",
+      "0.1 CPU cores and 128.0 GiB Memory"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "In Azure Container Apps, CPU and Memory allocation must follow supported core/memory combinations (e.g., 0.25 CPU / 0.5 GiB, 0.5 CPU / 1.0 GiB, 1.0 CPU / 2.0 GiB, 2.0 CPU / 4.0 GiB).",
+      "incorrectReasons": [
+        "0.5 CPU with 32.0 GiB is an invalid CPU-to-memory ratio in the standard consumption profile.",
+        "10 CPU cores with 0.1 GiB memory violates supported sizing ratios.",
+        "0.1 CPU with 128 GiB memory is an unsupported ratio."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/container-apps/containers#allocations"
+    }
+  },
+  {
+    "id": 42,
+    "subtopic": "Manage sizing and scaling for containers, including Azure Container Instances and Azure Container Apps",
+    "question": "You need to scale an Azure Container App based on a cron schedule (e.g., scale up at 8 AM and scale down at 6 PM). What scale rule metadata parameter is required?",
+    "options": [
+      "Cron expression (e.g., `cronExpression`), start time zone, and desired replica count",
+      "CPU threshold percentage",
+      "HTTP path route pattern",
+      "Azure Storage account access key"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Scheduled autoscaling in ACA uses KEDA cron scale rules, requiring a cron expression, timezone definition, and desired target replica count.",
+      "incorrectReasons": [
+        "CPU percentage thresholds manage utilization load, not time-of-day cron schedules.",
+        "HTTP path routing manages URL path matching, not scheduled scaling.",
+        "Storage keys are used for queue scaling, not cron scheduling."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/container-apps/scale-app#cron"
+    }
+  },
+  {
+    "id": 43,
+    "subtopic": "Manage sizing and scaling for containers, including Azure Container Instances and Azure Container Apps",
+    "question": "You are hosting a web application in Azure Container Instances (ACI). Due to an unexpected surge in web traffic, CPU utilization hits 100%. What happens automatically to the container group size in ACI?",
+    "options": [
+      "Nothing; ACI does not automatically add replicas or increase CPU allocation dynamically.",
+      "ACI automatically adds 2 additional container replicas.",
+      "ACI automatically doubles the CPU cores assigned to the container group.",
+      "ACI moves the container to a dedicated Virtual Machine Scale Set."
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "ACI container groups have fixed compute allocation defined at deployment and do not feature automatic vertical or horizontal autoscaling during load spikes.",
+      "incorrectReasons": [
+        "ACI does not auto-scale replicas horizontally.",
+        "ACI does not automatically adjust CPU allocations dynamically.",
+        "ACI does not migrate workloads to VMSS instances."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/container-instances/container-instances-faq"
+    }
+  },
+  {
+    "id": 44,
+    "subtopic": "Manage sizing and scaling for containers, including Azure Container Instances and Azure Container Apps",
+    "question": "In Azure Container Apps, you configure a scale rule with CPU utilization threshold set to 75%. How does ACA calculate CPU usage to decide when to scale out replicas?",
+    "options": [
+      "It calculates the average CPU utilization across all running replicas of the active revision.",
+      "It checks the maximum CPU utilization of the host physical server.",
+      "It measures CPU utilization of the Azure Container Registry.",
+      "It checks the CPU utilization of the client issuing HTTP requests."
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "CPU scale rules in ACA aggregate CPU usage metrics across all active replicas of a revision and compare the average against the configured threshold percentage.",
+      "incorrectReasons": [
+        "Host physical server metrics are hidden in serverless container platforms like ACA.",
+        "Registry CPU metrics do not reflect application workload utilization.",
+        "Client device CPU usage is completely independent of container app autoscaling."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/container-apps/scale-app#cpu"
+    }
+  },
+  {
+    "id": 45,
+    "subtopic": "Manage sizing and scaling for containers, including Azure Container Instances and Azure Container Apps",
+    "question": "You need to scale an Azure Container Instance deployment to handle higher request volumes. Since ACI does not natively offer horizontal autoscaling, what architecture pattern should you implement?",
+    "options": [
+      "Deploy Azure Container Apps instead, or orchestrate multiple ACI container groups using Azure Logic Apps / Automation / AKS Virtual Nodes.",
+      "Increase the storage account size attached to ACI.",
+      "Enable Geo-replication on the container image.",
+      "Attach a Network Security Group with load balancing rules."
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "To achieve dynamic horizontal scaling, you should migrate to Azure Container Apps or use external orchestration tools (like AKS with Virtual Nodes or Azure Functions) to manage multiple ACI instances.",
+      "incorrectReasons": [
+        "Storage size does not add compute processing units to containers.",
+        "Geo-replication replicates registry images, not running container compute processes.",
+        "NSGs manage network access rules and cannot provision additional container compute instances."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/container-apps/compare-options"
+    }
+  },
+  {
+    "id": 46,
+    "subtopic": "Manage sizing and scaling for containers, including Azure Container Instances and Azure Container Apps",
+    "question": "An Azure Container App is configured with custom scale rules using KEDA Azure Service Bus queue triggers. Where is the queue connection string stored securely for the scale rule evaluation?",
+    "options": [
+      "In the Container App Secrets section, referenced by the scale rule auth metadata",
+      "In clear text within the scale rule trigger metadata",
+      "In the Dockerfile environment label",
+      "In the public DNS records of the Container Apps Environment"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Sensitive authentication information for scale triggers (like connection strings) must be defined as Container App Secrets and referenced using `auth` parameters in scale rules.",
+      "incorrectReasons": [
+        "Storing connection strings in plain text within scale rules exposes credentials.",
+        "Dockerfiles are for image builds and cannot store dynamic runtime scale authentication credentials.",
+        "DNS records are public and cannot hold private connection strings."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/container-apps/scale-app#custom"
+    }
+  },
+  {
+    "id": 47,
+    "subtopic": "Manage sizing and scaling for containers, including Azure Container Instances and Azure Container Apps",
+    "question": "You want to increase the CPU allocation of a deployed Azure Container Instance from 1 vCPU to 2 vCPUs. What operational step is required?",
+    "options": [
+      "Redeploy or update the container group with the new resource specifications (which replaces/restarts the container group).",
+      "Drag the CPU slider in Azure Portal while the container continues running with zero downtime.",
+      "Upgrade the underlying Azure Storage account SKU.",
+      "Execute `docker scale --cpu 2` inside the running container console."
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "ACI resource limits are immutable while a container group is running. Updating resources requires re-applying the updated deployment template, which replaces/restarts the container group.",
+      "incorrectReasons": [
+        "ACI does not support live, non-disruptive hot-swapping of vCPU allocations without restarting.",
+        "Storage SKUs have no impact on container CPU allocation.",
+        "Internal container commands cannot alter host container group hardware limits."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/container-instances/container-instances-container-groups#resource-allocation"
+    }
+  },
+  {
+    "id": 48,
+    "subtopic": "Manage sizing and scaling for containers, including Azure Container Instances and Azure Container Apps",
+    "question": "In Azure Container Apps, what happens when an app configured with `minReplicas = 0` receives a new incoming HTTP request?",
+    "options": [
+      "The HTTP scale rule detects incoming traffic, ACA spins up a new replica (cold start), and routes the request to it.",
+      "The request immediately returns an HTTP 503 error and is dropped.",
+      "The Container Apps Environment gets deleted.",
+      "The request is converted into an Azure Event Grid event and stored indefinitely."
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "When scaled to zero, ACA holds/buffers the initial incoming HTTP request while KEDA triggers the creation of a replica to handle the request.",
+      "incorrectReasons": [
+        "The request is buffered during cold start rather than immediately dropped with a 503 error.",
+        "The environment remains active regardless of individual app replica counts.",
+        "HTTP requests are handled by the app ingress and replicas, not converted to Event Grid events."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/container-apps/scale-app"
+    }
+  },
+  {
+    "id": 49,
+    "subtopic": "Manage sizing and scaling for containers, including Azure Container Instances and Azure Container Apps",
+    "question": "You configure an Azure Container App with an HTTP scaling rule targeting 50 concurrent requests. Currently, there are 200 concurrent requests incoming. Assuming `maxReplicas` is set to 10, how many replicas will ACA attempt to provision?",
+    "options": [
+      "4 replicas",
+      "1 replica",
+      "10 replicas",
+      "200 replicas"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "The autoscaler divides total concurrent requests (200) by target concurrency per replica (50), resulting in 200 / 50 = 4 replicas.",
+      "incorrectReasons": [
+        "1 replica would be overloaded by 200 requests when target concurrency is 50.",
+        "10 replicas is the maximum cap, but only 4 are required to satisfy 200 requests at 50 requests per replica.",
+        "200 replicas ignores the target concurrency metric calculation."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/container-apps/scale-app#http"
+    }
+  },
+  {
+    "id": 50,
+    "subtopic": "Manage sizing and scaling for containers, including Azure Container Instances and Azure Container Apps",
+    "question": "You have an Azure Container App with multiple scale rules configured (e.g., an HTTP scale rule AND a CPU scale rule). How does ACA evaluate multiple scale rules for an active revision?",
+    "options": [
+      "It calculates the required replica count for each rule independently and scales to the highest replica count resulting from any rule.",
+      "It calculates the average replica count across all rules.",
+      "It only evaluates the HTTP rule and ignores all other rules.",
+      "It scales to the lowest replica count resulting from any rule."
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "When multiple scale rules are defined in Azure Container Apps, the autoscaling engine evaluates all rules and selects the rule that requests the highest number of replicas to ensure performance demands are met.",
+      "incorrectReasons": [
+        "Averaging rule counts could lead to insufficient replicas to handle peak demands of a specific metric.",
+        "ACA evaluates all configured scale rules, not just HTTP rules.",
+        "Selecting the lowest replica count would starve resources for demanding workloads."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/container-apps/scale-app#multiple-scale-rules"
+    }
+  }
+]

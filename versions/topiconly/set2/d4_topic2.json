@@ -1,0 +1,1063 @@
+[
+  {
+    "id": 1,
+    "subtopic": "Create and configure network security groups (NSGs) and application security groups",
+    "question": "You have a virtual machine named VM1 connected to Subnet1 in VNet1. You create an Application Security Group (ASG) named ASG-Web and assign VM1's network interface to ASG-Web. You want to create an NSG inbound rule to allow HTTPS traffic to all VMs in ASG-Web. Which component should you set as the Destination in the NSG rule?",
+    "options": [
+      "Any",
+      "Application Security Group -> ASG-Web",
+      "IP Addresses -> Subnet1 IP range",
+      "Service Tag -> VirtualNetwork"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Application Security Groups (ASGs) enable you to define network security policies based on application structure. Selecting ASG-Web as the Destination applies the rule directly to all network interfaces associated with ASG-Web.",
+      "incorrectReasons": [
+        "Setting Destination to Any would allow traffic to all destinations in the subnet/VNet, violating least privilege.",
+        "Using the Subnet1 IP range applies the rule to every resource in Subnet1, not just the VMs in ASG-Web.",
+        "VirtualNetwork service tag includes all IP addresses in the VNet and connected networks, which is too broad."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/virtual-network/application-security-groups"
+    }
+  },
+  {
+    "id": 2,
+    "subtopic": "Evaluate effective security rules in NSGs",
+    "question": "Subnet1 has an attached NSG named NSG-Subnet with an inbound rule named Rule1 (Priority 100, Action: Deny, Port: 80, Source: Any). VM1's network interface in Subnet1 has an attached NSG named NSG-NIC with an inbound rule named Rule2 (Priority 200, Action: Allow, Port: 80, Source: Any). When web traffic arrives at VM1 on port 80, what is the outcome?",
+    "options": [
+      "Traffic is allowed because Rule2 in NSG-NIC has priority over NSG-Subnet.",
+      "Traffic is allowed because Allow rules always take precedence over Deny rules.",
+      "Traffic is denied because NSG-Subnet processes inbound traffic first and blocks port 80.",
+      "Traffic is denied because lower priority numbers take lower precedence."
+    ],
+    "correct": 2,
+    "explanation": {
+      "correctReason": "For inbound traffic, Azure evaluates the Subnet NSG first. Since NSG-Subnet denies port 80 at priority 100, the packet is dropped before reaching the NIC NSG evaluation.",
+      "incorrectReasons": [
+        "Subnet NSGs are evaluated first for inbound traffic regardless of priority numbers on NIC NSGs.",
+        "Action precedence does not override rule processing order or priority numbers.",
+        "In Azure NSGs, lower priority numbers indicate higher precedence (e.g., 100 beats 200)."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/virtual-network/network-security-groups-overview#how-nsgs-work"
+    }
+  },
+  {
+    "id": 3,
+    "subtopic": "Implement Azure Bastion",
+    "question": "You plan to deploy Azure Bastion into an existing virtual network named VNet1. Which two requirements must be satisfied for the Azure Bastion subnet deployment? (Select TWO)",
+    "options": [
+      "The subnet must be named exactly AzureBastionSubnet.",
+      "The subnet prefix size must be /26 or larger.",
+      "A Network Security Group with a rule denying inbound HTTPS must be attached.",
+      "The subnet must be named BastionSubnet.",
+      "The subnet must have a User Defined Route (UDR) pointing 0.0.0.0/0 to an NVA."
+    ],
+    "correct": [0, 1],
+    "explanation": {
+      "correctReason": "Azure Bastion requires a dedicated subnet named explicitly AzureBastionSubnet with a subnet mask of /26 or larger (e.g., /26, /25, /24).",
+      "incorrectReasons": [
+        "Inbound HTTPS (port 443) must be allowed for Azure Bastion functionality.",
+        "The subnet name must be 'AzureBastionSubnet', not 'BastionSubnet'.",
+        "UDRs overriding default internet routing on AzureBastionSubnet are not supported and break Bastion connectivity."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/bastion/bastion-faq"
+    }
+  },
+  {
+    "id": 4,
+    "subtopic": "Configure service endpoints for Azure platform as a service (PaaS)",
+    "question": "You configure a Service Endpoint for Microsoft.Storage on Subnet1 in VNet1. You then restrict a storage account named stprod1 to accept traffic only from Subnet1. How does traffic from VM1 on Subnet1 route to stprod1?",
+    "options": [
+      "Traffic routes over the public internet using VM1's Public IP address.",
+      "Traffic routes over the Azure backbone network using VM1's private IP address.",
+      "Traffic routes through an Azure VPN Gateway connected to the storage account.",
+      "Traffic routes through a newly created private IP address interface on Subnet1."
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Virtual Network Service Endpoints extend your VNet private address space to PaaS services over the optimal Azure backbone network. The storage account sees requests originating from the VM's private IP address.",
+      "incorrectReasons": [
+        "Service Endpoints direct traffic over the Microsoft backbone rather than public internet paths.",
+        "VPN Gateways are used for hybrid cross-premises traffic, not Service Endpoint routing.",
+        "Service Endpoints do not create private network interfaces in the subnet; Private Endpoints do."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/virtual-network/virtual-network-service-endpoints-overview"
+    }
+  },
+  {
+    "id": 5,
+    "subtopic": "Configure private endpoints for Azure PaaS",
+    "question": "You create a Private Endpoint for an Azure Key Vault named kv-prod-01 in Subnet1. You want virtual machines in VNet1 to resolve the FQDN kv-prod-01.vault.azure.net to the Private Endpoint's private IP address. Which Azure DNS component should you configure and link to VNet1?",
+    "options": [
+      "Private DNS Zone named privatelink.vaultcore.azure.net",
+      "Public DNS Zone named vault.azure.net",
+      "Private DNS Zone named privatelink.keyvault.azure.net",
+      "Azure DNS Resolver Rule Set targeting public root servers"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "For Azure Key Vault, the required private DNS zone name for Private Endpoints is privatelink.vaultcore.azure.net. Linking this zone to VNet1 allows VMs to resolve the Key Vault FQDN to its private IP.",
+      "incorrectReasons": [
+        "Public DNS zones cannot override internal private IP resolution inside VNets.",
+        "privatelink.keyvault.azure.net is not the official Azure recommended zone domain for Key Vault (it is privatelink.vaultcore.azure.net).",
+        "Public root server resolver rules will resolve Key Vault to its public IP, bypassing the Private Endpoint."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/private-link/private-endpoint-dns"
+    }
+  },
+  {
+    "id": 6,
+    "subtopic": "Create and configure network security groups (NSGs) and application security groups",
+    "question": "You need to create an NSG inbound rule that permits traffic only from other virtual machines within the same virtual network and any peered virtual networks. Which default Service Tag should you specify as the Source in the NSG rule?",
+    "options": [
+      "AzureLoadBalancer",
+      "VirtualNetwork",
+      "Internet",
+      "Storage"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "The VirtualNetwork service tag encompasses all virtual network address spaces, connected peered VNets, on-premises gateway connections, and virtual network service endpoints.",
+      "incorrectReasons": [
+        "AzureLoadBalancer includes only health probes originating from Azure's infrastructure load balancers.",
+        "Internet includes all public IP addresses outside the virtual network.",
+        "Storage includes IP address prefixes for Azure Storage services."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/virtual-network/service-tags-overview"
+    }
+  },
+  {
+    "id": 7,
+    "subtopic": "Evaluate effective security rules in NSGs",
+    "question": "An administrator reviews the effective security rules for VM1. The following inbound NSG rules are active:\n- Priority 100: Allow, Source: 10.0.0.0/24, Port: 3389, Action: Allow\n- Priority 150: Deny, Source: 10.0.0.5, Port: 3389, Action: Deny\n\nWhen a user at IP 10.0.0.5 attempts an RDP connection to VM1, what is the result?",
+    "options": [
+      "Connection is allowed because Priority 100 is evaluated before Priority 150.",
+      "Connection is denied because Deny rules always override Allow rules.",
+      "Connection is denied because Priority 150 specifically matches 10.0.0.5.",
+      "Connection is allowed because 10.0.0.5 is a host IP rather than a range."
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Azure NSG rules are processed sequentially in order of priority (lowest number first). Priority 100 matches 10.0.0.5 (as part of 10.0.0.0/24) and allows the connection immediately; evaluation stops.",
+      "incorrectReasons": [
+        "Rule processing stops at the first match; action type does not bypass priority sequence.",
+        "Priority 150 is never evaluated because Priority 100 matched first.",
+        "IP address specificity does not grant automatic evaluation precedence over priority numbers."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/virtual-network/network-security-groups-overview#security-rules"
+    }
+  },
+  {
+    "id": 8,
+    "subtopic": "Implement Azure Bastion",
+    "question": "You need to manage an Azure Virtual Machine via SSH using Azure Bastion. Which prerequisite must be met on the target Virtual Machine?",
+    "options": [
+      "The VM must have a Public IP address attached to its Network Interface.",
+      "Port 22 must be open to the Internet in the VM's Network Security Group.",
+      "The VM NIC must be located in the AzureBastionSubnet.",
+      "The VM must have a private IP address and be reachable from the AzureBastionSubnet."
+    ],
+    "correct": 3,
+    "explanation": {
+      "correctReason": "Azure Bastion connects to target virtual machines using their private IP address over the VNet routing path. The target VM does not need a public IP.",
+      "incorrectReasons": [
+        "Azure Bastion explicitly eliminates the requirement for public IPs on target VMs.",
+        "Port 22 only needs to accept traffic coming from AzureBastionSubnet, not the public Internet.",
+        "Target workload VMs reside in standard application subnets, never in the AzureBastionSubnet."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/bastion/bastion-overview"
+    }
+  },
+  {
+    "id": 9,
+    "subtopic": "Configure service endpoints for Azure platform as a service (PaaS)",
+    "question": "You need to restrict outbound access from Subnet1 so that virtual machines can only communicate with Azure SQL databases located in the East US region. What should you configure? (Select TWO)",
+    "options": [
+      "Enable Microsoft.Sql service endpoint on Subnet1.",
+      "Create an NSG outbound rule allowing traffic to Service Tag Sql.EastUS and denying Sql.",
+      "Create a Private Endpoint for Azure SQL in Subnet1.",
+      "Configure an Application Security Group targeting SQL Server ports.",
+      "Enable Microsoft.Storage service endpoint on Subnet1."
+    ],
+    "correct": [0, 1],
+    "explanation": {
+      "correctReason": "Enabling the Microsoft.Sql service endpoint allows subnet traffic to reach Azure SQL over the Azure backbone. Combining this with an NSG rule filtering by the regional service tag Sql.EastUS enforces regional access limits.",
+      "incorrectReasons": [
+        "Private Endpoints connect to a specific SQL server instance rather than scoping regional service endpoint access.",
+        "ASGs group virtual machine network interfaces, not regional PaaS service tags.",
+        "Microsoft.Storage service endpoint enables storage access, not Azure SQL access."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/virtual-network/virtual-network-service-endpoints-overview"
+    }
+  },
+  {
+    "id": 10,
+    "subtopic": "Configure private endpoints for Azure PaaS",
+    "question": "You deploy a Private Endpoint for Azure Blob Storage. What component is automatically created inside your VNet subnet to represent the PaaS service?",
+    "options": [
+      "A Network Interface (NIC) with a private IP address",
+      "A Virtual Network Gateway",
+      "A Public Load Balancer frontend",
+      "A User Defined Route (UDR) table"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "A Private Endpoint creates a specialized Network Interface (NIC) inside your specified VNet subnet, securing an IP address from your subnet's address range.",
+      "incorrectReasons": [
+        "Private Endpoints do not deploy Virtual Network Gateways.",
+        "Private Endpoints avoid public endpoints and load balancers by using internal private IP addresses.",
+        "Private Endpoints do not create UDR objects; routing is handled natively by Azure host routing."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/private-link/private-endpoint-overview"
+    }
+  },
+  {
+    "id": 11,
+    "subtopic": "Create and configure network security groups (NSGs) and application security groups",
+    "question": "Which default inbound NSG security rule allows health probe traffic from Azure Load Balancer to reach virtual machines protected by the NSG?",
+    "options": [
+      "AllowVNetInBound (Priority 65000)",
+      "AllowAzureLoadBalancerInBound (Priority 65001)",
+      "DenyAllInBound (Priority 65500)",
+      "AllowInternetInBound (Priority 65002)"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "The default rule AllowAzureLoadBalancerInBound has priority 65001 and explicitly permits traffic from the AzureLoadBalancer service tag (168.63.129.16) to Any destination.",
+      "incorrectReasons": [
+        "AllowVNetInBound (65000) permits intra-VNet communication.",
+        "DenyAllInBound (65500) blocks all unmatched inbound traffic.",
+        "AllowInternetInBound is not a default built-in NSG rule."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/virtual-network/network-security-groups-overview#default-security-rules"
+    }
+  },
+  {
+    "id": 12,
+    "subtopic": "Evaluate effective security rules in NSGs",
+    "question": "You need to determine why traffic on port 443 to VM1 is being blocked. Which tool in Azure Network Watcher or Azure Portal provides a consolidated view of all NSG rules applied to VM1's NIC from both subnet and NIC levels?",
+    "options": [
+      "IP Flow Verify",
+      "Effective Security Rules",
+      "Next Hop",
+      "NSG Flow Logs"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "The Effective Security Rules blade displays all compiled NSG rules applied to a network interface, combining subnet-level and NIC-level NSG rules in order of priority.",
+      "incorrectReasons": [
+        "IP Flow Verify tests a specific packet 5-tuple to check allow/deny status, but does not display the full evaluated rule list.",
+        "Next Hop determines routing paths, not NSG security filter rules.",
+        "NSG Flow Logs record historical traffic flow data into storage/Log Analytics."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/virtual-network/diagnose-network-traffic-filter-problem"
+    }
+  },
+  {
+    "id": 13,
+    "subtopic": "Implement Azure Bastion",
+    "question": "You need to deploy Azure Bastion using the Azure CLI. Which Azure CLI command is used to create an Azure Bastion host resource?",
+    "options": [
+      "az network bastion create",
+      "az vm bastion create",
+      "az network vnet bastion deploy",
+      "az security bastion create"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "The official Azure CLI command to create an Azure Bastion host is `az network bastion create`.",
+      "incorrectReasons": [
+        "Bastion is a network service under `az network`, not `az vm`.",
+        "`az network vnet bastion deploy` is not a valid Azure CLI command syntax.",
+        "`az security` manages Defender for Cloud settings, not Bastion resources."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/cli/azure/network/bastion"
+    }
+  },
+  {
+    "id": 14,
+    "subtopic": "Configure service endpoints for Azure platform as a service (PaaS)",
+    "question": "You want to prevent resources on Subnet1 from exfiltrating data to unauthorized Azure Storage accounts while keeping Service Endpoints enabled. Which feature should you configure on the Service Endpoint?",
+    "options": [
+      "Service Endpoint Policies",
+      "Application Security Groups",
+      "Private Link Service",
+      "NAT Gateway"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Service Endpoint Policies allow you to filter egress virtual network traffic to specific Azure Storage accounts over Service Endpoints, preventing unauthorized data exfiltration.",
+      "incorrectReasons": [
+        "Application Security Groups filter VM NIC traffic, not PaaS resource destination scopes for Service Endpoints.",
+        "Private Link Service exposes your own services privately, not restricting egress on Service Endpoints.",
+        "NAT Gateway manages general internet egress traffic, not PaaS service endpoint policies."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/virtual-network/virtual-network-service-endpoint-policies-overview"
+    }
+  },
+  {
+    "id": 15,
+    "subtopic": "Configure private endpoints for Azure PaaS",
+    "question": "You deploy a Private Endpoint for Azure SQL Database. You disable public network access on the Azure SQL Logical Server. What happens when a user attempts to connect to the SQL Database from the public internet?",
+    "options": [
+      "The connection is routed to the Private Endpoint automatically.",
+      "The connection attempt is rejected by the Azure SQL Firewall.",
+      "The connection succeeds if the user's public IP is added to the SQL firewall rules.",
+      "The connection is proxied through Azure Bastion."
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Disabling public network access on the Azure SQL server blocks all access via its public endpoint. Requests from the internet are rejected at the service firewall layer.",
+      "incorrectReasons": [
+        "Internet traffic is not automatically re-routed to a private IP endpoint.",
+        "When public network access is disabled, explicit IP firewall rules are ignored for public traffic.",
+        "Azure Bastion provides RDP/SSH to virtual machines, not native SQL client connections from external users."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-sql/database/connectivity-architecture"
+    }
+  },
+  {
+    "id": 16,
+    "subtopic": "Create and configure network security groups (NSGs) and application security groups",
+    "question": "You have three web servers (VM1, VM2, VM3) and two database servers (VM4, VM5) in the same subnet. You want to allow traffic on port 1433 only from the web servers to the database servers. How should you structure Application Security Groups and NSG rules? (Select TWO)",
+    "options": [
+      "Create ASG-Web for web servers and ASG-DB for database servers.",
+      "Create an NSG rule with Source: ASG-Web, Destination: ASG-DB, Port: 1433, Action: Allow.",
+      "Create a separate subnet for each ASG.",
+      "Assign ASG-Web as the Destination in the NSG rule.",
+      "Attach the NSG directly to the Application Security Group resources."
+    ],
+    "correct": [0, 1],
+    "explanation": {
+      "correctReason": "Creating ASG-Web and ASG-DB allows logical grouping of NICs regardless of subnet location. Setting Source to ASG-Web and Destination to ASG-DB on port 1433 enforces precise access controls.",
+      "incorrectReasons": [
+        "ASGs allow zero-trust isolation within a single subnet; separate subnets are not required.",
+        "ASG-Web should be the Source, while ASG-DB should be the Destination for database traffic.",
+        "NSGs are attached to subnets or network interfaces, not directly to ASGs."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/virtual-network/application-security-groups"
+    }
+  },
+  {
+    "id": 17,
+    "subtopic": "Evaluate effective security rules in NSGs",
+    "question": "You configure an outbound NSG rule to block internet traffic (Destination: Internet, Action: Deny, Priority: 200). Virtual machines in the subnet can no longer access Azure Key Vault via its public endpoint. Why did this occur?",
+    "options": [
+      "Key Vault IP addresses are included in the 'Internet' service tag.",
+      "Priority 200 overrides default Azure infrastructure routing.",
+      "Deny rules automatically apply to intra-VNet traffic as well.",
+      "Azure Key Vault requires inbound connections from virtual machines."
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "The 'Internet' service tag includes all public IP addresses not part of the VirtualNetwork tag, including public endpoints of Azure services like Key Vault, Storage, and SQL.",
+      "incorrectReasons": [
+        "UDRs manage routing; NSGs manage packet filtering. The rule blocks traffic destined for public IPs.",
+        "The Internet tag does not encompass private intra-VNet IPs.",
+        "VMs initiate outbound connections to Key Vault; Key Vault does not initiate inbound connections to VMs."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/virtual-network/service-tags-overview"
+    }
+  },
+  {
+    "id": 18,
+    "subtopic": "Implement Azure Bastion",
+    "question": "You need to grant an administrator permission to connect to a Virtual Machine using Azure Bastion without granting full management access to the VM. Which two RBAC roles are required for the administrator? (Select TWO)",
+    "options": [
+      "Reader role on the Virtual Machine",
+      "Reader role on the Azure Bastion host",
+      "Virtual Machine Administrator Login / Contributor on the VM",
+      "Owner role on the Virtual Network",
+      "Network Contributor role on the Azure Bastion host"
+    ],
+    "correct": [0, 1],
+    "explanation": {
+      "correctReason": "To connect via Azure Bastion, the user needs at least Reader role on the target VM, Reader role on the Bastion resource, and Reader role on the NIC/VNet.",
+      "incorrectReasons": [
+        "VM Contributor is not strictly required if credentials or key pairs are known by the administrator.",
+        "Owner role provides excessive administrative permissions.",
+        "Network Contributor is for modifying network resources, not using Bastion for VM access."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/bastion/bastion-faq"
+    }
+  },
+  {
+    "id": 19,
+    "subtopic": "Configure service endpoints for Azure platform as a service (PaaS)",
+    "question": "You enable a Service Endpoint for Azure Storage on Subnet1. Which parameter on the Storage Account network firewall configuration allows requests from Subnet1 while blocking all other public traffic?",
+    "options": [
+      "Selected networks -> Add existing virtual network (Subnet1)",
+      "Allow Azure services on the trusted services list to access this storage account",
+      "Enable public access from all networks",
+      "Configure Private Link Scope"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Under Storage Account Firewalls and virtual networks, choosing 'Enabled from selected virtual networks and IP addresses' and adding Subnet1 permits traffic via Service Endpoints while blocking general internet access.",
+      "incorrectReasons": [
+        "Trusted Azure services allows specific first-party Microsoft services (like Azure Backup), not user VM subnets.",
+        "Enabling public access from all networks leaves the account exposed to the internet.",
+        "Private Link Scope applies to Azure Monitor Private Link Scopes, not storage account service endpoints."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/storage/common/storage-network-security"
+    }
+  },
+  {
+    "id": 20,
+    "subtopic": "Configure private endpoints for Azure PaaS",
+    "question": "You configure a Private Endpoint for an Azure App Service web app. How does the Private Endpoint impact inbound and outbound traffic for the web app?",
+    "options": [
+      "Inbound traffic to the app uses the private IP; outbound traffic from the app requires VNet integration.",
+      "Inbound traffic uses public IP; outbound traffic uses the private endpoint IP.",
+      "Both inbound and outbound traffic automatically use the Private Endpoint interface without additional settings.",
+      "Private Endpoints only support outbound traffic from App Service to virtual networks."
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Private Endpoints for App Service secure INBOUND connections to the app using a private IP address. OUTBOUND traffic from the app into the VNet requires configuring App Service VNet Integration.",
+      "incorrectReasons": [
+        "Private Endpoints secure inbound traffic, not public inbound traffic.",
+        "Outbound traffic requires regional VNet Integration; Private Endpoints do not handle outbound traffic from the app.",
+        "Private Endpoints are exclusively inbound endpoints for PaaS resources."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/app-service/networking/private-endpoint"
+    }
+  },
+  {
+    "id": 21,
+    "subtopic": "Create and configure network security groups (NSGs) and application security groups",
+    "question": "What is the priority range allowed for custom rules created within an Azure Network Security Group?",
+    "options": [
+      "100 to 4096",
+      "1 to 1000",
+      "100 to 65000",
+      "1000 to 65535"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Custom security rules in an NSG must have priority values between 100 and 4096. Lower numbers take precedence over higher numbers.",
+      "incorrectReasons": [
+        "Priority numbers start at 100, not 1.",
+        "Default system rules occupy priorities 65000, 65001, and 65500.",
+        "The upper limit for custom user rules is 4096."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/virtual-network/network-security-groups-overview#security-rules"
+    }
+  },
+  {
+    "id": 22,
+    "subtopic": "Evaluate effective security rules in NSGs",
+    "question": "You use Azure Network Watcher IP Flow Verify to test outbound traffic from VM1 (10.0.1.4) to destination 13.107.21.200 on port 443. The tool output states 'Access Denied' due to Rule_Deny_Internet. Which configuration detail is provided by IP Flow Verify?",
+    "options": [
+      "The specific NSG and rule name causing the denial",
+      "The DNS query resolution logs for 13.107.21.200",
+      "The CPU utilization on VM1 during packet generation",
+      "The packet payload content in hexadecimal format"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "IP Flow Verify checks whether a packet is allowed or denied based on 5-tuple parameters and explicitly names the NSG and security rule responsible for the decision.",
+      "incorrectReasons": [
+        "IP Flow Verify tests network security filtering, not DNS lookup logs.",
+        "Resource metrics like CPU usage are monitored via Azure Monitor Metrics.",
+        "Packet payload content is captured using Network Watcher Packet Capture, not IP Flow Verify."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/network-watcher/network-watcher-ip-flow-verify-overview"
+    }
+  },
+  {
+    "id": 23,
+    "subtopic": "Implement Azure Bastion",
+    "question": "Which Azure Bastion SKU tier provides features such as native client support (via Azure CLI), file transfer, and shareable link generation?",
+    "options": [
+      "Developer SKU",
+      "Basic SKU",
+      "Standard SKU",
+      "Premium SKU"
+    ],
+    "correct": 2,
+    "explanation": {
+      "correctReason": "The Standard SKU tier of Azure Bastion unlocks advanced capabilities including native client connections (via `az network bastion ssh/rdp`), file upload/download, host scaling, and shareable links.",
+      "incorrectReasons": [
+        "Developer SKU is a lightweight zero-cost/shared option with restricted functionality.",
+        "Basic SKU provides browser-based RDP/SSH management only without native client or file transfer support.",
+        "Standard SKU covers native client support and file transfers; Premium tier provides extra enterprise features like private host deployment and session recording."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/bastion/bastion-sku"
+    }
+  },
+  {
+    "id": 24,
+    "subtopic": "Configure service endpoints for Azure platform as a service (PaaS)",
+    "question": "You need to enable a Service Endpoint on Subnet1 for Azure Cosmos DB. Which service tag/service endpoint type should you select when updating the subnet configuration?",
+    "options": [
+      "Microsoft.CosmosDB",
+      "Microsoft.DocumentDB",
+      "Microsoft.NoSQL",
+      "Microsoft.Database"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "The Azure resource provider name used for Azure Cosmos DB service endpoints is Microsoft.DocumentDB.",
+      "incorrectReasons": [
+        "Microsoft.CosmosDB is not the resource provider endpoint string in Azure networking.",
+        "Microsoft.NoSQL is not an Azure resource provider.",
+        "Microsoft.Database is invalid for Cosmos DB."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/virtual-network/virtual-network-service-endpoints-overview"
+    }
+  },
+  {
+    "id": 25,
+    "subtopic": "Configure private endpoints for Azure PaaS",
+    "question": "You plan to connect an Azure Private Endpoint in VNet1 to an Azure Storage account located in a different Azure subscription and different Azure Active Directory tenant. Which connection approval method must be used?",
+    "options": [
+      "Automatic approval using Azure Policy",
+      "Manual request and approval workflow",
+      "Service Principal pre-authorization",
+      "VNet Peering automatic synchronization"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "When creating a Private Endpoint to a resource in another tenant or where you do not have RBAC permissions, the connection uses a manual request/approval process managed by the resource owner.",
+      "incorrectReasons": [
+        "Automatic approval requires sufficient RBAC permissions (e.g., Read/Write) on the target resource.",
+        "Service principals do not bypass cross-tenant Private Link authorization approval workflows.",
+        "VNet Peering is separate from Private Link private endpoint connection authorization."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/private-link/private-endpoint-overview#private-endpoint-properties"
+    }
+  },
+  {
+    "id": 26,
+    "subtopic": "Create and configure network security groups (NSGs) and application security groups",
+    "question": "You have an NSG associated with Subnet1. You assign a second NSG directly to VM1's network interface inside Subnet1. Which statement correctly describes how Azure evaluates outbound traffic sent from VM1?",
+    "options": [
+      "The NIC NSG is evaluated first, followed by the Subnet NSG.",
+      "The Subnet NSG is evaluated first, followed by the NIC NSG.",
+      "Only the NIC NSG is evaluated; the Subnet NSG is ignored.",
+      "Only the Subnet NSG is evaluated; the NIC NSG is ignored."
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "For OUTBOUND traffic, Azure evaluates the NIC NSG rules first. If allowed by the NIC NSG, the packet is then evaluated by the Subnet NSG rules.",
+      "incorrectReasons": [
+        "Subnet NSGs are evaluated first for inbound traffic, but second for outbound traffic.",
+        "Both NSGs are evaluated sequentially for outbound traffic.",
+        "Neither NSG is bypassed when both are present."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/virtual-network/network-security-groups-overview#how-nsgs-work"
+    }
+  },
+  {
+    "id": 27,
+    "subtopic": "Evaluate effective security rules in NSGs",
+    "question": "A virtual machine VM1 cannot receive web traffic on port 80. You review the Effective Security Rules for VM1's NIC and see three rules matching port 80:\n- Rule A: Priority 300, Action: Allow, Source: 192.168.1.0/24\n- Rule B: Priority 200, Action: Deny, Source: Any\n- Rule C: Priority 100, Action: Allow, Source: 10.0.0.0/8\n\nIf traffic arrives from source 192.168.1.50 on port 80, which rule determines the outcome?",
+    "options": [
+      "Rule A (Priority 300)",
+      "Rule B (Priority 200)",
+      "Rule C (Priority 100)",
+      "Default DenyAllInBound"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Rules are evaluated in order of priority (100, then 200, then 300). Rule C (100) does not match source 192.168.1.50. Rule B (200) matches Source: Any and Denies port 80 traffic. Evaluation stops at Rule B.",
+      "incorrectReasons": [
+        "Rule A (300) is never reached because Rule B (200) matched first and denied the traffic.",
+        "Rule C (100) requires a source of 10.0.0.0/8, which does not match 192.168.1.50.",
+        "Default rules are only evaluated if no custom rules match."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/virtual-network/network-security-groups-overview#security-rules"
+    }
+  },
+  {
+    "id": 28,
+    "subtopic": "Implement Azure Bastion",
+    "question": "You need to configure an NSG on the AzureBastionSubnet to ensure Azure Bastion functions properly. Which two INBOUND traffic rules are required on AzureBastionSubnet? (Select TWO)",
+    "options": [
+      "Allow HTTPS (port 443) from Internet (Source: Internet / Any)",
+      "Allow GatewayManager (port 443) from GatewayManager service tag",
+      "Allow RDP (port 3389) from Internet",
+      "Allow SSH (port 22) from Internet",
+      "Deny all inbound traffic from AzureLoadBalancer"
+    ],
+    "correct": [0, 1],
+    "explanation": {
+      "correctReason": "Azure Bastion requires inbound HTTPS (443) from Internet for user portal connections and inbound port 443 from the GatewayManager service tag for control plane management.",
+      "incorrectReasons": [
+        "Inbound RDP/SSH from the internet to AzureBastionSubnet is not allowed and compromises security.",
+        "Inbound SSH from the internet directly to Bastion is prohibited.",
+        "AzureLoadBalancer health probe access on port 443 must be allowed, not denied."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/bastion/bastion-nsg"
+    }
+  },
+  {
+    "id": 29,
+    "subtopic": "Configure service endpoints for Azure platform as a service (PaaS)",
+    "question": "What is a limitation of Virtual Network Service Endpoints when compared to Azure Private Endpoints?",
+    "options": [
+      "Service Endpoints keep the PaaS service exposed on a public IP address.",
+      "Service Endpoints increase network latency compared to internet routing.",
+      "Service Endpoints cannot be enabled on subnets containing virtual machines.",
+      "Service Endpoints require ExpressRoute circuits to function."
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "While Service Endpoints route traffic securely over the Microsoft backbone, the PaaS service retains its public IP address. Private Endpoints replace the public IP access with a private IP directly inside your VNet.",
+      "incorrectReasons": [
+        "Service Endpoints optimize traffic over the Azure backbone, reducing or keeping latency minimal.",
+        "Service Endpoints are enabled directly on subnets containing workload VMs.",
+        "Service Endpoints do not require ExpressRoute; they work natively within Azure VNets."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/private-link/private-endpoint-overview#private-endpoint-vs-service-endpoints"
+    }
+  },
+  {
+    "id": 30,
+    "subtopic": "Configure private endpoints for Azure PaaS",
+    "question": "You deploy a Private Endpoint for a Storage Account into Subnet1. Virtual machines in Subnet2 (same VNet) try to connect to the storage account using its private FQDN. What setting ensures VMs in Subnet2 resolve the storage FQDN to the Private Endpoint IP?",
+    "options": [
+      "Link the Private DNS Zone (privatelink.blob.core.windows.net) to VNet1.",
+      "Enable Service Endpoints on Subnet2.",
+      "Deploy an NVA in Subnet2 to handle DNS requests.",
+      "Attach an Application Security Group to the Private Endpoint."
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Linking the Private DNS Zone to the VNet enables Azure Provided DNS (168.63.129.16) to resolve private FQDN queries across all subnets in that VNet.",
+      "incorrectReasons": [
+        "Enabling Service Endpoints changes routing to public IPs and does not configure Private Endpoint DNS resolution.",
+        "NVAs are unnecessary for native Private DNS Zone resolution.",
+        "ASGs manage NSG filtering and do not participate in DNS resolution."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/private-link/private-endpoint-dns"
+    }
+  },
+  {
+    "id": 31,
+    "subtopic": "Create and configure network security groups (NSGs) and application security groups",
+    "question": "You attempt to associate an Application Security Group (ASG) named ASG-Web with a VM's Network Interface card (NIC). The operation fails. What is a possible cause for this failure?",
+    "options": [
+      "The VM and the ASG are in different virtual networks.",
+      "The VM NIC is attached to a subnet with an active Route Table.",
+      "The ASG contains more than 10 network interfaces.",
+      "The VM is running Linux instead of Windows Server."
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "All network interfaces assigned to an Application Security Group must exist within the same virtual network as the ASG.",
+      "incorrectReasons": [
+        "Route tables on the subnet do not restrict ASG assignment.",
+        "ASGs can contain thousands of network interfaces; 10 is well within limits.",
+        "ASGs are OS-agnostic network layer groupings."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/virtual-network/application-security-groups"
+    }
+  },
+  {
+    "id": 32,
+    "subtopic": "Evaluate effective security rules in NSGs",
+    "question": "You configure an NSG rule with Source: Any, Destination: Any, Port: *, Action: Deny, Priority: 4000. Which traffic will continue to function despite this rule? (Select TWO)",
+    "options": [
+      "Traffic matching a custom rule with Priority 3000 and Action: Allow",
+      "Azure Load Balancer health probes if a rule at Priority 3500 explicitly allows AzureLoadBalancer tag",
+      "Inbound internet traffic matching default rule AllowInternetInBound",
+      "Outbound internet traffic matching default rule AllowInternetOutBound",
+      "Intra-subnet traffic matching default rule AllowVNetInBound"
+    ],
+    "correct": [0, 1],
+    "explanation": {
+      "correctReason": "Rules evaluated at priorities 3000 and 3500 execute BEFORE priority 4000. Matching allow rules at lower priority numbers take precedence over priority 4000.",
+      "incorrectReasons": [
+        "Default rules have priorities 65000+, which are higher than 4000 and will be overridden by the Deny at priority 4000.",
+        "Outbound default rules (65001) are overridden by priority 4000 if outbound.",
+        "AllowVNetInBound (65000) is evaluated AFTER priority 4000 and will be overridden."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/virtual-network/network-security-groups-overview#security-rules"
+    }
+  },
+  {
+    "id": 33,
+    "subtopic": "Implement Azure Bastion",
+    "question": "Which outbound NSG security rule must be configured on AzureBastionSubnet to allow Azure Bastion to communicate with target VMs in the VNet?",
+    "options": [
+      "Outbound traffic to VirtualNetwork service tag on ports 3389 and 22 (Action: Allow)",
+      "Outbound traffic to Internet on port 80 (Action: Allow)",
+      "Outbound traffic to AzureCloud service tag on port 443 (Action: Allow)",
+      "Outbound traffic to GatewayManager service tag on port 443 (Action: Allow)"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Azure Bastion management requires outbound connections to the target VMs within the VNet (VirtualNetwork tag) over RDP (3389) and SSH (22).",
+      "incorrectReasons": [
+        "Port 80 outbound to Internet is not a requirement for Bastion target connections.",
+        "AzureCloud port 443 outbound is required for storing diagnostic logs/metrics, but not for direct VM connectivity.",
+        "GatewayManager inbound access manages Bastion control plane, not outbound host target egress."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/bastion/bastion-nsg"
+    }
+  },
+  {
+    "id": 34,
+    "subtopic": "Configure service endpoints for Azure platform as a service (PaaS)",
+    "question": "You are enabling Service Endpoints for Azure Storage on Subnet1. What happens to existing active TCP connections between VM1 on Subnet1 and Azure Storage when the endpoint is enabled?",
+    "options": [
+      "Active connections are dropped immediately and must be re-established.",
+      "Active connections remain open on old routes while new connections switch seamlessly to the service endpoint route.",
+      "The entire subnet is placed in a maintenance mode for 15 minutes.",
+      "VM1 must be restarted to apply updated network routing table entries."
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Switching a subnet to use Service Endpoints is a seamless operation. Existing TCP connections stay open, while new connections immediately route over the service endpoint.",
+      "incorrectReasons": [
+        "Azure Service Endpoint configuration does not forcefully drop existing TCP sessions during enable operations.",
+        "Subnets do not enter maintenance modes during service endpoint toggles.",
+        "Virtual machine reboots are never required for service endpoint enablement."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/virtual-network/virtual-network-service-endpoints-overview"
+    }
+  },
+  {
+    "id": 35,
+    "subtopic": "Configure private endpoints for Azure PaaS",
+    "question": "You need to prevent data exfiltration from your VNet. Why do Private Endpoints offer superior anti-exfiltration capabilities compared to standard Service Endpoints?",
+    "options": [
+      "Private Endpoints grant access to a specific resource instance rather than the entire service platform.",
+      "Private Endpoints automatically encrypt data at rest with customer-managed keys.",
+      "Private Endpoints block all outbound HTTP requests from virtual machines.",
+      "Private Endpoints require Multi-Factor Authentication for data read operations."
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Private Endpoints map to a specific PaaS resource instance (e.g., stprodaccount1). Service Endpoints open network access to the entire PaaS service region, creating risk if malicious actors attempt to exfiltrate data to their own storage account in the same service.",
+      "incorrectReasons": [
+        "Data at rest encryption is managed by storage/database settings, not by Private Endpoints.",
+        "Private Endpoints do not filter HTTP client capabilities on VMs.",
+        "MFA is an identity authentication requirement, not a network infrastructure protocol feature."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/private-link/private-endpoint-overview"
+    }
+  },
+  {
+    "id": 36,
+    "subtopic": "Create and configure network security groups (NSGs) and application security groups",
+    "question": "You need to deploy a Network Security Group to filter traffic for a set of subnet resources. To which two Azure scopes can an NSG be directly associated? (Select TWO)",
+    "options": [
+      "Virtual Network Subnet",
+      "Virtual Machine Network Interface (NIC)",
+      "Resource Group",
+      "Virtual Network (VNet root)",
+      "Application Security Group"
+    ],
+    "correct": [0, 1],
+    "explanation": {
+      "correctReason": "Network Security Groups can be attached directly to Virtual Network Subnets or individual Virtual Machine Network Interfaces (NICs).",
+      "incorrectReasons": [
+        "NSGs cannot be bound directly to resource group administrative boundaries.",
+        "NSGs cannot be attached to an entire VNet root object; they must target subnets.",
+        "ASGs are references used within NSG rules, not resources that receive NSG associations."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/virtual-network/network-security-groups-overview"
+    }
+  },
+  {
+    "id": 37,
+    "subtopic": "Evaluate effective security rules in NSGs",
+    "question": "You examine the Effective Security Rules for a VM. You notice default rules with priority numbers 65000, 65001, and 65500. Can these default rules be deleted from the NSG?",
+    "options": [
+      "No, default rules cannot be deleted, but they can be overridden by custom rules with lower priority numbers.",
+      "Yes, default rules can be deleted using Azure CLI or PowerShell.",
+      "Yes, default rules are removed automatically when custom rules are added.",
+      "No, default rules cannot be deleted or overridden under any circumstances."
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Default rules are built into every NSG and cannot be deleted. However, because they have high priority numbers (65000+), you can easily override them by creating custom rules with lower priority numbers (100–4096).",
+      "incorrectReasons": [
+        "No command-line tools can remove default system rules.",
+        "Adding custom rules leaves default rules in place at the bottom of the evaluation list.",
+        "Default rules are designed specifically to be overridden by custom rules."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/virtual-network/network-security-groups-overview#default-security-rules"
+    }
+  },
+  {
+    "id": 38,
+    "subtopic": "Implement Azure Bastion",
+    "question": "You are designing an Azure network layout. Which two settings or resources are prohibited on the AzureBastionSubnet? (Select TWO)",
+    "options": [
+      "Attaching a User Defined Route (UDR) with 0.0.0.0/0 targeting an NVA",
+      "Deploying standard Virtual Machines or other non-Bastion resources",
+      "Associating a Network Security Group to the subnet",
+      "Allocating a /26 IP address range to the subnet",
+      "Assigning a Standard Public IP to the Bastion host"
+    ],
+    "correct": [0, 1],
+    "explanation": {
+      "correctReason": "AzureBastionSubnet must not contain user workload VMs or UDRs that force default traffic (0.0.0.0/0) away from the Internet.",
+      "incorrectReasons": [
+        "NSGs are supported and recommended on AzureBastionSubnet provided they contain required rules.",
+        "A /26 range is fully supported and recommended.",
+        "Azure Bastion requires a Standard Public IP address during deployment."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/bastion/bastion-faq"
+    }
+  },
+  {
+    "id": 39,
+    "subtopic": "Configure service endpoints for Azure platform as a service (PaaS)",
+    "question": "You configure a Service Endpoint for Azure Storage on Subnet1 in VNet1. VNet1 is peered with VNet2. Can virtual machines in VNet2 access the storage account over Subnet1's Service Endpoint directly?",
+    "options": [
+      "No, Service Endpoints do not extend across VNet peering by default; Subnet2 needs its own Service Endpoint or Service Endpoint entry added to the storage firewall.",
+      "Yes, VNet peering automatically extends Service Endpoint access to all peered VNets.",
+      "Yes, provided gateway transit is enabled on the peering link.",
+      "No, Service Endpoints break VNet peering connections."
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Service Endpoints apply specifically to the subnet on which they are enabled. Enabling a service endpoint on Subnet1 does not grant access to peered VNets unless Subnet2 is also explicitly added to the PaaS resource firewall.",
+      "incorrectReasons": [
+        "VNet peering allows IP connectivity, but PaaS firewall settings must explicitly list each authorized subnet.",
+        "Gateway transit handles VPN/ExpressRoute transit, not PaaS Service Endpoint firewall validation.",
+        "Service Endpoints do not interfere with VNet peering status."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/virtual-network/virtual-network-service-endpoints-overview"
+    }
+  },
+  {
+    "id": 40,
+    "subtopic": "Configure private endpoints for Azure PaaS",
+    "question": "You configure a Private Endpoint for an Azure Storage account in VNet1. VNet1 is peered to VNet2. Virtual machines in VNet2 need to access the storage account via the Private Endpoint in VNet1. What is required? (Select TWO)",
+    "options": [
+      "Link the Private DNS Zone (privatelink.blob.core.windows.net) to VNet2.",
+      "Ensure VNet Peering between VNet1 and VNet2 is connected and allows VNet access.",
+      "Enable Service Endpoints on VNet2.",
+      "Deploy a secondary Private Endpoint in VNet2 for the same storage account.",
+      "Configure NAT Gateway on VNet2."
+    ],
+    "correct": [0, 1],
+    "explanation": {
+      "correctReason": "Private Endpoints are reachable over VNet Peering. VMs in VNet2 can reach the Private Endpoint IP in VNet1 if peering is connected and VNet2 is linked to the Private DNS Zone for proper name resolution.",
+      "incorrectReasons": [
+        "Service Endpoints are not involved in Private Endpoint communication.",
+        "Multiple Private Endpoints for the same account in peered VNets are unnecessary.",
+        "NAT Gateways handle public internet egress, not private VNet peering connectivity."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/private-link/private-endpoint-dns"
+    }
+  },
+  {
+    "id": 41,
+    "subtopic": "Create and configure network security groups (NSGs) and application security groups",
+    "question": "You create an ASG named ASG-Web and assign it to VM1 and VM2. You then delete VM1 from Azure. What happens to the ASG-Web configuration?",
+    "options": [
+      "ASG-Web remains active and automatically removes VM1's network interface reference.",
+      "ASG-Web is deleted automatically when any VM in the group is deleted.",
+      "ASG-Web enters an Error state and must be recreated.",
+      "VM2 loses its ASG assignment until the group is resynchronized."
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Deleting a virtual machine deletes its NIC (or detaches it), and Azure automatically updates the ASG membership to reflect active NIC references without disrupting the ASG resource.",
+      "incorrectReasons": [
+        "ASGs exist as independent Azure resources and are not deleted when member VMs are removed.",
+        "ASGs do not enter error states upon VM deletion.",
+        "Remaining member VMs maintain their ASG association intact."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/virtual-network/application-security-groups"
+    }
+  },
+  {
+    "id": 42,
+    "subtopic": "Evaluate effective security rules in NSGs",
+    "question": "You assign an NSG to Subnet1 and a different NSG to VM1's NIC inside Subnet1. Inbound traffic targeted at VM1 on port 22 arrives at the subnet. Which security configuration blocks the traffic?",
+    "options": [
+      "If EITHER the Subnet NSG OR the NIC NSG blocks port 22.",
+      "Only if BOTH the Subnet NSG AND the NIC NSG block port 22.",
+      "Only if the Subnet NSG blocks port 22; the NIC NSG cannot block inbound traffic.",
+      "Only if the NIC NSG blocks port 22; the Subnet NSG cannot block inbound traffic."
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Inbound traffic must pass BOTH the Subnet NSG and the NIC NSG sequentially. If either NSG contains a matching Deny rule, the traffic is blocked.",
+      "incorrectReasons": [
+        "Both NSGs must allow the packet; if one blocks, the packet is dropped.",
+        "Subnet NSGs actively process inbound traffic.",
+        "NIC NSGs actively process inbound traffic after the Subnet NSG."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/virtual-network/network-security-groups-overview#how-nsgs-work"
+    }
+  },
+  {
+    "id": 43,
+    "subtopic": "Implement Azure Bastion",
+    "question": "An administrator attempts to connect to a Windows VM using Azure Bastion via the Azure Portal. The connection attempt fails with a message indicating port 3389 is unreachable. What should you check on the target VM's subnet NSG?",
+    "options": [
+      "Ensure an inbound rule allows TCP port 3389 from the AzureBastionSubnet IP range.",
+      "Ensure an inbound rule allows TCP port 3389 from the Internet service tag.",
+      "Ensure an outbound rule allows UDP port 3389 to the AzureBastionSubnet.",
+      "Ensure an inbound rule allows TCP port 443 from GatewayManager."
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Target VMs must allow inbound RDP (3389) or SSH (22) traffic originating from the AzureBastionSubnet prefix in their NSG.",
+      "incorrectReasons": [
+        "Opening 3389 to the Internet defeats the security purpose of Azure Bastion.",
+        "RDP management via Bastion uses TCP, and traffic flows from Bastion to the target VM.",
+        "GatewayManager rules are placed on the AzureBastionSubnet NSG, not target VM subnets."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/bastion/bastion-nsg"
+    }
+  },
+  {
+    "id": 44,
+    "subtopic": "Configure service endpoints for Azure platform as a service (PaaS)",
+    "question": "Which of the following Azure services supports Virtual Network Service Endpoints? (Select THREE)",
+    "options": [
+      "Azure Storage",
+      "Azure SQL Database",
+      "Azure Key Vault",
+      "Azure Virtual Machines",
+      "Azure Connect Direct",
+      "Azure ExpressRoute Circuit"
+    ],
+    "correct": [0, 1, 2],
+    "explanation": {
+      "correctReason": "Azure Storage, Azure SQL Database, and Azure Key Vault all support Service Endpoints.",
+      "incorrectReasons": [
+        "Virtual Machines reside inside VNets and are not PaaS services that consume Service Endpoints.",
+        "Azure Connect Direct is not a standard PaaS endpoint service.",
+        "ExpressRoute circuits provide dedicated WAN connectivity, not PaaS Service Endpoint resources."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/virtual-network/virtual-network-service-endpoints-overview"
+    }
+  },
+  {
+    "id": 45,
+    "subtopic": "Configure private endpoints for Azure PaaS",
+    "question": "You configure a Private Endpoint for an Azure Storage Account. You want to verify that traffic from VM1 to the storage account is taking the Private Endpoint path. What diagnostic tool in Network Watcher should you run?",
+    "options": [
+      "Next Hop",
+      "Connection Monitor",
+      "Packet Capture",
+      "IP Flow Verify"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Next Hop tests effective routing from a VM to a destination IP. For a Private Endpoint destination IP, Next Hop will confirm route type 'VirtualNetwork' directly within the VNet.",
+      "incorrectReasons": [
+        "Connection Monitor tests continuous synthetic availability.",
+        "Packet Capture records raw packet data, which is overly complex for verifying basic route paths.",
+        "IP Flow Verify checks NSG allow/deny filtering rather than underlying route destination next hops."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/network-watcher/network-watcher-next-hop-overview"
+    }
+  },
+  {
+    "id": 46,
+    "subtopic": "Create and configure network security groups (NSGs) and application security groups",
+    "question": "You need to allow inbound HTTPS traffic to an Application Security Group named ASG-Web. You create an NSG rule. Which values should you select for Destination type and Destination?",
+    "options": [
+      "Destination type: Application Security Group, Destination: ASG-Web",
+      "Destination type: Service Tag, Destination: ASG-Web",
+      "Destination type: IP Addresses, Destination: ASG-Web",
+      "Destination type: Virtual Network, Destination: ASG-Web"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "When using an ASG as a filter in an NSG rule, you select 'Application Security Group' as the source or destination type, and then select the specific ASG name.",
+      "incorrectReasons": [
+        "Service Tags represent built-in Microsoft service IP categories (e.g., Internet, Storage), not custom ASGs.",
+        "IP Addresses requires specifying explicit CIDR notation or host IP addresses.",
+        "Virtual Network is a service tag, not a destination type for ASGs."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/virtual-network/application-security-groups"
+    }
+  },
+  {
+    "id": 47,
+    "subtopic": "Evaluate effective security rules in NSGs",
+    "question": "You need to temporarily allow SSH access to VM1 from your corporate IP address (203.0.113.5). The NSG currently has a rule named DenyAllInBound at priority 65500. What priority should you assign to your new Allow SSH rule?",
+    "options": [
+      "Between 100 and 4096",
+      "65501",
+      "65000",
+      "0"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Custom NSG rules must have a priority between 100 and 4096. Any number in this range is evaluated before priority 65500.",
+      "incorrectReasons": [
+        "65501 is evaluated AFTER 65500, so DenyAllInBound would block traffic before reaching your rule.",
+        "65000 is reserved for the default AllowVNetInBound rule.",
+        "Priority 0 is invalid; custom rules start at priority 100."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/virtual-network/network-security-groups-overview#security-rules"
+    }
+  },
+  {
+    "id": 48,
+    "subtopic": "Implement Azure Bastion",
+    "question": "When deploying Azure Bastion, which Azure resource is required to expose the Bastion host service to external administrative clients?",
+    "options": [
+      "Standard SKU Public IP Address",
+      "Basic SKU Public IP Address",
+      "Azure Application Gateway",
+      "Local Network Gateway"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Azure Bastion requires a dedicated Standard SKU Public IP address with Static allocation.",
+      "incorrectReasons": [
+        "Basic SKU Public IPs are not supported for Azure Bastion deployments.",
+        "Application Gateway is an HTTP load balancer, not required for Bastion deployment.",
+        "Local Network Gateway defines on-premises VPN endpoints, unrelated to Bastion."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/bastion/bastion-faq"
+    }
+  },
+  {
+    "id": 49,
+    "subtopic": "Configure service endpoints for Azure platform as a service (PaaS)",
+    "question": "You configure a Service Endpoint on Subnet1 for Azure Storage. How does this affect traffic from Subnet1 to Azure Storage accounts in OTHER Azure regions?",
+    "options": [
+      "By default, Service Endpoints apply to all regions for the specified service unless restricted by policies.",
+      "Service Endpoints only apply to PaaS services in the exact same region as the VNet.",
+      "Traffic to other regions is automatically dropped.",
+      "Traffic to other regions requires an active ExpressRoute circuit."
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "By default, enabling a Service Endpoint for Azure Storage on a subnet routes traffic to Azure Storage in ALL Azure regions over the Microsoft backbone.",
+      "incorrectReasons": [
+        "Service Endpoints are global for services like Azure Storage by default, though regional restrictions can be applied via policies.",
+        "Traffic to other regions is not dropped; it travels over the Azure global backbone.",
+        "ExpressRoute is not required for cross-region Service Endpoint traffic."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/virtual-network/virtual-network-service-endpoints-overview"
+    }
+  },
+  {
+    "id": 50,
+    "subtopic": "Configure private endpoints for Azure PaaS",
+    "question": "You have a Private Endpoint for an Azure SQL Database. You want to inspect and filter all traffic destined for the Private Endpoint using a Network Security Group. What setting must be enabled on the subnet hosting the Private Endpoint?",
+    "options": [
+      "Network Policy for Private Endpoints (PrivateEndpointNetworkPolicies) set to Enabled",
+      "Service Endpoints enabled for Microsoft.Sql",
+      "BGP Route Propagation disabled",
+      "Subnet Delegation set to Microsoft.Sql/managedInstances"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "To apply Network Security Group rules to Private Endpoints, the subnet setting `PrivateEndpointNetworkPolicies` (Network Policy for Private Endpoints) must be set to `Enabled` (or NetworkSecurityGroup enabled).",
+      "incorrectReasons": [
+        "Service Endpoints are a separate PaaS connection mechanism.",
+        "BGP route propagation controls gateway route propagation, not NSG enforcement on Private Endpoints.",
+        "Subnet delegation is for service injection and prevents standard Private Endpoint deployment."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/private-link/disable-private-endpoint-network-policy"
+    }
+  }
+]

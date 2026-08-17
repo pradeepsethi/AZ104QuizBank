@@ -114,49 +114,8 @@ body {
 }
 
 /* ==========================================================================
-   4. FULL EXAM HERO & DOMAIN CARDS
+   4. DOMAIN CARDS & INDEX PAGE LAYOUT
    ========================================================================== */
-.exam-hero-card {
-  background: linear-gradient(135deg, #002050 0%, #0078d4 100%);
-  color: #ffffff;
-  padding: 24px 28px;
-  border-radius: 8px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 20px;
-  margin-bottom: 24px;
-  box-shadow: var(--shadow-md);
-  flex-wrap: wrap;
-}
-
-.exam-hero-content h2 {
-  font-size: 1.35rem;
-  font-weight: 700;
-  margin-bottom: 4px;
-}
-
-.exam-hero-content p {
-  font-size: 0.95rem;
-  color: #deecf9;
-}
-
-.exam-start-btn {
-  background-color: #ffffff;
-  color: var(--header-bg);
-  font-weight: 700;
-  padding: 12px 24px;
-  text-decoration: none;
-  border-radius: 6px;
-  white-space: nowrap;
-  transition: all 0.2s ease;
-}
-
-.exam-start-btn:hover {
-  background-color: #f3f2f1;
-  transform: translateY(-2px);
-}
-
 .domains-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
@@ -183,30 +142,19 @@ body {
   border-bottom: 1px solid var(--border-color);
 }
 
-.domain-title-link {
-  text-decoration: none;
-  color: var(--header-bg);
-  transition: color 0.15s ease;
-}
-
-.domain-title-link:hover h2 {
-  color: var(--primary);
-  text-decoration: underline;
-}
-
 .domain-header h2 {
   font-size: 1.05rem;
   font-weight: 700;
+  color: var(--header-bg);
   line-height: 1.3;
 }
 
 .weight-badge {
-  display: inline-block;
   background: var(--primary-light);
   color: var(--primary);
   font-size: 0.8rem;
   font-weight: 700;
-  padding: 2px 6px;
+  padding: 4px 8px;
   border-radius: 4px;
   white-space: nowrap;
 }
@@ -428,7 +376,7 @@ body {
 }
 
 /* ==========================================================================
-   7. CONTROLS BAR
+   7. CONTROLS BAR (2-ROW BUTTON LAYOUT)
    ========================================================================== */
 .controls-bar {
   display: flex !important;

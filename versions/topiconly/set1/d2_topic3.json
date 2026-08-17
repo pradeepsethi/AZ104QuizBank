@@ -1,0 +1,1049 @@
+[
+  {
+    "id": 1,
+    "subtopic": "Create and configure a file share in Azure Storage",
+    "question": "You plan to create an Azure file share named share1 in a General-purpose v2 storage account named storage1. You need to ensure that share1 supports active directory domain services (AD DS) authentication for on-premises clients connecting over SMB. What should you do first?",
+    "options": [
+      "Enable Active Directory Domain Services authentication on storage1.",
+      "Enable infrastructure encryption on storage1.",
+      "Configure a private endpoint for storage1.",
+      "Set the access tier of share1 to Premium."
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "To allow on-premises clients to authenticate to an Azure file share using domain credentials over SMB, identity-based authentication (such as AD DS or Azure AD DS) must be enabled and configured at the storage account level.",
+      "incorrectReasons": [
+        "Infrastructure encryption adds double encryption at the storage layer, which does not affect user authentication or SMB permissions.",
+        "Private endpoints secure network traffic at the IP layer, but identity-based access control still requires domain authentication setup.",
+        "Identity-based SMB authentication is supported on Standard General-purpose v2 accounts as well as Premium FileStorage accounts."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/storage/files/storage-files-identity-auth-active-directory-enable"
+    }
+  },
+  {
+    "id": 2,
+    "subtopic": "Create and configure a file share in Azure Storage",
+    "question": "You have an Azure file share named share1. You grant a user named User1 the Storage File Data SMB Share Reader role using Azure RBAC. User1 attempts to mount the share on a Windows machine joined to the configured AD DS domain, but receives an 'Access Denied' error when accessing a specific subfolder. What is the most likely cause of the issue?",
+    "options": [
+      "NTFS access control lists (ACLs) on the subfolder deny access to User1.",
+      "User1 lacks the Owner role on the storage account.",
+      "Share-level permissions override and grant full control to all domain users.",
+      "User1 must be granted the Storage Blob Data Reader role."
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Access to an Azure file share over SMB is governed by two levels of permissions: Share-level RBAC permissions and directory/file-level NTFS ACLs. If the share-level permission is granted, an explicit deny or restrictive NTFS ACL on a subfolder will block access.",
+      "incorrectReasons": [
+        "The Owner role on the storage account is a management plane role and is not required for data-plane SMB access.",
+        "Share-level permissions set the maximum boundary, but NTFS ACLs are still evaluated and enforced inside the file share.",
+        "Storage Blob Data Reader applies to Blob storage, not Azure Files."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/storage/files/storage-files-identity-auth-active-directory-domain-service-grant-permissions"
+    }
+  },
+  {
+    "id": 3,
+    "subtopic": "Create and configure a file share in Azure Storage",
+    "question": "You are creating an Azure file share for a enterprise application that requires high throughput and sub-millisecond latency. Which storage account kind and account tier should you select?",
+    "options": [
+      "FileStorage account kind with Premium performance tier",
+      "General-purpose v2 account kind with Standard performance tier",
+      "BlobStorage account kind with Premium performance tier",
+      "General-purpose v1 account kind with Standard performance tier"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Premium Azure file shares are hosted in the FileStorage account type, providing high performance, high IOPS, and low latency backed by solid-state drives (SSDs).",
+      "incorrectReasons": [
+        "Standard General-purpose v2 accounts use magnetic hard disk drives (HDDs) and do not guarantee sub-millisecond latency.",
+        "BlobStorage accounts are designed for object storage (blobs), not Azure File shares.",
+        "General-purpose v1 accounts are legacy and do not support Premium file share features."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/storage/files/storage-files-planning"
+    }
+  },
+  {
+    "id": 4,
+    "subtopic": "Create and configure a file share in Azure Storage",
+    "question": "You need to mount an Azure file share named salesdata on a Linux Virtual Machine using SMB 3.0. You want to ensure the connection is encrypted in transit. Which mount option parameter must be included in the Linux mount command?",
+    "options": [
+      "seal",
+      "sec=ntlmv2",
+      "vers=1.0",
+      "nobrl"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "In Linux SMB cifs utility, the 'seal' option forces encryption in transit for SMB 3.0 connections to Azure Files.",
+      "incorrectReasons": [
+        "sec=ntlmv2 specifies authentication security flavor, not encryption in transit.",
+        "vers=1.0 specifies SMB protocol version 1.0, which does not support encryption and is disabled by Azure Files by default.",
+        "nobrl disables sending byte range lock requests to the server and does not affect transit encryption."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/storage/files/storage-how-to-use-files-linux"
+    }
+  },
+  {
+    "id": 5,
+    "subtopic": "Create and configure a file share in Azure Storage",
+    "question": "You have an Azure storage account named storage1 that contains an Azure file share named share1. You need to increase the maximum quota of share1 from 5 TiB to 100 TiB. What should you configure on storage1 first?",
+    "options": [
+      "Enable large file shares setting on storage1.",
+      "Upgrade storage1 from General-purpose v2 to Premium FileStorage.",
+      "Enable geo-redundant storage (GRS) on storage1.",
+      "Create a private endpoint for share1."
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "To expand a standard file share beyond 5 TiB up to 100 TiB, you must enable the 'Large file shares' feature on the storage account.",
+      "incorrectReasons": [
+        "Standard General-purpose v2 storage accounts support large file shares up to 100 TiB without needing to upgrade to Premium FileStorage.",
+        "Large file shares on standard accounts only support locally redundant storage (LRS) or zone-redundant storage (ZRS), so GRS is not compatible.",
+        "Private endpoints control network access and have no impact on storage capacity quotas."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/storage/files/storage-files-how-to-create-large-file-share"
+    }
+  },
+  {
+    "id": 6,
+    "subtopic": "Create and configure a file share in Azure Storage",
+    "question": "You need to restrict SMB access to an Azure file share so that traffic is permitted only over secure connections (SMB 3.x with encryption). Which storage account setting enforces this requirement?",
+    "options": [
+      "Secure transfer required",
+      "Allow storage account key access",
+      "Enable infrastructure encryption",
+      "Minimum TLS version"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Enabling 'Secure transfer required' forces SMB connections to use SMB 3.x with encryption and REST requests to use HTTPS.",
+      "incorrectReasons": [
+        "Allow storage account key access controls shared key authorization versus Azure AD, not transport layer encryption.",
+        "Infrastructure encryption encrypts data at rest at the storage service layer.",
+        "Minimum TLS version applies to HTTP/HTTPS REST API traffic, not SMB network protocols."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/storage/common/storage-require-secure-transfer"
+    }
+  },
+  {
+    "id": 7,
+    "subtopic": "Create and configure a file share in Azure Storage",
+    "question": "You are configuring network access to an Azure file share. You want to grant access over NFS 4.1 protocol instead of SMB. Which prerequisite is strictly required for NFS Azure file shares?",
+    "options": [
+      "The storage account must be Premium FileStorage and deployed in a Virtual Network with a Private Endpoint or Service Endpoint.",
+      "The storage account must be General-purpose v2 with GRS redundancy.",
+      "Identity-based authentication via Microsoft Entra ID must be configured.",
+      "The secure transfer required setting must be set to Disabled."
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "NFS file shares require a Premium FileStorage account and can only be accessed over private endpoints or service endpoints within a Virtual Network because NFS does not carry inline authentication like SMB.",
+      "incorrectReasons": [
+        "NFS is not supported on Standard General-purpose v2 accounts.",
+        "NFS file shares do not support AD DS or Entra ID user authentication; they rely on POSIX permissions and network-level security.",
+        "Secure transfer required is automatically enforced or irrelevant since NFS relies on private network paths."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/storage/files/storage-files-how-to-create-nfs-shares"
+    }
+  },
+  {
+    "id": 8,
+    "subtopic": "Create and configure a container in Blob Storage",
+    "question": "You need to create a container named publicdocs in Azure Blob Storage. Users on the internet must be able to read blobs in the container without providing credentials or SAS tokens, but they must not be able to list the contents of the container. Which anonymous access level should you set on publicdocs?",
+    "options": [
+      "Blob (anonymous read access for blobs only)",
+      "Container (anonymous read and list access for entire container)",
+      "Private (no anonymous access)",
+      "Disabled (storage account level block)"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Setting the public access level to 'Blob' allows clients to read individual blob data if they know the direct URL, but prevents them from enumerating/listing the blobs in the container.",
+      "incorrectReasons": [
+        "Setting public access level to 'Container' grants both read access to blobs and permission to list all blobs within the container.",
+        "Setting it to 'Private' prevents all anonymous access, requiring authenticated requests.",
+        "Disabling public access at the storage account level overrides container settings and blocks all public access."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/storage/blobs/anonymous-read-access-configure"
+    }
+  },
+  {
+    "id": 9,
+    "subtopic": "Create and configure a container in Blob Storage",
+    "question": "An administrator attempts to set the anonymous access level of a blob container to 'Blob'. However, the option is disabled in the Azure portal. You verify that the container itself exists. What configuration on the parent storage account is causing this behavior?",
+    "options": [
+      "The 'Allow Blob anonymous access' setting is set to Disabled.",
+      "The storage account access tier is set to Cool.",
+      "The 'Minimum TLS version' is set to Version 1.2.",
+      "Shared key access is disabled on the storage account."
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "If 'Allow Blob anonymous access' is set to Disabled on the storage account, Azure overrides and disables setting public access on any individual container within that account.",
+      "incorrectReasons": [
+        "The account access tier (Cool/Hot) does not prevent setting public anonymous read access on containers.",
+        "Minimum TLS version dictates cipher suites for secure connections, not the enablement of anonymous access.",
+        "Disabling Shared key access forces Azure AD authorization, but does not inherently disable the container public access property unless configured separately."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/storage/blobs/anonymous-read-access-prevent"
+    }
+  },
+  {
+    "id": 10,
+    "subtopic": "Create and configure a container in Blob Storage",
+    "question": "You need to grant an external application temporary access to upload blobs into a specific container named data-ingest. The access must expire after 4 hours and must be restricted to uploads only (no read or delete permissions). What should you generate?",
+    "options": [
+      "A Service Shared Access Signature (SAS) token scoped to the data-ingest container with Write permissions",
+      "An Account Shared Access Signature (SAS) with full permissions on all services",
+      "A storage account primary key",
+      "A custom Azure RBAC role assigned to the application's client IP"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "A Service SAS token allows granular, time-bound delegation of rights (e.g., Write-only for 4 hours) restricted to a specific resource like a single container.",
+      "incorrectReasons": [
+        "An Account SAS grants broad permissions across multiple services and account management operations, violating the principle of least privilege.",
+        "Storage account primary keys grant full administrative control over the entire storage account and cannot be time-limited without rotating keys.",
+        "Azure RBAC roles cannot be directly assigned to raw IP addresses."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/storage/common/storage-sas-overview"
+    }
+  },
+  {
+    "id": 11,
+    "subtopic": "Create and configure a container in Blob Storage",
+    "question": "You need to store financial compliance records in a Blob storage container named records. Regulations require a WORM (Write Once, Read Many) policy where data cannot be overwritten or deleted for 7 years. What feature should you configure on the container?",
+    "options": [
+      "An immutable storage policy with time-based retention",
+      "A blob lifecycle management rule to archive blobs after 7 years",
+      "Soft delete for blobs with a retention period of 2555 days",
+      "Legal hold without time limits"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Immutable storage for Azure Blob Storage supports time-based retention policies that enforce WORM state, preventing modification or deletion of data for a user-specified interval.",
+      "incorrectReasons": [
+        "Lifecycle management policies move or delete blobs based on age, but do not prevent an authorized user from manually deleting a blob before 7 years.",
+        "Soft delete allows recovery of deleted blobs within a retention window, but does not block the deletion operation itself.",
+        "Legal hold remains active until explicitly cleared and is intended for legal scenarios rather than fixed duration compliance policies."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/storage/blobs/immutable-storage-overview"
+    }
+  },
+  {
+    "id": 12,
+    "subtopic": "Create and configure a container in Blob Storage",
+    "question": "You are designing a data lake solution in Azure Blob Storage that requires file-level access control lists (ACLs) and hierarchical directory structures. Which setting must be enabled during the creation of the storage account?",
+    "options": [
+      "Hierarchical namespace",
+      "Large file shares",
+      "Blob versioning",
+      "SFTP (SSH File Transfer Protocol)"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Enabling Hierarchical Namespace turns standard Blob storage into Azure Data Lake Storage Gen2, organizing objects into a directory hierarchy and enabling POSIX-compliant ACLs.",
+      "incorrectReasons": [
+        "Large file shares is an Azure Files feature.",
+        "Blob versioning tracks changes to individual blobs over time, but does not create true directory structures or file-level POSIX ACLs.",
+        "SFTP is a transfer protocol feature, not the primary mechanism for hierarchical directories and data lake capabilities."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/storage/blobs/data-lake-storage-namespace"
+    }
+  },
+  {
+    "id": 13,
+    "subtopic": "Create and configure a container in Blob Storage",
+    "question": "You need to configure custom metadata key-value pairs for a blob container named assets. Where in the Azure portal can you add metadata to a container?",
+    "options": [
+      "On the container properties blade under Metadata",
+      "On the storage account overview blade under Configuration",
+      "On the Access Control (IAM) blade",
+      "On the Diagnostic settings blade"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Container properties include a dedicated Metadata section where administrators can define custom name-value pairs.",
+      "incorrectReasons": [
+        "Account configuration affects account-level features like TLS version or key access, not container-level metadata.",
+        "IAM manages role assignments and access permissions.",
+        "Diagnostic settings configure export of logs and metrics to target destinations."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/storage/blobs/storage-blob-container-properties-metadata"
+    }
+  },
+  {
+    "id": 14,
+    "subtopic": "Create and configure a container in Blob Storage",
+    "question": "You are configuring an application that needs to read blobs from a container using Microsoft Entra ID credentials. Which Azure RBAC role provides the least privilege required to read blob data and container properties without granting access to account keys?",
+    "options": [
+      "Storage Blob Data Reader",
+      "Reader",
+      "Storage Account Contributor",
+      "Storage Blob Data Contributor"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Storage Blob Data Reader grants read-only data plane access to blob containers and data using Microsoft Entra ID authentication without granting access to account management keys.",
+      "incorrectReasons": [
+        "The standard management 'Reader' role grants visibility to resource metadata in ARM, but does not grant data-plane access to read blob contents.",
+        "Storage Account Contributor grants management plane control (including key listing), but does not directly grant Entra-authenticated data plane access.",
+        "Storage Blob Data Contributor provides write and delete permissions in addition to read access, violating least privilege."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/storage/blobs/assign-azure-role-data-access"
+    }
+  },
+  {
+    "id": 15,
+    "subtopic": "Configure storage tiers",
+    "question": "You have an Azure General-purpose v2 storage account containing block blobs. You upload a blob without explicitly specifying an access tier. What determines the default access tier assigned to the blob?",
+    "options": [
+      "The default access tier setting configured on the storage account",
+      "The public access level setting on the container",
+      "The redundancy configuration (LRS vs GRS) of the account",
+      "The blob type (Block vs Append vs Page)"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Each General-purpose v2 storage account has an account-level default access tier setting (Hot or Cool). Unspecified block blobs inherit this default tier upon upload.",
+      "incorrectReasons": [
+        "Public access settings control anonymous reading rights, not data access tiering.",
+        "Redundancy configuration controls replication across fault domains/regions, independent of access tiers.",
+        "While access tiers apply to block blobs, the default tier value itself comes from the account configuration."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/storage/blobs/access-tiers-overview"
+    }
+  },
+  {
+    "id": 16,
+    "subtopic": "Configure storage tiers",
+    "question": "You have a block blob currently stored in the Archive tier. You need to read the contents of the blob immediately for an emergency audit. What should you do?",
+    "options": [
+      "Rehydrate the blob to the Hot tier using the Copy Blob operation or Set Blob Tier operation.",
+      "Download the blob directly using the Azure portal.",
+      "Change the storage account default access tier to Hot.",
+      "Enable blob versioning and read the previous version."
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Blobs in the Archive tier are offline and cannot be read or modified directly. They must first be rehydrated to an online tier (Hot or Cool) via Set Blob Tier or Copy Blob.",
+      "incorrectReasons": [
+        "Direct downloading is unavailable while a blob is in the Archive tier.",
+        "Changing the account default tier does not rehydrate existing individual archived blobs.",
+        "Blob versioning does not bypass the offline status of an archived blob version."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/storage/blobs/archive-rehydrate-overview"
+    }
+  },
+  {
+    "id": 17,
+    "subtopic": "Configure storage tiers",
+    "question": "You are rehydrating a 500 GB archived blob back to the Hot tier. You need to complete the rehydration as fast as possible. Which rehydration priority should you select?",
+    "options": [
+      "High priority",
+      "Standard priority",
+      "Batch priority",
+      "Archive priority"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "High priority rehydration prioritizes the request against archive data retrieval queues and can rehydrate blobs under 10 GB in under an hour (and faster overall for large files compared to Standard priority).",
+      "incorrectReasons": [
+        "Standard priority can take up to 15 hours to complete rehydration.",
+        "Batch priority is not a valid Azure Blob storage rehydration priority setting.",
+        "Archive priority is not a valid setting; Archive is the source offline tier."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/storage/blobs/archive-rehydrate-overview#rehydration-priority"
+    }
+  },
+  {
+    "id": 18,
+    "subtopic": "Configure storage tiers",
+    "question": "You are analyzing storage costs for a blob container. The data consists of media files accessed infrequently (less than once a month) but requiring immediate access when requested. Which storage tier offers the most cost-effective balance of lower storage costs and instant availability?",
+    "options": [
+      "Cool",
+      "Hot",
+      "Cold",
+      "Archive"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "The Cool tier offers lower storage costs than Hot with a short minimum retention period (30 days) while keeping data online for immediate access.",
+      "incorrectReasons": [
+        "Hot tier has higher per-GB storage costs, making it less cost-effective for infrequently accessed data.",
+        "Cold tier has a 90-day minimum retention period and higher retrieval costs, making Cool ideal for monthly access patterns.",
+        "Archive tier is offline; data cannot be accessed instantly."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/storage/blobs/access-tiers-overview"
+    }
+  },
+  {
+    "id": 19,
+    "subtopic": "Configure storage tiers",
+    "question": "You move a block blob from the Hot access tier to the Cool access tier. Ten days later, you delete the blob. How will this early deletion affect your Azure storage bill?",
+    "options": [
+      "You will be charged an early deletion fee equivalent to the remaining 20 days of storage in the Cool tier.",
+      "There are no early deletion fees for the Cool access tier.",
+      "You will be charged an early deletion fee equivalent to 80 days of storage in the Cold tier.",
+      "The storage account will be automatically placed in read-only mode."
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "The Cool access tier has a 30-day minimum retention period threshold. Deleting or moving a blob out of Cool before 30 days incurs an early deletion fee prorated for the remaining days.",
+      "incorrectReasons": [
+        "Cool tier does enforce a 30-day minimum retention policy, so early deletion charges apply.",
+        "Cold tier has a 90-day minimum threshold, but this blob was stored in Cool (30 days).",
+        "Deleting a blob does not alter the read/write state of the storage account."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/storage/blobs/access-tiers-overview#cool-access-tier"
+    }
+  },
+  {
+    "id": 20,
+    "subtopic": "Configure storage tiers",
+    "question": "You have an application that writes log files directly to block blobs. The logs are rarely accessed after creation, but must remain available for online querying for 90 days. Which access tier is recommended as the most cost-effective online tier for 90-day retention?",
+    "options": [
+      "Cold",
+      "Archive",
+      "Hot",
+      "Premium"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "The Cold tier is designed for data that is infrequently accessed and stored for at least 90 days. It offers lower storage costs than Cool while keeping data online.",
+      "incorrectReasons": [
+        "Archive tier stores data offline, preventing immediate online querying.",
+        "Hot tier charges higher storage rates, which increases cost for rarely accessed logs.",
+        "Premium tier is intended for high-transaction workloads on SSDs and is expensive for log archiving."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/storage/blobs/access-tiers-overview#cold-access-tier"
+    }
+  },
+  {
+    "id": 21,
+    "subtopic": "Configure storage tiers",
+    "question": "Which blob type supports changing its access tier between Hot, Cool, Cold, and Archive?",
+    "options": [
+      "Block blobs",
+      "Page blobs",
+      "Append blobs",
+      "Virtual hard disk (VHD) disks attached to running VMs"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Access tiers (Hot, Cool, Cold, Archive) are supported primarily for block blobs in standard General-purpose v2 and BlobStorage accounts.",
+      "incorrectReasons": [
+        "Page blobs do not support access tiering (they are typically used for VHDs and premium disk storage).",
+        "Append blobs do not support the same lifecycle access tier transitions as block blobs.",
+        "Managed/Unmanaged VM disks use page blobs and cannot be assigned Cool or Archive access tiers."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/storage/blobs/access-tiers-overview"
+    }
+  },
+  {
+    "id": 22,
+    "subtopic": "Configure soft delete for blobs and containers",
+    "question": "You enable blob soft delete on a storage account with a retention period of 14 days. A user accidentally deletes a blob named report.pdf. What happens to report.pdf immediately after deletion?",
+    "options": [
+      "The blob is marked as soft-deleted and retained for 14 days, during which it can be undeleted.",
+      "The blob is permanently purged from storage immediately.",
+      "The blob is automatically moved to the Archive access tier for 14 days.",
+      "The blob is moved to a system container named $softdelete."
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "When blob soft delete is active, deleted blobs are retained in a soft-deleted state for the specified retention period (14 days) and can be restored using the Undelete Blob operation.",
+      "incorrectReasons": [
+        "Soft delete prevents permanent purging during the retention window.",
+        "Soft delete retains the blob in its current access tier in a hidden state, rather than moving it to Archive.",
+        "Blobs remain in their original container in a soft-deleted state; there is no $softdelete container."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/storage/blobs/soft-delete-blob-overview"
+    }
+  },
+  {
+    "id": 23,
+    "subtopic": "Configure soft delete for blobs and containers",
+    "question": "You need to restore a soft-deleted blob container named appdata that was deleted 5 days ago. Container soft delete is enabled with a 30-day retention setting. How should you restore the container?",
+    "options": [
+      "In the Azure portal, filter containers by 'Show deleted containers', select appdata, and click Restore.",
+      "Run the `az storage blob undelete` CLI command.",
+      "Restore the container from the storage account automatic snapshot.",
+      "Re-create the container with the exact same name."
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Container soft delete allows administrators to view soft-deleted containers in the portal by enabling 'Show deleted containers' and selecting the restore option.",
+      "incorrectReasons": [
+        "`az storage blob undelete` undeletes individual soft-deleted blobs inside a container, not an entire soft-deleted container.",
+        "Storage accounts do not create automatic daily account snapshots.",
+        "Re-creating a container with the same name creates a new empty container; it does not restore soft-deleted data."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/storage/blobs/soft-delete-container-manage"
+    }
+  },
+  {
+    "id": 24,
+    "subtopic": "Configure soft delete for blobs and containers",
+    "question": "You have a storage account with blob soft delete enabled for 7 days. A user updates the contents of an existing block blob named file1.txt twice in one day without versioning enabled. How does soft delete handle the overwritten data blocks?",
+    "options": [
+      "The overwritten blob snapshots/data blocks are saved as soft-deleted versions and retained for 7 days.",
+      "Soft delete only protects against full blob deletions, so overwritten blocks are permanently lost.",
+      "The entire storage account is restored to the previous day's state.",
+      "The file is automatically duplicated into a backup storage account."
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Blob soft delete protects against both explicit delete operations and overwrite operations by creating an implicit soft-deleted snapshot of the blob prior to the overwrite.",
+      "incorrectReasons": [
+        "Soft delete explicitly covers overwrite operations by maintaining soft-deleted snapshots of previous states.",
+        "Soft delete operates on individual blobs/snapshots, not account-wide point-in-time restores.",
+        "Soft delete keeps historical blocks within the same storage account, not in a backup account."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/storage/blobs/soft-delete-blob-overview"
+    }
+  },
+  {
+    "id": 25,
+    "subtopic": "Configure soft delete for blobs and containers",
+    "question": "You want to permanently remove a soft-deleted blob named data.bin before its 30-day soft delete retention window expires to free up space. What operation can you perform if permanent delete features are enabled?",
+    "options": [
+      "Perform a purge operation on the soft-deleted blob.",
+      "Disable soft delete on the storage account.",
+      "Change the access tier of the soft-deleted blob to Archive.",
+      "Re-encrypt the storage account."
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "If Permanent Delete for soft-deleted blobs is enabled on the storage account, users with appropriate permissions can explicitly purge soft-deleted blobs before the retention period ends.",
+      "incorrectReasons": [
+        "Disabling soft delete stops protecting future deletions, but does not retroactively purge existing soft-deleted items.",
+        "Soft-deleted blobs cannot have their access tier modified while in a soft-deleted state.",
+        "Re-encrypting keys does not delete historical soft-deleted blob data."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/storage/blobs/soft-delete-blob-manage"
+    }
+  },
+  {
+    "id": 26,
+    "subtopic": "Configure soft delete for blobs and containers",
+    "question": "What is the maximum retention period you can set for container soft delete in Azure Blob Storage?",
+    "options": [
+      "365 days",
+      "30 days",
+      "90 days",
+      "7 days"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Azure Blob Storage allows soft delete retention periods (for both blobs and containers) to be configured between 1 day and 365 days.",
+      "incorrectReasons": [
+        "30 days is a common default recommendation, but not the maximum limit.",
+        "90 days is not the upper boundary limit for soft delete configuration.",
+        "7 days is a default setting during initial setup, not the maximum capacity limit."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/storage/blobs/soft-delete-container-configure"
+    }
+  },
+  {
+    "id": 27,
+    "subtopic": "Configure soft delete for blobs and containers",
+    "question": "You need to prevent accidental deletion of a production storage account itself. You configure a CanNotDelete management lock on the storage account resource level. A developer attempts to delete a container inside the storage account. What will happen?",
+    "options": [
+      "The container will be deleted successfully because resource locks on the storage account do not prevent data-plane object deletions.",
+      "The deletion will fail because the CanNotDelete lock blocks all container deletions.",
+      "The container will be soft-deleted regardless of soft delete configuration.",
+      "The storage account will be automatically converted to read-only."
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "ARM management locks (CanNotDelete/ReadOnly) protect management plane operations (such as deleting the storage account resource). They do not prevent data plane operations like deleting containers or blobs via storage APIs.",
+      "incorrectReasons": [
+        "Management locks do not block data-plane blob/container deletions.",
+        "Soft delete behavior depends on storage account data protection settings, not management locks.",
+        "Management locks do not alter data plane access tiers or account states."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/lock-resources"
+    }
+  },
+  {
+    "id": 28,
+    "subtopic": "Configure soft delete for blobs and containers",
+    "question": "A storage account has blob soft delete enabled with a retention period of 10 days. A container within the account has container soft delete DISABLED. A user deletes the entire container. What happens to the blobs inside the deleted container?",
+    "options": [
+      "The blobs are immediately and permanently deleted because container soft delete was disabled.",
+      "The blobs are saved for 10 days because blob soft delete is enabled.",
+      "The container enters a soft-deleted state for 10 days.",
+      "The container is moved to the $root container."
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "If container soft delete is disabled and a container is deleted, the container and all blobs inside it are permanently deleted immediately, overriding individual blob soft delete settings.",
+      "incorrectReasons": [
+        "Blob soft delete does not protect blobs if the parent container itself is deleted without container soft delete enabled.",
+        "Container soft delete was explicitly disabled, so the container is not retained.",
+        "Deleted containers are not moved into $root."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/storage/blobs/soft-delete-container-overview"
+    }
+  },
+  {
+    "id": 29,
+    "subtopic": "Configure snapshots and soft delete for Azure Files",
+    "question": "You have an Azure file share named share1. You need to create a point-in-time, read-only copy of share1 to protect against accidental data corruption. What should you create?",
+    "options": [
+      "A share snapshot",
+      "A blob version",
+      "An immutable container policy",
+      "A storage account replica"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "A share snapshot is a read-only, point-in-time copy of an Azure file share.",
+      "incorrectReasons": [
+        "Blob versioning is a Blob storage feature and does not apply to Azure Files.",
+        "Immutable policies are container-level Blob storage protection settings.",
+        "Storage account replication handles disaster recovery across locations, not point-in-time file recovery."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/storage/files/storage-snapshots-files"
+    }
+  },
+  {
+    "id": 30,
+    "subtopic": "Configure snapshots and soft delete for Azure Files",
+    "question": "You need to restore a deleted file from an existing share snapshot of an Azure file share named share1. How are you charged for share snapshots in Azure Files?",
+    "options": [
+      "You are charged for the differential data capacity consumed by changes made after the snapshot was taken.",
+      "You are charged the full unit price for a complete duplicate copy of the entire share capacity.",
+      "Share snapshots are completely free of charge regardless of size.",
+      "You are charged flat transaction fees only, with zero capacity cost."
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Azure Files share snapshots are incremental. You are charged only for the unique differential storage capacity consumed by data that changes after the snapshot is taken.",
+      "incorrectReasons": [
+        "Snapshots do not duplicate unchanged blocks, so you do not pay for a full share copy.",
+        "Snapshots consume differential storage space and are not completely free.",
+        "Capacity charges apply in addition to standard storage read/write transaction fees."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/storage/files/storage-snapshots-files#understanding-share-snapshot-charges"
+    }
+  },
+  {
+    "id": 31,
+    "subtopic": "Configure snapshots and soft delete for Azure Files",
+    "question": "You enable soft delete for Azure Files on a storage account with a retention period of 30 days. An administrator accidentally deletes the entire file share named engineering. What is the correct method to restore the engineering file share?",
+    "options": [
+      "Go to the File shares blade, select 'Show deleted shares', locate engineering, and click Undelete.",
+      "Restore the file share using Azure Backup instant restore snapshot.",
+      "Re-create the file share and run `az storage file upload-batch`.",
+      "Open a support ticket with Microsoft, as soft-deleted file shares cannot be restored by administrators."
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "When soft delete for file shares is enabled, deleted file shares can be viewed under 'Show deleted shares' in the portal and restored directly with the Undelete command.",
+      "incorrectReasons": [
+        "Azure Backup is a separate service; soft delete natively allows self-service restoration directly from the portal.",
+        "Re-creating a share does not recover the soft-deleted files.",
+        "Administrators can restore soft-deleted file shares directly without contacting support."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/storage/files/storage-files-enable-soft-delete"
+    }
+  },
+  {
+    "id": 32,
+    "subtopic": "Configure snapshots and soft delete for Azure Files",
+    "question": "You attempt to delete an Azure file share named finance. The portal prevents deletion and displays an error message referencing existing share dependencies. What is the most likely reason the file share cannot be deleted?",
+    "options": [
+      "The file share has active share snapshots that must be deleted first.",
+      "Soft delete for file shares is enabled on the storage account.",
+      "The storage account access tier is set to Premium.",
+      "The file share is mounted on a Linux virtual machine."
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "An Azure file share cannot be deleted if it contains share snapshots. All snapshots associated with the file share must be deleted before deleting the share itself.",
+      "incorrectReasons": [
+        "Soft delete protects deleted shares after deletion; it does not block the deletion operation.",
+        "Premium storage tier does not prevent file share deletion.",
+        "Active SMB/NFS client mounts do not strictly prevent ARM share deletion operations."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/storage/files/storage-snapshots-files#delete-a-file-share-that-has-snapshots"
+    }
+  },
+  {
+    "id": 33,
+    "subtopic": "Configure snapshots and soft delete for Azure Files",
+    "question": "You want to automate daily snapshot creation for an Azure file share named marketing. Which Azure service provides built-in policy-driven management for scheduling and retaining Azure file share snapshots?",
+    "options": [
+      "Azure Backup",
+      "Azure Storage Lifecycle Management",
+      "Azure Site Recovery",
+      "Azure Logic Apps with Storage Connector"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Azure Backup provides native, policy-based protection for Azure Files, allowing administrators to define daily/weekly schedules and retention periods for share snapshots.",
+      "incorrectReasons": [
+        "Azure Storage Lifecycle Management natively supports Blob storage lifecycle policies, not Azure Files snapshot schedules.",
+        "Azure Site Recovery is for VM disaster recovery and migration, not file share snapshot policies.",
+        "Logic Apps can trigger custom scripts, but Azure Backup is the built-in enterprise backup solution."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/backup/azure-file-share-backup-overview"
+    }
+  },
+  {
+    "id": 34,
+    "subtopic": "Configure snapshots and soft delete for Azure Files",
+    "question": "A user modifies a file named budget.xlsx in an Azure file share that has multiple snapshots. How does Azure Files handle the modified data blocks?",
+    "options": [
+      "Azure Files writes only the modified data blocks to new storage space while snapshots point to the original unchanged blocks.",
+      "Azure Files creates a full duplicate copy of budget.xlsx for every snapshot.",
+      "The modified file overwrites all historical snapshots.",
+      "Azure Files locks the file and prevents modifications until snapshots are deleted."
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Azure Files uses redirect-on-write at the block level. Unchanged data blocks are shared between the file and its snapshots, and modified blocks are written to new storage.",
+      "incorrectReasons": [
+        "Azure Files does not copy unchanged blocks, ensuring efficient space usage.",
+        "Snapshots are read-only and immutable; active file changes do not overwrite historical snapshot data.",
+        "Snapshots do not lock files from ongoing editing."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/storage/files/storage-snapshots-files"
+    }
+  },
+  {
+    "id": 35,
+    "subtopic": "Configure snapshots and soft delete for Azure Files",
+    "question": "What is the maximum allowed retention period for soft-deleted file shares in Azure Files?",
+    "options": [
+      "365 days",
+      "180 days",
+      "90 days",
+      "30 days"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Azure Files soft delete retention can be set between 1 and 365 days.",
+      "incorrectReasons": [
+        "180 days, 90 days, and 30 days are valid retention periods within the allowed range, but 365 days is the maximum configuration ceiling."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/storage/files/storage-files-enable-soft-delete"
+    }
+  },
+  {
+    "id": 36,
+    "subtopic": "Configure blob lifecycle management",
+    "question": "You need to create a lifecycle management rule in Azure Blob Storage. The rule must move block blobs to the Cool tier if they have not been modified for 30 days, and then move them to the Archive tier if they have not been modified for 180 days. Which trigger condition should you use?",
+    "options": [
+      "daysAfterModificationGreaterThan",
+      "daysAfterCreationGreaterThan",
+      "daysAfterLastAccessTimeGreaterThan",
+      "daysAfterBlobAddPropertiesGreaterThan"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "The `daysAfterModificationGreaterThan` condition evaluates the age of the blob based on its last modification timestamp to trigger tier transitions.",
+      "incorrectReasons": [
+        "`daysAfterCreationGreaterThan` measures strictly from creation time regardless of subsequent edits.",
+        "`daysAfterLastAccessTimeGreaterThan` relies on access time tracking (which must be explicitly enabled) rather than modification date.",
+        "`daysAfterBlobAddPropertiesGreaterThan` is not a valid lifecycle management condition."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/storage/blobs/lifecycle-management-overview"
+    }
+  },
+  {
+    "id": 37,
+    "subtopic": "Configure blob lifecycle management",
+    "question": "You configure a lifecycle management rule based on `daysAfterLastAccessTimeGreaterThan`. However, the rule does not seem to transition blobs based on access times. What must be enabled on the storage account for access-time-based lifecycle rules to work?",
+    "options": [
+      "Access time tracking",
+      "Blob versioning",
+      "Blob soft delete",
+      "Infrastructure encryption"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "To use `daysAfterLastAccessTimeGreaterThan` in lifecycle management policies, Access Time Tracking must be explicitly enabled on the storage account.",
+      "incorrectReasons": [
+        "Blob versioning tracks object revisions, but does not enable access-time telemetry.",
+        "Blob soft delete handles recovery of deleted items, independent of access-time rules.",
+        "Infrastructure encryption handles key security at rest."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/storage/blobs/lifecycle-management-overview#access-time-tracking-for-lifecycle-management"
+    }
+  },
+  {
+    "id": 38,
+    "subtopic": "Configure blob lifecycle management",
+    "question": "You create a lifecycle management policy rule that targets block blobs in a container named logs. The rule specifies that blobs matching the prefix `logs/2023/` should be deleted 90 days after creation. What format should the prefix filter follow in the policy definition?",
+    "options": [
+      "logs/2023/",
+      "container/logs/2023/",
+      "/subscriptions/.../containers/logs/2023/",
+      "*.log"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Prefix filters in lifecycle management rules are specified relative to the container level (or blob prefix inside containers), formatted as `containername/blobprefix` or `blobprefix` depending on scope.",
+      "incorrectReasons": [
+        "Container names are specified in blobTypes or prefixMatch filters, but full resource IDs are not used.",
+        "Wildcard characters like `*.log` are not supported in standard prefixMatch rules (prefix matching evaluates starting characters)."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/storage/blobs/lifecycle-management-overview#rule-filters"
+    }
+  },
+  {
+    "id": 39,
+    "subtopic": "Configure blob lifecycle management",
+    "question": "You have a storage account containing 10,000 blobs. You apply a new lifecycle management policy to delete blobs older than 30 days. How quickly does Azure guarantee that all matching blobs will be processed and deleted?",
+    "options": [
+      "Lifecycle management policies run asynchronously once a day, so execution may take up to 24 to 48 hours.",
+      "Matching blobs are deleted synchronously within 5 seconds of saving the policy.",
+      "Policies are executed immediately during the next top-of-the-hour trigger.",
+      "Matching blobs are marked for deletion instantly and purged during weekly maintenance."
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Azure Blob Storage lifecycle management runs asynchronously once per day. It can take up to 24–48 hours for a newly added or modified policy to process all matching blobs.",
+      "incorrectReasons": [
+        "Lifecycle management is an asynchronous background process and does not execute synchronously upon saving.",
+        "Execution is daily, not hourly.",
+        "Execution runs on a daily background loop rather than a weekly cycle."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/storage/blobs/lifecycle-management-overview#rule-execution"
+    }
+  },
+  {
+    "id": 40,
+    "subtopic": "Configure blob lifecycle management",
+    "question": "You need to automatically transition previous versions of blobs to the Archive tier 30 days after they become previous versions. Which sub-element in a lifecycle policy action defines this condition?",
+    "options": [
+      "version -> transitionToArchive -> daysAfterCreationGreaterThan",
+      "baseBlob -> enableAutoArchive -> daysAfterModificationGreaterThan",
+      "snapshot -> delete -> daysAfterCreationGreaterThan",
+      "appendBlob -> moveToArchive -> daysAfterLastAccessTimeGreaterThan"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Lifecycle management rules support the `version` target object type, allowing actions like `transitionToArchive` based on `daysAfterCreationGreaterThan` (which tracks when the version was created).",
+      "incorrectReasons": [
+        "`baseBlob` targets current active blob versions, not previous historical versions.",
+        "`snapshot` applies to manually or programmatically taken blob snapshots, not automatic versions.",
+        "`appendBlob` does not support archiving in the same manner as block blob versions."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/storage/blobs/lifecycle-management-overview#rule-actions"
+    }
+  },
+  {
+    "id": 41,
+    "subtopic": "Configure blob lifecycle management",
+    "question": "You want to configure a lifecycle management policy rule to clean up unneeded data. Which of the following resource actions CANNOT be performed by a lifecycle management policy rule?",
+    "options": [
+      "Automatically convert standard storage accounts to Premium FileStorage accounts",
+      "Delete base blobs",
+      "Transition base blobs to Cool, Cold, or Archive tiers",
+      "Delete blob snapshots"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Lifecycle management rules manage blob data states (tiering and deletion). They cannot perform ARM management plane tasks like converting storage account types.",
+      "incorrectReasons": [
+        "Deleting base blobs is a standard supported action.",
+        "Transitioning base blobs across access tiers (Cool, Cold, Archive) is a core feature.",
+        "Deleting blob snapshots based on age is fully supported."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/storage/blobs/lifecycle-management-overview"
+    }
+  },
+  {
+    "id": 42,
+    "subtopic": "Configure blob lifecycle management",
+    "question": "A storage account has a lifecycle management policy configured to move blobs to the Archive tier after 30 days. You have a specific container named temp-work where blobs must NEVER be archived. What is the most efficient way to prevent archiving for temp-work?",
+    "options": [
+      "Configure filter rules in the lifecycle policy to exclude temp-work or explicitly target only other containers.",
+      "Disable lifecycle management on the entire storage account.",
+      "Set the access tier of the temp-work container to Hot.",
+      "Enable legal hold on the temp-work container."
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Lifecycle policy rules use prefix/container filters (`prefixMatch`). Modifying filters to target specific containers or exclude `temp-work` ensures the rule only runs where intended.",
+      "incorrectReasons": [
+        "Disabling lifecycle management globally stops automated lifecycle management for all other containers that need it.",
+        "Containers do not have an access tier setting; access tiers are assigned to individual blobs.",
+        "Legal hold prevents deletions, but lifecycle filters are the correct administrative mechanism to govern policy scope."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/storage/blobs/lifecycle-management-overview#rule-filters"
+    }
+  },
+  {
+    "id": 43,
+    "subtopic": "Configure blob versioning",
+    "question": "You enable blob versioning on an Azure storage account. A application overwrites an existing block blob named app.config. What happens in Blob Storage?",
+    "options": [
+      "The previous state of app.config is automatically saved as a previous version with a timestamp, and the current blob is updated.",
+      "The overwrite operation is blocked until the user manually creates a snapshot.",
+      "The existing blob is moved to the $trash container.",
+      "A new storage account is created to hold the version history."
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "When blob versioning is enabled, modifying or overwriting a blob automatically generates a read-only previous version that preserves the pre-modification state identified by a timestamp.",
+      "incorrectReasons": [
+        "Versioning happens automatically on write/overwrite without requiring manual snapshot creation.",
+        "Overwritten blobs create versions within the same container, not a $trash container.",
+        "Version metadata and data blocks are stored within the same storage account."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/storage/blobs/versioning-overview"
+    }
+  },
+  {
+    "id": 44,
+    "subtopic": "Configure blob versioning",
+    "question": "You have enabled blob versioning on a storage account. You need to promote a previous version of a blob named data.json to become the current active version. Which operation should you use?",
+    "options": [
+      "Copy the previous version over the current base blob using Copy Blob.",
+      "Delete the current base blob.",
+      "Run the `az storage blob undelete` command.",
+      "Change the access tier of the previous version to Hot."
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "To restore a previous version as the current version, use the Copy Blob operation to copy the desired historical version over the base blob URL.",
+      "incorrectReasons": [
+        "Deleting the base blob creates a delete marker (or deletes the base blob), but does not automatically promote a previous version to become current.",
+        "`az storage blob undelete` restores soft-deleted blobs, not historical version states.",
+        "Changing the access tier alters storage pricing tier, not the active version pointer."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/storage/blobs/versioning-enable"
+    }
+  },
+  {
+    "id": 45,
+    "subtopic": "Configure blob versioning",
+    "question": "A storage account has both blob versioning and soft delete enabled. A user deletes the base blob named main.py. What is created to record this deletion state?",
+    "options": [
+      "A soft-deleted delete marker becomes the current version of the blob.",
+      "The entire container is soft-deleted.",
+      "All historical versions of main.py are permanently purged.",
+      "The blob is converted into an append blob."
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "When deleting a blob with versioning enabled, Azure creates a delete marker as the current version. If soft delete is also enabled, the delete marker is soft-deleted.",
+      "incorrectReasons": [
+        "Deleting an individual blob does not soft-delete the entire parent container.",
+        "Deleting a base blob preserves existing historical versions unless they are explicitly deleted.",
+        "Blob deletion does not alter blob types."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/storage/blobs/versioning-overview#delete-a-blob"
+    }
+  },
+  {
+    "id": 46,
+    "subtopic": "Configure blob versioning",
+    "question": "How are you billed for storage capacity when blob versioning is enabled on a storage account?",
+    "options": [
+      "You are billed for unique data blocks used by the current version and all previous versions.",
+      "You pay a flat 50% surcharge on the storage account regardless of data volume.",
+      "Previous versions consume zero billable storage capacity.",
+      "You are charged only for the current version, provided versions are older than 30 days."
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Like snapshots, blob versions are charged based on the unique data blocks they consume. Overwritten or modified blocks incur capacity charges across versions.",
+      "incorrectReasons": [
+        "Billing is based on actual capacity consumed by unique blocks, not a flat percentage surcharge.",
+        "Previous versions store historical data blocks and consume billable capacity.",
+        "Age does not negate storage capacity billing for active blob versions."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/storage/blobs/versioning-overview#pricing-and-billing"
+    }
+  },
+  {
+    "id": 47,
+    "subtopic": "Configure blob versioning",
+    "question": "You need to delete a specific previous version of a blob named document.pdf without deleting the active base blob or other versions. Is this operation supported?",
+    "options": [
+      "Yes, individual blob versions can be explicitly deleted.",
+      "No, deleting a version requires deleting the entire blob and all associated versions.",
+      "No, previous versions can only be removed by disabling blob versioning on the storage account.",
+      "Yes, but only if the version is in the Archive tier."
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Each blob version has a unique version ID. Users can target and delete specific individual versions without affecting the current base blob or other historical versions.",
+      "incorrectReasons": [
+        "Deleting a specific version ID does not require deleting the base blob or all other versions.",
+        "Disabling blob versioning stops future version generation, but does not delete existing historical versions.",
+        "Explicit version deletion is supported across all online and offline tiers."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/storage/blobs/versioning-overview#delete-a-version"
+    }
+  },
+  {
+    "id": 48,
+    "subtopic": "Configure blob versioning",
+    "question": "What is the difference between blob snapshots and blob versioning in Azure Blob Storage?",
+    "options": [
+      "Snapshots are manually or programmatically triggered point-in-time copies, whereas versioning automatically creates a new version on every overwrite or update.",
+      "Snapshots apply to Azure Files, while versioning applies only to Blob Storage.",
+      "Versioning is only supported in Premium storage accounts, while snapshots are supported in Standard accounts.",
+      "Snapshots allow write access, while versions are read-write."
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Blob snapshots must be explicitly requested (via API/portal), while blob versioning automatically tracks state on every write/overwrite operation.",
+      "incorrectReasons": [
+        "Blob snapshots are supported natively in Blob Storage as well as Azure Files share snapshots.",
+        "Both features are supported in standard General-purpose v2 accounts.",
+        "Both snapshots and previous versions are strictly read-only point-in-time states."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/storage/blobs/versioning-overview#versioning-vs-snapshots"
+    }
+  },
+  {
+    "id": 49,
+    "subtopic": "Configure blob versioning",
+    "question": "You disable blob versioning on a storage account that previously had versioning enabled for six months. What happens to the existing previous blob versions that were created while versioning was enabled?",
+    "options": [
+      "Existing previous versions are retained and remain accessible until explicitly deleted or removed by lifecycle management.",
+      "Existing previous versions are immediately and permanently deleted.",
+      "Existing previous versions are automatically moved to the Archive tier.",
+      "Existing previous versions are merged into the base blob."
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Disabling blob versioning prevents the automatic creation of *new* versions on future writes, but all existing previous versions remain saved in the storage account until deleted.",
+      "incorrectReasons": [
+        "Disabling versioning does not purge existing historical versions.",
+        "Disabling versioning does not trigger automatic tier transitions for existing versions.",
+        "Historical versions cannot be automatically merged into active base blobs."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/storage/blobs/versioning-enable"
+    }
+  },
+  {
+    "id": 50,
+    "subtopic": "Configure blob versioning",
+    "question": "You want to ensure that modifying blob metadata (such as custom tags or properties) creates a new version of the blob. Is a new version generated when updating metadata only?",
+    "options": [
+      "Yes, modifying blob metadata or properties creates a new blob version.",
+      "No, blob versioning only triggers when blob content (data blocks) is modified.",
+      "No, metadata updates are only tracked if access time tracking is enabled.",
+      "Yes, but only if the blob is stored in the Cold tier."
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "In Azure Blob Storage, updating a blob's metadata or system properties creates a new version, preserving the prior metadata state.",
+      "incorrectReasons": [
+        "Versioning triggers on metadata and property updates in addition to data block rewrites.",
+        "Access time tracking is unrelated to metadata versioning triggers.",
+        "Metadata versioning behavior is consistent across access tiers."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/storage/blobs/versioning-overview#how-versioning-works"
+    }
+  }
+]

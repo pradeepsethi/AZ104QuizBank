@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Practice Quiz - AZ-104 Exam Bank</title>
+  <title>Practice Quiz - Entra Users & Groups</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -13,7 +13,7 @@
     <div class="header-content">
       <div>
         <h1>Microsoft Certification Practice</h1>
-        <p>Interactive Knowledge &amp; Exam Prep</p>
+        <p>Interactive Knowledge & Exam Prep</p>
       </div>
       <div id="quiz-info" class="quiz-info-badge">
         <span id="timer" class="timer-display">Time: 00:00</span>
@@ -23,27 +23,30 @@
 
   <main class="main-container">
 
-    <!-- TOP BAR LAYOUT -->
+    <!-- TOP BAR / HEADER LAYOUT -->
     <div class="top-bar">
+      <!-- Left Side: Back Link, Title, and Practice Set Selector -->
       <div class="top-bar-left">
         <a href="index.html" class="header-back-link">← Back to All Topics</a>
         <div class="topic-header-info">
-          <h2 class="topic-title" id="active-topic-title">Loading Practice Quiz...</h2>
+          <h2 class="topic-title" id="active-topic-title">Entra Users &amp; Groups</h2>
           
-          <!-- Dynamic Set Selector -->
+          <!-- Practice Set Selector Dropdown -->
           <div class="practice-set-container">
-            <label for="set-select" class="set-label" id="selector-label">Practice Set:</label>
+            <label for="set-select" class="set-label">Practice Set:</label>
             <select id="set-select" class="set-select-dropdown">
               <option value="set1" selected>Set 1</option>
               <option value="set2">Set 2</option>
               <option value="set3">Set 3</option>
+              <option value="set4">Set 4</option>
             </select>
           </div>
         </div>
       </div>
 
+      <!-- Right Side: Question Counter -->
       <div class="top-bar-right">
-        <span class="question-counter" id="question-tracker">Question 1 of 0</span>
+        <span class="question-counter" id="question-tracker">Question 1 of 50</span>
       </div>
     </div>
 
@@ -125,7 +128,7 @@
         <h3>Answer Review</h3>
         <ul id="review-list" class="review-list"></ul>
         <div class="result-actions">
-          <a href="index.html" class="btn primary-btn">Return to Dashboard</a>
+          <a href="index.html" class="btn primary-btn">Return to Topics</a>
         </div>
       </div>
     </div>

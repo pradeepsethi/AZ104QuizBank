@@ -3,198 +3,77 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
   <title>AZ-104: Microsoft Azure Administrator Practice Bank</title>
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
   <!-- APP HEADER -->
-  <header class="app-header">
-    <div class="header-content">
+  <header class="header">
+    <div class="header-top">
       <div>
         <h1>AZ-104: Microsoft Azure Administrator</h1>
-        <p>Interactive Practice Quiz Bank &amp; Exam Preparation</p>
+        <p style="margin: 5px 0 0 0; font-size: 14px; opacity: 0.9;">Interactive Practice Quiz Bank &amp; Exam Preparation</p>
+      </div>
+      
+      <div id="auth-container">
+        <button id="sign-in-btn" class="btn btn-light" style="cursor: pointer;">Sign In with Google</button>
+        <div id="user-info" class="user-info-bar" style="display: none; align-items: center; gap: 10px;">
+          <span id="user-name" class="user-name-text" style="font-size: 14px; font-weight: 500;"></span>
+          <a href="index.html" class="btn btn-light active-btn" style="text-decoration: none;">🏠 Home</a>
+          <a href="dashboard.html" class="btn btn-light" style="text-decoration: none;">📊 Dashboard</a>
+          <button id="sign-out-btn" class="btn btn-danger" style="cursor: pointer;">Sign Out</button>
+        </div>
       </div>
     </div>
   </header>
 
   <!-- MAIN CONTAINER -->
-  <main class="main-container">
+  <main class="container">
 
-    <!-- FULL EXAM HERO CARD -->
-    <section class="exam-hero-card">
-      <div class="exam-hero-content">
-        <h2>AZ-104 Full Practice Exam</h2>
-        <p>Simulate the full certification test with questions from across all 5 Azure Domains.</p>
-      </div>
-      <a href="topic.html?mode=exam&exam=e1&title=AZ-104%20Full%20Practice%20Exam" class="btn exam-start-btn">
-        Start Full Exam 🚀
-      </a>
-    </section>
-
-    <!-- DOMAINS GRID CONTAINER -->
-    <div class="domains-grid">
-
-      <!-- Domain 1 -->
-      <section class="domain-card">
-        <div class="domain-header">
-          <a href="topic.html?mode=domain&domain=d1&title=Domain%201:%20Manage%20Azure%20Identities%20and%20Governance" class="domain-title-link">
-            <h2>Domain 1: Manage Azure Identities and Governance ↗</h2>
-          </a>
-          <span class="weight-badge">15–20%</span>
-        </div>
-        <ul class="topic-list">
-          <li>
-            <a href="topic.html?mode=topic&topic=d1_topic1&title=Entra%20Users%20%26%20Groups" class="topic-link">
-              <span>Entra Users &amp; Groups</span>
-              <span class="arrow-icon">→</span>
-            </a>
-          </li>
-          <li>
-            <a href="topic.html?mode=topic&topic=d1_topic2&title=Access%20to%20Azure%20Resources%20(RBAC)" class="topic-link">
-              <span>Access to Azure Resources (RBAC)</span>
-              <span class="arrow-icon">→</span>
-            </a>
-          </li>
-          <li>
-            <a href="topic.html?mode=topic&topic=d1_topic3&title=Subscriptions%20%26%20Governance" class="topic-link">
-              <span>Subscriptions &amp; Governance</span>
-              <span class="arrow-icon">→</span>
-            </a>
-          </li>
-        </ul>
-      </section>
-
-      <!-- Domain 2 -->
-      <section class="domain-card">
-        <div class="domain-header">
-          <a href="topic.html?mode=domain&domain=d2&title=Domain%202:%20Implement%20and%20Manage%20Storage" class="domain-title-link">
-            <h2>Domain 2: Implement and Manage Storage ↗</h2>
-          </a>
-          <span class="weight-badge">15–20%</span>
-        </div>
-        <ul class="topic-list">
-          <li>
-            <a href="topic.html?mode=topic&topic=d2_topic1&title=Storage%20Accounts%20%26%20Replication" class="topic-link">
-              <span>Storage Accounts &amp; Replication</span>
-              <span class="arrow-icon">→</span>
-            </a>
-          </li>
-          <li>
-            <a href="topic.html?mode=topic&topic=d2_topic2&title=Configure%20Azure%20Blob%20%26%20Azure%20Files" class="topic-link">
-              <span>Configure Azure Blob &amp; Azure Files</span>
-              <span class="arrow-icon">→</span>
-            </a>
-          </li>
-          <li>
-            <a href="topic.html?mode=topic&topic=d2_topic3&title=Storage%20Security%20%26%20Data%20Protection" class="topic-link">
-              <span>Storage Security &amp; Data Protection</span>
-              <span class="arrow-icon">→</span>
-            </a>
-          </li>
-        </ul>
-      </section>
-
-      <!-- Domain 3 -->
-      <section class="domain-card">
-        <div class="domain-header">
-          <a href="topic.html?mode=domain&domain=d3&title=Domain%203:%20Azure%20Compute%20Resources" class="domain-title-link">
-            <h2>Domain 3: Deploy and Manage Azure Compute Resources ↗</h2>
-          </a>
-          <span class="weight-badge">20–25%</span>
-        </div>
-        <ul class="topic-list">
-          <li>
-            <a href="topic.html?mode=topic&topic=d3_topic1&title=Virtual%20Machines%20%26%20Scale%20Sets" class="topic-link">
-              <span>Virtual Machines &amp; Scale Sets</span>
-              <span class="arrow-icon">→</span>
-            </a>
-          </li>
-          <li>
-            <a href="topic.html?mode=topic&topic=d3_topic2&title=Azure%20App%20Services" class="topic-link">
-              <span>Azure App Services</span>
-              <span class="arrow-icon">→</span>
-            </a>
-          </li>
-          <li>
-            <a href="topic.html?mode=topic&topic=d3_topic3&title=Azure%20Containers%20(ACI%20%26%20AKS)" class="topic-link">
-              <span>Azure Containers (ACI &amp; AKS)</span>
-              <span class="arrow-icon">→</span>
-            </a>
-          </li>
-        </ul>
-      </section>
-
-      <!-- Domain 4 -->
-      <section class="domain-card">
-        <div class="domain-header">
-          <a href="topic.html?mode=domain&domain=d4&title=Domain%204:%20Virtual%20Networking" class="domain-title-link">
-            <h2>Domain 4: Configure and Manage Virtual Networking ↗</h2>
-          </a>
-          <span class="weight-badge">20–25%</span>
-        </div>
-        <ul class="topic-list">
-          <li>
-            <a href="topic.html?mode=topic&topic=d4_topic1&title=Virtual%20Networks%20%26%20Peering" class="topic-link">
-              <span>Virtual Networks &amp; Peering</span>
-              <span class="arrow-icon">→</span>
-            </a>
-          </li>
-          <li>
-            <a href="topic.html?mode=topic&topic=d4_topic2&title=Network%20Security%20Groups%20(NSGs)" class="topic-link">
-              <span>Network Security Groups (NSGs)</span>
-              <span class="arrow-icon">→</span>
-            </a>
-          </li>
-          <li>
-            <a href="topic.html?mode=topic&topic=d4_topic3&title=Azure%20Load%20Balancing%20%26%20DNS" class="topic-link">
-              <span>Azure Load Balancing &amp; DNS</span>
-              <span class="arrow-icon">→</span>
-            </a>
-          </li>
-          <li>
-            <a href="topic.html?mode=topic&topic=d4_topic4&title=VPN%20Gateway%20%26%20ExpressRoute" class="topic-link">
-              <span>VPN Gateway &amp; ExpressRoute</span>
-              <span class="arrow-icon">→</span>
-            </a>
-          </li>
-        </ul>
-      </section>
-
-      <!-- Domain 5 -->
-      <section class="domain-card">
-        <div class="domain-header">
-          <a href="topic.html?mode=domain&domain=d5&title=Domain%205:%20Monitor%20%26%20Maintain" class="domain-title-link">
-            <h2>Domain 5: Monitor and Maintain Azure Resources ↗</h2>
-          </a>
-          <span class="weight-badge">10–15%</span>
-        </div>
-        <ul class="topic-list">
-          <li>
-            <a href="topic.html?mode=topic&topic=d5_topic1&title=Azure%20Monitor%20%26%20Metrics" class="topic-link">
-              <span>Azure Monitor &amp; Metrics</span>
-              <span class="arrow-icon">→</span>
-            </a>
-          </li>
-          <li>
-            <a href="topic.html?mode=topic&topic=d5_topic2&title=Log%20Analytics%20Workspaces" class="topic-link">
-              <span>Log Analytics Workspaces</span>
-              <span class="arrow-icon">→</span>
-            </a>
-          </li>
-          <li>
-            <a href="topic.html?mode=topic&topic=d5_topic3&title=Azure%20Backup%20%26%20Site%20Recovery" class="topic-link">
-              <span>Azure Backup &amp; Site Recovery (ASR)</span>
-              <span class="arrow-icon">→</span>
-            </a>
-          </li>
-        </ul>
-      </section>
-
+    <!-- References Bar -->
+    <div class="card" style="background: white; padding: 15px 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); margin-bottom: 20px; display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+      <span style="font-weight: 600; color: #323130; font-size: 14px;">📚 References:</span>
+      <nav style="display: flex; gap: 10px; flex-wrap: wrap;">
+        <a href="references/identity.html" class="btn" style="background: #f3f2f1; color: #0078d4; text-decoration: none;">Identity</a>
+        <a href="references/storage.html" class="btn" style="background: #f3f2f1; color: #0078d4; text-decoration: none;">Storage</a>
+        <a href="references/compute.html" class="btn" style="background: #f3f2f1; color: #0078d4; text-decoration: none;">Compute</a>
+        <a href="references/networking.html" class="btn" style="background: #f3f2f1; color: #0078d4; text-decoration: none;">Networking</a>
+        <a href="references/monitoring.html" class="btn" style="background: #f3f2f1; color: #0078d4; text-decoration: none;">Monitoring</a>
+        <a href="limits.html" class="btn" style="background: #f3f2f1; color: #0078d4; text-decoration: none;">📋 Limits &amp; Quotas</a>
+      </nav>
     </div>
 
+    <!-- SIGN-IN WARNING BANNER -->
+    <div id="login-alert-banner" style="display: none; background: #fff4ce; border: 1px solid #fde047; color: #854d0e; padding: 15px 20px; border-radius: 8px; margin-bottom: 20px; font-weight: 500;">
+      ⚠️ Please sign in with Google to unlock access to practice exams and topic quizzes.
+    </div>
+
+    <!-- FULL EXAM HERO CARD -->
+    <section class="top-exams-section" style="display: flex; justify-content: space-between; align-items: center; background: white; padding: 20px; border-radius: 8px; margin-bottom: 25px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+      <div>
+        <h3 style="margin: 0 0 5px 0; font-size: 18px;">AZ-104 Complete Practice Exams</h3>
+        <p style="margin: 0; font-size: 13px; color: #605e5c;">Simulate full certification tests from the complete exams repository.</p>
+      </div>
+      <div style="display: flex; gap: 10px; align-items: center;">
+        <select id="exam-selector" class="btn" style="background: #f3f2f1; color: #323130; border: 1px solid #c8c6c4; padding: 8px 12px; cursor: pointer;">
+          <!-- Dynamically populated from sets_config.complete -->
+        </select>
+        <a href="quiz.html?mode=complete&exam=e1&title=AZ-104%20Complete%20Exam%201" id="full-exam-link" class="btn btn-primary auth-protected-link" style="text-decoration: none;">
+          Start Exam 🚀
+        </a>
+      </div>
+    </section>
+
+    <!-- DYNAMIC DOMAINS & TOPICS GRID CONTAINER -->
+    <div id="domains-grid" class="domains-columns-container" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
+      <p style="color: #605e5c;">Loading official exam domains and topics...</p>
+    </div>
   </main>
 
-  <script src="app.js"></script>
+  <script type="module" src="js/index.js"></script>
 </body>
 </html>

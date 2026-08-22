@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AZ-104 Azure Monitoring & Backup</title>
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        :root {
+            --primary-color: #0078d4;
+            --primary-dark: #005a9e;
+            --secondary-color: #2b2b2b;
+            --bg-color: #f4f6f9;
+            --card-bg: #ffffff;
+            --text-color: #333333;
+            --border-color: #e1e4e8;
+            --code-bg: #f0f4f8;
+            --table-header-bg: #0078d4;
+            --table-header-color: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            border: 1px solid var(--border-color);
+        }
+
+        h2 {
+            color: var(--primary-dark);
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 0.5rem;
+            margin-top: 0;
+        }
+
+        h3 {
+            color: var(--secondary-color);
+            margin-top: 1.5rem;
+        }
+
+        ul, ol {
+            padding-left: 1.5rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        .highlight-box {
+            background-color: #e6f2ff;
+            border-left: 4px solid var(--primary-color);
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 4px 4px 0;
+        }
+
+        code {
+            background-color: var(--code-bg);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: Consolas, Monaco, 'Andale Mono', monospace;
+            font-size: 0.9em;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+        }
+
+        th, td {
+            padding: 0.75rem;
+            text-align: left;
+            border: 1px solid var(--border-color);
+        }
+
+        th {
+            background-color: var(--table-header-bg);
+            color: var(--table-header-color);
+        }
+
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: #666;
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border-color);
+            background-color: var(--card-bg);
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+    <div class="header-top">
+      <div>
+        <h1 style="margin: 0; font-size: 20px;">AZ-104 Microsoft Azure Administrator</h1>
+        <p style="margin: 5px 0 0 0; font-size: 14px; opacity: 0.9;">Monitoring & Backup Azure Resources</p>
+      </div>
+
+      <div id="auth-container">
+        <button id="sign-in-btn" class="btn btn-light" style="cursor: pointer;">Sign In with Google</button>
+        <div id="user-info" class="user-info-bar" style="display: none; align-items: center; gap: 10px;">
+          <span id="user-name" class="user-name-text" style="font-size: 14px; font-weight: 500;"></span>
+          <a href="../index.html" class="btn btn-light" style="text-decoration: none;">🏠 Home</a>
+          <a href="../dashboard.html" class="btn btn-light" style="text-decoration: none;">📊 Dashboard</a>
+          <button id="sign-out-btn" class="btn btn-danger" style="cursor: pointer;">Sign Out</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="card" style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+      <span style="font-weight: 600; color: #323130; font-size: 14px;">📚 References:</span>
+      <nav style="display: flex; gap: 10px; flex-wrap: wrap;">
+        <a href="identity.html" class="btn" style="background: #f3f2f1; color: #0078d4; text-decoration: none;">Identity</a>
+        <a href="storage.html" class="btn" style="background: #f3f2f1; color: #0078d4; text-decoration: none;">Storage</a>
+        <a href="compute.html" class="btn" style="background: #f3f2f1; color: #0078d4; text-decoration: none;">Compute</a>
+        <a href="networking.html" class="btn" style="background: #f3f2f1; color: #0078d4; text-decoration: none;">Networking</a>
+        <a href="monitoring.html" class="btn" style="background: #0078d4; color: white; text-decoration: none; font-weight: 600;">Monitoring</a>
+        <a href="../limits.html" class="btn" style="background: #f3f2f1; color: #0078d4; text-decoration: none;">📋 Limits &amp; Quotas</a>
+      </nav>
+    </div>
+  </div>
+
+
+    <div class="container">
+
+        <!-- Monitoring Scope -->
+        <section class="card">
+            <h2>Monitoring & Backup Domain Scope</h2>
+            <div class="highlight-box">
+                <strong>Domain Overview:</strong> Monitor and backup Azure resources in AZ-104 covers Azure Monitor metrics and logs, alerting, monitoring insights, Network Watcher, and implementing backup and recovery with Azure Backup and Site Recovery.
+            </div>
+
+            <h3>Monitor Resources in Azure</h3>
+            <ul>
+                <li><strong>Metrics & Logs:</strong> Numeric time-series metrics and queryable log data collected by Azure Monitor.</li>
+                <li><strong>Alerting:</strong> Alert rules, action groups, and alert processing rules that notify or automate responses to conditions.</li>
+                <li><strong>Insights:</strong> Curated dashboards for VMs, storage accounts, and networks built on top of Azure Monitor data.</li>
+            </ul>
+        </section>
+
+        <!-- Metrics -->
+        <section class="card">
+            <h2>Metrics in Azure Monitor</h2>
+            <p>Azure Monitor Metrics is a lightweight, time-series database that stores numeric values describing an aspect of a resource at a particular point in time. Metrics are collected automatically for most Azure resources.</p>
+
+            <h3>Metric Types</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Type</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Platform metrics</strong></td>
+                        <td>Created automatically by Azure resources (e.g. CPU %, disk IOPS, network in/out). Collected at 1-minute frequency by default and typically retained for 93 days.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Custom metrics</strong></td>
+                        <td>Defined by an application or the Azure Monitor agent/guest OS. Sent via the Application Insights SDK or Azure Monitor Agent.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Guest OS metrics</strong></td>
+                        <td>Collected from inside a VM (memory, disk space, process info) via a diagnostics extension or the Azure Monitor Agent, unlike host-level platform metrics.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Metrics Explorer</h3>
+            <p>Used to plot charts, visually correlate trends, and investigate spikes/dips in metric values. Supports splitting by dimension (e.g. per-disk or per-instance) and aggregation types: <strong>Sum, Avg, Min, Max, Count</strong>. Charts can be pinned to a dashboard or exported to a workbook.</p>
+
+            <h3>Metrics vs Logs</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Aspect</th>
+                        <th>Metrics</th>
+                        <th>Logs</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Data type</strong></td>
+                        <td>Numeric, time-series</td>
+                        <td>Text/structured records (tables)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Storage</strong></td>
+                        <td>Metrics database</td>
+                        <td>Log Analytics workspace</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Query language</strong></td>
+                        <td>Metrics Explorer (no query language needed)</td>
+                        <td>KQL</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Latency</strong></td>
+                        <td>Near real-time</td>
+                        <td>Slightly higher ingestion latency</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Best for</strong></td>
+                        <td>Near real-time alerting, lightweight dashboards</td>
+                        <td>Deep analysis, correlation across data types</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="highlight-box">
+                <strong>Exam Tip:</strong> If a question asks for the fastest/lightest way to alert on a threshold (e.g. CPU &gt; 80%), the metric-based alert is usually the better answer than a log query alert, since metric alerts evaluate faster.
+            </div>
+        </section>
+
+        <!-- Monitor Agent & Log Queries -->
+        <section class="card">
+            <h2>Monitor Agent & Log Queries</h2>
+            <p>All log data obtained by Azure Monitor is stored in a Log Analytics workspace and retrieved using a log query written in <strong>Kusto Query Language (KQL)</strong>.</p>
+
+            <h3>Query Building Blocks</h3>
+            <ul>
+                <li><strong>Table-based queries</strong> — the query organizes log data into tables.</li>
+                <li><strong>Search queries</strong> — use this query if you need to find a specific value in your table.</li>
+                <li><strong>Sort and top</strong> — sort the preferred column to display results in a particular order; use <code>top</code> to get the latest records in the entire table.</li>
+                <li><strong>Where</strong> — adds a filter to a query; different expressions can be used for filter conditions.</li>
+                <li><strong>Time filter</strong> — defines a specific time range by adding the time filter to the query.</li>
+                <li><strong>Project and Extend</strong> — <code>project</code> selects specific columns, while <code>extend</code> adds additional columns.</li>
+                <li><strong>Summarize</strong> — identifies a group of records and applies aggregations using the <code>summarize</code> operator.</li>
+            </ul>
+
+            <h3>Monitor Agent Limits</h3>
+            <div class="highlight-box">
+                <strong>Limits and Capabilities:</strong>
+                <ul>
+                    <li>If a query includes workspaces in 20 or more regions, the query will be blocked from running.</li>
+                    <li>Monitor Agent results are limited to a maximum of 10,000 records.</li>
+                    <li>A monitor agent can collect logs and performance data from virtual or physical devices outside Azure.</li>
+                    <li>A monitor agent cannot send data to Azure Monitor Metrics, Azure Storage, or Azure Event Hubs.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Log Settings -->
+        <section class="card">
+            <h2>Log Settings & Diagnostics</h2>
+            <p><strong>Diagnostic settings</strong> are how a resource's platform logs and metrics get routed into Azure Monitor (and other destinations) for analysis and retention.</p>
+
+            <h3>Diagnostic Settings Destinations</h3>
+            <ul>
+                <li><strong>Log Analytics workspace:</strong> for querying with KQL, alerting, and dashboards.</li>
+                <li><strong>Azure Storage account:</strong> for cheap long-term archival/audit retention.</li>
+                <li><strong>Azure Event Hubs:</strong> to stream logs to a third-party SIEM or a custom pipeline.</li>
+                <li><strong>Partner solution:</strong> send data directly to a supported partner monitoring solution.</li>
+            </ul>
+
+            <h3>Log Categories</h3>
+            <ul>
+                <li><strong>Administrative:</strong> record of create/update/delete (control-plane) operations.</li>
+                <li><strong>Activity log:</strong> subscription-level events (who did what, when); retained 90 days by default and can be routed via diagnostic settings for longer retention.</li>
+                <li><strong>Resource logs:</strong> operations performed within a resource (data-plane), category set differs per resource type.</li>
+            </ul>
+
+            <div class="highlight-box">
+                <strong>Key Point:</strong> Diagnostic settings must be configured per resource (or applied at scale via Azure Policy). Without a diagnostic setting, resource logs are not retained anywhere for later query.
+            </div>
+        </section>
+
+        <!-- Alerts -->
+        <section class="card">
+            <h2>Alert Rules, Action Groups & Processing Rules</h2>
+
+            <h3>Alert Rule Anatomy</h3>
+            <p>An alert rule has three parts: a <strong>target resource</strong> (or scope), a <strong>condition</strong> (a signal/metric or log query plus a threshold), and one or more <strong>action groups</strong> to notify or trigger automation when the condition is met. Alert rule types include <strong>Metric alerts</strong> (near real-time, evaluate metric data), <strong>Log alerts</strong> (run a scheduled KQL query), <strong>Activity log alerts</strong> (fire when a specific control-plane event occurs, e.g. resource deleted), and <strong>Smart detection alerts</strong> (Application Insights anomaly detection).</p>
+
+            <h3>Alert Processing Rules</h3>
+            <p>Alert processing rules (formerly "action rules") help define or suppress actions at any Azure Resource Manager scope: Azure subscription, resource group, or target resource. They provide filters that narrow down the specific subset of alert instances on which to act.</p>
+            <ul>
+                <li>Used to add or suppress action groups across many alert rules at once — e.g. suppress all notifications for a resource group during planned maintenance.</li>
+                <li>Can be scheduled (one-time or recurring window) so notifications automatically resume afterward.</li>
+                <li>Applied on top of alert rules; they don't replace the alert rule's own action group configuration, they modify what actually fires.</li>
+            </ul>
+
+            <h3>Action Groups</h3>
+            <p>An action group is a collection of notification preferences defined by the owner of an Azure subscription. Azure Monitor and Service Health alerts use action groups to notify users when an alert is triggered. Different alerts can use the same action group or different action groups depending on requirements.</p>
+
+            <h3>Worked Example</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Signal</th>
+                        <th>Signal Type</th>
+                        <th>Users Notified</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Availability</td>
+                        <td>Metric</td>
+                        <td>User 1, User 2, User 3</td>
+                    </tr>
+                    <tr>
+                        <td>Transactions</td>
+                        <td>Metric</td>
+                        <td>User 2, User 3</td>
+                    </tr>
+                    <tr>
+                        <td>Create/Update Storage Account</td>
+                        <td>Activity Log</td>
+                        <td>User 1, User 2, User 3</td>
+                    </tr>
+                    <tr>
+                        <td>Regenerate Storage Account Keys</td>
+                        <td>Activity Log</td>
+                        <td>User 3</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="highlight-box">
+                <strong>Answer:</strong> Create 4 alert rules — one per signal type. Create 3 action groups — one for each unique set of users to be notified.
+            </div>
+        </section>
+
+        <!-- Log Analytics -->
+        <section class="card">
+            <h2>Azure Log Analytics</h2>
+            <p>Azure Log Analytics is primarily designed for collecting, analyzing, and visualizing log and performance data from diverse resources within an Azure environment. As part of Azure Monitor, it enables users to run queries on logs and metrics to gain insights into system performance, security posture, and overall health.</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Mode</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Simple Mode</strong></td>
+                        <td>Designed for users unfamiliar with complex query languages. Provides a clear interface for creating basic queries using prebuilt templates and filters, suitable for quick exploration and troubleshooting without writing code.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>KQL Mode</strong></td>
+                        <td><strong>Kusto Query Language (KQL)</strong> is used for advanced data exploration — purpose-built for big-data analytics and suitable for complex searches, aggregations, visualizations, custom reports, and extracting specific insights from extensive log data.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Monitor Insights -->
+        <section class="card">
+            <h2>Azure Monitor Insights</h2>
+            <p>Insights are curated, pre-built monitoring experiences layered on top of Azure Monitor. They save you from building metrics/log queries and dashboards from scratch.</p>
+
+            <h3>VM Insights</h3>
+            <p>Monitors the health and performance of Azure VMs, scale sets, and hybrid/on-premises VMs. Requires the <strong>Azure Monitor Agent</strong> plus the <strong>Dependency Agent</strong> (for the map feature). Provides three views: <strong>Overview</strong> (health/state at a glance), <strong>Performance</strong> (CPU, memory, disk, network trends with adjustable percentiles), and <strong>Map</strong> (process-level dependencies and connections between VMs). Data is stored in a Log Analytics workspace, so it can also be queried directly with KQL.</p>
+
+            <h3>Storage Insights</h3>
+            <p>Surfaces capacity, availability, performance, and failure metrics for storage accounts (Blob, File, Queue, Table). Provides a top-level view across all storage accounts in a subscription, plus a drill-down view per account showing transaction breakdowns by API, response type, and geo-replication status. Built on platform metrics — no agent installation required.</p>
+
+            <h3>Network Insights</h3>
+            <p>Provides a topology-centric view of network resources (VNets, NICs, load balancers, gateways, ExpressRoute circuits) and their health. Aggregates data already collected by Network Watcher, Connection Monitor, and platform metrics into one dashboard rather than being a separate data-collection mechanism.</p>
+
+            <div class="highlight-box">
+                <strong>Exam Tip:</strong> "Insights" are dashboards/experiences, not separate data stores — the underlying data still comes from Azure Monitor Metrics, Log Analytics, or Network Watcher.
+            </div>
+        </section>
+
+        <!-- Network Watcher for Monitoring -->
+        <section class="card">
+            <h2>Network Watcher & Connection Monitor</h2>
+
+            <h3>Network Connectivity Monitoring</h3>
+            <p>The designated tool to monitor communication between a VM and an endpoint is <strong>Connection Monitor</strong>. An endpoint can be an IPv4 address, URI, FQDN, or virtual machine. Connection Monitor displays the minimum, average, and maximum latency detected over time; latency can be reduced by relocating Azure resources to different Azure regions.</p>
+
+            <h3>Diagnosing Virtual Machine Network Traffic</h3>
+            <p><strong>IP flow verify</strong> is used to diagnose network traffic problems to or from a VM. It specifies the source and destination IPv4 address, protocol, port, and traffic direction. The result indicates whether the connection succeeds or fails and, if it fails, which security rule allowed or denied the communication.</p>
+
+            <h3>Verify a TCP Connection From a VM</h3>
+            <p><strong>Connection troubleshoot</strong> diagnoses outbound connections from a virtual machine. It can test a VM connection to an IPv4 address, URI, FQDN, or another VM, providing a point-in-time result and identifying possible causes when an endpoint is unreachable, including:</p>
+            <ul>
+                <li>DNS resolution failures</li>
+                <li>High VM CPU and memory utilization</li>
+                <li>NSG and firewall rules that block traffic</li>
+                <li>Misconfigured or missing routes</li>
+            </ul>
+
+            <h3>Analyze Ingress and Egress IP Traffic Through an NSG</h3>
+            <p>Network Security Groups (NSGs) allow or deny inbound and outbound traffic to a network interface. NSG flow logs can help optimize network flows, detect intrusions, monitor throughput, and verify compliance.</p>
+        </section>
+
+        <!-- Backup VMs -->
+        <section class="card">
+            <h2>Backup Azure Virtual Machines</h2>
+            <p>To prevent unintended destruction or deletion of data on a virtual machine, the guide recommends creating a backup. Azure Backup can back up on-premises machines, workloads, and Azure VMs.</p>
+
+            <h3>Backup Schedule and Retention</h3>
+            <p>Backup schedule can be <strong>daily or weekly</strong>. Retention can be configured on a <strong>daily, weekly, monthly, and yearly</strong> schedule.</p>
+
+            <div class="highlight-box">
+                <strong>VM State:</strong> A stopped/deallocated VM only stops the virtual machine; Azure Backup takes snapshots of the VM disks. A backup can still be created whether the VM is running or stopped, as long as the disk is attached to the VM.
+            </div>
+
+            <h3>Recovery Services Vault</h3>
+            <p>A Recovery Services vault is a storage entity that stores data and recovery points created over time — a copy of data or configuration information for virtual machines, workloads, or servers. Backup data sources or VMs must be in the <strong>same region</strong> as the Recovery Services vault, though they can have different resource groups or operating systems.</p>
+        </section>
+
+        <!-- Restore Operations -->
+        <section class="card">
+            <h2>Backup and Restore Operations</h2>
+
+            <h3>Triggering a Backup</h3>
+            <p>An initial (first) backup can be triggered on demand right after configuring a backup policy, rather than waiting for the next scheduled run. On-demand backups can optionally use a retention period different from the policy's scheduled retention.</p>
+
+            <h3>VM Restore Options</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Option</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Create a new VM</strong></td>
+                        <td>Fastest option — Azure Backup creates a brand-new VM from the recovery point, in the same or a different resource group/VNet.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Restore disk(s)</strong></td>
+                        <td>Restores only the disks (as VHDs in storage or as managed disks); you then attach them to a new or existing VM manually, or generate an ARM template.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Replace existing disks</strong></td>
+                        <td>Overwrites the disks currently attached to the original VM with the versions from the recovery point — used to roll an existing VM back in place.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Cross-region restore</strong></td>
+                        <td>Restores a VM/disk into Azure Backup's secondary (paired) region, for testing DR readiness or recovering from a regional outage — requires cross-region restore to be enabled on the vault.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>File-Level and Item-Level Recovery</h3>
+            <p><strong>File Recovery</strong> lets you browse and copy individual files/folders from a recovery point without restoring the whole VM, using a downloadable script that mounts the recovery point as a local drive. Workload-aware backups (SQL/SAP HANA in a VM) support restoring an individual database rather than the whole VM.</p>
+
+            <div class="highlight-box">
+                <strong>Soft Delete:</strong> Deleted backup data is retained in a soft-deleted state (default 14 days) so it can still be recovered/undeleted if a vault or backup item is removed accidentally or maliciously.
+            </div>
+        </section>
+
+        <!-- Vaults -->
+        <section class="card">
+            <h2>Backup Components & Vault Considerations</h2>
+
+            <h3>Recovery Services Vault Dependencies</h3>
+            <p>A Recovery Services vault cannot be deleted if it contains protected data sources (IaaS VMs, SQL databases, Azure file shares), backup data, backup data in a soft-deleted state, or registered storage accounts. If deletion fails with <strong>"Failed to delete resource group"</strong>, stop the backup first, then disable soft delete and delete the resource group.</p>
+
+            <h3>Microsoft Azure Recovery Services (MARS) Agent</h3>
+            <p>The MARS agent allows backup of data from Windows virtual machines and on-premises machines, with backups stored directly in the Recovery Services vault. Installing the MARS agent and performing backups requires a Recovery Services vault, a backup policy, and a secure route (ExpressRoute or Private Endpoint).</p>
+
+            <h3>Azure Backup Vault</h3>
+            <p>Azure Backup Vault is a storage entity for backup data for various Azure services, designed to support newer workloads and services such as Azure Database for PostgreSQL servers.</p>
+            <ul>
+                <li>Simplifies organization of backup data and reduces management overhead.</li>
+                <li>Includes enhanced security features to protect cloud backups and support safe data recovery.</li>
+                <li>Supports Azure RBAC for fine-grained access management.</li>
+                <li>Provides data isolation by storing backup data in a Microsoft-managed Azure subscription and tenant separate from the production environment.</li>
+                <li>Handles storage and encryption settings, including platform-managed keys and customer-managed keys for backup data encryption.</li>
+            </ul>
+        </section>
+
+        <!-- Backup Policy -->
+        <section class="card">
+            <h2>Backup Policy</h2>
+            <p>To create a Backup Policy:</p>
+            <ol>
+                <li>Select a datasource type: <strong>Azure Virtual Machines</strong> or <strong>Azure Database for PostgreSQL servers</strong>.</li>
+                <li>Choose the frequency: <strong>daily or weekly</strong>.</li>
+                <li>Enter how many days to retain recovery snapshots.</li>
+                <li>Instant recovery snapshots can be retained for at most <strong>5 days</strong>.</li>
+                <li>Choose the backup retention range: <strong>daily, weekly, monthly, or yearly</strong>.</li>
+            </ol>
+        </section>
+
+        <!-- Site Recovery -->
+        <section class="card">
+            <h2>Azure Site Recovery & Disaster Recovery</h2>
+            <p>For hybrid backup solutions, site-to-site recovery, or a business continuity and disaster recovery (BCDR) strategy, Azure Site Recovery replicates workloads from a primary site to a secondary site. If the primary site suffers an outage and becomes unavailable, Azure Site Recovery can automatically fail over to the secondary site so services continue working.</p>
+
+            <h3>Resources That Can Be Replicated</h3>
+            <ul>
+                <li>Azure Virtual Machines (cross-region replication)</li>
+                <li>Any operating system</li>
+                <li>On-premises to Azure</li>
+                <li>Other cloud service providers to Azure</li>
+                <li>VMware, Hyper-V, or physical servers</li>
+            </ul>
+
+            <h3>RTO and RPO</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Term</th>
+                        <th>Definition</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>RTO</strong> — Recovery Time Objective</td>
+                        <td>The time it takes after a disruption to restore a business process to its service level.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>RPO</strong> — Recovery Point Objective</td>
+                        <td>The acceptable amount of data loss measured in time before the disaster occurs.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Failover -->
+        <section class="card">
+            <h2>Failover to a Secondary Region</h2>
+
+            <h3>Failover Types</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Type</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Test failover</strong></td>
+                        <td>Validates the DR plan without impacting production or ongoing replication — spins up an isolated copy VM in the target region/VNet for verification, then is cleaned up.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Planned failover</strong></td>
+                        <td>Used for expected downtime (e.g. scheduled maintenance). Ensures zero data loss by synchronizing any final changes from the source before failing over.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Unplanned failover</strong></td>
+                        <td>Used after an unexpected outage. Attempts to replicate any final changes if the source is still reachable, but proceeds even if it isn't — may involve some data loss depending on the last successful recovery point.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Failover Workflow</h3>
+            <ol>
+                <li>Initiate failover and choose a recovery point (latest, latest processed, or a specific app-consistent point).</li>
+                <li>Azure Site Recovery brings up the VM(s) in the secondary/target region.</li>
+                <li><strong>Commit</strong> the failover once you've confirmed the failed-over VMs are healthy — this deletes other recovery points and finalizes the switch.</li>
+            </ol>
+
+            <h3>Failback</h3>
+            <p>After the primary region/site is available again, <strong>reprotect</strong> the VMs (reverse replication direction back to the original region) and then fail over again to move workloads back — restoring the original replication direction.</p>
+        </section>
+
+        <!-- Backup Reports -->
+        <section class="card">
+            <h2>Backup Reports & Alerts</h2>
+
+            <h3>Backup Reports</h3>
+            <p>Cross-vault, cross-subscription reporting built on Azure Monitor/Log Analytics, showing backup jobs, alerts, usage/cloud storage consumption, and policy compliance over time. Requires a diagnostic setting on each Recovery Services vault that routes backup data to a Log Analytics workspace (or storage account) used by the report — useful for answering questions like "which VMs failed their last backup" across the whole environment, not just one vault.</p>
+
+            <h3>Backup Alerts</h3>
+            <p>Built-in alerts fire automatically for events such as backup failures, a VM stopped being protected (deletion/expired retention), or excessive storage consumption — no separate alert rule needs to be authored for these. Configured per Recovery Services vault under <strong>Backup Alerts & Notifications</strong>, and can be routed through action groups (email, SMS, webhook, Logic App) the same way Azure Monitor alerts are.</p>
+
+            <div class="highlight-box">
+                <strong>Security Alerts:</strong> Alerts for events like disabling soft delete or multiple backup deletions in a short window are enabled by default to help detect malicious or accidental deletion attempts.
+            </div>
+        </section>
+
+        <!-- Quick Review -->
+        <section class="card">
+            <h2>Quick Review</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Topic</th>
+                        <th>Remember</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>Platform vs custom metrics</td><td>Platform metrics are automatic (1-min frequency, ~93-day retention); custom/guest metrics need an agent or SDK.</td></tr>
+                    <tr><td>Metrics vs Logs</td><td>Metrics = fast numeric time-series, no query language needed; Logs = KQL, deeper analysis, slightly higher latency.</td></tr>
+                    <tr><td>Monitor Agent</td><td>10,000-record result limit; supports collecting logs/performance data from devices outside Azure.</td></tr>
+                    <tr><td>Diagnostic settings</td><td>Route platform/resource logs to Log Analytics, Storage, or Event Hubs; required before resource logs can be queried or retained.</td></tr>
+                    <tr><td>Alert rules</td><td>One alert rule per signal type in the worked example; metric, log, and activity-log alert types exist.</td></tr>
+                    <tr><td>Action groups</td><td>Create one per unique notification-user set in the worked example.</td></tr>
+                    <tr><td>Alert processing rules</td><td>Add/suppress action groups across many alerts at once, e.g. during maintenance windows.</td></tr>
+                    <tr><td>Log Analytics</td><td>Simple Mode for basic exploration; KQL Mode for advanced analysis.</td></tr>
+                    <tr><td>VM insights</td><td>Overview, Performance, and Map views; needs Azure Monitor Agent + Dependency Agent for the map.</td></tr>
+                    <tr><td>Storage insights</td><td>Capacity/availability/performance dashboard for storage accounts; no agent needed.</td></tr>
+                    <tr><td>Connection Monitor</td><td>Monitors VM-to-endpoint connectivity and latency.</td></tr>
+                    <tr><td>IP flow verify</td><td>Identifies whether traffic is allowed/denied and which security rule is responsible.</td></tr>
+                    <tr><td>Connection troubleshoot</td><td>Diagnoses outbound VM connectivity and possible causes.</td></tr>
+                    <tr><td>Recovery Services vault</td><td>Stores backup data/recovery points; source VMs must be in the same region as the vault.</td></tr>
+                    <tr><td>Backup schedule</td><td>Daily or weekly; retention can be daily, weekly, monthly, or yearly.</td></tr>
+                    <tr><td>Instant recovery snapshot</td><td>Maximum retention of 5 days.</td></tr>
+                    <tr><td>VM restore options</td><td>Create a new VM, restore disks, replace existing disks, or cross-region restore.</td></tr>
+                    <tr><td>Soft delete (backup)</td><td>Deleted backup data is recoverable for a default of 14 days.</td></tr>
+                    <tr><td>Azure Site Recovery</td><td>Replicates workloads to a secondary site and supports failover for BCDR scenarios.</td></tr>
+                    <tr><td>Failover types</td><td>Test (isolated, no impact), Planned (zero data loss), Unplanned (after outage, possible data loss).</td></tr>
+                    <tr><td>Failback</td><td>Reprotect (reverse replication) then fail over again to move workloads back to the primary region.</td></tr>
+                    <tr><td>Backup Reports</td><td>Cross-vault reporting on jobs, alerts, and storage consumption; needs a diagnostic setting to Log Analytics.</td></tr>
+                    <tr><td>Backup alerts</td><td>Built-in alerts for failures, stopped protection, and suspicious deletions — no custom alert rule required.</td></tr>
+                    <tr><td>RTO</td><td>Time to restore a business process to its service level after disruption.</td></tr>
+                    <tr><td>RPO</td><td>Acceptable amount of data loss measured in time before the disaster.</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+    </div>
+
+    <footer>
+        <p>AZ-104 Monitoring & Backup Domain </p>
+    </footer>
+
+  <script type="module" src="../js/reference.js"></script>
+</body>
+</html>

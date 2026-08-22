@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <title id="quiz-title-tag">AZ-104 Quiz Engine</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="header">
+    <div class="header-top">
+      <div>
+        <h1 id="quiz-title" style="margin: 0; font-size: 20px;">AZ-104 Practice Quiz</h1>
+        <p style="margin: 5px 0 0 0; font-size: 14px; opacity: 0.9;">AZ-104 Practice Exam Portal</p>
+      </div>
+      
+      <div id="auth-container">
+        <button id="sign-in-btn" class="btn btn-light" style="cursor: pointer;">Sign In with Google</button>
+        <div id="user-info" class="user-info-bar" style="display: none; align-items: center; gap: 10px;">
+          <span id="user-name" class="user-name-text" style="font-size: 14px; font-weight: 500;"></span>
+          <a href="index.html" class="btn btn-light" style="text-decoration: none;">🏠 Home</a>
+          <a href="dashboard.html" class="btn btn-light" style="text-decoration: none;">📊 Dashboard</a>
+          <button id="sign-out-btn" class="btn btn-danger" style="cursor: pointer;">Sign Out</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Top Bar with Question Set, Timer, and Exit Quiz Button -->
+  <div class="container" style="max-width: 1200px; margin: 15px auto 0 auto; padding: 0 15px;">
+
+    <!-- References Bar -->
+    <div class="card" style="background: white; padding: 15px 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); margin-bottom: 15px; display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+      <span style="font-weight: 600; color: #323130; font-size: 14px;">📚 References:</span>
+      <nav style="display: flex; gap: 10px; flex-wrap: wrap;">
+        <a href="references/identity.html" class="btn" style="background: #f3f2f1; color: #0078d4; text-decoration: none;">Identity</a>
+        <a href="references/storage.html" class="btn" style="background: #f3f2f1; color: #0078d4; text-decoration: none;">Storage</a>
+        <a href="references/compute.html" class="btn" style="background: #f3f2f1; color: #0078d4; text-decoration: none;">Compute</a>
+        <a href="references/networking.html" class="btn" style="background: #f3f2f1; color: #0078d4; text-decoration: none;">Networking</a>
+        <a href="references/monitoring.html" class="btn" style="background: #f3f2f1; color: #0078d4; text-decoration: none;">Monitoring</a>
+        <a href="limits.html" class="btn" style="background: #f3f2f1; color: #0078d4; text-decoration: none;">📋 Limits &amp; Quotas</a>
+      </nav>
+    </div>
+
+    <div class="card" style="background: white; padding: 12px 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
+      <div style="display: flex; align-items: center; gap: 10px;" id="quiz-subbar-sets">
+        <label for="set-selector" style="font-size: 14px; font-weight: 600; color: #323130;">Question Set:</label>
+        <select id="set-selector" class="btn" style="background: #f3f2f1; color: #323130; border: 1px solid #c8c6c4; padding: 6px 10px; font-size: 14px; cursor: pointer;">
+          <!-- Dynamically populated from sets_config -->
+        </select>
+      </div>
+      <div style="display: flex; align-items: center; gap: 20px;">
+        <div style="font-size: 14px; font-weight: 600; color: #605e5c; display: flex; align-items: center; gap: 6px;">
+          <span>⏱️ Time Remaining:</span> <span id="quiz-timer" style="color: #d13438; font-family: monospace; font-size: 15px; font-weight: bold;">100:00</span>
+        </div>
+        <a href="index.html" class="btn" style="background: #f3f2f1; color: #323130; border: 1px solid #c8c6c4; text-decoration: none;">← Exit Quiz</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="quiz-layout" style="display: flex; gap: 20px; max-width: 1200px; margin: 20px auto; padding: 0 15px;">
+    <!-- Main Question Card -->
+    <div id="quiz-card" class="card" style="flex: 1; background: white; padding: 25px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+      <div style="text-align: center; padding: 40px; color: #605e5c;">Loading questions...</div>
+    </div>
+
+    <!-- Question Palette Sidebar -->
+    <div id="palette-card" class="card" style="width: 280px; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); height: fit-content;">
+      <h3 style="margin-top: 0; font-size: 16px; border-bottom: 1px solid #edebe9; padding-bottom: 10px;">Question Palette</h3>
+      <div id="question-palette" class="palette-grid" style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin-top: 15px;"></div>
+    </div>
+  </div>
+
+  <script type="module" src="js/quiz.js"></script>
+</body>
+</html>

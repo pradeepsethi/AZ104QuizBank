@@ -2,1033 +2,1057 @@
   {
     "id": 1,
     "subtopic": "Create users and groups",
-    "question": "You need to create 500 new users in Microsoft Entra ID. You want to minimize administrative effort. What should you use?",
+    "question": "You manage a Microsoft Entra tenant for an organization. You need to create a group named 'Finance-Dept' that automatically includes all users whose 'Department' property is set to 'Finance'. How should you configure the group's membership type and syntax rule?",
     "options": [
-      "The Bulk create users operation in the Microsoft Entra admin center with a CSV file.",
-      "The Azure CLI command 'az ad user create' in a loop.",
-      "A Resource Manager (ARM) template.",
-      "The Microsoft Graph PowerShell command 'New-MgUser' in a loop."
+      "Membership type: Assigned; Rule syntax: user.department -eq \"Finance\"",
+      "Membership type: Dynamic User; Rule syntax: user.department -eq \"Finance\"",
+      "Membership type: Dynamic Device; Rule syntax: device.department -eq \"Finance\"",
+      "Membership type: Dynamic User; Rule syntax: user.department -contains \"Finance\""
     ],
-    "correct": 0,
+    "correct": 1,
     "explanation": {
-      "correctReason": "The 'Bulk create users' feature in the Entra admin center is specifically designed for high-volume user creation using a standardized CSV template, requiring the least amount of custom scripting.",
+      "correctReason": "Dynamic User group membership evaluates attributes of user objects. The equality operator `-eq` with `user.department -eq \"Finance\"` automatically adds all users whose Department attribute exactly equals 'Finance'.",
       "incorrectReasons": [
-        "Azure CLI in a loop is more complex to implement and prone to API throttling compared to bulk operations.",
-        "ARM templates are used for deploying resources like VMs and VNets, not for creating user objects in Entra ID.",
-        "PowerShell loops work but require more manual script management than the built-in bulk upload tool."
+        "Assigned membership requires explicit, manual addition of users.",
+        "Dynamic Device targets device attributes rather than user attributes.",
+        "While `-contains` evaluates substring matches, the requirement is specifically for users whose department property is set directly to 'Finance', for which `-eq` is the exact operator."
       ],
-      "reference": "https://learn.microsoft.com/en-us/entra/identity/users/users-bulk-add"
+      "reference": "https://learn.microsoft.com/en-us/entra/identity/users/groups-dynamic-membership"
     }
   },
   {
     "id": 2,
     "subtopic": "Create users and groups",
-    "question": "You create a new Microsoft Entra group. You need to ensure that users are automatically added to the group based on their department attribute. Which group type and membership type should you use?",
+    "question": "You are creating a new user account in Microsoft Entra ID using the Azure portal. Which TWO properties are mandatory to specify when creating a new cloud-native user? (Select TWO)",
     "options": [
-      "Security group with Assigned membership",
-      "Security group with Dynamic User membership",
-      "Microsoft 365 group with Assigned membership",
-      "Distribution group with Dynamic User membership"
+      "User principal name (UPN)",
+      "Display name",
+      "Usage location",
+      "Job title",
+      "Department"
     ],
-    "correct": 1,
+    "correct": [0, 1],
     "explanation": {
-      "correctReason": "A Security group with Dynamic User membership allows you to define rules (e.g., user.department -eq 'Sales') that automatically manage membership based on user attributes.",
+      "correctReason": "When creating a new user in Microsoft Entra ID, the User Principal Name (UPN) and Display Name are mandatory fields required by the directory.",
       "incorrectReasons": [
-        "Assigned membership requires manual addition of users.",
-        "Microsoft 365 groups with assigned membership still require manual management.",
-        "Distribution groups are used for email and do not support dynamic membership for identity management in the same way security groups do for Azure resources."
+        "Usage location is required prior to assigning licenses, but not to create the basic user object.",
+        "Job title is an optional profile attribute.",
+        "Department is an optional organizational profile attribute."
       ],
-      "reference": "https://learn.microsoft.com/en-us/entra/identity/users/groups-dynamic-membership"
+      "reference": "https://learn.microsoft.com/en-us/entra/identity/users/users-create-add"
     }
   },
   {
     "id": 3,
-    "subtopic": "Create users and groups",
-    "question": "You need to delegate the ability to reset passwords for users in a specific department without granting full Global Administrator rights. What should you create?",
+    "subtopic": "Manage user and group properties",
+    "question": "An employee named User1 takes a temporary leave of absence. You need to prevent User1 from signing in to all Azure and Microsoft 365 services immediately, while preserving all current permissions, group memberships, and licenses. What property should you update?",
     "options": [
-      "A Dynamic Group",
-      "An Administrative Unit",
-      "A Custom RBAC Role at the Subscription level",
-      "A Conditional Access Policy"
+      "Set 'Usage location' to 'None'",
+      "Set 'Account enabled' (Block sign-in) to 'No' (Yes to block sign-in)",
+      "Remove all assigned roles under 'Assigned roles'",
+      "Set 'Job title' to 'Inactive'"
     ],
     "correct": 1,
     "explanation": {
-      "correctReason": "Administrative Units (AUs) allow you to subdivide your directory and delegate administrative permissions (like Helpdesk Administrator) over a specific subset of users.",
+      "correctReason": "Disabling the account by blocking sign-in ('Account enabled' = No / 'Block sign-in' = Yes) revokes authentication capability immediately without deleting or modifying any user properties, roles, or license assignments.",
       "incorrectReasons": [
-        "Dynamic Groups manage membership but do not delegate administrative scope.",
-        "Subscription RBAC roles do not grant permissions to manage Entra ID user objects.",
-        "Conditional Access is used for controlling access to applications, not for delegating administrative tasks."
+        "Clearing usage location does not block authentication to services.",
+        "Removing assigned roles revokes privileges but leaves authentication active.",
+        "Job title is an informational field with no impact on authentication or security."
       ],
-      "reference": "https://learn.microsoft.com/en-us/entra/identity/role-based-access-control/administrative-units"
+      "reference": "https://learn.microsoft.com/en-us/entra/identity/users/users-edit-profile"
     }
   },
   {
     "id": 4,
-    "subtopic": "Create users and groups",
-    "question": "You are creating a dynamic group rule. You want to include all users whose job title starts with the word 'Manager'. Which syntax should you use?",
+    "subtopic": "Manage user and group properties",
+    "question": "You manage a Microsoft Entra security group named 'Project-Alpha'. You need to delegate permission to an administrative user named User2 so that User2 can add or remove members from 'Project-Alpha' without granting User2 directory-wide administrative roles. Which setting should you configure?",
     "options": [
-      "user.jobTitle -match \"Manager*\"",
-      "user.jobTitle -contains \"Manager\"",
-      "user.jobTitle -startsWith \"Manager\"",
-      "user.jobTitle -eq \"Manager*\""
+      "Add User2 to the 'Group Owners' property of 'Project-Alpha'",
+      "Assign User2 the 'User Administrator' role at the tenant scope",
+      "Assign User2 the 'Groups Administrator' role at the tenant scope",
+      "Add User2 as a member of the 'Project-Alpha' security group"
     ],
-    "correct": 2,
+    "correct": 0,
     "explanation": {
-      "correctReason": "The '-startsWith' operator is the correct syntax in Microsoft Entra dynamic membership rules to check the beginning of a string attribute.",
+      "correctReason": "Adding a user as an Owner of a specific group delegates full management rights over that specific group's membership and properties without elevating directory privileges globally.",
       "incorrectReasons": [
-        "'-match' is used for regular expressions and is not a standard dynamic rule operator.",
-        "'-contains' checks if the string exists anywhere in the attribute, not just at the start.",
-        "'-eq' checks for an exact match and does not support wildcards like '*' in dynamic rules."
+        "User Administrator grants broad administrative rights over users and groups directory-wide, violating the principle of least privilege.",
+        "Groups Administrator grants permissions to manage all groups across the entire directory.",
+        "Being a standard member of a group does not permit managing group membership."
       ],
-      "reference": "https://learn.microsoft.com/en-us/entra/identity/users/groups-dynamic-membership"
+      "reference": "https://learn.microsoft.com/en-us/entra/identity/users/groups-assign-owner"
     }
   },
   {
     "id": 5,
-    "subtopic": "Create users and groups",
-    "question": "You need to create a group that supports collaboration, provides a shared mailbox, and a shared calendar for its members. Which group type should you choose?",
+    "subtopic": "Manage licenses in Microsoft Entra ID",
+    "question": "Your enterprise onboarding process requires assigning Microsoft 365 Enterprise E5 licenses automatically to new hires in the Sales department. You want to automate license lifecycle management so that licenses are granted when users enter the 'Sales-Group' and reclaimed when they leave. What feature should you implement?",
     "options": [
-      "Security group",
-      "Distribution group",
-      "Mail-enabled security group",
-      "Microsoft 365 group"
+      "Microsoft Entra ID Privileged Identity Management (PIM)",
+      "Group-based licensing",
+      "Administrative Units",
+      "Access Reviews"
     ],
-    "correct": 3,
+    "correct": 1,
     "explanation": {
-      "correctReason": "Microsoft 365 groups are designed for collaboration, providing a shared email, calendar, and SharePoint site.",
+      "correctReason": "Group-based licensing allows administrators to attach licenses directly to a security group. Members automatically inherit assigned licenses upon joining and lose them upon removal.",
       "incorrectReasons": [
-        "Security groups are used solely for granting access to resources.",
-        "Distribution groups are for sending emails to a list of people only.",
-        "Mail-enabled security groups grant resource access and have an email address but do not provide shared collaboration tools like calendars."
+        "Privileged Identity Management controls dynamic role activation, not license assignments.",
+        "Administrative Units define scope boundaries for delegated administration.",
+        "Access Reviews periodically audit group and role memberships for security compliance."
       ],
-      "reference": "https://learn.microsoft.com/en-us/entra/fundamentals/how-to-manage-groups"
+      "reference": "https://learn.microsoft.com/en-us/entra/identity/users/licensing-groups-assign"
     }
   },
   {
     "id": 6,
-    "subtopic": "Create users and groups",
-    "question": "Which of the following is a requirement for creating a Dynamic Group in Microsoft Entra ID?",
+    "subtopic": "Manage licenses in Microsoft Entra ID",
+    "question": "You attempt to assign a license to a user using group-based licensing. The license assignment status shows 'Inheritance error'. Which TWO underlying issues could cause this error state? (Select TWO)",
     "options": [
-      "Microsoft Entra ID Free edition",
-      "Microsoft Entra ID P1 or P2 license",
-      "The group must be a Microsoft 365 group type",
-      "At least one Global Administrator must be a member of the group"
+      "The user account does not have a 'Usage location' specified",
+      "There are insufficient available license seats in the tenant pool",
+      "The user account is set to 'Block sign-in'",
+      "The user is a member of more than one security group",
+      "The user account lacks a configured alternative email address"
     ],
-    "correct": 1,
+    "correct": [0, 1],
     "explanation": {
-      "correctReason": "Dynamic group membership is a premium feature that requires at least a Microsoft Entra ID P1 license for each unique user that is a member of one or more dynamic groups.",
+      "correctReason": "License assignment fails if the tenant runs out of available license seats or if the target user account lacks a configured Usage Location (which is required to comply with regional data regulations).",
       "incorrectReasons": [
-        "The Free edition does not support dynamic groups.",
-        "Security groups can also be dynamic; it is not restricted to M365 groups.",
-        "Admins do not need to be members; they only need the appropriate role to create the group."
+        "Blocking sign-in does not prevent assigning or inheriting licenses.",
+        "Users can safely belong to multiple security groups with different or overlapping license assignments.",
+        "An alternative email address is optional and unrelated to license assignment."
       ],
-      "reference": "https://learn.microsoft.com/en-us/entra/identity/users/groups-dynamic-membership"
+      "reference": "https://learn.microsoft.com/en-us/entra/identity/users/licensing-group-advanced#resolve-license-assignment-problems"
     }
   },
   {
     "id": 7,
-    "subtopic": "Create users and groups",
-    "question": "You have a CSV file containing 100 users. You use the 'Bulk upload' tool in the Entra admin center. The process fails for 5 users. Where can you find the specific reason for the failure?",
+    "subtopic": "Manage external users",
+    "question": "You collaborate with an external vendor company. You need to grant 15 external consultants access to an internal Azure web application while allowing them to authenticate using their existing corporate credentials from their home organization. What type of identity should you provision in Microsoft Entra ID?",
     "options": [
-      "In the Azure Activity Log",
-      "By downloading the results CSV file from the 'Bulk operation results' page",
-      "In the user's individual 'Audit Logs' tab",
-      "By checking the 'Notifications' bell icon only"
+      "Microsoft Entra B2B Guest Users",
+      "Microsoft Entra B2C Consumer Accounts",
+      "Internal Managed Accounts with external proxy email addresses",
+      "Workload Identities"
     ],
-    "correct": 1,
+    "correct": 0,
     "explanation": {
-      "correctReason": "When a bulk operation completes, Azure provides a results CSV file that includes an 'Error' column detailing why specific rows failed to process.",
+      "correctReason": "Microsoft Entra B2B (Business-to-Business) collaboration enables inviting external guest users so they can authenticate via their home tenant/identity provider while accessing local resources.",
       "incorrectReasons": [
-        "Activity Logs show that the bulk operation started/stopped but not row-level errors.",
-        "Audit logs might show successes but are harder to parse for specific bulk failure reasons.",
-        "The notifications icon only provides a high-level summary of success or failure."
+        "Microsoft Entra B2C is designed for customer-facing web/mobile applications, not enterprise collaboration.",
+        "Creating internal managed accounts requires managing credentials internally and issuing tenant domain credentials.",
+        "Workload identities represent software entities such as applications and service principals."
       ],
-      "reference": "https://learn.microsoft.com/en-us/entra/identity/users/users-bulk-add#check-status"
+      "reference": "https://learn.microsoft.com/en-us/entra/external-id/what-is-b2b"
     }
   },
   {
     "id": 8,
-    "subtopic": "Create users and groups",
-    "question": "A user named Admin1 needs to create groups in Microsoft Entra ID. Admin1 must also be able to assign members to those groups. Which directory role is the minimum required?",
+    "subtopic": "Manage external users",
+    "question": "You are configuring external collaboration settings in Microsoft Entra ID. You need to ensure that only administrators and users in the 'Guest Inviter' role can invite external guest users. Which setting should you modify under External collaboration settings?",
     "options": [
-      "User Administrator",
-      "Groups Administrator",
-      "Global Administrator",
-      "Directory Writers"
+      "Set 'Guest user access restrictions' to 'Most restrictive'",
+      "Set 'Guest invite settings' to 'Only users assigned to specific admin roles can invite guest users'",
+      "Enable 'Targeted domain restrictions' and block all domains",
+      "Disable 'Self-service sign-up via user flows'"
     ],
     "correct": 1,
     "explanation": {
-      "correctReason": "The Groups Administrator role allows users to create and manage groups and their settings, including membership.",
+      "correctReason": "Restricting guest invitations to specific admin roles prevents standard employee accounts and guests from inviting external users.",
       "incorrectReasons": [
-        "User Administrator can manage users and some group settings but Groups Administrator is more specifically targeted.",
-        "Global Administrator has excessive permissions for this task.",
-        "Directory Writers is a legacy/service-oriented role and not typically assigned for standard group management."
+        "Guest user access restrictions control what existing guests can read in the directory, not who can send invitations.",
+        "Targeted domain restrictions allow or block guest invitations based on domain names.",
+        "Self-service sign-up flows govern external user self-registration in customer-facing scenarios."
       ],
-      "reference": "https://learn.microsoft.com/en-us/entra/identity/role-based-access-control/permissions-reference"
+      "reference": "https://learn.microsoft.com/en-us/entra/external-id/external-collaboration-settings-configure"
     }
   },
   {
     "id": 9,
-    "subtopic": "Create users and groups",
-    "question": "You are creating a new user using the Azure Portal. Which of the following is a mandatory field that must be completed during creation?",
+    "subtopic": "Configure self-service password reset (SSPR)",
+    "question": "You are enabling Self-Service Password Reset (SSPR) for all employees in your company. You need to require users to register two distinct authentication methods before they can reset their password. Which TWO authentication methods can be selected to fulfill this requirement? (Select TWO)",
     "options": [
-      "Job Title",
-      "Usage Location",
-      "User Principal Name (UPN)",
-      "Department"
+      "Mobile app notification",
+      "Mobile phone (SMS or call)",
+      "FIDO2 security key",
+      "Temporary Access Pass (TAP)",
+      "Security questions"
     ],
-    "correct": 2,
+    "correct": [0, 1],
     "explanation": {
-      "correctReason": "The User Principal Name (UPN) is the unique identifier for the user and is mandatory for account creation.",
+      "correctReason": "Mobile app notification and Mobile phone (SMS/call) are supported authentication methods that users can register and use for SSPR verification.",
       "incorrectReasons": [
-        "Job Title and Department are optional attributes.",
-        "Usage Location is optional during creation, though it is required later if you intend to assign a license."
+        "FIDO2 security keys are used for passwordless sign-in rather than standard SSPR recovery workflows.",
+        "Temporary Access Pass is a time-limited passcode issued by administrators for onboarding or recovery, not a self-registered user method.",
+        "Security questions require custom setup policies and are limited compared to standard modern authentication methods."
       ],
-      "reference": "https://learn.microsoft.com/en-us/entra/fundamentals/how-to-create-delete-users"
+      "reference": "https://learn.microsoft.com/en-us/entra/identity/authentication/concept-sspr-howitworks"
     }
   },
   {
     "id": 10,
-    "subtopic": "Create users and groups",
-    "question": "You need to add a user from another Microsoft Entra tenant to your tenant to allow them to access a specific application. What should you create?",
-    "options": [
-      "A Member user",
-      "A Guest user",
-      "A Service Principal",
-      "A Managed Identity"
-    ],
-    "correct": 1,
-    "explanation": {
-      "correctReason": "Guest users (B2B collaboration) allow you to invite users from external tenants to your own tenant for resource access.",
-      "incorrectReasons": [
-        "Member users are typically internal to the organization.",
-        "Service Principals are for applications, not human users.",
-        "Managed Identities are for Azure resources to authenticate to other services."
-      ],
-      "reference": "https://learn.microsoft.com/en-us/entra/external-id/what-is-b2b"
-    }
-  },
-  {
-    "id": 11,
-    "subtopic": "Manage user and group properties",
-    "question": "You delete a user account by mistake. You need to restore the user. Within how many days must you perform the restoration?",
-    "options": [
-      "14 days",
-      "30 days",
-      "60 days",
-      "90 days"
-    ],
-    "correct": 1,
-    "explanation": {
-      "correctReason": "Microsoft Entra ID retains deleted users in a 'soft-delete' state for 30 days, after which they are permanently deleted.",
-      "incorrectReasons": [
-        "14 days is incorrect for Entra ID object retention.",
-        "60 and 90 days are beyond the standard soft-delete window for Entra ID users."
-      ],
-      "reference": "https://learn.microsoft.com/en-us/entra/identity/users/users-restore"
-    }
-  },
-  {
-    "id": 12,
-    "subtopic": "Manage user and group properties",
-    "question": "You need to update the department for 50 users. What is the most efficient way to perform this update?",
-    "options": [
-      "Edit each user profile individually in the portal.",
-      "Use the 'Bulk update' feature with a CSV file.",
-      "Use the 'Bulk create' feature with the same UPNs.",
-      "Delete the users and recreate them with the correct department."
-    ],
-    "correct": 1,
-    "explanation": {
-      "correctReason": "The 'Bulk update' tool allows you to upload a CSV with existing UPNs and updated attribute values, which is efficient for large batches.",
-      "incorrectReasons": [
-        "Individual editing is too time-consuming for 50 users.",
-        "Bulk create will fail if the users already exist.",
-        "Deleting and recreating users causes data loss and SID/Object ID mismatches."
-      ],
-      "reference": "https://learn.microsoft.com/en-us/entra/identity/users/users-bulk-add"
-    }
-  },
-  {
-    "id": 13,
-    "subtopic": "Manage user and group properties",
-    "question": "A user attempts to sign in but is blocked because their account is disabled. You need to enable the account. Which property in the user profile must you toggle?",
-    "options": [
-      "User Type",
-      "Account Status",
-      "Block sign-in",
-      "Job Title"
-    ],
-    "correct": 2,
-    "explanation": {
-      "correctReason": "The 'Block sign-in' property is a Yes/No toggle in the user profile that controls whether the user can authenticate.",
-      "incorrectReasons": [
-        "User Type (Member/Guest) does not control authentication status.",
-        "Account Status is not the specific name of the toggle in the portal; it is 'Block sign-in'.",
-        "Job Title is a descriptive attribute."
-      ],
-      "reference": "https://learn.microsoft.com/en-us/entra/identity/users/users-edit-profile"
-    }
-  },
-  {
-    "id": 14,
-    "subtopic": "Manage user and group properties",
-    "question": "You want to change a Security group's membership type from 'Assigned' to 'Dynamic User'. What is a prerequisite for this change?",
-    "options": [
-      "The group must be empty.",
-      "The group must have at least one owner assigned.",
-      "You must have a Microsoft Entra ID P1 or P2 license.",
-      "The group must be a Microsoft 365 group."
-    ],
-    "correct": 2,
-    "explanation": {
-      "correctReason": "Dynamic membership features always require a premium (P1/P2) license for the users in the group.",
-      "incorrectReasons": [
-        "The group does not need to be empty; existing members will be evaluated against the new rule.",
-        "Owners are not a prerequisite for changing membership types.",
-        "Security groups support dynamic membership; they don't have to be M365 groups."
-      ],
-      "reference": "https://learn.microsoft.com/en-us/entra/identity/users/groups-dynamic-membership"
-    }
-  },
-  {
-    "id": 15,
-    "subtopic": "Manage user and group properties",
-    "question": "Which attribute must be set on a user object before you can assign a Microsoft 365 license to that user?",
-    "options": [
-      "Usage Location",
-      "Department",
-      "Mobile Phone",
-      "Street Address"
-    ],
-    "correct": 0,
-    "explanation": {
-      "correctReason": "Microsoft requires 'Usage Location' to be set to comply with local laws and regulations before a license can be assigned.",
-      "incorrectReasons": [
-        "Department, Mobile Phone, and Street Address are optional and do not block license assignment."
-      ],
-      "reference": "https://learn.microsoft.com/en-us/entra/identity/users/licensing-groups-assign"
-    }
-  },
-  {
-    "id": 16,
-    "subtopic": "Manage user and group properties",
-    "question": "You need to identify who deleted a specific group in your Microsoft Entra tenant. Where should you look?",
-    "options": [
-      "The group's individual properties",
-      "Audit logs",
-      "Sign-in logs",
-      "Azure Advisor"
-    ],
-    "correct": 1,
-    "explanation": {
-      "correctReason": "The Entra ID Audit logs record all directory changes, including group creation, modification, and deletion, along with the user who performed the action.",
-      "incorrectReasons": [
-        "Individual properties are gone if the group is deleted.",
-        "Sign-in logs only show authentication attempts, not directory changes.",
-        "Azure Advisor provides recommendations for optimization, not activity history."
-      ],
-      "reference": "https://learn.microsoft.com/en-us/entra/identity/monitoring-health/concept-audit-logs"
-    }
-  },
-  {
-    "id": 17,
-    "subtopic": "Manage user and group properties",
-    "question": "You are assigning a user the 'Directory Readers' role. Where is this role assignment managed?",
-    "options": [
-      "Access control (IAM) of the subscription",
-      "Assigned roles within the user's Entra profile",
-      "The 'Properties' blade of the Resource Group",
-      "The 'Configuration' blade of the Virtual Machine"
-    ],
-    "correct": 1,
-    "explanation": {
-      "correctReason": "Directory roles (like Directory Readers) are Entra ID roles managed within the Entra ID 'Roles and administrators' blade or the user's individual profile.",
-      "incorrectReasons": [
-        "Access control (IAM) at the subscription level is for Azure RBAC (managing resources), not directory objects.",
-        "Resource Group and VM properties do not manage Entra ID directory roles."
-      ],
-      "reference": "https://learn.microsoft.com/en-us/entra/identity/role-based-access-control/permissions-reference"
-    }
-  },
-  {
-    "id": 18,
-    "subtopic": "Manage user and group properties",
-    "question": "A user changes their legal name. You update their Display Name in the Azure Portal. Does this action automatically change their User Principal Name (UPN)?",
-    "options": [
-      "Yes, the UPN always matches the Display Name.",
-      "No, the UPN and Display Name are independent attributes.",
-      "Yes, if the user is a cloud-only user.",
-      "No, because UPNs can never be changed once a user is created."
-    ],
-    "correct": 1,
-    "explanation": {
-      "correctReason": "The Display Name is a friendly name, while the UPN is the unique login identifier. Changing one does not affect the other.",
-      "incorrectReasons": [
-        "UPNs can be changed manually, but not automatically by a Display Name update.",
-        "Cloud-only vs Synced status doesn't change this fundamental independence of attributes."
-      ],
-      "reference": "https://learn.microsoft.com/en-us/entra/identity/users/users-edit-profile"
-    }
-  },
-  {
-    "id": 19,
-    "subtopic": "Manage user and group properties",
-    "question": "You need to see the object ID for a specific group. Where is this most easily found?",
-    "options": [
-      "In the 'Overview' blade of the group in the portal",
-      "In the 'Activity Log' of the subscription",
-      "In the 'Billing' section of the Entra ID tenant",
-      "By looking at the user's MyStaff portal"
-    ],
-    "correct": 0,
-    "explanation": {
-      "correctReason": "The 'Overview' blade of any Entra ID object (User, Group, Application) displays the unique Object ID.",
-      "incorrectReasons": [
-        "Activity Log is for resource deployments.",
-        "Billing is for costs.",
-        "MyStaff is for delegated user management, not for viewing technical group IDs."
-      ],
-      "reference": "https://learn.microsoft.com/en-us/entra/fundamentals/how-to-manage-groups"
-    }
-  },
-  {
-    "id": 20,
-    "subtopic": "Manage user and group properties",
-    "question": "You have a user account that was synchronized from an on-premises Active Directory. Where should you manage the 'Job Title' property for this user?",
-    "options": [
-      "Microsoft Entra admin center",
-      "Azure CLI",
-      "On-premises Active Directory",
-      "The user's Microsoft 365 profile page"
-    ],
-    "correct": 2,
-    "explanation": {
-      "correctReason": "For synchronized users, the on-premises AD remains the source of authority. Most attributes must be updated on-premises and then synced to Entra ID.",
-      "incorrectReasons": [
-        "Entra admin center and Azure CLI will prevent edits to synced attributes because they are read-only in the cloud.",
-        "The M365 profile page typically does not allow editing of synced organizational data."
-      ],
-      "reference": "https://learn.microsoft.com/en-us/entra/identity/hybrid/connect/how-to-connect-sync-whatis"
-    }
-  },
-  {
-    "id": 21,
-    "subtopic": "Manage licenses in Microsoft Entra ID",
-    "question": "You want to assign licenses to users automatically based on their membership in a specific group. What is this feature called?",
-    "options": [
-      "Direct licensing",
-      "Dynamic licensing",
-      "Group-based licensing",
-      "Role-based licensing"
-    ],
-    "correct": 2,
-    "explanation": {
-      "correctReason": "Group-based licensing allows you to assign one or more product licenses to a group, which Entra ID then propagates to all members.",
-      "incorrectReasons": [
-        "Direct licensing is assigning to individual users.",
-        "Dynamic licensing is not the official term for this Entra ID feature.",
-        "Role-based licensing refers to permissions (RBAC), not product licenses like M365 E5."
-      ],
-      "reference": "https://learn.microsoft.com/en-us/entra/identity/users/licensing-groups-assign"
-    }
-  },
-  {
-    "id": 22,
-    "subtopic": "Manage licenses in Microsoft Entra ID",
-    "question": "You assign a license to a group, but some users show a 'License assignment failed' state. What is the most common reason for this?",
-    "options": [
-      "The users are Guest users.",
-      "The users do not have a Usage Location specified.",
-      "The users are already members of another group.",
-      "The users have too many roles assigned."
-    ],
-    "correct": 1,
-    "explanation": {
-      "correctReason": "License assignment requires a 'Usage Location' to be defined for the user to determine service availability and legal compliance.",
-      "incorrectReasons": [
-        "Guest users can be licensed.",
-        "Multiple group memberships are fine as long as there is no license conflict.",
-        "Directory roles do not affect license assignment."
-      ],
-      "reference": "https://learn.microsoft.com/en-us/entra/identity/users/licensing-groups-assign"
-    }
-  },
-  {
-    "id": 23,
-    "subtopic": "Manage licenses in Microsoft Entra ID",
-    "question": "You have a group with an assigned Microsoft 365 E5 license. You remove a user from the group. What happens to the user's license?",
-    "options": [
-      "The license is immediately revoked.",
-      "The license remains for 30 days.",
-      "The license is converted to a trial license.",
-      "The license remains permanently until manually removed."
-    ],
-    "correct": 0,
-    "explanation": {
-      "correctReason": "With group-based licensing, the license is tied to membership. Removing the user from the group triggers the removal of the license from that user.",
-      "incorrectReasons": [
-        "There is no 30-day grace period for identity object license removal in group-based licensing logic.",
-        "Licenses are not converted to trials automatically.",
-        "Group-based licensing is automated, so manual removal isn't required after group removal."
-      ],
-      "reference": "https://learn.microsoft.com/en-us/entra/identity/users/licensing-group-advanced"
-    }
-  },
-  {
-    "id": 24,
-    "subtopic": "Manage licenses in Microsoft Entra ID",
-    "question": "You need to assign a license to a user but want to disable specific services within that license (e.g., disable Yammer). How should you do this?",
-    "options": [
-      "Use PowerShell only; it cannot be done in the portal.",
-      "In the 'Licenses' blade of the user, select the license and toggle the specific service off.",
-      "Create a custom license in Azure.",
-      "Assign a separate 'Service Block' group."
-    ],
-    "correct": 1,
-    "explanation": {
-      "correctReason": "The Azure portal allows you to expand a license assignment and toggle individual service plans (like Yammer, Teams, or SharePoint) on or off for that assignment.",
-      "incorrectReasons": [
-        "This is fully supported in the portal.",
-        "You cannot create 'custom licenses' in Azure; you can only modify service plans within existing licenses.",
-        "There is no such thing as a 'Service Block' group in standard Entra ID licensing."
-      ],
-      "reference": "https://learn.microsoft.com/en-us/entra/identity/users/licensing-groups-assign"
-    }
-  },
-  {
-    "id": 25,
-    "subtopic": "Manage licenses in Microsoft Entra ID",
-    "question": "Which Microsoft Entra ID edition is the minimum required to use Group-based licensing?",
-    "options": [
-      "Microsoft Entra ID Free",
-      "Microsoft Entra ID P1",
-      "Microsoft Entra ID P2",
-      "Microsoft 365 Apps for business"
-    ],
-    "correct": 1,
-    "explanation": {
-      "correctReason": "Group-based licensing is a premium feature that requires at least Microsoft Entra ID P1 or an equivalent M365 license.",
-      "incorrectReasons": [
-        "The Free edition does not support this automation.",
-        "P2 is not the *minimum* required (though it includes it).",
-        "M365 Apps for business is a product license, not a directory edition."
-      ],
-      "reference": "https://learn.microsoft.com/en-us/entra/identity/users/licensing-groups-assign"
-    }
-  },
-  {
-    "id": 26,
-    "subtopic": "Manage licenses in Microsoft Entra ID",
-    "question": "A user has an individual license assigned directly and is also a member of a group with the same license assigned. How many licenses are consumed for this user?",
-    "options": [
-      "One",
-      "Two",
-      "None, they cancel each other out.",
-      "One, but only if they are in the same department."
-    ],
-    "correct": 1,
-    "explanation": {
-      "correctReason": "Microsoft Entra ID treats direct assignments and group assignments as separate. If both are active, two licenses are technically consumed from your pool until one is removed.",
-      "incorrectReasons": [
-        "The system does not automatically merge these to save a license; you must manually remove the direct assignment to free it up.",
-        "They do not cancel each other out."
-      ],
-      "reference": "https://learn.microsoft.com/en-us/entra/identity/users/licensing-group-advanced"
-    }
-  },
-  {
-    "id": 27,
-    "subtopic": "Manage licenses in Microsoft Entra ID",
-    "question": "You see a user with a license status of 'Inherited'. What does this mean?",
-    "options": [
-      "The license was assigned to them by a parent directory.",
-      "The license was assigned via a group membership.",
-      "The license was inherited from their manager's profile.",
-      "The user is a Guest user."
-    ],
-    "correct": 1,
-    "explanation": {
-      "correctReason": "In the Licenses blade, 'Inherited' indicates that the user received the license through their membership in a group that has the license assigned.",
-      "incorrectReasons": [
-        "Licensing is not inherited from managers or parent directories (unless via group).",
-        "Guest users can have 'Direct' or 'Inherited' licenses just like members."
-      ],
-      "reference": "https://learn.microsoft.com/en-us/entra/identity/users/licensing-groups-assign"
-    }
-  },
-  {
-    "id": 28,
-    "subtopic": "Manage licenses in Microsoft Entra ID",
-    "question": "You are out of available licenses in your tenant. You add a new user to a group that has group-based licensing enabled. What happens to that user?",
-    "options": [
-      "They are automatically given a 30-day trial.",
-      "They are added to the group but enter a 'License assignment failed' state.",
-      "The group creation fails for all members.",
-      "The oldest member of the group loses their license to make room."
-    ],
-    "correct": 1,
-    "explanation": {
-      "correctReason": "If no licenses are available, Entra ID cannot fulfill the assignment, resulting in an error state for that specific user within the group licensing view.",
-      "incorrectReasons": [
-        "Trials are not automatic.",
-        "Other members are not affected by one member's failure.",
-        "Licenses are never automatically revoked from existing users to make room for new ones."
-      ],
-      "reference": "https://learn.microsoft.com/en-us/entra/identity/users/licensing-groups-assign"
-    }
-  },
-  {
-    "id": 29,
-    "subtopic": "Manage licenses in Microsoft Entra ID",
-    "question": "You need to identify all users who have been assigned a license directly rather than through a group. Which tool is best for this at scale?",
-    "options": [
-      "Azure Portal notification area",
-      "Microsoft Entra admin center 'All users' list filtering",
-      "Microsoft Graph PowerShell script",
-      "Azure Advisor"
-    ],
-    "correct": 2,
-    "explanation": {
-      "correctReason": "PowerShell (Graph SDK) can programmatically check the 'assignmentMethod' of licenses for every user, which is significantly faster and more accurate for large environments than manual portal checks.",
-      "incorrectReasons": [
-        "The 'All users' list does not have a simple toggle to filter by assignment method (Direct vs Inherited) directly in the main view.",
-        "Notifications and Azure Advisor do not provide this data."
-      ],
-      "reference": "https://learn.microsoft.com/en-us/powershell/microsoftgraph/overview"
-    }
-  },
-  {
-    "id": 30,
-    "subtopic": "Manage licenses in Microsoft Entra ID",
-    "question": "You want to ensure that only users in the 'Sales' department can be assigned a 'Dynamics 365' license. What is the best way to implement this?",
-    "options": [
-      "Create a dynamic group for 'Sales' and assign the license to that group.",
-      "Set a Conditional Access policy for the Dynamics 365 app.",
-      "Create an Administrative Unit for Sales.",
-      "Use an Azure Policy."
-    ],
-    "correct": 0,
-    "explanation": {
-      "correctReason": "A dynamic group based on the department attribute combined with group-based licensing ensures that only those users receive the license and it is revoked if they leave the department.",
-      "incorrectReasons": [
-        "Conditional Access controls access to the app but does not manage the assignment of the license itself.",
-        "AUs delegate administration but don't automate license assignment logic.",
-        "Azure Policy is for resource configurations, not directory object licensing."
-      ],
-      "reference": "https://learn.microsoft.com/en-us/entra/identity/users/licensing-groups-assign"
-    }
-  },
-  {
-    "id": 31,
-    "subtopic": "Manage external users",
-    "question": "You invite a guest user to your tenant. What is the initial state of the 'User Type' property for this user?",
-    "options": [
-      "Member",
-      "Guest",
-      "External",
-      "Standard"
-    ],
-    "correct": 1,
-    "explanation": {
-      "correctReason": "By default, users invited via B2B collaboration have their 'User Type' attribute set to 'Guest'.",
-      "incorrectReasons": [
-        "Member is the default for internal accounts.",
-        "External and Standard are not valid values for the 'User Type' attribute in Entra ID."
-      ],
-      "reference": "https://learn.microsoft.com/en-us/entra/external-id/what-is-b2b"
-    }
-  },
-  {
-    "id": 32,
-    "subtopic": "Manage external users",
-    "question": "You need to prevent guest users from inviting other guests to your tenant. Which settings should you modify?",
-    "options": [
-      "Conditional Access Policies",
-      "External collaboration settings",
-      "User settings in the Entra ID 'Properties' blade",
-      "Access control (IAM) on the Root Management Group"
-    ],
-    "correct": 1,
-    "explanation": {
-      "correctReason": "The 'External collaboration settings' blade contains the specific toggle to allow or block guests from inviting other guests.",
-      "incorrectReasons": [
-        "Conditional Access controls sign-in, not directory permissions like invitations.",
-        "General user properties do not contain collaboration-specific restrictions.",
-        "IAM at the root level is for Azure resources."
-      ],
-      "reference": "https://learn.microsoft.com/en-us/entra/external-id/external-collaboration-settings"
-    }
-  },
-  {
-    "id": 33,
-    "subtopic": "Manage external users",
-    "question": "A guest user from another organization needs to access your Azure resources. They do not have a Microsoft account or an Entra ID account. How can they authenticate?",
-    "options": [
-      "They cannot; they must create a Microsoft account.",
-      "By using Email One-Time Passcode (OTP).",
-      "They must be given a password in your tenant.",
-      "By using their local Windows login."
-    ],
-    "correct": 1,
-    "explanation": {
-      "correctReason": "Email One-Time Passcode (OTP) allows external users to authenticate using a code sent to their email address, removing the need for a Microsoft or Entra account.",
-      "incorrectReasons": [
-        "Microsoft accounts are not strictly required.",
-        "Providing local passwords is a legacy method (B2B guest accounts don't use local passwords by default).",
-        "Local Windows logins are not shared across the internet without specific hybrid setups."
-      ],
-      "reference": "https://learn.microsoft.com/en-us/entra/external-id/one-time-passcode"
-    }
-  },
-  {
-    "id": 34,
-    "subtopic": "Manage external users",
-    "question": "You want to restrict B2B collaboration so that you can only invite users from a specific partner domain (e.g., 'partner.com'). What should you configure?",
-    "options": [
-      "Conditional Access",
-      "Collaboration restrictions in External collaboration settings",
-      "An Administrative Unit",
-      "A Cross-tenant access policy"
-    ],
-    "correct": 1,
-    "explanation": {
-      "correctReason": "Under External collaboration settings, you can define 'Collaboration restrictions' to 'Allow invitations only to the specified domains'.",
-      "incorrectReasons": [
-        "Conditional Access blocks access to apps but not the directory invitation itself.",
-        "AUs don't control domain-level invitations.",
-        "Cross-tenant access policies manage how users move between tenants, but simple domain whitelisting is handled in collaboration settings."
-      ],
-      "reference": "https://learn.microsoft.com/en-us/entra/external-id/allow-deny-list"
-    }
-  },
-  {
-    "id": 35,
-    "subtopic": "Manage external users",
-    "question": "What happens when an invited guest user clicks the link in their invitation email?",
-    "options": [
-      "They are prompted to create a password for your tenant.",
-      "They undergo the 'redemption' process and are redirected to your resources.",
-      "Their account in their home tenant is deleted.",
-      "They are automatically added to the 'Global Administrators' group."
-    ],
-    "correct": 1,
-    "explanation": {
-      "correctReason": "The redemption process links the guest's external identity to the placeholder object in your directory.",
-      "incorrectReasons": [
-        "They don't create a new password; they use their existing home credentials.",
-        "It has no impact on their home tenant existence.",
-        "They are not granted any roles by default."
-      ],
-      "reference": "https://learn.microsoft.com/en-us/entra/external-id/redemption-experience"
-    }
-  },
-  {
-    "id": 36,
-    "subtopic": "Manage external users",
-    "question": "You need to ensure that guest users must accept a 'Terms of Use' agreement before accessing your apps. Which feature should you use?",
-    "options": [
-      "Microsoft Entra ID Protection",
-      "Conditional Access with Terms of Use",
-      "SSPR",
-      "Azure Information Protection"
-    ],
-    "correct": 1,
-    "explanation": {
-      "correctReason": "Terms of Use is a feature within Entra ID that is enforced via a Conditional Access policy, requiring users to acknowledge the agreement.",
-      "incorrectReasons": [
-        "ID Protection is for risk detection.",
-        "SSPR is for password management.",
-        "AIP is for data labeling and protection."
-      ],
-      "reference": "https://learn.microsoft.com/en-us/entra/identity/conditional-access/terms-of-use"
-    }
-  },
-  {
-    "id": 37,
-    "subtopic": "Manage external users",
-    "question": "A guest user's email address has changed at their home organization. What should you do in your tenant?",
-    "options": [
-      "Nothing, Entra ID updates it automatically via sync.",
-      "Update the 'Email' attribute in the guest's profile in your tenant.",
-      "Delete and re-invite the user.",
-      "Ask them to create a new Microsoft account."
-    ],
-    "correct": 1,
-    "explanation": {
-      "correctReason": "You can update the email address of a guest user in their profile properties in your tenant to reflect changes in their identity provider.",
-      "incorrectReasons": [
-        "It doesn't always update automatically across different B2B types.",
-        "Re-inviting is a last resort and disrupts access to existing shared items.",
-        "Microsoft accounts are not required."
-      ],
-      "reference": "https://learn.microsoft.com/en-us/entra/identity/users/users-edit-profile"
-    }
-  },
-  {
-    "id": 38,
-    "subtopic": "Manage external users",
-    "question": "You want to automate the process of reviewing which guest users still need access to your resources. Which feature should you use?",
-    "options": [
-      "Access Reviews",
-      "Privileged Identity Management (PIM)",
-      "Log Analytics",
-      "Security Center"
-    ],
-    "correct": 0,
-    "explanation": {
-      "correctReason": "Access Reviews (part of Entra ID Governance) allow you to schedule periodic reviews where group owners or the users themselves verify if access is still required.",
-      "incorrectReasons": [
-        "PIM is for managing administrative role assignments.",
-        "Log Analytics is for data querying.",
-        "Security Center is for infrastructure security posture."
-      ],
-      "reference": "https://learn.microsoft.com/en-us/entra/id-governance/access-reviews-overview"
-    }
-  },
-  {
-    "id": 39,
-    "subtopic": "Manage external users",
-    "question": "A guest user is invited to a tenant. They cannot see the invitation email. You need to provide them with the redemption link manually. Where can you find it?",
-    "options": [
-      "In the 'Invitation accepted' property of the user profile.",
-      "In the 'Manage' section, click 'Resend invitation' and copy the URL.",
-      "In the Azure Activity Log.",
-      "It is generated randomly and cannot be retrieved twice."
-    ],
-    "correct": 1,
-    "explanation": {
-      "correctReason": "The 'Resend invitation' feature in the user's profile blade allows you to copy the direct redemption URL if the email was blocked or lost.",
-      "incorrectReasons": [
-        "The 'Invitation accepted' property only shows a Yes/No status.",
-        "Activity Log doesn't store the specific URL.",
-        "It can be retrieved or regenerated by resending."
-      ],
-      "reference": "https://learn.microsoft.com/en-us/entra/external-id/redemption-experience"
-    }
-  },
-  {
-    "id": 40,
-    "subtopic": "Manage external users",
-    "question": "Which license is required to use Microsoft Entra ID Access Reviews for guest users?",
-    "options": [
-      "Microsoft Entra ID Free",
-      "Microsoft Entra ID P1",
-      "Microsoft Entra ID P2",
-      "Office 365 Business"
-    ],
-    "correct": 2,
-    "explanation": {
-      "correctReason": "Access Reviews is a premium governance feature that requires Microsoft Entra ID P2 (or Microsoft Entra ID Governance) licenses.",
-      "incorrectReasons": [
-        "Free and P1 do not include Access Reviews.",
-        "Office 365 Business does not include advanced Entra ID governance."
-      ],
-      "reference": "https://learn.microsoft.com/en-us/entra/id-governance/access-reviews-overview"
-    }
-  },
-  {
-    "id": 41,
     "subtopic": "Configure self-service password reset (SSPR)",
-    "question": "You need to enable SSPR for a subset of users. What should you do first?",
+    "question": "You enable SSPR for a group named 'SSPR-Pilot'. Users report that when attempting to reset their passwords from the login page, they receive a message stating 'Your administrator has not enabled password reset for your account'. What is the most likely cause?",
     "options": [
-      "Assign the Global Administrator role to those users.",
-      "Create a group containing the users.",
-      "Purchase a P2 license for every user in the tenant.",
-      "Enable 'Password writeback' in Microsoft Entra Connect."
+      "The users have not registered the minimum required authentication methods.",
+      "SSPR is set to 'Selected' in tenant settings, and the affected users are not members of the 'SSPR-Pilot' group.",
+      "The users are authenticating from unmanaged devices.",
+      "The users lack Microsoft Entra ID P2 licenses."
     ],
     "correct": 1,
     "explanation": {
-      "correctReason": "When configuring SSPR, you can scope it to 'All', 'None', or 'Selected'. Choosing 'Selected' requires a group to identify the target users.",
+      "correctReason": "When SSPR enablement scope is set to 'Selected', only direct members of the specified group are enabled for SSPR. If a user is not in the designated group, the service blocks self-service reset attempts.",
       "incorrectReasons": [
-        "Global Admins have SSPR enabled by default; you don't need to assign the role for standard users.",
-        "P1 is enough for SSPR; P2 is not strictly required unless using specific risk-based features.",
-        "Password writeback is only needed for hybrid environments, not as a first step for scoping."
+        "If methods are not registered, the prompt redirects users to register, rather than stating SSPR is disabled.",
+        "Device compliance status does not restrict SSPR availability.",
+        "SSPR requires Microsoft Entra ID P1 or P2 licenses, but missing license produces a licensing error rather than an scope assignment restriction message."
       ],
       "reference": "https://learn.microsoft.com/en-us/entra/identity/authentication/tutorial-enable-sspr"
     }
   },
   {
-    "id": 42,
-    "subtopic": "Configure self-service password reset (SSPR)",
-    "question": "You want to require users to provide two different methods to reset their password. Where do you configure this?",
+    "id": 11,
+    "subtopic": "Manage built-in Azure roles",
+    "question": "You need to grant an administrator permission to restart, stop, and start virtual machines in a resource group, as well as attach existing managed disks. The administrator must NOT be able to modify virtual networks or grant access to other users. Which built-in role provides the minimum required privileges?",
     "options": [
-      "In the 'Methods available to users' blade of SSPR settings.",
-      "In the 'Authentication methods' policy blade.",
-      "In the 'Properties' blade of SSPR, set 'Number of methods required to reset' to 2.",
-      "In a Conditional Access policy."
+      "Owner",
+      "Contributor",
+      "Virtual Machine Contributor",
+      "User Access Administrator"
     ],
     "correct": 2,
     "explanation": {
-      "correctReason": "The SSPR configuration has a specific property named 'Number of methods required to reset' where you can choose 1 or 2.",
+      "correctReason": "Virtual Machine Contributor grants permissions to manage virtual machines (including power actions and attaching disks) without granting access to virtual networks or RBAC assignments.",
       "incorrectReasons": [
-        "Methods available determines *which* methods can be used, not *how many*.",
-        "The authentication methods policy defines the registration requirements.",
-        "Conditional Access doesn't configure the inner logic of the SSPR workflow."
+        "Owner grants full control over all resources, including assigning RBAC permissions.",
+        "Contributor allows managing all resources (including virtual networks) but cannot grant access.",
+        "User Access Administrator only manages user access and role assignments."
       ],
-      "reference": "https://learn.microsoft.com/en-us/entra/identity/authentication/concept-sspr-howitworks"
+      "reference": "https://learn.microsoft.com/en-us/azure/role-based-access-control/built-in-roles#virtual-machine-contributor"
     }
   },
   {
-    "id": 43,
-    "subtopic": "Configure self-service password reset (SSPR)",
-    "question": "Which authentication method for SSPR allows a user to receive a push notification on their smartphone?",
+    "id": 12,
+    "subtopic": "Manage built-in Azure roles",
+    "question": "Which built-in role allows a user to read all resources within a resource group and create support tickets, but strictly prevents them from creating, updating, or deleting any Azure resources?",
     "options": [
-      "Mobile phone (SMS)",
-      "Office phone",
-      "Microsoft Authenticator app",
-      "Email"
+      "Reader",
+      "Support Request Contributor",
+      "Reader and Support Request Contributor assigned together",
+      "Resource Policy Contributor"
     ],
     "correct": 2,
     "explanation": {
-      "correctReason": "The Microsoft Authenticator app supports push notifications as a secure and convenient method for identity verification and SSPR.",
+      "correctReason": "Reader allows viewing all resources, while Support Request Contributor grants rights to create and manage support tickets. Assigning both fulfills all requirements with minimum privilege.",
       "incorrectReasons": [
-        "SMS and Office phone use voice/text codes, not app notifications.",
-        "Email sends a numerical code."
+        "Reader alone cannot create Azure support tickets.",
+        "Support Request Contributor alone cannot view resource details inside resource groups.",
+        "Resource Policy Contributor manages Azure Policy definitions and assignments."
       ],
-      "reference": "https://learn.microsoft.com/en-us/entra/identity/authentication/concept-authentication-methods"
+      "reference": "https://learn.microsoft.com/en-us/azure/role-based-access-control/built-in-roles"
     }
   },
   {
-    "id": 44,
-    "subtopic": "Configure self-service password reset (SSPR)",
-    "question": "You have a hybrid environment with Microsoft Entra Connect. Users reset their passwords in the cloud, and the change is updated in the on-premises AD. What is this feature?",
+    "id": 13,
+    "subtopic": "Assign roles at different scopes",
+    "question": "An administrator assigns the 'Reader' role to User3 at the Subscription scope. Later, another administrator assigns the 'Contributor' role to User3 at a specific Resource Group scope inside that subscription. What is User3's effective permission within that Resource Group?",
     "options": [
-      "Password Synchronization",
-      "Password Writeback",
-      "Seamless SSO",
-      "Pass-through Authentication"
+      "Reader permissions only, because Subscription assignments override Resource Group assignments.",
+      "Contributor permissions, because Azure RBAC permissions are additive.",
+      "No permissions, because conflicting role assignments cancel each other out.",
+      "Owner permissions, because inheriting two roles elevates rights."
     ],
     "correct": 1,
     "explanation": {
-      "correctReason": "Password writeback is the specific component of Microsoft Entra Connect that allows cloud-initiated password changes to be synchronized back to on-premises AD.",
+      "correctReason": "Azure RBAC assignments are additive. When multiple roles are assigned across parent and child scopes, the user receives the union of all granted permissions. Inside the Resource Group, User3 has Contributor permissions.",
       "incorrectReasons": [
-        "Password Synchronization is the flow from on-premises to the cloud.",
-        "Seamless SSO allows logging into cloud apps without a password prompt.",
-        "Pass-through Authentication validates cloud passwords against on-premises AD."
+        "Parent assignments do not deny or restrict additional privileges granted at child scopes.",
+        "Role assignments are cumulative and do not conflict or cancel out.",
+        "Role combination does not grant unassigned roles like Owner."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/role-based-access-control/scope-overview"
+    }
+  },
+  {
+    "id": 14,
+    "subtopic": "Assign roles at different scopes",
+    "question": "You need to assign the Storage Blob Data Contributor role to a managed identity to allow access to a single container named 'data' inside a storage account. Which scope should you select during role assignment to enforce least privilege?",
+    "options": [
+      "Management Group scope",
+      "Subscription scope",
+      "Resource Group scope",
+      "Resource (Container) scope"
+    ],
+    "correct": 3,
+    "explanation": {
+      "correctReason": "Azure RBAC roles for Azure Data Plane resources (such as Blob storage) can be scoped directly to an individual container, upholding the principle of least privilege.",
+      "incorrectReasons": [
+        "Management Group scope grants access across all subscriptions in the management group.",
+        "Subscription scope grants access across all storage accounts in the subscription.",
+        "Resource Group scope grants access to all storage accounts within the resource group."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/role-based-access-control/scope-overview#resource-scope"
+    }
+  },
+  {
+    "id": 15,
+    "subtopic": "Interpret access assignments",
+    "question": "You are auditing access control on a critical storage account. You navigate to the Access Control (IAM) blade in the Azure portal. Which feature should you use to evaluate all effective permissions granted to a specific employee named User4, including inherited roles?",
+    "options": [
+      "Check access",
+      "Role assignments",
+      "Deny assignments",
+      "Classic administrators"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "'Check access' allows administrators to query a specific user, group, or service principal to view their exact combined permissions and inherited role assignments for that resource.",
+      "incorrectReasons": [
+        "Role assignments lists direct assignments made on the resource, requiring manual filtering and tracking of parent inheritances.",
+        "Deny assignments displays explicit deny assignments created by Azure system services.",
+        "Classic administrators displays subscription co-administrators from legacy management models."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/role-based-access-control/check-access"
+    }
+  },
+  {
+    "id": 16,
+    "subtopic": "Interpret access assignments",
+    "question": "A user is unable to create virtual networks in a subscription. You inspect the user's role assignments and find:\n1. 'Contributor' assigned at the Resource Group scope.\n2. A 'Deny assignment' created by Azure Blueprints applied at the Subscription scope blocking `Microsoft.Network/virtualNetworks/write`.\n\nWhat is the user's effective capability regarding virtual network creation inside the resource group?",
+    "options": [
+      "The user can create virtual networks because the Resource Group assignment takes precedence.",
+      "The user cannot create virtual networks because Deny assignments take precedence over allow permissions.",
+      "The user can create virtual networks if they use Azure CLI instead of the Azure portal.",
+      "The user can create virtual networks after restarting their browser session."
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Deny assignments explicitly block actions even if a role assignment grants permission. Deny rules take precedence over allow rules across all scopes.",
+      "incorrectReasons": [
+        "Child scope allow assignments cannot override system-enforced Deny assignments.",
+        "Management interface (CLI vs Portal) does not bypass RBAC evaluation.",
+        "Browser session resets do not change control plane authorization logic."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/role-based-access-control/deny-assignments"
+    }
+  },
+  {
+    "id": 17,
+    "subtopic": "Implement and manage Azure Policy",
+    "question": "You need to ensure that all newly created virtual machines in a subscription have a specific set of compliant VM SKUs. If an administrator attempts to deploy a VM with an unapproved SKU, the deployment must be immediately blocked. Which policy effect should you use?",
+    "options": [
+      "Audit",
+      "Deny",
+      "Disabled",
+      "Modify"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "The 'Deny' policy effect prevents resource creation or update requests if the request fails evaluation against the policy rule conditions.",
+      "incorrectReasons": [
+        "Audit logs a non-compliance entry in the Activity log but allows resource deployment.",
+        "Disabled disables evaluation of the policy rule.",
+        "Modify alters tags or metadata attributes during evaluation rather than blocking creation."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/governance/policy/concepts/effects#deny"
+    }
+  },
+  {
+    "id": 18,
+    "subtopic": "Implement and manage Azure Policy",
+    "question": "You create an Azure Policy definition that automatically adds a default tag `Environment: Production` to resources during deployment if the tag is missing. Which policy effect and mechanism should you use? (Select TWO)",
+    "options": [
+      "Policy effect: Modify",
+      "A managed identity assigned to the policy assignment for remediation",
+      "Policy effect: AuditIfNotExists",
+      "Policy effect: Deny",
+      "Policy effect: Disabled"
+    ],
+    "correct": [0, 1],
+    "explanation": {
+      "correctReason": "The 'Modify' effect adds or updates properties/tags during deployment. Because modifying resources requires authorization, a managed identity must be granted to the policy assignment to perform remediation.",
+      "incorrectReasons": [
+        "AuditIfNotExists checks whether child resources exist rather than adding tags.",
+        "Deny blocks non-compliant resource creation altogether.",
+        "Disabled deactivates rule execution."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/governance/policy/concepts/effects#modify"
+    }
+  },
+  {
+    "id": 19,
+    "subtopic": "Configure resource locks",
+    "question": "An administrator applies a 'Read-only' resource lock to a Resource Group named 'RG-CoreInfrastructure'. Which THREE operations are blocked for an administrator holding the 'Owner' role in this resource group? (Select THREE)",
+    "options": [
+      "Deleting a virtual machine inside RG-CoreInfrastructure",
+      "Stopping or starting a virtual machine inside RG-CoreInfrastructure",
+      "Adding a new tag to a storage account inside RG-CoreInfrastructure",
+      "Viewing the properties of resources inside RG-CoreInfrastructure",
+      "Exporting an ARM template of RG-CoreInfrastructure"
+    ],
+    "correct": [0, 1, 2],
+    "explanation": {
+      "correctReason": "A 'Read-only' (ReadOnly) lock prevents modifying resource configurations, changing states (such as stopping/starting VMs), updating metadata (tags), and deleting resources.",
+      "incorrectReasons": [
+        "Viewing resource properties is a read operation and remains allowed under ReadOnly locks.",
+        "Exporting ARM templates is a read operation and remains allowed."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/lock-resources"
+    }
+  },
+  {
+    "id": 20,
+    "subtopic": "Configure resource locks",
+    "question": "You apply a 'CanNotDelete' lock to a storage account named 'stbackupdata'. What is the effective behavior for users assigned the 'Contributor' role on that storage account?",
+    "options": [
+      "Users can read and upload blobs, but cannot delete blobs or delete the storage account.",
+      "Users can read and upload data, and delete blobs inside containers, but cannot delete the storage account resource itself.",
+      "Users can read data, but cannot write or delete any data or resources.",
+      "Users cannot view account access keys."
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "ARM resource locks apply to control plane operations (Azure Resource Manager management layer). A 'Delete' lock on the storage account prevents deleting the Azure storage account resource, but does not block data plane operations like deleting individual blobs inside a container.",
+      "incorrectReasons": [
+        "Data plane operations (deleting blobs) are governed by data plane RBAC/SAS, not ARM resource locks.",
+        "Write operations are permitted under CanNotDelete locks.",
+        "Viewing access keys is a control plane listKeys action, allowed under CanNotDelete locks."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/lock-resources#considerations-before-applying-your-locks"
+    }
+  },
+  {
+    "id": 21,
+    "subtopic": "Apply and manage tags on resources",
+    "question": "You add a tag `Dept: Accounting` to a Resource Group named 'RG-Finance'. You then deploy a new virtual machine inside 'RG-Finance'. What is the tagging result on the new virtual machine?",
+    "options": [
+      "The VM automatically inherits the `Dept: Accounting` tag.",
+      "The VM does NOT inherit the tag automatically.",
+      "VM deployment fails because mandatory tags are missing.",
+      "The VM inherits the tag after 24 hours during nightly indexing."
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Tags applied to a resource group are NOT automatically inherited by resources contained within that resource group. Tag inheritance requires explicit policy enforcement.",
+      "incorrectReasons": [
+        "Resource tags do not automatically propagate from resource groups down to child resources.",
+        "Deployment does not fail unless an active Azure Policy with a Deny effect explicitly blocks creation.",
+        "There is no background process that automatically syncs tags from resource groups to child resources."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/tag-resources#tag-inheritance"
+    }
+  },
+  {
+    "id": 22,
+    "subtopic": "Apply and manage tags on resources",
+    "question": "You need to enforce that all new resources created in a subscription have a `CostCenter` tag. If a resource creation request does not include the `CostCenter` tag, the creation must be blocked. What Azure service should you configure?",
+    "options": [
+      "Azure Policy with a 'Deny' rule checking for `tags['CostCenter']` existence",
+      "Azure Advisor recommendations",
+      "Azure Cost Management Budgets",
+      "Resource Group CanNotDelete lock"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Azure Policy with the 'Deny' effect can evaluate resource deployment payloads for required tag keys and prevent deployment if the tag is absent.",
+      "incorrectReasons": [
+        "Azure Advisor provides cost, security, and performance recommendations after resources are deployed.",
+        "Cost Management Budgets track spending thresholds and trigger alerts.",
+        "Resource locks prevent deletion or modification, but cannot validate tag parameters during creation."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/governance/policy/samples/pattern-tags"
+    }
+  },
+  {
+    "id": 23,
+    "subtopic": "Manage resource groups",
+    "question": "You move a Virtual Machine named 'VM-Web' from 'RG-Source' to 'RG-Target' within the same subscription. Which statement accurately describes the outcome of this move operation?",
+    "options": [
+      "The VM's Azure Resource ID changes to reflect the new resource group path.",
+      "The VM must be re-encrypted and assigned a new private IP address.",
+      "All historical metrics in Azure Monitor for VM-Web are deleted.",
+      "The VM's underlying virtual hard disk (VHD) files are recreated in a new storage location."
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "An Azure Resource ID includes the resource group name in its URI path (`/subscriptions/{subId}/resourceGroups/{rgName}/...`). Moving a resource to a new resource group changes its Resource ID.",
+      "incorrectReasons": [
+        "Moving a VM between resource groups within the same VNet retains its private IP address.",
+        "Azure Monitor metrics remain mapped to the resource's underlying instance identifier.",
+        "Disks are moved by reference without copying or recreating VHD storage structures."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/move-resource-group-and-subscription"
+    }
+  },
+  {
+    "id": 24,
+    "subtopic": "Manage resource groups",
+    "question": "You attempt to delete a Resource Group named 'RG-Dev'. The resource group contains a virtual network, two virtual machines, and a storage account. What occurs when you execute the resource group deletion?",
+    "options": [
+      "All contained resources in 'RG-Dev' are automatically deleted in parallel or appropriate order.",
+      "The deletion fails unless all contained resources are manually deleted first.",
+      "Only the resource group container is removed; the contained resources become orphan objects.",
+      "The virtual machines are stopped, but storage accounts remain preserved."
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Deleting a resource group initiates an automated cascading deletion of all resources contained within that resource group.",
+      "incorrectReasons": [
+        "Azure Resource Manager handles dependency ordering and deletes child resources automatically.",
+        "Resources in Azure cannot exist without belonging to a resource group.",
+        "All member resources (including storage accounts and virtual disks) are deleted during resource group removal unless locked."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/delete-resource-group"
+    }
+  },
+  {
+    "id": 25,
+    "subtopic": "Manage subscriptions",
+    "question": "Your company acquires a new division with its own Azure subscription. You need to transfer billing ownership of the subscription to your enterprise agreement billing account. Which portal or service tool should you use?",
+    "options": [
+      "Azure Cost Management + Billing",
+      "Microsoft Entra Privileged Identity Management",
+      "Azure Resource Explorer",
+      "Azure Service Health"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Subscription billing ownership transfers and account association management are handled directly in the Azure Cost Management + Billing console.",
+      "incorrectReasons": [
+        "PIM manages temporary role elevation for identities.",
+        "Azure Resource Explorer provides raw API views of deployed resources.",
+        "Azure Service Health provides service incident status updates."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/cost-management-billing/manage/billing-subscription-transfer"
+    }
+  },
+  {
+    "id": 26,
+    "subtopic": "Manage subscriptions",
+    "question": "You need to increase the default subscription core quota limit for D-Series virtual machines in the East US region. What action should you take?",
+    "options": [
+      "Submit a 'Quota' support request in the Azure portal under Help + support.",
+      "Assign the 'Quota Administrator' role to your user account.",
+      "Modify the subscription JSON manifest in Azure Resource Explorer.",
+      "Create a new Azure Policy definition that grants additional vCPUs."
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Subscription limits and regional vCPU core quotas are managed and elevated by submitting a Quota support request in the Azure portal.",
+      "incorrectReasons": [
+        "There is no standard built-in 'Quota Administrator' role that overrides hardware limits.",
+        "Subscription capacity limits are enforced on the host cloud infrastructure and cannot be changed via JSON manifests.",
+        "Azure Policy governs compliance rules; it cannot provision hardware cloud capacity."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-portal/supportability/per-vm-quota-requests"
+    }
+  },
+  {
+    "id": 27,
+    "subtopic": "Manage costs by using alerts, budgets, and Azure Advisor recommendations",
+    "question": "You need to configure an alert so that the finance team receives an email when monthly subscription spending reaches 80% of $20,000. Additionally, when spending reaches 100%, an automated webhook must trigger to run an Azure Logic App. What feature should you configure?",
+    "options": [
+      "Azure Cost Management Budget with threshold alerts and Action Groups",
+      "Azure Advisor Cost Recommendations",
+      "Azure Log Analytics Alert Rules",
+      "Azure Monitor Metric Alerts on Virtual Machine CPU"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Cost Management Budgets allow setting percentage thresholds (e.g., 80%, 100%) that trigger Action Groups (which support sending emails and invoking webhooks/Logic Apps).",
+      "incorrectReasons": [
+        "Azure Advisor provides recommendations (e.g., reserved instances, unattached disks), not real-time cost budget threshold execution.",
+        "Log Analytics alerts analyze log queries rather than subscription billing accounts.",
+        "Metric alerts monitor operational performance metrics of specific infrastructure resources."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/cost-management-billing/costs/tutorial-acm-create-budgets"
+    }
+  },
+  {
+    "id": 28,
+    "subtopic": "Manage costs by using alerts, budgets, and Azure Advisor recommendations",
+    "question": "You want to identify virtual machines in your subscription that have been underutilized over the past 14 days so you can shut down or downsize them to optimize spending. Which Azure service directly provides these automated recommendations?",
+    "options": [
+      "Azure Advisor (Cost category)",
+      "Azure Policy",
+      "Azure Blueprints",
+      "Azure Network Watcher"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Azure Advisor analyzes resource telemetry and provides actionable recommendations in the Cost category, identifying underutilized or idle VMs for downsizing or shutdown.",
+      "incorrectReasons": [
+        "Azure Policy enforces governance rules during resource evaluation.",
+        "Azure Blueprints is a legacy environment orchestration tool.",
+        "Network Watcher provides network monitoring and diagnostic utilities."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/advisor/advisor-cost-recommendations"
+    }
+  },
+  {
+    "id": 29,
+    "subtopic": "Configure management groups",
+    "question": "Your company has 12 Azure subscriptions. You need to apply a single set of Azure Policy assignments across all subscriptions without manually configuring each subscription. What governance structure should you create?",
+    "options": [
+      "A Management Group containing all 12 subscriptions",
+      "A single consolidated Resource Group in the primary subscription",
+      "An Administrative Unit in Microsoft Entra ID",
+      "A custom Azure RBAC role"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Management groups provide a governance scope above subscriptions. Assigning policies at the management group scope ensures inheritence down to all member subscriptions.",
+      "incorrectReasons": [
+        "Resource groups exist within individual subscriptions and cannot contain subscriptions.",
+        "Administrative Units group Microsoft Entra identity objects, not Azure resources or subscriptions.",
+        "Custom RBAC roles grant permissions, they do not assign policy definitions."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/governance/management-groups/overview"
+    }
+  },
+  {
+    "id": 30,
+    "subtopic": "Configure management groups",
+    "question": "You are designing a management group hierarchy. Which TWO rules govern the configuration and behavior of Azure Management Groups? (Select TWO)",
+    "options": [
+      "Management group trees support up to 6 levels of depth (excluding Root and Subscription levels)",
+      "A single management group can support multiple child management groups and subscriptions",
+      "A subscription can belong to multiple management groups simultaneously",
+      "Management groups automatically replicate resource data across paired regions",
+      "Only Global Administrators can view management groups"
+    ],
+    "correct": [0, 1],
+    "explanation": {
+      "correctReason": "Management group hierarchies support up to 6 levels of depth and allow a parent management group to contain multiple child management groups or subscriptions.",
+      "incorrectReasons": [
+        "A subscription can belong to exactly one management group at a time.",
+        "Management groups are organizational governance containers and do not perform storage replication.",
+        "Permissions to management groups are governed by RBAC (e.g., Management Group Contributor), not exclusively Global Admin roles."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/governance/management-groups/overview#important-facts-about-management-groups"
+    }
+  },
+  {
+    "id": 31,
+    "subtopic": "Create users and groups",
+    "question": "You need to create a group in Microsoft Entra ID that can be assigned Azure RBAC roles. What setting must be configured during group creation?",
+    "options": [
+      "Set 'Microsoft Entra roles can be assigned to the group' to 'Yes'",
+      "Set 'Group type' to 'Microsoft 365'",
+      "Set 'Membership type' to 'Dynamic User'",
+      "Enable 'Self-service group management'"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "To assign Entra roles or ensure secure RBAC assignment boundaries, setting 'Microsoft Entra roles can be assigned to the group' to 'Yes' creates a role-assignable group.",
+      "incorrectReasons": [
+        "Role-assignable groups must be Security groups (or specifically configured), not standard Microsoft 365 collaborative groups.",
+        "Role-assignable groups must use 'Assigned' membership type; dynamic membership is not supported for role-assignable groups.",
+        "Self-service group management allows non-admins to manage groups, which is restricted on role-assignable groups."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/entra/identity/role-based-access-control/groups-concept"
+    }
+  },
+  {
+    "id": 32,
+    "subtopic": "Manage user and group properties",
+    "question": "You need to view the administrative units (AUs) to which a specific user account belongs. Where in the Azure portal should you look?",
+    "options": [
+      "Under the user's profile blade, select 'Administrative units'",
+      "Under 'Access Control (IAM)' at the Subscription blade",
+      "Under 'Microsoft Entra Connect' synchronization status",
+      "Under 'Audit logs' in Azure Monitor"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "In the Microsoft Entra admin center or Azure portal, navigating to a user's profile blade and selecting 'Administrative units' displays all AUs the user object belongs to.",
+      "incorrectReasons": [
+        "Access Control (IAM) displays RBAC assignments, not Entra Administrative Unit membership.",
+        "Microsoft Entra Connect manages directory sync status, not object AU membership.",
+        "Audit logs record historical event logs, not current membership states."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/entra/identity/administrative-units/about-administrative-units"
+    }
+  },
+  {
+    "id": 33,
+    "subtopic": "Manage licenses in Microsoft Entra ID",
+    "question": "You remove a user from a group that has an assigned Enterprise Mobility + Security (EMS) E5 license. What happens to the license and user state?",
+    "options": [
+      "The license assignment is immediately removed from the user, and the seat is freed in the tenant license pool.",
+      "The license remains assigned to the user permanently until manually deleted by a tenant admin.",
+      "The user account is automatically disabled in Microsoft Entra ID.",
+      "The user's personal files in OneDrive are immediately purged without grace period."
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "When a user is removed from a group configured with group-based licensing, inherited licenses are removed from the user object and returned to the pool.",
+      "incorrectReasons": [
+        "Group-based licensing automatically manages license reclamation upon group removal.",
+        "Removing a license does not disable the user's Microsoft Entra identity.",
+        "Data retention policies dictate file preservation, not immediate purging upon group exit."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/entra/identity/users/licensing-groups-assign"
+    }
+  },
+  {
+    "id": 34,
+    "subtopic": "Manage external users",
+    "question": "You need to configure Cross-tenant access settings in Microsoft Entra ID to allow users from a trusted partner organization (PartnerOrg.com) to access your resources while enforcing your tenant's Conditional Access MFA requirements. Which feature should you configure under Cross-tenant access settings?",
+    "options": [
+      "Trust multi-factor authentication (MFA) from external Microsoft Entra tenants",
+      "Enable Microsoft Entra B2C direct federation",
+      "Configure an Administrative Unit for PartnerOrg.com",
+      "Enable Anonymous Access on Azure Storage"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Under Inbound trust settings in Cross-tenant access settings, enabling 'Trust multi-factor authentication from external Microsoft Entra tenants' allows guest users who completed MFA in their home tenant to satisfy MFA rules.",
+      "incorrectReasons": [
+        "B2C direct federation is for consumer identities, not standard cross-tenant B2B trust settings.",
+        "Administrative Units are for internal scope delegation.",
+        "Storage anonymous access bypasses authentication entirely and exposes data publicly."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/entra/external-id/cross-tenant-access-settings-b2b-collaboration"
+    }
+  },
+  {
+    "id": 35,
+    "subtopic": "Configure self-service password reset (SSPR)",
+    "question": "You need to ensure that when hybrid users reset their passwords using Microsoft Entra SSPR, their new passwords are synchronized back to your on-premises Active Directory Domain Services (AD DS) in real-time. Which feature must be enabled?",
+    "options": [
+      "Password writeback in Microsoft Entra Connect",
+      "Password Hash Synchronization (PHS) without writeback",
+      "Pass-through Authentication (PTA) without writeback",
+      "Microsoft Entra Domain Services"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Password writeback is a feature of Microsoft Entra Connect that allows password changes in Microsoft Entra ID (via SSPR) to be written back to on-premises AD DS.",
+      "incorrectReasons": [
+        "PHS copies hashes from on-premises to the cloud, but does not write cloud resets back to on-premises without password writeback.",
+        "PTA validates passwords against on-premises domain controllers during sign-in, but does not perform password writeback for SSPR resets.",
+        "Microsoft Entra Domain Services is a managed domain in Azure, not a hybrid sync agent."
       ],
       "reference": "https://learn.microsoft.com/en-us/entra/identity/authentication/concept-sspr-writeback"
     }
   },
   {
-    "id": 45,
-    "subtopic": "Configure self-service password reset (SSPR)",
-    "question": "A user is prompted to register their security info (phone, email) the next time they sign in. Which SSPR setting controls this requirement?",
+    "id": 36,
+    "subtopic": "Manage built-in Azure roles",
+    "question": "You need to grant a security auditor permission to view all Azure resource settings and security configurations, but they must NOT be able to view data stored inside storage account containers or secrets stored inside key vaults. Which built-in role is appropriate?",
     "options": [
-      "Registration -> Require users to register when signing in?",
-      "Properties -> Enabled",
-      "Notifications -> Notify users on password resets?",
-      "Customization -> Link to helpdesk"
+      "Reader",
+      "Security Admin",
+      "Contributor",
+      "Storage Blob Data Reader"
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "The 'Registration' section of SSPR settings contains the toggle 'Require users to register when signing in', which forces the registration workflow.",
+      "correctReason": "The built-in 'Reader' role grants read access to management plane resource metadata and settings, but does not grant data plane read access (like blob data or Key Vault secrets).",
       "incorrectReasons": [
-        "Enabled just turns on the feature but doesn't force registration.",
-        "Notifications and Customization are for email alerts and branding."
+        "Security Admin has rights to manage security policies and settings, exceeding read-only requirements.",
+        "Contributor can manage resource configurations.",
+        "Storage Blob Data Reader grants data plane read access to blob contents."
       ],
-      "reference": "https://learn.microsoft.com/en-us/entra/identity/authentication/howto-sspr-deployment"
+      "reference": "https://learn.microsoft.com/en-us/azure/role-based-access-control/built-in-roles#reader"
+    }
+  },
+  {
+    "id": 37,
+    "subtopic": "Assign roles at different scopes",
+    "question": "Which of the following represents the correct hierarchical order of Azure scope levels from highest (broadest) to lowest (most granular)?",
+    "options": [
+      "Management Group -> Subscription -> Resource Group -> Resource",
+      "Subscription -> Management Group -> Resource Group -> Resource",
+      "Resource Group -> Resource -> Subscription -> Management Group",
+      "Management Group -> Resource Group -> Subscription -> Resource"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Azure RBAC hierarchy flows from Management Group down to Subscription, then to Resource Group, and finally to individual Resource.",
+      "incorrectReasons": [
+        "Subscriptions exist inside Management Groups, not above them.",
+        "Resource Groups exist inside Subscriptions.",
+        "Subscriptions contain Resource Groups, not the reverse."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/role-based-access-control/scope-overview"
+    }
+  },
+  {
+    "id": 38,
+    "subtopic": "Interpret access assignments",
+    "question": "You check a user's permissions on a specific virtual machine and find three active role assignments:\n1. 'Reader' assigned at the Subscription scope\n2. 'Virtual Machine Contributor' assigned at the Resource Group scope\n3. 'Owner' assigned directly at the Virtual Machine scope\n\nWhat is the user's effective privilege level on this specific Virtual Machine?",
+    "options": [
+      "Owner permissions",
+      "Virtual Machine Contributor permissions",
+      "Reader permissions",
+      "No access"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Azure RBAC permissions are additive. The assignment at the resource scope grants 'Owner' rights, which gives the user full control over that specific virtual machine.",
+      "incorrectReasons": [
+        "Virtual Machine Contributor is superseded by the higher Owner privileges granted at the resource level.",
+        "Reader is inherited from the parent subscription, but does not restrict higher direct assignments.",
+        "Assignments do not conflict to revoke access."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/role-based-access-control/overview#how-azure-rbac-determines-if-a-user-has-access-to-a-resource"
+    }
+  },
+  {
+    "id": 39,
+    "subtopic": "Implement and manage Azure Policy",
+    "question": "You need to evaluate existing deployed resources across a subscription to identify non-compliant resources without blocking new resource deployments or altering settings. Which Azure Policy effect should you use?",
+    "options": [
+      "Audit",
+      "Deny",
+      "DeployIfNotExists",
+      "Disabled"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "The 'Audit' effect creates an audit event in the activity log and marks the resource as non-compliant in policy compliance dashboards without blocking or modifying deployments.",
+      "incorrectReasons": [
+        "Deny blocks deployment of non-compliant resources.",
+        "DeployIfNotExists automatically deploys complementary resources if missing.",
+        "Disabled turns off policy evaluation entirely."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/governance/policy/concepts/effects#audit"
+    }
+  },
+  {
+    "id": 40,
+    "subtopic": "Configure resource locks",
+    "question": "An administrator needs to delete a virtual machine protected by a 'CanNotDelete' lock applied at the parent Resource Group level. What sequence of actions must the administrator take?",
+    "options": [
+      "Remove the 'CanNotDelete' lock from the Resource Group, delete the VM, and optionally re-apply the lock.",
+      "Delete the VM directly; 'CanNotDelete' locks are ignored by Subscription Owners.",
+      "Change the lock type to 'ReadOnly' and then delete the VM.",
+      "Restart the VM and delete it from Azure CLI."
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "To delete a resource protected by an inherited lock, an authorized user must first remove the lock from the scope, delete the resource, and re-apply the lock if desired.",
+      "incorrectReasons": [
+        "Locks apply to Subscription Owners; owners cannot bypass active locks without removing them first.",
+        "ReadOnly locks also prevent deletion.",
+        "Command line tools respect ARM resource locks identically to the portal."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/lock-resources#who-can-create-or-delete-locks"
+    }
+  },
+  {
+    "id": 41,
+    "subtopic": "Apply and manage tags on resources",
+    "question": "You need to export a detailed cost report for your subscription categorized by the `ProjectName` tag. What should you do to ensure tagged resources appear correctly in cost analysis?",
+    "options": [
+      "Ensure resources have the `ProjectName` tag applied and filter by tag in Azure Cost Management.",
+      "Re-deploy all resources using ARM templates.",
+      "Assign the 'Cost Management Reader' role to all resources.",
+      "Create an Azure Key Vault secret named `ProjectName`."
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Tagging resources directly with `ProjectName` allows grouping, filtering, and exporting cost data based on tag keys in Azure Cost Management.",
+      "incorrectReasons": [
+        "Re-deploying resources is unnecessary if tags are added or updated on existing resources.",
+        "Cost Management Reader grants permissions to view cost data, but does not categorize cost data.",
+        "Key Vault secrets store credentials and have no relation to cost reporting tags."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/cost-management-billing/costs/group-filter"
+    }
+  },
+  {
+    "id": 42,
+    "subtopic": "Manage resource groups",
+    "question": "You need to prevent developers from creating resources in any Resource Group except an designated group named 'RG-DevSandbox'. What strategy provides the most efficient control?",
+    "options": [
+      "Assign developers the 'Contributor' role scoped specifically to 'RG-DevSandbox' and grant no subscription-level write roles.",
+      "Assign developers 'Owner' at the Subscription level and apply a ReadOnly lock on all other resource groups.",
+      "Create an Azure Policy with a Deny effect on all resource group creation.",
+      "Apply a CanNotDelete lock on 'RG-DevSandbox'."
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Granting RBAC permissions strictly at the specific Resource Group scope ('RG-DevSandbox') limits developers to creating resources inside that group only.",
+      "incorrectReasons": [
+        "Granting Owner at the subscription level gives permissions everywhere, requiring manual lock maintenance across all groups.",
+        "Denying resource group creation does not restrict resource creation inside existing non-sandbox groups if developers have subscription-level roles.",
+        "CanNotDelete locks prevent group deletion, not resource creation in other locations."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/role-based-access-control/scope-overview"
+    }
+  },
+  {
+    "id": 43,
+    "subtopic": "Manage subscriptions",
+    "question": "You have an Azure Free Trial subscription that has expired. You need to convert it to a Pay-As-You-Go subscription to prevent service disruption. Where in the Azure portal should you perform this upgrade?",
+    "options": [
+      "In the Subscriptions blade, select the subscription and click 'Upgrade subscription'.",
+      "In Microsoft Entra ID under 'App registrations'.",
+      "In Azure Monitor under 'Alert rules'.",
+      "In Azure Advisor under 'Operational Excellence'."
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Subscription state upgrades (such as converting Free Trial or Sponsorship to Pay-As-You-Go) are performed directly in the Subscriptions blade.",
+      "incorrectReasons": [
+        "App registrations manages application service principals.",
+        "Alert rules monitor log and metric thresholds.",
+        "Azure Advisor offers optimization suggestions."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/cost-management-billing/manage/upgrade-azure-subscription"
+    }
+  },
+  {
+    "id": 44,
+    "subtopic": "Manage costs by using alerts, budgets, and Azure Advisor recommendations",
+    "question": "You configure an Azure Cost Budget with a threshold set to 90% of a $50,000 monthly limit. Which TWO target notification types can be configured when the threshold is breached? (Select TWO)",
+    "options": [
+      "Email alerts to specified email addresses",
+      "Action Group triggers (e.g., Webhooks, SMS, Push notifications)",
+      "Automatic deletion of non-essential VMs",
+      "Automatic conversion to Reserved Instances",
+      "Enforcement of ReadOnly resource locks"
+    ],
+    "correct": [0, 1],
+    "explanation": {
+      "correctReason": "Azure Cost Budgets support sending direct email alerts and triggering Azure Monitor Action Groups (which execute webhooks, logic apps, SMS, or runbooks).",
+      "incorrectReasons": [
+        "Budgets do not automatically delete VM resources upon threshold breach.",
+        "Budgets do not automatically purchase Reserved Instances.",
+        "Budgets do not automatically apply resource locks to infrastructure."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/cost-management-billing/costs/tutorial-acm-create-budgets"
+    }
+  },
+  {
+    "id": 45,
+    "subtopic": "Configure management groups",
+    "question": "Which management group is automatically created at the top of the management hierarchy when management groups are enabled in a Microsoft Entra tenant?",
+    "options": [
+      "Root Management Group",
+      "Default Subscription Group",
+      "Tenant Admin Group",
+      "Global Infrastructure Group"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "The Root Management Group is automatically created at the top of the hierarchy. All management groups and subscriptions in the tenant fold up to the Root Management Group.",
+      "incorrectReasons": [
+        "Default Subscription Group is not a built-in root container name.",
+        "Tenant Admin Group is not the management group entity name.",
+        "Global Infrastructure Group is not a standard Azure governance construct."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/governance/management-groups/overview#root-management-group-for-each-directory"
     }
   },
   {
     "id": 46,
-    "subtopic": "Configure self-service password reset (SSPR)",
-    "question": "You want to be notified every time an administrator resets their own password via SSPR. Where do you configure this?",
+    "subtopic": "Manage Microsoft Entra users and groups",
+    "question": "You need to create a dynamic group in Microsoft Entra ID containing all guest users in the directory. Which rule syntax should you use?",
     "options": [
-      "In the 'Notifications' blade of SSPR, set 'Notify all admins when other admins reset their password?' to Yes.",
-      "In Azure Monitor alerts.",
-      "In the individual administrator's profile.",
-      "In the Microsoft 365 Security & Compliance center."
+      "user.userType -eq \"Guest\"",
+      "user.accountEnabled -eq false",
+      "user.userPrincipalName -contains \"#EXT#\"",
+      "user.department -eq \"External\""
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "The SSPR Notifications blade has a specific setting for alerting admins about other admins' SSPR activities.",
+      "correctReason": "The standard directory attribute to distinguish guest users from internal members is `userType`. The expression `user.userType -eq \"Guest\"` dynamically collects all external guest objects.",
       "incorrectReasons": [
-        "While Monitor can track this, the SSPR-specific toggle is the direct way to configure the notification.",
-        "It is a global SSPR setting, not a per-user setting."
+        "accountEnabled indicates disabled accounts, not guest account status.",
+        "While guest UPNs often contain `#EXT#`, filtering by `userType` is the supported standard property match.",
+        "Department is an optional string property and is not consistently set to 'External'."
       ],
-      "reference": "https://learn.microsoft.com/en-us/entra/identity/authentication/howto-sspr-deployment"
+      "reference": "https://learn.microsoft.com/en-us/entra/identity/users/groups-dynamic-membership"
     }
   },
   {
     "id": 47,
-    "subtopic": "Configure self-service password reset (SSPR)",
-    "question": "A user tries to use SSPR but receives an error saying they are not enabled for it, even though they are in the 'Selected' group. What is a likely cause?",
+    "subtopic": "Manage access to Azure resources",
+    "question": "You assign the 'Network Contributor' role to a security group at the Resource Group scope. A user in that security group attempts to create a network security group (NSG) within that resource group. What will be the outcome?",
     "options": [
-      "They have not been assigned a Microsoft Entra ID P1 or P2 license.",
-      "They have too many authentication methods registered.",
-      "They are a member of too many groups.",
-      "Their account is currently locked."
+      "The user can successfully create the NSG.",
+      "The user will be denied because Network Contributor only applies to Virtual Networks.",
+      "The user will be denied because NSGs require the Owner role.",
+      "The operation will succeed only if the user is also a Global Administrator."
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "SSPR for non-administrator users is a premium feature. If a user is scoped for SSPR but lacks a P1/P2 license, they will not be able to use it.",
+      "correctReason": "The Network Contributor role grants full permissions to manage all network resources, including Virtual Networks, Subnets, Network Interfaces, and Network Security Groups.",
       "incorrectReasons": [
-        "Extra methods or group memberships do not disable the feature.",
-        "Locking is what SSPR is often used to resolve."
+        "Network Contributor applies to all resources under the `Microsoft.Network` provider namespace, including NSGs.",
+        "Owner role is not required to create network security resources.",
+        "Global Administrator is a Microsoft Entra directory role and is not required for Azure RBAC resource deployments."
       ],
-      "reference": "https://learn.microsoft.com/en-us/entra/identity/authentication/concept-sspr-licensing"
+      "reference": "https://learn.microsoft.com/en-us/azure/role-based-access-control/built-in-roles#network-contributor"
     }
   },
   {
     "id": 48,
-    "subtopic": "Configure self-service password reset (SSPR)",
-    "question": "Which of the following methods CANNOT be used as a standalone authentication method for SSPR?",
+    "subtopic": "Manage Azure subscriptions and governance",
+    "question": "You need to group multiple subscriptions together so that a single Azure initiative (policy set) can be assigned to all of them at once. What structure should you use?",
     "options": [
-      "Security questions",
-      "Mobile app code",
-      "Email",
-      "Office phone"
+      "Management Group",
+      "Resource Group",
+      "Administrative Unit",
+      "Availability Set"
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "Microsoft has phased out Security Questions as a primary/secure method; while they can be used, they are generally considered less secure and often required in conjunction with other methods.",
+      "correctReason": "Management Groups act as containers for organizing multiple Azure subscriptions, allowing governance policies and initiatives to be applied across all child subscriptions simultaneously.",
       "incorrectReasons": [
-        "Mobile app codes, Email, and Office phone are all fully supported standalone methods in the SSPR policy."
+        "Resource Groups exist inside a subscription and cannot contain subscriptions.",
+        "Administrative Units manage identity objects in Microsoft Entra ID.",
+        "Availability Sets manage VM high availability within an Azure region."
       ],
-      "reference": "https://learn.microsoft.com/en-us/entra/identity/authentication/concept-authentication-methods"
+      "reference": "https://learn.microsoft.com/en-us/azure/governance/management-groups/overview"
     }
   },
   {
     "id": 49,
-    "subtopic": "Configure self-service password reset (SSPR)",
-    "question": "You want to provide a specific URL to users so they can go directly to the SSPR portal. What is the standard Microsoft URL for this?",
+    "subtopic": "Manage costs by using alerts, budgets, and Azure Advisor recommendations",
+    "question": "You are reviewing cost management features. Which THREE scopes can be selected when creating an Azure Cost Budget? (Select THREE)",
     "options": [
-      "https://aka.ms/sspr",
-      "https://passwordreset.microsoftonline.com",
-      "https://myprofile.microsoft.com",
-      "https://portal.azure.com/reset"
+      "Management Group scope",
+      "Subscription scope",
+      "Resource Group scope",
+      "Individual Virtual Machine scope",
+      "Storage Container scope"
     ],
-    "correct": 1,
+    "correct": [0, 1, 2],
     "explanation": {
-      "correctReason": "The standard, user-facing URL for the Microsoft Entra password reset portal is https://passwordreset.microsoftonline.com.",
+      "correctReason": "Azure Cost Management budgets can be scoped at the Management Group, Subscription, or Resource Group level.",
       "incorrectReasons": [
-        "aka.ms/sspr is a shortcut but not the technical landing page.",
-        "MyProfile is for managing settings, not resetting a forgotten password.",
-        "The Azure Portal reset URL is not the standard consumer-facing reset page."
+        "Budgets are not directly defined at the individual VM instance target scope level.",
+        "Budgets are not created at the granular storage container sub-resource scope level."
       ],
-      "reference": "https://learn.microsoft.com/en-us/entra/identity/authentication/concept-sspr-howitworks"
+      "reference": "https://learn.microsoft.com/en-us/azure/cost-management-billing/costs/tutorial-acm-create-budgets#create-a-budget-in-the-azure-portal"
     }
   },
   {
     "id": 50,
-    "subtopic": "Configure self-service password reset (SSPR)",
-    "question": "In the SSPR settings, what does the 'Customization' blade allow you to do?",
+    "subtopic": "Configure management groups",
+    "question": "You need to grant a user permission to create child management groups and assign policies at the management group level without granting them rights to resources inside the underlying subscriptions. Which built-in role should you assign to the user at the Management Group scope?",
     "options": [
-      "Change the number of characters required in a password.",
-      "Provide a custom 'Contact your administrator' link or email.",
-      "Change the background color of the login page.",
-      "Upload a custom list of banned passwords."
+      "Management Group Contributor",
+      "Owner",
+      "Resource Policy Contributor",
+      "User Access Administrator"
     ],
-    "correct": 1,
+    "correct": 0,
     "explanation": {
-      "correctReason": "The Customization blade allows you to define a specific email or URL that users see if they encounter an error during SSPR and need help from their internal IT team.",
+      "correctReason": "Management Group Contributor grants rights to manage management group properties, create child groups, and assign policies at the management group scope.",
       "incorrectReasons": [
-        "Password length is a password policy setting.",
-        "Background colors are part of Company Branding, not SSPR customization.",
-        "Banned passwords are part of the 'Password Protection' settings."
+        "Owner grants administrative rights over all subscriptions and resources contained within the management group hierarchy.",
+        "Resource Policy Contributor manages policy definitions but does not manage management group structures.",
+        "User Access Administrator manages user role assignments across resources."
       ],
-      "reference": "https://learn.microsoft.com/en-us/entra/identity/authentication/howto-sspr-customization"
+      "reference": "https://learn.microsoft.com/en-us/azure/role-based-access-control/built-in-roles#management-group-contributor"
     }
   }
 ]

@@ -1,0 +1,105 @@
+{
+  "exam": "AZ-104",
+  "sets_config": {
+    "complete": 1,
+    "domain": 2,
+    "topic": 2
+  },
+  "domains": [
+    {
+      "domain_id": "d1",
+      "domain": "Manage Azure identities and governance",
+      "percentage": "20–25%",
+      "topics": [
+        {
+          "topic_id": "topic1",
+          "name": "Manage Microsoft Entra users and groups"
+        },
+        {
+          "topic_id": "topic2",
+          "name": "Manage access to Azure resources"
+        },
+        {
+          "topic_id": "topic3",
+          "name": "Manage Azure subscriptions and governance"
+        }
+      ]
+    },
+    {
+      "domain_id": "d2",
+      "domain": "Implement and manage storage",
+      "percentage": "15–20%",
+      "topics": [
+        {
+          "topic_id": "topic1",
+          "name": "Configure access to storage"
+        },
+        {
+          "topic_id": "topic2",
+          "name": "Configure and manage storage accounts"
+        },
+        {
+          "topic_id": "topic3",
+          "name": "Configure Azure Files and Azure Blob Storage"
+        }
+      ]
+    },
+    {
+      "domain_id": "d3",
+      "domain": "Deploy and manage Azure compute resources",
+      "percentage": "20–25%",
+      "topics": [
+        {
+          "topic_id": "topic1",
+          "name": "Automate deployment of resources by using Azure Resource Manager (ARM) templates or Bicep files"
+        },
+        {
+          "topic_id": "topic2",
+          "name": "Create and configure virtual machines"
+        },
+        {
+          "topic_id": "topic3",
+          "name": "Provision and manage containers in the Azure portal"
+        },
+        {
+          "topic_id": "topic4",
+          "name": "Create and configure Azure App Service"
+        }
+      ]
+    },
+    {
+      "domain_id": "d4",
+      "domain": "Implement and manage virtual networking",
+      "percentage": "15–20%",
+      "topics": [
+        {
+          "topic_id": "topic1",
+          "name": "Configure and manage virtual networks in Azure"
+        },
+        {
+          "topic_id": "topic2",
+          "name": "Configure secure access to virtual networks"
+        },
+        {
+          "topic_id": "topic3",
+          "name": "Configure name resolution and load balancing"
+        }
+      ]
+    },
+    {
+      "domain_id": "d5",
+      "domain": "Monitor and maintain Azure resources",
+      "percentage": "10–15%",
+      "topics": [
+        {
+          "topic_id": "topic1",
+          "name": "Monitor resources in Azure"
+        },
+        {
+          "topic_id": "topic2",
+          "name": "Implement backup and recovery"
+        }
+      ]
+    }
+  ]
+}

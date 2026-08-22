@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AZ-104 Azure Storage</title>
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        :root {
+            --primary-color: #0078d4;
+            --primary-dark: #005a9e;
+            --secondary-color: #2b2b2b;
+            --bg-color: #f4f6f9;
+            --card-bg: #ffffff;
+            --text-color: #333333;
+            --border-color: #e1e4e8;
+            --code-bg: #f0f4f8;
+            --table-header-bg: #0078d4;
+            --table-header-color: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            border: 1px solid var(--border-color);
+        }
+
+        h2 {
+            color: var(--primary-dark);
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 0.5rem;
+            margin-top: 0;
+        }
+
+        h3 {
+            color: var(--secondary-color);
+            margin-top: 1.5rem;
+        }
+
+        ul, ol {
+            padding-left: 1.5rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        .highlight-box {
+            background-color: #e6f2ff;
+            border-left: 4px solid var(--primary-color);
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 4px 4px 0;
+        }
+
+        code {
+            background-color: var(--code-bg);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: Consolas, Monaco, 'Andale Mono', monospace;
+            font-size: 0.9em;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+        }
+
+        th, td {
+            padding: 0.75rem;
+            text-align: left;
+            border: 1px solid var(--border-color);
+        }
+
+        th {
+            background-color: var(--table-header-bg);
+            color: var(--table-header-color);
+        }
+
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: #666;
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border-color);
+            background-color: var(--card-bg);
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+    <div class="header-top">
+      <div>
+        <h1 style="margin: 0; font-size: 20px;">AZ-104 Microsoft Azure Administrator</h1>
+        <p style="margin: 5px 0 0 0; font-size: 14px; opacity: 0.9;">Implement and Manage Storage</p>
+      </div>
+
+      <div id="auth-container">
+        <button id="sign-in-btn" class="btn btn-light" style="cursor: pointer;">Sign In with Google</button>
+        <div id="user-info" class="user-info-bar" style="display: none; align-items: center; gap: 10px;">
+          <span id="user-name" class="user-name-text" style="font-size: 14px; font-weight: 500;"></span>
+          <a href="../index.html" class="btn btn-light" style="text-decoration: none;">🏠 Home</a>
+          <a href="../dashboard.html" class="btn btn-light" style="text-decoration: none;">📊 Dashboard</a>
+          <button id="sign-out-btn" class="btn btn-danger" style="cursor: pointer;">Sign Out</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="card" style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+      <span style="font-weight: 600; color: #323130; font-size: 14px;">📚 References:</span>
+      <nav style="display: flex; gap: 10px; flex-wrap: wrap;">
+        <a href="identity.html" class="btn" style="background: #f3f2f1; color: #0078d4; text-decoration: none;">Identity</a>
+        <a href="storage.html" class="btn" style="background: #0078d4; color: white; text-decoration: none; font-weight: 600;">Storage</a>
+        <a href="compute.html" class="btn" style="background: #f3f2f1; color: #0078d4; text-decoration: none;">Compute</a>
+        <a href="networking.html" class="btn" style="background: #f3f2f1; color: #0078d4; text-decoration: none;">Networking</a>
+        <a href="monitoring.html" class="btn" style="background: #f3f2f1; color: #0078d4; text-decoration: none;">Monitoring</a>
+        <a href="../limits.html" class="btn" style="background: #f3f2f1; color: #0078d4; text-decoration: none;">📋 Limits &amp; Quotas</a>
+      </nav>
+    </div>
+  </div>
+
+
+    <div class="container">
+        
+        <!-- Domain Scope -->
+        <section class="card">
+            <h2>1. AZ-104 Storage Domain Scope</h2>
+            <p>The guide lists <strong>Implement and manage storage</strong> as an AZ-104 exam domain weighted at <strong>15–20%</strong>.</p>
+            
+            <div class="highlight-box">
+                <strong>Services to focus on:</strong> Azure Blob Storage configuration of storage accounts, import/export, storage tiers, replication, and authentication; and Azure Files file shares, file sync, and copying data with AzCopy.
+            </div>
+
+            <h3>Core Focus Areas</h3>
+            <ul>
+                <li><strong>Configure Access to Storage:</strong> SAS-based access and authentication methods for AzCopy.</li>
+                <li><strong>Configure and Manage Storage Accounts:</strong> Account types, endpoints, redundancy, and encryption.</li>
+                <li><strong>Configure Azure Files & Blob Storage:</strong> Blob tiers, data transfer options, Azure Files tiers, and Azure File Sync.</li>
+            </ul>
+        </section>
+
+        <!-- Storage Accounts -->
+        <section class="card">
+            <h2>2. Azure Storage Accounts</h2>
+            
+            <h3>Types of Storage Accounts</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Account Type</th>
+                        <th>Services / Characteristics</th>
+                        <th>Performance</th>
+                        <th>Access Tiers</th>
+                        <th>Replication</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>General-purpose v2</strong></td>
+                        <td>Data Lake Gen2, Blobs, Files, Disks, Queues, Tables</td>
+                        <td>Standard, Premium</td>
+                        <td>Hot, Cool, Cold, Archive</td>
+                        <td>LRS, GRS, RA-GRS, ZRS, GZRS, RA-GZRS</td>
+                    </tr>
+                    <tr>
+                        <td><strong>General-purpose v1</strong></td>
+                        <td>Blobs, Files, Disks, Queues, Tables (Upgradable to GPv2)</td>
+                        <td>Standard, Premium</td>
+                        <td>N/A</td>
+                        <td>LRS, GRS, RA-GRS</td>
+                    </tr>
+                    <tr>
+                        <td><strong>BlockBlobStorage</strong></td>
+                        <td>Block/Append blobs; low latency and high transaction rates</td>
+                        <td>Premium</td>
+                        <td>N/A</td>
+                        <td>LRS, ZRS</td>
+                    </tr>
+                    <tr>
+                        <td><strong>FileStorage</strong></td>
+                        <td>File shares only; offers IOPS bursting capabilities</td>
+                        <td>Premium</td>
+                        <td>N/A</td>
+                        <td>LRS, ZRS</td>
+                    </tr>
+                    <tr>
+                        <td><strong>BlobStorage</strong></td>
+                        <td>Block and append blobs only</td>
+                        <td>Standard</td>
+                        <td>Hot, Cool, Archive</td>
+                        <td>LRS, GRS, RA-GRS</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Storage Account Endpoints</h3>
+            <ul>
+                <li>Blob storage: <code>https://staz104exam.blob.core.windows.net</code></li>
+                <li>Table storage: <code>https://staz104exam.table.core.windows.net</code></li>
+                <li>Queue storage: <code>https://staz104exam.queue.core.windows.net</code></li>
+                <li>Azure Files: <code>https://staz104exam.file.core.windows.net</code></li>
+                <li>Data Lake Gen2: <code>https://staz104exam.dfs.core.windows.net</code></li>
+            </ul>
+        </section>staz104exam        <!-- Redundancy & Encryption -->
+        <section class="card">
+            <h2>3. Storage Redundancy & Encryption</h2>
+            
+            <h3>Redundancy Options</h3>
+            <ul>
+                <li><strong>Locally Redundant Storage (LRS):</strong> 3 synchronous copies within the primary region.</li>
+                <li><strong>Zone-Redundant Storage (ZRS):</strong> 3 synchronous copies across Availability Zones in the primary region.</li>
+                <li><strong>Geo-Redundant Storage (GRS):</strong> 3 copies in primary region, replicated asynchronously to secondary region.</li>
+                <li><strong>Geo-Zone-Redundant Storage (GZRS):</strong> 3 copies across zones in primary, replicated asynchronously to secondary region.</li>
+                <li><strong>RA-GRS / RA-GZRS:</strong> Provides read access to the secondary regional copy.</li>
+            </ul>
+
+            <h3>Storage Encryption</h3>
+            <p>All storage accounts use <strong>Storage Service Encryption (SSE)</strong> for data at rest using <strong>256-bit AES</strong> encryption with Microsoft-managed or customer-managed keys.</p>
+        </section>
+
+        <!-- Blob Tiers & Data Transfer -->
+        <section class="card">
+            <h2>4. Blob Tiers & Data Transfer Tools</h2>
+            
+            <h3>Access Tiers Comparison</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Tier</th>
+                        <th>Storage Cost</th>
+                        <th>Access Cost</th>
+                        <th>Minimum Duration</th>
+                        <th>Latency</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Hot</strong></td>
+                        <td>Highest</td>
+                        <td>Lowest</td>
+                        <td>N/A</td>
+                        <td>Milliseconds</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Cool</strong></td>
+                        <td>Lower</td>
+                        <td>Higher</td>
+                        <td>30 days</td>
+                        <td>Milliseconds</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Cold</strong></td>
+                        <td>Lower than Cool</td>
+                        <td>Higher than Cool</td>
+                        <td>90 days</td>
+                        <td>Milliseconds</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Archive</strong></td>
+                        <td>Lowest</td>
+                        <td>Highest</td>
+                        <td>180 days</td>
+                        <td>Hours (Rehydration)</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Data Transfer & Sync Options</h3>
+            <ul>
+                <li><strong>AzCopy:</strong> Command-line utility supporting Microsoft Entra ID and SAS authentication for high-performance data transfers.</li>
+                <li><strong>Import/Export Service:</strong> Large-scale data migration by shipping physical BitLocker-encrypted drives to Azure data centers.</li>
+                <li><strong>Azure File Sync:</strong> Connects on-premises Windows Servers to Azure file shares with cloud tiering capabilities.</li>
+            </ul>
+        </section>
+
+        <!-- Configure Access to Storage -->
+        <section class="card">
+            <h2>5. Configure Access to Storage</h2>
+
+            <h3>Storage Firewalls & Virtual Networks</h3>
+            <p>By default, storage accounts accept traffic from any network. Restricting access uses the <strong>Networking</strong> blade with two main mechanisms:</p>
+            <ul>
+                <li><strong>IP-based rules:</strong> Allow specific public IP addresses or CIDR ranges.</li>
+                <li><strong>Virtual network (VNet) service endpoints:</strong> Restrict access to selected subnets; traffic stays on the Microsoft backbone.</li>
+                <li><strong>Private Endpoints:</strong> Assigns a private IP from your VNet to the storage account, fully removing it from public internet exposure.</li>
+                <li><strong>Trusted Microsoft services exception:</strong> Lets select Azure services (e.g., Azure Backup, Azure Monitor) bypass the network rules even when set to deny.</li>
+            </ul>
+            <div class="highlight-box">
+                <strong>Default action:</strong> When any network rule is configured, the default action becomes <code>Deny</code> — you must explicitly allow the networks/IPs you want to permit.
+            </div>
+
+            <h3>Shared Access Signature (SAS) Tokens</h3>
+            <p>A SAS grants limited, time-bound access to storage resources without sharing account keys.</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>SAS Type</th>
+                        <th>Scope</th>
+                        <th>Authorized By</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>User Delegation SAS</strong></td>
+                        <td>Blob storage only</td>
+                        <td>Microsoft Entra ID credentials (most secure option)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Service SAS</strong></td>
+                        <td>A single service (Blob, Queue, Table, or File)</td>
+                        <td>Storage account key</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Account SAS</strong></td>
+                        <td>One or more services in the account</td>
+                        <td>Storage account key</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>Every SAS token encodes: <strong>permissions</strong> (read/write/delete/list, etc.), <strong>start &amp; expiry time</strong>, <strong>allowed IP range</strong>, <strong>allowed protocol</strong> (HTTPS only vs HTTP/HTTPS), and a <strong>signature</strong> computed from the account key or user delegation key.</p>
+
+            <h3>Stored Access Policies</h3>
+            <p>A stored access policy is defined on the container, file share, queue, or table itself and groups together the start time, expiry time, and permissions for one or more service SAS tokens.</p>
+            <div class="highlight-box">
+                Because the policy lives server-side, you can <strong>modify or revoke</strong> access for all SAS tokens tied to it at any time — without regenerating the storage account keys (which would invalidate every SAS on the account).
+            </div>
+
+            <h3>Managing Access Keys</h3>
+            <ul>
+                <li>Each storage account has <strong>two</strong> 512-bit access keys (<code>key1</code> and <code>key2</code>) that grant full administrative access to the account.</li>
+                <li>Two keys exist so you can <strong>rotate</strong> one while the other remains active, avoiding downtime for applications using connection strings.</li>
+                <li>Keys can be regenerated from the portal, CLI, or PowerShell; consider storing them in <strong>Azure Key Vault</strong>.</li>
+                <li>Best practice: prefer Microsoft Entra ID authorization or SAS tokens over distributing account keys directly.</li>
+            </ul>
+
+            <h3>Identity-Based Access for Azure Files</h3>
+            <p>Azure Files supports identity-based authentication over SMB using Kerberos, in addition to the traditional storage account key.</p>
+            <ul>
+                <li><strong>On-premises Active Directory Domain Services (AD DS):</strong> Requires syncing identities to Microsoft Entra ID and domain-joining the storage account.</li>
+                <li><strong>Microsoft Entra Domain Services:</strong> A managed domain that Azure file shares can be joined to directly.</li>
+                <li><strong>Microsoft Entra Kerberos (Entra ID authentication):</strong> Enables hybrid identities to authenticate to Azure Files with Kerberos without requiring a domain controller.</li>
+            </ul>
+            <p>Once identity-based auth is configured, <strong>share-level and directory/file-level (NTFS) permissions</strong> both apply — share-level via RBAC roles, and file/folder-level via standard Windows ACLs.</p>
+        </section>
+
+        <!-- Storage Account Management -->
+        <section class="card">
+            <h2>6. Managing Storage Accounts</h2>
+
+            <h3>Creating & Configuring Storage Accounts</h3>
+            <p>Key settings chosen at creation time (some are changeable later, others are not):</p>
+            <ul>
+                <li><strong>Subscription / Resource group / Name / Region</strong></li>
+                <li><strong>Performance:</strong> Standard (HDD-backed) or Premium (SSD-backed) — <em>cannot be changed after creation</em>.</li>
+                <li><strong>Redundancy:</strong> LRS, ZRS, GRS, GZRS, RA-GRS, RA-GZRS — can generally be changed later.</li>
+                <li><strong>Account kind:</strong> General-purpose v2, BlockBlobStorage, FileStorage, or BlobStorage — <em>cannot be changed after creation</em> (except GPv1 → GPv2 upgrade).</li>
+                <li><strong>Networking:</strong> Public endpoint (all/selected networks) or private endpoint.</li>
+                <li><strong>Data protection:</strong> Soft delete, versioning, and change feed toggles.</li>
+            </ul>
+
+            <h3>Object Replication</h3>
+            <p>Object replication asynchronously copies <strong>block blobs</strong> between a source and a destination storage account, driven by a replication policy and one or more rules.</p>
+            <ul>
+                <li><strong>Requirements:</strong> Both accounts must be General-purpose v2, and the source account must have <strong>blob versioning</strong> and <strong>change feed</strong> enabled.</li>
+                <li><strong>Use cases:</strong> Minimize read latency by copying data closer to users, reduce cross-region compute/egress by keeping copies in each region, and maintain a copy for compliance or DR purposes.</li>
+                <li>Unlike GRS/RA-GRS (which replicate the whole account transparently for disaster recovery), object replication is <strong>selective</strong> (container/prefix scoped) and the copy is independently readable and writable.</li>
+            </ul>
+
+            <h3>Azure Storage Explorer & AzCopy</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Tool</th>
+                        <th>Type</th>
+                        <th>Best For</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Azure Storage Explorer</strong></td>
+                        <td>Standalone GUI app (Windows/macOS/Linux)</td>
+                        <td>Browsing, uploading/downloading, and managing blobs, files, queues, and tables interactively; managing ACLs and SAS tokens visually.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>AzCopy</strong></td>
+                        <td>Command-line utility</td>
+                        <td>Scripted, high-throughput bulk copy/sync/migration; supports Microsoft Entra ID and SAS authentication; source/destination can be local disk, another storage account, or Amazon S3.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Azure Files & Blob Storage Configuration -->
+        <section class="card">
+            <h2>7. Configuring Azure Files & Blob Storage</h2>
+
+            <h3>File Shares in Azure Storage</h3>
+            <ul>
+                <li>Created within a storage account; can use <strong>SMB</strong> or <strong>NFS</strong> protocol (NFS requires Premium FileStorage account + private endpoint/VNet).</li>
+                <li><strong>Tiers:</strong> Transaction Optimized, Hot, and Cool (standard tier accounts); Premium file shares use provisioned IOPS/throughput.</li>
+                <li>Each share has a configurable <strong>quota</strong> (maximum size).</li>
+            </ul>
+
+            <h3>Containers in Blob Storage</h3>
+            <p>Containers group blobs, similar to a directory. Public access level is set per container:</p>
+            <ul>
+                <li><strong>Private (no anonymous access):</strong> Default — access requires a key, SAS, or Entra ID authorization.</li>
+                <li><strong>Blob:</strong> Anonymous read access to blobs only, not container listing.</li>
+                <li><strong>Container:</strong> Anonymous read access to blobs and full container listing.</li>
+            </ul>
+
+            <h3>Configuring Storage Tiers</h3>
+            <p>Access tiers (Hot, Cool, Cold, Archive — see comparison table above) can be set at the <strong>account level</strong> as a default, or overridden per-blob. Archive-tier blobs must be <strong>rehydrated</strong> (Standard or High priority) to Hot/Cool before they can be read.</p>
+
+            <h3>Soft Delete for Blobs & Containers</h3>
+            <ul>
+                <li><strong>Blob soft delete:</strong> Deleted or overwritten blobs are retained for a configurable period (1–365 days) and can be undeleted.</li>
+                <li><strong>Container soft delete:</strong> Extends the same protection to entire deleted containers.</li>
+                <li>Both are enabled independently under the account's <strong>Data protection</strong> settings.</li>
+            </ul>
+
+            <h3>Snapshots & Soft Delete for Azure Files</h3>
+            <ul>
+                <li><strong>Share snapshots:</strong> Point-in-time, read-only copies of an entire file share, useful for point-in-time restore of individual files.</li>
+                <li><strong>Share soft delete:</strong> When a file share itself is deleted, it is retained (1–365 days, default 7) and can be restored before permanent removal.</li>
+            </ul>
+
+            <h3>Blob Lifecycle Management</h3>
+            <p>A rule-based policy (JSON or portal UI) that automatically transitions or deletes blobs based on age and conditions, without custom code.</p>
+            <div class="highlight-box">
+                Typical rule: <em>"If a blob hasn't been modified in 30 days, move it to Cool; after 90 days, move to Archive; after 365 days, delete it."</em> Rules can be scoped by container name prefix or blob index tags.
+            </div>
+
+            <h3>Blob Versioning</h3>
+            <ul>
+                <li>When enabled, every time a blob is <strong>overwritten or deleted</strong>, Azure automatically keeps the previous state as a read-only <strong>version</strong>.</li>
+                <li>Versions are identified by a <strong>VersionId</strong> timestamp and can be listed, read, or promoted back to the current version.</li>
+                <li>Works alongside soft delete and lifecycle management rules (which can also expire old versions) to build a complete data-protection strategy.</li>
+            </ul>
+        </section>
+
+    </div>
+
+    <footer>
+        <p>AZ-104 Storage Domain </p>
+    </footer>
+
+  <script type="module" src="../js/reference.js"></script>
+</body>
+</html>

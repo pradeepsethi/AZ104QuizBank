@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AZ-104 Azure Networking</title>
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        :root {
+            --primary-color: #0078d4;
+            --primary-dark: #005a9e;
+            --secondary-color: #2b2b2b;
+            --bg-color: #f4f6f9;
+            --card-bg: #ffffff;
+            --text-color: #333333;
+            --border-color: #e1e4e8;
+            --code-bg: #f0f4f8;
+            --table-header-bg: #0078d4;
+            --table-header-color: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            border: 1px solid var(--border-color);
+        }
+
+        h2 {
+            color: var(--primary-dark);
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 0.5rem;
+            margin-top: 0;
+        }
+
+        h3 {
+            color: var(--secondary-color);
+            margin-top: 1.5rem;
+        }
+
+        ul, ol {
+            padding-left: 1.5rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        .highlight-box {
+            background-color: #e6f2ff;
+            border-left: 4px solid var(--primary-color);
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 4px 4px 0;
+        }
+
+        code {
+            background-color: var(--code-bg);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: Consolas, Monaco, 'Andale Mono', monospace;
+            font-size: 0.9em;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+        }
+
+        th, td {
+            padding: 0.75rem;
+            text-align: left;
+            border: 1px solid var(--border-color);
+        }
+
+        th {
+            background-color: var(--table-header-bg);
+            color: var(--table-header-color);
+        }
+
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: #666;
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border-color);
+            background-color: var(--card-bg);
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+    <div class="header-top">
+      <div>
+        <h1 style="margin: 0; font-size: 20px;">AZ-104 Microsoft Azure Administrator</h1>
+        <p style="margin: 5px 0 0 0; font-size: 14px; opacity: 0.9;">Virtual Networking & Secure Access</p>
+      </div>
+
+      <div id="auth-container">
+        <button id="sign-in-btn" class="btn btn-light" style="cursor: pointer;">Sign In with Google</button>
+        <div id="user-info" class="user-info-bar" style="display: none; align-items: center; gap: 10px;">
+          <span id="user-name" class="user-name-text" style="font-size: 14px; font-weight: 500;"></span>
+          <a href="../index.html" class="btn btn-light" style="text-decoration: none;">🏠 Home</a>
+          <a href="../dashboard.html" class="btn btn-light" style="text-decoration: none;">📊 Dashboard</a>
+          <button id="sign-out-btn" class="btn btn-danger" style="cursor: pointer;">Sign Out</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="card" style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+      <span style="font-weight: 600; color: #323130; font-size: 14px;">📚 References:</span>
+      <nav style="display: flex; gap: 10px; flex-wrap: wrap;">
+        <a href="identity.html" class="btn" style="background: #f3f2f1; color: #0078d4; text-decoration: none;">Identity</a>
+        <a href="storage.html" class="btn" style="background: #f3f2f1; color: #0078d4; text-decoration: none;">Storage</a>
+        <a href="compute.html" class="btn" style="background: #f3f2f1; color: #0078d4; text-decoration: none;">Compute</a>
+        <a href="networking.html" class="btn" style="background: #0078d4; color: white; text-decoration: none; font-weight: 600;">Networking</a>
+        <a href="monitoring.html" class="btn" style="background: #f3f2f1; color: #0078d4; text-decoration: none;">Monitoring</a>
+        <a href="../limits.html" class="btn" style="background: #f3f2f1; color: #0078d4; text-decoration: none;">📋 Limits &amp; Quotas</a>
+      </nav>
+    </div>
+  </div>
+
+
+    <div class="container">
+        
+        <!-- Networking Scope -->
+        <section class="card">
+            <h2>Networking Domain Scope</h2>
+            <div class="highlight-box">
+                <strong>Domain Overview:</strong> Virtual networking in AZ-104 covers virtual networks, secure access, name resolution, network routing, and load balancing services.
+            </div>
+
+            <h3>Virtual Network Essentials</h3>
+            <ul>
+                <li><strong>VNets & Subnets:</strong> Dual-stack IPv4/IPv6 addressing with custom CIDR ranges divided into subnets.</li>
+                <li><strong>NAT Gateway:</strong> Provides outbound internet connectivity for subnets without requiring public IPs on VMs.</li>
+                <li><strong>Service Endpoints:</strong> Secures Azure service resources to virtual network address spaces over the Azure backbone.</li>
+            </ul>
+        </section>
+
+        <!-- Public IP Addresses -->
+        <section class="card">
+            <h2>Public IP Addresses</h2>
+            <p>Public IPs enable inbound/outbound internet connectivity for resources such as VMs, load balancers, Application Gateway, and Bastion.</p>
+
+            <h3>SKU Comparison</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Attribute</th>
+                        <th>Basic SKU</th>
+                        <th>Standard SKU</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Allocation</strong></td>
+                        <td>Static or Dynamic</td>
+                        <td>Static only</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Security</strong></td>
+                        <td>Open by default (no NSG required)</td>
+                        <td>Secure by default — traffic denied unless allowed by NSG</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Availability Zones</strong></td>
+                        <td>Not zone-redundant</td>
+                        <td>Supports zonal & zone-redundant deployment</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Pairing Rule</strong></td>
+                        <td>Can pair with Basic Load Balancer</td>
+                        <td>Must pair with Standard Load Balancer</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="highlight-box">
+                <strong>Exam Tip:</strong> SKUs cannot be mixed — a Standard SKU public IP can only be associated with Standard SKU resources (Load Balancer, VM NIC, etc.). Basic SKU public IPs are being retired, so Standard is the default choice going forward.
+            </div>
+
+            <h3>Allocation Methods</h3>
+            <ul>
+                <li><strong>Dynamic:</strong> Assigned when the resource is started, can change on stop/deallocate (Basic SKU only).</li>
+                <li><strong>Static:</strong> Assigned immediately and remains fixed for the resource's lifetime.</li>
+            </ul>
+        </section>
+
+        <!-- User-Defined Routes -->
+        <section class="card">
+            <h2>Network Routing</h2>
+            <p>Azure automatically creates system routes for VNet, subnet, and on-premises traffic. User-defined routes (UDRs) override this default behavior via route tables.</p>
+
+            <h3>Route Tables & Next Hop Types</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Next Hop Type</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Virtual Network Gateway</strong></td>
+                        <td>Routes traffic through a VPN/ExpressRoute gateway.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Virtual Network</strong></td>
+                        <td>Routes traffic within the VNet address space.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Internet</strong></td>
+                        <td>Routes traffic to the public internet.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Virtual Appliance</strong></td>
+                        <td>Routes traffic to a specific IP, typically an NVA (e.g. firewall).</td>
+                    </tr>
+                    <tr>
+                        <td><strong>None</strong></td>
+                        <td>Drops traffic matching the route (blackhole route).</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="highlight-box">
+                <strong>Route Precedence:</strong> User-defined routes take priority over BGP routes, which take priority over Azure's default system routes. The most specific prefix always wins regardless of route source.
+            </div>
+        </section>
+
+        <!-- NSG and ASG -->
+        <section class="card">
+            <h2>Network Security Groups & Application Security Groups</h2>
+            <p>NSGs and ASGs control and categorize network traffic boundaries within your virtual network.</p>
+
+            <h3>NSG vs ASG Comparison</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Feature</th>
+                        <th>Network Security Group (NSG)</th>
+                        <th>Application Security Group (ASG)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Primary Function</strong></td>
+                        <td>Enforces and controls network traffic rules.</td>
+                        <td>Logical grouping object referenced in NSG rules.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Scope</strong></td>
+                        <td>Attached at Subnet or NIC level.</td>
+                        <td>Grouped at Network Interface (NIC) level.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Limits</strong></td>
+                        <td>Supports up to 1,000 security rules.</td>
+                        <td>Up to 100 ASGs specified per NSG rule set.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Rule Action</strong></td>
+                        <td>Supports <code>Allow</code> and <code>Deny</code>.</td>
+                        <td>Supports <code>Allow</code> and <code>Deny</code>.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Evaluate Effective Security Rules</h3>
+            <p>A NIC can be affected by NSGs applied at both the subnet and NIC level, so Azure evaluates the combined ("effective") rule set to determine actual traffic behavior.</p>
+            <ul>
+                <li><strong>Rule Processing Order:</strong> Rules are processed by priority number (lowest first, 100–4096); the first match wins and processing stops.</li>
+                <li><strong>Combining NSGs:</strong> When both subnet and NIC NSGs apply, traffic must be allowed by <em>both</em> for inbound, and either can independently allow outbound.</li>
+                <li><strong>Effective Security Rules view:</strong> Found in a NIC's Network Watcher blade — shows the full merged list of rules (including default rules) actually being applied, useful for diagnosing unexpected allow/deny behavior.</li>
+                <li><strong>Default Rules:</strong> Every NSG includes non-removable defaults — Allow VNet inbound/outbound, Allow Azure Load Balancer inbound, and Deny all inbound/outbound (lowest priority, 65000+).</li>
+            </ul>
+        </section>
+
+        <!-- VNet Peering & Bastion -->
+        <section class="card">
+            <h2>Connectivity & Secure Access</h2>
+            
+            <h3>Virtual Network Peering</h3>
+            <ul>
+                <li><strong>VNet Peering:</strong> Links VNets within the same region with high-bandwidth, low-latency connectivity.</li>
+                <li><strong>Global VNet Peering:</strong> Connects VNets across different Azure regions.</li>
+                <li><strong>Key Properties:</strong> Private traffic flow, no gateways required, and no downtime during creation. Non-overlapping address spaces required.</li>
+            </ul>
+
+            <h3>Azure Bastion</h3>
+            <p>Fully managed PaaS providing seamless and secure RDP/SSH access directly through a browser using TLS/SSL without exposing public IP addresses on target VMs.</p>
+        </section>
+
+        <!-- Service Endpoints & Private Endpoints -->
+        <section class="card">
+            <h2>Service Endpoints vs Private Endpoints</h2>
+            <p>Both secure connectivity to Azure PaaS resources (e.g. Storage, SQL Database) over the Microsoft backbone instead of the public internet, but they work differently.</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Feature</th>
+                        <th>Service Endpoint</th>
+                        <th>Private Endpoint</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>IP Address</strong></td>
+                        <td>PaaS resource keeps its public IP; traffic stays on Azure backbone</td>
+                        <td>PaaS resource gets a private IP inside your VNet</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Direction</strong></td>
+                        <td>Extends VNet identity to the service (outbound only)</td>
+                        <td>Projects the service into your VNet (inbound)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>On-Premises Access</strong></td>
+                        <td>Not accessible from on-premises networks</td>
+                        <td>Accessible via VPN/ExpressRoute from on-premises</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Data Exfiltration Protection</strong></td>
+                        <td>Limited — other resources in same service may still be reachable</td>
+                        <td>Strong — maps to a single specific resource instance</td>
+                    </tr>
+                    <tr>
+                        <td><strong>DNS</strong></td>
+                        <td>No DNS changes needed</td>
+                        <td>Requires Private DNS Zone integration to resolve correctly</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Cost</strong></td>
+                        <td>Free</td>
+                        <td>Billed per hour + data processed</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="highlight-box">
+                <strong>Exam Tip:</strong> Choose Private Endpoints when you need on-premises access, strict data exfiltration protection, or a single dedicated private IP. Service Endpoints are simpler and free but only secure traffic originating from within Azure.
+            </div>
+        </section>
+
+        <!-- Azure DNS -->
+        <section class="card">
+            <h2>Azure DNS</h2>
+            <p>Azure DNS hosts DNS domains and provides name resolution using Microsoft's global network of name servers.</p>
+
+            <h3>Zone Types</h3>
+            <ul>
+                <li><strong>Public DNS Zone:</strong> Resolves domain names accessible from the internet (e.g. contoso.com).</li>
+                <li><strong>Private DNS Zone:</strong> Resolves names within one or more linked VNets; not resolvable from the internet. Supports auto-registration of VM records.</li>
+            </ul>
+
+            <h3>Common Record Types</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Record Type</th>
+                        <th>Purpose</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>A</strong></td>
+                        <td>Maps a hostname to an IPv4 address.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>AAAA</strong></td>
+                        <td>Maps a hostname to an IPv6 address.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>CNAME</strong></td>
+                        <td>Maps an alias hostname to another hostname.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>MX</strong></td>
+                        <td>Directs mail to mail servers.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>TXT</strong></td>
+                        <td>Holds arbitrary text, often used for domain verification (e.g. SPF).</td>
+                    </tr>
+                    <tr>
+                        <td><strong>NS / SOA</strong></td>
+                        <td>Name server delegation and zone authority information (auto-created with the zone).</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="highlight-box">
+                <strong>Virtual Network Links:</strong> A Private DNS Zone must be explicitly linked to each VNet that should use it for resolution; enable "Auto registration" so VM DNS records are added/removed automatically as VMs are created/deleted.
+            </div>
+        </section>
+
+        <!-- Load Balancing Options -->
+        <section class="card">
+            <h2>Azure Load Balancing Services Comparison</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Service</th>
+                        <th>Role / Type</th>
+                        <th>Protocol / Layer</th>
+                        <th>Scope</th>
+                        <th>Recommended Traffic</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Azure Load Balancer</strong></td>
+                        <td>Network load balancer</td>
+                        <td>Layer 4 (TCP/UDP)</td>
+                        <td>Regional</td>
+                        <td>Non-HTTP(S) traffic</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Application Gateway</strong></td>
+                        <td>Web traffic load balancer</td>
+                        <td>Layer 7 (HTTP/HTTPS)</td>
+                        <td>Regional</td>
+                        <td>HTTP(S), URL routing, WAF</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Traffic Manager</strong></td>
+                        <td>DNS-based traffic director</td>
+                        <td>Layer 7 (DNS)</td>
+                        <td>Global</td>
+                        <td>Non-HTTP(S) / Multi-region</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Azure Front Door</strong></td>
+                        <td>Global app delivery network</td>
+                        <td>Layer 7 (HTTP/HTTPS)</td>
+                        <td>Global</td>
+                        <td>HTTP(S) web apps & microservices</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Load Balancer: SKU & Type</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Attribute</th>
+                        <th>Basic SKU</th>
+                        <th>Standard SKU</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Backend Pool Size</strong></td>
+                        <td>Up to 300 instances</td>
+                        <td>Up to 1,000 instances</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Availability Zones</strong></td>
+                        <td>Not supported</td>
+                        <td>Zonal & zone-redundant frontends</td>
+                    </tr>
+                    <tr>
+                        <td><strong>SLA</strong></td>
+                        <td>None</td>
+                        <td>99.99%</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Security</strong></td>
+                        <td>Open by default</td>
+                        <td>Secure by default — requires NSG to allow traffic</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Public vs Internal Load Balancer</h3>
+            <ul>
+                <li><strong>Public Load Balancer:</strong> Frontend has a public IP; load balances internet-facing traffic to backend pool VMs, and can also provide outbound SNAT.</li>
+                <li><strong>Internal (Private) Load Balancer:</strong> Frontend uses a private IP from the VNet; load balances traffic between resources inside a VNet, or from on-premises via VPN/ExpressRoute.</li>
+            </ul>
+
+            <h3>Health Probes</h3>
+            <p>Health probes determine which backend instances are healthy and eligible to receive new traffic. Supported protocols: TCP, HTTP, and HTTPS. An instance that fails the probe threshold is taken out of rotation until it passes again.</p>
+        </section>
+
+        <!-- Network Watcher & Troubleshooting -->
+        <section class="card">
+            <h2>Network Watcher & Troubleshooting</h2>
+            <p>Network Watcher provides a suite of tools to monitor, diagnose, and troubleshoot connectivity and load balancing issues in Azure VNets.</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Tool</th>
+                        <th>Purpose</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>IP Flow Verify</strong></td>
+                        <td>Checks whether a specific packet (source/dest IP, port, protocol) is allowed or denied by NSG rules to/from a VM.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Connection Troubleshoot</strong></td>
+                        <td>Tests connectivity between a VM and an endpoint (VM, FQDN, URI, IP), reporting latency and the hop where failure occurs.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Next Hop</strong></td>
+                        <td>Shows the next hop type and route a packet will take from a VM toward a destination IP — useful for verifying UDRs.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Effective Routes</strong></td>
+                        <td>Displays the combined set of system routes and UDRs actually applied to a NIC.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Effective Security Rules</strong></td>
+                        <td>Displays the combined set of subnet and NIC-level NSG rules actually applied to a NIC.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>NSG Flow Logs</strong></td>
+                        <td>Logs allowed/denied traffic through an NSG for auditing and traffic analytics (via Traffic Analytics).</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Packet Capture</strong></td>
+                        <td>Captures packet-level traffic to/from a VM for deep inspection, triggerable by alerts.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Troubleshooting Load Balancers</h3>
+            <ul>
+                <li><strong>Health probe status:</strong> Check backend health via the "Insights" / "Health probe status" blade — a probe failure removes an instance from rotation.</li>
+                <li><strong>NSG rules:</strong> Ensure NSGs allow traffic from the <code>AzureLoadBalancer</code> service tag on probe ports and from the client source on the load-balancing rule port.</li>
+                <li><strong>Backend pool config:</strong> Confirm VMs/VMSS are correctly associated with the backend pool and the load-balancing rule's frontend/backend port mapping.</li>
+                <li><strong>OS-level firewall:</strong> The guest OS firewall (e.g. Windows Firewall) can silently block probe or data traffic even when NSGs allow it.</li>
+            </ul>
+        </section>
+
+    </div>
+
+    <footer>
+        <p>AZ-104 Networking Domain </p>
+    </footer>
+
+  <script type="module" src="../js/reference.js"></script>
+</body>
+</html>

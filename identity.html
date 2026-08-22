@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AZ-104 Azure Identity</title>
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        :root {
+            --primary-color: #0078d4;
+            --primary-dark: #005a9e;
+            --secondary-color: #2b2b2b;
+            --bg-color: #f4f6f9;
+            --card-bg: #ffffff;
+            --text-color: #333333;
+            --border-color: #e1e4e8;
+            --code-bg: #f0f4f8;
+            --table-header-bg: #0078d4;
+            --table-header-color: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            border: 1px solid var(--border-color);
+        }
+
+        h2 {
+            color: var(--primary-dark);
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 0.5rem;
+            margin-top: 0;
+        }
+
+        h3 {
+            color: var(--secondary-color);
+            margin-top: 1.5rem;
+        }
+
+        ul, ol {
+            padding-left: 1.5rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        .highlight-box {
+            background-color: #e6f2ff;
+            border-left: 4px solid var(--primary-color);
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 4px 4px 0;
+        }
+
+        code {
+            background-color: var(--code-bg);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: Consolas, Monaco, 'Andale Mono', monospace;
+            font-size: 0.9em;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+        }
+
+        th, td {
+            padding: 0.75rem;
+            text-align: left;
+            border: 1px solid var(--border-color);
+        }
+
+        th {
+            background-color: var(--table-header-bg);
+            color: var(--table-header-color);
+        }
+
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: #666;
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border-color);
+            background-color: var(--card-bg);
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+    <div class="header-top">
+      <div>
+        <h1 style="margin: 0; font-size: 20px;">AZ-104 Microsoft Azure Administrator</h1>
+        <p style="margin: 5px 0 0 0; font-size: 14px; opacity: 0.9;">Microsoft Entra ID & Governance</p>
+      </div>
+
+      <div id="auth-container">
+        <div id="user-info" class="user-info-bar" style="display: flex; align-items: center; gap: 10px;">
+          <span id="ref-user-name" class="user-name-text" style="font-size: 14px; font-weight: 500;"></span>
+          <a href="../index.html" class="btn btn-light" style="text-decoration: none;">🏠 Home</a>
+          <a href="../dashboard.html" class="btn btn-light" style="text-decoration: none;">📊 Dashboard</a>
+          <a href="../limits.html" class="btn btn-light" style="text-decoration: none;">📋 Limits &amp; Quotas</a>
+          <button id="ref-sign-out-btn" class="btn btn-danger" style="display: none; cursor: pointer;">Sign Out</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="card" style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+      <span style="font-weight: 600; color: #323130; font-size: 14px;">📚 References:</span>
+      <nav style="display: flex; gap: 10px; flex-wrap: wrap;">
+        <a href="identity.html" class="btn" style="background: #0078d4; color: white; text-decoration: none; font-weight: 600;">Identity</a>
+        <a href="storage.html" class="btn" style="background: #f3f2f1; color: #0078d4; text-decoration: none;">Storage</a>
+        <a href="compute.html" class="btn" style="background: #f3f2f1; color: #0078d4; text-decoration: none;">Compute</a>
+        <a href="networking.html" class="btn" style="background: #f3f2f1; color: #0078d4; text-decoration: none;">Networking</a>
+        <a href="monitoring.html" class="btn" style="background: #f3f2f1; color: #0078d4; text-decoration: none;">Monitoring</a>
+      </nav>
+    </div>
+  </div>
+
+
+    <div class="container">
+        
+        <!-- Microsoft Entra ID Overview -->
+        <section class="card">
+            <h2>Microsoft Entra ID (formerly Azure Active Directory)</h2>
+            <p>Microsoft Entra ID is Microsoft’s cloud-based identity and access management service. It helps employees sign in and access resources across external services (like Office 365, Azure Portal, and SaaS applications) as well as internal network applications.</p>
+            
+            <div class="highlight-box">
+                <strong>Initial Domain Name:</strong> Every new Microsoft Entra ID tenant comes with an initial domain name in the format <code>&lt;domainname&gt;.onmicrosoft.com</code>. While this cannot be changed or deleted, you can register custom domain names (e.g., <code>azure@az104exam.com</code>).
+            </div>
+
+            <h3>Key Features & Concepts</h3>
+            <ul>
+                <li><strong>Managing Users, Groups, Roles, and Devices:</strong> Administer user accounts, security/Microsoft 365 groups, directory roles, and device join states[cite: 3].</li>
+                <li><strong>Custom Domain Verification:</strong> Custom domains added to Microsoft Entra ID can be verified using either <code>TXT</code> or <code>MX</code> DNS record types.</li>
+                <li><strong>Authentication & Protection:</strong> Automatic integration with Microsoft Online business services to protect identity and access.</li>
+            </ul>
+
+            <h3>Creating & Managing Users</h3>
+            <ul>
+                <li><strong>Creation Methods:</strong> New users can be created individually in the Entra admin center/Azure Portal, in bulk via CSV upload, or scripted with Azure PowerShell (<code>New-AzADUser</code>) / Azure CLI (<code>az ad user create</code>). Users can also be synced in from an on-premises Active Directory using Microsoft Entra Connect.</li>
+                <li><strong>User Types:</strong>
+                    <ul>
+                        <li><code>Member</code> — A native, internal user of the tenant (default type).</li>
+                        <li><code>Guest</code> — An external identity invited into the tenant via B2B collaboration.</li>
+                    </ul>
+                </li>
+                <li><strong>User Properties:</strong> Profile info (name, job title, department), contact info, and <em>extension attributes</em>/custom attributes can be edited per-user or in bulk. The <code>Block Sign-In</code> setting disables a user's account without deleting it. Deleted users land in a recoverable state for 30 days before permanent removal.</li>
+            </ul>
+
+            <h3>User & Group Management Essentials</h3>
+            <ul>
+                <li><strong>Group Types:</strong> 
+                    <ul>
+                        <li><code>Security Groups</code> — Used to manage access to resources and policies for groups of users/devices.</li>
+                        <li><code>Microsoft 365 Groups</code> — Provides collaboration opportunities by giving members access to shared mailboxes, calendars, files, and SharePoint sites.</li>
+                    </ul>
+                </li>
+                <li><strong>Membership Types:</strong>
+                    <ul>
+                        <li><code>Assigned</code> — Static allocation where users are added/removed manually.</li>
+                        <li><code>Dynamic User / Dynamic Device</code> — Automatically populates membership based on dynamic user attributes (e.g., <code>user.department -eq "IT"</code>). Requires Microsoft Entra ID P1 license.</li>
+                    </ul>
+                </li>
+                <li><strong>Administrative Units (AUs):</strong> Containers used to delegate administrative control over subsets of users, groups, or devices without granting tenant-wide administrator access.</li>
+                <li><strong>Group-Based Licensing:</strong> Assigns Microsoft Entra P1/P2 or Microsoft 365 licenses automatically to all members of a group, simplifying license lifecycles.</li>
+            </ul>
+
+            <h3>License Management</h3>
+            <ul>
+                <li><strong>Assignment Methods:</strong> Licenses can be assigned directly to individual users or automatically via <em>group-based licensing</em>. Group-based assignment is preferred at scale since it re-evaluates automatically as group membership changes.</li>
+                <li><strong>License Conflicts:</strong> If a group-assigned license can't be applied (e.g., conflicting service plans, missing usage location), Entra ID flags the user with a licensing problem while continuing to apply the rest of the group's licenses.</li>
+                <li><strong>Usage Location:</strong> A user's <em>Usage Location</em> attribute must be set before a license can be assigned, since license availability varies by country/region.</li>
+                <li><strong>Edition Comparison:</strong></li>
+            </ul>
+            <table>
+                <thead>
+                    <tr><th>Edition</th><th>Key Capabilities</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><strong>Free</strong></td><td>User/group management, on-premises directory sync, basic reports</td></tr>
+                    <tr><td><strong>Microsoft Entra ID P1</strong></td><td>Dynamic groups, group-based licensing, SSPR with writeback, Conditional Access, hybrid identities</td></tr>
+                    <tr><td><strong>Microsoft Entra ID P2</strong></td><td>All P1 features plus Identity Protection and Privileged Identity Management (PIM)</td></tr>
+                </tbody>
+            </table>
+
+            <h3>External Identities & Collaboration</h3>
+            <ul>
+                <li><strong>B2B Collaboration:</strong> Allows external guest users to log in with their own corporate or personal credentials while retaining access controls over your tenant's resources.</li>
+                <li><strong>Inviting Guests:</strong> Guests can be invited individually (email invite, requiring redemption) or in bulk via CSV. Guest access is governed by <em>External collaboration settings</em>, which control who can invite guests and what guests can see in the directory.</li>
+                <li><strong>Self-Service Password Reset (SSPR):</strong> Allows users to reset their passwords without administrator intervention. Configurable with authentication methods (SMS, Mobile App Notification, Email) and optional password writeback to on-premises Active Directory.</li>
+            </ul>
+        </section>
+
+        <!-- Azure RBAC Section -->
+        <section class="card">
+            <h2>Azure Role-Based Access Control (RBAC)</h2>
+            <p>Azure RBAC helps you manage who has access to Azure resources, what they can do with those resources, and what areas they have access to[cite: 3].</p>
+
+            <h3>How Permissions Are Enforced</h3>
+            <p>Permissions are assigned by creating role assignments. A role assignment consists of three elements: a principal (user, group, service principal, or managed identity), a role definition, and a scope.</p>
+
+            <h3>Different Types of Roles</h3>
+            <ul>
+                <li><strong>Owner:</strong> Full access to all resources, including the authority to assign roles to others.</li>
+                <li><strong>Contributor:</strong> Can create and manage all types of Azure resources, but cannot grant access to others.</li>
+                <li><strong>Reader:</strong> Can view existing Azure resources.</li>
+                <li><strong>User Access Administrator:</strong> Allows managing user access to Azure resources.</li>
+                <li><strong>Virtual Machine Contributor:</strong> Can manage VMs but not the virtual network or storage account they connect to.</li>
+                <li><strong>Storage Account Contributor:</strong> Can manage storage accounts but not access to them via RBAC.</li>
+                <li><strong>Network Contributor:</strong> Can manage networking resources (VNets, NSGs, public IPs, etc.).</li>
+                <li><strong>Security Admin:</strong> Manage security-related policies, view alerts and recommendations in Microsoft Defender for Cloud.</li>
+                <li><strong>Backup Contributor:</strong> Manage backup services, except removal/deletion of the Recovery Services vault.</li>
+                <li><strong>Custom Roles:</strong> Custom-tailored roles if built-in roles do not meet specific organizational requirements.</li>
+            </ul>
+
+            <h3>Role Definition Structure</h3>
+            <p>A role definition is a collection of permissions defined in a JSON file format that includes operations for <code>Actions</code>, <code>NotActions</code>, <code>DataActions</code>, <code>NotDataActions</code>, and <code>AssignableScopes</code>.</p>
+
+            <h3>Assigning Roles at Different Scopes</h3>
+            <p>Role assignments can be applied at four levels, from broadest to narrowest, and are <strong>inherited downward</strong> to all child scopes:</p>
+            <div class="highlight-box">
+                <strong>Management Group</strong> &rarr; <strong>Subscription</strong> &rarr; <strong>Resource Group</strong> &rarr; <strong>Resource</strong>
+            </div>
+            <p>Best practice is to assign roles at the narrowest scope needed to perform the job (principle of least privilege), rather than defaulting to broader scopes for convenience.</p>
+
+            <h3>Interpreting Access Assignments</h3>
+            <ul>
+                <li><strong>Cumulative/Additive Access:</strong> Azure RBAC is additive — a principal's effective permissions are the union of all role assignments across every scope that applies to it (direct assignment + inherited + group membership). There is no explicit "deny" assignment in classic RBAC (deny assignments exist only for specific system scenarios, e.g. Azure Blueprints/managed apps).</li>
+                <li><strong>Check Access:</strong> Use the <em>Check access</em> button on a resource's Access Control (IAM) blade to see what a specific user, group, or service principal can do at that scope.</li>
+                <li><strong>View My Access / Role Assignments:</strong> The <em>Role assignments</em> tab lists every principal with a role at that scope and above (inherited), noting the scope each assignment condition originates from.</li>
+                <li><strong>RBAC vs. Policy Conflicts:</strong> RBAC controls <em>who can do what</em>; Azure Policy controls <em>what configurations are allowed</em>, regardless of who the user is. A user might have RBAC "Contributor" access yet still be blocked by a Policy with a <code>Deny</code> effect.</li>
+            </ul>
+
+            <h3>Managed Identities for Azure Resources</h3>
+            <p>Eliminates the need for developers to manage credentials in code by providing an automatically managed identity in Microsoft Entra ID for applications:</p>
+            <ul>
+                <li><strong>System-Assigned:</strong> Tied directly to a single Azure resource (e.g., a VM). Deleted automatically when the resource is deleted.</li>
+                <li><strong>User-Assigned:</strong> Created as a standalone Azure resource. Can be assigned to multiple Azure resources simultaneously.</li>
+            </ul>
+        </section>
+
+        <!-- Azure Policy & Governance Section -->
+        <section class="card">
+            <h2>Azure Policy & Resource Governance</h2>
+            <p>Azure Policy enforces organizational standards and assesses compliance at scale through its governance capabilities.</p>
+
+            <h3>Policy Components & Structure</h3>
+            <ul>
+                <li><strong>Policy Definition:</strong> Expressed in JSON, defining the conditions under which a policy is enforced and the action to take.</li>
+                <li><strong>Policy Assignment:</strong> A policy definition or initiative that has been assigned to a specific scope (e.g., Management Group, Subscription, or Resource Group).</li>
+                <li><strong>Initiative Definition:</strong> A collection of policy definitions grouped together toward a single overarching goal.</li>
+            </ul>
+
+            <h3>Policy Effects</h3>
+            <p>Policy evaluation triggers specific effects depending on rules specified in the definition:</p>
+            <ul>
+                <li><code>Append</code> — Adds required fields to the resource during creation or update.</li>
+                <li><code>Audit</code> — Creates a warning event in the activity log without blocking the request.</li>
+                <li><code>AuditIfNotExists</code> — Audits if a related resource does not exist.</li>
+                <li><code>Deny</code> — Prevents the resource creation or update request.</li>
+                <li><code>DeployIfNotExists</code> — Deploys a specified resource if it does not already exist.</li>
+                <li><code>Disabled</code> — Turns off policy evaluation.</li>
+            </ul>
+
+            <h3>Management Groups & Resource Locks</h3>
+            <ul>
+                <li><strong>Management Groups:</strong> Governance scope hierarchy above subscriptions, supporting up to 6 levels deep (not counting the root or subscription level). Every tenant has a single top-level <em>Root</em> management group. Policy assignments and RBAC roles assigned at a Management Group automatically inherit down to child subscriptions and resources. A subscription can only be a member of one management group at a time; management groups can be nested and subscriptions moved between them.</li>
+                <li><strong>Resource Locks:</strong> Protects Azure resources from accidental modification or deletion.
+                    <ul>
+                        <li><code>CanNotDelete</code> (Delete) — Authorized users can read and modify a resource, but cannot delete it.</li>
+                        <li><code>ReadOnly</code> (Read-only) — Authorized users can read a resource, but cannot modify or delete it (this can break operations that require a write, such as scaling).</li>
+                    </ul>
+                    Locks apply to all users/roles, including Owners, and are inherited from parent scope. A resource inherits the <em>most restrictive</em> lock from any parent scope. Deleting a resource group with a lock is blocked even if individual resources are unlocked.
+                </li>
+            </ul>
+        </section>
+
+        <!-- Tags Section -->
+        <section class="card">
+            <h2>Resource Tags</h2>
+            <p>Tags are name/value pairs applied to resources, resource groups, and subscriptions to logically organize assets for billing, automation, and management purposes.</p>
+            <h3>Key Rules & Constraints</h3>
+            <ul>
+                <li>Each resource, resource group, or subscription can have up to <strong>50 tag name/value pairs</strong>. Storage accounts and some resources support fewer.</li>
+                <li>Tag name/value pairs are <strong>not inherited</strong> automatically by child resources — applying a tag to a resource group does not tag the resources inside it. Use Azure Policy (<code>Modify</code> effect) to enforce/inherit tags automatically.</li>
+                <li>Tags can be applied/edited via the Portal, Azure PowerShell, Azure CLI, or ARM/Bicep templates, and can be bulk-edited across multiple resources at once.</li>
+                <li>Certain resource types don't support tags (e.g., some classic resources); check resource-specific documentation.</li>
+                <li>Tags are useful for cost reporting — Cost Management can group and filter spend by tag.</li>
+            </ul>
+        </section>
+
+        <!-- Resource Groups Section -->
+        <section class="card">
+            <h2>Resource Groups</h2>
+            <p>A resource group is a logical container that holds related resources for an Azure solution, used for lifecycle management, access control, and billing/reporting grouping.</p>
+            <h3>Key Facts</h3>
+            <ul>
+                <li>Every resource must belong to exactly <strong>one</strong> resource group. Resources can be moved between resource groups (and even subscriptions), though some resource types have move limitations.</li>
+                <li>Resource groups <strong>cannot be nested</strong>.</li>
+                <li>The resource group stores metadata about resources in a specific region; if that region has an outage, the metadata may be unavailable even though the resources themselves reside in other regions and keep running.</li>
+                <li>Deleting a resource group <strong>deletes all resources within it</strong> — apply a <code>CanNotDelete</code> lock to prevent accidental loss.</li>
+                <li>RBAC roles and Azure Policy can be assigned at the resource group scope and are inherited by all resources inside.</li>
+            </ul>
+        </section>
+
+        <!-- Subscriptions Section -->
+        <section class="card">
+            <h2>Azure Subscriptions</h2>
+            <p>A subscription is a billing and access-control boundary that links to an Entra ID tenant and groups resource groups/resources together.</p>
+            <h3>Key Concepts</h3>
+            <ul>
+                <li><strong>Subscription Types:</strong> Common offer types include Pay-As-You-Go, Enterprise Agreement (EA), Cloud Solution Provider (CSP), Free Trial, and Microsoft Customer Agreement (MCA) — each with different billing and support arrangements.</li>
+                <li><strong>Tenant Relationship:</strong> A subscription trusts exactly one Entra ID tenant for authentication, but a tenant can be associated with multiple subscriptions. Subscription ownership (the associated Entra tenant) can be changed via the "Change directory" action, though this can affect existing role assignments.</li>
+                <li><strong>Multiple Subscriptions:</strong> Organizations often create multiple subscriptions to separate environments (Dev/Test/Prod), billing units, or compliance boundaries — grouped under Management Groups for unified governance.</li>
+                <li><strong>Moving Subscriptions:</strong> Subscriptions can be moved between Management Groups; moving between tenants is a more involved process and can break existing RBAC assignments and managed identities.</li>
+                <li><strong>Cancel/Reactivate:</strong> Subscriptions can be cancelled (resources are deallocated/deleted after a grace period) or, in some cases, reactivated within a limited window.</li>
+            </ul>
+        </section>
+
+        <!-- Cost Management Section -->
+        <section class="card">
+            <h2>Cost Management: Alerts, Budgets & Advisor</h2>
+            <h3>Budgets & Alerts</h3>
+            <ul>
+                <li><strong>Budgets:</strong> Set in Cost Management + Billing at the subscription, resource group, or management group scope to track spend against a defined amount over a time period (monthly, quarterly, annually).</li>
+                <li><strong>Cost Alerts:</strong> Automatically triggered notifications when actual or forecasted spend crosses a defined percentage threshold of the budget (e.g., 80%, 100%). Alerts are notification-only — they do <strong>not</strong> stop resources or block spending.</li>
+                <li><strong>Action Groups:</strong> Budgets can trigger action groups to automate a response (e.g., send an email, call a webhook/Azure Function/Logic App) when a threshold is exceeded.</li>
+                <li><strong>Cost Analysis:</strong> A tool for exploring and visualizing accumulated/actual costs over time, filterable and groupable by resource, resource group, tag, or service.</li>
+            </ul>
+            <h3>Azure Advisor</h3>
+            <p>Azure Advisor is a free, personalized recommendation engine that analyzes resource configuration and usage telemetry across five categories:</p>
+            <ul>
+                <li><strong>Cost:</strong> Identifies underutilized resources (e.g., right-sizing or shutting down idle VMs) and reserved instance opportunities to reduce spend.</li>
+                <li><strong>Reliability:</strong> Recommendations to ensure business continuity and availability.</li>
+                <li><strong>Security:</strong> Surfaces Microsoft Defender for Cloud recommendations.</li>
+                <li><strong>Operational Excellence:</strong> Process and workflow best practices.</li>
+                <li><strong>Performance:</strong> Improves the speed/responsiveness of applications.</li>
+            </ul>
+        </section>
+
+        <!-- Comparison Section -->
+        <section class="card">
+            <h2>Comparison: RBAC vs. Azure Policy vs. Entra ID</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Feature / Service</th>
+                        <th>Microsoft Entra ID</th>
+                        <th>Azure RBAC</th>
+                        <th>Azure Policy</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Primary Purpose</strong></td>
+                        <td>Identity and Access Management (IAM)</td>
+                        <td>Authorization and Resource Access Management</td>
+                        <td>Resource Governance and Compliance</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Focus Area</strong></td>
+                        <td>Users, Groups, Devices, and Tenant Security[cite: 3]</td>
+                        <td>User Actions / Permissions on Resources</td>
+                        <td>Resource Properties and Configurations</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Scope Enforcement</strong></td>
+                        <td>Tenant-wide</td>
+                        <td>Management Group, Subscription, RG, or Resource</td>
+                        <td>Management Group, Subscription, or Resource Group</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+    </div>
+    <footer>
+        <p>AZ-104 Identity and Governance Domain </p>
+    </footer>
+
+  <script type="module" src="../js/reference.js"></script>
+</body>
+</html>

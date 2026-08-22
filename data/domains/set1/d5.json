@@ -2,1051 +2,1061 @@
   {
     "id": 1,
     "subtopic": "Interpret metrics in Azure Monitor",
-    "question": "You are monitoring an Azure Virtual Machine named VM1. You view the Percentage CPU metric in Azure Monitor Metrics with the aggregation set to Average over a 1-minute time grain. You notice intermittent performance degradation, but the average metric stays around 40%. Which aggregation type should you apply to identify brief, extreme spikes in CPU utilization?",
+    "question": "You are investigating a performance issue on an Azure Virtual Machine scale set. You need to analyze the percentage CPU usage over the past 24 hours and compare it with disk read bytes. Which Azure Monitor feature allows you to aggregate, chart, and visually compare these distinct numeric data points over time?",
     "options": [
-      "Maximum",
-      "Total",
-      "Count",
-      "Minimum"
+      "Azure Monitor Metrics Explorer",
+      "Log Analytics Workspace with KQL",
+      "Azure Activity Log",
+      "Azure Service Health"
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "The Maximum aggregation type displays the highest recorded value during each time grain interval, revealing brief spikes that are smoothed out by an Average aggregation.",
+      "correctReason": "Azure Monitor Metrics Explorer is designed specifically for analyzing, aggregating, and visually plotting lightweight numerical metric data (like Percentage CPU and Disk Read Bytes) collected near real-time.",
       "incorrectReasons": [
-        "Total sums all metric values collected in the time grain interval, which produces an artificially high aggregate number rather than peak utilization percentage.",
-        "Count returns the number of data points collected in the interval, not the intensity of the CPU load.",
-        "Minimum shows the lowest recorded utilization in each interval, which will not highlight peak usage spikes."
+        "Log Analytics Workspace is primarily used for querying structured log data using KQL rather than viewing lightweight near-real-time metrics.",
+        "Azure Activity Log records subscription-level events and control-plane operations, not performance metrics.",
+        "Azure Service Health provides information about Azure service outages, planned maintenance, and health advisories."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/azure-monitor/essentials/metrics-aggregation-explained"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-monitor/essentials/metrics-getting-started"
     }
   },
   {
     "id": 2,
     "subtopic": "Interpret metrics in Azure Monitor",
-    "question": "You are reviewing network traffic metrics for an Azure Virtual Machine. You need to distinguish between traffic entering the VM and traffic leaving the VM. Which feature in Azure Monitor Metrics allows you to break down a single metric by a property like direction or protocol?",
+    "question": "You configure a custom metric chart for an Azure Storage account. You want to view the average server latency, but you notice that spikes in latency are masked by low activity during off-peak hours. Which metric aggregation type should you select in Metrics Explorer to identify the extreme peak latency experienced by clients?",
     "options": [
-      "Splitting (Dimensions)",
-      "Alert processing rules",
-      "Metric namespace filtering",
-      "Diagnostic settings"
+      "Average",
+      "Max",
+      "Sum",
+      "Count"
     ],
-    "correct": 0,
+    "correct": 1,
     "explanation": {
-      "correctReason": "Metric splitting (using dimensions) separates a multi-dimensional metric chart into individual series based on dimension values such as direction (Inbound/Outbound) or protocol.",
+      "correctReason": "Selecting the 'Max' aggregation type displays the highest recorded metric value during each time grain interval, revealing maximum latency spikes that are smoothed out by 'Average'.",
       "incorrectReasons": [
-        "Alert processing rules modify action groups and alert notifications, but do not alter or analyze metric charts.",
-        "Metric namespace filtering changes the scope of available metrics (e.g., Guest vs Platform), but does not break down a multi-dimensional metric.",
-        "Diagnostic settings stream logs and metrics to external targets, but do not manipulate chart visual dimensions."
+        "Average smooths out extreme high or low values across the sample window, masking brief spikes.",
+        "Sum adds all sampled values together, which is useful for request counts but not for evaluating latency thresholds.",
+        "Count shows the total number of recorded events or samples, not latency duration."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/azure-monitor/essentials/metrics-getting-started#apply-dimension-filters-and-splitting"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-monitor/essentials/metrics-aggregation-explained"
     }
   },
   {
     "id": 3,
-    "subtopic": "Interpret metrics in Azure Monitor",
-    "question": "An administrator wants to view memory utilization metrics for an Azure Virtual Machine in Azure Monitor Metrics. However, 'Memory percentage' is not available in the default platform metrics list. What must be installed on the VM to collect memory metrics into Azure Monitor Metrics?",
+    "subtopic": "Configure log settings in Azure Monitor",
+    "question": "You need to export diagnostic logs from multiple Virtual Networks and Network Security Groups (NSGs) to a centralized location for long-term retention beyond 365 days at minimal cost. Which destination in diagnostic settings best satisfies this requirement?",
     "options": [
-      "Azure Monitor Agent (AMA) with a Data Collection Rule (DCR) configured for guest metrics",
-      "Azure Network Watcher extension",
-      "Azure Dependency Agent",
-      "Azure Virtual Machine Scale Set extension"
+      "Log Analytics workspace",
+      "Azure Storage account",
+      "Event Hubs",
+      "Partner solution"
     ],
-    "correct": 0,
+    "correct": 1,
     "explanation": {
-      "correctReason": "Operating system memory metrics are guest-level metrics. Collecting guest OS memory metrics into Azure Monitor Metrics requires the Azure Monitor Agent (AMA) and a Data Collection Rule (DCR) targeting Performance Counters / Guest Metrics.",
+      "correctReason": "Azure Storage accounts provide low-cost blob storage ideal for long-term data archiving and compliance compliance retention beyond a year.",
       "incorrectReasons": [
-        "The Network Watcher extension collects network packet traces and connection data, not OS memory metrics.",
-        "The Azure Dependency Agent discovers process connections and dependencies for Map features, but does not publish standard OS memory performance counters.",
-        "VMSS extensions are for scaling groups of VMs, not for enabling guest performance counter collection on a standard VM."
+        "Log Analytics workspaces incur higher storage and ingestion costs for long-term retention compared to Azure Blob Storage.",
+        "Event Hubs is a streaming ingestion service used to push data to third-party SIEMs or real-time pipelines, not a long-term storage solution.",
+        "Partner solutions involve third-party integrations which generally incur extra software and infrastructure overhead."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-monitor/essentials/diagnostic-settings"
+    }
+  },
+  {
+    "id": 4,
+    "subtopic": "Configure log settings in Azure Monitor",
+    "question": "An administrator needs to collect guest OS system logs and performance counters from 50 Azure virtual machines running Windows Server and Linux. The solution must use centralized management and modern monitoring configuration rules. Which agent and configuration mechanism should be deployed? (Select TWO)",
+    "options": [
+      "Azure Monitor Agent (AMA)",
+      "Log Analytics Agent (MMA/OMS)",
+      "Data Collection Rules (DCR)",
+      "Diagnostic Extension (WAD/LAD)",
+      "Azure Automation State Configuration"
+    ],
+    "correct": [0, 2],
+    "explanation": {
+      "correctReason": "The Azure Monitor Agent (AMA) combined with Data Collection Rules (DCR) is Microsoft's standard solution for collecting guest OS logs and metrics centrally across Windows and Linux VMs.",
+      "incorrectReasons": [
+        "Log Analytics Agent (MMA/OMS) is deprecated and being replaced by Azure Monitor Agent.",
+        "Diagnostic extensions (WAD/LAD) lack centralized management features provided by DCRs.",
+        "Azure Automation State Configuration is used for OS configuration management, not log collecting settings."
       ],
       "reference": "https://learn.microsoft.com/en-us/azure/azure-monitor/agents/azure-monitor-agent-overview"
     }
   },
   {
-    "id": 4,
-    "subtopic": "Interpret metrics in Azure Monitor",
-    "question": "You are analyzing an Azure Storage Account that hosts critical blob data. You notice high latency for read requests. Which metric and dimension combination in Azure Monitor Metrics helps you isolate whether the latency is caused by client end delay versus server processing delay?",
-    "options": [
-      "Success E2E Latency and Success Server Latency grouped by API name",
-      "Transactions grouped by ResponseType",
-      "Used capacity grouped by BlobType",
-      "Ingress grouped by GeoReplicationStatus"
-    ],
-    "correct": 0,
-    "explanation": {
-      "correctReason": "Success E2E (End-to-End) Latency measures total round-trip time, while Success Server Latency measures storage service processing time. Comparing both (grouped by API name like GetBlob) identifies whether delays stem from the network/client or Azure Storage.",
-      "incorrectReasons": [
-        "Transactions grouped by ResponseType shows success or error counts (e.g., ClientOtherError), not processing latency breakdown.",
-        "Used capacity tracks total stored bytes per blob type, which is unrelated to request latency.",
-        "Ingress tracks incoming byte counts and geo-replication status, not read latency."
-      ],
-      "reference": "https://learn.microsoft.com/en-us/azure/storage/blobs/monitor-blob-storage-reference"
-    }
-  },
-  {
     "id": 5,
-    "subtopic": "Interpret metrics in Azure Monitor",
-    "question": "You need to retain Azure Monitor platform metrics for a critical Azure SQL Database for 365 days for compliance. Default metric charts in Azure Monitor Metrics retain platform metric data for 93 days. What should you configure to keep metric data for a full year?",
+    "subtopic": "Query and analyze logs in Azure Monitor",
+    "question": "You are writing a Kusto Query Language (KQL) query in Log Analytics to identify failed logon attempts on virtual machines. Which table should you query to inspect Windows security event logs?",
     "options": [
-      "Configure Diagnostic Settings to export metrics to a Log Analytics workspace with a 365-day retention period",
-      "Increase the time grain on the Azure Monitor Metrics blade to 1 year",
-      "Create a dynamic alert rule with a 1-year evaluation period",
-      "Enable Azure Advisor performance recommendations"
+      "Syslog",
+      "Event",
+      "SecurityEvent",
+      "Heartbeat"
     ],
-    "correct": 0,
+    "correct": 2,
     "explanation": {
-      "correctReason": "Standard platform metrics are retained in Azure Monitor Metrics for 93 days. To retain metrics for 365 days, configure Diagnostic Settings to stream the metrics to a Log Analytics workspace configured with 365 days retention (or an Azure Storage account).",
+      "correctReason": "The 'SecurityEvent' table stores Windows security events ingested via Azure Monitor Agent or Legacy Log Analytics Agent when Security logs are collected.",
       "incorrectReasons": [
-        "Time grain affects aggregation window size (e.g., 1 minute vs 1 hour), not underlying metric data retention duration.",
-        "Dynamic alert rules evaluate metrics over short windows (e.g., past 5-15 minutes), not year-long historical storage.",
-        "Azure Advisor provides recommendations based on short-term telemetry, but does not alter metric retention policy."
+        "Syslog contains Linux event log records, not Windows security events.",
+        "Event stores standard Windows application, system, and custom logs, but not Windows Security logs.",
+        "Heartbeat records agent connectivity health data, not OS authentication events."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/azure-monitor/essentials/metrics-supported"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/securityevent"
     }
   },
   {
     "id": 6,
-    "subtopic": "Interpret metrics in Azure Monitor",
-    "question": "You are comparing metric charts across four virtual machines in different resource groups. You want to save this view into a single shared dashboard so team members can view real-time performance simultaneously. How should you accomplish this?",
+    "subtopic": "Query and analyze logs in Azure Monitor",
+    "question": "You need to query AzureDiagnostics to list the top 10 resources that generated the highest number of log records in the past 7 days. Which KQL query structure achieves this requirement?",
     "options": [
-      "Pin the configured metric charts from Azure Monitor Metrics to an Azure Dashboard",
-      "Export the metrics to a CSV file and share via OneDrive",
-      "Create a single Diagnostic Setting on the subscription",
-      "Configure an Alert Processing Rule targeting the resource groups"
+      "AzureDiagnostics | where TimeGenerated > ago(7d) | summarize count() by Resource | top 10 by count_",
+      "AzureDiagnostics | filter TimeGenerated == 7d | group by Resource | take 10",
+      "AzureDiagnostics | search '7d' | count by Resource | limit 10",
+      "AzureDiagnostics | where TimeGenerated >= ago(7d) | distinct Resource | limit 10"
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "Customized charts in Azure Monitor Metrics can be directly pinned to an Azure Dashboard (shared or private) for unified multi-resource monitoring.",
+      "correctReason": "The correct KQL syntax filters by time using `where TimeGenerated > ago(7d)`, aggregates record count per resource using `summarize count() by Resource`, and gets the highest 10 using `top 10 by count_`.",
       "incorrectReasons": [
-        "Exporting to CSV produces static snapshots rather than a live, dynamic monitoring view for team members.",
-        "Diagnostic Settings route logs/metrics to storage/workspaces, but do not build visual monitoring dashboards.",
-        "Alert Processing Rules modify alert notification actions, not dashboard visualizations."
+        "KQL uses `where` not `filter`, and `ago(7d)` not `== 7d`.",
+        "`search '7d'` searches text content for the string '7d' rather than evaluating datetime.",
+        "`distinct` returns unique resource names without counting the total log records generated."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/azure-portal/azure-portal-dashboards"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-monitor/logs/get-started-queries"
     }
   },
   {
     "id": 7,
-    "subtopic": "Interpret metrics in Azure Monitor",
-    "question": "You observe a spike in the 'Disk Write Operations/sec' metric for a virtual machine. You want to verify if this activity caused disk throttling. Which metric should you evaluate alongside disk operations?",
+    "subtopic": "Set up alert rules, action groups, and alert processing rules in Azure Monitor",
+    "question": "You want to receive an email notification whenever an administrator deletes an Azure Virtual Machine in a specific Subscription. What type of alert rule should you create in Azure Monitor?",
     "options": [
-      "VM Data Disk IOPS Consumed Percentage",
-      "OS Disk Free Space",
-      "Network Out Total",
-      "Percentage CPU"
-    ],
-    "correct": 0,
-    "explanation": {
-      "correctReason": "'VM Data Disk IOPS Consumed Percentage' or 'OS Disk Provisioned Bandwidth Consumed Percentage' directly indicates whether disk operations are approaching or exceeding assigned throughput limits.",
-      "incorrectReasons": [
-        "OS Disk Free Space tracks remaining capacity in bytes/GB, not IOPS performance saturation or throttling.",
-        "Network Out Total measures network egress bytes, which does not directly indicate disk storage throttling.",
-        "Percentage CPU indicates host CPU load, which can be high during disk writes but does not measure storage throughput limits."
-      ],
-      "reference": "https://learn.microsoft.com/en-us/azure/virtual-machines/disks-metrics"
-    }
-  },
-  {
-    "id": 8,
-    "subtopic": "Interpret metrics in Azure Monitor",
-    "question": "In Azure Monitor Metrics, what is the default retention period for standard platform metrics?",
-    "options": [
-      "93 days",
-      "30 days",
-      "180 days",
-      "365 days"
-    ],
-    "correct": 0,
-    "explanation": {
-      "correctReason": "Azure Monitor platform metrics are stored for 93 days without any additional configuration or cost.",
-      "incorrectReasons": [
-        "30 days is the default retention period for standard Log Analytics workspaces, not platform metrics.",
-        "180 days is not a default retention threshold for Azure platform metrics.",
-        "365 days requires diagnostic export to Log Analytics, Storage, or Data Explorer."
-      ],
-      "reference": "https://learn.microsoft.com/en-us/azure/azure-monitor/essentials/data-platform-metrics#retention-of-metrics"
-    }
-  },
-  {
-    "id": 9,
-    "subtopic": "Configure log settings in Azure Monitor",
-    "question": "You need to collect Windows Event Logs (System and Application) and performance counters from 50 Azure Virtual Machines and send them to a Log Analytics workspace. Which Azure Monitor resource should you create and assign to these VMs?",
-    "options": [
-      "Data Collection Rule (DCR)",
-      "Diagnostic Setting",
-      "Log Analytics Workspace Key",
-      "Azure Automation Runbook"
-    ],
-    "correct": 0,
-    "explanation": {
-      "correctReason": "Data Collection Rules (DCRs) defined with the Azure Monitor Agent (AMA) specify what data (event logs, performance counters) should be collected from virtual machines and where that data should be sent.",
-      "incorrectReasons": [
-        "Diagnostic Settings are used for platform logs and metrics generated at the Azure resource level, not guest OS logs collected via AMA.",
-        "Workspace Keys were used by the legacy Log Analytics agent (MMA), which is deprecated.",
-        "Automation Runbooks execute scripts and tasks, but do not collect VM guest log telemetry."
-      ],
-      "reference": "https://learn.microsoft.com/en-us/azure/azure-monitor/essentials/data-collection-rule-overview"
-    }
-  },
-  {
-    "id": 10,
-    "subtopic": "Configure log settings in Azure Monitor",
-    "question": "You configure a Diagnostic Setting on a Key Vault named KV1. You select 'AuditEvent' logs and want to store them long-term for audit compliance at minimal cost, with no need for complex querying. Which destination should you select?",
-    "options": [
-      "Archive to a storage account",
-      "Send to Log Analytics workspace",
-      "Stream to an event hub",
-      "Partner solution"
-    ],
-    "correct": 0,
-    "explanation": {
-      "correctReason": "Archiving diagnostic logs to an Azure Storage account provides low-cost, long-term retention suitable for regulatory compliance when instant KQL querying is not required.",
-      "incorrectReasons": [
-        "Log Analytics workspaces incur higher storage costs per GB and are intended for interactive analysis rather than simple long-term cold archiving.",
-        "Event Hubs are used for real-time streaming to third-party SIEMs or external consumers, not long-term storage.",
-        "Partner solutions stream logs to external third-party services, which usually incurs extra licensing and processing costs."
-      ],
-      "reference": "https://learn.microsoft.com/en-us/azure/azure-monitor/essentials/diagnostic-settings"
-    }
-  },
-  {
-    "id": 11,
-    "subtopic": "Configure log settings in Azure Monitor",
-    "question": "You need to collect Activity Logs from your Azure subscription and retain them in a central Log Analytics workspace. Where in the Azure Portal do you configure this log collection?",
-    "options": [
-      "Activity log blade > Export Activity Logs (Diagnostic Settings)",
-      "Virtual Machines blade > Extension settings",
-      "Log Analytics Workspace > Table configuration",
-      "Azure Defender > Security Policy"
-    ],
-    "correct": 0,
-    "explanation": {
-      "correctReason": "Subscription-level Activity Logs are routed to Log Analytics workspaces, Event Hubs, or Storage accounts by configuring Diagnostic Settings on the Activity log blade.",
-      "incorrectReasons": [
-        "VM extension settings configure guest-level extensions, not subscription-wide Azure Activity Logs.",
-        "Table configuration manages schema and retention per table, but does not initiate Activity Log ingestion routing.",
-        "Security policies enforce defender configurations, not broad Activity Log diagnostic export."
-      ],
-      "reference": "https://learn.microsoft.com/en-us/azure/azure-monitor/essentials/activity-log#legacy-collection-methods"
-    }
-  },
-  {
-    "id": 12,
-    "subtopic": "Configure log settings in Azure Monitor",
-    "question": "You have a Log Analytics workspace named LAW1. To minimize costs, you want to set the interactive data retention period for LAW1 to 30 days, while keeping historical data for 2 years in a low-cost, searchable format for compliance. Which table-level feature should you configure?",
-    "options": [
-      "Total retention (Data Archive)",
-      "Cap Ingestion daily limit",
-      "Workspace Data Export",
-      "Resource-context permissions"
-    ],
-    "correct": 0,
-    "explanation": {
-      "correctReason": "Azure Log Analytics supports configuring Interactive Retention (e.g., 30 days) and Total Retention/Archive (up to 7 years). Archived data remains retrievable via search jobs at lower storage rates.",
-      "incorrectReasons": [
-        "Daily ingestion caps restrict how many GBs are ingested per day to prevent unexpected bill spikes, but do not manage historical log retention.",
-        "Workspace Data Export streams incoming data continuously to Storage/Event Hub, but does not configure Log Analytics table archive policy natively.",
-        "Resource-context permissions control RBAC access scopes, not data retention policies."
-      ],
-      "reference": "https://learn.microsoft.com/en-us/azure/azure-monitor/logs/data-retention-archive"
-    }
-  },
-  {
-    "id": 13,
-    "subtopic": "Configure log settings in Azure Monitor",
-    "question": "You need to associate a Data Collection Rule (DCR) with 100 Linux VMs deployed across multiple resource groups. What is the most efficient administrative method to deploy this association at scale?",
-    "options": [
-      "Assign an Azure Policy that automatically deploys the DCR association (DCR-Association)",
-      "Manually open each VM blade in Azure Portal and click Connect",
-      "Run an Azure CLI command sequentially using a local text list",
-      "Create a custom Script Extension on each VM"
-    ],
-    "correct": 0,
-    "explanation": {
-      "correctReason": "Using Azure Policy with the `DeployIfNotExists` effect automatically enforces the Azure Monitor Agent installation and associates the Data Collection Rule across all matching VMs in scope.",
-      "incorrectReasons": [
-        "Manually connecting 100 VMs through the Azure Portal UI is repetitive, error-prone, and inefficient.",
-        "Sequential local CLI scripts take time and do not enforce compliance for newly created future VMs.",
-        "Custom Script Extensions write custom code that requires maintenance and bypasses native Azure Monitor DCR governance."
-      ],
-      "reference": "https://learn.microsoft.com/en-us/azure/azure-monitor/agents/azure-monitor-agent-policy-default"
-    }
-  },
-  {
-    "id": 14,
-    "subtopic": "Configure log settings in Azure Monitor",
-    "question": "You want to stream diagnostic logs from an Azure Firewall to an external SIEM solution hosted on-premises. Which target option in Diagnostic Settings should you configure to transmit these logs externally with low latency?",
-    "options": [
-      "Stream to an event hub",
-      "Send to Log Analytics workspace",
-      "Archive to a storage account",
-      "Send to Azure Advisor"
-    ],
-    "correct": 0,
-    "explanation": {
-      "correctReason": "Azure Event Hubs is designed for real-time streaming of logs and telemetry data to external SIEM systems, Splunk, or custom log processors.",
-      "incorrectReasons": [
-        "Log Analytics workspaces store logs inside Azure for KQL querying, rather than directly streaming outbound to third-party on-premises SIEMs.",
-        "Archiving to storage creates batch blob files, which introduces latency and is not ideal for real-time SIEM ingestion.",
-        "Azure Advisor generates optimization recommendations, not custom streaming endpoints."
-      ],
-      "reference": "https://learn.microsoft.com/en-us/azure/azure-monitor/essentials/diagnostic-settings"
-    }
-  },
-  {
-    "id": 15,
-    "subtopic": "Configure log settings in Azure Monitor",
-    "question": "You create a custom log table in a Log Analytics workspace. Which log table plan type offers reduced ingestion costs for basic troubleshooting logs where analytical features like join operations and alerts are not required?",
-    "options": [
-      "Basic Logs",
-      "Analytics Logs",
-      "Archive Logs",
-      "Standard Logs"
-    ],
-    "correct": 0,
-    "explanation": {
-      "correctReason": "The Basic Logs plan reduces ingestion cost per GB for high-volume verbose logs. Basic logs support simple debugging queries but do not support advanced KQL (e.g., joins, summaries) or alert rules.",
-      "incorrectReasons": [
-        "Analytics Logs is the default tier that supports full KQL capabilities, alerting, and joins, but carries standard ingestion rates.",
-        "Archive Logs refers to the long-term storage state for inactive historical data, not active table ingestion plan tiers.",
-        "Standard Logs is not a formal table plan designation in Log Analytics."
-      ],
-      "reference": "https://learn.microsoft.com/en-us/azure/azure-monitor/logs/basic-logs-configure"
-    }
-  },
-  {
-    "id": 16,
-    "subtopic": "Configure log settings in Azure Monitor",
-    "question": "You configure a Data Collection Rule (DCR) using the Azure Monitor Agent. You want to filter out informational Syslog messages from Linux VMs before they are ingested into Log Analytics to reduce costs. Where do you configure this data reduction filter?",
-    "options": [
-      "Inside the Data Sources section of the Data Collection Rule",
-      "In the Log Analytics Workspace Data Cap settings",
-      "In the Azure Network Watcher flow log configuration",
-      "On the Linux OS cron configuration"
-    ],
-    "correct": 0,
-    "explanation": {
-      "correctReason": "Data Collection Rules allow filtering directly at the source definition (Data Sources section) by selecting specific facility levels (e.g., Warning, Error) or applying KQL transform queries before transmission.",
-      "incorrectReasons": [
-        "Data Cap settings stop all log ingestion once a daily limit is reached, but cannot selectively drop informational Syslog events.",
-        "Network Watcher flow logs process IP flow telemetry, not Linux OS Syslog messages.",
-        "Editing local OS cron tasks does not manage the telemetry collection rules defined by Azure Monitor Agent."
-      ],
-      "reference": "https://learn.microsoft.com/en-us/azure/azure-monitor/essentials/data-collection-rule-overview"
-    }
-  },
-  {
-    "id": 17,
-    "subtopic": "Query and analyze logs in Azure Monitor",
-    "question": "You need to query Azure Activity Logs to find all VM restart events (`Microsoft.Compute/virtualMachines/restart/action`) that occurred in the last 24 hours. Which Kusto Query Language (KQL) query should you run in Azure Monitor Logs?",
-    "options": [
-      "AzureActivity | where TimeGenerated > ago(24h) | where OperationNameValue == 'Microsoft.Compute/virtualMachines/restart/action'",
-      "VMComputer | where TimeGenerated > ago(24h) | summarize count() by OperationName",
-      "Heartbeat | where TimeGenerated > ago(24h) | search 'restart'",
-      "Event | where EventID == 6005 | summarize by Computer"
-    ],
-    "correct": 0,
-    "explanation": {
-      "correctReason": "The `AzureActivity` table stores Azure management plane events. Filtering by `TimeGenerated > ago(24h)` and `OperationNameValue == 'Microsoft.Compute/virtualMachines/restart/action'` isolates VM restart operations.",
-      "incorrectReasons": [
-        "VMComputer contains inventory metadata about machines collected by AMA/Insight solutions, not Azure control plane Activity Log operations.",
-        "Heartbeat table records periodic agent presence ping signals, not control plane management operations.",
-        "Event table stores guest OS Windows Event Logs; Event ID 6005 indicates Event Log service start, which is an in-guest signal rather than an Azure Activity log event."
-      ],
-      "reference": "https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/azureactivity"
-    }
-  },
-  {
-    "id": 18,
-    "subtopic": "Query and analyze logs in Azure Monitor",
-    "question": "You run a KQL query that retrieves thousands of row results. You want to group the results by computer name and calculate the average CPU usage for each computer. Which KQL operator should you use?",
-    "options": [
-      "summarize",
-      "project",
-      "extend",
-      "render"
-    ],
-    "correct": 0,
-    "explanation": {
-      "correctReason": "The `summarize` operator aggregates data rows by grouping specified dimensions (e.g., `by Computer`) and applying aggregation functions like `avg()`.",
-      "incorrectReasons": [
-        "The `project` operator selects, renames, or drops columns from the output result set without aggregating rows.",
-        "The `extend` operator creates calculated custom columns and appends them to existing dataset rows without performing aggregations.",
-        "The `render` operator instructs Azure Monitor how to visualize output results (e.g., `render barchart`), but does not calculate average metrics."
-      ],
-      "reference": "https://learn.microsoft.com/en-us/azure/data-explorer/kusto/query/summarize-operator"
-    }
-  },
-  {
-    "id": 19,
-    "subtopic": "Query and analyze logs in Azure Monitor",
-    "question": "You are writing a KQL query on the `Perf` table to analyze memory usage on virtual machines. You want to create a new calculated column named `FreeGB` that converts `CounterValue` (measured in Megabytes) into Gigabytes. Which KQL operator should you use?",
-    "options": [
-      "extend FreeGB = CounterValue / 1024",
-      "project FreeGB = CounterValue / 1024",
-      "summarize FreeGB = CounterValue / 1024",
-      "where FreeGB = CounterValue / 1024"
-    ],
-    "correct": 0,
-    "explanation": {
-      "correctReason": "The `extend` operator introduces a dynamic calculated column (`FreeGB`) based on existing record values while retaining all other columns in the result set.",
-      "incorrectReasons": [
-        "`project` would keep ONLY the newly created column `FreeGB` and drop all other existing columns from the result set unless explicitly named.",
-        "`summarize` requires an aggregation function (e.g., `avg()`, `sum()`) along with a `by` grouping clause.",
-        "`where` filters existing rows based on boolean predicate conditions; it cannot define or append new calculated columns."
-      ],
-      "reference": "https://learn.microsoft.com/en-us/azure/data-explorer/kusto/query/extend-operator"
-    }
-  },
-  {
-    "id": 20,
-    "subtopic": "Query and analyze logs in Azure Monitor",
-    "question": "You want to display a time-series line chart of VM heartbeat counts grouped in 15-minute intervals over the last 6 hours. Which KQL clause produces the required time-binned visualization structure?",
-    "options": [
-      "Heartbeat | where TimeGenerated > ago(6h) | summarize count() by bin(TimeGenerated, 15m), Computer | render timechart",
-      "Heartbeat | where TimeGenerated > ago(6h) | top 15 by TimeGenerated | render barchart",
-      "Heartbeat | where TimeGenerated > ago(6h) | project TimeGenerated, Computer | render piechart",
-      "Heartbeat | where TimeGenerated > ago(6h) | order by TimeGenerated asc"
-    ],
-    "correct": 0,
-    "explanation": {
-      "correctReason": "Using `bin(TimeGenerated, 15m)` within a `summarize` operator groups time-series telemetry into uniform 15-minute windows, allowing `render timechart` to plot a line graph.",
-      "incorrectReasons": [
-        "`top 15` returns the 15 newest rows sorted by timestamp, which fails to group data into time intervals for a time-series chart.",
-        "`project` selects columns without aggregating data over time, and pie charts are unsuitable for time-series trends.",
-        "`order by` sorts raw records without binning or rendering visual time charts."
-      ],
-      "reference": "https://learn.microsoft.com/en-us/azure/data-explorer/kusto/query/bin-function"
-    }
-  },
-  {
-    "id": 21,
-    "subtopic": "Query and analyze logs in Azure Monitor",
-    "question": "You are querying the `Syslog` table for failed login attempts on Linux VMs. You want to retrieve records where the `SyslogMessage` column contains the text string 'Failed password' regardless of character casing. Which operator is most performant and appropriate?",
-    "options": [
-      "where SyslogMessage contains_cs 'Failed password'",
-      "where SyslogMessage contains 'failed password'",
-      "where SyslogMessage == 'failed password'",
-      "where SyslogMessage startswith 'failed password'"
+      "Metric alert rule",
+      "Activity Log alert rule",
+      "Log Search alert rule",
+      "Prometheus alert rule"
     ],
     "correct": 1,
     "explanation": {
-      "correctReason": "The `contains` operator performs case-insensitive substring searching within text fields, finding matches anywhere inside `SyslogMessage` regardless of letter casing.",
+      "correctReason": "Activity Log alert rules trigger on control-plane events recorded in the Azure Activity Log, such as 'Delete Virtual Machine' (Microsoft.Compute/virtualMachines/delete).",
       "incorrectReasons": [
-        "`contains_cs` is case-sensitive, meaning searching for 'Failed password' would miss messages containing 'failed password' or 'FAILED PASSWORD'.",
-        "The `==` operator requires an exact string match for the entire field value, which will fail because Syslog entries contain additional timestamps, usernames, and process IDs.",
-        "`startswith` only matches strings that begin with the exact text, ignoring messages where 'failed password' appears mid-sentence."
-      ],
-      "reference": "https://learn.microsoft.com/en-us/azure/data-explorer/kusto/query/contains-operator"
-    }
-  },
-  {
-    "id": 22,
-    "subtopic": "Query and analyze logs in Azure Monitor",
-    "question": "You want to find virtual machines that have NOT sent a heartbeat record to Log Analytics in the last 1 hour. Which KQL query returns machines that are offline or unresponsive?",
-    "options": [
-      "Heartbeat | summarize LastHeartbeat = max(TimeGenerated) by Computer | where LastHeartbeat < ago(1h)",
-      "Heartbeat | where TimeGenerated > ago(1h) | summarize count() by Computer",
-      "Heartbeat | where TimeGenerated < ago(1h) | project Computer",
-      "Heartbeat | summarize count() by bin(TimeGenerated, 1h) | where count_ < 1"
-    ],
-    "correct": 0,
-    "explanation": {
-      "correctReason": "Calculating `max(TimeGenerated)` per computer finds the most recent ping timestamp. Filtering where `LastHeartbeat < ago(1h)` correctly isolates VMs whose latest ping was more than an hour ago.",
-      "incorrectReasons": [
-        "Filtering `TimeGenerated > ago(1h)` checks only active machines that sent pings in the last hour.",
-        "Filtering `TimeGenerated < ago(1h)` without finding the maximum timestamp returns all historical heartbeat records older than 1 hour, including those from currently healthy machines.",
-        "Binning by hour without grouping by computer calculates total overall workspace pings rather than per-machine status."
-      ],
-      "reference": "https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/heartbeat"
-    }
-  },
-  {
-    "id": 23,
-    "subtopic": "Query and analyze logs in Azure Monitor",
-    "question": "You are querying logs across multiple tables. You need to combine records from the `SecurityEvent` table and the `Syslog` table into a single result stream. Which KQL operator merges multiple tables with matching or compatible schema formats?",
-    "options": [
-      "union",
-      "join",
-      "lookup",
-      "render"
-    ],
-    "correct": 0,
-    "explanation": {
-      "correctReason": "The `union` operator takes two or more tables and combines their rows into a unified result set.",
-      "incorrectReasons": [
-        "The `join` operator correlates rows from two datasets based on matching values in specified key columns, rather than combining row lists vertically.",
-        "The `lookup` operator extends a primary table with fields looked up from a reference table based on matching keys.",
-        "The `render` operator formats existing output into visual charts (e.g., table, bar chart)."
-      ],
-      "reference": "https://learn.microsoft.com/en-us/azure/data-explorer/kusto/query/union-operator"
-    }
-  },
-  {
-    "id": 24,
-    "subtopic": "Query and analyze logs in Azure Monitor",
-    "question": "You write a KQL query to troubleshoot an application issue. You want to limit the output to display only the 10 most recent error records from the `AppRequests` table. Which KQL clause produces this output?",
-    "options": [
-      "AppRequests | where Success == false | top 10 by TimeGenerated desc",
-      "AppRequests | where Success == false | take 10 | order by TimeGenerated asc",
-      "AppRequests | where Success == false | summarize count(10) by TimeGenerated",
-      "AppRequests | where Success == false | project-away top 10"
-    ],
-    "correct": 0,
-    "explanation": {
-      "correctReason": "`top 10 by TimeGenerated desc` sorts the dataset by `TimeGenerated` in descending order and returns the first 10 rows (the newest errors).",
-      "incorrectReasons": [
-        "`take 10` selects 10 arbitrary, unsorted rows first; applying `order by` afterward only sorts those 10 arbitrary rows rather than finding the 10 most recent overall.",
-        "`summarize count(10)` is invalid syntax for selecting recent rows.",
-        "`project-away` removes named columns from a table schema; it does not filter row counts."
-      ],
-      "reference": "https://learn.microsoft.com/en-us/azure/data-explorer/kusto/query/top-operator"
-    }
-  },
-  {
-    "id": 25,
-    "subtopic": "Set up alert rules, action groups, and alert processing rules in Azure Monitor",
-    "question": "You need to create an Azure Monitor alert rule that fires whenever an administrator stops an Azure Virtual Machine. What signal type should you choose when configuring the alert rule condition?",
-    "options": [
-      "Activity Log",
-      "Metric",
-      "Log Analytics (KQL)",
-      "Resource Health"
-    ],
-    "correct": 0,
-    "explanation": {
-      "correctReason": "VM administrative actions (such as Deallocate/Stop VM) are control-plane events captured in Azure Activity Logs. Selecting an Activity Log signal allows triggering alerts on specific management operations.",
-      "incorrectReasons": [
-        "Metric signals track quantitative numerical telemetry (e.g., CPU percentage, network bytes), not administrative control operations.",
-        "While KQL log alerts can query ingested Activity Log tables, using native Activity Log signals provides zero-cost, direct control plane alerting without needing workspace ingestion.",
-        "Resource Health signals monitor platform availability and infrastructure failures, not intentional user actions like stopping a VM."
+        "Metric alert rules trigger when numeric metrics cross specific threshold limits.",
+        "Log Search alert rules run scheduled KQL queries against Log Analytics workspace log data.",
+        "Prometheus alert rules evaluate Prometheus metrics, typically used for Kubernetes monitoring."
       ],
       "reference": "https://learn.microsoft.com/en-us/azure/azure-monitor/alerts/alerts-activity-log"
     }
   },
   {
-    "id": 26,
+    "id": 8,
     "subtopic": "Set up alert rules, action groups, and alert processing rules in Azure Monitor",
-    "question": "You want to send an SMS notification and trigger an Azure Logic App whenever a critical alert fires. Which Azure Monitor object contains these notification channels and automated recovery targets?",
+    "question": "Your company has a planned maintenance window every Saturday from 01:00 AM to 03:00 AM. You need to temporarily suppress all action group notifications for triggered alerts during this period without disabling the alert rules themselves. What should you configure?",
     "options": [
-      "Action Group",
-      "Alert Processing Rule",
-      "Metric Alert Rule",
-      "Data Collection Rule"
+      "An Alert Processing Rule",
+      "An Azure Automation Runbook",
+      "A Diagnostic Setting filter",
+      "Disable the Action Group manually"
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "An Action Group is a reusable collection of notification preferences (email, SMS, push) and automated actions (Logic Apps, Webhooks, Runbooks, Functions) triggered when an alert rule fires.",
+      "correctReason": "Alert Processing Rules allow you to apply filters and actions (such as suppressing notifications) during scheduled maintenance windows without deactivating alert rules.",
       "incorrectReasons": [
-        "Alert Processing Rules modify or suppress action groups during specific maintenance windows, but do not define the destination channels themselves.",
-        "Metric Alert Rules define the evaluation criteria and thresholds, but delegate the notification mechanism to attached Action Groups.",
-        "Data Collection Rules configure telemetry ingestion paths from agents to workspaces, not alert notifications."
+        "Azure Automation Runbooks are used for task automation and orchestration, not native notification suppression.",
+        "Diagnostic Settings control log export destinations, not alert firing behaviors.",
+        "Manually disabling action groups requires manual intervention every week and is error-prone compared to scheduled processing rules."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-monitor/alerts/alerts-processing-rules"
+    }
+  },
+  {
+    "id": 9,
+    "subtopic": "Set up alert rules, action groups, and alert processing rules in Azure Monitor",
+    "question": "You need to configure an Action Group in Azure Monitor that automatically opens an incident ticket in your ITSM system and sends an SMS to the on-call engineer. Which actions should be added to the Action Group configuration? (Select TWO)",
+    "options": [
+      "ITSM action",
+      "SMS/Email/Push/Voice action",
+      "Webhook action pointing to GitHub",
+      "Event Hub receiver",
+      "Logic App action"
+    ],
+    "correct": [0, 1],
+    "explanation": {
+      "correctReason": "Action Groups support native ITSM connections to integrations like ServiceNow or System Center, as well as direct SMS notifications under the SMS/Email/Push/Voice category.",
+      "incorrectReasons": [
+        "Webhook to GitHub is not a standard incident management integration out of the box.",
+        "Event Hub receiver streams telemetry data rather than directly opening incident tickets or sending personal SMS alerts.",
+        "Logic Apps can perform automations, but native ITSM and SMS action types directly meet the prompt requirements without extra workflow development."
       ],
       "reference": "https://learn.microsoft.com/en-us/azure/azure-monitor/alerts/action-groups"
     }
   },
   {
-    "id": 27,
-    "subtopic": "Set up alert rules, action groups, and alert processing rules in Azure Monitor",
-    "question": "You have planned maintenance scheduled on a group of production VMs every Saturday from 02:00 to 04:00 AM. You want to prevent email notifications from firing during this maintenance window without disabling the underlying alert rules. What should you create?",
-    "options": [
-      "Alert processing rule with 'Suppress notifications' configured for the scheduled recurring time window",
-      "Disable the Action Group every Friday evening using an Azure Automation script",
-      "Delete the Metric Alert rules and recreate them after maintenance",
-      "Set the metric alert evaluation frequency to 12 hours"
-    ],
-    "correct": 0,
-    "explanation": {
-      "correctReason": "Alert Processing Rules allow you to apply suppression schedules (one-time or recurring) to prevent action groups from triggering notifications during known maintenance windows without altering or disabling the original alert rules.",
-      "incorrectReasons": [
-        "Disabling or editing Action Groups via scripts adds administrative maintenance overhead and risks leaving systems unmonitored if scripts fail.",
-        "Deleting and recreating alert rules loses historical alert state and configuration history.",
-        "Changing evaluation frequency degrades monitoring responsiveness during normal operational hours."
-      ],
-      "reference": "https://learn.microsoft.com/en-us/azure/azure-monitor/alerts/alerts-processing-rules"
-    }
-  },
-  {
-    "id": 28,
-    "subtopic": "Set up alert rules, action groups, and alert processing rules in Azure Monitor",
-    "question": "You create a Metric Alert Rule for CPU percentage with dynamic thresholds. What is the main advantage of using Dynamic Thresholds instead of Static Thresholds?",
-    "options": [
-      "It automatically adapts thresholds based on historical machine learning patterns, reducing false positives during normal usage spikes",
-      "It allows alerts to trigger without attaching an Action Group",
-      "It increases metric evaluation frequency from 1 minute to 1 second",
-      "It makes metric alerting completely free of charge"
-    ],
-    "correct": 0,
-    "explanation": {
-      "correctReason": "Dynamic Thresholds apply advanced machine learning models to analyze historical metric behavior, automatically accounting for seasonal spikes or daily cycles and reducing manual tuning and false positives.",
-      "incorrectReasons": [
-        "Dynamic Thresholds still require Action Groups to send notifications or trigger automated tasks.",
-        "Dynamic Thresholds do not alter the underlying minimum metric evaluation frequency (which is 1 minute).",
-        "Dynamic Thresholds are an Azure Monitor feature that uses the standard metric alert pricing tier."
-      ],
-      "reference": "https://learn.microsoft.com/en-us/azure/azure-monitor/alerts/alerts-dynamic-thresholds"
-    }
-  },
-  {
-    "id": 29,
-    "subtopic": "Set up alert rules, action groups, and alert processing rules in Azure Monitor",
-    "question": "You need an alert to fire whenever an Azure Virtual Machine disk has less than 10% free space remaining. You configure a metric alert rule. Which aggregation and threshold setting combination correctly evaluates this condition?",
-    "options": [
-      "Aggregation: Minimum, Operator: Less than, Threshold: 10",
-      "Aggregation: Maximum, Operator: Greater than, Threshold: 90",
-      "Aggregation: Total, Operator: Equal to, Threshold: 10",
-      "Aggregation: Average, Operator: Greater than, Threshold: 10"
-    ],
-    "correct": 0,
-    "explanation": {
-      "correctReason": "To alert when free space drops dangerously low, evaluate the Minimum available disk space during the time window, checking if it is 'Less than' the threshold value of 10%.",
-      "incorrectReasons": [
-        "Evaluating Maximum with 'Greater than 90' checks peak disk space, which is the opposite of detecting low remaining capacity.",
-        "Total sums disk space values across samples, producing an invalid aggregate comparison.",
-        "Evaluating Average with 'Greater than 10' triggers when disk space is healthy (above 10%), generating constant false positives."
-      ],
-      "reference": "https://learn.microsoft.com/en-us/azure/azure-monitor/alerts/alerts-metric"
-    }
-  },
-  {
-    "id": 30,
-    "subtopic": "Set up alert rules, action groups, and alert processing rules in Azure Monitor",
-    "question": "You configure a Log Alert rule based on a KQL query targeting `AppExceptions`. You set 'Period' (Lookback period) to 15 minutes and 'Frequency' (Evaluation frequency) to 5 minutes. What do these settings signify?",
-    "options": [
-      "The query runs every 5 minutes and evaluates data logged over the preceding 15 minutes",
-      "The query runs every 15 minutes and evaluates data logged over the preceding 5 minutes",
-      "The alert triggers 15 times before sending a notification, repeated every 5 minutes",
-      "Logs are ingested every 5 minutes and deleted after 15 minutes"
-    ],
-    "correct": 0,
-    "explanation": {
-      "correctReason": "'Frequency' determines how often the alert rule executes (every 5 minutes). 'Period' determines the historical time window checked during each execution (the last 15 minutes).",
-      "incorrectReasons": [
-        "Reversing Frequency and Period would mean checking a 5-minute data window only once every 15 minutes, leaving 10 minutes of unmonitored data gaps.",
-        "Period and Frequency control query execution timing, not notification repeat counts.",
-        "Log ingestion and workspace data retention are configured independently of alert rule evaluation parameters."
-      ],
-      "reference": "https://learn.microsoft.com/en-us/azure/azure-monitor/alerts/alerts-unified-log"
-    }
-  },
-  {
-    "id": 31,
-    "subtopic": "Set up alert rules, action groups, and alert processing rules in Azure Monitor",
-    "question": "You want to enforce a standard Action Group across ALL existing and future alerts generated within Subscription1. Instead of editing hundreds of individual alert rules, what feature should you use?",
-    "options": [
-      "Alert processing rule with 'Apply action group' set for the scope of Subscription1",
-      "Azure Policy targeting Log Analytics workspace settings",
-      "Metric Alert rule with multi-resource target scope",
-      "Subscription Activity Log Diagnostic Settings"
-    ],
-    "correct": 0,
-    "explanation": {
-      "correctReason": "Alert Processing Rules allow you to automatically add a specific Action Group to all alerts fired within a subscription or resource group scope, bypassing the need to edit individual alert rules.",
-      "incorrectReasons": [
-        "Azure Policy enforces resource deployment compliance, but does not dynamically inject Action Groups into fired alert instances.",
-        "Multi-resource metric alerts evaluate multiple targets for a single rule condition, but do not attach action groups globally to other distinct alert rules.",
-        "Diagnostic settings export raw diagnostic logs, but do not manage alert action triggers."
-      ],
-      "reference": "https://learn.microsoft.com/en-us/azure/azure-monitor/alerts/alerts-processing-rules"
-    }
-  },
-  {
-    "id": 32,
-    "subtopic": "Set up alert rules, action groups, and alert processing rules in Azure Monitor",
-    "question": "Which alert state indicates that an Azure Monitor alert condition is no longer detected because the monitored metric or log query has returned to an acceptable threshold?",
-    "options": [
-      "Resolved",
-      "Fired",
-      "Acknowledged",
-      "Closed"
-    ],
-    "correct": 0,
-    "explanation": {
-      "correctReason": "When the underlying condition that triggered an alert clears (e.g., CPU drops back below 80%), Azure Monitor metric alerts automatically switch the alert condition state to Resolved.",
-      "incorrectReasons": [
-        "Fired indicates that the condition currently violates the alert rule threshold.",
-        "Acknowledged is an user-assigned administrative state indicating a team member is investigating.",
-        "Closed is a user-assigned state indicating investigation work is complete."
-      ],
-      "reference": "https://learn.microsoft.com/en-us/azure/azure-monitor/alerts/alerts-overview#alert-states"
-    }
-  },
-  {
-    "id": 33,
+    "id": 10,
     "subtopic": "Configure and interpret monitoring of virtual machines, storage accounts, and networks by using Azure Monitor Insights",
-    "question": "You enable VM Insights on a set of Azure Virtual Machines. You want to view live network connection dependencies, active ports, and connected third-party processes for a specific VM. Which view in VM Insights provides this visual topology?",
-    "options": [
-      "Map view",
-      "Performance view",
-      "Overview view",
-      "Key Vault view"
-    ],
-    "correct": 0,
-    "explanation": {
-      "correctReason": "The Map view in VM Insights uses data collected by the Dependency Agent to display active network connections, incoming/outgoing process dependencies, and open ports.",
-      "incorrectReasons": [
-        "Performance view presents trend charts for CPU, Memory, Disk IOPS, and Network throughput, but does not show process dependency maps.",
-        "Overview view displays high-level health summaries and resource lists, without visual process interconnection topology.",
-        "Key Vault view is part of Storage/Key Vault Insights, not VM Insights."
-      ],
-      "reference": "https://learn.microsoft.com/en-us/azure/azure-monitor/vm/vminsights-maps"
-    }
-  },
-  {
-    "id": 34,
-    "subtopic": "Configure and interpret monitoring of virtual machines, storage accounts, and networks by using Azure Monitor Insights",
-    "question": "You open Storage Insights in Azure Monitor to evaluate performance across 20 storage accounts. You notice high latency on one account. Which tab in Storage Insights allows you to analyze total requests, end-to-end latency, and breakdown by service (Blob, File, Queue, Table)?",
+    "question": "You enable VM Insights for a cluster of Azure Virtual Machines. Which two curated perspectives does VM Insights primarily provide out of the box? (Select TWO)",
     "options": [
       "Performance",
-      "Capacity",
-      "Failover",
-      "Diagnostic Settings"
+      "Map",
+      "Cost Analysis",
+      "Security Baseline",
+      "Backup Compliance"
+    ],
+    "correct": [0, 1],
+    "explanation": {
+      "correctReason": "VM Insights provides two core curated experiences: 'Performance' (charts key guest OS metrics) and 'Map' (automatically discovers application components and maps processes and dependencies).",
+      "incorrectReasons": [
+        "Cost Analysis is part of Microsoft Cost Management, not VM Insights.",
+        "Security Baseline auditing is handled by Microsoft Defender for Cloud.",
+        "Backup Compliance is managed via Azure Backup Center."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-monitor/vm/vminsights-overview"
+    }
+  },
+  {
+    "id": 11,
+    "subtopic": "Configure and interpret monitoring of virtual machines, storage accounts, and networks by using Azure Monitor Insights",
+    "question": "You are reviewing Storage Insights in Azure Monitor to diagnose intermittent HTTP 503 (Server Failure) errors reported by applications writing to a Blob storage account. Which metric view inside Storage Insights best helps isolate capacity vs. availability issues?",
+    "options": [
+      "Transactions tab grouped by Response Type",
+      "Capacity tab grouped by Blob Container",
+      "Data Data In/Out tab grouped by Protocol",
+      "Diagnostics Logs tab filtered by User Agent"
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "The Performance tab in Storage Insights provides metrics on transaction volume, E2E latency, server latency, and bandwidth broken down by individual storage services.",
+      "correctReason": "The Transactions tab in Storage Insights allows breaking down request volume, latency, and errors by Response Type (e.g., ServerOtherError, ClientTimeoutError), instantly pinpointing 503 responses.",
       "incorrectReasons": [
-        "The Capacity tab focuses on storage utilization (used bytes, blob counts, snapshot sizes), not latency performance.",
-        "The Failover tab displays account redundancy and geo-replication status.",
-        "Diagnostic Settings is a configuration menu for log routing, not an Insights visualization tab."
+        "Capacity tab shows occupied bytes and object counts over time, not HTTP response status codes.",
+        "Data In/Out shows throughput numbers, not response error codes.",
+        "Diagnostic logs contain detailed transaction entries, but the curated Transactions tab in Storage Insights gives immediate aggregated visual breakdowns."
       ],
       "reference": "https://learn.microsoft.com/en-us/azure/azure-monitor/insights/storage-insights-overview"
     }
   },
   {
-    "id": 35,
-    "subtopic": "Configure and interpret monitoring of virtual machines, storage accounts, and networks by using Azure Monitor Insights",
-    "question": "You navigate to Network Insights in Azure Monitor. You want to assess the health and topology of your Virtual Networks, ExpressRoute circuits, and Network Security Groups across multiple subscriptions. What key benefit does Network Insights provide over individual resource metrics?",
+    "id": 12,
+    "subtopic": "Use Azure Network Watcher and Connection Monitor",
+    "question": "You suspect that an Network Security Group (NSG) rule is blocking TCP traffic on port 443 from VM1 to an external server. Which Azure Network Watcher tool allows you to perform an immediate, ad-hoc check to verify if packets are being dropped by security rules?",
     "options": [
-      "A pre-packaged, unified visual interface displaying topology, health, and metrics across all networking resources without manual setup",
-      "Automatic remediation of blocked NSG ports",
-      "Free long-term storage of packet capture trace files",
-      "BGP route table manipulation directly from the map"
+      "IP flow verify",
+      "Connection Monitor",
+      "VPN Troubleshoot",
+      "Packet capture"
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "Network Insights provides a single consolidated view of network inventory, topology maps, health states, and performance metrics across all virtual networks and connected components.",
+      "correctReason": "IP flow verify tests whether a packet is allowed or denied to/from a VM based on 5-tuple information and returns the specific NSG rule responsible.",
       "incorrectReasons": [
-        "Network Insights provides monitoring and visibility, but does not automatically reconfigure or unblock NSG rules.",
-        "Network Insights visualizes telemetry; packet capture files are managed by Network Watcher and incur storage costs.",
-        "Network Insights is a monitoring tool and does not allow editing or injecting BGP routes directly."
+        "Connection Monitor provides continuous synthetic testing over time rather than a quick one-off security rule evaluation.",
+        "VPN Troubleshoot diagnoses virtual network gateway and connection health.",
+        "Packet capture records raw network frames to a file for packet analysis, which takes longer than a quick IP flow test."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/azure-monitor/insights/network-insights-overview"
+      "reference": "https://learn.microsoft.com/en-us/azure/network-watcher/network-watcher-ip-flow-verify-overview"
+    }
+  },
+  {
+    "id": 13,
+    "subtopic": "Use Azure Network Watcher and Connection Monitor",
+    "question": "You need to continuously monitor network latency and connectivity every 5 minutes between an Azure Virtual Machine in East US and an On-Premises server connected via ExpressRoute. You also need alerting when latency exceeds 50 ms. Which service should you deploy?",
+    "options": [
+      "Azure Network Watcher Connection Monitor",
+      "IP flow verify",
+      "Next hop",
+      "NSG flow logs"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Connection Monitor provides unified, continuous end-to-end monitoring for hybrid and cloud networks with built-in threshold alerting for reachability and latency.",
+      "incorrectReasons": [
+        "IP flow verify performs a static authorization check against NSG rules and does not measure continuous latency.",
+        "Next hop discovers routing paths to verify if traffic is routed correctly, but does not measure latency.",
+        "NSG flow logs record IP traffic metadata passing through NSGs for auditing and analytics, not latency testing."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/network-watcher/connection-monitor-overview"
+    }
+  },
+  {
+    "id": 14,
+    "subtopic": "Use Azure Network Watcher and Connection Monitor",
+    "question": "You need to determine the effective route taken by packets leaving VM1 destined for an IP address of 10.2.0.4, to verify if traffic is being correctly forwarded to a Network Virtual Appliance (NVA). Which Network Watcher feature provides this information?",
+    "options": [
+      "Next hop",
+      "IP flow verify",
+      "Connection Troubleshoot",
+      "Topology"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Next hop returns the next hop type and IP address for a specified destination IP, helping you determine whether traffic is properly routed to VirtualAppliance, VirtualNetworkGateway, or Internet.",
+      "incorrectReasons": [
+        "IP flow verify tests NSG rule permissions, not routing paths.",
+        "Connection Troubleshoot checks end-to-end TCP connectivity and hop-by-hop latency, but Next hop directly targets route table resolution.",
+        "Topology generates a visual diagram of resources in a virtual network without simulating packet routing pathways."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/network-watcher/network-watcher-next-hop-overview"
+    }
+  },
+  {
+    "id": 15,
+    "subtopic": "Create a Recovery Services vault",
+    "question": "You plan to protect Azure Virtual Machines and SQL Server on Azure VMs using Azure Backup. Which backup vault resource type must you create to support these workloads?",
+    "options": [
+      "Recovery Services vault",
+      "Azure Backup vault",
+      "Key Vault",
+      "Storage account Blob container"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Recovery Services vaults are required for backing up classic infrastructure workloads including Azure VMs, SQL Server in Azure VMs, and SAP HANA in Azure VMs.",
+      "incorrectReasons": [
+        "Azure Backup vaults are used for newer workloads like Azure Blobs, Azure Files, Azure Disks, and AKS databases.",
+        "Key Vault stores cryptographic keys, secrets, and certificates.",
+        "Storage account Blob containers hold raw data but cannot act as native management vaults for IaaS VM backups."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/backup/backup-vault-overview"
+    }
+  },
+  {
+    "id": 16,
+    "subtopic": "Create a Recovery Services vault",
+    "question": "You create a Recovery Services vault in the West US region. By default, what storage replication setting is configured for the vault, and when must you change it if you require locally redundant storage (LRS)?",
+    "options": [
+      "Geo-redundant storage (GRS); before configuring any backups in the vault.",
+      "Locally redundant storage (LRS); before configuring any backups in the vault.",
+      "Geo-redundant storage (GRS); at any time after backups are registered.",
+      "Zone-redundant storage (ZRS); only after deleting existing items."
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Recovery Services vaults default to Geo-Redundant Storage (GRS). You can change the redundancy setting to LRS or ZRS only BEFORE protecting items in the vault.",
+      "incorrectReasons": [
+        "The default setting is GRS, not LRS.",
+        "Once items are registered or backed up in the vault, changing the storage redundancy setting is restricted or requires unregistering all items.",
+        "ZRS is not the default setting for a newly created Recovery Services vault."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/backup/backup-create-recovery-services-vault"
+    }
+  },
+  {
+    "id": 17,
+    "subtopic": "Create a Recovery Services vault",
+    "question": "You need to ensure that back-up data in a Recovery Services vault is protected against accidental or malicious deletion by retaining deleted backup items for 14 additional days. Which feature is enabled by default to provide this safety net?",
+    "options": [
+      "Soft Delete",
+      "Immutable Vault",
+      "Multi-User Authorization (MUA)",
+      "Cross Region Restore"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Soft Delete is enabled by default on Recovery Services vaults to retain deleted backup data for 14 additional days at no cost, allowing recovery from accidental deletion.",
+      "incorrectReasons": [
+        "Immutable Vault prevents backup settings and data from being deleted/modified even by administrators, but must be manually enabled/locked.",
+        "Multi-User Authorization (MUA) requires approval via Resource Guard before critical operations, but is not enabled by default.",
+        "Cross Region Restore allows restoring data in a secondary paired region, not preventing local deletion."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/backup/backup-azure-security-feature-cloud"
+    }
+  },
+  {
+    "id": 18,
+    "subtopic": "Create an Azure Backup vault",
+    "question": "Which of the following Azure workloads are natively protected using an Azure Backup vault rather than a Recovery Services vault? (Select TWO)",
+    "options": [
+      "Azure Blobs",
+      "Azure Virtual Machines",
+      "Azure Disks",
+      "SQL Server on Azure VMs",
+      "Azure Files (Share)"
+    ],
+    "correct": [0, 2],
+    "explanation": {
+      "correctReason": "Azure Backup vaults manage newer workload backups including Azure Blobs, Azure Disks, Azure Database for PostgreSQL, and AKS clusters.",
+      "incorrectReasons": [
+        "Azure Virtual Machines require a Recovery Services vault.",
+        "SQL Server in Azure VMs requires a Recovery Services vault.",
+        "Azure Files shares are managed primarily through Recovery Services vaults."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/backup/backup-vault-overview"
+    }
+  },
+  {
+    "id": 19,
+    "subtopic": "Create an Azure Backup vault",
+    "question": "You are creating an Azure Backup vault to protect operational snapshots of Azure Managed Disks. You require high availability across data centers within the local region. Which storage redundancy setting should you configure for the vault?",
+    "options": [
+      "Zone-redundant storage (ZRS)",
+      "Locally redundant storage (LRS)",
+      "Geo-redundant storage (GRS)",
+      "Read-access geo-redundant storage (RA-GRS)"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Zone-redundant storage (ZRS) replicates backup data across availability zones within the same region, protecting against data center failures while staying within the region.",
+      "incorrectReasons": [
+        "LRS replicates data only within a single physical data center in the region.",
+        "GRS replicates data to a secondary paired region hundreds of miles away.",
+        "RA-GRS provides read access in a secondary region, exceeding local region requirements."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/backup/backup-vault-overview#redundancy-in-azure-backup-vault"
+    }
+  },
+  {
+    "id": 20,
+    "subtopic": "Create and configure a backup policy",
+    "question": "You configure a Backup Policy for Azure Virtual Machines. You need to perform daily backups retained for 30 days, weekly backups retained for 12 weeks, and monthly backups retained for 12 months. Which policy tier supports enhanced options such as multiple daily backups and disk-consistent operational snapshots?",
+    "options": [
+      "Enhanced policy tier",
+      "Standard policy tier",
+      "Basic policy tier",
+      "Archive policy tier"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "The Enhanced VM backup policy tier supports multiple backups per day, operational snapshots retained up to 30 days, and integration with Trusted Launch / Confidential VMs.",
+      "incorrectReasons": [
+        "Standard policy tier only supports one daily backup snapshot.",
+        "There is no 'Basic' VM policy tier in Azure Backup.",
+        "Archive tier is a storage tier for long-term retention points, not a backup policy framework level."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/backup/backup-azure-vms-enhanced-policy-concept"
+    }
+  },
+  {
+    "id": 21,
+    "subtopic": "Create and configure a backup policy",
+    "question": "You are creating an Azure VM backup policy. You need to minimize application disruption on a database VM during backup execution. What snapshot consistency level does Azure Backup attempt first for supported Windows Server workloads running VSS?",
+    "options": [
+      "Application-consistent snapshot",
+      "Crash-consistent snapshot",
+      "File-system consistent snapshot",
+      "Differential disk snapshot"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Azure Backup defaults to taking application-consistent snapshots on Windows VMs using VSS to flush memory and pending I/O before taking snapshots.",
+      "incorrectReasons": [
+        "Crash-consistent snapshots occur if VSS fails or on Linux VMs without pre/post-scripts.",
+        "File-system consistent snapshots flush files but do not guarantee database transaction log consistency.",
+        "Differential disk snapshot is a disk delta mechanism, not a consistency level."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/backup/backup-azure-vms-introduction#how-does-azure-back-up-vms"
+    }
+  },
+  {
+    "id": 22,
+    "subtopic": "Create and configure a backup policy",
+    "question": "You need to back up an Azure VM once per day and move recovery points older than 90 days to the Vault-Archive tier to save costs. Which of the following conditions must be met for a recovery point to be eligible for move to the Archive tier? (Select TWO)",
+    "options": [
+      "The recovery point must be in the Vault-Standard tier.",
+      "The remaining retention period of the recovery point must be at least 180 days.",
+      "The recovery point must be an operational snapshot on local disk.",
+      "The VM must be powered off during the archiving operation.",
+      "The policy must use GRS or ZRS redundancy."
+    ],
+    "correct": [0, 1],
+    "explanation": {
+      "correctReason": "To move a VM recovery point to Archive, it must be in the Vault-Standard tier and have a remaining retention duration of at least 180 days (due to minimum archive retention rules).",
+      "incorrectReasons": [
+        "Operational snapshots on local disk cannot be archived directly without first residing in Vault-Standard.",
+        "VMs do not need to be powered off when backup points are moved to the Archive tier.",
+        "LRS vaults also support Smart Tiering/Archive for supported workloads."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/backup/archive-tier-policy"
+    }
+  },
+  {
+    "id": 23,
+    "subtopic": "Perform backup and restore operations by using Azure Backup",
+    "question": "An administrator accidentally deleted a single critical configuration file located on drive `C:\\Config` of an Azure Windows VM protected by Azure Backup. What is the fastest method to restore only that file without creating a new VM or replacing existing disks?",
+    "options": [
+      "File Recovery (Item-Level Restore)",
+      "Create new VM from restore point",
+      "Replace existing VM disks",
+      "Restore VM disks to a storage account"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "File Recovery generates a script that mounts the backup recovery point as a local drive volume on any machine, allowing instant file copying.",
+      "incorrectReasons": [
+        "Creating a new VM from a restore point takes significantly more time and resources than copying a single file.",
+        "Replacing existing disks restores the entire OS disk, causing downtime and overwriting current OS changes.",
+        "Restoring disks requires manual VHD mounting and extra management steps compared to native File Recovery."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/backup/backup-azure-restore-files-from-vm"
+    }
+  },
+  {
+    "id": 24,
+    "subtopic": "Perform backup and restore operations by using Azure Backup",
+    "question": "You are performing a full VM restore of an Azure Virtual Machine named VM1 from a Recovery Services vault. You select the 'Create new virtual machine' restore option. Which items are automatically created or configured during this process? (Select TWO)",
+    "options": [
+      "A new virtual machine with restored disks attached",
+      "Restored OS and Data Managed Disks",
+      "A new Network Security Group with default rules",
+      "A new Public IP address with identical DNS name",
+      "A new Load Balancer rule"
+    ],
+    "correct": [0, 1],
+    "explanation": {
+      "correctReason": "When using 'Create new virtual machine' in Azure Backup, Azure creates new managed disks from the backup snapshot and builds a new VM entity attached to those disks.",
+      "incorrectReasons": [
+        "Network Security Groups are existing infrastructure components that must be re-associated if custom rules are needed; Azure Backup does not auto-create NSGs.",
+        "Public IP addresses are not automatically recreated or assigned DNS names by the restore process.",
+        "Load Balancer rules are managed on Azure Load Balancers and are independent of VM disk restore operations."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/backup/backup-azure-arm-vms-prepare"
+    }
+  },
+  {
+    "id": 25,
+    "subtopic": "Perform backup and restore operations by using Azure Backup",
+    "question": "You need to restore a system state backup of an on-premises Windows Server using MARS (Microsoft Azure Recovery Services) agent. Which location can you restore the files to?",
+    "options": [
+      "The original machine or an alternate machine running MARS",
+      "An Azure Blob storage container directly",
+      "An Azure Virtual Machine Scale Set instance",
+      "A Managed Disk snapshot"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "MARS agent backups can be restored back to the original server or an alternate on-premises machine where the MARS agent is registered with the vault passphrase.",
+      "incorrectReasons": [
+        "MARS agent restores data via the agent console onto target operating systems, not direct Blob containers.",
+        "VM Scale Set instances cannot act as target agents for MARS system state restores directly.",
+        "MARS does not convert system state backups into Azure Managed Disk snapshots."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/backup/backup-azure-restore-windows-server"
+    }
+  },
+  {
+    "id": 26,
+    "subtopic": "Configure Azure Site Recovery for Azure resources",
+    "question": "You are preparing to configure Azure Site Recovery (ASR) to replicate Azure Virtual Machines from East US to West US. What component must be configured in the target region (West US) before enabling replication?",
+    "options": [
+      "Target Virtual Network (VNet)",
+      "Target Recovery Services vault in East US",
+      "On-premises Configuration Server",
+      "Azure Bastion host"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "A target Virtual Network in the destination region (West US) must exist (or be auto-created during setup) so failover VMs can attach to a valid network.",
+      "incorrectReasons": [
+        "The Recovery Services vault used for Azure-to-Azure ASR replication must be located in the target region or a region other than the source region.",
+        "Configuration Servers are required for VMware/physical server migration, not Azure-to-Azure VM replication.",
+        "Azure Bastion provides administrative connectivity but is not a prerequisite for ASR VM replication."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/site-recovery/azure-to-azure-architecture"
+    }
+  },
+  {
+    "id": 27,
+    "subtopic": "Configure Azure Site Recovery for Azure resources",
+    "question": "When configuring Azure Site Recovery for an Azure VM, what extension is automatically installed on the virtual machine to capture changes and stream write operations to cache storage?",
+    "options": [
+      "Mobility Service extension",
+      "Azure Monitor Agent extension",
+      "Network Watcher Agent extension",
+      "Custom Script extension"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Site Recovery automatically installs the Mobility Service extension (or Site Recovery extension) on the protected VM to track memory and disk writes and push them to cache storage.",
+      "incorrectReasons": [
+        "Azure Monitor Agent collects logs and metrics, not continuous block-level disk replication data.",
+        "Network Watcher Agent is used for packet capture and connection monitoring.",
+        "Custom Script extension runs custom shell or PowerShell scripts."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/site-recovery/azure-to-azure-architecture#replication-process"
+    }
+  },
+  {
+    "id": 28,
+    "subtopic": "Configure Azure Site Recovery for Azure resources",
+    "question": "You need to group multi-tier applications (Web, App, DB) in Azure Site Recovery so that all VMs in the group fail over together and share crash-consistent recovery points. What container feature in ASR should you configure?",
+    "options": [
+      "Multi-VM Consistency Group",
+      "Availability Set",
+      "Proximity Placement Group",
+      "Network Security Group"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Enabling Multi-VM consistency creates a replication group of VMs that collect crash-consistent and app-consistent points together.",
+      "incorrectReasons": [
+        "Availability Sets spread VMs across fault domains in a single region for local high availability, not disaster recovery grouping.",
+        "Proximity Placement Groups reduce network latency by physically co-locating compute resources in a single data center.",
+        "Network Security Groups control network access using filtering rules."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/site-recovery/azure-to-azure-concept-multi-vm-component"
+    }
+  },
+  {
+    "id": 29,
+    "subtopic": "Perform a failover to a secondary region by using Site Recovery",
+    "question": "You need to test your Disaster Recovery plan for Azure VMs replicated via Azure Site Recovery without interrupting ongoing replication or causing downtime for production workloads in the primary region. Which action should you perform?",
+    "options": [
+      "Test Failover",
+      "Planned Failover",
+      "Unplanned Failover",
+      "Re-protect"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Test Failover creates replica VMs in an isolated non-production network in the target region without stopping ongoing data replication or disrupting source production VMs.",
+      "incorrectReasons": [
+        "Planned Failover shuts down primary source VMs to ensure zero data loss before transitioning production to the secondary region.",
+        "Unplanned Failover immediately starts target VMs during an outage, risking data loss if primary VM writes were pending.",
+        "Re-protect establishes reverse replication after a failover has occurred."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/site-recovery/azure-to-azure-how-to-test-failover"
+    }
+  },
+  {
+    "id": 30,
+    "subtopic": "Perform a failover to a secondary region by using Site Recovery",
+    "question": "After an outage occurs in the primary region, you complete an Unplanned Failover of your Azure VMs to the secondary region using ASR. Primary region services are now restored. What must you perform first before you can fail back traffic to the primary region?",
+    "options": [
+      "Re-protect the VMs",
+      "Delete the Recovery Services vault",
+      "Disable the Mobility Service",
+      "Run a Test Failover back to source"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "After a failover, you must execute the 'Re-protect' operation to start replicating data from the secondary (now active) region back to the primary region.",
+      "incorrectReasons": [
+        "Deleting the vault destroys replication metadata and backup points.",
+        "Disabling Mobility Service prevents replication and prevents failback tracking.",
+        "Test Failover validates isolated networks but does not synchronize data back to the primary region."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/site-recovery/azure-to-azure-how-to-reprotect"
+    }
+  },
+  {
+    "id": 31,
+    "subtopic": "Configure and interpret reports and alerts for backups",
+    "question": "You need to view centralized backup operational reports spanning multiple subscriptions, vaults, and workloads across your organization for compliance auditing. Which feature in Azure Portal provides built-in Power BI integration and cross-vault backup reporting?",
+    "options": [
+      "Backup Reports in Backup Center",
+      "Log Analytics Workspace Workspace Summary",
+      "Azure Advisor Recommendations",
+      "Azure Cost Management"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Backup Reports (accessed via Azure Backup Center) uses Azure Monitor logs and Power BI to aggregate cross-subscription, cross-vault backup health and compliance statistics.",
+      "incorrectReasons": [
+        "Workspace Summary gives generic log counts, not tailored backup compliance reports.",
+        "Azure Advisor offers optimization tips, not comprehensive backup history reporting.",
+        "Azure Cost Management tracks financial spend, not backup policy success/failure metrics."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/backup/configure-reports"
+    }
+  },
+  {
+    "id": 32,
+    "subtopic": "Configure and interpret reports and alerts for backups",
+    "question": "You need to receive real-time email alerts whenever an Azure Backup job fails or backup data is deleted. Where should you configure backup alerts using Azure Monitor integrations? (Select TWO)",
+    "options": [
+      "Azure Monitor Alerts for Backup in Backup Center",
+      "Built-in Azure Backup alerts with Action Groups",
+      "Storage Account Event Grid triggers",
+      "Network Watcher alert rules",
+      "Service Health notifications"
+    ],
+    "correct": [0, 1],
+    "explanation": {
+      "correctReason": "Azure Backup integrates directly with Azure Monitor alerts, accessible in Backup Center, allowing standard Action Groups (email, SMS, ITSM) to fire on backup failures.",
+      "incorrectReasons": [
+        "Storage Account Event Grid handles container events, not Recovery Services vault backup failures.",
+        "Network Watcher handles network topology and traffic testing.",
+        "Service Health alerts on platform-wide Azure infrastructure incidents, not individual job-level backup failures."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/backup/backup-center-monitor-operate"
+    }
+  },
+  {
+    "id": 33,
+    "subtopic": "Interpret metrics in Azure Monitor",
+    "question": "You are monitoring an Azure App Service Plan hosting critical web applications. You notice the metric 'Memory Percentage' routinely reaches 92% at 09:00 AM every weekday. Which metric dimensions should you split this metric by to identify which specific instance in the scale set is under memory pressure?",
+    "options": [
+      "Instance",
+      "API Name",
+      "Protocol",
+      "IP Address"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Splitting the 'Memory Percentage' metric by the 'Instance' dimension breaks down overall App Service Plan memory utilization across each individual VM instance.",
+      "incorrectReasons": [
+        "API Name is a web request dimension, not a server instance compute metric dimension.",
+        "Protocol identifies HTTP vs HTTPS traffic counts.",
+        "IP Address is not a default dimension available on App Service Plan performance metrics."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-monitor/essentials/metrics-charts"
+    }
+  },
+  {
+    "id": 34,
+    "subtopic": "Configure log settings in Azure Monitor",
+    "question": "You are configuring diagnostic settings for a Network Security Group (NSG) to capture traffic statistics. Which log category must be enabled to collect NSG Flow Logs or Diagnostic Analytics data?",
+    "options": [
+      "NetworkSecurityGroupEvent",
+      "NetworkSecurityGroupRuleCounter",
+      "AllLogs",
+      "Administrative"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "'NetworkSecurityGroupEvent' (and Rule Counters) is the diagnostic log category for capturing NSG rule evaluation and event entries.",
+      "incorrectReasons": [
+        "NetworkSecurityGroupRuleCounter only records rule counter statistics, missing rule execution event details.",
+        "AllLogs is a wildcard selection in Diagnostic settings but NetworkSecurityGroupEvent specifically addresses NSG operational logging.",
+        "Administrative is an Activity Log category, not an NSG diagnostic log category."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/vnet-verify-security-group-connectivity"
+    }
+  },
+  {
+    "id": 35,
+    "subtopic": "Query and analyze logs in Azure Monitor",
+    "question": "You need to write a KQL query to calculate the total data ingested (in Gigabytes) per computer in the `Perf` table over the last 24 hours. Which KQL function converts the raw `Quantity` bytes to Gigabytes?",
+    "options": [
+      "summarize TotalGB = sum(Quantity) / 1024 / 1024 / 1024 by Computer",
+      "summarize TotalGB = count(Quantity) / 1000 by Computer",
+      "summarize TotalGB = avg(Quantity) / 1024 by Computer",
+      "summarize TotalGB = max(Quantity) / 1000000 by Computer"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Dividing the sum of byte values (`sum(Quantity)`) three times by 1024 (or $1024^3$) converts bytes to Gigabytes (GB).",
+      "incorrectReasons": [
+        "`count()` counts rows rather than summing numeric byte quantities.",
+        "`avg()` calculates the average sample size instead of total aggregate volume ingested.",
+        "`max()` evaluates peak sample size rather than total data size."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-monitor/logs/log-standard-properties"
     }
   },
   {
     "id": 36,
-    "subtopic": "Configure and interpret monitoring of virtual machines, storage accounts, and networks by using Azure Monitor Insights",
-    "question": "To fully enable VM Insights (including Map and Performance features) on a Windows Virtual Machine using current Azure best practices, which agent or combination of agents must be deployed?",
+    "subtopic": "Set up alert rules, action groups, and alert processing rules in Azure Monitor",
+    "question": "You want an alert rule to trigger whenever CPU usage on any virtual machine in a specific resource group exceeds 85% for 15 minutes. How should you scope the alert rule to automatically include new virtual machines added to the resource group in the future?",
     "options": [
-      "Azure Monitor Agent (AMA) and Dependency Agent",
-      "Legacy Log Analytics Agent (MMA) only",
-      "Network Watcher Agent only",
-      "Diagnostics Extension (WAD) only"
+      "Select the Resource Group as the target scope and set signal to Percentage CPU",
+      "Select each VM individually and use a dynamic group rule",
+      "Create a Log Analytics query and scope it to the subscription root",
+      "Deploy an Azure Policy to attach an alert to every VM creation event"
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "VM Insights requires the Azure Monitor Agent (AMA) for performance telemetry ingestion into Log Analytics and the Dependency Agent to capture process connection maps.",
+      "correctReason": "Azure Monitor metric alerts allow selecting a Resource Group (or Subscription) as the target scope for resource types like Virtual Machines, automatically monitoring all existing and future VMs in that scope.",
       "incorrectReasons": [
-        "The legacy Microsoft Monitoring Agent (MMA) is deprecated.",
-        "The Network Watcher agent handles packet captures and connection monitoring, but does not power VM Insights performance workbooks or process maps.",
-        "Windows Azure Diagnostics (WAD) extension writes metrics to Storage tables, which does not support native VM Insights Map views."
+        "Selecting VMs individually requires updating the alert rule every time a new VM is deployed.",
+        "Log Analytics search alerts can query resource groups, but native Metric Alerts targeting a Resource Group scope are cleaner and evaluate continuously.",
+        "Azure Policy enforces compliance configurations, but scoping metric alerts directly to resource groups is natively supported."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/azure-monitor/vm/vminsights-enable-overview"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-monitor/alerts/alerts-metric-overview"
     }
   },
   {
     "id": 37,
     "subtopic": "Configure and interpret monitoring of virtual machines, storage accounts, and networks by using Azure Monitor Insights",
-    "question": "You are using VM Insights Performance view to identify memory-constrained virtual machines across your fleet. Which default performance metric displayed in VM Insights reflects available guest memory?",
+    "question": "You open Network Insights in Azure Monitor. Which section helps you quickly view the health status, active alerts, and diagnostic properties of all your Virtual Network Gateways and ExpressRoute circuits?",
     "options": [
-      "Available Memory",
-      "Host Memory Usage Percentage",
-      "Page File Swap Rate",
-      "Kernel Pool Bytes"
+      "Network Health / Connectivity tab",
+      "Topology view",
+      "Traffic Analytics dashboard",
+      "Connection Monitor test results"
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "VM Insights Performance views track 'Available Memory' (in MB or Percentage) collected from guest OS performance counters to highlight memory pressure.",
+      "correctReason": "Network Insights provides a dedicated Network Health tab that highlights active alerts and operational status across hybrid resources like VNets, ExpressRoute, and VPN Gateways.",
       "incorrectReasons": [
-        "Host Memory Usage Percentage is a hypervisor metric that is not exposed at the guest operating system level in VM Insights.",
-        "Page File Swap Rate indicates paging activity, but is not the primary chart metric for available memory capacity.",
-        "Kernel Pool Bytes measures memory allocated by OS drivers, which is too granular for general host memory profiling."
-      ],
-      "reference": "https://learn.microsoft.com/en-us/azure/azure-monitor/vm/vminsights-performance"
-    }
-  },
-  {
-    "id": 38,
-    "subtopic": "Configure and interpret monitoring of virtual machines, storage accounts, and networks by using Azure Monitor Insights",
-    "question": "You open Azure Monitor Insights for Storage Accounts. You want to view which specific storage account has consumed the highest amount of total capacity in your subscription over time. Which view tab should you inspect?",
-    "options": [
-      "Capacity",
-      "Performance",
-      "Availability",
-      "Security"
-    ],
-    "correct": 0,
-    "explanation": {
-      "correctReason": "The Capacity view tab in Storage Insights breaks down total capacity used, account limits, blob counts, and object size growth across storage accounts.",
-      "incorrectReasons": [
-        "Performance tracks latency, throughput, and IOPS, not total stored data capacity.",
-        "Availability tracks service uptime and percentage of successful server responses.",
-        "Security provides Defender for Storage alerts and TLS configuration statuses."
-      ],
-      "reference": "https://learn.microsoft.com/en-us/azure/azure-monitor/insights/storage-insights-overview"
-    }
-  },
-  {
-    "id": 39,
-    "subtopic": "Configure and interpret monitoring of virtual machines, storage accounts, and networks by using Azure Monitor Insights",
-    "question": "Which Azure Monitor feature powers the pre-built, interactive monitoring experiences provided by VM Insights, Storage Insights, and Network Insights?",
-    "options": [
-      "Azure Workbooks",
-      "Azure Logic Apps",
-      "Azure Resource Graph queries",
-      "Azure Automation Runbooks"
-    ],
-    "correct": 0,
-    "explanation": {
-      "correctReason": "Azure Monitor Insights curated experiences are built on Azure Workbooks, combining metrics, logs, queries, and text into interactive visual reports.",
-      "incorrectReasons": [
-        "Logic Apps automate workflows and integrations, but do not render dashboard reporting interfaces.",
-        "Resource Graph provides fast querying of Azure Resource Manager governance metadata, but does not power full time-series Insights workbooks alone.",
-        "Automation Runbooks execute scripts for operational management, not visualization reporting."
-      ],
-      "reference": "https://learn.microsoft.com/en-us/azure/azure-monitor/visualize/workbooks-overview"
-    }
-  },
-  {
-    "id": 40,
-    "subtopic": "Configure and interpret monitoring of virtual machines, storage accounts, and networks by using Azure Monitor Insights",
-    "question": "You open Network Insights to review your Azure Application Gateways. You notice that backend pool instances for an App Gateway are failing health checks. Where in Network Insights can you view the health status of these backend targets?",
-    "options": [
-      "Functional Components / Resource Health view",
-      "Flow Log Analysis tab",
-      "Connection Monitor tab",
-      "IP Flow Verify blade"
-    ],
-    "correct": 0,
-    "explanation": {
-      "correctReason": "Network Insights aggregates resource topology and health, allowing administrators to inspect Application Gateway functional components and backend health probe results directly.",
-      "incorrectReasons": [
-        "Flow Log Analysis evaluates packet-level NSG traffic flows, not Application Gateway HTTP health probe states.",
-        "Connection Monitor measures synthetic TCP/ICMP ping connectivity between endpoints, not native Application Gateway backend pool probes.",
-        "IP Flow Verify is a Network Watcher tool for testing NSG rules against 5-tuple traffic filters."
+        "Topology visualizes resource relationships rather than summarizing operational health and alert status across resources.",
+        "Traffic Analytics focuses on IP flow patterns and user traffic patterns.",
+        "Connection Monitor provides latency and synthetic connectivity test metrics."
       ],
       "reference": "https://learn.microsoft.com/en-us/azure/azure-monitor/insights/network-insights-overview"
     }
   },
   {
-    "id": 41,
+    "id": 38,
     "subtopic": "Use Azure Network Watcher and Connection Monitor",
-    "question": "You have a virtual machine VM1 in Subnet1. Users report that VM1 cannot communicate with an Azure SQL Database private endpoint at IP address 10.1.0.5 on TCP port 1433. You want to quickly check whether an NSG rule or User Defined Route (UDR) is blocking traffic from VM1 without logging into the VM OS. Which Network Watcher tool should you run first?",
+    "question": "You are troubleshooting a connection failure between an Azure VM and an external database server. You create a Connection Monitor test. Which test group parameters must you define? (Select THREE)",
     "options": [
-      "IP Flow Verify",
-      "Packet Capture",
-      "VPN Troubleshoot",
-      "Connection Troubleshoot"
+      "Source endpoint (Azure VM)",
+      "Destination endpoint (Database IP/FQDN)",
+      "Test configuration (Protocol and Port)",
+      "Diagnostic Log storage container",
+      "Network Security Group flow log path",
+      "Azure Automation account name"
+    ],
+    "correct": [0, 1, 2],
+    "explanation": {
+      "correctReason": "A Connection Monitor test group requires three main components: Source endpoints, Destination endpoints, and Test configurations (specifying protocol like TCP/ICMP and target port).",
+      "incorrectReasons": [
+        "Diagnostic log containers are optional logging settings, not mandatory test group definition parameters.",
+        "NSG flow log paths are configured on NSG resources directly, not inside Connection Monitor test groups.",
+        "Automation accounts are used for runbooks, not Connection Monitor creation."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/network-watcher/connection-monitor-overview#create-a-connection-monitor"
+    }
+  },
+  {
+    "id": 39,
+    "subtopic": "Create a Recovery Services vault",
+    "question": "You need to prevent unauthorized administrators from disabling Soft Delete or reducing backup retention periods in your Recovery Services vault. Which Azure Backup feature permanently locks vault security settings against modification?",
+    "options": [
+      "Vault Immutable Capable / Immutable Vault",
+      "Azure Role-Based Access Control (RBAC)",
+      "Resource Locks (ReadOnly)",
+      "Multi-Factor Authentication (MFA)"
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "IP Flow Verify tests 5-tuple packet flows (source/destination IP, port, protocol) against effective NSG rules and returns whether traffic is allowed or denied, along with the responsible NSG rule name.",
+      "correctReason": "Enabling Immutable Vault locks the vault settings permanently, preventing any user (including global admins and Microsoft support) from disabling soft delete or reducing retention periods.",
       "incorrectReasons": [
-        "Packet Capture records raw network trace files (.cap), which requires OS extensions and time to analyze, whereas IP Flow Verify provides instant security rule diagnostic feedback.",
-        "VPN Troubleshoot diagnoses virtual network gateways and site-to-site tunnels, not local VNet NSG filter rules.",
-        "Connection Troubleshoot checks end-to-end connectivity including routing and DNS, but IP Flow Verify specifically isolates NSG rule blocks faster."
+        "RBAC roles can be reassigned or overridden by Subscription Owners.",
+        "Resource Locks prevent ARM resource deletion or modifications, but do not lock internal vault policy rules like soft delete timeouts.",
+        "MFA reinforces user identity verification but does not permanently lock vault compliance policies."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/network-watcher/diagnose-vm-network-traffic-filtering-problem"
+      "reference": "https://learn.microsoft.com/en-us/azure/backup/backup-azure-immutable-vault"
+    }
+  },
+  {
+    "id": 40,
+    "subtopic": "Create an Azure Backup vault",
+    "question": "You plan to protect an Azure Blob Storage container using Azure Backup. You create an Azure Backup vault. Which backup mechanism is used by Azure Backup vault to provide continuous data protection (CDP) without requiring full data copies?",
+    "options": [
+      "Operational backup (Point-in-time restore using blob versioning and change feed)",
+      "Vaulted backup to cold storage",
+      "Disk snapshot export",
+      "ASR delta replication"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Operational backup for Azure Blobs uses local continuous data protection features (soft delete, blob versioning, change feed) managed via Backup vault policies.",
+      "incorrectReasons": [
+        "Vaulted backup copies full blob datasets into vault storage, which is not CDP-based operational backup.",
+        "Disk snapshot export applies to Managed Disks, not Azure Storage Blobs.",
+        "ASR delta replication is used for VM disaster recovery failover."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/backup/blob-backup-overview"
+    }
+  },
+  {
+    "id": 41,
+    "subtopic": "Create and configure a backup policy",
+    "question": "You need to create a backup policy for Azure Files file shares. What is the maximum retention period supported for daily, weekly, monthly, and yearly backups when using Recovery Services vaults for Azure Files?",
+    "options": [
+      "10 years (200 years for vault tier)",
+      "30 days",
+      "1 year",
+      "99 years"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Azure Files backup policies in Recovery Services vaults support long-term retention (LTR) up to 10 years for snapshots and up to 200 years for vault-standard tiering.",
+      "incorrectReasons": [
+        "30 days is the default short-term operational snapshot retention limit.",
+        "1 year is an arbitrary lower bound; LTR extends up to 10 years or more.",
+        "99 years is the maximum retention limit for MARS backups, whereas Azure Files supports up to 200 years in vault tier."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/backup/azure-file-share-backup-overview"
     }
   },
   {
     "id": 42,
-    "subtopic": "Use Azure Network Watcher and Connection Monitor",
-    "question": "You want to determine the exact network hop path that packets take from VM1 in VNet1 to an external web server at 20.30.40.50. You suspect a custom Route Table is misrouting traffic to an NVA. Which Network Watcher tool reveals the next hop type and IP address?",
+    "subtopic": "Perform backup and restore operations by using Azure Backup",
+    "question": "You need to restore an entire Azure VM that was backed up using Azure Backup. The original VM was deleted, and you need to restore it to the exact same IP configuration and VNet. What is the recommended restore workflow?",
     "options": [
-      "Next Hop",
-      "IP Flow Verify",
-      "NSG Diagnostic",
-      "Connection Monitor"
+      "Restore VM disks first, then use the provided template or PowerShell/CLI script to deploy the VM with original settings",
+      "Use 'Replace Existing Disks' option",
+      "Restore individual files using MARS",
+      "Perform a Site Recovery failover"
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "The Next Hop tool in Network Watcher determines the outbound routing path for a target VM, showing the next hop type (e.g., VirtualAppliance, Internet, VNetPeering) and IP address.",
+      "correctReason": "Because the original VM was deleted, you cannot use 'Replace Disks'. The standard workflow is to restore disks and use the ARM template generated by Azure Backup during disk restore to recreate the VM.",
       "incorrectReasons": [
-        "IP Flow Verify checks security rules (NSGs) for traffic filtering, not routing paths or route table decisions.",
-        "NSG Diagnostic checks effective NSG rules for a VM, but does not display route table next hops.",
-        "Connection Monitor performs continuous latency and connectivity test probing, but Next Hop is the direct tool for single-point routing diagnostic lookup."
+        "'Replace Existing Disks' requires the existing target VM to still exist in Azure.",
+        "MARS file recovery restores files to an operating system, not full VM infrastructure entities.",
+        "Site Recovery is for disaster recovery replication, not restoring deleted backups from a Recovery Services vault."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/network-watcher/diagnose-vm-network-routing-problem"
+      "reference": "https://learn.microsoft.com/en-us/azure/backup/backup-azure-arm-vms-prepare#restore-options"
     }
   },
   {
     "id": 43,
-    "subtopic": "Use Azure Network Watcher and Connection Monitor",
-    "question": "You need to set up continuous, automated network quality monitoring (measuring packet loss and latency) between an Azure VM in East US and an on-premises server connected via ExpressRoute. Which Network Watcher feature provides continuous multi-endpoint monitoring and alerts?",
+    "subtopic": "Configure Azure Site Recovery for Azure resources",
+    "question": "You are enabling replication for an Azure VM using Azure Site Recovery. What high-availability options in the target region can you select during initial configuration? (Select TWO)",
     "options": [
-      "Connection Monitor",
-      "IP Flow Verify",
-      "Topology",
-      "NSG Flow Logs"
+      "Availability Set",
+      "Availability Zone",
+      "Virtual Machine Scale Set (Uniform)",
+      "Proximity Placement Group",
+      "System-Assigned Managed Identity"
     ],
-    "correct": 0,
+    "correct": [0, 1],
     "explanation": {
-      "correctReason": "Connection Monitor provides unified, continuous test capabilities across hybrid network topologies, measuring latency, packet loss, and hop-by-hop path details over time.",
+      "correctReason": "When configuring target settings in ASR, you can specify target high availability options such as placing the VM into a target Availability Set or placing it in a specific Availability Zone.",
       "incorrectReasons": [
-        "IP Flow Verify is an on-demand troubleshooting tool for testing NSG rules, not a continuous monitoring engine.",
-        "Topology visualizes resource relationships in a VNet layout, but does not measure real-time latency or packet loss.",
-        "NSG Flow Logs record IP traffic flows passing through NSGs, but do not perform active probes or latency tracking."
+        "Uniform VM Scale Sets manage homogenous autoscaling VM instances, not individual protected IaaS VMs.",
+        "Proximity Placement Groups manage physical placement latency, not high-availability SLA groupings.",
+        "Managed Identities deal with authentication, not high availability."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/network-watcher/connection-monitor-overview"
+      "reference": "https://learn.microsoft.com/en-us/azure/site-recovery/azure-to-azure-how-to-enable-replication"
     }
   },
   {
     "id": 44,
-    "subtopic": "Use Azure Network Watcher and Connection Monitor",
-    "question": "You enable NSG Flow Logs for an Network Security Group in Subnet1. Where are the generated flow log JSON files saved, and what additional feature can be enabled for advanced traffic visualization?",
+    "subtopic": "Perform a failover to a secondary region by using Site Recovery",
+    "question": "During a Test Failover using Azure Site Recovery, what happens to ongoing data replication between the primary and secondary regions?",
     "options": [
-      "Saved to an Azure Storage Account; enable Traffic Analytics for Log Analytics visualization",
-      "Saved directly to Azure Key Vault; enable Azure Sentinel for visualization",
-      "Saved to local VM OS drive C:\\Logs; enable Network Watcher extension",
-      "Saved to Azure Advisor; enable Security Center"
+      "Replication continues uninterrupted without impact",
+      "Replication is paused until the test failover is cleaned up",
+      "Replication is permanently canceled and must be re-configured",
+      "Replication reverses direction automatically"
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "NSG Flow Logs write raw JSON data to an Azure Storage Account. Enabling Traffic Analytics processes these logs and uploads rich insights into a Log Analytics workspace for visualization.",
+      "correctReason": "Test Failover is completely non-disruptive. Continuous replication continues in the background while test VMs operate in an isolated network.",
       "incorrectReasons": [
-        "Key Vault stores cryptographic secrets and certificates, not raw network flow telemetry.",
-        "Flow logs are processed at the SDN infrastructure layer and stored in Azure Storage, not on individual guest VM local disks.",
-        "Azure Advisor provides configuration recommendations, not log storage or network flow analysis."
+        "Replication is not paused during a Test Failover; continuous data sync continues.",
+        "Replication is not canceled during a test.",
+        "Replication only reverses direction during the 'Re-protect' phase following an actual failover."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/network-watcher/nsg-flow-logs-overview"
+      "reference": "https://learn.microsoft.com/en-us/azure/site-recovery/azure-to-azure-troubleshoot-test-failover"
     }
   },
   {
     "id": 45,
-    "subtopic": "Use Azure Network Watcher and Connection Monitor",
-    "question": "You want to run a Network Watcher Packet Capture on VM1 to capture HTTP traffic on port 80 for 5 minutes. Where is the resulting packet capture file (`.cap`) saved?",
+    "subtopic": "Configure and interpret reports and alerts for backups",
+    "question": "You need to configure log export so that all Azure Backup job operational logs across all Recovery Services vaults in your subscription are sent to a single Log Analytics workspace. What feature must you configure on each vault?",
     "options": [
-      "In an Azure Storage Account container or on VM1's local disk",
-      "Directly in the Azure Network Watcher portal view",
-      "In the Log Analytics `Heartbeat` table",
-      "In Azure Key Vault"
+      "Diagnostic Settings",
+      "Backup Policy",
+      "Alert Processing Rules",
+      "Azure Resource Graph"
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "Network Watcher Packet Capture allows administrators to specify an Azure Storage Account target, a local VM disk filepath (e.g., `.cap`), or both to store the network capture.",
+      "correctReason": "Diagnostic Settings on Recovery Services vaults allow exporting `CoreAzureBackup` and `AddonAzureBackup` event logs directly to a Log Analytics workspace.",
       "incorrectReasons": [
-        "Packet capture trace files are binary data files (.cap) that cannot be rendered directly inside the web browser portal without Wireshark or similar tools.",
-        "Log Analytics stores text/JSON log tables, not raw binary packet trace files.",
-        "Azure Key Vault is designed for storing keys, secrets, and certificates, not network trace files."
+        "Backup Policies govern schedules and retention periods, not telemetry streaming destinations.",
+        "Alert Processing Rules suppress or modify notifications, not diagnostic log streams.",
+        "Azure Resource Graph allows querying resource metadata, not exporting real-time operational logs."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/network-watcher/network-watcher-packet-capture-overview"
+      "reference": "https://learn.microsoft.com/en-us/azure/backup/backup-azure-diagnostic-events"
     }
   },
   {
     "id": 46,
-    "subtopic": "Use Azure Network Watcher and Connection Monitor",
-    "question": "You need to diagnose why an IPsec Site-to-Site VPN gateway connection keeps dropping. Which Network Watcher tool specifically diagnoses gateway connections, health, and tunnel logs?",
+    "subtopic": "Interpret metrics in Azure Monitor",
+    "question": "You need to set up a dashboard in Azure Monitor to track both server response time and total HTTP requests for an App Service. You want to see these metrics side-by-side with different Y-axis scale ranges. How can you achieve this in Metrics Explorer?",
     "options": [
-      "VPN Troubleshoot",
-      "IP Flow Verify",
-      "Next Hop",
-      "Topology"
+      "Add two metrics to the same chart and enable secondary Y-axis or create a split multi-chart layout",
+      "Convert the metrics into KQL logs",
+      "Create an Activity Log filter",
+      "Export metrics to CSV and import into Excel"
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "VPN Troubleshoot tests Virtual Network Gateways and connection objects, providing diagnostics on phase 1/2 IPSec tunnel state, SA establishment, and gateway errors.",
+      "correctReason": "Metrics Explorer allows plotting multiple metric lines on a single chart with separate scales or creating multiple chart panes within the same view.",
       "incorrectReasons": [
-        "IP Flow Verify tests VM-level NSG rules, not site-to-site VPN gateway tunnels.",
-        "Next Hop determines VM outbound routing targets, not VPN gateway tunnel IPSec state.",
-        "Topology renders visual network infrastructure diagrams, but does not run health diagnostics on VPN gateways."
+        "Converting metrics to logs is unnecessary since Metrics Explorer handles multi-metric charting directly.",
+        "Activity Log filters track control operations, not numeric metrics like response time or HTTP counts.",
+        "Exporting to CSV is a manual offline process that does not build a dynamic Azure Monitor dashboard."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/network-watcher/network-watcher-vpn-troubleshoot"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-monitor/essentials/metrics-charts"
     }
   },
   {
     "id": 47,
-    "subtopic": "Use Azure Network Watcher and Connection Monitor",
-    "question": "To use Network Watcher tools (such as Packet Capture or Connection Troubleshoot) on an Azure Virtual Machine, what agent/extension must be installed on the target VM?",
+    "subtopic": "Configure log settings in Azure Monitor",
+    "question": "You need to configure the retention period for data ingested into a Log Analytics workspace to be 180 days. Where do you configure this setting?",
     "options": [
-      "Network Watcher Agent extension",
-      "Azure Monitor Agent (AMA)",
-      "Dependency Agent",
-      "Azure Automation Hybrid Worker"
+      "In the Log Analytics workspace 'Usage and estimated costs' / Data Retention settings",
+      "In the Recovery Services vault settings",
+      "In the Azure Storage Account lifecycle management rule",
+      "In the Virtual Machine Data Collection Rule (DCR)"
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "Features like Network Watcher Packet Capture and Connection Troubleshoot require the Network Watcher Agent extension (`NetworkWatcherAgentWindows` or `NetworkWatcherAgentLinux`) installed on target VMs.",
+      "correctReason": "Workspace-level data retention is configured directly in the Log Analytics workspace properties under 'Usage and estimated costs' (or Data Retention).",
       "incorrectReasons": [
-        "Azure Monitor Agent collects OS logs and performance metrics, but does not execute Network Watcher packet captures.",
-        "Dependency Agent maps network connections for VM Insights, but does not provide Network Watcher packet capture capabilities.",
-        "Hybrid Workers execute automation runbooks on-premises, which is unrelated to Azure Network Watcher."
+        "Recovery Services vaults retain backup snapshots, not Log Analytics table data.",
+        "Storage Account lifecycle rules apply to blob containers, not workspace log tables.",
+        "Data Collection Rules control log collection filters, not workspace storage retention periods."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/network-watcher/frequently-asked-questions"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-monitor/logs/manage-cost-storage#change-the-data-retention-period"
     }
   },
   {
     "id": 48,
-    "subtopic": "Use Azure Network Watcher and Connection Monitor",
-    "question": "You run Connection Monitor to test connectivity between VM1 and an external destination. The test reports a status of 'Fail' and pinpoints that traffic was blocked due to an outbound rule on an NSG. What capability of Connection Monitor provides this diagnostic precision?",
+    "subtopic": "Query and analyze logs in Azure Monitor",
+    "question": "You run a KQL query in Log Analytics and receive a large dataset. You want to group the results by virtual machine name and summarize the average Percentage CPU usage for each machine. Which KQL operator must you use?",
     "options": [
-      "Integrated hop-by-hop path evaluation combining topology and network rules",
-      "Real-time packet inspection via Wireshark integration",
-      "Automatic dynamic updating of NSG rules",
-      "Deletion of conflicting User Defined Routes"
+      "summarize avg(Val) by Computer",
+      "order by Computer asc",
+      "project Computer, Val",
+      "where Val > 50"
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "Connection Monitor continuously evaluates the full hop-by-hop network path and correlates routing with NSG security rules to identify the exact cause of failure along the link.",
+      "correctReason": "The `summarize` operator combined with the aggregation function `avg()` computes the average metric value grouped by the `Computer` column.",
       "incorrectReasons": [
-        "Connection Monitor uses synthetic probes, not full PCAP packet inspection with embedded Wireshark.",
-        "Connection Monitor is a diagnostic tool and does not dynamically rewrite or update NSG rules.",
-        "Connection Monitor isolates routing issues, but does not automatically modify or delete User Defined Routes."
+        "`order by` sorts rows without aggregating metric averages.",
+        "`project` selects specific columns to display without summarizing numeric data.",
+        "`where` filters rows based on a boolean predicate."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/network-watcher/connection-monitor-overview"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-monitor/logs/get-started-queries#group-results-using-summarize"
     }
   },
   {
     "id": 49,
     "subtopic": "Use Azure Network Watcher and Connection Monitor",
-    "question": "Which Network Watcher tool generates a visual dynamic map showing all resources inside a Virtual Network, their subnet associations, and linked Network Security Groups?",
+    "question": "You are auditing security rules on a network. You want to view packet flow metadata (source IP, destination IP, port, protocol, and allowed/denied action) passing through Network Security Groups. Which Network Watcher feature provides this detailed log data?",
     "options": [
-      "Topology",
-      "Next Hop",
-      "Connection Monitor",
-      "Traffic Analytics"
+      "NSG flow logs",
+      "IP flow verify",
+      "Next hop",
+      "VPN Troubleshoot"
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "The Topology tool in Network Watcher generates a visual diagram of all resources, subnets, interfaces, and NSGs within a Virtual Network.",
+      "correctReason": "NSG flow logs log 5-tuple IP traffic flow data passing through Network Security Groups to a storage account or Traffic Analytics workspace.",
       "incorrectReasons": [
-        "Next Hop provides textual routing table output for a single IP target, not a full visual diagram of a virtual network.",
-        "Connection Monitor tracks latency and reachability test metrics, not static VNet resource topology diagrams.",
-        "Traffic Analytics provides dashboard visualizations of IP flow log traffic data, not resource topology mapping."
+        "IP flow verify tests a single packet flow ad-hoc rather than generating log telemetry for all traffic.",
+        "Next hop identifies routing decisions to destination IPs.",
+        "VPN Troubleshoot evaluates health on Virtual Network Gateways."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/network-watcher/view-network-topology"
+      "reference": "https://learn.microsoft.com/en-us/azure/network-watcher/nsg-flow-logging-overview"
     }
   },
   {
     "id": 50,
-    "subtopic": "Use Azure Network Watcher and Connection Monitor",
-    "question": "You configure Network Watcher Connection Monitor to test TCP port 443 availability to a public web app. What is the minimum test evaluation frequency supported by Connection Monitor for test groups?",
+    "subtopic": "Perform backup and restore operations by using Azure Backup",
+    "question": "You need to enable Cross Region Restore (CRR) for Azure Virtual Machine backups using Azure Backup. Which requirement must be met before CRR can be enabled?",
     "options": [
-      "30 seconds",
-      "10 seconds",
-      "1 minute",
-      "5 minutes"
+      "The Recovery Services vault storage redundancy must be set to Geo-Redundant Storage (GRS).",
+      "The Recovery Services vault storage redundancy must be set to Locally Redundant Storage (LRS).",
+      "The VM must be running in an Availability Zone.",
+      "The backup policy must perform hourly snapshots."
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "Connection Monitor allows test group probing frequencies as fast as 30 seconds (up to 30 minutes) to detect intermittent connectivity dropouts.",
+      "correctReason": "Cross Region Restore (CRR) allows restoring backups in a secondary paired region and requires the Recovery Services vault to use Geo-Redundant Storage (GRS).",
       "incorrectReasons": [
-        "10 seconds is below the minimum test frequency supported by Connection Monitor.",
-        "1 minute is a valid frequency, but 30 seconds is the minimum supported interval.",
-        "5 minutes is too long for high-frequency connection probing requirements."
+        "CRR relies on GRS replication and cannot be enabled on LRS vaults.",
+        "VM Availability Zone placement is independent of vault-level CRR capability.",
+        "Snapshot frequency does not dictate CRR eligibility."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/network-watcher/connection-monitor-overview"
+      "reference": "https://learn.microsoft.com/en-us/azure/backup/backup-azure-arm-vms-prepare#cross-region-restore"
     }
-  }
+  ]
 ]

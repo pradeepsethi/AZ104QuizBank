@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AZ-104 Azure Compute</title>
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        :root {
+            --primary-color: #0078d4;
+            --primary-dark: #005a9e;
+            --secondary-color: #2b2b2b;
+            --bg-color: #f4f6f9;
+            --card-bg: #ffffff;
+            --text-color: #333333;
+            --border-color: #e1e4e8;
+            --code-bg: #f0f4f8;
+            --table-header-bg: #0078d4;
+            --table-header-color: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            border: 1px solid var(--border-color);
+        }
+
+        h2 {
+            color: var(--primary-dark);
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 0.5rem;
+            margin-top: 0;
+        }
+
+        h3 {
+            color: var(--secondary-color);
+            margin-top: 1.5rem;
+        }
+
+        ul, ol {
+            padding-left: 1.5rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        .highlight-box {
+            background-color: #e6f2ff;
+            border-left: 4px solid var(--primary-color);
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 4px 4px 0;
+        }
+
+        code {
+            background-color: var(--code-bg);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: Consolas, Monaco, 'Andale Mono', monospace;
+            font-size: 0.9em;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+        }
+
+        th, td {
+            padding: 0.75rem;
+            text-align: left;
+            border: 1px solid var(--border-color);
+        }
+
+        th {
+            background-color: var(--table-header-bg);
+            color: var(--table-header-color);
+        }
+
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: #666;
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border-color);
+            background-color: var(--card-bg);
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+    <div class="header-top">
+      <div>
+        <h1 style="margin: 0; font-size: 20px;">AZ-104 Microsoft Azure Administrator</h1>
+        <p style="margin: 5px 0 0 0; font-size: 14px; opacity: 0.9;">Compute Domain Study Guide</p>
+      </div>
+
+      <div id="auth-container">
+        <button id="sign-in-btn" class="btn btn-light" style="cursor: pointer;">Sign In with Google</button>
+        <div id="user-info" class="user-info-bar" style="display: none; align-items: center; gap: 10px;">
+          <span id="user-name" class="user-name-text" style="font-size: 14px; font-weight: 500;"></span>
+          <a href="../index.html" class="btn btn-light" style="text-decoration: none;">🏠 Home</a>
+          <a href="../dashboard.html" class="btn btn-light" style="text-decoration: none;">📊 Dashboard</a>
+          <button id="sign-out-btn" class="btn btn-danger" style="cursor: pointer;">Sign Out</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="card" style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+      <span style="font-weight: 600; color: #323130; font-size: 14px;">📚 References:</span>
+      <nav style="display: flex; gap: 10px; flex-wrap: wrap;">
+        <a href="identity.html" class="btn" style="background: #f3f2f1; color: #0078d4; text-decoration: none;">Identity</a>
+        <a href="storage.html" class="btn" style="background: #f3f2f1; color: #0078d4; text-decoration: none;">Storage</a>
+        <a href="compute.html" class="btn" style="background: #0078d4; color: white; text-decoration: none; font-weight: 600;">Compute</a>
+        <a href="networking.html" class="btn" style="background: #f3f2f1; color: #0078d4; text-decoration: none;">Networking</a>
+        <a href="monitoring.html" class="btn" style="background: #f3f2f1; color: #0078d4; text-decoration: none;">Monitoring</a>
+        <a href="../limits.html" class="btn" style="background: #f3f2f1; color: #0078d4; text-decoration: none;">📋 Limits &amp; Quotas</a>
+      </nav>
+    </div>
+  </div>
+
+
+    <div class="container">
+        
+        <!-- Compute Domain Scope -->
+        <section class="card">
+            <h2>1. Compute Domain Scope</h2>
+            <p>The guide's Azure services section identifies <strong>Compute</strong> as the processing power required by applications and systems to perform computational tasks. Services listed there include <strong>Virtual Machine, App Service, Functions, and Kubernetes Service</strong>.</p>
+            
+            <div class="highlight-box">
+                <strong>Compute topics covered in this guide:</strong> ARM Templates &amp; Bicep, Azure Virtual Machines, Disk Encryption, VM Scale Sets, Availability Zones/Sets, VM Disks, Azure Container Registry, Azure Container Instances, Azure Container Apps, and Azure App Service (plans, scaling, certificates/TLS, custom domains, backup, networking, deployment slots).
+            </div>
+        </section>
+
+        <!-- ARM Templates & Bicep -->
+        <section class="card">
+            <h2>2. ARM Templates &amp; Bicep</h2>
+
+            <h3>What They Are</h3>
+            <ul>
+                <li><strong>ARM template:</strong> A JSON file that defines the infrastructure and configuration for a deployment declaratively. Core sections: <code>parameters</code>, <code>variables</code>, <code>resources</code>, and <code>outputs</code>.</li>
+                <li><strong>Bicep file:</strong> A domain-specific language (DSL) that transpiles to ARM JSON. Same capabilities as ARM templates but with simpler, more readable syntax — no need for nested <code>"[resourceId(...)]"</code> expression strings.</li>
+            </ul>
+
+            <h3>Interpreting a Template</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Section</th>
+                        <th>Purpose</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>$schema</code> / <code>contentVersion</code></td>
+                        <td>Identifies the template language schema and version.</td>
+                    </tr>
+                    <tr>
+                        <td><code>parameters</code></td>
+                        <td>Values supplied at deployment time (e.g. VM size, admin username).</td>
+                    </tr>
+                    <tr>
+                        <td><code>variables</code></td>
+                        <td>Values computed/reused within the template to avoid repetition.</td>
+                    </tr>
+                    <tr>
+                        <td><code>resources</code></td>
+                        <td>The actual Azure resources to deploy, each with a <code>type</code>, <code>apiVersion</code>, <code>name</code>, and <code>properties</code>.</td>
+                    </tr>
+                    <tr>
+                        <td><code>outputs</code></td>
+                        <td>Values returned after deployment (e.g. a resulting resource ID or FQDN).</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Modifying Templates</h3>
+            <ul>
+                <li><strong>ARM JSON:</strong> Edit the relevant <code>resources</code> block directly, or add new <code>parameters</code>/<code>variables</code> as needed. Use <code>dependsOn</code> to control deployment order between dependent resources.</li>
+                <li><strong>Bicep:</strong> Edit <code>.bicep</code> resource declarations (<code>resource symbolicName 'type@apiVersion' = { ... }</code>). Modules (<code>module</code> keyword) let you reference other Bicep files for reusable components.</li>
+            </ul>
+
+            <h3>Deployment</h3>
+            <div class="highlight-box">
+                <strong>CLI:</strong> <code>az deployment group create --resource-group &lt;rg&gt; --template-file main.bicep --parameters params.json</code><br>
+                <strong>PowerShell:</strong> <code>New-AzResourceGroupDeployment -ResourceGroupName &lt;rg&gt; -TemplateFile main.json</code>
+            </div>
+            <ul>
+                <li><strong>Deployment scopes:</strong> resource group, subscription, management group, or tenant.</li>
+                <li><strong>Deployment modes:</strong> <code>Incremental</code> (default — adds/updates resources, leaves unreferenced resources untouched) vs <code>Complete</code> (deletes resources in the resource group not defined in the template).</li>
+            </ul>
+
+            <h3>Export &amp; Convert</h3>
+            <ul>
+                <li><strong>Export a deployment:</strong> In the Azure portal, a resource group's <em>Deployments</em> blade lets you export the template used for any prior deployment, or use <em>Export template</em> on the resource group itself to generate a template from its current state.</li>
+                <li><strong>Convert ARM JSON → Bicep:</strong> <code>az bicep decompile --file main.json</code></li>
+                <li><strong>Convert Bicep → ARM JSON:</strong> <code>az bicep build --file main.bicep</code></li>
+            </ul>
+        </section>
+
+        <!-- Azure Virtual Machines -->
+        <section class="card">
+            <h2>3. Azure Virtual Machines</h2>
+            
+            <h3>Components and Creation Flow</h3>
+            <ol>
+                <li><strong>Subscription and resource group:</strong> Choose the subscription and resource group. A subscription is the container where Azure resources are provisioned; a resource group logically organizes resources.</li>
+                <li><strong>Availability:</strong> Choose Availability Zone, Availability Set, or no infrastructure redundancy option.</li>
+                <li><strong>Image:</strong> Contains the OS, settings, and applications.</li>
+                <li><strong>VM type and size:</strong> Determines physical properties such as vCPUs, RAM, and disks.</li>
+                <li><strong>Billing:</strong> Select Spot or another billing type such as pay-as-you-go or reserved.</li>
+                <li><strong>Access:</strong> Use a key pair; secure the public-key copy to preserve direct instance access.</li>
+                <li><strong>Storage:</strong> Add OS disk, data disk, and temporary disk.</li>
+                <li><strong>Networking:</strong> Select the virtual network and Network Security Group rules.</li>
+                <li><strong>Management:</strong> Enable monitoring, auto-shutdown, and backup.</li>
+                <li><strong>Advanced configuration:</strong> Add extensions, user data, or Proximity Placement Groups.</li>
+                <li><strong>Tags:</strong> Identify and classify resources.</li>
+                <li><strong>Deploy & Redeploy:</strong> Review configuration and launch. Redeploying moves the VM to a new node while retaining configuration.</li>
+            </ol>
+
+            <h3>VM Types</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Type</th>
+                        <th>Guide Description / Use Cases</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>General Purpose</strong></td>
+                        <td>Balanced CPU-to-memory ratio; testing, dev, low-to-medium traffic web servers. B-series provides burstable performance.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Compute Optimized</strong></td>
+                        <td>High CPU-to-memory ratio; medium-traffic web servers, network appliances, batch processes, analytics.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Memory Optimized</strong></td>
+                        <td>High memory-to-CPU ratio; relational databases, medium-to-large caches, in-memory analytics.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Storage Optimized</strong></td>
+                        <td>High disk throughput and I/O; SQL/NoSQL databases, big data, data warehousing.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>GPU</strong></td>
+                        <td>Compute-intensive, graphics-intensive and visualization workloads.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>High-performance compute</strong></td>
+                        <td>Powerful/fast CPU and high-throughput network interfaces; fluid dynamics, weather modeling, seismic processing.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Azure Disk Encryption (ADE)</h3>
+            <ul>
+                <li>Encrypts OS and data disks <strong>inside the guest OS</strong> using industry-standard <strong>BitLocker</strong> (Windows) or <strong>DM-Crypt</strong> (Linux).</li>
+                <li>Encryption keys are safeguarded in an <strong>Azure Key Vault</strong> as secrets (and optionally a Key Encryption Key, KEK, for double-wrapping).</li>
+                <li>Different from (and can be layered with) <strong>Storage Service Encryption (SSE)</strong> / <strong>encryption at rest</strong>, which encrypts at the platform/storage layer and is enabled by default on all managed disks.</li>
+                <li>Not supported: Basic-tier VMs, and (at the time of writing) some generation-2/confidential VM combinations — check current support before enabling.</li>
+            </ul>
+
+            <div class="highlight-box">
+                <strong>Exam tip:</strong> ADE = guest-OS-level encryption via BitLocker/DM-Crypt, keys in Key Vault. SSE = platform-level, on by default, no guest OS involvement.
+            </div>
+
+            <h3>Moving a VM</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Move Type</th>
+                        <th>Guide Notes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Another resource group</strong></td>
+                        <td>Supported for the VM and its associated resources (disks, NICs). Both source and target resource groups are locked during the move.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Another subscription</strong></td>
+                        <td>Same move mechanism as resource groups; target subscription must have the required resource providers registered and be in the same Azure AD (Entra ID) tenant, or use Azure Lighthouse/manual recreation across tenants.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Another region</strong></td>
+                        <td>Not a native "move" — done via <strong>Azure Resource Mover</strong>, or by recreating the VM from a snapshot/image/ARM template exported from the source region.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Managing VM Sizes</h3>
+            <ul>
+                <li>Resize via <strong>Portal → VM → Size</strong>, CLI (<code>az vm resize</code>), or PowerShell (<code>Update-AzVM</code>/<code>-Size</code>).</li>
+                <li>Resizing within the <strong>same hardware cluster</strong> only requires a reboot; resizing to a size <strong>not available on the current cluster</strong> requires deallocating (stop) the VM first.</li>
+                <li>Not all sizes are available in all regions/clusters — check <code>az vm list-vm-resize-options</code> before planning a resize.</li>
+            </ul>
+
+            <h3>Availability Zones vs Availability Sets</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Option</th>
+                        <th>Guide Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Availability Zone</strong></td>
+                        <td>Physically separate datacenters within a region, each with independent power, cooling, and networking. Protects against <strong>datacenter-level</strong> failure. SLA up to 99.99%.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Availability Set</strong></td>
+                        <td>Logical grouping within a <strong>single datacenter</strong>, spread across <strong>Fault Domains</strong> (shared power/network) and <strong>Update Domains</strong> (patched/rebooted together). Protects against rack-level hardware/maintenance failure. SLA 99.95%.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Virtual Machine Scale Sets (VMSS)</h3>
+            <ul>
+                <li>A group of <strong>identical, load-balanced VMs</strong> that can automatically increase or decrease instance count in response to demand or a defined schedule.</li>
+                <li><strong>Scaling modes:</strong> manual (fixed instance count), custom autoscale (CPU/memory/metric-based rules), or predictive autoscale (forecasts load from historical patterns).</li>
+                <li><strong>Orchestration modes:</strong> <em>Uniform</em> (identical instances from a single model, ideal for stateless workloads) vs <em>Flexible</em> (mix of VM sizes/configs, supports Availability Zones and closer parity with standalone VM features).</li>
+                <li>Integrates with Azure Load Balancer or Application Gateway to distribute traffic across instances.</li>
+                <li>Upgrade policy controls how instances receive model changes: <em>Manual</em>, <em>Automatic</em>, or <em>Rolling</em> (staged, with health-probe checks between batches).</li>
+            </ul>
+        </section>
+
+        <!-- VM Disks & Storage -->
+        <section class="card">
+            <h2>4. Virtual Machine Disks</h2>
+            <p>VM disks are block-level storage volumes managed by Azure and primarily used for Azure VMs.</p>
+
+            <h3>Disk Roles</h3>
+            <ul>
+                <li><strong>OS Disk:</strong> Required for a VM. Persistent OS disks preserve data when upgrading. Ephemeral OS disks offer lower latency for stateless workloads.</li>
+                <li><strong>Data Disk:</strong> Stores application data. Can be created from snapshots, blobs, or empty disks.</li>
+                <li><strong>Temporary Disk:</strong> Short-term storage for page/swap files. Data may be lost during redeployment.</li>
+            </ul>
+
+            <h3>Disk Types Comparison</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Disk Type</th>
+                        <th>Guide Scenario</th>
+                        <th>Max Size</th>
+                        <th>Max Throughput</th>
+                        <th>Max IOPS</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Standard HDD</strong></td>
+                        <td>Backup, non-critical, infrequent access</td>
+                        <td>32,767 GiB</td>
+                        <td>500 MB/s</td>
+                        <td>2,000</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Standard SSD</strong></td>
+                        <td>Web servers and light enterprise applications</td>
+                        <td>32,767 GiB</td>
+                        <td>750 MB/s</td>
+                        <td>6,000</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Premium SSD</strong></td>
+                        <td>Production and performance-sensitive workloads</td>
+                        <td>32,767 GiB</td>
+                        <td>900 MB/s</td>
+                        <td>20,000</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Ultra Disk</strong></td>
+                        <td>I/O-intensive workloads, top-tier databases</td>
+                        <td>65,536 GiB</td>
+                        <td>2,000 MB/s</td>
+                        <td>160,000</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- App Service & Plans -->
+        <section class="card">
+            <h2>5. Azure App Service</h2>
+            <p>In App Service, an application always runs in an App Service plan, which defines the collection of compute resources for web, API, or mobile apps.</p>
+
+            <h3>Creating an App</h3>
+            <ul>
+                <li>Choose a <strong>publish</strong> model: Code (with a language stack/runtime) or Docker Container (with a registry image).</li>
+                <li>Choose an OS (Windows or Linux) — this is fixed for the life of the App Service plan; you can't mix OS types on the same plan.</li>
+                <li>Select or create the App Service plan (region + tier determine cost and capability).</li>
+            </ul>
+
+            <h3>Configuring Scaling</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Scaling Type</th>
+                        <th>Guide Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Scale up (vertical)</strong></td>
+                        <td>Change the App Service plan's pricing tier to get more CPU/RAM/features per instance. Causes a brief restart.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Scale out (horizontal) — manual</strong></td>
+                        <td>Set a fixed instance count (subject to the tier's max instance limit).</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Scale out — autoscale</strong></td>
+                        <td>Define rules based on metrics (CPU %, memory, HTTP queue length) or a schedule; requires Standard tier or above.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Certificates &amp; TLS</h3>
+            <ul>
+                <li>Certificate options: <strong>App Service Managed Certificate</strong> (free, auto-renewed, for a custom domain, no wildcard support), <strong>App Service Certificate</strong> (purchased through Azure, stored in Key Vault), or <strong>bring-your-own</strong> (upload a <code>.pfx</code>, or import from Key Vault).</li>
+                <li><strong>TLS/SSL binding</strong> requires the app to be on a custom domain (not the default <code>*.azurewebsites.net</code>) except for SNI-based defaults.</li>
+                <li><strong>TLS enforcement:</strong> "HTTPS Only" setting redirects all HTTP traffic to HTTPS; minimum TLS version is configurable per app.</li>
+                <li><strong>Mutual TLS (mTLS):</strong> Can require client certificates for incoming requests.</li>
+            </ul>
+
+            <h3>Custom Domains</h3>
+            <ul>
+                <li><strong>CNAME record:</strong> Maps a subdomain (e.g. <code>www</code>) to <code>&lt;app&gt;.azurewebsites.net</code> — simplest option, doesn't work for root/apex domains.</li>
+                <li><strong>A record:</strong> Maps the root/apex domain directly to the app's inbound IP address.</li>
+                <li><strong>TXT record:</strong> Used during domain verification (<code>asuid</code> record) to prove ownership.</li>
+                <li>Free tier plans <strong>cannot</strong> use custom domains — requires Shared tier or above.</li>
+            </ul>
+
+            <h3>Backup</h3>
+            <ul>
+                <li>Backs up app configuration, file content, and connected databases to an Azure Storage account/container.</li>
+                <li>Requires <strong>Standard tier or above</strong>; manual backups also available on Free/Shared with limits.</li>
+                <li>Supports scheduled (automatic, periodic) or on-demand backups; retention and frequency are configurable.</li>
+                <li>Restores can go to the same app or a different app/slot.</li>
+            </ul>
+
+            <h3>Networking Settings</h3>
+            <ul>
+                <li><strong>VNet Integration:</strong> Lets the app reach resources inside a virtual network (outbound traffic); requires Standard tier or above.</li>
+                <li><strong>Private Endpoint:</strong> Gives the app a private IP inside a VNet for inbound traffic, removing it from the public internet; requires Premium tier or above.</li>
+                <li><strong>Access Restrictions:</strong> IP-based or service-endpoint-based allow/deny rules controlling who can reach the app.</li>
+                <li><strong>Hybrid Connections:</strong> Lets the app reach specific on-premises TCP endpoints without a full VPN.</li>
+            </ul>
+
+            <h3>Deployment Slots</h3>
+            <ul>
+                <li>Live, separately-configurable versions of an app (e.g. <code>staging</code>) that share the same App Service plan resources.</li>
+                <li>Requires Standard tier or above (number of slots increases with tier).</li>
+                <li><strong>Swap:</strong> Exchanges a slot's content/configuration with production with no downtime; some settings are "slot-specific" (e.g. connection strings can be pinned) and don't swap.</li>
+                <li>Useful for staged rollouts, canary testing, and instant rollback (swap back).</li>
+            </ul>
+
+            <h3>App Service Plan Tiers</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Tier</th>
+                        <th>Max Instances</th>
+                        <th>Storage</th>
+                        <th>Memory</th>
+                        <th>Auto Scale</th>
+                        <th>VNet / Private Endpoint</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Free / Shared</strong></td>
+                        <td>1</td>
+                        <td>1 GB</td>
+                        <td>1 GB</td>
+                        <td>No</td>
+                        <td>No / No</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Basic</strong></td>
+                        <td>Up to 3</td>
+                        <td>10 GB</td>
+                        <td>Up to 7 GB</td>
+                        <td>Supported</td>
+                        <td>No / No</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Standard</strong></td>
+                        <td>Up to 10</td>
+                        <td>50 GB</td>
+                        <td>Up to 7 GB</td>
+                        <td>Supported</td>
+                        <td>Supported / No</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Premium</strong></td>
+                        <td>Up to 30 (v3)</td>
+                        <td>250 GB</td>
+                        <td>Up to 32 GB</td>
+                        <td>Supported</td>
+                        <td>Supported / Supported</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Isolated</strong></td>
+                        <td>Up to 100</td>
+                        <td>1 TB</td>
+                        <td>Up to 14 GB</td>
+                        <td>Supported</td>
+                        <td>Supported / Supported</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Container Services -->
+        <section class="card">
+            <h2>6. Azure Containers (ACR, ACI &amp; Container Apps)</h2>
+
+            <h3>Azure Container Registry (ACR)</h3>
+            <p>A private, managed Docker registry service for storing and managing container images and Helm charts close to your deployments.</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Tier</th>
+                        <th>Guide Notes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Basic</strong></td>
+                        <td>Cost-optimized entry point; lower storage/throughput — dev/test.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Standard</strong></td>
+                        <td>Same features as Basic with more included storage and higher throughput for production workloads.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Premium</strong></td>
+                        <td>Highest throughput; adds geo-replication, content trust/signing, private endpoints, and customer-managed keys.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <ul>
+                <li><strong>Admin account:</strong> A single shared username/password for pulls/pushes — simple but not recommended for production (prefer Entra ID/managed identity or repository-scoped tokens).</li>
+                <li><strong>Tasks (ACR Tasks):</strong> Build images in Azure on <code>git push</code> or base-image updates without a local Docker engine.</li>
+                <li><strong>Geo-replication</strong> (Premium only) keeps a single registry available and low-latency across multiple regions.</li>
+            </ul>
+
+            <h3>Azure Container Instances (ACI)</h3>
+            <p>ACI is a serverless container platform for running Docker containers on demand without infrastructure management. It supports container groups that share lifecycle, resources, local network, and storage volumes.</p>
+
+            <h3>Azure Container Apps</h3>
+            <p>A fully managed service, built on Kubernetes and Dapr under the hood, for deploying, managing, and scaling multi-container applications and microservices without managing cloud infrastructure or complex container orchestration.</p>
+
+            <h3>Sizing &amp; Scaling Comparison</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Aspect</th>
+                        <th>ACI</th>
+                        <th>Container Apps</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Sizing model</strong></td>
+                        <td>Specify vCPU and memory per container group at creation (billed per second for the resources reserved).</td>
+                        <td>Specify CPU/memory per container revision; resources shared across replicas within an app.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Scaling</strong></td>
+                        <td>No built-in autoscaling — one container group is a fixed unit; scale by orchestrating multiple groups externally.</td>
+                        <td>Built-in autoscale (KEDA-based) on HTTP traffic, CPU/memory, or custom/event-driven metrics (e.g. queue length).</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Scale to zero</strong></td>
+                        <td>Not supported — group runs until explicitly stopped/deleted.</td>
+                        <td>Supported — can scale replicas down to 0 when idle, and back up on demand.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Best fit</strong></td>
+                        <td>Simple, short-lived, or burst workloads (batch jobs, CI/CD agents).</td>
+                        <td>Long-running microservices, APIs, and event-driven apps needing revisions and traffic splitting.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+    </div>
+
+    <footer>
+        <p>AZ-104 Compute Domain </p>
+    </footer>
+
+  <script type="module" src="../js/reference.js"></script>
+</body>
+</html>

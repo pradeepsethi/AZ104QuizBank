@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <title>AZ-104 Limits, Quotas & Restrictions - Quiz Bank</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .domain-section {
+      background: white;
+      padding: 25px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+      margin-bottom: 25px;
+    }
+    .domain-title {
+      margin-top: 0;
+      color: #0078d4;
+      font-size: 18px;
+      border-bottom: 2px solid #0078d4;
+      padding-bottom: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .ms-learn-link {
+      color: #0078d4;
+      font-size: 13px;
+      font-weight: 500;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .ms-learn-link:hover {
+      text-decoration: underline;
+    }
+    .limits-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+      font-size: 14px;
+    }
+    .limits-table th, .limits-table td {
+      border: 1px solid #edebe9;
+      padding: 10px 12px;
+      text-align: left;
+    }
+    .limits-table th {
+      background-color: #f3f2f1;
+      color: #323130;
+      font-weight: 600;
+    }
+    .badge-hard {
+      background: #d13438;
+      color: white;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+    .badge-soft {
+      background: #ffaa44;
+      color: #323130;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+    .notes-list {
+      margin: 12px 0 0 0;
+      padding-left: 20px;
+      font-size: 14px;
+      color: #323130;
+    }
+    .notes-list li {
+      margin-bottom: 6px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- APP HEADER -->
+  <header class="header">
+    <div class="header-top">
+      <div>
+        <h1 style="margin: 0; font-size: 20px;">AZ-104 Reference Guide</h1>
+        <p style="margin: 5px 0 0 0; font-size: 14px; opacity: 0.9;">Azure Limits, Quotas &amp; Operational Restrictions Reference</p>
+      </div>
+      
+      <div id="auth-container">
+        <button id="sign-in-btn" class="btn btn-light" style="cursor: pointer;">Sign In with Google</button>
+        <div id="user-info" class="user-info-bar" style="display: none; align-items: center; gap: 10px;">
+          <span id="user-name" class="user-name-text" style="font-size: 14px; font-weight: 500;"></span>
+          <a href="index.html" class="btn btn-light" style="text-decoration: none;">🏠 Home</a>
+          <a href="dashboard.html" class="btn btn-light" style="text-decoration: none;">📊 Dashboard</a>
+          <button id="sign-out-btn" class="btn btn-danger" style="cursor: pointer;">Sign Out</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT CONTAINER -->
+  <main class="container" style="max-width: 1000px; margin-top: 30px;">
+
+    <!-- References Bar -->
+    <div class="card" style="background: white; padding: 15px 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); margin-bottom: 20px; display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+      <span style="font-weight: 600; color: #323130; font-size: 14px;">📚 References:</span>
+      <nav style="display: flex; gap: 10px; flex-wrap: wrap;">
+        <a href="references/identity.html" class="btn" style="background: #f3f2f1; color: #0078d4; text-decoration: none;">Identity</a>
+        <a href="references/storage.html" class="btn" style="background: #f3f2f1; color: #0078d4; text-decoration: none;">Storage</a>
+        <a href="references/compute.html" class="btn" style="background: #f3f2f1; color: #0078d4; text-decoration: none;">Compute</a>
+        <a href="references/networking.html" class="btn" style="background: #f3f2f1; color: #0078d4; text-decoration: none;">Networking</a>
+        <a href="references/monitoring.html" class="btn" style="background: #f3f2f1; color: #0078d4; text-decoration: none;">Monitoring</a>
+        <a href="limits.html" class="btn" style="background: #0078d4; color: white; text-decoration: none;">📋 Limits &amp; Quotas</a>
+      </nav>
+    </div>
+
+    <!-- TOP NAVIGATION & GLOBAL MS LEARN HUB LINK -->
+    <div class="card" style="background: white; padding: 15px 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); margin-bottom: 25px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+        <div style="font-weight: 600; color: #323130; font-size: 15px;">
+          📌 AZ-104 Certification Exam Limits Reference
+        </div>
+        <div style="display: flex; gap: 10px;">
+          <a href="#identity" class="btn" style="background: #f3f2f1; color: #323130; text-decoration: none;">Identity</a>
+          <a href="#storage" class="btn" style="background: #f3f2f1; color: #323130; text-decoration: none;">Storage</a>
+          <a href="#compute" class="btn" style="background: #f3f2f1; color: #323130; text-decoration: none;">Compute</a>
+          <a href="#networking" class="btn" style="background: #f3f2f1; color: #323130; text-decoration: none;">Networking</a>
+          <a href="#monitoring" class="btn" style="background: #f3f2f1; color: #323130; text-decoration: none;">Monitoring</a>
+        </div>
+      </div>
+      
+      <hr style="border: none; border-top: 1px solid #edebe9; margin: 12px 0;">
+      
+      <div style="font-size: 13px; color: #605e5c; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
+        <span>📖 Main Reference Hub:</span>
+        <a href="https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/azure-subscription-service-limits" target="_blank" rel="noopener noreferrer" class="ms-learn-link">
+          Azure Subscription &amp; Service Limits Directory ↗
+        </a>
+      </div>
+    </div>
+
+    <!-- 1. IDENTITY & GOVERNANCE -->
+    <section id="identity" class="domain-section">
+      <div class="domain-title">
+        <div>
+          <span>Identity &amp; Governance</span>
+          <span style="font-size: 13px; color: #605e5c; font-weight: normal; margin-left: 8px;">(20–25% of Exam)</span>
+        </div>
+        <div>
+          <a href="https://learn.microsoft.com/en-us/entra/identity/users/directory-service-limits-restrictions" target="_blank" rel="noopener noreferrer" class="ms-learn-link">
+            Microsoft Entra Limits ↗
+          </a>
+        </div>
+      </div>
+      
+      <table class="limits-table">
+        <thead>
+          <tr>
+            <th>Resource / Concept</th>
+            <th>Limit / Quota</th>
+            <th>Type</th>
+            <th>AZ-104 Exam Focus</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Management Group Depth</td>
+            <td>Max 6 levels deep (excluding root)</td>
+            <td><span class="badge-hard">Hard</span></td>
+            <td>Root management group controls tenant-wide settings.</td>
+          </tr>
+          <tr>
+            <td>Resource Locks</td>
+            <td>Max 20 locks per scope</td>
+            <td><span class="badge-hard">Hard</span></td>
+            <td>Locks override RBAC permissions and do NOT inherit from Management Groups.</td>
+          </tr>
+          <tr>
+            <td>Resource Tags</td>
+            <td>Max 50 tags per resource / RG / sub</td>
+            <td><span class="badge-hard">Hard</span></td>
+            <td>Tags do NOT automatically inherit down to child resources.</td>
+          </tr>
+          <tr>
+            <td>RBAC Role Assignments</td>
+            <td>Max 4,000 assignments per subscription</td>
+            <td><span class="badge-hard">Hard</span></td>
+            <td>Assign permissions to Entra ID Groups instead of single users to avoid hitting limits.</td>
+          </tr>
+          <tr>
+            <td>Custom RBAC Roles</td>
+            <td>Max 5,000 custom roles per tenant</td>
+            <td><span class="badge-hard">Hard</span></td>
+            <td><code>AssignableScopes</code> controls where a custom role can be used.</td>
+          </tr>
+          <tr>
+            <td>Azure Policy Assignments per Scope</td>
+            <td>Max 200 initiatives/policies per scope (subscription or resource group)</td>
+            <td><span class="badge-hard">Hard</span></td>
+            <td>Evaluated hierarchically from Management Group down to Resource Group.</td>
+          </tr>
+          <tr>
+            <td>Microsoft Entra Guest Users</td>
+            <td>Up to 5x ratio of paid tenant users (Free tier default)</td>
+            <td><span class="badge-soft">Soft</span></td>
+            <td>External collaboration limits scale based on Microsoft Entra external identities tier.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h4 style="margin: 20px 0 8px 0; color: #323130;">Operational Restrictions:</h4>
+      <ul class="notes-list">
+        <li><strong>Azure Policy:</strong> Evaluates resources on creation or update. Policy does not automatically modify non-compliant resources unless a Remediation Task is configured.</li>
+        <li><strong>Azure Budgets:</strong> Fires action group alerts when threshold limits are breached, but <em>does not</em> auto-stop or delete resources.</li>
+        <li><strong>Self-Service Password Reset (SSPR):</strong> Requires writeback to be enabled if syncing with on-premises Active Directory.</li>
+        <li><strong>Access Reviews:</strong> Periodic reviews of group memberships and guest access require Microsoft Entra ID P2 licenses.</li>
+      </ul>
+    </section>
+
+    <!-- 2. STORAGE -->
+    <section id="storage" class="domain-section">
+      <div class="domain-title">
+        <div>
+          <span>Storage</span>
+          <span style="font-size: 13px; color: #605e5c; font-weight: normal; margin-left: 8px;">(15–20% of Exam)</span>
+        </div>
+        <div>
+          <a href="https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/azure-subscription-service-limits#storage-limits" target="_blank" rel="noopener noreferrer" class="ms-learn-link">
+            Azure Storage Scalability Limits ↗
+          </a>
+        </div>
+      </div>
+      
+      <table class="limits-table">
+        <thead>
+          <tr>
+            <th>Resource / Concept</th>
+            <th>Limit / Quota</th>
+            <th>Type</th>
+            <th>AZ-104 Exam Focus</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Storage Accounts per Region</td>
+            <td>Max 250 per subscription</td>
+            <td><span class="badge-soft">Soft</span></td>
+            <td>Can request limit increases by opening a free support request.</td>
+          </tr>
+          <tr>
+            <td>Storage Account Capacity</td>
+            <td>Max 5 PB per storage account</td>
+            <td><span class="badge-soft">Soft</span></td>
+            <td>Applies across Blobs, Files, Queues, and Tables combined.</td>
+          </tr>
+          <tr>
+            <td>Access Keys</td>
+            <td>2 active keys (Key1 and Key2)</td>
+            <td><span class="badge-hard">Hard</span></td>
+            <td>Use zero-downtime rotation: update apps to Key2, regenerate Key1, then swap apps back.</td>
+          </tr>
+          <tr>
+            <td>Stored Access Policies</td>
+            <td>Max 5 policies per container/share</td>
+            <td><span class="badge-hard">Hard</span></td>
+            <td>Used to revoke or manage active SAS tokens without changing storage account keys.</td>
+          </tr>
+          <tr>
+            <td>Containers per Storage Account</td>
+            <td>No limit on the number of containers</td>
+            <td><span class="badge-soft">Soft</span></td>
+            <td>Scalability is limited by total account capacity (5 PB) and transaction limits rather than container counts.</td>
+          </tr>
+          <tr>
+            <td>Blob Size Limit</td>
+            <td>Max 190 TiB for block blobs (via Put Block/Put Block List)</td>
+            <td><span class="badge-hard">Hard</span></td>
+            <td>Single block uploads are limited to 4 MiB to 500 MiB depending on tool and version.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h4 style="margin: 20px 0 8px 0; color: #323130;">Operational Restrictions &amp; Key Metrics:</h4>
+      <ul class="notes-list">
+        <li><strong>Redundancy Targets:</strong> LRS (3 copies in 1 DC), ZRS (3 copies across 3 AZs), GRS (6 copies across primary &amp; paired secondary regions). Read-Access (RA-GRS) allows read access on secondary location.</li>
+        <li><strong>SAS Types:</strong> Service SAS (single service), Account SAS (multiple services), User Delegation SAS (secured via Microsoft Entra credentials).</li>
+        <li><strong>Blob Tiers:</strong> Hot (frequent access), Cool (min 30 days retention), Cold (min 90 days retention), Archive (offline, min 180 days, rehydration takes several hours).</li>
+        <li><strong>Object Replication:</strong> Requires General Purpose v2 (GPv2) storage accounts and block blobs with versioning enabled on both source and destination accounts.</li>
+      </ul>
+    </section>
+
+    <!-- 3. COMPUTE -->
+    <section id="compute" class="domain-section">
+      <div class="domain-title">
+        <div>
+          <span>Compute</span>
+          <span style="font-size: 13px; color: #605e5c; font-weight: normal; margin-left: 8px;">(20–25% of Exam)</span>
+        </div>
+        <div>
+          <a href="https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/azure-subscription-service-limits#virtual-machines-limits" target="_blank" rel="noopener noreferrer" class="ms-learn-link">
+            VM &amp; Compute Quotas ↗
+          </a>
+        </div>
+      </div>
+      
+      <table class="limits-table">
+        <thead>
+          <tr>
+            <th>Resource / Concept</th>
+            <th>Limit / Quota</th>
+            <th>Type</th>
+            <th>AZ-104 Exam Focus</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Default vCPU Cores</td>
+            <td>10–20 vCPUs per region</td>
+            <td><span class="badge-soft">Soft</span></td>
+            <td>Quotas apply per region and VM SKU family (e.g., Dv4, Ev4).</td>
+          </tr>
+          <tr>
+            <td>Availability Sets</td>
+            <td>Max 3 Fault Domains, 20 Update Domains</td>
+            <td><span class="badge-hard">Hard</span></td>
+            <td>Provides 99.95% SLA. Existing VMs cannot be added to an Availability Set post-creation without recreating.</td>
+          </tr>
+          <tr>
+            <td>ARM / Bicep Template Size</td>
+            <td>Max 4 MB JSON size; 800 resources</td>
+            <td><span class="badge-hard">Hard</span></td>
+            <td>Use linked templates or Bicep modules to break up deployments that exceed limits.</td>
+          </tr>
+          <tr>
+            <td>Deployment History</td>
+            <td>Max 800 deployments per Resource Group</td>
+            <td><span class="badge-hard">Hard</span></td>
+            <td>History auto-deletes when approaching limit, but clean scripts are recommended for automated deployment pipelines.</td>
+          </tr>
+          <tr>
+            <td>App Service Slots</td>
+            <td>Standard (5 slots), Premium (20 slots)</td>
+            <td><span class="badge-hard">Hard</span></td>
+            <td>Free and Basic App Service plans do not support deployment slots or autoscaling.</td>
+          </tr>
+          <tr>
+            <td>Managed Disks per Region</td>
+            <td>Max 50,000 disks per subscription</td>
+            <td><span class="badge-soft">Soft</span></td>
+            <td>Includes OS and data disks across standard HDD, standard SSD, premium SSD, and ultra disks.</td>
+          </tr>
+          <tr>
+            <td>Data Disks per VM Size</td>
+            <td>Up to 32, 64, or 128 data disks (depends on VM size)</td>
+            <td><span class="badge-hard">Hard</span></td>
+            <td>Larger VM series support higher maximum data disk attachments and higher IOPS/throughput.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h4 style="margin: 20px 0 8px 0; color: #323130;">Operational Restrictions:</h4>
+      <ul class="notes-list">
+        <li><strong>VM Move Restrictions:</strong> VMs can move across Resource Groups or Subscriptions, but cross-region moves require Azure Resource Mover or manual redeployment.</li>
+        <li><strong>Virtual Machine Scale Sets (VMSS):</strong> Up to 1,000 instances for platform images, 600 for custom images. Supports metric and schedule autoscaling.</li>
+        <li><strong>VM Disk Resizing:</strong> Premium SSD and Standard SSD disks can be resized upwards without deleting the VM, but the OS partition must be expanded inside the guest OS afterwards.</li>
+      </ul>
+    </section>
+
+    <!-- 4. NETWORKING -->
+    <section id="networking" class="domain-section">
+      <div class="domain-title">
+        <div>
+          <span>Networking</span>
+          <span style="font-size: 13px; color: #605e5c; font-weight: normal; margin-left: 8px;">(15–20% of Exam)</span>
+        </div>
+        <div>
+          <a href="https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/azure-subscription-service-limits#azure-resource-manager-virtual-networking-limits" target="_blank" rel="noopener noreferrer" class="ms-learn-link">
+            Networking Limits &amp; Quotas ↗
+          </a>
+        </div>
+      </div>
+      
+      <table class="limits-table">
+        <thead>
+          <tr>
+            <th>Resource / Concept</th>
+            <th>Limit / Quota</th>
+            <th>Type</th>
+            <th>AZ-104 Exam Focus</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Reserved Subnet IPs</td>
+            <td>5 IPs per subnet (First 4 + Last 1)</td>
+            <td><span class="badge-hard">Hard</span></td>
+            <td>For <code>10.0.0.0/24</code>, usable host range is <code>10.0.0.4</code> to <code>10.0.0.254</code>.</td>
+          </tr>
+          <tr>
+            <td>NSG Rules</td>
+            <td>Max 1,000 rules per NSG</td>
+            <td><span class="badge-hard">Hard</span></td>
+            <td>Priority range is 100 to 4096. Lower numbers are evaluated first.</td>
+          </tr>
+          <tr>
+            <td>VNets &amp; Subnets</td>
+            <td>Max 1,000 VNets, 1,000 subnets per VNet</td>
+            <td><span class="badge-hard">Hard</span></td>
+            <td>Peered virtual networks cannot have overlapping IP address spaces.</td>
+          </tr>
+          <tr>
+            <td>Public IP Addresses</td>
+            <td>1,000 per region per subscription</td>
+            <td><span class="badge-soft">Soft</span></td>
+            <td>Standard SKU IPs are static by default. Basic SKUs are deprecated.</td>
+          </tr>
+          <tr>
+            <td>Application Gateway Backend Pools</td>
+            <td>Max 100 backend pools per Application Gateway</td>
+            <td><span class="badge-hard">Hard</span></td>
+            <td>Essential for routing traffic to multiple backend services using path-based or multi-site hosting rules.</td>
+          </tr>
+          <tr>
+            <td>User-Defined Routes (UDRs) per Route Table</td>
+            <td>Max 400 routes per route table</td>
+            <td><span class="badge-hard">Hard</span></td>
+            <td>Route tables can be associated with multiple subnets within the same virtual network.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h4 style="margin: 20px 0 8px 0; color: #323130;">Operational Routing &amp; Network Security Rules:</h4>
+      <ul class="notes-list">
+        <li><strong>VNet Peering:</strong> Transitive peering is not enabled natively. (If A is peered with B, and B with C, VNet A cannot communicate directly with VNet C without a Gateway/NVA).</li>
+        <li><strong>User-Defined Routes (UDRs):</strong> Override default system routes. Traffic routes according to the <em>Longest Prefix Match (LPM)</em> rule.</li>
+        <li><strong>Private Endpoints vs. Service Endpoints:</strong> Service Endpoints secure traffic via public endpoints over the Microsoft backbone. Private Endpoints create a Private Network Interface (private IP) inside your subnet.</li>
+        <li><strong>Load Balancer (SLB) vs. Application Gateway:</strong> Standard Load Balancer operates at Layer 4 (TCP/UDP), whereas Application Gateway operates at Layer 7 (HTTP/HTTPS) supporting cookie-based session affinity and SSL termination.</li>
+      </ul>
+    </section>
+
+    <!-- 5. MONITORING & BACKUP -->
+    <section id="monitoring" class="domain-section">
+      <div class="domain-title">
+        <div>
+          <span>Monitoring &amp; Backup</span>
+          <span style="font-size: 13px; color: #605e5c; font-weight: normal; margin-left: 8px;">(10–15% of Exam)</span>
+        </div>
+        <div>
+          <a href="https://learn.microsoft.com/en-us/azure/azure-monitor/fundamentals/service-limits" target="_blank" rel="noopener noreferrer" class="ms-learn-link">
+            Azure Monitor Service Limits ↗
+          </a>
+        </div>
+      </div>
+      
+      <table class="limits-table">
+        <thead>
+          <tr>
+            <th>Resource / Concept</th>
+            <th>Limit / Quota</th>
+            <th>Type</th>
+            <th>AZ-104 Exam Focus</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Log Analytics Data Retention</td>
+            <td>Default 30 days (up to 730 days)</td>
+            <td><span class="badge-soft">Soft</span></td>
+            <td>Retention can be extended per workspace or archived to Azure Storage.</td>
+          </tr>
+          <tr>
+            <td>Metric Alert Frequency</td>
+            <td>Evaluated down to 1 minute</td>
+            <td><span class="badge-hard">Hard</span></td>
+            <td>Metric alerts process much faster than Log Search query alerts.</td>
+          </tr>
+          <tr>
+            <td>Recovery Services Vault VM Limit</td>
+            <td>Max 1,000 VMs registered per vault</td>
+            <td><span class="badge-hard">Hard</span></td>
+            <td>Deploy additional vaults to scale beyond 1,000 protected VMs.</td>
+          </tr>
+          <tr>
+            <td>Site Recovery (ASR) RPO</td>
+            <td>Down to 30 seconds for VMs</td>
+            <td><span class="badge-hard">Hard</span></td>
+            <td>Replication frequency and retention points configured in replication policy.</td>
+          </tr>
+          <tr>
+            <td>Azure Backup Retention (Recovery Services)</td>
+            <td>Max 9,999 recovery points per protected instance</td>
+            <td><span class="badge-hard">Hard</span></td>
+            <td>Long-term retention policies can span daily, weekly, monthly, and yearly backups.</td>
+          </tr>
+          <tr>
+            <td>Action Groups per Subscription</td>
+            <td>Max 2,000 action groups per subscription</td>
+            <td><span class="badge-soft">Soft</span></td>
+            <td>Action groups define notification channels and automated triggers for alerts.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h4 style="margin: 20px 0 8px 0; color: #323130;">Diagnostics &amp; Troubleshooting Tools:</h4>
+      <ul class="notes-list">
+        <li><strong>IP Flow Verify (Network Watcher):</strong> Tests packet filtering to determine if NSG rules allow or deny inbound/outbound traffic to/from a VM.</li>
+        <li><strong>Connection Monitor:</strong> Checks real-time end-to-end connectivity, latency, and hop paths between VMs or IP endpoints.</li>
+        <li><strong>Action Groups:</strong> Reusable alerting targets supporting Emails, SMS, Azure Push, Webhooks, Logic Apps, and Automation Runbooks.</li>
+        <li><strong>Alert Processing Rules:</strong> Used to suppress, silence, or route action groups dynamically during maintenance windows without modifying individual alert rules.</li>
+      </ul>
+    </section>
+
+  </main>
+
+  <script type="module" src="js/limits.js"></script>
+</body>
+</html>

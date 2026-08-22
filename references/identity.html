@@ -16,12 +16,12 @@
       </div>
 
       <div id="auth-container">
-        <div id="user-info" class="user-info-bar">
-          <span id="ref-user-name" class="user-name-text"></span>
+        <button id="sign-in-btn" class="btn btn-light">Sign In with Google</button>
+        <div id="user-info" class="user-info-bar" style="display: none;">
+          <span id="user-name" class="user-name-text"></span>
           <a href="../index.html" class="btn btn-light">🏠 Home</a>
           <a href="../dashboard.html" class="btn btn-light">📊 Dashboard</a>
-          <a href="../limits.html" class="btn btn-light">📋 Limits &amp; Quotas</a>
-          <button id="ref-sign-out-btn" class="btn btn-danger" style="display: none;">Sign Out</button>
+          <button id="sign-out-btn" class="btn btn-danger">Sign Out</button>
         </div>
       </div>
     </div>
@@ -36,6 +36,7 @@
         <a href="compute.html" class="btn ref-link">Compute</a>
         <a href="networking.html" class="btn ref-link">Networking</a>
         <a href="monitoring.html" class="btn ref-link">Monitoring</a>
+        <a href="../limits.html" class="btn ref-link">📋 Limits &amp; Quotas</a>
       </nav>
     </div>
   </div>
@@ -43,8 +44,25 @@
 
     <div class="container ref-content">
         
+        <!-- Identity & Governance Domain Scope -->
+        <section class="card card--content">
+            <h2>Identity & Governance Domain Scope</h2>
+            <p>The guide lists <strong>Manage Microsoft Entra identities and governance</strong> as an AZ-104 exam domain weighted at <strong>20–25%</strong>.</p>
+
+            <div class="highlight-box">
+                <strong>Services to focus on:</strong> Microsoft Entra ID users, groups, and devices; Azure RBAC role assignments and custom roles; and subscription governance via Azure Policy, resource groups, tags, and cost management.
+            </div>
+
+            <h3>Core Focus Areas</h3>
+            <ul>
+                <li><strong>Manage Microsoft Entra ID Objects:</strong> Create and manage users, groups, device settings, and licenses within a tenant.</li>
+                <li><strong>Manage Access to Azure Resources:</strong> Assign built-in and custom RBAC roles at the management group, subscription, resource group, or resource scope.</li>
+                <li><strong>Manage Subscriptions & Governance:</strong> Apply Azure Policy, organize resources with resource groups and tags, and monitor spend with budgets and Cost Management + Advisor.</li>
+            </ul>
+        </section>
+
         <!-- Microsoft Entra ID Overview -->
-        <section class="card">
+        <section class="card card--content">
             <h2>Microsoft Entra ID (formerly Azure Active Directory)</h2>
             <p>Microsoft Entra ID is Microsoft’s cloud-based identity and access management service. It helps employees sign in and access resources across external services (like Office 365, Azure Portal, and SaaS applications) as well as internal network applications.</p>
             
@@ -116,7 +134,7 @@
         </section>
 
         <!-- Azure RBAC Section -->
-        <section class="card">
+        <section class="card card--content">
             <h2>Azure Role-Based Access Control (RBAC)</h2>
             <p>Azure RBAC helps you manage who has access to Azure resources, what they can do with those resources, and what areas they have access to[cite: 3].</p>
 
@@ -164,7 +182,7 @@
         </section>
 
         <!-- Azure Policy & Governance Section -->
-        <section class="card">
+        <section class="card card--content">
             <h2>Azure Policy & Resource Governance</h2>
             <p>Azure Policy enforces organizational standards and assesses compliance at scale through its governance capabilities.</p>
 
@@ -200,7 +218,7 @@
         </section>
 
         <!-- Tags Section -->
-        <section class="card">
+        <section class="card card--content">
             <h2>Resource Tags</h2>
             <p>Tags are name/value pairs applied to resources, resource groups, and subscriptions to logically organize assets for billing, automation, and management purposes.</p>
             <h3>Key Rules & Constraints</h3>
@@ -214,7 +232,7 @@
         </section>
 
         <!-- Resource Groups Section -->
-        <section class="card">
+        <section class="card card--content">
             <h2>Resource Groups</h2>
             <p>A resource group is a logical container that holds related resources for an Azure solution, used for lifecycle management, access control, and billing/reporting grouping.</p>
             <h3>Key Facts</h3>
@@ -228,7 +246,7 @@
         </section>
 
         <!-- Subscriptions Section -->
-        <section class="card">
+        <section class="card card--content">
             <h2>Azure Subscriptions</h2>
             <p>A subscription is a billing and access-control boundary that links to an Entra ID tenant and groups resource groups/resources together.</p>
             <h3>Key Concepts</h3>
@@ -242,7 +260,7 @@
         </section>
 
         <!-- Cost Management Section -->
-        <section class="card">
+        <section class="card card--content">
             <h2>Cost Management: Alerts, Budgets & Advisor</h2>
             <h3>Budgets & Alerts</h3>
             <ul>
@@ -263,7 +281,7 @@
         </section>
 
         <!-- Comparison Section -->
-        <section class="card">
+        <section class="card card--content">
             <h2>Comparison: RBAC vs. Azure Policy vs. Entra ID</h2>
             <table>
                 <thead>

@@ -32,7 +32,7 @@
   </header>
 
   <!-- MAIN CONTENT CONTAINER -->
-  <main class="container container--medium">
+  <main class="container">
 
     <!-- References Bar -->
     <div class="card card--bar">
@@ -48,7 +48,7 @@
     </div>
 
     <!-- TOP NAVIGATION & GLOBAL MS LEARN HUB LINK -->
-    <div class="card">
+    <div class="card card--panel">
       <div class="limits-hub-bar">
         <div class="limits-hub-bar__title">
           📌 AZ-104 Certification Exam Limits Reference
@@ -140,7 +140,9 @@
           </tr>
         </tbody>
       </table>
+    </section>
 
+    <section class="domain-section">
       <h4 class="domain-note-heading">Operational Restrictions:</h4>
       <ul class="notes-list">
         <li><strong>Azure Policy:</strong> Evaluates resources on creation or update. Policy does not automatically modify non-compliant resources unless a Remediation Task is configured.</li>
@@ -212,7 +214,9 @@
           </tr>
         </tbody>
       </table>
+    </section>
 
+    <section class="domain-section">
       <h4 class="domain-note-heading">Operational Restrictions &amp; Key Metrics:</h4>
       <ul class="notes-list">
         <li><strong>Redundancy Targets:</strong> LRS (3 copies in 1 DC), ZRS (3 copies across 3 AZs), GRS (6 copies across primary &amp; paired secondary regions). Read-Access (RA-GRS) allows read access on secondary location.</li>
@@ -290,7 +294,9 @@
           </tr>
         </tbody>
       </table>
+    </section>
 
+    <section class="domain-section">
       <h4 class="domain-note-heading">Operational Restrictions:</h4>
       <ul class="notes-list">
         <li><strong>VM Move Restrictions:</strong> VMs can move across Resource Groups or Subscriptions, but cross-region moves require Azure Resource Mover or manual redeployment.</li>
@@ -361,7 +367,9 @@
           </tr>
         </tbody>
       </table>
+    </section>
 
+    <section class="domain-section">
       <h4 class="domain-note-heading">Operational Routing &amp; Network Security Rules:</h4>
       <ul class="notes-list">
         <li><strong>VNet Peering:</strong> Transitive peering is not enabled natively. (If A is peered with B, and B with C, VNet A cannot communicate directly with VNet C without a Gateway/NVA).</li>
@@ -433,7 +441,9 @@
           </tr>
         </tbody>
       </table>
+    </section>
 
+    <section class="domain-section">
       <h4 class="domain-note-heading">Diagnostics &amp; Troubleshooting Tools:</h4>
       <ul class="notes-list">
         <li><strong>IP Flow Verify (Network Watcher):</strong> Tests packet filtering to determine if NSG rules allow or deny inbound/outbound traffic to/from a VM.</li>

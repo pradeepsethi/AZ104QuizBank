@@ -136,10 +136,43 @@ users/{uid}/scores/{autoId}       → one document per completed quiz attempt
    }
    ```
 4. Populate `data/azure_certification_structure.json` and the corresponding files under `data/topics/`, `data/domains/`, and `data/complete/` with your question banks.
-5. Serve the project root as a static site (any static host works — Firebase Hosting, GitHub Pages, Netlify, or a local dev server) and open `index.html`.
+5. Deploy via Firebase Hosting (see **Hosting & Deployment** below) or serve the project root as a static site locally for testing.
 6. In Google Cloud Console, keep the OAuth consent screen's publishing status as **Production** (or **Internal**) rather than **Testing** — Testing status causes Google to periodically force re-consent, which can be confusing for returning users.
+
+## Hosting & Deployment
+
+This project was originally hosted on **GitHub Pages** and has since moved to **Firebase Hosting**, alongside Firebase Authentication and Firestore.
+
+### Manual deploy
+From the project root (requires the Firebase CLI):
+```powershell
+npx firebase deploy
+```
+
+### CI/CD via GitHub Actions
+A GitHub Actions pipeline auto-deploys on every push, set up via:
+```powershell
+npx firebase init hosting:github
+```
+This created a Google service account scoped to Firebase Hosting, stored its key as the encrypted GitHub secret `FIREBASE_SERVICE_ACCOUNT_AZ104QUIZ`, and added two workflow files:
+
+| Workflow | Trigger | Behavior |
+|---|---|---|
+| `.github/workflows/firebase-hosting-pull-request.yml` | Any pull request | Deploys a temporary preview channel and comments the preview URL on the PR |
+| `.github/workflows/firebase-hosting-merge.yml` | Push/merge to `main` | Deploys to the live Firebase Hosting channel |
+
+No build step is configured (the site is static HTML/CSS/JS with no bundler), so both workflows deploy the repo contents as-is.
+
+Deployment status and logs for both workflows are visible under the repo's **Actions** tab:
+`https://github.com/pradeepsethi/AZ104QuizBank/actions`
+
+### ⚠️ GitHub Pages cleanup (pending)
+GitHub Pages was the previous hosting target and is **still active** on this repo — it has its own `pages-build-deployment` workflow that fires independently on every push to `main`, visible under the repo's **Environments** tab rather than Actions. Since the site now lives on Firebase Hosting, GitHub Pages should be disabled to avoid running two live, possibly-diverging copies of the site:
+
+**Repo → Settings → Pages → Build and deployment → Source → set to "None"**
 
 ## Tech Stack
 * **Frontend:** Vanilla HTML, CSS, and JavaScript (ES modules) — no build step or framework.
 * **Backend:** Firebase Authentication (Google provider) and Cloud Firestore, accessed directly from the browser via the Firebase JS SDK (v10.8.0, loaded from `gstatic.com`).
 * **Data:** Static JSON question banks served from `data/`.
+* **Hosting:** Firebase Hosting, deployed via GitHub Actions on push to `main` (migrated from GitHub Pages).

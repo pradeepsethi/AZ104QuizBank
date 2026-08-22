@@ -39,7 +39,7 @@ onAuthStateChanged(auth, async (user) => {
 
 async function loadScores(uid) {
   if (!scoresContainer) return;
-  scoresContainer.innerHTML = `<p style="color: #605e5c;">Loading score history...</p>`;
+  scoresContainer.innerHTML = `<p class="text-muted">Loading score history...</p>`;
 
   try {
     const q = query(
@@ -49,7 +49,7 @@ async function loadScores(uid) {
     const querySnapshot = await getDocs(q);
 
     if (querySnapshot.empty) {
-      scoresContainer.innerHTML = `<p style="color: #605e5c;">No saved quiz scores found yet. Take a quiz to record your scores!</p>`;
+      scoresContainer.innerHTML = `<p class="text-muted">No saved quiz scores found yet. Take a quiz to record your scores!</p>`;
       return;
     }
 
@@ -60,14 +60,14 @@ async function loadScores(uid) {
       const dateStr = data.timestamp ? new Date(data.timestamp.toDate()).toLocaleString() : "N/A";
 
       html += `
-        <div style="border: 1px solid #c8c6c4; padding: 15px; margin-bottom: 12px; border-radius: 6px; background: #faf9f8; display: flex; justify-content: space-between; align-items: center;">
+        <div class="score-card">
           <div>
-            <h4 style="margin: 0 0 6px 0; color: #0078d4; font-size: 16px;">${data.quizTitle || "AZ-104 Quiz"}</h4>
-            <p style="margin: 2px 0; font-size: 14px;"><strong>Score:</strong> ${data.score} / ${data.totalQuestions} (${data.percentage}%)</p>
-            <p style="margin: 2px 0; font-size: 13px; color: #605e5c;"><strong>Time Spent:</strong> ${data.timeTaken || "N/A"}</p>
-            <p style="margin: 2px 0; font-size: 12px; color: #8a8886;"><strong>Date:</strong> ${dateStr}</p>
+            <h4>${data.quizTitle || "AZ-104 Quiz"}</h4>
+            <p><strong>Score:</strong> ${data.score} / ${data.totalQuestions} (${data.percentage}%)</p>
+            <p class="meta"><strong>Time Spent:</strong> ${data.timeTaken || "N/A"}</p>
+            <p class="date"><strong>Date:</strong> ${dateStr}</p>
           </div>
-          <button class="delete-score-btn btn btn-danger" data-id="${docId}" style="padding: 6px 12px; font-size: 12px; cursor: pointer;">Delete</button>
+          <button class="delete-score-btn btn btn-danger" data-id="${docId}">Delete</button>
         </div>
       `;
     });
@@ -84,7 +84,7 @@ async function loadScores(uid) {
     });
   } catch (error) {
     console.error("Error loading scores:", error);
-    scoresContainer.innerHTML = `<p style="color: #d13438;">Error loading scores: ${error.message}</p>`;
+    scoresContainer.innerHTML = `<p class="text-danger">Error loading scores: ${error.message}</p>`;
   }
 }
 

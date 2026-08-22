@@ -8,78 +8,6 @@
   <meta http-equiv="Expires" content="0" />
   <title>AZ-104 Limits, Quotas & Restrictions - Quiz Bank</title>
   <link rel="stylesheet" href="style.css">
-  <style>
-    .domain-section {
-      background: white;
-      padding: 25px;
-      border-radius: 8px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-      margin-bottom: 25px;
-    }
-    .domain-title {
-      margin-top: 0;
-      color: #0078d4;
-      font-size: 18px;
-      border-bottom: 2px solid #0078d4;
-      padding-bottom: 8px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .ms-learn-link {
-      color: #0078d4;
-      font-size: 13px;
-      font-weight: 500;
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-    }
-    .ms-learn-link:hover {
-      text-decoration: underline;
-    }
-    .limits-table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 15px;
-      font-size: 14px;
-    }
-    .limits-table th, .limits-table td {
-      border: 1px solid #edebe9;
-      padding: 10px 12px;
-      text-align: left;
-    }
-    .limits-table th {
-      background-color: #f3f2f1;
-      color: #323130;
-      font-weight: 600;
-    }
-    .badge-hard {
-      background: #d13438;
-      color: white;
-      padding: 2px 6px;
-      border-radius: 4px;
-      font-size: 12px;
-      font-weight: 600;
-    }
-    .badge-soft {
-      background: #ffaa44;
-      color: #323130;
-      padding: 2px 6px;
-      border-radius: 4px;
-      font-size: 12px;
-      font-weight: 600;
-    }
-    .notes-list {
-      margin: 12px 0 0 0;
-      padding-left: 20px;
-      font-size: 14px;
-      color: #323130;
-    }
-    .notes-list li {
-      margin-bottom: 6px;
-    }
-  </style>
 </head>
 <body>
 
@@ -87,56 +15,56 @@
   <header class="header">
     <div class="header-top">
       <div>
-        <h1 style="margin: 0; font-size: 20px;">AZ-104 Reference Guide</h1>
-        <p style="margin: 5px 0 0 0; font-size: 14px; opacity: 0.9;">Azure Limits, Quotas &amp; Operational Restrictions Reference</p>
+        <h1 class="page-title">AZ-104 Reference Guide</h1>
+        <p class="page-subtitle">Azure Limits, Quotas &amp; Operational Restrictions Reference</p>
       </div>
       
       <div id="auth-container">
-        <button id="sign-in-btn" class="btn btn-light" style="cursor: pointer;">Sign In with Google</button>
-        <div id="user-info" class="user-info-bar" style="display: none; align-items: center; gap: 10px;">
-          <span id="user-name" class="user-name-text" style="font-size: 14px; font-weight: 500;"></span>
-          <a href="index.html" class="btn btn-light" style="text-decoration: none;">🏠 Home</a>
-          <a href="dashboard.html" class="btn btn-light" style="text-decoration: none;">📊 Dashboard</a>
-          <button id="sign-out-btn" class="btn btn-danger" style="cursor: pointer;">Sign Out</button>
+        <button id="sign-in-btn" class="btn btn-light">Sign In with Google</button>
+        <div id="user-info" class="user-info-bar" style="display: none;">
+          <span id="user-name" class="user-name-text"></span>
+          <a href="index.html" class="btn btn-light">🏠 Home</a>
+          <a href="dashboard.html" class="btn btn-light">📊 Dashboard</a>
+          <button id="sign-out-btn" class="btn btn-danger">Sign Out</button>
         </div>
       </div>
     </div>
   </header>
 
   <!-- MAIN CONTENT CONTAINER -->
-  <main class="container" style="max-width: 1000px; margin-top: 30px;">
+  <main class="container container--medium">
 
     <!-- References Bar -->
-    <div class="card" style="background: white; padding: 15px 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); margin-bottom: 20px; display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
-      <span style="font-weight: 600; color: #323130; font-size: 14px;">📚 References:</span>
-      <nav style="display: flex; gap: 10px; flex-wrap: wrap;">
-        <a href="references/identity.html" class="btn" style="background: #f3f2f1; color: #0078d4; text-decoration: none;">Identity</a>
-        <a href="references/storage.html" class="btn" style="background: #f3f2f1; color: #0078d4; text-decoration: none;">Storage</a>
-        <a href="references/compute.html" class="btn" style="background: #f3f2f1; color: #0078d4; text-decoration: none;">Compute</a>
-        <a href="references/networking.html" class="btn" style="background: #f3f2f1; color: #0078d4; text-decoration: none;">Networking</a>
-        <a href="references/monitoring.html" class="btn" style="background: #f3f2f1; color: #0078d4; text-decoration: none;">Monitoring</a>
-        <a href="limits.html" class="btn" style="background: #0078d4; color: white; text-decoration: none;">📋 Limits &amp; Quotas</a>
+    <div class="card card--bar">
+      <span class="ref-bar-label">📚 References:</span>
+      <nav class="ref-bar-nav">
+        <a href="references/identity.html" class="btn ref-link">Identity</a>
+        <a href="references/storage.html" class="btn ref-link">Storage</a>
+        <a href="references/compute.html" class="btn ref-link">Compute</a>
+        <a href="references/networking.html" class="btn ref-link">Networking</a>
+        <a href="references/monitoring.html" class="btn ref-link">Monitoring</a>
+        <a href="limits.html" class="btn ref-link active">📋 Limits &amp; Quotas</a>
       </nav>
     </div>
 
     <!-- TOP NAVIGATION & GLOBAL MS LEARN HUB LINK -->
-    <div class="card" style="background: white; padding: 15px 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); margin-bottom: 25px;">
-      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
-        <div style="font-weight: 600; color: #323130; font-size: 15px;">
+    <div class="card">
+      <div class="limits-hub-bar">
+        <div class="limits-hub-bar__title">
           📌 AZ-104 Certification Exam Limits Reference
         </div>
-        <div style="display: flex; gap: 10px;">
-          <a href="#identity" class="btn" style="background: #f3f2f1; color: #323130; text-decoration: none;">Identity</a>
-          <a href="#storage" class="btn" style="background: #f3f2f1; color: #323130; text-decoration: none;">Storage</a>
-          <a href="#compute" class="btn" style="background: #f3f2f1; color: #323130; text-decoration: none;">Compute</a>
-          <a href="#networking" class="btn" style="background: #f3f2f1; color: #323130; text-decoration: none;">Networking</a>
-          <a href="#monitoring" class="btn" style="background: #f3f2f1; color: #323130; text-decoration: none;">Monitoring</a>
+        <div class="limits-hub-bar__jumps">
+          <a href="#identity" class="btn ref-link">Identity</a>
+          <a href="#storage" class="btn ref-link">Storage</a>
+          <a href="#compute" class="btn ref-link">Compute</a>
+          <a href="#networking" class="btn ref-link">Networking</a>
+          <a href="#monitoring" class="btn ref-link">Monitoring</a>
         </div>
       </div>
       
-      <hr style="border: none; border-top: 1px solid #edebe9; margin: 12px 0;">
+      <hr class="limits-hub-divider">
       
-      <div style="font-size: 13px; color: #605e5c; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
+      <div class="limits-hub-footer">
         <span>📖 Main Reference Hub:</span>
         <a href="https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/azure-subscription-service-limits" target="_blank" rel="noopener noreferrer" class="ms-learn-link">
           Azure Subscription &amp; Service Limits Directory ↗
@@ -149,7 +77,7 @@
       <div class="domain-title">
         <div>
           <span>Identity &amp; Governance</span>
-          <span style="font-size: 13px; color: #605e5c; font-weight: normal; margin-left: 8px;">(20–25% of Exam)</span>
+          <span class="domain-title__percentage">(20–25% of Exam)</span>
         </div>
         <div>
           <a href="https://learn.microsoft.com/en-us/entra/identity/users/directory-service-limits-restrictions" target="_blank" rel="noopener noreferrer" class="ms-learn-link">
@@ -213,7 +141,7 @@
         </tbody>
       </table>
 
-      <h4 style="margin: 20px 0 8px 0; color: #323130;">Operational Restrictions:</h4>
+      <h4 class="domain-note-heading">Operational Restrictions:</h4>
       <ul class="notes-list">
         <li><strong>Azure Policy:</strong> Evaluates resources on creation or update. Policy does not automatically modify non-compliant resources unless a Remediation Task is configured.</li>
         <li><strong>Azure Budgets:</strong> Fires action group alerts when threshold limits are breached, but <em>does not</em> auto-stop or delete resources.</li>
@@ -227,7 +155,7 @@
       <div class="domain-title">
         <div>
           <span>Storage</span>
-          <span style="font-size: 13px; color: #605e5c; font-weight: normal; margin-left: 8px;">(15–20% of Exam)</span>
+          <span class="domain-title__percentage">(15–20% of Exam)</span>
         </div>
         <div>
           <a href="https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/azure-subscription-service-limits#storage-limits" target="_blank" rel="noopener noreferrer" class="ms-learn-link">
@@ -285,7 +213,7 @@
         </tbody>
       </table>
 
-      <h4 style="margin: 20px 0 8px 0; color: #323130;">Operational Restrictions &amp; Key Metrics:</h4>
+      <h4 class="domain-note-heading">Operational Restrictions &amp; Key Metrics:</h4>
       <ul class="notes-list">
         <li><strong>Redundancy Targets:</strong> LRS (3 copies in 1 DC), ZRS (3 copies across 3 AZs), GRS (6 copies across primary &amp; paired secondary regions). Read-Access (RA-GRS) allows read access on secondary location.</li>
         <li><strong>SAS Types:</strong> Service SAS (single service), Account SAS (multiple services), User Delegation SAS (secured via Microsoft Entra credentials).</li>
@@ -299,7 +227,7 @@
       <div class="domain-title">
         <div>
           <span>Compute</span>
-          <span style="font-size: 13px; color: #605e5c; font-weight: normal; margin-left: 8px;">(20–25% of Exam)</span>
+          <span class="domain-title__percentage">(20–25% of Exam)</span>
         </div>
         <div>
           <a href="https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/azure-subscription-service-limits#virtual-machines-limits" target="_blank" rel="noopener noreferrer" class="ms-learn-link">
@@ -363,7 +291,7 @@
         </tbody>
       </table>
 
-      <h4 style="margin: 20px 0 8px 0; color: #323130;">Operational Restrictions:</h4>
+      <h4 class="domain-note-heading">Operational Restrictions:</h4>
       <ul class="notes-list">
         <li><strong>VM Move Restrictions:</strong> VMs can move across Resource Groups or Subscriptions, but cross-region moves require Azure Resource Mover or manual redeployment.</li>
         <li><strong>Virtual Machine Scale Sets (VMSS):</strong> Up to 1,000 instances for platform images, 600 for custom images. Supports metric and schedule autoscaling.</li>
@@ -376,7 +304,7 @@
       <div class="domain-title">
         <div>
           <span>Networking</span>
-          <span style="font-size: 13px; color: #605e5c; font-weight: normal; margin-left: 8px;">(15–20% of Exam)</span>
+          <span class="domain-title__percentage">(15–20% of Exam)</span>
         </div>
         <div>
           <a href="https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/azure-subscription-service-limits#azure-resource-manager-virtual-networking-limits" target="_blank" rel="noopener noreferrer" class="ms-learn-link">
@@ -434,7 +362,7 @@
         </tbody>
       </table>
 
-      <h4 style="margin: 20px 0 8px 0; color: #323130;">Operational Routing &amp; Network Security Rules:</h4>
+      <h4 class="domain-note-heading">Operational Routing &amp; Network Security Rules:</h4>
       <ul class="notes-list">
         <li><strong>VNet Peering:</strong> Transitive peering is not enabled natively. (If A is peered with B, and B with C, VNet A cannot communicate directly with VNet C without a Gateway/NVA).</li>
         <li><strong>User-Defined Routes (UDRs):</strong> Override default system routes. Traffic routes according to the <em>Longest Prefix Match (LPM)</em> rule.</li>
@@ -448,7 +376,7 @@
       <div class="domain-title">
         <div>
           <span>Monitoring &amp; Backup</span>
-          <span style="font-size: 13px; color: #605e5c; font-weight: normal; margin-left: 8px;">(10–15% of Exam)</span>
+          <span class="domain-title__percentage">(10–15% of Exam)</span>
         </div>
         <div>
           <a href="https://learn.microsoft.com/en-us/azure/azure-monitor/fundamentals/service-limits" target="_blank" rel="noopener noreferrer" class="ms-learn-link">
@@ -506,7 +434,7 @@
         </tbody>
       </table>
 
-      <h4 style="margin: 20px 0 8px 0; color: #323130;">Diagnostics &amp; Troubleshooting Tools:</h4>
+      <h4 class="domain-note-heading">Diagnostics &amp; Troubleshooting Tools:</h4>
       <ul class="notes-list">
         <li><strong>IP Flow Verify (Network Watcher):</strong> Tests packet filtering to determine if NSG rules allow or deny inbound/outbound traffic to/from a VM.</li>
         <li><strong>Connection Monitor:</strong> Checks real-time end-to-end connectivity, latency, and hop paths between VMs or IP endpoints.</li>

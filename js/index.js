@@ -37,8 +37,8 @@ async function loadOfficialTopics() {
       d.topics.forEach((topicObj) => {
         const topicId = `${domainId}_${topicObj.topic_id}`;
         topicsHtml += `
-          <li style="margin-bottom: 8px;">
-            <a href="quiz.html?mode=topic&set=set1&topic=${topicId}&title=${encodeURIComponent(topicObj.name)}" class="quiz-access-link" style="color: #323130; text-decoration: none; font-size: 14px;">
+          <li>
+            <a href="quiz.html?mode=topic&set=set1&topic=${topicId}&title=${encodeURIComponent(topicObj.name)}" class="quiz-access-link">
               ${topicObj.name}
             </a>
           </li>`;
@@ -46,15 +46,14 @@ async function loadOfficialTopics() {
 
       const section = document.createElement("section");
       section.className = "domain-column card";
-      section.style.cssText = "background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);";
       section.innerHTML = `
-        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px;">
-          <a href="quiz.html?mode=domain&set=set1&domain=${domainId}&title=${encodeURIComponent(domainTitle)}" class="quiz-access-link" style="font-weight: bold; color: #0078d4; text-decoration: none; font-size: 15px; line-height: 1.4;">
+        <div class="domain-column__header">
+          <a href="quiz.html?mode=domain&set=set1&domain=${domainId}&title=${encodeURIComponent(domainTitle)}" class="quiz-access-link domain-column__link">
             ${domainTitle} →
           </a>
-          <span style="background: #f3f2f1; color: #605e5c; font-size: 12px; padding: 2px 6px; border-radius: 4px; font-weight: 600; white-space: nowrap; margin-left: 8px;">${d.percentage}</span>
+          <span class="domain-column__percentage">${d.percentage}</span>
         </div>
-        <ul style="list-style: none; padding: 0; margin: 0;">
+        <ul class="domain-column__topics">
           ${topicsHtml}
         </ul>
       `;
@@ -64,7 +63,7 @@ async function loadOfficialTopics() {
     attachLinkGuardHandlers();
   } catch (error) {
     console.error("Error loading topic metadata:", error);
-    gridContainer.innerHTML = `<p style="color: #d13438;">Could not load official exam structure: ${error.message}</p>`;
+    gridContainer.innerHTML = `<p class="text-danger">Could not load official exam structure: ${error.message}</p>`;
   }
 }
 

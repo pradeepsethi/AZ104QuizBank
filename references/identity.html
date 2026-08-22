@@ -5,148 +5,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AZ-104 Azure Identity</title>
     <link rel="stylesheet" href="../style.css">
-    <style>
-        :root {
-            --primary-color: #0078d4;
-            --primary-dark: #005a9e;
-            --secondary-color: #2b2b2b;
-            --bg-color: #f4f6f9;
-            --card-bg: #ffffff;
-            --text-color: #333333;
-            --border-color: #e1e4e8;
-            --code-bg: #f0f4f8;
-            --table-header-bg: #0078d4;
-            --table-header-color: #ffffff;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: var(--text-color);
-            background-color: var(--bg-color);
-            margin: 0;
-            padding: 0;
-        }
-
-        .container {
-            max-width: 1100px;
-            margin: 2rem auto;
-            padding: 0 1rem;
-        }
-
-        .card {
-            background: var(--card-bg);
-            border-radius: 8px;
-            padding: 2rem;
-            margin-bottom: 2rem;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-            border: 1px solid var(--border-color);
-        }
-
-        h2 {
-            color: var(--primary-dark);
-            border-bottom: 2px solid var(--primary-color);
-            padding-bottom: 0.5rem;
-            margin-top: 0;
-        }
-
-        h3 {
-            color: var(--secondary-color);
-            margin-top: 1.5rem;
-        }
-
-        ul, ol {
-            padding-left: 1.5rem;
-        }
-
-        li {
-            margin-bottom: 0.5rem;
-        }
-
-        .highlight-box {
-            background-color: #e6f2ff;
-            border-left: 4px solid var(--primary-color);
-            padding: 1rem;
-            margin: 1rem 0;
-            border-radius: 0 4px 4px 0;
-        }
-
-        code {
-            background-color: var(--code-bg);
-            padding: 0.2rem 0.4rem;
-            border-radius: 4px;
-            font-family: Consolas, Monaco, 'Andale Mono', monospace;
-            font-size: 0.9em;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 1.5rem 0;
-        }
-
-        th, td {
-            padding: 0.75rem;
-            text-align: left;
-            border: 1px solid var(--border-color);
-        }
-
-        th {
-            background-color: var(--table-header-bg);
-            color: var(--table-header-color);
-        }
-
-        tr:nth-child(even) {
-            background-color: #f8f9fa;
-        }
-
-        footer {
-            text-align: center;
-            padding: 2rem;
-            color: #666;
-            font-size: 0.9rem;
-            border-top: 1px solid var(--border-color);
-            background-color: var(--card-bg);
-        }
-    </style>
 </head>
 <body>
 
     <header class="header">
     <div class="header-top">
       <div>
-        <h1 style="margin: 0; font-size: 20px;">AZ-104 Microsoft Azure Administrator</h1>
-        <p style="margin: 5px 0 0 0; font-size: 14px; opacity: 0.9;">Microsoft Entra ID & Governance</p>
+        <h1 class="page-title">AZ-104 Microsoft Azure Administrator</h1>
+        <p class="page-subtitle">Microsoft Entra ID & Governance</p>
       </div>
 
       <div id="auth-container">
-        <button id="sign-in-btn" class="btn btn-light" style="cursor: pointer;">Sign In with Google</button>
-        <div id="user-info" class="user-info-bar" style="display: none; align-items: center; gap: 10px;">
-          <span id="user-name" class="user-name-text" style="font-size: 14px; font-weight: 500;"></span>
-          <a href="../index.html" class="btn btn-light" style="text-decoration: none;">🏠 Home</a>
-          <a href="../dashboard.html" class="btn btn-light" style="text-decoration: none;">📊 Dashboard</a>
-          <button id="sign-out-btn" class="btn btn-danger" style="cursor: pointer;">Sign Out</button>
+        <div id="user-info" class="user-info-bar">
+          <span id="ref-user-name" class="user-name-text"></span>
+          <a href="../index.html" class="btn btn-light">🏠 Home</a>
+          <a href="../dashboard.html" class="btn btn-light">📊 Dashboard</a>
+          <a href="../limits.html" class="btn btn-light">📋 Limits &amp; Quotas</a>
+          <button id="ref-sign-out-btn" class="btn btn-danger" style="display: none;">Sign Out</button>
         </div>
       </div>
     </div>
   </header>
 
-  <div class="container">
-    <div class="card" style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
-      <span style="font-weight: 600; color: #323130; font-size: 14px;">📚 References:</span>
-      <nav style="display: flex; gap: 10px; flex-wrap: wrap;">
-        <a href="identity.html" class="btn" style="background: #0078d4; color: white; text-decoration: none; font-weight: 600;">Identity</a>
-        <a href="storage.html" class="btn" style="background: #f3f2f1; color: #0078d4; text-decoration: none;">Storage</a>
-        <a href="compute.html" class="btn" style="background: #f3f2f1; color: #0078d4; text-decoration: none;">Compute</a>
-        <a href="networking.html" class="btn" style="background: #f3f2f1; color: #0078d4; text-decoration: none;">Networking</a>
-        <a href="monitoring.html" class="btn" style="background: #f3f2f1; color: #0078d4; text-decoration: none;">Monitoring</a>
-        <a href="../limits.html" class="btn" style="background: #f3f2f1; color: #0078d4; text-decoration: none;">📋 Limits &amp; Quotas</a>
+  <div class="container ref-content">
+    <div class="card card--bar">
+      <span class="ref-bar-label">📚 References:</span>
+      <nav class="ref-bar-nav">
+        <a href="identity.html" class="btn ref-link active">Identity</a>
+        <a href="storage.html" class="btn ref-link">Storage</a>
+        <a href="compute.html" class="btn ref-link">Compute</a>
+        <a href="networking.html" class="btn ref-link">Networking</a>
+        <a href="monitoring.html" class="btn ref-link">Monitoring</a>
       </nav>
     </div>
   </div>
 
 
-    <div class="container">
+    <div class="container ref-content">
         
         <!-- Microsoft Entra ID Overview -->
         <section class="card">
@@ -403,7 +298,7 @@
         </section>
 
     </div>
-    <footer>
+    <footer class="ref-footer">
         <p>AZ-104 Identity and Governance Domain </p>
     </footer>
 

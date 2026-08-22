@@ -213,16 +213,16 @@ function getCorrectIndices(q) {
 
 function getExplanationHTML(exp) {
   if (!exp) return "";
-  if (typeof exp === "string") return `<pre style="white-space: pre-wrap; font-family: inherit; margin: 0; font-weight: normal;">${exp}</pre>`;
+  if (typeof exp === "string") return `<pre>${exp}</pre>`;
   if (typeof exp === "object") {
     let html = "";
-    if (exp.correctReason) html += `<div style="margin-bottom: 8px;"><strong>Correct Reason:</strong> <pre style="white-space: pre-wrap; font-family: inherit; display: inline; font-weight: normal;">${exp.correctReason}</pre></div>`;
+    if (exp.correctReason) html += `<div class="explanation-reason"><strong>Correct Reason:</strong> <pre class="inline-pre">${exp.correctReason}</pre></div>`;
     if (exp.incorrectReasons && Array.isArray(exp.incorrectReasons)) {
-      html += `<div style="margin-bottom: 8px;"><strong>Incorrect Reasons:</strong><ul style="margin: 4px 0 0 20px; padding: 0;">`;
-      exp.incorrectReasons.forEach(r => html += `<li style="margin-bottom: 4px;"><pre style="white-space: pre-wrap; font-family: inherit; margin: 0; font-weight: normal;">${r}</pre></li>`);
+      html += `<div class="explanation-reason"><strong>Incorrect Reasons:</strong><ul class="explanation-list">`;
+      exp.incorrectReasons.forEach(r => html += `<li class="explanation-list-item"><pre>${r}</pre></li>`);
       html += `</ul></div>`;
     }
-    if (exp.reference) html += `<div><strong>Reference:</strong> <a href="${exp.reference}" target="_blank" style="color: #0078d4;">${exp.reference}</a></div>`;
+    if (exp.reference) html += `<div><strong>Reference:</strong> <a href="${exp.reference}" target="_blank">${exp.reference}</a></div>`;
     return html || `<div>${JSON.stringify(exp)}</div>`;
   }
   return `<div>${String(exp)}</div>`;
@@ -237,15 +237,12 @@ function renderPalette() {
     const btn = document.createElement("button");
     btn.className = "palette-btn";
     btn.textContent = idx + 1;
-    btn.style.cssText = "padding: 8px; border: 1px solid #c8c6c4; background: #fff; cursor: pointer; border-radius: 4px; font-weight: 600;";
 
     if (idx === currentQuestionIndex) {
-      btn.style.borderColor = "#0078d4";
-      btn.style.borderWidth = "2px";
+      btn.classList.add("is-current");
     }
     if (userAnswers[idx] !== undefined) {
-      btn.style.background = userAnswers[idx].isCorrect ? "#dff6dd" : "#fde7e9";
-      btn.style.borderColor = userAnswers[idx].isCorrect ? "#107c41" : "#d13438";
+      btn.classList.add(userAnswers[idx].isCorrect ? "is-correct" : "is-incorrect");
     }
 
     btn.onclick = () => {
@@ -274,28 +271,28 @@ function loadQuestion() {
   const explanationHTML = getExplanationHTML(q.explanation);
 
   questionCard.innerHTML = `
-    <div style="font-size: 14px; color: #605e5c; margin-bottom: 10px; font-weight: 600;">
+    <div class="question-meta">
       Question ${currentQuestionIndex + 1} of ${currentQuestions.length} ${q.subtopic ? `(${q.subtopic})` : ''}
     </div>
 
-    <div style="margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #edebe9; padding-bottom: 15px;">
-      <button id="prev-btn" class="btn" style="padding: 8px 16px; cursor: pointer;" ${currentQuestionIndex === 0 ? 'disabled' : ''}>← Previous</button>
-      <button id="submit-early-btn" class="btn btn-danger" style="padding: 8px 16px; background: #d13438; color: white; border: none; border-radius: 4px; cursor: pointer;">Submit Quiz 🏁</button>
-      <button id="next-btn" class="btn btn-primary" style="padding: 8px 16px; background: #0078d4; color: white; border: none; border-radius: 4px; cursor: pointer;">
+    <div class="question-controls">
+      <button id="prev-btn" class="btn" ${currentQuestionIndex === 0 ? 'disabled' : ''}>← Previous</button>
+      <button id="submit-early-btn" class="btn btn-danger">Submit Quiz 🏁</button>
+      <button id="next-btn" class="btn btn-primary">
         ${currentQuestionIndex === currentQuestions.length - 1 ? 'Finish Quiz 🏁' : 'Next'}
       </button>
     </div>
 
-    <pre style="margin-top: 0; font-size: 17px; color: #201f1e; font-family: inherit; white-space: pre-wrap; font-weight: normal; background-color: #f0f2f5; padding: 16px 18px; border-radius: 6px; border: 1px solid #e1e4e8;">${q.question ? q.question.trim() : ''}${isMultiple ? `<div style="font-size: 13px; color: #0078d4; margin-top: 8px; font-weight: normal;">(Select ${correctIndices.length} correct options)</div>` : ''}</pre>
+    <pre class="question-text">${q.question ? q.question.trim() : ''}${isMultiple ? `<div class="question-multi-hint">(Select ${correctIndices.length} correct options)</div>` : ''}</pre>
 
-    <div id="options-container" style="margin-top: 20px;"></div>
+    <div id="options-container" class="options-container"></div>
     ${isMultiple && !previousAnswer ? `
-      <button id="submit-multi-btn" class="btn btn-primary" style="margin-top: 15px; padding: 10px 20px; background: #0078d4; color: white; border: none; border-radius: 4px; cursor: pointer;">
+      <button id="submit-multi-btn" class="btn btn-primary submit-multi-btn">
         Submit Answer
       </button>
     ` : ''}
-    <div id="explanation-box" style="display: ${previousAnswer ? 'block' : 'none'}; margin-top: 20px; padding: 15px; background: #f3f2f1; border-left: 4px solid #0078d4; border-radius: 4px;">
-      ${previousAnswer ? `<strong>Explanation:</strong><div style="margin-top: 8px;">${explanationHTML}</div>` : ''}
+    <div id="explanation-box" class="explanation-box ${previousAnswer ? 'visible' : ''}">
+      ${previousAnswer ? `<strong>Explanation:</strong><div class="explanation-body">${explanationHTML}</div>` : ''}
     </div>
   `;
 
@@ -303,8 +300,7 @@ function loadQuestion() {
   (q.options || []).forEach((optionText, index) => {
     const btn = document.createElement("button");
     btn.className = "btn option-btn";
-    btn.style.cssText = "display: block; width: 100%; text-align: left; margin: 8px 0; padding: 12px 16px; background: #ffffff; border: 1px solid #c8c6c4; cursor: pointer; border-radius: 4px; transition: background 0.2s;";
-    btn.innerHTML = `<span style="white-space: pre-wrap; font-family: inherit;">${isMultiple ? '☐ ' : ''}${optionText}</span>`;
+    btn.innerHTML = `<span>${isMultiple ? '☐ ' : ''}${optionText}</span>`;
 
     if (previousAnswer) {
       btn.disabled = true;
@@ -312,26 +308,23 @@ function loadQuestion() {
       const isCorrectOption = correctIndices.includes(index);
 
       if (isCorrectOption) {
-        btn.style.backgroundColor = "#dff6dd";
-        btn.style.borderColor = "#107c41";
-        btn.style.fontWeight = "bold";
-        if (isMultiple) btn.innerHTML = `<span style="white-space: pre-wrap; font-family: inherit;">☑ ${optionText}</span>`;
+        btn.classList.add("is-correct");
+        if (isMultiple) btn.innerHTML = `<span>☑ ${optionText}</span>`;
       } else if (isSelected) {
-        btn.style.backgroundColor = "#fde7e9";
-        btn.style.borderColor = "#d13438";
-        if (isMultiple) btn.innerHTML = `<span style="white-space: pre-wrap; font-family: inherit;">☒ ${optionText}</span>`;
+        btn.classList.add("is-incorrect");
+        if (isMultiple) btn.innerHTML = `<span>☒ ${optionText}</span>`;
       }
     } else {
       if (isMultiple) {
         btn.onclick = () => {
           if (selectedMultiIndices.has(index)) {
             selectedMultiIndices.delete(index);
-            btn.style.background = "#ffffff";
-            btn.innerHTML = `<span style="white-space: pre-wrap; font-family: inherit;">☐ ${optionText}</span>`;
+            btn.classList.remove("is-selected-multi");
+            btn.innerHTML = `<span>☐ ${optionText}</span>`;
           } else {
             selectedMultiIndices.add(index);
-            btn.style.background = "#eff6fc";
-            btn.innerHTML = `<span style="white-space: pre-wrap; font-family: inherit;">☑ ${optionText}</span>`;
+            btn.classList.add("is-selected-multi");
+            btn.innerHTML = `<span>☑ ${optionText}</span>`;
           }
         };
       } else {
@@ -380,12 +373,9 @@ function handleAnswerSelect(selectedIndices, correctIndices, explanationHTML) {
     const isCorrectOption = correctIndices.includes(idx);
 
     if (isCorrectOption) {
-      btn.style.backgroundColor = "#dff6dd";
-      btn.style.borderColor = "#107c41";
-      btn.style.fontWeight = "bold";
+      btn.classList.add("is-correct");
     } else if (isSelected) {
-      btn.style.backgroundColor = "#fde7e9";
-      btn.style.borderColor = "#d13438";
+      btn.classList.add("is-incorrect");
     }
   });
 
@@ -395,8 +385,8 @@ function handleAnswerSelect(selectedIndices, correctIndices, explanationHTML) {
   if (explanationHTML) {
     const expBox = document.getElementById("explanation-box");
     if (expBox) {
-      expBox.style.display = "block";
-      expBox.innerHTML = `<strong>Explanation:</strong><div style="margin-top: 8px;">${explanationHTML}</div>`;
+      expBox.classList.add("visible");
+      expBox.innerHTML = `<strong>Explanation:</strong><div class="explanation-body">${explanationHTML}</div>`;
     }
   }
 }
@@ -418,17 +408,17 @@ async function finishQuiz() {
 
   if (quizCard) {
     quizCard.innerHTML = `
-      <div style="text-align: center; padding: 20px;">
+      <div class="quiz-results">
         <h2>Quiz Completed! 🎉</h2>
-        <p style="font-size: 22px; font-weight: bold; color: #0078d4; margin: 15px 0;">
+        <p class="quiz-results__score">
           Score: ${correctCount} / ${currentQuestions.length} (${percentage}%)
         </p>
-        <p style="font-size: 14px; color: #605e5c; margin-bottom: 5px;">Time Taken: <strong>${timeTakenStr}</strong></p>
-        <p id="save-status" style="font-size: 14px; color: #605e5c; font-weight: 500;">⏳ Saving score to Firestore...</p>
+        <p class="quiz-results__meta">Time Taken: <strong>${timeTakenStr}</strong></p>
+        <p id="save-status" class="quiz-results__save-status">⏳ Saving score to Firestore...</p>
         
-        <div id="nav-actions" style="margin-top: 25px; opacity: 0.4; pointer-events: none; transition: opacity 0.3s;">
-          <a href="index.html" class="btn btn-primary" style="text-decoration: none; margin-right: 10px; padding: 10px 20px; background: #0078d4; color: white; border-radius: 4px;">Back to Home</a>
-          <a href="dashboard.html" class="btn" style="text-decoration: none; padding: 10px 20px; background: #f3f2f1; color: #323130; border: 1px solid #c8c6c4; border-radius: 4px;">View Dashboard</a>
+        <div id="nav-actions" class="quiz-results__actions">
+          <a href="index.html" class="btn btn-primary">Back to Home</a>
+          <a href="dashboard.html" class="btn btn-neutral">View Dashboard</a>
         </div>
       </div>
     `;
@@ -448,37 +438,28 @@ async function finishQuiz() {
         timestamp: serverTimestamp()
       });
       if (statusElem) {
-        statusElem.style.color = "#107c41";
+        statusElem.classList.add("status-success");
         statusElem.textContent = "✅ Score successfully recorded in your dashboard!";
       }
-      if (navActions) {
-        navActions.style.opacity = "1";
-        navActions.style.pointerEvents = "auto";
-      }
+      if (navActions) navActions.classList.add("ready");
     } catch (error) {
       console.error("Error saving score:", error);
       if (statusElem) {
-        statusElem.style.color = "#d13438";
+        statusElem.classList.add("status-error");
         statusElem.textContent = `⚠️ Could not save score: ${error.message}`;
       }
-      if (navActions) {
-        navActions.style.opacity = "1";
-        navActions.style.pointerEvents = "auto";
-      }
+      if (navActions) navActions.classList.add("ready");
     }
   } else {
     if (statusElem) {
-      statusElem.style.color = "#a4262c";
+      statusElem.classList.add("status-info");
       statusElem.textContent = "ℹ️ Note: Sign in on the home page to save your scores automatically.";
     }
-    if (navActions) {
-      navActions.style.opacity = "1";
-      navActions.style.pointerEvents = "auto";
-    }
+    if (navActions) navActions.classList.add("ready");
   }
 }
 
 function showError(msg) {
   const quizCard = document.getElementById("quiz-card");
-  if (quizCard) quizCard.innerHTML = `<div style="color: #d13438; text-align: center; padding: 20px; font-weight: 500;">${msg}</div>`;
+  if (quizCard) quizCard.innerHTML = `<div class="error-message">${msg}</div>`;
 }

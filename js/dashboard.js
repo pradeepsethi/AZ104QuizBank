@@ -53,26 +53,41 @@ async function loadScores(uid) {
       return;
     }
 
-    let html = "";
+    let rows = "";
     querySnapshot.forEach((documentSnap) => {
       const data = documentSnap.data();
       const docId = documentSnap.id;
       const dateStr = data.timestamp ? new Date(data.timestamp.toDate()).toLocaleString() : "N/A";
 
-      html += `
-        <div class="score-card">
-          <div>
-            <h4>${data.quizTitle || "AZ-104 Quiz"}</h4>
-            <p><strong>Score:</strong> ${data.score} / ${data.totalQuestions} (${data.percentage}%)</p>
-            <p class="meta"><strong>Time Spent:</strong> ${data.timeTaken || "N/A"}</p>
-            <p class="date"><strong>Date:</strong> ${dateStr}</p>
-          </div>
-          <button class="delete-score-btn btn btn-danger" data-id="${docId}">Delete</button>
-        </div>
+      rows += `
+        <tr>
+          <td class="quiz-title-cell">${data.quizTitle || "AZ-104 Quiz"}</td>
+          <td class="score-cell">${data.score} / ${data.totalQuestions} (${data.percentage}%)</td>
+          <td>${data.timeTaken || "N/A"}</td>
+          <td>${dateStr}</td>
+          <td><button class="delete-score-btn btn btn-danger" data-id="${docId}">Delete</button></td>
+        </tr>
       `;
     });
 
-    scoresContainer.innerHTML = html;
+    scoresContainer.innerHTML = `
+      <div class="scores-table-wrap">
+        <table class="scores-table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Score</th>
+              <th>Time Spent</th>
+              <th>Date</th>
+              <th>Delete</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${rows}
+          </tbody>
+        </table>
+      </div>
+    `;
 
     document.querySelectorAll(".delete-score-btn").forEach((btn) => {
       btn.onclick = (e) => {

@@ -50,7 +50,7 @@
             <p>The guide's Azure services section identifies <strong>Compute</strong> as the processing power required by applications and systems to perform computational tasks. Services listed there include <strong>Virtual Machine, App Service, Functions, and Kubernetes Service</strong>.</p>
             
             <div class="highlight-box">
-                <strong>Compute topics covered in this guide:</strong> ARM Templates &amp; Bicep, Azure Virtual Machines, Disk Encryption, VM Scale Sets, Availability Zones/Sets, VM Disks, Azure Container Registry, Azure Container Instances, Azure Container Apps, and Azure App Service (plans, scaling, certificates/TLS, custom domains, backup, networking, deployment slots).
+                <strong>Compute topics covered in this guide:</strong> ARM Templates &amp; Bicep, Azure Virtual Machines, Encryption at Host, VM Scale Sets, Availability Zones/Sets, VM Disks, Azure Container Registry, Azure Container Instances, Azure Container Apps, and Azure App Service (plans, scaling, certificates/TLS, custom domains, backup, networking, deployment slots).
             </div>
         </section>
 
@@ -109,7 +109,7 @@
             </div>
             <ul>
                 <li><strong>Deployment scopes:</strong> resource group, subscription, management group, or tenant.</li>
-                <li><strong>Deployment modes:</strong> <code>Incremental</code> (default — adds/updates resources, leaves unreferenced resources untouched) vs <code>Complete</code> (deletes resources in the resource group not defined in the template).</li>
+                <li><strong>Deployment modes:</strong> <code>Incremental</code> (default — adds/updates resources, leaves unreferenced resources untouched) vs <code>Complete</code> (legacy deployment mode; deletes resources in the resource group not defined in the template).</li>
             </ul>
 
             <h3>Export &amp; Convert</h3>
@@ -131,7 +131,7 @@
                 <li><strong>Image:</strong> Contains the OS, settings, and applications.</li>
                 <li><strong>VM type and size:</strong> Determines physical properties such as vCPUs, RAM, and disks.</li>
                 <li><strong>Billing:</strong> Select Spot or another billing type such as pay-as-you-go or reserved.</li>
-                <li><strong>Access:</strong> Use a key pair; secure the public-key copy to preserve direct instance access.</li>
+                <li><strong>Authentication:</strong> Configure administrator username/password or SSH public-key authentication, depending on the OS. For SSH, protect the private key because Azure does not provide a replacement if it is lost.</li>
                 <li><strong>Storage:</strong> Add OS disk, data disk, and temporary disk.</li>
                 <li><strong>Networking:</strong> Select the virtual network and Network Security Group rules.</li>
                 <li><strong>Management:</strong> Enable monitoring, auto-shutdown, and backup.</li>
@@ -176,16 +176,17 @@
                 </tbody>
             </table>
 
-            <h3>Azure Disk Encryption (ADE)</h3>
+            <h3>Encryption at Host</h3>
             <ul>
-                <li>Encrypts OS and data disks <strong>inside the guest OS</strong> using industry-standard <strong>BitLocker</strong> (Windows) or <strong>DM-Crypt</strong> (Linux).</li>
-                <li>Encryption keys are safeguarded in an <strong>Azure Key Vault</strong> as secrets (and optionally a Key Encryption Key, KEK, for double-wrapping).</li>
-                <li>Different from (and can be layered with) <strong>Storage Service Encryption (SSE)</strong> / <strong>encryption at rest</strong>, which encrypts at the platform/storage layer and is enabled by default on all managed disks.</li>
-                <li>Not supported: Basic-tier VMs, and (at the time of writing) some generation-2/confidential VM combinations — check current support before enabling.</li>
+                <li><strong>Encryption at Host</strong> extends encryption beyond the managed-disk storage layer to include the VM's <strong>temporary disk, OS/data disk caches, and data flowing between the VM and Azure Storage</strong>.</li>
+                <li>Managed disks already use <strong>Storage Service Encryption (SSE)</strong> at rest by default. Encryption at Host adds protection for data processed on the host before it is written to storage.</li>
+                <li>Encryption at Host can use <strong>platform-managed keys</strong> or <strong>customer-managed keys (CMK)</strong> through a <strong>Disk Encryption Set</strong>, subject to supported VM sizes and configurations.</li>
+                <li>Encryption at Host does <strong>not</strong> use the VM's CPU to perform disk encryption.</li>
+                <li>A VM or VM scale set that has <strong>Azure Disk Encryption (ADE)</strong> enabled, or has previously had ADE enabled, cannot use Encryption at Host. For new deployments, prefer Encryption at Host rather than ADE.</li>
+                <li><strong>Azure Disk Encryption (ADE)</strong> performs encryption inside the guest OS using BitLocker on Windows or DM-Crypt on Linux. ADE is a legacy approach and is scheduled for retirement on <strong>September 15, 2028</strong>; Microsoft recommends Encryption at Host for new VMs.</li>
             </ul>
-
             <div class="highlight-box">
-                <strong>Exam tip:</strong> ADE = guest-OS-level encryption via BitLocker/DM-Crypt, keys in Key Vault. SSE = platform-level, on by default, no guest OS involvement.
+                <strong>Exam tip:</strong> SSE = Azure Storage/platform-level encryption at rest. Encryption at Host = adds encryption for temporary disks, disk caches, and data flowing between the VM and storage. ADE = guest-OS-level BitLocker/DM-Crypt and is not the preferred approach for new VMs.
             </div>
 
             <h3>Moving a VM</h3>
@@ -203,7 +204,7 @@
                     </tr>
                     <tr>
                         <td><strong>Another subscription</strong></td>
-                        <td>Same move mechanism as resource groups; target subscription must have the required resource providers registered and be in the same Azure AD (Entra ID) tenant, or use Azure Lighthouse/manual recreation across tenants.</td>
+                        <td>Same move mechanism as resource groups; target subscription must have the required resource providers registered and be in the same Microsoft Entra tenant. A normal Azure resource move does <strong>not</strong> support moving the VM to a different tenant; use a migration/recreation approach for cross-tenant scenarios.</td>
                     </tr>
                     <tr>
                         <td><strong>Another region</strong></td>
@@ -263,46 +264,18 @@
 
             <h3>Disk Types Comparison</h3>
             <table>
-                <thead>
-                    <tr>
-                        <th>Disk Type</th>
-                        <th>Guide Scenario</th>
-                        <th>Max Size</th>
-                        <th>Max Throughput</th>
-                        <th>Max IOPS</th>
-                    </tr>
-                </thead>
+                <thead><tr><th>Disk Type</th><th>Guide Scenario</th><th>Max Size</th><th>Max Throughput</th><th>Max IOPS</th></tr></thead>
                 <tbody>
-                    <tr>
-                        <td><strong>Standard HDD</strong></td>
-                        <td>Backup, non-critical, infrequent access</td>
-                        <td>32,767 GiB</td>
-                        <td>500 MB/s</td>
-                        <td>2,000</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Standard SSD</strong></td>
-                        <td>Web servers and light enterprise applications</td>
-                        <td>32,767 GiB</td>
-                        <td>750 MB/s</td>
-                        <td>6,000</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Premium SSD</strong></td>
-                        <td>Production and performance-sensitive workloads</td>
-                        <td>32,767 GiB</td>
-                        <td>900 MB/s</td>
-                        <td>20,000</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Ultra Disk</strong></td>
-                        <td>I/O-intensive workloads, top-tier databases</td>
-                        <td>65,536 GiB</td>
-                        <td>2,000 MB/s</td>
-                        <td>160,000</td>
-                    </tr>
+                    <tr><td><strong>Standard HDD</strong></td><td>Backup, non-critical, infrequent-access workloads</td><td>32,767 GiB</td><td>500 MB/s</td><td>2,000 (higher with supported Performance Plus configurations)</td></tr>
+                    <tr><td><strong>Standard SSD</strong></td><td>Web servers and light enterprise applications</td><td>32,767 GiB</td><td>750 MB/s</td><td>6,000</td></tr>
+                    <tr><td><strong>Premium SSD</strong></td><td>Production and performance-sensitive workloads</td><td>32,767 GiB</td><td>900 MB/s</td><td>20,000</td></tr>
+                    <tr><td><strong>Premium SSD v2</strong></td><td>High-performance workloads requiring independently provisioned IOPS and throughput</td><td>65,536 GiB</td><td>2,000 MB/s</td><td>80,000</td></tr>
+                    <tr><td><strong>Ultra Disk</strong></td><td>I/O-intensive workloads and top-tier databases</td><td>65,536 GiB</td><td>10,000 MB/s</td><td>400,000</td></tr>
                 </tbody>
             </table>
+            <div class="highlight-box">
+                <strong>Exam tip:</strong> Premium SSD v2 lets you independently provision performance characteristics such as IOPS and throughput. Ultra Disk provides the highest performance. Always check VM size and regional support because not every disk type is supported by every VM configuration.
+            </div>
         </section>
 
         <!-- App Service & Plans -->
@@ -344,7 +317,7 @@
             <h3>Certificates &amp; TLS</h3>
             <ul>
                 <li>Certificate options: <strong>App Service Managed Certificate</strong> (free, auto-renewed, for a custom domain, no wildcard support), <strong>App Service Certificate</strong> (purchased through Azure, stored in Key Vault), or <strong>bring-your-own</strong> (upload a <code>.pfx</code>, or import from Key Vault).</li>
-                <li><strong>TLS/SSL binding</strong> requires the app to be on a custom domain (not the default <code>*.azurewebsites.net</code>) except for SNI-based defaults.</li>
+                <li><strong>TLS/SSL:</strong> Custom domains require an appropriate certificate binding for HTTPS. The default <code>*.azurewebsites.net</code> hostname is protected by an Azure-managed certificate.</li>
                 <li><strong>TLS enforcement:</strong> "HTTPS Only" setting redirects all HTTP traffic to HTTPS; minimum TLS version is configurable per app.</li>
                 <li><strong>Mutual TLS (mTLS):</strong> Can require client certificates for incoming requests.</li>
             </ul>
@@ -359,19 +332,23 @@
 
             <h3>Backup</h3>
             <ul>
-                <li>Backs up app configuration, file content, and connected databases to an Azure Storage account/container.</li>
-                <li>Requires <strong>Standard tier or above</strong>; manual backups also available on Free/Shared with limits.</li>
-                <li>Supports scheduled (automatic, periodic) or on-demand backups; retention and frequency are configurable.</li>
-                <li>Restores can go to the same app or a different app/slot.</li>
+                <li>App Service backup/restore is supported in the <strong>Basic, Standard, Premium, and Isolated</strong> tiers.</li>
+                <li><strong>Custom backups</strong> require an Azure Storage account and can be run on demand or on a schedule.</li>
+                <li>Backups can include app content and configuration and, where supported, linked databases.</li>
+                <li>Restores can overwrite an existing app or restore to a new app or slot.</li>
+                <li><strong>Exam distinction:</strong> automatic backups and custom backups have different configuration, retention, and storage characteristics. Do not assume Free/Shared supports App Service backup/restore.</li>
             </ul>
 
             <h3>Networking Settings</h3>
             <ul>
-                <li><strong>VNet Integration:</strong> Lets the app reach resources inside a virtual network (outbound traffic); requires Standard tier or above.</li>
-                <li><strong>Private Endpoint:</strong> Gives the app a private IP inside a VNet for inbound traffic, removing it from the public internet; requires Premium tier or above.</li>
-                <li><strong>Access Restrictions:</strong> IP-based or service-endpoint-based allow/deny rules controlling who can reach the app.</li>
-                <li><strong>Hybrid Connections:</strong> Lets the app reach specific on-premises TCP endpoints without a full VPN.</li>
+                <li><strong>VNet Integration:</strong> Provides <strong>outbound</strong> connectivity from the App Service app into a virtual network, allowing the app to reach resources such as VMs and private services in the VNet. It is available on supported dedicated App Service tiers.</li>
+                <li><strong>Private Endpoint:</strong> Provides a <strong>private inbound</strong> endpoint for the App Service app by assigning a private IP in a VNet. For supported App Service plans, Private Endpoint is available from the <strong>Basic tier and above</strong>.</li>
+                <li><strong>Access Restrictions:</strong> IP-based and service-tag-based allow/deny rules controlling who can reach the app's public endpoint.</li>
+                <li><strong>Hybrid Connections:</strong> Lets the app reach specific on-premises TCP endpoints without requiring a full site-to-site VPN.</li>
             </ul>
+            <div class="highlight-box">
+                <strong>Exam tip:</strong> <strong>VNet Integration = App Service → VNet (outbound)</strong>. <strong>Private Endpoint = client → App Service through a private IP (inbound)</strong>. Do not confuse the two.
+            </div>
 
             <h3>Deployment Slots</h3>
             <ul>
@@ -382,60 +359,20 @@
             </ul>
 
             <h3>App Service Plan Tiers</h3>
+            <p>App Service has multiple pricing tiers. Exact instance, storage, CPU, memory, and networking limits vary by generation and region, so avoid memorising a single static limits table. For AZ-104, focus on the feature progression and the important tier thresholds below.</p>
             <table>
-                <thead>
-                    <tr>
-                        <th>Tier</th>
-                        <th>Max Instances</th>
-                        <th>Storage</th>
-                        <th>Memory</th>
-                        <th>Auto Scale</th>
-                        <th>VNet / Private Endpoint</th>
-                    </tr>
-                </thead>
+                <thead><tr><th>Tier / Family</th><th>Key AZ-104 Characteristics</th></tr></thead>
                 <tbody>
-                    <tr>
-                        <td><strong>Free / Shared</strong></td>
-                        <td>1</td>
-                        <td>1 GB</td>
-                        <td>1 GB</td>
-                        <td>No</td>
-                        <td>No / No</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Basic</strong></td>
-                        <td>Up to 3</td>
-                        <td>10 GB</td>
-                        <td>Up to 7 GB</td>
-                        <td>Supported</td>
-                        <td>No / No</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Standard</strong></td>
-                        <td>Up to 10</td>
-                        <td>50 GB</td>
-                        <td>Up to 7 GB</td>
-                        <td>Supported</td>
-                        <td>Supported / No</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Premium</strong></td>
-                        <td>Up to 30 (v3)</td>
-                        <td>250 GB</td>
-                        <td>Up to 32 GB</td>
-                        <td>Supported</td>
-                        <td>Supported / Supported</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Isolated</strong></td>
-                        <td>Up to 100</td>
-                        <td>1 TB</td>
-                        <td>Up to 14 GB</td>
-                        <td>Supported</td>
-                        <td>Supported / Supported</td>
-                    </tr>
+                    <tr><td><strong>Free / Shared</strong></td><td>Shared compute tiers for development/testing. Limited capabilities; not suitable for production workloads requiring dedicated compute.</td></tr>
+                    <tr><td><strong>Basic</strong></td><td>Dedicated compute. Supports custom domains and App Service backup/restore. Private Endpoint is available on supported Basic plans.</td></tr>
+                    <tr><td><strong>Standard</strong></td><td>Adds capabilities such as Azure Monitor autoscale and deployment slots.</td></tr>
+                    <tr><td><strong>Premium (PremiumV2 / PremiumV3 / PremiumV4)</strong></td><td>Higher-performance dedicated compute with additional scale and networking capabilities. Exact limits depend on the Premium generation.</td></tr>
+                    <tr><td><strong>Isolated / IsolatedV2</strong></td><td>Runs in an App Service Environment for highly isolated workloads and greater scale/network isolation.</td></tr>
                 </tbody>
             </table>
+            <div class="highlight-box">
+                <strong>Exam tip:</strong> Remember the major thresholds: <strong>Basic or higher → App Service backup</strong>; <strong>Standard or higher → Azure Monitor autoscale and deployment slots</strong>; <strong>Basic or higher on supported plans → Private Endpoint</strong>. Premium generations include PremiumV2, PremiumV3 and PremiumV4; IsolatedV2 is the current isolated family.
+            </div>
         </section>
 
         <!-- Container Services -->
@@ -444,6 +381,10 @@
 
             <h3>Azure Container Registry (ACR)</h3>
             <p>A private, managed Docker registry service for storing and managing container images and Helm charts close to your deployments.</p>
+            <ul>
+                <li><strong>Authentication:</strong> Microsoft Entra ID and managed identities are preferred for production scenarios. The ACR admin account is intended for simpler scenarios and should not be treated as the preferred production authentication model.</li>
+                <li><strong>Exam distinction:</strong> ACR <strong>stores</strong> container images; ACI and Container Apps <strong>run</strong> containers.</li>
+            </ul>
             <table>
                 <thead>
                     <tr>
@@ -476,7 +417,12 @@
             <p>ACI is a serverless container platform for running Docker containers on demand without infrastructure management. It supports container groups that share lifecycle, resources, local network, and storage volumes.</p>
 
             <h3>Azure Container Apps</h3>
-            <p>A fully managed service, built on Kubernetes and Dapr under the hood, for deploying, managing, and scaling multi-container applications and microservices without managing cloud infrastructure or complex container orchestration.</p>
+            <p>A fully managed serverless container service for deploying, managing, and scaling containerized applications and microservices without managing the underlying Kubernetes infrastructure. Container Apps supports features such as revisions, ingress, secrets, virtual network integration, and optional Dapr integration.</p>
+            <ul>
+                <li><strong>Revisions:</strong> Each revision is an immutable snapshot of the app. Traffic can be split between revisions for controlled deployments.</li>
+                <li><strong>Ingress and networking:</strong> Supports external or internal ingress and can be integrated with a virtual network.</li>
+                <li><strong>Secrets:</strong> Supports application secrets without embedding credentials directly in container images.</li>
+            </ul>
 
             <h3>Sizing &amp; Scaling Comparison</h3>
             <table>
@@ -495,7 +441,7 @@
                     </tr>
                     <tr>
                         <td><strong>Scaling</strong></td>
-                        <td>No built-in autoscaling — one container group is a fixed unit; scale by orchestrating multiple groups externally.</td>
+                        <td>ACI does not provide the built-in application autoscaling model of Container Apps. A container group is the deployment/scaling unit; use Container Apps when you need managed rule-based autoscaling and scale-to-zero.</td>
                         <td>Built-in autoscale (KEDA-based) on HTTP traffic, CPU/memory, or custom/event-driven metrics (e.g. queue length).</td>
                     </tr>
                     <tr>

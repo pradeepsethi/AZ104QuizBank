@@ -79,15 +79,15 @@
                 <tbody>
                     <tr>
                         <td><strong>General-purpose v2</strong></td>
-                        <td>Data Lake Gen2, Blobs, Files, Disks, Queues, Tables</td>
-                        <td>Standard, Premium</td>
+                        <td>Data Lake Storage Gen2, Blobs, Files, Queues, Tables, and page blobs</td>
+                        <td>Standard general-purpose or Premium page-blob scenarios</td>
                         <td>Hot, Cool, Cold, Archive</td>
                         <td>LRS, GRS, RA-GRS, ZRS, GZRS, RA-GZRS</td>
                     </tr>
                     <tr>
                         <td><strong>General-purpose v1</strong></td>
-                        <td>Blobs, Files, Disks, Queues, Tables (Upgradable to GPv2)</td>
-                        <td>Standard, Premium</td>
+                        <td>Legacy general-purpose account supporting Blobs, Files, Queues, Tables, and page blobs; upgrade path to GPv2</td>
+                        <td>Standard</td>
                         <td>N/A</td>
                         <td>LRS, GRS, RA-GRS</td>
                     </tr>
@@ -123,7 +123,9 @@
                 <li>Azure Files: <code>https://staz104exam.file.core.windows.net</code></li>
                 <li>Data Lake Gen2: <code>https://staz104exam.dfs.core.windows.net</code></li>
             </ul>
-        </section>staz104exam        <!-- Redundancy & Encryption -->
+        </section>
+
+        <!-- Redundancy & Encryption -->
         <section class="card card--content">
             <h2>Storage Redundancy & Encryption</h2>
             
@@ -137,7 +139,10 @@
             </ul>
 
             <h3>Storage Encryption</h3>
-            <p>All storage accounts use <strong>Storage Service Encryption (SSE)</strong> for data at rest using <strong>256-bit AES</strong> encryption with Microsoft-managed or customer-managed keys.</p>
+            <p>Azure Storage uses <strong>Storage Service Encryption (SSE)</strong> to encrypt data at rest with <strong>256-bit AES</strong>. Microsoft-managed keys are the default; customer-managed keys are available for supported storage-account services and scenarios.</p>
+            <div class="highlight-box">
+                <strong>Exam distinction:</strong> Storage Service Encryption protects data <strong>at rest</strong>. For data in transit, use secure transfer/TLS (HTTPS). Microsoft-managed keys are the default; customer-managed keys can be used when additional key-management control is required.
+            </div>
         </section>
 
         <!-- Blob Tiers & Data Transfer -->
@@ -203,12 +208,15 @@
             <p>By default, storage accounts accept traffic from any network. Restricting access uses the <strong>Networking</strong> blade with two main mechanisms:</p>
             <ul>
                 <li><strong>IP-based rules:</strong> Allow specific public IP addresses or CIDR ranges.</li>
-                <li><strong>Virtual network (VNet) service endpoints:</strong> Restrict access to selected subnets; traffic stays on the Microsoft backbone.</li>
-                <li><strong>Private Endpoints:</strong> Assigns a private IP from your VNet to the storage account, fully removing it from public internet exposure.</li>
-                <li><strong>Trusted Microsoft services exception:</strong> Lets select Azure services (e.g., Azure Backup, Azure Monitor) bypass the network rules even when set to deny.</li>
+                <li><strong>Virtual network (VNet) service endpoints:</strong> Restrict access to selected subnets through the storage account's public endpoint; traffic uses the Azure backbone rather than traversing the public internet.</li>
+                <li><strong>Private Endpoints:</strong> Assigns a private IP address from your VNet to the storage service. A private endpoint provides private connectivity; public network access must be disabled or restricted separately if you want to prevent access through the public endpoint.</li>
+                <li><strong>Trusted Microsoft services exception:</strong> Allows supported trusted Azure services to access the storage account when this exception is enabled.</li>
             </ul>
             <div class="highlight-box">
                 <strong>Default action:</strong> When any network rule is configured, the default action becomes <code>Deny</code> — you must explicitly allow the networks/IPs you want to permit.
+            </div>
+            <div class="highlight-box">
+                <strong>Service endpoint vs private endpoint:</strong> A service endpoint lets a selected VNet subnet access the storage account through its public service endpoint while the storage firewall restricts which subnets are allowed. A private endpoint gives the storage service a private IP in your VNet. These are different connectivity models.
             </div>
 
             <h3>Shared Access Signature (SAS) Tokens</h3>
@@ -224,8 +232,8 @@
                 <tbody>
                     <tr>
                         <td><strong>User Delegation SAS</strong></td>
-                        <td>Blob storage only</td>
-                        <td>Microsoft Entra ID credentials (most secure option)</td>
+                        <td>Blob Storage (including ADLS Gen2), Queue, Table, and Azure Files resources</td>
+                        <td>Microsoft Entra credentials are used to obtain a <strong>user delegation key</strong>, which signs the SAS</td>
                     </tr>
                     <tr>
                         <td><strong>Service SAS</strong></td>
@@ -239,10 +247,10 @@
                     </tr>
                 </tbody>
             </table>
-            <p>Every SAS token encodes: <strong>permissions</strong> (read/write/delete/list, etc.), <strong>start &amp; expiry time</strong>, <strong>allowed IP range</strong>, <strong>allowed protocol</strong> (HTTPS only vs HTTP/HTTPS), and a <strong>signature</strong> computed from the account key or user delegation key.</p>
+            <p>Every SAS token can specify <strong>permissions</strong> (read/write/delete/list, etc.), <strong>start &amp; expiry time</strong>, <strong>allowed IP range</strong>, <strong>allowed protocol</strong>, and a <strong>signature</strong>. A user delegation SAS is signed with a user delegation key; service SAS and account SAS are signed with a storage account key.</p>
 
             <h3>Stored Access Policies</h3>
-            <p>A stored access policy is defined on the container, file share, queue, or table itself and groups together the start time, expiry time, and permissions for one or more service SAS tokens.</p>
+            <p>A stored access policy is defined on a supported storage resource such as a container, file share, queue, or table and centralizes the start time, expiry time, and permissions for one or more <strong>service SAS</strong> tokens. Stored access policies aren't supported for user delegation SAS.</p>
             <div class="highlight-box">
                 Because the policy lives server-side, you can <strong>modify or revoke</strong> access for all SAS tokens tied to it at any time — without regenerating the storage account keys (which would invalidate every SAS on the account).
             </div>
@@ -258,11 +266,11 @@
             <h3>Identity-Based Access for Azure Files</h3>
             <p>Azure Files supports identity-based authentication over SMB using Kerberos, in addition to the traditional storage account key.</p>
             <ul>
-                <li><strong>On-premises Active Directory Domain Services (AD DS):</strong> Requires syncing identities to Microsoft Entra ID and domain-joining the storage account.</li>
-                <li><strong>Microsoft Entra Domain Services:</strong> A managed domain that Azure file shares can be joined to directly.</li>
-                <li><strong>Microsoft Entra Kerberos (Entra ID authentication):</strong> Enables hybrid identities to authenticate to Azure Files with Kerberos without requiring a domain controller.</li>
+                <li><strong>On-premises Active Directory Domain Services (AD DS):</strong> Uses an on-premises AD domain for SMB authentication and requires the storage account to be configured for AD DS authentication.</li>
+                <li><strong>Microsoft Entra Domain Services:</strong> A managed domain service that provides domain-based SMB authentication for Azure Files.</li>
+                <li><strong>Microsoft Entra Kerberos:</strong> Enables Microsoft Entra identities, including supported hybrid identities, to authenticate to Azure Files over SMB using Kerberos without requiring a traditional domain controller in the Azure environment.</li>
             </ul>
-            <p>Once identity-based auth is configured, <strong>share-level and directory/file-level (NTFS) permissions</strong> both apply — share-level via RBAC roles, and file/folder-level via standard Windows ACLs.</p>
+            <p>Once identity-based authentication is configured, both <strong>share-level</strong> and <strong>directory/file-level</strong> permissions apply. Share-level access is controlled with Azure RBAC roles; file/folder access is controlled with Windows ACLs.</p>
         </section>
 
         <!-- Storage Account Management -->
@@ -273,9 +281,9 @@
             <p>Key settings chosen at creation time (some are changeable later, others are not):</p>
             <ul>
                 <li><strong>Subscription / Resource group / Name / Region</strong></li>
-                <li><strong>Performance:</strong> Standard (HDD-backed) or Premium (SSD-backed) — <em>cannot be changed after creation</em>.</li>
+                <li><strong>Performance:</strong> Standard or Premium, depending on the account type and workload — the account's performance/account-kind combination isn't something you should treat as a simple HDD-vs-SSD setting.</li>
                 <li><strong>Redundancy:</strong> LRS, ZRS, GRS, GZRS, RA-GRS, RA-GZRS — can generally be changed later.</li>
-                <li><strong>Account kind:</strong> General-purpose v2, BlockBlobStorage, FileStorage, or BlobStorage — <em>cannot be changed after creation</em> (except GPv1 → GPv2 upgrade).</li>
+                <li><strong>Account kind:</strong> General-purpose v2, BlockBlobStorage, FileStorage, or legacy BlobStorage; choose the account type appropriate to the workload. GPv1 is legacy and can be upgraded to GPv2.</li>
                 <li><strong>Networking:</strong> Public endpoint (all/selected networks) or private endpoint.</li>
                 <li><strong>Data protection:</strong> Soft delete, versioning, and change feed toggles.</li>
             </ul>
@@ -283,8 +291,8 @@
             <h3>Object Replication</h3>
             <p>Object replication asynchronously copies <strong>block blobs</strong> between a source and a destination storage account, driven by a replication policy and one or more rules.</p>
             <ul>
-                <li><strong>Requirements:</strong> Both accounts must be General-purpose v2, and the source account must have <strong>blob versioning</strong> and <strong>change feed</strong> enabled.</li>
-                <li><strong>Use cases:</strong> Minimize read latency by copying data closer to users, reduce cross-region compute/egress by keeping copies in each region, and maintain a copy for compliance or DR purposes.</li>
+                <li><strong>Requirements:</strong> Source and destination must be <strong>General-purpose v2 or Premium Block Blob</strong> accounts. <strong>Blob versioning</strong> must be enabled on both accounts, and <strong>change feed</strong> must be enabled on the source account. Object replication supports block blobs and isn't currently supported for accounts with hierarchical namespace enabled.</li>
+                <li><strong>Use cases:</strong> Minimize read latency by copying data closer to users, maintain selected data in another region, and keep an independently accessible copy for business continuity or other requirements.</li>
                 <li>Unlike GRS/RA-GRS (which replicate the whole account transparently for disaster recovery), object replication is <strong>selective</strong> (container/prefix scoped) and the copy is independently readable and writable.</li>
             </ul>
 
@@ -306,7 +314,7 @@
                     <tr>
                         <td><strong>AzCopy</strong></td>
                         <td>Command-line utility</td>
-                        <td>Scripted, high-throughput bulk copy/sync/migration; supports Microsoft Entra ID and SAS authentication; source/destination can be local disk, another storage account, or Amazon S3.</td>
+                        <td>Scripted, high-throughput bulk upload, download, copy, and synchronization; supports Microsoft Entra ID and SAS authentication; source/destination can be local disk, another storage account, or Amazon S3.</td>
                     </tr>
                 </tbody>
             </table>
@@ -318,7 +326,7 @@
 
             <h3>File Shares in Azure Storage</h3>
             <ul>
-                <li>Created within a storage account; can use <strong>SMB</strong> or <strong>NFS</strong> protocol (NFS requires Premium FileStorage account + private endpoint/VNet).</li>
+                <li>Created within a storage account; can use <strong>SMB</strong> or <strong>NFS 4.1</strong>. NFS is supported on <strong>Premium Azure Files</strong> and requires network-level access controls such as a service endpoint or private endpoint.</li>
                 <li><strong>Tiers:</strong> Transaction Optimized, Hot, and Cool (standard tier accounts); Premium file shares use provisioned IOPS/throughput.</li>
                 <li>Each share has a configurable <strong>quota</strong> (maximum size).</li>
             </ul>
@@ -350,13 +358,16 @@
             <h3>Blob Lifecycle Management</h3>
             <p>A rule-based policy (JSON or portal UI) that automatically transitions or deletes blobs based on age and conditions, without custom code.</p>
             <div class="highlight-box">
+                <strong>Exam distinction:</strong> An <strong>access tier</strong> describes the current storage/access-cost tier of a blob. <strong>Lifecycle management</strong> automatically moves blobs between tiers or deletes them according to policy conditions.
+            </div>
+            <div class="highlight-box">
                 Typical rule: <em>"If a blob hasn't been modified in 30 days, move it to Cool; after 90 days, move to Archive; after 365 days, delete it."</em> Rules can be scoped by container name prefix or blob index tags.
             </div>
 
             <h3>Blob Versioning</h3>
             <ul>
-                <li>When enabled, every time a blob is <strong>overwritten or deleted</strong>, Azure automatically keeps the previous state as a read-only <strong>version</strong>.</li>
-                <li>Versions are identified by a <strong>VersionId</strong> timestamp and can be listed, read, or promoted back to the current version.</li>
+                <li>When enabled, an <strong>overwrite</strong> creates a new version while preserving the previous state as a previous version. When the current blob is deleted, the current version becomes a previous version and there is no current version.</li>
+                <li>Versions are identified by a <strong>VersionId</strong> and can be listed and read. A previous version can be copied over the current blob to restore its contents.</li>
                 <li>Works alongside soft delete and lifecycle management rules (which can also expire old versions) to build a complete data-protection strategy.</li>
             </ul>
         </section>

@@ -75,7 +75,7 @@
                 <tbody>
                     <tr>
                         <td><strong>Platform metrics</strong></td>
-                        <td>Created automatically by Azure resources (e.g. CPU %, disk IOPS, network in/out). Collected at 1-minute frequency by default and typically retained for 93 days.</td>
+                        <td>Created automatically by Azure resources (e.g. CPU %, disk IOPS, network in/out). Usually collected at one-minute frequency, although the frequency depends on the metric. Platform and custom metrics are typically retained for 93 days. Metrics Explorer charts can query up to 30 days at a time.</td>
                     </tr>
                     <tr>
                         <td><strong>Custom metrics</strong></td>
@@ -88,7 +88,8 @@
                 </tbody>
             </table>
 
-            <h3>Metrics Explorer</h3>
+            
+<p><strong>Azure Monitor Agent (AMA):</strong> AMA uses Data Collection Rules (DCRs) to define what guest operating-system data to collect and where to send it. It can collect performance counters, Windows event logs, and Syslog data. Guest OS metrics can be sent to Azure Monitor Metrics, while log data can be sent to Azure Monitor Logs.</p><h3>Metrics Explorer</h3>
             <p>Used to plot charts, visually correlate trends, and investigate spikes/dips in metric values. Supports splitting by dimension (e.g. per-disk or per-instance) and aggregation types: <strong>Sum, Avg, Min, Max, Count</strong>. Charts can be pinned to a dashboard or exported to a workbook.</p>
 
             <h3>Metrics vs Logs</h3>
@@ -137,7 +138,7 @@
         <!-- Monitor Agent & Log Queries -->
         <section class="card card--content">
             <h2>Monitor Agent & Log Queries</h2>
-            <p>All log data obtained by Azure Monitor is stored in a Log Analytics workspace and retrieved using a log query written in <strong>Kusto Query Language (KQL)</strong>.</p>
+            <p>Azure Monitor Logs is the log data platform. Log Analytics is the Azure portal experience used to query and analyze Azure Monitor Logs using KQL and retrieved using a log query written in <strong>Kusto Query Language (KQL)</strong>.</p>
 
             <h3>Query Building Blocks</h3>
             <ul>
@@ -155,9 +156,8 @@
                 <strong>Limits and Capabilities:</strong>
                 <ul>
                     <li>If a query includes workspaces in 20 or more regions, the query will be blocked from running.</li>
-                    <li>Monitor Agent results are limited to a maximum of 10,000 records.</li>
+                    
                     <li>A monitor agent can collect logs and performance data from virtual or physical devices outside Azure.</li>
-                    <li>A monitor agent cannot send data to Azure Monitor Metrics, Azure Storage, or Azure Event Hubs.</li>
                 </ul>
             </div>
         </section>
@@ -177,13 +177,13 @@
 
             <h3>Log Categories</h3>
             <ul>
-                <li><strong>Administrative:</strong> record of create/update/delete (control-plane) operations.</li>
+                <li><strong>Administrative:</strong> Activity Log category covering create/update/delete control-plane operations.</li>
                 <li><strong>Activity log:</strong> subscription-level events (who did what, when); retained 90 days by default and can be routed via diagnostic settings for longer retention.</li>
                 <li><strong>Resource logs:</strong> operations performed within a resource (data-plane), category set differs per resource type.</li>
             </ul>
 
             <div class="highlight-box">
-                <strong>Key Point:</strong> Diagnostic settings must be configured per resource (or applied at scale via Azure Policy). Without a diagnostic setting, resource logs are not retained anywhere for later query.
+                <strong>Key Point:</strong> Diagnostic settings must be configured per resource (or applied at scale via Azure Policy). Resource logs aren’t collected and stored until a diagnostic setting routes them to a supported destination.
             </div>
         </section>
 
@@ -318,7 +318,7 @@
             <p>Backup schedule can be <strong>daily or weekly</strong>. Retention can be configured on a <strong>daily, weekly, monthly, and yearly</strong> schedule.</p>
 
             <div class="highlight-box">
-                <strong>VM State:</strong> A stopped/deallocated VM only stops the virtual machine; Azure Backup takes snapshots of the VM disks. A backup can still be created whether the VM is running or stopped, as long as the disk is attached to the VM.
+                <strong>VM State:</strong> A stopped/deallocated VM only stops the virtual machine; Azure Backup takes snapshots of the VM disks. A backup can be created whether the VM is running or stopped; a running VM can produce an application-consistent recovery point, while a stopped/offline VM produces a crash-consistent recovery point, as long as the disk is attached to the VM.
             </div>
 
             <h3>Recovery Services Vault</h3>
@@ -376,7 +376,7 @@
             <p>A Recovery Services vault cannot be deleted if it contains protected data sources (IaaS VMs, SQL databases, Azure file shares), backup data, backup data in a soft-deleted state, or registered storage accounts. If deletion fails with <strong>"Failed to delete resource group"</strong>, stop the backup first, then disable soft delete and delete the resource group.</p>
 
             <h3>Microsoft Azure Recovery Services (MARS) Agent</h3>
-            <p>The MARS agent allows backup of data from Windows virtual machines and on-premises machines, with backups stored directly in the Recovery Services vault. Installing the MARS agent and performing backups requires a Recovery Services vault, a backup policy, and a secure route (ExpressRoute or Private Endpoint).</p>
+            <p>The MARS agent allows backup of data from Windows virtual machines and on-premises machines, with backups stored directly in the Recovery Services vault. Installing the MARS agent and performing backups requires a Recovery Services vault, a backup policy, and network connectivity to Azure. ExpressRoute or a private endpoint is not a general prerequisite for MARS.</p>
 
             <h3>Azure Backup Vault</h3>
             <p>Azure Backup Vault is a storage entity for backup data for various Azure services, designed to support newer workloads and services such as Azure Database for PostgreSQL servers.</p>
@@ -405,7 +405,7 @@
         <!-- Site Recovery -->
         <section class="card card--content">
             <h2>Azure Site Recovery & Disaster Recovery</h2>
-            <p>For hybrid backup solutions, site-to-site recovery, or a business continuity and disaster recovery (BCDR) strategy, Azure Site Recovery replicates workloads from a primary site to a secondary site. If the primary site suffers an outage and becomes unavailable, Azure Site Recovery can automatically fail over to the secondary site so services continue working.</p>
+            <p>For hybrid backup solutions, site-to-site recovery, or a business continuity and disaster recovery (BCDR) strategy, Azure Site Recovery replicates workloads from a primary site to a secondary site. If the primary site suffers an outage and becomes unavailable, Azure Site Recovery enables you to fail over workloads to the secondary site so services continue working.</p>
 
             <h3>Resources That Can Be Replicated</h3>
             <ul>
@@ -456,7 +456,7 @@
                     </tr>
                     <tr>
                         <td><strong>Planned failover</strong></td>
-                        <td>Used for expected downtime (e.g. scheduled maintenance). Ensures zero data loss by synchronizing any final changes from the source before failing over.</td>
+                        <td>Used for expected downtime (e.g. scheduled maintenance). Designed to achieve zero data loss by synchronizing the latest changes before failover by synchronizing any final changes from the source before failing over.</td>
                     </tr>
                     <tr>
                         <td><strong>Unplanned failover</strong></td>
@@ -504,7 +504,7 @@
                 <tbody>
                     <tr><td>Platform vs custom metrics</td><td>Platform metrics are automatic (1-min frequency, ~93-day retention); custom/guest metrics need an agent or SDK.</td></tr>
                     <tr><td>Metrics vs Logs</td><td>Metrics = fast numeric time-series, no query language needed; Logs = KQL, deeper analysis, slightly higher latency.</td></tr>
-                    <tr><td>Monitor Agent</td><td>10,000-record result limit; supports collecting logs/performance data from devices outside Azure.</td></tr>
+                    <tr><td>Azure Monitor Agent</td><td>Uses Data Collection Rules (DCRs) to collect guest OS performance counters and logs. Guest OS metrics can be sent to Azure Monitor Metrics; log data can be sent to Azure Monitor Logs.</td></tr>
                     <tr><td>Diagnostic settings</td><td>Route platform/resource logs to Log Analytics, Storage, or Event Hubs; required before resource logs can be queried or retained.</td></tr>
                     <tr><td>Alert rules</td><td>One alert rule per signal type in the worked example; metric, log, and activity-log alert types exist.</td></tr>
                     <tr><td>Action groups</td><td>Create one per unique notification-user set in the worked example.</td></tr>
@@ -521,7 +521,7 @@
                     <tr><td>VM restore options</td><td>Create a new VM, restore disks, replace existing disks, or cross-region restore.</td></tr>
                     <tr><td>Soft delete (backup)</td><td>Deleted backup data is recoverable for a default of 14 days.</td></tr>
                     <tr><td>Azure Site Recovery</td><td>Replicates workloads to a secondary site and supports failover for BCDR scenarios.</td></tr>
-                    <tr><td>Failover types</td><td>Test (isolated, no impact), Planned (zero data loss), Unplanned (after outage, possible data loss).</td></tr>
+                    <tr><td>Failover types</td><td>Test (isolated validation), Planned (designed for zero data loss by synchronizing changes first), Unplanned (used after an outage and may involve data loss).</td></tr>
                     <tr><td>Failback</td><td>Reprotect (reverse replication) then fail over again to move workloads back to the primary region.</td></tr>
                     <tr><td>Backup Reports</td><td>Cross-vault reporting on jobs, alerts, and storage consumption; needs a diagnostic setting to Log Analytics.</td></tr>
                     <tr><td>Backup alerts</td><td>Built-in alerts for failures, stopped protection, and suspicious deletions — no custom alert rule required.</td></tr>

@@ -65,6 +65,10 @@
       <hr class="limits-hub-divider">
       
       <div class="limits-hub-footer">
+        <span>✓ Content verified against current Microsoft Learn limits and AZ-104 scope (August 2026).</span>
+      </div>
+
+      <div class="limits-hub-footer">
         <span>📖 Main Reference Hub:</span>
         <a href="https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/azure-subscription-service-limits" target="_blank" rel="noopener noreferrer" class="ms-learn-link">
           Azure Subscription &amp; Service Limits Directory ↗
@@ -178,7 +182,7 @@
         <tbody>
           <tr>
             <td>Storage Accounts per Region</td>
-            <td>Max 250 per subscription</td>
+            <td>Max 250 by default per region per subscription; up to 500 by request</td>
             <td><span class="badge-soft">Soft</span></td>
             <td>Can request limit increases by opening a free support request.</td>
           </tr>
@@ -208,9 +212,9 @@
           </tr>
           <tr>
             <td>Blob Size Limit</td>
-            <td>Max 190 TiB for block blobs (via Put Block/Put Block List)</td>
+            <td>Max ~190.7 TiB for block blobs</td>
             <td><span class="badge-hard">Hard</span></td>
-            <td>Single block uploads are limited to 4 MiB to 500 MiB depending on tool and version.</td>
+            <td>Block size can be up to 4,000 MiB; single Put Blob uploads can be up to 5,000 MiB with current service versions.</td>
           </tr>
         </tbody>
       </table>
@@ -281,10 +285,10 @@
             <td>Free and Basic App Service plans do not support deployment slots or autoscaling.</td>
           </tr>
           <tr>
-            <td>Managed Disks per Region</td>
-            <td>Max 50,000 disks per subscription</td>
+            <td>Managed Disks per Region &amp; Disk Type</td>
+            <td>Max 50,000 managed disks per region, per disk type, per subscription</td>
             <td><span class="badge-soft">Soft</span></td>
-            <td>Includes OS and data disks across standard HDD, standard SSD, premium SSD, and ultra disks.</td>
+            <td>Limit applies per disk type and region; quotas vary by disk type.</td>
           </tr>
           <tr>
             <td>Data Disks per VM Size</td>
@@ -337,21 +341,21 @@
           </tr>
           <tr>
             <td>NSG Rules</td>
-            <td>Max 1,000 rules per NSG</td>
+            <td>Max 2,000 rules per NSG</td>
             <td><span class="badge-hard">Hard</span></td>
             <td>Priority range is 100 to 4096. Lower numbers are evaluated first.</td>
           </tr>
           <tr>
             <td>VNets &amp; Subnets</td>
-            <td>Max 1,000 VNets, 1,000 subnets per VNet</td>
+            <td>Max 1,000 VNets, 3,000 subnets per VNet</td>
             <td><span class="badge-hard">Hard</span></td>
             <td>Peered virtual networks cannot have overlapping IP address spaces.</td>
           </tr>
           <tr>
             <td>Public IP Addresses</td>
-            <td>1,000 per region per subscription</td>
+            <td>Default quota varies by subscription offer and SKU; quotas are per region and per subscription</td>
             <td><span class="badge-soft">Soft</span></td>
-            <td>Standard SKU IPs are static by default. Basic SKUs are deprecated.</td>
+            <td>Standard SKU IPs are static by default. Basic Public IPs were retired on September 30, 2025.</td>
           </tr>
           <tr>
             <td>Application Gateway Backend Pools</td>
@@ -361,7 +365,7 @@
           </tr>
           <tr>
             <td>User-Defined Routes (UDRs) per Route Table</td>
-            <td>Max 400 routes per route table</td>
+            <td>Max 1,000 routes per route table</td>
             <td><span class="badge-hard">Hard</span></td>
             <td>Route tables can be associated with multiple subnets within the same virtual network.</td>
           </tr>
@@ -407,7 +411,7 @@
             <td>Log Analytics Data Retention</td>
             <td>Default 30 days (up to 730 days)</td>
             <td><span class="badge-soft">Soft</span></td>
-            <td>Retention can be extended per workspace or archived to Azure Storage.</td>
+            <td>Interactive retention can be configured up to 730 days; longer retention can use archive capabilities.</td>
           </tr>
           <tr>
             <td>Metric Alert Frequency</td>
@@ -423,15 +427,15 @@
           </tr>
           <tr>
             <td>Site Recovery (ASR) RPO</td>
-            <td>Down to 30 seconds for VMs</td>
+            <td>Continuous replication for Azure-to-Azure VM replication; 30-second replication frequency applies to supported Hyper-V scenarios</td>
             <td><span class="badge-hard">Hard</span></td>
-            <td>Replication frequency and retention points configured in replication policy.</td>
+            <td>For Azure-to-Azure VM replication, replication is continuous; policy controls recovery point retention and application-consistent snapshot frequency.</td>
           </tr>
           <tr>
             <td>Azure Backup Retention (Recovery Services)</td>
-            <td>Max 9,999 recovery points per protected instance</td>
+            <td>Daily backup retention can be configured up to 9,999 days</td>
             <td><span class="badge-hard">Hard</span></td>
-            <td>Long-term retention policies can span daily, weekly, monthly, and yearly backups.</td>
+            <td>Long-term retention supports daily, weekly, monthly, and yearly recovery points; 9,999 is a maximum daily retention period, not a recovery-point count.</td>
           </tr>
           <tr>
             <td>Action Groups per Subscription</td>

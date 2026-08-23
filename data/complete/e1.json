@@ -86,21 +86,20 @@
   {
     "id": 5,
     "subtopic": "Configure self-service password reset (SSPR)",
-    "question": "You are configuring Self-Service Password Reset (SSPR) in Microsoft Entra ID. You need to ensure users are required to register at least two authentication methods before resetting their passwords. Which authentication methods can be combined to meet this requirement? (Select TWO)",
+    "question": "You are configuring Self-Service Password Reset (SSPR) in Microsoft Entra ID. You want users to verify their identity by using two authentication methods. Which option is a valid combination of SSPR authentication methods?",
     "options": [
-      "Microsoft Authenticator app notification",
-      "FIDO2 security key",
-      "Email to alternative address",
-      "Mobile phone SMS",
-      "Security questions"
+      "Microsoft Authenticator app notification + Mobile phone SMS",
+      "FIDO2 security key + Azure Bastion",
+      "Azure VPN + Microsoft Authenticator app notification",
+      "Storage account access key + Mobile phone SMS"
     ],
-    "correct": [0, 3],
+    "correct": 0,
     "explanation": {
-      "correctReason": "When configuring SSPR with 2 methods required, users can combine 'Microsoft Authenticator app notification' and 'Mobile phone SMS' (or Mobile phone call).",
+      "correctReason": "Microsoft Authenticator and mobile phone SMS are both supported SSPR authentication methods and can be used as the two verification methods.",
       "incorrectReasons": [
-        "FIDO2 security keys are primarily used for passwordless sign-in, not standard SSPR user verification workflows.",
-        "Email to alternative address is supported as a secondary option, but commonly combined with phone or app; however, Authenticator App and Mobile Phone are standard core options.",
-        "Security questions are considered weaker security methods and subject to restriction settings, requiring specific custom policies."
+        "Azure Bastion is not an SSPR authentication method.",
+        "Azure VPN is not an SSPR authentication method.",
+        "A storage account access key is not an SSPR authentication method."
       ],
       "reference": "https://learn.microsoft.com/en-us/entra/identity/authentication/concept-sspr-howitworks"
     }
@@ -108,7 +107,7 @@
   {
     "id": 6,
     "subtopic": "Manage built-in Azure roles",
-    "question": "You need to grant a user permission to restart, start, and stop virtual machines in a resource group, but the user must NOT be able to modify networking settings, virtual machine sizes, or delete virtual machines. Which built-in role provides the minimum required privileges?",
+    "question": "You need to grant a user permission to manage existing Azure virtual machines in a resource group, including starting, restarting, stopping, and resizing them. The user must not be able to manage virtual networks or assign Azure RBAC roles. Which built-in role provides the required privileges?",
     "options": [
       "Owner",
       "Contributor",
@@ -117,11 +116,11 @@
     ],
     "correct": 2,
     "explanation": {
-      "correctReason": "Virtual Machine Contributor gives full management access to virtual machines (including power operations like start, restart, and stop), but does not allow modifying virtual networks or storage attached outside VM scope.",
+      "correctReason": "Virtual Machine Contributor provides management access to virtual machines, including power operations and VM configuration, without granting permission to assign Azure RBAC roles. It is narrower than Contributor or Owner.",
       "incorrectReasons": [
-        "Owner grants full control over all resources, including assigning access rights.",
-        "Contributor grants full management of all resources in the group including deletion.",
-        "Virtual Machine User Login only allows sign-in access via Microsoft Entra authentication to Linux/Windows VMs."
+        "Owner grants full access, including the ability to assign Azure RBAC roles.",
+        "Contributor grants management access to all resource types in the scope, which is broader than required.",
+        "Virtual Machine User Login provides sign-in access to VMs; it does not provide VM management permissions."
       ],
       "reference": "https://learn.microsoft.com/en-us/azure/role-based-access-control/built-in-roles#virtual-machine-contributor"
     }
@@ -200,7 +199,10 @@
       "Delete the RG-Production Resource Group",
       "Remove the lock without possessing the Microsoft.Authorization/locks/* permission"
     ],
-    "correct": [1, 2],
+    "correct": [
+      1,
+      2
+    ],
     "explanation": {
       "correctReason": "'CanNotDelete' locks allow authorized users to read and modify existing resources, and create new resources, but block deletion of any resource within the scope.",
       "incorrectReasons": [
@@ -244,11 +246,11 @@
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "Because a resource's Azure Resource ID includes the resource group name in its path (`/subscriptions/{subId}/resourceGroups/{rgName}/...`), moving a resource to a new resource group changes its Resource ID.",
+      "correctReason": "A resource ID contains the resource group name, so moving a resource to a different resource group changes its resource ID.",
       "incorrectReasons": [
-        "Data stored inside a storage account remains intact during a resource group move.",
-        "Resources are typically moved within the same region between resource groups or subscriptions.",
-        "Target resource group locks prevent changes to the target group itself, but do not inherently prevent moving supported resources in unless write locks are actively violated."
+        "Moving a supported resource between resource groups does not wipe the resource's data.",
+        "A resource can generally be moved between resource groups in the same region; different regions are not required.",
+        "A read-only lock on the source or destination resource group or subscription can prevent a resource move. Locks should therefore be checked before a move."
       ],
       "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/move-resource-group-and-subscription"
     }
@@ -256,7 +258,7 @@
   {
     "id": 13,
     "subtopic": "Manage subscriptions",
-    "question": "You have two Azure subscriptions named Sub1 and Sub2 under the same Microsoft Entra tenant. You need to transfer ownership of Sub1 to another user account in your organization. What tool or portal location should you use to manage subscription billing ownership transfer?",
+    "question": "You have two Azure subscriptions named Sub1 and Sub2 under the same Microsoft Entra tenant. You need to transfer the billing ownership of Sub1 to another user account in your organization. Where should you manage the subscription billing ownership transfer?",
     "options": [
       "Azure Cost Management + Billing portal",
       "Microsoft Entra ID Privileged Identity Management",
@@ -265,11 +267,11 @@
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "Subscription transfer, account ownership changes, and billing account modifications are performed in the Azure Cost Management + Billing hub in the Azure portal.",
+      "correctReason": "Billing ownership transfers are managed through Azure Cost Management + Billing. Azure RBAC ownership and billing ownership are separate concepts.",
       "incorrectReasons": [
-        "PIM manages temporary role elevations, not billing ownership transfer.",
-        "Azure Resource Explorer displays raw API resource definitions.",
-        "Azure Service Health provides status alerts and service degradation metrics."
+        "Privileged Identity Management manages eligible and time-bound role activation; it does not perform billing ownership transfers.",
+        "Azure Resource Explorer exposes Azure Resource Manager resources and APIs; it is not the billing ownership transfer interface.",
+        "Azure Service Health provides service health information and does not manage subscription billing ownership."
       ],
       "reference": "https://learn.microsoft.com/en-us/azure/cost-management-billing/manage/billing-subscription-transfer"
     }
@@ -327,7 +329,10 @@
       "Change storage replication to Geo-Redundant Storage (GRS)",
       "Configure a User Defined Route (UDR) to point to Internet"
     ],
-    "correct": [0, 1],
+    "correct": [
+      0,
+      1
+    ],
     "explanation": {
       "correctReason": "To restrict access to a specific subnet, the storage account firewall must be set to allow access from 'Selected networks', and the referenced subnet must have the `Microsoft.Storage` service endpoint enabled (or use private endpoints).",
       "incorrectReasons": [
@@ -341,20 +346,20 @@
   {
     "id": 17,
     "subtopic": "Create and use shared access signature (SAS) tokens",
-    "question": "You need to grant an external application temporary access to upload blobs to a container named `uploads` for 4 hours. You want to ensure access cannot be used after 4 hours and permissions are restricted solely to write operations on blob objects. Which type of SAS should you generate?",
+    "question": "You need to grant an external application temporary access to upload blobs to a container named `uploads` for 4 hours. The application cannot authenticate to Microsoft Entra ID, so you need a SAS. Which type of SAS should you generate to restrict access to the blob service and enforce the 4-hour validity period?",
     "options": [
-      "Account SAS with full service level permissions",
-      "Service SAS with Write permission on blob service with start and expiry time set",
+      "Account SAS with full service-level permissions",
+      "Service SAS scoped to the `uploads` container with only the required blob permissions and a 4-hour expiry",
       "User Delegation SAS with Read/Write/Delete permissions lasting 24 hours",
       "Stored Access Policy assigned to table storage"
     ],
     "correct": 1,
     "explanation": {
-      "correctReason": "A Service SAS delegates access to a specific resource in a storage account (such as a blob container) and can explicitly restrict actions to 'Write' only while enforcing start and expiration parameters.",
+      "correctReason": "A Service SAS can delegate time-limited access to a specific blob container and can restrict the allowed blob operations and expiry time. Because the application cannot use Microsoft Entra ID, a User Delegation SAS is not the appropriate choice for this scenario.",
       "incorrectReasons": [
-        "Account SAS delegates rights across account-level services and management operations, exceeding minimal privilege requirements.",
-        "User Delegation SAS with Read/Write/Delete and 24 hours grants excessive permissions and violates the 4-hour requirement.",
-        "Stored access policy on table storage targets tables, not blob containers."
+        "An Account SAS can cover multiple storage services and broader account-level resources, so it is unnecessarily broad for this requirement.",
+        "A User Delegation SAS requires Microsoft Entra authentication and the option grants excessive permissions and duration.",
+        "A stored access policy for table storage does not provide access to a blob container."
       ],
       "reference": "https://learn.microsoft.com/en-us/azure/storage/common/storage-sas-overview"
     }
@@ -413,7 +418,11 @@
       "RADIUS server authentication",
       "Local VM Security Accounts Manager (SAM)"
     ],
-    "correct": [0, 1, 2],
+    "correct": [
+      0,
+      1,
+      2
+    ],
     "explanation": {
       "correctReason": "Azure Files supports identity-based authentication over SMB via on-premises AD DS, Microsoft Entra Domain Services, and Microsoft Entra Kerberos for hybrid identities.",
       "incorrectReasons": [
@@ -469,22 +478,22 @@
   {
     "id": 23,
     "subtopic": "Configure object replication",
-    "question": "You want to configure Object Replication for Azure Blob Storage between Source Storage Account `stsource` and Destination Storage Account `stdest`. Which prerequisite must be met on BOTH storage accounts?",
+    "question": "You want to configure Object Replication for Azure Blob Storage between source storage account `stsource` and destination storage account `stdest`. Which prerequisite configuration is correct?",
     "options": [
-      "Blob Versioning and Change Feed must be enabled.",
-      "Hierarchical Namespace (Data Lake Gen2) must be enabled.",
-      "Storage tier must be set to Archive.",
-      "Infrastructure Encryption must be disabled."
+      "Enable Blob Versioning on both source and destination, and enable Change Feed on the source account.",
+      "Enable Change Feed on both source and destination, but Blob Versioning is required only on the source.",
+      "Enable Hierarchical Namespace on both accounts and set both accounts to Archive tier.",
+      "Disable infrastructure encryption on both accounts."
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "Object Replication requires enabling Blob Versioning on both source and destination accounts, and enabling Change Feed on the source account.",
+      "correctReason": "Object Replication requires Blob Versioning on both the source and destination accounts, and Change Feed on the source account. Change Feed is not required on the destination account.",
       "incorrectReasons": [
-        "Hierarchical Namespace (ADLS Gen2) is not required for standard object replication and has specific feature compatibility rules.",
-        "Archive tier blobs cannot be replicated until rehydrated to Hot or Cool.",
-        "Infrastructure encryption is compatible and optional."
+        "Change Feed is required on the source, not both accounts, and versioning is required on both.",
+        "Hierarchical Namespace and Archive tier are not prerequisites for standard object replication.",
+        "Infrastructure encryption does not need to be disabled for object replication."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/storage/blobs/object-replication-overview"
+      "reference": "https://learn.microsoft.com/en-us/azure/storage/blobs/object-replication-configure"
     }
   },
   {
@@ -499,11 +508,11 @@
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "To authenticate to Azure Key Vault to retrieve customer-managed keys (CMK), the Azure Storage Account must use a Managed Identity (System-assigned or User-assigned) granted Key Vault access permissions.",
+      "correctReason": "The storage account uses a managed identity to authenticate to Key Vault when accessing a customer-managed key. The identity must also be granted the required permissions to the key in Key Vault.",
       "incorrectReasons": [
-        "SAS tokens authenticate applications to storage, not storage to Key Vault.",
-        "Global Administrator is an administrative directory role and does not enable resource-to-resource identity access.",
-        "Storing access keys in Key Vault does not give storage authorization to access Key Vault keys."
+        "A SAS token authenticates clients to Azure Storage; it is not the identity used by the storage account to access Key Vault.",
+        "Global Administrator is a Microsoft Entra directory role and is not the required resource-to-resource identity mechanism.",
+        "Storing a storage account access key in Key Vault does not authorize the storage account to access a Key Vault key."
       ],
       "reference": "https://learn.microsoft.com/en-us/azure/storage/common/customer-managed-keys-configure-key-vault"
     }
@@ -520,13 +529,13 @@
     ],
     "correct": 1,
     "explanation": {
-      "correctReason": "`azcopy copy` authenticated via Microsoft Entra login (`azcopy login`) copies files directly to the target container URL (`https://stacc.blob.core.windows.net/container`) using `--recursive` for subdirectories.",
+      "correctReason": "After authenticating with `azcopy login`, `azcopy copy` uploads the local data to the blob container. `--recursive` includes files in subdirectories.",
       "incorrectReasons": [
-        "While SAS tokens work, the question specifically asks for high-performance authentication using Microsoft Entra authorization.",
-        "`azcopy sync` compares timestamps and syncs modified/missing files, but standard bulk copy from local source is executed via `azcopy copy`.",
-        "`azcopy move` is not a valid AzCopy v10 core command (use copy and delete)."
+        "A SAS is valid for AzCopy, but this option does not specifically demonstrate Microsoft Entra authentication.",
+        "`azcopy sync` is intended to replicate a source location to a destination; a straightforward one-way bulk upload is better represented by `azcopy copy`.",
+        "`azcopy move` is a valid AzCopy v10 command, but it is not appropriate when the requirement is to retain the on-premises source data."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/storage/common/storage-use-azcopy-blobs-upload"
+      "reference": "https://learn.microsoft.com/en-us/azure/storage/common/storage-use-azcopy-v10"
     }
   },
   {
@@ -604,11 +613,11 @@
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "When container soft delete is active, deleted containers remain in a soft-deleted state for the retention duration (14 days). Administrators can view soft-deleted containers and click 'Undelete' to restore them.",
+      "correctReason": "Container soft delete retains the deleted container for the configured retention period. Because only 3 of the 14 days have elapsed, the deleted container can be restored using the container undelete/recovery operation in Azure Storage.",
       "incorrectReasons": [
-        "Recovery Services Vault is used for VM or Azure Backup policies, not native blob soft delete.",
-        "Azure does not have a native 'Storage Account Recycle Bin' UI entity.",
-        "Re-creating a container with the same name creates a blank new container."
+        "Azure Backup/Recovery Services Vault is not the native recovery mechanism for a container protected by container soft delete.",
+        "Azure Storage does not provide a generic Storage Account Recycle Bin for this operation.",
+        "Creating a new container with the same name does not restore the deleted container or its contents."
       ],
       "reference": "https://learn.microsoft.com/en-us/azure/storage/blobs/soft-delete-container-overview"
     }
@@ -637,7 +646,7 @@
   {
     "id": 31,
     "subtopic": "Configure blob lifecycle management",
-    "question": "You need to create a Blob Lifecycle Management rule that automatically moves block blobs in container `logs` to the Cool tier if they have not been modified for 30 days, and deletes them if they have not been modified for 365 days. Which rule filter and actions should you define? (Select TWO)",
+    "question": "You need to create a Blob Lifecycle Management rule that automatically moves block blobs in container `logs` to the Cool tier if they have not been modified for 30 days, and deletes them if they have not been modified for 365 days. Which THREE rule settings should you define? (Select THREE)",
     "options": [
       "Filter: Prefix match set to `logs/`",
       "Action: tierToCool: daysAfterModificationGreaterThan: 30",
@@ -645,15 +654,19 @@
       "Action: tierToArchive: daysAfterCreationGreaterThan: 30",
       "Filter: Blob type set to PageBlob"
     ],
-    "correct": [1, 2],
+    "correct": [
+      0,
+      1,
+      2
+    ],
     "explanation": {
-      "correctReason": "Lifecycle management rules use actions based on modification or creation days. `tierToCool` with `daysAfterModificationGreaterThan: 30` and `delete` with `daysAfterModificationGreaterThan: 365` satisfy the lifecycle policy requirements.",
+      "correctReason": "The rule must target the `logs` container and define both required actions: tier the matching block blobs to Cool after more than 30 days since modification, and delete them after more than 365 days since modification.",
       "incorrectReasons": [
-        "Prefix match for container `logs` is matched at container scope or `logs/` depending on syntax, but lifecycle action parameters (`tierToCool` and `delete`) directly specify the lifecycle operations.",
-        "`tierToArchive` moves data to Archive tier, not Cool tier.",
-        "Lifecycle management tiering actions apply to Block Blobs, not PageBlobs."
+        "The prefix `logs/` is required to limit the rule to blobs in the `logs` container. A lifecycle prefix must begin with the container name.",
+        "`tierToArchive` does not satisfy the requirement to move the blobs to Cool.",
+        "Page blobs are not the block blobs specified by the scenario."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/storage/blobs/lifecycle-management-overview"
+      "reference": "https://learn.microsoft.com/en-us/azure/storage/blobs/lifecycle-management-policy-structure"
     }
   },
   {
@@ -806,23 +819,26 @@
   {
     "id": 39,
     "subtopic": "Configure Azure Disk Encryption",
-    "question": "You plan to enable Azure Disk Encryption (ADE) on an existing Windows Virtual Machine. Which prerequisites must be configured in Azure before enabling ADE on the OS disk? (Select TWO)",
+    "question": "You plan to enable Azure Disk Encryption (ADE) on an existing Windows virtual machine. Which TWO Key Vault prerequisites must be configured before enabling ADE? (Select TWO)",
     "options": [
-      "An Azure Key Vault with 'Azure Disk Encryption for volume encryption' enabled",
-      "A Key Vault access policy or RBAC role granting the VM identity permission to wrap keys",
-      "An Azure Storage Account with LRS redundancy",
-      "Azure Bastion host deployed in the same subnet",
-      "A Network Security Group blocking port 443"
+      "Use a Key Vault in the same region and Microsoft Entra tenant as the VM.",
+      "Enable the Key Vault advanced access setting for Azure Disk Encryption for volume encryption.",
+      "Create an Azure Storage account with LRS redundancy.",
+      "Deploy Azure Bastion in the same subnet as the VM.",
+      "Block outbound HTTPS (TCP 443) from the VM."
     ],
-    "correct": [0, 1],
+    "correct": [
+      0,
+      1
+    ],
     "explanation": {
-      "correctReason": "ADE relies on BitLocker/dm-crypt and requires an Azure Key Vault configured with the 'Azure Disk Encryption for volume encryption' flag and permissions to store bitlocker encryption key wrappers.",
+      "correctReason": "For ADE, the Key Vault must be in the same region and tenant as the VM, and the Key Vault must have the Azure Disk Encryption for volume encryption advanced access setting enabled.",
       "incorrectReasons": [
-        "ADE stores keys directly in Azure Key Vault; standard storage accounts are not required.",
-        "Bastion is for remote administration, not encryption key management.",
-        "Blocking HTTPS (port 443) breaks communication with Key Vault."
+        "A general-purpose storage account with LRS redundancy is not an ADE prerequisite.",
+        "Azure Bastion provides remote administration and is unrelated to disk-encryption key storage.",
+        "Blocking HTTPS would interfere with required Azure service communication."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/virtual-machines/windows/disk-encryption-overview"
+      "reference": "https://learn.microsoft.com/en-us/azure/virtual-machines/windows/disk-encryption-key-vault"
     }
   },
   {
@@ -858,40 +874,40 @@
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "Resizing an Azure Virtual Machine requires stopping, reallocating on a host matching the new hardware tier (if needed), and restarting the VM, which incurs temporary downtime.",
+      "correctReason": "Because the requested size is available on the current VM cluster, the VM can be resized without manually deallocating it. A running VM is rebooted during a size change, so the operation causes brief downtime.",
       "incorrectReasons": [
-        "Live resizing without reboot is not supported for standard Azure VM compute size changes.",
-        "Resizing compute size does not alter disk tier types.",
-        "Data on temporary local scratch disks (D: drive) may be lost when host reallocation occurs."
+        "A running VM is restarted during a size change; the operation is not a completely uninterrupted live change.",
+        "Changing the compute size does not automatically convert the OS disk to Premium SSD.",
+        "Temporary disk data is not guaranteed to survive operations that involve host reallocation or deallocation."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/virtual-machines/resize-vm"
+      "reference": "https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/resize-vm"
     }
   },
   {
     "id": 42,
     "subtopic": "Manage virtual machine disks",
-    "question": "You need to expand the OS disk size of a production Linux Virtual Machine from 128 GB to 256 GB. What sequence of steps must you perform?",
+    "question": "You need to expand the OS disk of a production Linux VM from 128 GB to 256 GB. Assume the VM SKU and OS disk configuration support Azure managed-disk live resize. What sequence should you follow?",
     "options": [
-      "Deallocate (stop) the VM, expand the disk size in Azure portal/CLI, start the VM, and expand the file system inside the OS.",
-      "Expand the disk live while running, restart the VM, and Azure automatically formats the disk.",
-      "Delete the VM, create a new 256 GB disk, attach it, and re-deploy.",
-      "Create a snapshot, attach the snapshot as a 256 GB data disk, and copy files."
+      "Increase the managed disk size while the VM is running, then expand the partition and filesystem inside Linux.",
+      "Delete the VM, create a new 256 GB disk, and redeploy the VM.",
+      "Create a snapshot, attach the snapshot as a 256 GB data disk, and copy the OS files.",
+      "Increase the disk size and Azure automatically expands the Linux partition and filesystem without any guest-OS action."
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "To resize an OS disk, the VM must usually be deallocated. Once deallocated, update the disk size setting in Azure, start the VM, and resize the partition/file system inside the guest OS.",
+      "correctReason": "When the VM SKU and disk configuration support live resize, the managed disk can be expanded while the VM is running. The guest OS still requires the partition and filesystem to be expanded to use the additional capacity.",
       "incorrectReasons": [
-        "Live OS disk expansion without deallocation has limitations and does not auto-expand guest file system partitions without guest OS steps.",
-        "Deleting and re-deploying is unnecessary.",
-        "Snapshots are point-in-time backups, not the standard method for expanding existing OS volume capacity."
+        "Deleting and redeploying the VM is unnecessary.",
+        "A snapshot is not the standard method for expanding the existing OS disk.",
+        "Azure increases the managed disk capacity but does not automatically expand the guest Linux partition and filesystem."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/virtual-machines/linux/expand-disks"
+      "reference": "https://learn.microsoft.com/en-us/troubleshoot/azure/virtual-machines/windows/troubleshoot-disk-resize-errors"
     }
   },
   {
     "id": 43,
     "subtopic": "Deploy virtual machines to availability zones and availability sets",
-    "question": "You are designing an availability solution for an enterprise web application. You need to achieve an SLA of 99.99% for virtual machine availability against data center power, network, or cooling failures in a single region. How should you deploy the VMs?",
+    "question": "You are designing an availability solution for an enterprise web application. You need the applicable 99.99% VM instance availability SLA for a deployment protected against individual data-center power, network, or cooling failures within a single region. How should you deploy the VMs?",
     "options": [
       "Deploy VMs across multiple Availability Zones in the region.",
       "Deploy VMs within a single Availability Set with 3 fault domains.",
@@ -900,11 +916,11 @@
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "Deploying virtual machines across two or more Availability Zones in the same Azure region provides protection against individual data center facility failures and qualifies for a 99.99% VM availability SLA.",
+      "correctReason": "Deploying two or more VM instances across Availability Zones in the same Azure region provides zone-level isolation and is the design used for the applicable 99.99% VM instance availability SLA.",
       "incorrectReasons": [
-        "Availability Sets protect against rack-level host failures inside one data center, offering up to a 99.95% SLA.",
-        "Multi-region deployment protects against region-wide disasters, exceeding single-region design scope.",
-        "Single instance VMs with Premium/Ultra disks qualify for 99.9% SLA."
+        "Availability Sets protect against host and rack-level failures within a data center and have a lower applicable SLA than zonal deployment.",
+        "Deploying across different regions is outside the single-region requirement.",
+        "A single VM instance does not provide the same redundancy as multiple instances distributed across Availability Zones."
       ],
       "reference": "https://learn.microsoft.com/en-us/azure/reliability/availability-zones-overview"
     }
@@ -1004,7 +1020,10 @@
       "Number of network interface cards (NICs)",
       "GPU memory allocation types across multiple regions"
     ],
-    "correct": [0, 1],
+    "correct": [
+      0,
+      1
+    ],
     "explanation": {
       "correctReason": "ACI container deployment definitions allow explicit configuration of CPU core allocations (fractional or whole cores) and Memory in GB.",
       "incorrectReasons": [
@@ -1018,7 +1037,7 @@
   {
     "id": 49,
     "subtopic": "Provision an App Service plan",
-    "question": "You are selecting an Azure App Service Plan tier for a production web application. The application requires custom domain names, auto-scaling up to 10 instances, deployment slots, and 99.95% SLA. What is the MINIMUM pricing tier that meets these requirements?",
+    "question": "You are selecting an Azure App Service Plan tier for a production web application. The application requires custom domains, automatic scaling, deployment slots, and the Standard-tier production SLA. What is the minimum pricing tier that meets these requirements?",
     "options": [
       "Free (F1)",
       "Basic (B1)",
@@ -1027,11 +1046,11 @@
     ],
     "correct": 2,
     "explanation": {
-      "correctReason": "The Standard (S1) tier is the minimum App Service tier that supports deployment slots (up to 5), auto-scaling (up to 10 instances), custom domains, and production SLAs.",
+      "correctReason": "Standard (S1) is the minimum tier in the options that supports deployment slots and automatic scaling while providing the production App Service SLA and custom-domain support.",
       "incorrectReasons": [
-        "Free (F1) does not support custom domains, scaling, or production SLA.",
-        "Basic (B1) supports custom domains and manual scaling, but lacks deployment slots and auto-scaling.",
-        "Premium (P1v3) supports these requirements but is higher cost than the minimum required Standard tier."
+        "Free (F1) does not provide the required production features and SLA.",
+        "Basic (B1) supports custom domains and manual scaling but does not provide the required deployment slots and automatic scaling.",
+        "Premium (P1v3) supports the requirements but is a higher tier than necessary."
       ],
       "reference": "https://learn.microsoft.com/en-us/azure/app-service/overview-hosting-plans"
     }

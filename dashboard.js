@@ -75,11 +75,11 @@ async function loadScores(uid) {
         <table class="scores-table">
           <thead>
             <tr>
-              <th>Quiz</th>
+              <th>Name</th>
               <th>Score</th>
               <th>Time Spent</th>
               <th>Date</th>
-              <th></th>
+              <th>Delete</th>
             </tr>
           </thead>
           <tbody>

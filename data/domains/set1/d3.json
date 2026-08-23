@@ -4,14 +4,14 @@
         "subtopic": "Interpret an Azure Resource Manager template or a Bicep file",
         "question": "You review a Bicep file that contains the following resource definition:\n\nresource stg 'Microsoft.Storage/storageAccounts@2023-01-01' = {\n  name: 'stg${uniqueString(resourceGroup().id)}'\n  location: location\n  sku: {\n    name: 'Standard_LRS'\n  }\n  kind: 'StorageV2'\n}\n\nWhat is the purpose of the uniqueString(resourceGroup().id) function in this definition?",
         "options": [
-            "It generates a globally unique 13-character hash based on the resource group ID to satisfy storage account naming constraints.",
+            "It generates a deterministic 13-character hash based on the resource group ID, helping construct a unique storage account name.",
             "It creates a random password for securing the storage account primary key.",
             "It generates an encrypted GUID that restricts access to users within the resource group.",
             "It assigns a dynamic IP address to the storage account primary endpoint."
         ],
         "correct": 0,
         "explanation": {
-            "correctReason": "The uniqueString() function creates a deterministic 13-character hash based on the inputs provided (in this case, the resource group ID), helping construct globally unique names required for Azure Storage Accounts.",
+            "correctReason": "The uniqueString() function creates a deterministic 13-character hash from its inputs. Using the resource group ID helps construct a repeatable name that is likely to be unique, which is useful for resources such as storage accounts that require globally unique names.",
             "incorrectReasons": [
                 "uniqueString() creates a deterministic hash for resource naming, not passwords or keys.",
                 "The function does not create GUIDs or handle Azure RBAC access permissions.",
@@ -106,7 +106,8 @@
                 "Publish-AzBicepDeployment is not a valid Azure PowerShell cmdlet."
             ],
             "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/deploy-cli"
-        }
+        },
+        "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/deploy-powershell"
     },
     {
         "id": 6,
@@ -155,8 +156,8 @@
         "subtopic": "Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file",
         "question": "You need to export an ARM template for a resource group that contains Virtual Machines, Key Vaults, and Storage Accounts. Which TWO limitations should you consider when exporting templates via Azure Portal? (Select TWO)",
         "options": [
-            "Exported templates do not include implicit dependencies or non-exported resource types.",
-            "Exported templates cannot include password parameters or secret values.",
+            "Some password parameters might be missing from exported templates and must be added manually.",
+            "A resource group export is limited to 200 resources.",
             "Exported templates can only be saved as Bicep files, not JSON.",
             "Exported templates automatically delete underlying production resources upon export.",
             "Resource groups containing more than 5 resources cannot be exported."
@@ -166,11 +167,11 @@
             1
         ],
         "explanation": {
-            "correctReason": "Export template feature does not support all Azure resource types and omits sensitive data like passwords or Key Vault secrets for security reasons.",
+            "correctReason": "Microsoft Learn lists missing password parameters and the 200-resource resource-group export limit as limitations of the portal export feature.",
             "incorrectReasons": [
-                "Exported templates are generated as ARM JSON files by default.",
-                "Exporting a template is a read-only metadata operation and never deletes existing resources.",
-                "There is no 5-resource limit for template exports."
+                "Exporting from a resource group can produce either an ARM JSON template or a Bicep file; it isn't limited to Bicep.",
+                "Exporting a template does not delete the underlying resources.",
+                "The documented resource-group export limit is 200 resources, not 5."
             ],
             "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/templates/export-template-portal"
         }
@@ -264,14 +265,14 @@
         "subtopic": "Create a virtual machine",
         "question": "You are creating a Linux virtual machine named VM1 in Azure Portal. You select SSH public key authentication. Which requirement must be met for the SSH public key value?",
         "options": [
-            "It must be an RSA public key in standard OpenSSH format or an ssh-rsa formatted key.",
+            "It must be a supported SSH public key: RSA (minimum 2048 bits) or ED25519.",
             "It must be an encrypted PFX certificate containing a private key.",
             "It must be stored in Azure Key Vault before VM creation can proceed.",
             "It must match the active Entra ID tenant object ID."
         ],
         "correct": 0,
         "explanation": {
-            "correctReason": "Azure Linux VM deployment accepts OpenSSH public keys (RSA minimum 2048-bit or ED25519) passed directly or generated during creation.",
+            "correctReason": "Microsoft Learn states that Azure currently supports SSH-2 RSA keys with a minimum length of 2048 bits and ED25519 keys for Linux VM SSH authentication.",
             "incorrectReasons": [
                 "PFX certificates are private key bundles used for Windows/TLS bindings, not SSH public keys.",
                 "Storing keys in Azure Key Vault is optional; public key strings can be directly entered or generated.",
@@ -286,7 +287,7 @@
         "question": "You plan to enable Azure Disk Encryption (ADE) on an existing Azure Virtual Machine named VM1. Which settings MUST be enabled on the associated Azure Key Vault? (Select TWO)",
         "options": [
             "Enable Access to Azure Disk Encryption for volume encryption",
-            "Enable Soft Delete and Purge Protection",
+            "Enable Soft Delete on the Key Vault (if it is not already enabled)",
             "Enable Public Network Access from all networks",
             "Disable Key Vault Access Policies and use local passwords",
             "Enable Automatic Key Rotation for SSH keys"
@@ -296,10 +297,10 @@
             1
         ],
         "explanation": {
-            "correctReason": "Azure Key Vault must have the 'Azure Disk Encryption for volume encryption' flag enabled, along with Soft Delete and Purge Protection to prevent catastrophic loss of encryption keys.",
+            "correctReason": "For Azure Disk Encryption, the Key Vault must have the 'Azure Disk Encryption for volume encryption' access-policy option enabled. Microsoft Learn also requires soft delete for a pre-existing Key Vault; newly created Key Vaults have soft delete enabled by default.",
             "incorrectReasons": [
-                "Allowing public access from all networks is a security risk and not an ADE prerequisite requirement.",
-                "ADE requires either Key Vault Access Policies or Azure RBAC with proper permissions; disabling access policies without RBAC breaks encryption.",
+                "Public network access from all networks is not an ADE prerequisite; if a Key Vault firewall is enabled, Microsoft Trusted Services must be allowed.",
+                "ADE requires the Key Vault access configuration and appropriate permissions; disabling access policies without an equivalent supported configuration does not satisfy the prerequisite.",
                 "SSH key rotation is unrelated to BitLocker/dm-crypt encryption keys managed by ADE."
             ],
             "reference": "https://learn.microsoft.com/en-us/azure/virtual-machines/windows/disk-encryption-key-vault"
@@ -350,7 +351,7 @@
     {
         "id": 17,
         "subtopic": "Manage virtual machine disks",
-        "question": "You have a Windows Virtual Machine named VM1 with a 128 GB OS disk. You need to expand the OS disk capacity to 256 GB. What sequence of steps must you perform?",
+        "question": "You have a Windows virtual machine named VM1 with a 128 GB OS disk. You need to expand the OS disk capacity to 256 GB. Which sequence is a supported way to perform the expansion?",
         "options": [
             "Deallocate VM1, resize the disk in Azure Portal/CLI, start VM1, and extend the volume in Windows Disk Management.",
             "Resize the disk in Azure Portal while VM1 is running, then reboot VM1.",
@@ -359,13 +360,13 @@
         ],
         "correct": 0,
         "explanation": {
-            "correctReason": "Expanding an OS disk typically requires stopping/deallocating the VM, updating the disk capacity in Azure, starting the VM, and extending the partition in OS Disk Management.",
+            "correctReason": "A supported general procedure is to stop/deallocate the VM, increase the managed OS disk size in Azure, start the VM, and then extend the Windows partition into the newly available space. Some supported VM and disk combinations also allow online OS-disk expansion, but deallocation is a broadly supported approach.",
             "incorrectReasons": [
-                "Expanding OS disks while running is not supported for standard OS disk configurations without specific live-resize capabilities enabled.",
+                "Online OS-disk expansion is supported only when the VM and disk meet the documented live-resize requirements; it isn't universally supported.",
                 "OS disks cannot be detached from a virtual machine while the VM exists.",
                 "Attaching as a secondary data disk leaves the primary OS disk at 128 GB without resolving the space issue."
             ],
-            "reference": "https://learn.microsoft.com/en-us/azure/virtual-machines/windows/expand-os-disk"
+            "reference": "https://learn.microsoft.com/en-us/azure/virtual-machines/windows/expand-disks"
         }
     },
     {
@@ -434,7 +435,7 @@
     {
         "id": 21,
         "subtopic": "Move a virtual machine to another resource group, subscription, or region",
-        "question": "You are preparing to move a virtual machine named VM1 to a different resource group. Which TWO associated resources MUST be moved in the same operation as VM1? (Select TWO)",
+        "question": "You are preparing to move a virtual machine named VM1 to resource group RG2. The destination resource group already contains the virtual network used by VM1, but it does not contain VM1's NIC or OS managed disk. Which TWO associated resources must be included in the move operation? (Select TWO)",
         "options": [
             "Network Interface (NIC)",
             "OS Managed Disk",
@@ -447,13 +448,13 @@
             1
         ],
         "explanation": {
-            "correctReason": "A Virtual Machine depends directly on its attached Network Interface (NIC) and Managed Disks; these dependent resources must be moved together in the same move action.",
+            "correctReason": "When moving a VM, its managed OS disk and network adapter must be included in the move request unless those dependent resources already exist in the destination. In this scenario, the VNet is already in RG2, but the NIC and OS disk are not.",
             "incorrectReasons": [
-                "The Virtual Network does not have to be moved; a VM can reside in a different resource group than its VNet.",
-                "Resource group locks are resource management objects bound to the RG, not portable VM components.",
-                "Key Vault is an independent service and does not need to be moved in the VM move payload."
+                "The VNet is already in the destination resource group, so it doesn't need to be moved.",
+                "Resource-group locks aren't VM dependencies that are moved with the VM.",
+                "A Key Vault is an independent resource and isn't a required VM move dependency merely because it stores user passwords."
             ],
-            "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/move-limitations/virtual-machines-move-limitations"
+            "reference": "https://learn.microsoft.com/en-us/troubleshoot/azure/virtual-machines/windows/move-vm-resources-faq"
         }
     },
     {
@@ -568,7 +569,7 @@
     {
         "id": 27,
         "subtopic": "Create and manage an Azure container registry",
-        "question": "You have an Azure Container Registry (ACR) named acr1. You need to enable user authentication via docker login acr1.azurecr.io using individual account credentials or access keys. Which feature should you enable on acr1?",
+        "question": "You have an Azure Container Registry (ACR) named acr1. You need to authenticate to acr1.azurecr.io by using the registry's admin account credentials. Which feature should you enable on acr1?",
         "options": [
             "Admin user account",
             "Anonymous pull access",
@@ -577,10 +578,10 @@
         ],
         "correct": 0,
         "explanation": {
-            "correctReason": "Enabling the Admin user account provides access key credentials (username and primary/secondary key) for basic docker login authentication.",
+            "correctReason": "Enabling the ACR admin account provides a registry username and password (admin credentials) that can be used for Docker registry authentication.",
             "incorrectReasons": [
                 "Anonymous pull access allows unauthenticated read access, not user login authentication.",
-                "Repository scoped tokens provide token-based permissions for specific repositories, distinct from the global admin access key.",
+                "Repository-scoped tokens provide scoped access to repositories and are a different authentication mechanism from the registry-wide admin account.",
                 "Content Trust signs images digitally to verify integrity, unrelated to admin user login credentials."
             ],
             "reference": "https://learn.microsoft.com/en-us/azure/container-registry/container-registry-authentication#admin-account"
@@ -652,16 +653,16 @@
     {
         "id": 31,
         "subtopic": "Provision a container by using Azure Container Apps",
-        "question": "You are deploying a microservice using Azure Container Apps. You want the app to accept public internet traffic on HTTPS port 4443 and automatically route it to target port 8080 inside the container. What setting must you configure?",
+        "question": "You are deploying a microservice using Azure Container Apps. You want the app to accept public internet traffic over HTTPS and route incoming requests to port 8080 inside the container. What setting must you configure?",
         "options": [
-            "Ingress settings enabled for External traffic with target port set to 8080",
+            "Enable external ingress and set the target port to 8080",
             "Container App Environment VNet Peering with NAT gateway rule",
             "ACR Webhook forwarding rule on port 4443",
             "Internal Ingress only with static route mapping"
         ],
         "correct": 0,
         "explanation": {
-            "correctReason": "Azure Container Apps ingress allows configuring external HTTPS ingress, automatically terminating TLS and mapping incoming external requests to the container's configured target port (e.g., 8080).",
+            "correctReason": "Azure Container Apps ingress can be configured as external and can specify the container target port. With external HTTP ingress enabled, the platform exposes the app through the environment's inbound endpoint and routes requests to the configured target port.",
             "incorrectReasons": [
                 "VNet peering and NAT gateways handle network-level routing, not ACA HTTP application ingress termination.",
                 "ACR webhooks trigger image build events, unrelated to incoming app HTTP traffic routing.",
@@ -919,7 +920,7 @@
         "question": "You need to secure an Azure App Service web app so that it can securely connect outbound to an Azure SQL Database located in a private VNet, while restricting public access. Which TWO networking features should you configure? (Select TWO)",
         "options": [
             "Regional VNet Integration for outbound connectivity",
-            "Private Endpoint for inbound database connectivity",
+            "Private Endpoint for the Azure SQL Database so the app can reach it over a private IP",
             "Hybrid Connections using local relay agent",
             "Public IP Address override on App Service Plan",
             "App Service Service Endpoint policies"
@@ -929,7 +930,7 @@
             1
         ],
         "explanation": {
-            "correctReason": "Regional VNet Integration enables the App Service to send outbound traffic into a VNet, while a Private Endpoint on the Azure SQL Database secures traffic over private IP space.",
+            "correctReason": "Regional VNet Integration provides outbound connectivity from the App Service app into the VNet. A private endpoint gives the Azure SQL Database a private endpoint in the VNet, allowing the app to reach the database privately when DNS is configured correctly.",
             "incorrectReasons": [
                 "Hybrid Connections are designed for on-premises connectivity, not native VNet-integrated PaaS services.",
                 "App Service Plans use shared infrastructure IP pools; manual public IP overrides are not standard setup.",
@@ -950,11 +951,11 @@
         ],
         "correct": 0,
         "explanation": {
-            "correctReason": "App Service Backup requires a supported tier (Standard, Premium, or Isolated) and an Azure Storage Account container with a SAS token or managed identity permissions to store backup files.",
+            "correctReason": "App Service backup and restore is supported in the Basic, Standard, Premium, and Isolated tiers. Custom backups require an Azure Storage account and container; current Microsoft Learn documentation specifies SAS-based authorization for App Service backup and restore.",
             "incorrectReasons": [
                 "Deployment slots are optional and not a prerequisite for enabling app backups.",
-                "Backups support Azure SQL Database, MySQL, or PostgreSQL PaaS services, not strictly VM-hosted SQL.",
-                "Instance count scaling does not affect backup eligibility."
+                "Deployment slots are optional and aren't a prerequisite for enabling App Service backups.",
+                "A linked database is optional and isn't required to enable App Service backups."
             ],
             "reference": "https://learn.microsoft.com/en-us/azure/app-service/manage-backup"
         }
@@ -977,7 +978,7 @@
                 "Naming conventions like 'NO_SWAP' do not automatically prevent setting migration during swaps.",
                 "Sticky sessions (ARR affinity) route user HTTP requests to the same instance, unrelated to deployment slot settings."
             ],
-            "reference": "https://learn.microsoft.com/en-us/azure/app-service/deploy-staging-slots#configure-auto-swap"
+            "reference": "https://learn.microsoft.com/en-us/azure/app-service/deploy-staging-slots#make-an-app-setting-unswappable"
         }
     },
     {
@@ -1063,10 +1064,10 @@
             1
         ],
         "explanation": {
-            "correctReason": "The subnet used for regional VNet integration must be delegated to 'Microsoft.Web/serverFarms' and must be empty (used exclusively for App Service integration).",
+            "correctReason": "Regional VNet Integration uses a dedicated, unused subnet and requires subnet delegation to Microsoft.Web/serverFarms. The subnet must be an unused IPv4 /28 block or larger; larger subnets may be needed for scale and platform operations.",
             "incorrectReasons": [
                 "Azure Firewall is deployed into its own dedicated AzureFirewallSubnet, not the App Service delegated subnet.",
-                "Subnet size requirements depend on expected scale (minimum /28), not a forced /16 prefix.",
+                "The documented minimum is /28 when the subnet already exists; a /16 prefix is not required.",
                 "Regional VNet Integration requires the VNet to be in the same region as the App Service Plan."
             ],
             "reference": "https://learn.microsoft.com/en-us/azure/app-service/overview-vnet-integration"
@@ -1086,7 +1087,7 @@
         "explanation": {
             "correctReason": "App Service Managed Certificates provide free, fully managed TLS/SSL certificates for custom domains that automatically renew before expiration.",
             "incorrectReasons": [
-                "Imported Key Vault certificates require managing key renewal pipelines or purchasing third-party certificates.",
+                "An imported certificate is customer-managed and is not the free, App Service-managed certificate described in the question.",
                 "Self-signed certificates trigger browser untrusted security warnings and are unsuitable for public web apps.",
                 "Client Certificates handle inbound caller authentication, not server-side TLS server authentication."
             ],

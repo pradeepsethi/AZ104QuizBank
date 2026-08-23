@@ -366,39 +366,46 @@ code {
 
 /* ---------- Score history (dashboard.js) ---------- */
 
-.score-card {
-  border: 1px solid var(--border-color-strong);
-  padding: 15px;
-  margin-bottom: 12px;
-  border-radius: var(--radius-md);
-  background: #faf9f8;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.scores-table-wrap {
+  overflow-x: auto;
 }
 
-.score-card h4 {
-  margin: 0 0 6px 0;
-  color: var(--primary-color);
-  font-size: 16px;
-}
-
-.score-card p {
-  margin: 2px 0;
+.scores-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 5px;
   font-size: 14px;
 }
 
-.score-card .meta {
-  font-size: 13px;
-  color: var(--text-muted);
+.scores-table th,
+.scores-table td {
+  border: 1px solid var(--border-color-light);
+  padding: 10px 12px;
+  text-align: left;
+  white-space: nowrap;
 }
 
-.score-card .date {
-  font-size: 12px;
-  color: var(--text-faint);
+.scores-table th {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-weight: 600;
 }
 
-.score-card .delete-score-btn {
+.scores-table tbody tr:nth-child(even) {
+  background-color: #faf9f8;
+}
+
+.scores-table td.quiz-title-cell {
+  color: var(--primary-color);
+  font-weight: 600;
+  white-space: normal;
+}
+
+.scores-table td.score-cell {
+  font-weight: 600;
+}
+
+.scores-table .delete-score-btn {
   padding: 6px 12px;
   font-size: 12px;
 }

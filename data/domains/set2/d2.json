@@ -1,0 +1,1041 @@
+[
+  {
+    "id": 1,
+    "subtopic": "Configure Azure Storage firewalls and virtual networks",
+    "question": "An administrator adds a virtual network rule for a specific subnet to a storage account's network rule set, expecting to restrict the account's public endpoint to that subnet only. After the change, clients on unauthorized networks can still reach the storage account. What is the most likely cause?",
+    "options": [
+      "The default action for the storage account's network rule set is still set to Allow",
+      "A service endpoint for Microsoft.Storage was not enabled on the subnet",
+      "The virtual network is in a different Azure region than the storage account",
+      "IP network rules must be configured before virtual network rules take effect"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Network rules have no effect unless the default action is set to Deny. Adding a virtual network or IP rule alone does not restrict access; the default action must explicitly be changed from Allow to Deny.",
+      "incorrectReasons": [
+        "A service endpoint is required to route traffic properly from the subnet, but its absence would block, not allow, traffic from that subnet -- it does not explain why unauthorized networks can still connect.",
+        "Virtual networks do not need to be in the same region as the storage account for a network rule to be created.",
+        "IP rules are independent of virtual network rules; neither is a prerequisite for the other."
+      ],
+      "reference": "https://learn.microsoft.com/azure/storage/common/storage-network-security-virtual-networks"
+    }
+  },
+  {
+    "id": 2,
+    "subtopic": "Configure Azure Storage firewalls and virtual networks",
+    "question": "A storage account has its firewall default action set to Deny, with no virtual network or IP rules configured. An Azure Function that uses a system-assigned managed identity must read blobs from the account without opening the firewall to a broad IP range or network. Which setting should the administrator configure?",
+    "options": [
+      "Allow Azure services on the trusted services list to access this storage account, combined with a resource instance rule for the Function",
+      "Add a service endpoint for Microsoft.Storage to every virtual network in the subscription",
+      "Set Public network access to Enabled from all networks",
+      "Grant the Function's managed identity the Owner role on the storage account"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Trusted access based on the resource's system-assigned managed identity, combined with allowing trusted Microsoft services, lets specific resource instances bypass network rules without exposing the account broadly.",
+      "incorrectReasons": [
+        "Adding service endpoints everywhere is unnecessary and does not scope access to just the Function.",
+        "Enabling access from all networks removes the firewall protection entirely, which is not the least-privilege solution.",
+        "Role assignment controls data-plane authorization, not network-level firewall access; it does not bypass the network rules."
+      ],
+      "reference": "https://learn.microsoft.com/azure/storage/common/storage-network-security#trusted-microsoft-services"
+    }
+  },
+  {
+    "id": 3,
+    "subtopic": "Configure Azure Storage firewalls and virtual networks",
+    "question": "Which permission, in addition to being a Storage Account Contributor, allows a user to add a virtual network rule to a storage account using a custom Azure role?",
+    "options": [
+      "Microsoft.Network/virtualNetworks/subnets/joinViaServiceEndpoint/action",
+      "Microsoft.Storage/storageAccounts/listkeys/action",
+      "Microsoft.Authorization/roleAssignments/write",
+      "Microsoft.Network/networkSecurityGroups/write"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "To apply a virtual network rule, the user must have appropriate permissions on the subnet, granted either via the Storage Account Contributor role or a custom role that includes the joinViaServiceEndpoint/action permission.",
+      "incorrectReasons": [
+        "Listing storage account keys is unrelated to configuring virtual network rules.",
+        "Assigning roles is a separate permission and is not required specifically to add a virtual network rule.",
+        "Managing network security groups is unrelated to storage account virtual network rules."
+      ],
+      "reference": "https://learn.microsoft.com/azure/storage/common/storage-network-security-virtual-networks"
+    }
+  },
+  {
+    "id": 4,
+    "subtopic": "Create and use shared access signature (SAS) tokens",
+    "question": "Which type of shared access signature is authorized using Microsoft Entra ID credentials rather than the storage account's Shared Key?",
+    "options": [
+      "Service SAS",
+      "Account SAS",
+      "User delegation SAS",
+      "Stored access policy SAS"
+    ],
+    "correct": 2,
+    "explanation": {
+      "correctReason": "A user delegation SAS is signed with a user delegation key obtained using Microsoft Entra credentials, so it is authorized based on Microsoft Entra ID rather than the account key.",
+      "incorrectReasons": [
+        "A service SAS is signed with the storage account key (Shared Key).",
+        "An account SAS is also signed with the storage account key (Shared Key).",
+        "\"Stored access policy SAS\" is not a distinct SAS type; stored access policies apply constraints to a service SAS."
+      ],
+      "reference": "https://learn.microsoft.com/azure/storage/common/storage-sas-overview#how-a-shared-access-signature-works"
+    }
+  },
+  {
+    "id": 5,
+    "subtopic": "Create and use shared access signature (SAS) tokens",
+    "question": "An administrator creates a user delegation SAS and sets the expiry time to 30 days from now. For how long will the SAS actually remain valid?",
+    "options": [
+      "24 hours",
+      "48 hours",
+      "7 days",
+      "30 days as specified"
+    ],
+    "correct": 2,
+    "explanation": {
+      "correctReason": "A user delegation SAS is tied to a user delegation key, whose maximum lifetime is seven days from creation. Even if a longer expiry is specified, the SAS becomes invalid once the underlying key expires, so it is valid for at most seven days.",
+      "incorrectReasons": [
+        "24 hours is not the maximum lifetime for a user delegation key.",
+        "48 hours is the default duration commonly shown in some portal SAS generation wizards, but it is not the maximum lifetime for a user delegation SAS.",
+        "The specified 30-day expiry is not honored because the underlying user delegation key expires after a maximum of seven days."
+      ],
+      "reference": "https://learn.microsoft.com/azure/storage/blobs/storage-blob-user-delegation-sas-create-cli#use-azure-ad-credentials-to-secure-a-sas"
+    }
+  },
+  {
+    "id": 6,
+    "subtopic": "Create and use shared access signature (SAS) tokens",
+    "question": "Which two shared access signature types are signed using the storage account's Shared Key rather than Microsoft Entra credentials? (Select TWO)",
+    "options": [
+      "User delegation SAS",
+      "Service SAS",
+      "Account SAS",
+      "OAuth bearer token SAS"
+    ],
+    "correct": [1, 2],
+    "explanation": {
+      "correctReason": "Both a service SAS and an account SAS are signed with the storage account access key (Shared Key). Only the user delegation SAS uses Microsoft Entra credentials for signing.",
+      "incorrectReasons": [
+        "A user delegation SAS is signed using a user delegation key obtained through Microsoft Entra ID, not the account key.",
+        "\"OAuth bearer token SAS\" is not a recognized Azure Storage SAS type."
+      ],
+      "reference": "https://learn.microsoft.com/azure/storage/common/storage-sas-overview#how-a-shared-access-signature-works"
+    }
+  },
+  {
+    "id": 7,
+    "subtopic": "Configure stored access policies",
+    "question": "What is the maximum number of stored access policies that can be defined on a single blob container at one time?",
+    "options": [
+      "2",
+      "5",
+      "10",
+      "There is no limit"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "A resource can have a maximum of five stored access policies set at one time. Attempting to set more than five in a single request causes the service to return a 400 (Bad Request) error.",
+      "incorrectReasons": [
+        "Two is not the documented limit for stored access policies.",
+        "Ten exceeds the documented maximum of five.",
+        "There is a documented limit; it is not unlimited."
+      ],
+      "reference": "https://learn.microsoft.com/azure/storage/blobs/sas-service-create-dotnet#define-a-stored-access-policy"
+    }
+  },
+  {
+    "id": 8,
+    "subtopic": "Configure stored access policies",
+    "question": "An administrator wants to revoke every shared access signature that was issued under a specific stored access policy, without affecting SAS tokens tied to a different stored access policy on the same container. What is the recommended approach?",
+    "options": [
+      "Regenerate the storage account's access keys",
+      "Delete the signed identifier for that policy and create a new one with a different ID",
+      "Disable Shared Key authorization for the entire storage account",
+      "Delete and recreate the container"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Microsoft recommends deleting the signed identifier for the policy and creating a new one. Changing the identifier breaks the association between existing SAS tokens and the policy, effectively revoking only the SAS tokens tied to that specific policy.",
+      "incorrectReasons": [
+        "Regenerating account keys revokes all SAS and Shared Key access account-wide, which is broader than intended and disruptive.",
+        "Disabling Shared Key authorization would block service and account SAS use entirely across the account, not just the targeted policy.",
+        "Deleting and recreating the container is unnecessarily destructive and would also remove the container's data and other policies."
+      ],
+      "reference": "https://learn.microsoft.com/azure/storage/blobs/sas-service-create-dotnet#revoke-or-delete-a-stored-access-policy"
+    }
+  },
+  {
+    "id": 9,
+    "subtopic": "Configure stored access policies",
+    "question": "Which type of shared access signature can be associated with a stored access policy?",
+    "options": [
+      "User delegation SAS",
+      "Account SAS",
+      "Service SAS",
+      "Any SAS type, as long as it targets a container"
+    ],
+    "correct": 2,
+    "explanation": {
+      "correctReason": "A service SAS can be associated with a stored access policy defined on a resource container such as a blob container, table, queue, or file share, inheriting the policy's start time, expiry time, and permissions.",
+      "incorrectReasons": [
+        "A user delegation SAS must be an ad hoc SAS; stored access policies are not supported for it.",
+        "An account SAS must also be an ad hoc SAS and does not support stored access policies.",
+        "Only the service SAS type supports stored access policies; the other SAS types do not, regardless of the target resource."
+      ],
+      "reference": "https://learn.microsoft.com/azure/storage/common/storage-sas-overview#types-of-shared-access-signatures"
+    }
+  },
+  {
+    "id": 10,
+    "subtopic": "Manage access keys",
+    "question": "An application currently authenticates to a storage account using the primary access key (Key1). An administrator wants to rotate Key1 without causing application downtime. What should be done first?",
+    "options": [
+      "Immediately regenerate Key1 in the Azure portal",
+      "Update the application's connection string to use the secondary key (Key2), then regenerate Key1",
+      "Delete Key2 so only Key1 remains active",
+      "Disable Shared Key authorization for the storage account"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Two keys are provided specifically to support rotation without downtime. Switching the application to the secondary key first, then regenerating the primary key, ensures continuous access throughout the process.",
+      "incorrectReasons": [
+        "Regenerating Key1 immediately, while the application still references it, will cause the application to lose access until it is updated.",
+        "Key2 cannot be deleted; only regenerated. Removing the ability to rotate defeats the purpose of having two keys.",
+        "Disabling Shared Key authorization is a much broader change unrelated to safely rotating a key and would break any Shared Key-based access, including SAS tokens signed with the account key."
+      ],
+      "reference": "https://learn.microsoft.com/azure/storage/common/storage-account-keys-manage#manually-rotate-access-keys"
+    }
+  },
+  {
+    "id": 11,
+    "subtopic": "Manage access keys",
+    "question": "Which built-in Azure role grants permission to regenerate a storage account's access keys without granting broader control-plane rights such as deleting the account?",
+    "options": [
+      "Storage Account Key Operator Service Role",
+      "Storage Blob Data Owner",
+      "Reader",
+      "Storage Account Backup Contributor"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "The Storage Account Key Operator Service Role, along with Owner and Contributor, includes the Microsoft.Storage/storageAccounts/regeneratekey/action permission needed to rotate access keys.",
+      "incorrectReasons": [
+        "Storage Blob Data Owner grants data-plane permissions on blob data but not the ability to regenerate account keys.",
+        "Reader only allows viewing resources and does not include the regeneratekey action.",
+        "This is not a recognized built-in Azure role for key management."
+      ],
+      "reference": "https://learn.microsoft.com/azure/storage/common/storage-account-keys-manage#manually-rotate-access-keys"
+    }
+  },
+  {
+    "id": 12,
+    "subtopic": "Manage access keys",
+    "question": "What is the effect on existing service SAS and account SAS tokens when a storage account access key is regenerated?",
+    "options": [
+      "They remain valid until their originally specified expiry time",
+      "They are immediately invalidated if they were signed with the key that was regenerated",
+      "They are automatically renewed with the new key",
+      "Only user delegation SAS tokens are affected"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Rotating or regenerating an access key revokes any shared access signatures generated based on that key. Any service or account SAS signed with the regenerated key becomes invalid immediately.",
+      "incorrectReasons": [
+        "SAS tokens signed with the regenerated key do not remain valid; they are revoked as soon as the key changes.",
+        "SAS tokens are not automatically renewed; new tokens must be generated.",
+        "User delegation SAS tokens are secured with Microsoft Entra credentials and are unaffected by account key rotation; it is the service and account SAS types that are affected."
+      ],
+      "reference": "https://learn.microsoft.com/azure/storage/common/storage-account-keys-manage#manually-rotate-access-keys"
+    }
+  },
+  {
+    "id": 13,
+    "subtopic": "Configure identity-based access for Azure Files",
+    "question": "A company wants domain-joined Windows 10 clients on the corporate network to mount SMB Azure file shares using their existing on-premises Active Directory credentials, without deploying any new cloud-managed domain. Which identity source should be enabled on the storage account?",
+    "options": [
+      "On-premises Active Directory Domain Services (AD DS)",
+      "Microsoft Entra Domain Services",
+      "Microsoft Entra Kerberos for cloud-only identities",
+      "Shared Key authentication"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "On-premises AD DS authentication lets domain-joined clients with existing AD DS credentials and unimpeded network connectivity to a domain controller authenticate to Azure file shares over SMB, without requiring a new managed domain.",
+      "incorrectReasons": [
+        "Microsoft Entra Domain Services provisions a new managed domain in Azure and requires VMs to be joined to it, which isn't needed here since an on-premises AD DS already exists.",
+        "Microsoft Entra Kerberos for cloud-only identities does not use on-premises AD DS credentials.",
+        "Shared Key authentication grants full access to the entire storage account rather than identity-based, user-level access control."
+      ],
+      "reference": "https://learn.microsoft.com/azure/storage/files/storage-files-identity-ad-ds-overview"
+    }
+  },
+  {
+    "id": 14,
+    "subtopic": "Configure identity-based access for Azure Files",
+    "question": "Before enabling on-premises AD DS authentication for Azure file shares, which prerequisite must be completed?",
+    "options": [
+      "The on-premises AD DS must be synced to Microsoft Entra ID using Microsoft Entra Connect Sync or Microsoft Entra Connect cloud sync",
+      "The storage account must use the NFS protocol",
+      "The storage account must be a premium block blob account",
+      "All client machines must be located in the same Azure region as the storage account"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Identities from on-premises AD DS must be synced to Microsoft Entra ID because share-level permissions are configured against the Microsoft Entra identity while directory and file-level permissions are enforced by AD DS Windows ACLs.",
+      "incorrectReasons": [
+        "Identity-based authentication over SMB is what's being configured; NFS shares do not support identity-based authentication in this manner.",
+        "AD DS authentication for Azure Files works with standard general-purpose v2 accounts and does not require a premium block blob account.",
+        "Clients need network connectivity to a domain controller, not necessarily to be in the same Azure region as the storage account."
+      ],
+      "reference": "https://learn.microsoft.com/azure/storage/files/storage-files-identity-ad-ds-overview#prerequisites"
+    }
+  },
+  {
+    "id": 15,
+    "subtopic": "Configure identity-based access for Azure Files",
+    "question": "Which two identity sources are supported for identity-based authentication over SMB for Azure file shares? (Select TWO)",
+    "options": [
+      "On-premises Active Directory Domain Services",
+      "Microsoft Entra Domain Services",
+      "Local Windows user accounts stored on the storage account",
+      "SSH public key authentication"
+    ],
+    "correct": [0, 1],
+    "explanation": {
+      "correctReason": "Azure Files supports identity-based authentication for SMB access via on-premises AD DS, Microsoft Entra Domain Services, and Microsoft Entra Kerberos; on-premises AD DS and Microsoft Entra Domain Services are two of the supported sources.",
+      "incorrectReasons": [
+        "Azure Files does not store or authenticate local Windows user accounts directly on the storage account.",
+        "SSH public key authentication is not a supported mechanism for SMB Azure file share identity-based authentication."
+      ],
+      "reference": "https://learn.microsoft.com/azure/storage/files/storage-files-active-directory-overview#supported-authentication-scenarios"
+    }
+  },
+  {
+    "id": 16,
+    "subtopic": "Create and configure storage accounts",
+    "question": "A company needs a storage account that supports SSD (premium) Azure file shares using both SMB and NFS protocols. Which storage account kind must be selected?",
+    "options": [
+      "StorageV2 (general-purpose v2)",
+      "BlockBlobStorage (premium block blobs)",
+      "FileStorage (premium file shares)",
+      "BlobStorage (legacy blob storage)"
+    ],
+    "correct": 2,
+    "explanation": {
+      "correctReason": "The FileStorage account kind is the premium storage account type dedicated to Azure Files and supports both SMB and NFS premium file shares.",
+      "incorrectReasons": [
+        "StorageV2 supports standard file shares but not the premium SSD file share performance tier.",
+        "BlockBlobStorage is intended for premium block and append blobs, not Azure Files.",
+        "BlobStorage is a legacy account kind for blob data only and does not support Azure Files at all."
+      ],
+      "reference": "https://learn.microsoft.com/azure/storage/common/storage-account-overview"
+    }
+  },
+  {
+    "id": 17,
+    "subtopic": "Create and configure storage accounts",
+    "question": "Which storage account kind does NOT support enabling a hierarchical namespace for Azure Data Lake Storage?",
+    "options": [
+      "StorageV2 (standard general-purpose v2)",
+      "BlockBlobStorage (premium block blobs)",
+      "FileStorage (premium file shares)",
+      "All of the listed kinds support a hierarchical namespace"
+    ],
+    "correct": 2,
+    "explanation": {
+      "correctReason": "FileStorage accounts are dedicated to Azure Files and do not support a hierarchical namespace; only StorageV2 and BlockBlobStorage accounts (including their legacy v1 equivalents where applicable) support enabling it.",
+      "incorrectReasons": [
+        "StorageV2 accounts support a hierarchical namespace for Data Lake Storage.",
+        "Premium block blob (BlockBlobStorage) accounts also support a hierarchical namespace.",
+        "Not all listed kinds support it -- FileStorage does not."
+      ],
+      "reference": "https://learn.microsoft.com/azure/storage/common/storage-account-create#create-a-storage-account"
+    }
+  },
+  {
+    "id": 18,
+    "subtopic": "Create and configure storage accounts",
+    "question": "An organization wants to move an existing standard general-purpose v2 storage account to a premium block blob storage account to reduce latency for a high-transaction workload. What is the correct approach?",
+    "options": [
+      "Change the performance tier from Standard to Premium on the existing account in the Azure portal",
+      "Use Set-AzStorageAccount to convert the account's kind to BlockBlobStorage",
+      "Create a new premium block blob storage account and migrate the data into it, then delete the old account",
+      "Enable an Azure Policy remediation task to convert the SKU automatically"
+    ],
+    "correct": 2,
+    "explanation": {
+      "correctReason": "An existing standard general-purpose v2 account cannot be directly converted to a premium block blob account. A new premium block blob storage account must be created and the data migrated, for example with AzCopy, before the old account is decommissioned.",
+      "incorrectReasons": [
+        "The Azure portal does not offer an in-place performance tier change between Standard and Premium for existing accounts of this type.",
+        "There is no supported PowerShell operation to convert the account kind from StorageV2 to BlockBlobStorage in place.",
+        "Azure Policy cannot perform this kind of storage account kind conversion; it is not a supported remediation action."
+      ],
+      "reference": "https://learn.microsoft.com/azure/storage/blobs/storage-blob-block-blob-premium#getting-started-with-premium"
+    }
+  },
+  {
+    "id": 19,
+    "subtopic": "Configure Azure Storage redundancy",
+    "question": "Which redundancy option provides the highest documented durability (at least 99.99999999999999%, or 16 nines) by replicating data synchronously across three or more availability zones in the primary region and asynchronously to a secondary region?",
+    "options": [
+      "Locally redundant storage (LRS)",
+      "Zone-redundant storage (ZRS)",
+      "Geo-zone-redundant storage (GZRS)",
+      "Standard geo-redundant storage without zone redundancy (GRS)"
+    ],
+    "correct": 2,
+    "explanation": {
+      "correctReason": "GZRS copies data synchronously across three or more availability zones in the primary region using ZRS, then asynchronously replicates it to a secondary region, achieving at least 16 nines of durability -- matching GRS's durability but with added zone protection in the primary region.",
+      "incorrectReasons": [
+        "LRS offers at least 11 nines of durability and does not protect against a datacenter-wide outage.",
+        "ZRS offers at least 12 nines of durability but does not replicate to a secondary region, so it does not protect against a full regional outage.",
+        "GRS also achieves 16 nines of durability, but it replicates the primary copy with LRS (a single datacenter) rather than across availability zones, so it lacks the added zonal protection in the primary region."
+      ],
+      "reference": "https://learn.microsoft.com/azure/storage/common/storage-redundancy#summary-of-redundancy-options"
+    }
+  },
+  {
+    "id": 20,
+    "subtopic": "Configure Azure Storage redundancy",
+    "question": "A storage account is configured for GZRS. After the primary region experiences a large-scale outage and the administrator performs a customer-managed unplanned failover to the secondary region, what does the account's redundancy configuration become?",
+    "options": [
+      "It remains GZRS",
+      "It automatically becomes RA-GZRS",
+      "It becomes LRS",
+      "It becomes ZRS"
+    ],
+    "correct": 2,
+    "explanation": {
+      "correctReason": "After an unplanned customer-managed failover, the storage account's redundancy becomes LRS regardless of the prior configuration. To restore GZRS, the account must be failed back to the original primary region first.",
+      "incorrectReasons": [
+        "The redundancy does not remain GZRS after an unplanned failover; it drops to LRS.",
+        "The account does not automatically upgrade to RA-GZRS; it downgrades to LRS.",
+        "It becomes LRS, not ZRS, immediately after an unplanned failover."
+      ],
+      "reference": "https://learn.microsoft.com/azure/storage/common/storage-failover-faq#why-can't-i-change-my-sku-to-zone-redundant-storage-zrs-or-geo-zone-redundant-storage-gzrs-after-a-failover"
+    }
+  },
+  {
+    "id": 21,
+    "subtopic": "Configure Azure Storage redundancy",
+    "question": "Which two Azure Storage services do NOT support read-access geo-redundant storage (RA-GRS) or read-access geo-zone-redundant storage (RA-GZRS)? (Select TWO)",
+    "options": [
+      "Azure Files",
+      "Azure managed disks",
+      "Blob Storage",
+      "Queue Storage"
+    ],
+    "correct": [0, 1],
+    "explanation": {
+      "correctReason": "Azure Files supports GRS and GZRS but not the read-access variants (RA-GRS/RA-GZRS is not supported for file shares). Azure managed disks only support LRS and ZRS and do not support any geo-redundant options at all.",
+      "incorrectReasons": [
+        "Blob Storage (including Data Lake Storage) supports LRS, ZRS, GRS, RA-GRS, GZRS, and RA-GZRS.",
+        "Queue Storage also supports all six redundancy options, including RA-GRS and RA-GZRS."
+      ],
+      "reference": "https://learn.microsoft.com/azure/storage/common/storage-redundancy#summary-of-redundancy-options"
+    }
+  },
+  {
+    "id": 22,
+    "subtopic": "Configure Azure Storage redundancy",
+    "question": "Which two statements about zone-redundant storage (ZRS) are correct? (Select TWO)",
+    "options": [
+      "ZRS replicates data synchronously across three or more availability zones in the primary region",
+      "ZRS protects data against a complete regional outage without failover",
+      "ZRS provides at least 99.9999999999% (12 nines) durability of objects over a given year",
+      "ZRS is only available for Azure managed disks"
+    ],
+    "correct": [0, 2],
+    "explanation": {
+      "correctReason": "ZRS synchronously copies data across three or more availability zones within the primary region, and it provides at least 12 nines of durability over a given year.",
+      "incorrectReasons": [
+        "ZRS does not protect against a region-wide outage; a geo-redundant option (GRS, GZRS, or their read-access variants) is required to recover from a full regional outage.",
+        "ZRS is supported by multiple services, including Blob Storage, Queue Storage, Table Storage, SSD file shares, and (with limitations) managed disks -- it is not exclusive to managed disks."
+      ],
+      "reference": "https://learn.microsoft.com/azure/storage/common/storage-redundancy#summary-of-redundancy-options"
+    }
+  },
+  {
+    "id": 23,
+    "subtopic": "Configure object replication",
+    "question": "Before configuring object replication for block blobs between two storage accounts, which feature must be enabled on both the source and destination accounts?",
+    "options": [
+      "Blob versioning",
+      "Container soft delete",
+      "Static website hosting",
+      "Immutable storage with a legal hold"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Object replication requires blob versioning to be enabled on both the source and destination accounts, and blob change feed to be enabled on the source account.",
+      "incorrectReasons": [
+        "Container soft delete is not a prerequisite for object replication.",
+        "Static website hosting is unrelated to object replication.",
+        "Immutability policies are not a prerequisite for configuring object replication."
+      ],
+      "reference": "https://learn.microsoft.com/azure/storage/blobs/object-replication-overview#prerequisites-and-caveats-for-object-replication"
+    }
+  },
+  {
+    "id": 24,
+    "subtopic": "Configure object replication",
+    "question": "What is the maximum number of destination storage accounts that a single source storage account can replicate to using object replication?",
+    "options": [
+      "1",
+      "2",
+      "5",
+      "There is no limit"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "A source account can replicate to no more than two destination accounts, with one replication policy created for each destination account.",
+      "incorrectReasons": [
+        "A source account can replicate to more than one destination account -- up to two.",
+        "Five exceeds the documented maximum of two destination accounts per source account.",
+        "There is a documented maximum of two destination accounts per source account; it is not unlimited."
+      ],
+      "reference": "https://learn.microsoft.com/azure/storage/blobs/object-replication-overview#object-replication-policies-and-rules"
+    }
+  },
+  {
+    "id": 25,
+    "subtopic": "Configure object replication",
+    "question": "Which two conditions will prevent object replication from being successfully configured or will cause replication of a specific blob to fail? (Select TWO)",
+    "options": [
+      "The storage account has a hierarchical namespace enabled",
+      "The source and destination accounts are in different Azure subscriptions",
+      "The source blob is encrypted with a customer-provided key",
+      "The source and destination accounts are in different Azure regions"
+    ],
+    "correct": [0, 2],
+    "explanation": {
+      "correctReason": "Object replication is not supported for accounts with a hierarchical namespace enabled, and replication fails for blobs that are encrypted with a customer-provided key as part of a write operation.",
+      "incorrectReasons": [
+        "Source and destination accounts can reside in the same subscription or different subscriptions -- this is explicitly supported.",
+        "Source and destination accounts can be in the same region or different regions -- this is explicitly supported."
+      ],
+      "reference": "https://learn.microsoft.com/azure/storage/blobs/object-replication-overview#prerequisites-and-caveats-for-object-replication"
+    }
+  },
+  {
+    "id": 26,
+    "subtopic": "Configure storage account encryption",
+    "question": "Where must customer-managed keys used for Azure Storage encryption be stored?",
+    "options": [
+      "Azure Key Vault or Azure Key Vault Managed HSM",
+      "A container within the same storage account",
+      "The local certificate store of the client machine",
+      "A Microsoft Entra application registration's client secret"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Customer-managed keys must be stored in Azure Key Vault or Azure Key Vault Managed HSM, giving the customer control over key lifecycle, rotation, and access policies.",
+      "incorrectReasons": [
+        "Encryption keys are not stored as blobs within the storage account being encrypted.",
+        "Local certificate stores are not a supported location for Azure Storage customer-managed keys.",
+        "Microsoft Entra application secrets are unrelated to storing the actual encryption key material used for storage encryption."
+      ],
+      "reference": "https://learn.microsoft.com/azure/storage/common/storage-service-encryption#about-encryption-key-management"
+    }
+  },
+  {
+    "id": 27,
+    "subtopic": "Configure storage account encryption",
+    "question": "What is the purpose of enabling infrastructure encryption on a storage account?",
+    "options": [
+      "It encrypts data twice, at the service level and the infrastructure level, using two different algorithms and two different keys",
+      "It allows clients to supply a customer-provided key on each individual request",
+      "It enables client-side encryption within the Azure Storage SDK",
+      "It reduces storage costs by compressing data before encryption"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Infrastructure encryption doubly encrypts data: once at the service level (which can use Microsoft-managed or customer-managed keys) and once at the infrastructure level (which always uses a separate, Microsoft-managed key), protecting against compromise of a single algorithm or key.",
+      "incorrectReasons": [
+        "Supplying a key per request describes customer-provided keys, a separate feature from infrastructure encryption.",
+        "Client-side encryption is implemented in the client library before data is sent to Azure Storage and is independent of infrastructure encryption.",
+        "Infrastructure encryption is about layered encryption for security, not data compression or cost reduction."
+      ],
+      "reference": "https://learn.microsoft.com/azure/storage/common/storage-service-encryption#doubly-encrypt-data-with-infrastructure-encryption"
+    }
+  },
+  {
+    "id": 28,
+    "subtopic": "Configure storage account encryption",
+    "question": "Which two Azure Storage services can be configured to use customer-managed keys for encryption? (Select TWO)",
+    "options": [
+      "Blob Storage",
+      "Azure Files",
+      "Azure managed disks snapshots stored inline in the same account",
+      "Storage account diagnostic logs stored in Log Analytics"
+    ],
+    "correct": [0, 1],
+    "explanation": {
+      "correctReason": "Customer-managed keys are supported for Blob Storage and Azure Files (with additional account configuration also enabling Queue and Table Storage). Microsoft-managed keys are used by default for all Azure Storage services.",
+      "incorrectReasons": [
+        "Managed disk encryption is a separate feature from Azure Storage account customer-managed key encryption and is configured independently on the managed disk resource.",
+        "Log Analytics data protection is unrelated to Azure Storage account customer-managed key configuration."
+      ],
+      "reference": "https://learn.microsoft.com/azure/storage/common/storage-service-encryption#about-encryption-key-management"
+    }
+  },
+  {
+    "id": 29,
+    "subtopic": "Manage data by using Azure Storage Explorer and AzCopy",
+    "question": "A DevOps team needs to run an unattended, non-interactive pipeline that copies blobs to a storage account using AzCopy, without requiring an interactive sign-in. Which authentication method should they configure?",
+    "options": [
+      "AzCopy login using a service principal with a client secret or certificate",
+      "Interactive azcopy login using a personal Microsoft Entra account",
+      "Storage Explorer's Connect to Azure Storage wizard",
+      "A locally cached RDP credential"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Service principals provide a secure, non-interactive way to authorize AzCopy for automated scenarios such as CI/CD pipelines, using a client secret or certificate instead of interactive sign-in.",
+      "incorrectReasons": [
+        "Interactive login with a personal account requires a user to be present to complete sign-in, which is unsuitable for unattended automation.",
+        "Storage Explorer is a graphical desktop tool, not something invoked from an unattended pipeline.",
+        "RDP credentials are unrelated to authorizing AzCopy against Azure Storage."
+      ],
+      "reference": "https://learn.microsoft.com/azure/storage/common/storage-use-azcopy-authorize-service-principal"
+    }
+  },
+  {
+    "id": 30,
+    "subtopic": "Manage data by using Azure Storage Explorer and AzCopy",
+    "question": "Azure Storage Explorer integrates which command-line utility for all of its data transfer operations, passing authentication tokens to it through its secret store?",
+    "options": [
+      "AzCopy",
+      "Robocopy",
+      "PowerShell Az.Storage cmdlets",
+      "curl"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Storage Explorer integrates AzCopy for all data transfers, providing a sign-in workflow while passing tokens to AzCopy through its secret store.",
+      "incorrectReasons": [
+        "Robocopy is a Windows file-copy utility unrelated to Azure Storage Explorer's data transfer engine.",
+        "The Az.Storage PowerShell module is a separate tool and is not what powers Storage Explorer's transfers.",
+        "curl is a generic HTTP client and is not the transfer engine used by Storage Explorer."
+      ],
+      "reference": "https://learn.microsoft.com/troubleshoot/azure/azure-storage/blobs/connectivity/storage-use-azcopy-troubleshoot#conditional-access-policy-error"
+    }
+  },
+  {
+    "id": 31,
+    "subtopic": "Manage data by using Azure Storage Explorer and AzCopy",
+    "question": "An administrator runs an azcopy copy command and appends a query string such as \"sv=2021-...&sp=racwl&se=2026-09-01T00:00:00Z&sig=...\" to the destination container URL instead of using \"azcopy login\". What does this query string represent?",
+    "options": [
+      "A shared access signature (SAS) token",
+      "A connection string",
+      "A Microsoft Entra bearer access token",
+      "An account key encoded in Base64"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "AzCopy can be authorized by appending a SAS token to the source or destination URL. The query parameters shown (sv for service version, sp for permissions, se for expiry, sig for the signature) are characteristic of a SAS token.",
+      "incorrectReasons": [
+        "A connection string is a separate string typically containing AccountName and AccountKey key-value pairs, not a URL query string appended to a resource URI.",
+        "A bearer token used for Microsoft Entra ID authorization is passed in an HTTP Authorization header, not appended as URL query parameters in this format.",
+        "An account key is a Base64-encoded secret value itself, not a set of named query parameters like sv, sp, se, and sig."
+      ],
+      "reference": "https://learn.microsoft.com/azure/storage/common/storage-use-azcopy-v10#authorize-azcopy"
+    }
+  },
+  {
+    "id": 32,
+    "subtopic": "Create and configure a file share in Azure Storage",
+    "question": "In an Azure file share configured for on-premises AD DS identity-based authentication, how are access permissions enforced?",
+    "options": [
+      "Share-level permissions are assigned via Azure RBAC to the Microsoft Entra identity, while directory and file-level permissions are enforced with Windows ACLs configured through AD DS",
+      "All permissions, at both the share and file level, are managed entirely within Azure RBAC",
+      "All permissions, at both the share and file level, are managed entirely within on-premises AD DS Group Policy",
+      "Permissions are enforced solely by the storage account's Shared Key"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Share-level permissions are configured using Azure role-based access control assigned to the Microsoft Entra identity, while directory- and file-level permissions are enforced using Windows ACLs configured over SMB against the AD DS identity. Both layers must align for the same hybrid user.",
+      "incorrectReasons": [
+        "File- and directory-level permissions are enforced through Windows ACLs, not purely through Azure RBAC.",
+        "Share-level permissions are configured through Azure RBAC assigned to the synced Microsoft Entra identity, not through on-premises Group Policy alone.",
+        "Shared Key grants full account-level access and bypasses identity-based, granular permission enforcement entirely; it is not how identity-based authentication is enforced."
+      ],
+      "reference": "https://learn.microsoft.com/azure/storage/files/storage-files-active-directory-overview"
+    }
+  },
+  {
+    "id": 33,
+    "subtopic": "Create and configure a file share in Azure Storage",
+    "question": "Which redundancy options are supported for SSD (premium) Azure file shares?",
+    "options": [
+      "LRS and ZRS only",
+      "LRS, ZRS, GRS, and GZRS",
+      "GRS only",
+      "RA-GRS and RA-GZRS only"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "SSD (premium) file shares are supported only on locally redundant storage (LRS) and zone-redundant storage (ZRS); geo-redundant options are reserved for HDD (standard) file shares.",
+      "incorrectReasons": [
+        "GRS and GZRS are not supported for SSD file shares; only HDD file shares support geo-redundancy.",
+        "GRS alone is not an option for SSD file shares.",
+        "Read-access geo-redundant options are not supported for Azure Files at all, and geo-redundancy in general is not available for SSD file shares."
+      ],
+      "reference": "https://learn.microsoft.com/azure/storage/files/files-redundancy#redundancy-in-a-secondary-region"
+    }
+  },
+  {
+    "id": 34,
+    "subtopic": "Create and configure a file share in Azure Storage",
+    "question": "An administrator needs to create an Azure file share that will be mounted from Linux clients using the NFS 4.1 protocol. Which storage account configuration is required?",
+    "options": [
+      "A premium FileStorage account kind, since NFS Azure file shares require premium performance",
+      "Any standard general-purpose v2 account with soft delete enabled",
+      "A legacy v1 storage account with a hierarchical namespace enabled",
+      "A BlobStorage (legacy blob) account with anonymous public access enabled"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "NFS Azure file shares are supported only on premium file shares, which use the FileStorage account kind; standard (HDD) file shares do not support the NFS protocol.",
+      "incorrectReasons": [
+        "Standard general-purpose v2 accounts support only SMB file shares, not NFS.",
+        "A hierarchical namespace is a Data Lake Storage feature for blob accounts and is unrelated to NFS file share support.",
+        "BlobStorage legacy accounts do not support Azure Files at all."
+      ],
+      "reference": "https://learn.microsoft.com/azure/storage/common/storage-account-overview"
+    }
+  },
+  {
+    "id": 35,
+    "subtopic": "Create and configure a container in Blob Storage",
+    "question": "Which container-level public access setting allows anonymous read access to individual blobs but does NOT allow anonymous users to list the blobs in the container?",
+    "options": [
+      "Private (no anonymous access)",
+      "Blob",
+      "Container",
+      "Off (anonymous access disabled account-wide)"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "The Blob public access level allows anonymous read access to individual blobs when their exact URL is known, but it does not permit anonymous enumeration (listing) of the blobs in the container.",
+      "incorrectReasons": [
+        "Private disallows any anonymous access to blobs or the container's contents.",
+        "Container-level public access allows both anonymous reads of individual blobs and anonymous listing of the container's contents.",
+        "\"Off\" describes disabling anonymous access at the storage account level entirely, which overrides any container-level setting."
+      ],
+      "reference": "https://learn.microsoft.com/azure/storage/blobs/anonymous-read-access-configure"
+    }
+  },
+  {
+    "id": 36,
+    "subtopic": "Create and configure a container in Blob Storage",
+    "question": "An organization needs to guarantee that no container in a storage account can ever be configured for anonymous public read access, regardless of individual container settings. What should the administrator configure?",
+    "options": [
+      "Set \"Allow Blob public access\" to Disabled at the storage account level",
+      "Delete all stored access policies on every container",
+      "Enable blob soft delete for the account",
+      "Set the storage account's network default action to Deny"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Disabling \"Allow Blob public access\" at the storage account level overrides and prevents any container-level anonymous access configuration, ensuring no container can be made publicly readable.",
+      "incorrectReasons": [
+        "Stored access policies control SAS-based access, not anonymous public access settings.",
+        "Soft delete protects against accidental deletion; it has no effect on anonymous public access.",
+        "Network firewall rules restrict which networks can reach the account's endpoint, but they do not disable the anonymous public access feature itself."
+      ],
+      "reference": "https://learn.microsoft.com/azure/storage/blobs/anonymous-read-access-configure#allow-or-disallow-anonymous-read-access-for-a-storage-account"
+    }
+  },
+  {
+    "id": 37,
+    "subtopic": "Create and configure a container in Blob Storage",
+    "question": "A team member needs to create, delete, and list containers, and read, write, and delete blobs within a storage account, but should not be able to change the storage account's configuration or network settings. Which built-in role should be assigned?",
+    "options": [
+      "Storage Blob Data Contributor",
+      "Storage Account Contributor",
+      "Owner",
+      "Reader"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Storage Blob Data Contributor grants data-plane permissions to read, write, and delete blobs and containers, without granting management-plane (control-plane) permissions over the storage account resource itself.",
+      "incorrectReasons": [
+        "Storage Account Contributor grants management-plane permissions over the account (such as changing configuration or network rules) but does not by itself grant data-plane access to blob data.",
+        "Owner grants full control over both the storage account resource and, depending on configuration, potentially data access, which is broader than required.",
+        "Reader only allows viewing resource properties and does not permit reading or writing blob data."
+      ],
+      "reference": "https://learn.microsoft.com/azure/role-based-access-control/built-in-roles#storage"
+    }
+  },
+  {
+    "id": 38,
+    "subtopic": "Configure storage tiers",
+    "question": "Which two blob types are NOT supported by the TierToCool and TierToArchive actions in a lifecycle management policy? (Select TWO)",
+    "options": [
+      "Append blobs",
+      "Page blobs",
+      "Block blobs",
+      "Blobs in a general-purpose v2 standard account"
+    ],
+    "correct": [0, 1],
+    "explanation": {
+      "correctReason": "The TierToCool, TierToCold, and TierToArchive actions are not supported for append blobs or page blobs, nor for blobs in a premium block blob storage account.",
+      "incorrectReasons": [
+        "Block blobs are the blob type that tiering actions are designed to support.",
+        "Blobs in a standard general-purpose v2 account are fully eligible for tiering actions."
+      ],
+      "reference": "https://learn.microsoft.com/azure/storage/blobs/lifecycle-management-policy-structure#rules"
+    }
+  },
+  {
+    "id": 39,
+    "subtopic": "Configure storage tiers",
+    "question": "What is the minimum number of days that data must remain in the archive access tier to avoid an early deletion charge?",
+    "options": [
+      "30 days",
+      "90 days",
+      "180 days",
+      "365 days"
+    ],
+    "correct": 2,
+    "explanation": {
+      "correctReason": "Data must remain in the archive tier for at least 180 days, or an early deletion charge applies, prorated for the remaining days short of 180.",
+      "incorrectReasons": [
+        "30 days is the minimum retention period associated with the cool tier, not the archive tier.",
+        "90 days is the minimum retention period associated with the cold tier, not the archive tier.",
+        "365 days exceeds the documented 180-day minimum for the archive tier."
+      ],
+      "reference": "https://learn.microsoft.com/azure/storage/blobs/access-tiers-overview#archive-access-tier"
+    }
+  },
+  {
+    "id": 40,
+    "subtopic": "Configure storage tiers",
+    "question": "An organization needs its storage account to use GZRS redundancy. Which blob access tier will be unavailable as a result of this configuration?",
+    "options": [
+      "Hot",
+      "Cool",
+      "Cold",
+      "Archive"
+    ],
+    "correct": 3,
+    "explanation": {
+      "correctReason": "The archive tier for Blob Storage is supported only for LRS, GRS, and RA-GRS accounts; it is not supported for accounts configured with ZRS, GZRS, or RA-GZRS.",
+      "incorrectReasons": [
+        "The hot, cool, and cold access tiers support all redundancy configurations, including ZRS and GZRS.",
+        "The cool tier is available regardless of redundancy configuration, including GZRS.",
+        "The cold tier is also available regardless of redundancy configuration, including GZRS."
+      ],
+      "reference": "https://learn.microsoft.com/azure/storage/common/storage-redundancy#summary-of-redundancy-options"
+    }
+  },
+  {
+    "id": 41,
+    "subtopic": "Configure soft delete for blobs and containers",
+    "question": "When an administrator enables blob soft delete on a storage account without specifying a custom retention period, what retention period is applied by default?",
+    "options": [
+      "1 day",
+      "7 days",
+      "30 days",
+      "365 days"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "The default retention period for blob soft delete (and container soft delete) is 7 days when no custom value is specified, though it can be configured anywhere from 1 to 365 days.",
+      "incorrectReasons": [
+        "1 day is the documented minimum, not the default.",
+        "30 days is not the default value; it must be explicitly configured.",
+        "365 days is the documented maximum, not the default."
+      ],
+      "reference": "https://learn.microsoft.com/azure/storage/blobs/soft-delete-blob-enable#enable-blob-soft-delete"
+    }
+  },
+  {
+    "id": 42,
+    "subtopic": "Configure soft delete for blobs and containers",
+    "question": "A storage account has blob soft delete enabled with a 14-day retention period, but container soft delete is disabled. An administrator deletes an entire container that holds several blobs. What happens?",
+    "options": [
+      "The container and its blobs are permanently deleted immediately; blob soft delete alone does not protect against container deletion",
+      "The container enters a soft-deleted state and can be restored using Undelete within 14 days",
+      "Only the blobs are individually soft-deleted, but the container is deleted immediately as an empty shell",
+      "Blob soft delete blocks the container deletion request until it is explicitly overridden"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Blob soft delete only protects individual blobs, snapshots, or versions. To restore a deleted container and its contents, container soft delete must also be enabled; without it, deleting a container is a permanent, unrecoverable operation.",
+      "incorrectReasons": [
+        "Restoring a soft-deleted container requires container soft delete to be enabled, which it is not in this scenario.",
+        "When a container is deleted, its blobs go with it; blob soft delete does not preserve them as orphaned soft-deleted objects outside a container.",
+        "Blob soft delete does not block or intercept container-level delete operations."
+      ],
+      "reference": "https://learn.microsoft.com/azure/storage/blobs/soft-delete-container-overview"
+    }
+  },
+  {
+    "id": 43,
+    "subtopic": "Configure soft delete for blobs and containers",
+    "question": "Which two additional data protection features does Microsoft recommend enabling alongside blob soft delete for the most complete in-account protection against accidental data loss? (Select TWO)",
+    "options": [
+      "Container soft delete",
+      "Blob versioning",
+      "A network firewall default action of Deny",
+      "Static website hosting"
+    ],
+    "correct": [0, 1],
+    "explanation": {
+      "correctReason": "Microsoft recommends enabling blob soft delete together with container soft delete (to restore deleted containers) and blob versioning (to maintain a full history of blob changes) for comprehensive in-account data protection.",
+      "incorrectReasons": [
+        "A restrictive network firewall rule protects against unauthorized network access but does not protect against accidental deletion by an authorized user.",
+        "Static website hosting is a blob-serving feature unrelated to data protection against deletion."
+      ],
+      "reference": "https://learn.microsoft.com/azure/storage/blobs/soft-delete-container-overview#recommended-data-protection-configuration"
+    }
+  },
+  {
+    "id": 44,
+    "subtopic": "Configure snapshots and soft delete for Azure Files",
+    "question": "What is the maximum number of share snapshots supported per Azure file share?",
+    "options": [
+      "50",
+      "100",
+      "200",
+      "1,000"
+    ],
+    "correct": 2,
+    "explanation": {
+      "correctReason": "Azure Files supports up to 200 share snapshots per file share. After reaching this limit, older snapshots must be deleted before new ones can be created.",
+      "incorrectReasons": [
+        "50 is below the documented maximum of 200.",
+        "100 is below the documented maximum of 200.",
+        "1,000 exceeds the documented maximum of 200 snapshots per share."
+      ],
+      "reference": "https://learn.microsoft.com/azure/storage/files/storage-snapshots-files#share-snapshot-limits"
+    }
+  },
+  {
+    "id": 45,
+    "subtopic": "Configure snapshots and soft delete for Azure Files",
+    "question": "How are Azure file share snapshots best described in terms of storage consumption?",
+    "options": [
+      "Each snapshot is a full, independent copy of the entire share created at the time it is taken",
+      "Snapshots are incremental, capturing only the data that changed since the most recent snapshot",
+      "Snapshots continuously replicate every write operation to a secondary region in real time",
+      "Snapshots require a Recovery Services vault and cannot exist without Azure Backup"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Share snapshots are incremental -- only the data that changed since the most recent snapshot is saved, which minimizes snapshot creation time and storage cost.",
+      "incorrectReasons": [
+        "Snapshots are not full independent copies; they are incremental relative to the most recent snapshot.",
+        "Snapshots are a point-in-time capture mechanism, not a continuous, real-time replication feature.",
+        "Manual share snapshots can be created directly through the portal, PowerShell, CLI, or REST API without requiring Azure Backup or a Recovery Services vault, although Azure Backup can also be used to automate them."
+      ],
+      "reference": "https://learn.microsoft.com/azure/storage/files/storage-snapshots-files#share-snapshot-space-usage"
+    }
+  },
+  {
+    "id": 46,
+    "subtopic": "Configure blob lifecycle management",
+    "question": "A lifecycle management rule defines both a delete action and a tierToArchive action that could apply to the same blob at the same evaluation point. Which action does Azure Storage actually apply?",
+    "options": [
+      "The delete action, because lifecycle management applies the least expensive of the qualifying actions",
+      "The tierToArchive action, because tiering actions always take precedence over deletion",
+      "Both actions run simultaneously on the same blob",
+      "Neither action runs, and the policy is flagged as invalid"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "When more than one action could apply to the same blob, lifecycle management applies the least expensive action. Delete is cheaper than tierToArchive, which in turn is cheaper than tierToCool, so delete takes precedence.",
+      "incorrectReasons": [
+        "Tiering actions do not take precedence over deletion; the reverse is true because delete is the least expensive action.",
+        "Only one action is applied per blob per rule evaluation; both do not execute simultaneously.",
+        "The policy is not considered invalid in this situation; Azure Storage resolves the conflict by choosing the cheaper action."
+      ],
+      "reference": "https://learn.microsoft.com/azure/storage/blobs/lifecycle-management-policy-structure#rules"
+    }
+  },
+  {
+    "id": 47,
+    "subtopic": "Configure blob lifecycle management",
+    "question": "Which two statements about Azure Blob Storage lifecycle management policies are correct? (Select TWO)",
+    "options": [
+      "Changes to a policy can take up to 24 hours to go into effect",
+      "Lifecycle management policies incur a direct charge in addition to the standard Set Blob Tier operation costs",
+      "The delete action of a lifecycle management policy does not work on blobs in an immutable container",
+      "Lifecycle management policies can rehydrate an archived blob back to an online access tier"
+    ],
+    "correct": [0, 2],
+    "explanation": {
+      "correctReason": "When a policy is added or updated, it can take up to 24 hours to go into effect. Also, the delete action does not work on any blob within an immutable container, since immutability policies prevent modification or deletion.",
+      "incorrectReasons": [
+        "Lifecycle management policies themselves are free of charge; customers are billed only for standard operation costs such as Set Blob Tier calls, and delete operations are free.",
+        "Lifecycle management policies cannot be used to rehydrate blobs from the archive tier back to an online tier; rehydration must be performed through other means, such as changing the blob's tier directly or copying it."
+      ],
+      "reference": "https://learn.microsoft.com/azure/storage/blobs/lifecycle-management-overview#known-issues-and-limitations"
+    }
+  },
+  {
+    "id": 48,
+    "subtopic": "Configure blob lifecycle management",
+    "question": "Which two condition types can be used within a lifecycle management rule to trigger an action such as tiering or deleting a blob? (Select TWO)",
+    "options": [
+      "daysAfterModificationGreaterThan",
+      "daysAfterLastAccessTimeGreaterThan",
+      "blobSizeGreaterThanMB",
+      "containerNameStartsWith"
+    ],
+    "correct": [0, 1],
+    "explanation": {
+      "correctReason": "Lifecycle management rule conditions include daysAfterModificationGreaterThan (based on last modified time) and daysAfterLastAccessTimeGreaterThan (based on last access time, when access time tracking is enabled), along with daysAfterCreationGreaterThan and daysAfterLastTierChangeGreaterThan.",
+      "incorrectReasons": [
+        "Blob size is not a documented lifecycle rule condition; filtering is done using prefixes and blob index tags rather than blob size thresholds.",
+        "Rules use prefix match filters on blob names, not a dedicated \"container name starts with\" condition type."
+      ],
+      "reference": "https://learn.microsoft.com/azure/storage/blobs/lifecycle-management-policy-structure#rules"
+    }
+  },
+  {
+    "id": 49,
+    "subtopic": "Configure blob versioning",
+    "question": "With blob versioning enabled on a storage account, what happens to the prior state of a blob when it is overwritten?",
+    "options": [
+      "It is permanently discarded and cannot be recovered",
+      "It becomes a previous version with a unique version ID, and a new current version is created",
+      "It is automatically moved to the archive access tier",
+      "It is automatically converted into a manual snapshot"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "When a blob is modified while versioning is enabled, the existing current version becomes a previous version, and a new version is created to capture the updated state as the new current version.",
+      "incorrectReasons": [
+        "The prior state is preserved as a previous version, not discarded, which is the entire purpose of enabling versioning.",
+        "Versioning does not change the access tier of the blob; tiering is a separate, unrelated feature.",
+        "Versions are created automatically on write operations, but they are not the same construct as manually created snapshots, even though they serve a similar purpose."
+      ],
+      "reference": "https://learn.microsoft.com/azure/storage/blobs/versioning-overview#how-blob-versioning-works"
+    }
+  },
+  {
+    "id": 50,
+    "subtopic": "Configure blob versioning",
+    "question": "Which two statements about blob versioning are correct? (Select TWO)",
+    "options": [
+      "Blob versioning is not supported on storage accounts that have a hierarchical namespace enabled",
+      "Blob versions can be edited or have their content modified after they are created",
+      "Microsoft recommends keeping fewer than 1,000 versions per blob to avoid degraded blob listing performance",
+      "Enabling blob versioning has no impact on storage costs"
+    ],
+    "correct": [0, 2],
+    "explanation": {
+      "correctReason": "Blob versioning is not currently supported on accounts with a hierarchical namespace enabled for Data Lake Storage. Also, Microsoft recommends maintaining fewer than 1,000 versions per blob, since a large number of versions can increase the latency of blob listing operations.",
+      "incorrectReasons": [
+        "Blob versions are immutable; you cannot modify the content or metadata of an existing version after it is created.",
+        "Enabling versioning can increase costs, since every write operation creates a new version that consumes additional storage; using a lifecycle management policy to delete old versions helps control this cost."
+      ],
+      "reference": "https://learn.microsoft.com/azure/storage/blobs/versioning-overview#how-blob-versioning-works"
+    }
+  }
+]

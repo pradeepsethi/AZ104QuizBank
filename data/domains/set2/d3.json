@@ -1,0 +1,1084 @@
+[
+  {
+    "id": 1,
+    "subtopic": "Interpret an Azure Resource Manager template or a Bicep file",
+    "question": "You are reviewing an ARM template that contains a top-level 'variables' section referencing a 'parameters' value, and a 'resources' array where one resource uses \"dependsOn\": [\"[resourceId('Microsoft.Network/virtualNetworks', variables('vnetName'))]\"]. What does this dependsOn entry guarantee during deployment?",
+    "options": [
+      "The resource will only be created if the virtual network already exists in the subscription",
+      "Resource Manager will not start creating this resource until the referenced virtual network resource has completed deployment",
+      "The resource will inherit all tags and properties from the virtual network",
+      "Resource Manager will delete the virtual network if this resource fails to deploy"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "dependsOn tells Resource Manager the explicit order in which resources must be deployed; the dependent resource waits until the referenced resource's deployment operation finishes successfully.",
+      "incorrectReasons": [
+        "dependsOn controls deployment order, not conditional existence checks — that would require a 'condition' element instead.",
+        "Dependencies do not cause property or tag inheritance; only explicit template values are applied.",
+        "A failed dependent resource does not trigger deletion of resources it depends on."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/templates/resource-dependency"
+    }
+  },
+  {
+    "id": 2,
+    "subtopic": "Interpret an Azure Resource Manager template or a Bicep file",
+    "question": "In a Bicep file you see the line: resource stg 'Microsoft.Storage/storageAccounts@2023-01-01' = { ... }. What does the 'stg' identifier represent?",
+    "options": [
+      "The Azure resource name that will appear in the portal",
+      "A symbolic name used only within the Bicep file to reference the resource elsewhere in the template",
+      "The resource group the storage account will be deployed into",
+      "An alias for the API version being used"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "In Bicep, the identifier immediately after 'resource' is a symbolic name local to the file, used to reference the resource's properties (e.g., stg.properties or stg.id) elsewhere in the template; it is not the deployed resource's actual name.",
+      "incorrectReasons": [
+        "The actual Azure resource name is set via the 'name' property inside the resource body.",
+        "Resource group scope is set at deployment time (az deployment group create), not by the symbolic name.",
+        "The API version is the string after '@' in the resource type, unrelated to the symbolic name."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/file"
+    }
+  },
+  {
+    "id": 3,
+    "subtopic": "Modify an existing Azure Resource Manager template",
+    "question": "You need to add a new Azure Storage account resource to an existing ARM template so that it deploys only after an existing virtual network resource named 'vnet1' finishes deploying. Which addition to the new resource definition achieves this?",
+    "options": [
+      "\"dependsOn\": [\"[resourceId('Microsoft.Network/virtualNetworks', 'vnet1')]\"]",
+      "\"copy\": {\"count\": 1, \"name\": \"vnet1\"}",
+      "\"condition\": \"[equals('vnet1', 'deployed')]\"",
+      "\"scope\": \"[resourceId('Microsoft.Network/virtualNetworks', 'vnet1')]\""
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Adding a dependsOn element that references the vnet's resourceId is the documented way to enforce deployment ordering between two resources in the same template.",
+      "incorrectReasons": [
+        "'copy' is used to create multiple instances of a resource in a loop, not to set ordering.",
+        "'condition' controls whether a resource deploys at all based on a boolean expression, not sequencing against another resource's completion.",
+        "'scope' is used for extension resources or deploying to a different scope, not for ordering dependencies."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/templates/resource-dependency"
+    }
+  },
+  {
+    "id": 4,
+    "subtopic": "Modify an existing Azure Resource Manager template",
+    "question": "An existing ARM template has a parameter named 'environment' with no restrictions on what values can be entered. You want to modify the template so deployments only accept the values 'dev', 'test', or 'prod'. Which addition to the parameter definition enforces this?",
+    "options": [
+      "Add a \"defaultValue\": [\"dev\", \"test\", \"prod\"] entry",
+      "Add an \"allowedValues\": [\"dev\", \"test\", \"prod\"] entry",
+      "Add a \"minLength\": 3 and \"maxLength\": 4 entry",
+      "Change the parameter \"type\" to \"array\""
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "The 'allowedValues' property restricts a parameter to a fixed set of acceptable values; deployment fails validation if any other value is supplied.",
+      "incorrectReasons": [
+        "'defaultValue' only supplies a value when none is passed in; it doesn't restrict the accepted values.",
+        "minLength/maxLength constrain string length, not which specific strings are valid.",
+        "Changing the type to array would change how the parameter is passed entirely and doesn't restrict content to specific strings."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/templates/parameters"
+    }
+  },
+  {
+    "id": 5,
+    "subtopic": "Modify an existing Bicep file",
+    "question": "You want to reuse an existing Bicep file that deploys a virtual network as a component inside a larger Bicep deployment for a new application. What is the correct way to include it?",
+    "options": [
+      "Copy and paste the virtual network resource block directly into the new file",
+      "Reference it using a 'module' declaration that points to the existing .bicep file and supplies its required parameters",
+      "Add it as a 'dependsOn' entry in the new file",
+      "Import it using an 'extension' declaration"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Bicep modules let you call another Bicep file as a self-contained unit, passing parameters and consuming its outputs, which promotes reuse without duplicating resource definitions.",
+      "incorrectReasons": [
+        "Copy-pasting works but defeats the purpose of modularity and creates maintenance duplication — not the recommended approach being tested here.",
+        "dependsOn only orders resources; it cannot include an entire external file.",
+        "'extension' declarations are used to bring in Bicep extensions (e.g., for Kubernetes or Microsoft Graph), not to reuse template files."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/modules"
+    }
+  },
+  {
+    "id": 6,
+    "subtopic": "Modify an existing Bicep file",
+    "question": "(Select TWO) You are modifying a Bicep file that currently accepts an administrator password as a plain string parameter. Which TWO changes should you make to align with Bicep security best practices?",
+    "options": [
+      "Add the @secure() decorator above the parameter declaration",
+      "Change the parameter type from 'string' to 'securestring'",
+      "Rename the parameter to 'adminPasswordSecure'",
+      "Move the parameter to the 'variables' section instead of 'parameters'",
+      "Add a 'defaultValue' containing the actual production password for convenience"
+    ],
+    "correct": [0, 1],
+    "explanation": {
+      "correctReason": "In Bicep, the @secure() decorator (equivalent to the ARM 'securestring'/'secureobject' type) prevents the parameter value from being logged or displayed in deployment history, which is the standard way to protect sensitive values like passwords.",
+      "incorrectReasons": [
+        "Renaming the parameter has no security effect; it's purely cosmetic.",
+        "Renaming the parameter has no security effect; it's purely cosmetic.",
+        "Variables can't accept external input the way parameters can, so this would break the ability to pass a value in at deployment time.",
+        "Hardcoding a real secret as a default value in source-controlled Bicep is a security anti-pattern, not a fix."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/parameters#secure-parameters"
+    }
+  },
+  {
+    "id": 7,
+    "subtopic": "Deploy resources by using an Azure Resource Manager template or a Bicep file",
+    "question": "You need to deploy a Bicep file named main.bicep to an existing resource group named 'ProdRG' using the Azure CLI. Which command correctly performs this deployment?",
+    "options": [
+      "az deployment group create --resource-group ProdRG --template-file main.bicep",
+      "az group deployment new --name ProdRG --file main.bicep",
+      "az resource create --resource-group ProdRG --template main.bicep",
+      "az deployment sub create --location ProdRG --template-file main.bicep"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "az deployment group create is the documented CLI command for deploying an ARM template or Bicep file to a specific resource group, using --template-file to point at the local .bicep file.",
+      "incorrectReasons": [
+        "'az group deployment new' is not a valid Azure CLI command.",
+        "'az resource create' manages individual resources directly and does not process template files.",
+        "'az deployment sub create' targets subscription-level deployments and expects --location, not a resource group name."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/deploy-cli"
+    }
+  },
+  {
+    "id": 8,
+    "subtopic": "Deploy resources by using an Azure Resource Manager template or a Bicep file",
+    "question": "You need to deploy a Bicep file that creates resource groups themselves, meaning the deployment must target the subscription rather than an existing resource group. Which command should you use?",
+    "options": [
+      "az deployment group create --resource-group <name> --template-file main.bicep",
+      "az deployment sub create --location <location> --template-file main.bicep",
+      "az deployment mg create --management-group-id <id> --template-file main.bicep",
+      "az deployment tenant create --location <location> --template-file main.bicep"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Subscription-level deployments, which are required when the template itself creates resource groups or policy/RBAC assignments at that scope, use 'az deployment sub create' and require a --location for the deployment metadata.",
+      "incorrectReasons": [
+        "'az deployment group create' targets an existing resource group and cannot be used to create new resource groups.",
+        "Management group deployments target an entire management group hierarchy, a broader scope than needed here.",
+        "Tenant deployments target the whole Microsoft Entra tenant, which is broader than a subscription-level task."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/deploy-cli#deployment-scope"
+    }
+  },
+  {
+    "id": 9,
+    "subtopic": "Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file",
+    "question": "You manually created several resources in the Azure portal and now want to capture their current configuration as a reusable ARM template. Which approach should you use?",
+    "options": [
+      "Use the 'Export template' feature on the resource group's Overview page or the individual resource's page in the Azure portal",
+      "Run 'az bicep build' against the resource group name",
+      "Enable diagnostic settings and extract the template from Azure Monitor logs",
+      "Use 'az group show' to output the resource group as a template"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Azure Resource Manager can generate a template that represents the current state of a resource group or an individual resource through the 'Export template' option in the portal (also available via 'az group export').",
+      "incorrectReasons": [
+        "'az bicep build' compiles an existing Bicep file into ARM JSON; it does not read live resource state.",
+        "Diagnostic settings and Azure Monitor logs record activity/metrics, not resource configuration templates.",
+        "'az group show' returns resource group metadata (location, tags, provisioning state), not a deployable template."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/templates/export-template-portal"
+    }
+  },
+  {
+    "id": 10,
+    "subtopic": "Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file",
+    "question": "You have an existing ARM JSON template (azuredeploy.json) and want to convert it into an equivalent Bicep file for easier maintenance. Which Bicep CLI command performs this conversion?",
+    "options": [
+      "az bicep build --file azuredeploy.json",
+      "az bicep decompile --file azuredeploy.json",
+      "az bicep publish --file azuredeploy.json",
+      "az bicep format --file azuredeploy.json"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "'az bicep decompile' converts an existing ARM JSON template into a best-effort equivalent .bicep file, which you should then review and refine.",
+      "incorrectReasons": [
+        "'az bicep build' does the opposite — it compiles a .bicep file into ARM JSON.",
+        "'az bicep publish' publishes a Bicep file as a reusable registry module; it does not convert file formats.",
+        "'az bicep format' is not a standard Bicep CLI subcommand for this purpose."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/decompile"
+    }
+  },
+  {
+    "id": 11,
+    "subtopic": "Create a virtual machine",
+    "question": "You are creating a new Linux virtual machine using the Azure CLI with 'az vm create'. You omit the --image parameter. What happens?",
+    "options": [
+      "The command fails because --image has no default and must be explicitly specified",
+      "Azure automatically selects the least expensive available image",
+      "The CLI defaults to the latest Ubuntu LTS image automatically",
+      "Azure creates the VM without an OS disk, requiring you to attach one manually afterward"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "--image is a required parameter for 'az vm create'; without specifying a valid marketplace image URN, alias, or custom image ID, the command returns an error rather than deploying.",
+      "incorrectReasons": [
+        "Azure CLI does not select an image based on cost; you must specify one explicitly.",
+        "There is no automatic Ubuntu default; recent CLI versions have removed implicit defaults specifically to avoid this ambiguity.",
+        "A VM cannot be created without an OS disk sourced from an image, snapshot, or existing disk — it isn't deployed in a disk-less state."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/cli/azure/vm?view=azure-cli-latest#az-vm-create"
+    }
+  },
+  {
+    "id": 12,
+    "subtopic": "Create a virtual machine",
+    "question": "During VM creation in the Azure portal, you are on the 'Basics' tab and need to choose between 'Availability zone', 'Availability set', 'Virtual machine scale set', and 'No infrastructure redundancy required'. What determines this choice?",
+    "options": [
+      "The VM's operating system license type",
+      "The redundancy and high-availability model you want for this VM at deployment time, since these options are mutually exclusive per VM",
+      "Whether the VM will use managed or unmanaged disks",
+      "The pricing tier of the subscription"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "This selector on the Basics tab sets the VM's availability configuration; a VM can only participate in one of these options at a time (they are mutually exclusive), so the choice reflects the desired resiliency architecture.",
+      "incorrectReasons": [
+        "License type (e.g., Azure Hybrid Benefit) is a separate setting unrelated to availability configuration.",
+        "Disk type (managed vs unmanaged) is chosen separately on the Disks tab.",
+        "Subscription pricing tier does not control this availability option — it's a per-VM architectural decision."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/virtual-machines/availability"
+    }
+  },
+  {
+    "id": 13,
+    "subtopic": "Configure Azure Disk Encryption",
+    "question": "You need to enable Azure Disk Encryption on all volumes of an existing running Windows VM named 'MySecureVM' using Azure PowerShell. Which cmdlet should you use?",
+    "options": [
+      "Set-AzVMDiskEncryptionExtension",
+      "Enable-AzVMExtension",
+      "New-AzDiskEncryptionSet",
+      "Set-AzVMOSDisk"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Set-AzVMDiskEncryptionExtension is the documented cmdlet for enabling Azure Disk Encryption on a running IaaS VM, requiring the resource group, VM name, and Key Vault as prerequisites.",
+      "incorrectReasons": [
+        "Enable-AzVMExtension is a generic extension cmdlet and isn't the documented, purpose-built command for disk encryption in the official workflow.",
+        "New-AzDiskEncryptionSet creates a disk encryption set resource used for platform-managed key encryption of managed disks — a different feature from the ADE extension workflow.",
+        "Set-AzVMOSDisk configures OS disk properties like caching or size, not encryption."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/virtual-machines/windows/disk-encryption-windows#enable-encryption-on-an-existing-or-running-windows-vm"
+    }
+  },
+  {
+    "id": 14,
+    "subtopic": "Configure Azure Disk Encryption",
+    "question": "(Select TWO) You need to move a VM that has Azure Disk Encryption enabled to a different Azure subscription. Which TWO statements are correct about this scenario?",
+    "options": [
+      "The VM can be moved to another resource group in the same subscription while it is deallocated, without disabling encryption",
+      "To move the VM to a different subscription, you must first disable disk encryption using 'az vm encryption disable'",
+      "Disk encryption automatically re-enables itself after a cross-subscription move completes",
+      "Azure Disk Encryption has no impact whatsoever on any type of resource move",
+      "The move can be completed without any workaround as long as the VM is powered on"
+    ],
+    "correct": [0, 1],
+    "explanation": {
+      "correctReason": "A disk-encrypted VM can move to another resource group in the same subscription while deallocated without extra steps, but a cross-subscription move requires disabling encryption first (e.g., via 'az vm encryption disable') because the encrypted VM's Key Vault dependency doesn't move with it.",
+      "incorrectReasons": [
+        "Correct as stated (this is one of the two correct answers).",
+        "Correct as stated (this is one of the two correct answers).",
+        "Encryption does not automatically re-enable itself; you must re-enable it manually after the move if needed.",
+        "Encryption is explicitly called out as a special case requiring extra steps for cross-subscription moves, so it does have an impact.",
+        "The VM must be deallocated for a same-subscription move, and encryption must be disabled first for a cross-subscription move — it isn't a simple no-workaround scenario."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/move-limitations/virtual-machines-move-limitations#azure-disk-encryption"
+    }
+  },
+  {
+    "id": 15,
+    "subtopic": "Move a virtual machine to another resource group, subscription, or region",
+    "question": "You attempt to move a VM and its network interface to a new resource group, but the operation fails with a 'MissingMoveDependentResources' error. What is the most likely cause?",
+    "options": [
+      "The virtual network that the network interface is attached to was not included in the move request or does not already exist in the destination",
+      "The VM is currently running and must be stopped before any move can occur",
+      "The destination resource group already contains a VM with the same name",
+      "The subscription has exceeded its total resource move quota for the day"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "This error occurs when a dependent resource — such as the virtual network associated with the VM's NIC — isn't included in the move request and doesn't already exist at the destination; Azure requires all dependencies to move together or already be present.",
+      "incorrectReasons": [
+        "Azure resource moves do not require the VM to be stopped; it can remain running throughout the move.",
+        "A naming conflict produces a different, distinct error, not MissingMoveDependentResources.",
+        "There's no daily move quota; the constraints are the 800-resource-per-request and 100-resource-portal limits, not a time-based quota."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/troubleshoot/azure/virtual-machines/windows/move-vm-resources-faq"
+    }
+  },
+  {
+    "id": 16,
+    "subtopic": "Move a virtual machine to another resource group, subscription, or region",
+    "question": "You need to move a VM that was created from an Azure Marketplace image with an attached purchase plan into a different Azure subscription within the same Microsoft Entra tenant. What must you do because of the Marketplace plan?",
+    "options": [
+      "Nothing extra — Marketplace-plan VMs move across subscriptions exactly like any other VM",
+      "Deprovision the VM, move or recreate its disk in the destination subscription, and accept the Marketplace terms again before recreating the VM there",
+      "Convert the VM to a custom image before any move is possible",
+      "Marketplace plan VMs can never leave their original subscription"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "VMs created from Marketplace images with an attached plan cannot be moved directly across subscriptions; the documented workaround is to clone/move the OS disk, accept the Marketplace terms in the destination subscription, and recreate the VM there.",
+      "incorrectReasons": [
+        "Marketplace-plan VMs are explicitly called out as an unsupported cross-subscription move scenario needing a workaround.",
+        "Converting to a custom image is not the documented workaround for this scenario.",
+        "The VM isn't permanently locked to its subscription — a workaround exists via disk migration and terms acceptance."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/move-limitations/virtual-machines-move-limitations#virtual-machines-with-marketplace-plans"
+    }
+  },
+  {
+    "id": 17,
+    "subtopic": "Move a virtual machine to another resource group, subscription, or region",
+    "question": "You need to move a running production VM from the East US region to the West Europe region while minimizing manual reconfiguration. Which Azure tool is specifically designed for this cross-region move scenario?",
+    "options": [
+      "Azure Resource Mover",
+      "Azure Migrate: Server Migration for on-premises workloads",
+      "az resource move (standard resource group/subscription move command)",
+      "Azure Site Recovery failback only"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Azure Resource Mover is the purpose-built service for moving Azure resources such as VMs, disks, and their dependencies between Azure regions, orchestrating the process end to end.",
+      "incorrectReasons": [
+        "Azure Migrate: Server Migration is intended for migrating on-premises or other-cloud servers into Azure, not for moving VMs already running in Azure between regions.",
+        "The standard 'az resource move' (resource group/subscription move) command explicitly does not support changing a resource's physical region.",
+        "Azure Site Recovery failback is part of a DR workflow tied to a prior failover, not a general-purpose region move tool."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/resource-mover/tutorial-move-region-virtual-machines"
+    }
+  },
+  {
+    "id": 18,
+    "subtopic": "Manage virtual machine sizes",
+    "question": "You resize a currently running production VM to a larger size using the Azure portal. What is the expected impact on the VM?",
+    "options": [
+      "No impact — resizing a running VM never causes downtime",
+      "The VM will restart, since changing the size of a running VM causes a reboot",
+      "The VM will be permanently deleted and recreated with a new resource ID",
+      "Only the data disks are affected; the OS disk and its data are always lost"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Resizing a running VM causes it to restart to apply the new hardware profile; this should be treated as a disruptive operation and planned during a maintenance window for stateful workloads.",
+      "incorrectReasons": [
+        "Microsoft Learn explicitly documents that resizing a running VM causes a restart, so there is a service interruption.",
+        "A resize operation changes the VM's size property; it does not delete and recreate the VM or change its resource ID.",
+        "Neither OS nor data disk contents are lost during a resize; only dynamic IP addresses can be released if deallocation is required."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/resize-vm"
+    }
+  },
+  {
+    "id": 19,
+    "subtopic": "Manage virtual machine sizes",
+    "question": "You try to resize a VM to a size that isn't available on the hardware cluster currently hosting it, and the resize fails. What is the recommended remediation?",
+    "options": [
+      "Deallocate (stop and deallocate) the VM, then attempt the resize again so Azure can place it on hardware that supports the new size",
+      "Delete the VM and file an Azure support ticket to request the size",
+      "Change the VM's operating system to a different distribution",
+      "Wait 24 hours and the size will automatically become available"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "If the requested size isn't available on the current hardware cluster, deallocating the VM releases it from that cluster so Azure can reallocate it onto hardware supporting the desired size before resizing.",
+      "incorrectReasons": [
+        "Deleting the VM is unnecessary and destructive; deallocation is the documented, non-destructive remediation.",
+        "Changing the OS has no bearing on hardware cluster placement or size availability.",
+        "Size availability is tied to the hosting cluster's capacity and hardware, not a fixed time-based unlock."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/resize-vm#change-the-vm-size"
+    }
+  },
+  {
+    "id": 20,
+    "subtopic": "Manage virtual machine disks",
+    "question": "You have a VM using unmanaged disks stored as VHDs in a storage account, and you want to take advantage of managed disk features like Azure Backup integration and per-disk access control. What should you do?",
+    "options": [
+      "Convert the VM's disks from unmanaged to managed disks",
+      "Delete the storage account and Azure will automatically recreate managed disks",
+      "Managed disks cannot be adopted for existing VMs; you must build a new VM from scratch",
+      "Enable Azure Disk Encryption, which automatically converts unmanaged disks to managed"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Azure supports converting an existing VM's unmanaged disks to managed disks in place, which is the documented migration path to gain managed disk capabilities without rebuilding the VM.",
+      "incorrectReasons": [
+        "Deleting the storage account would destroy the VHDs; there's no automatic recreation as managed disks from that action.",
+        "Conversion is explicitly supported for existing VMs — a full rebuild is not required.",
+        "Enabling Azure Disk Encryption is unrelated to the managed/unmanaged disk conversion process."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/virtual-machines/windows/convert-unmanaged-to-managed-disks"
+    }
+  },
+  {
+    "id": 21,
+    "subtopic": "Manage virtual machine disks",
+    "question": "(Select TWO) A workload team needs a data disk that can deliver sub-millisecond latency and very high IOPS for a latency-sensitive SQL workload. Which TWO statements about the appropriate disk choice are correct?",
+    "options": [
+      "Ultra Disks are designed for the most latency-sensitive, high-throughput workloads and support adjusting performance without detaching the disk",
+      "Standard HDD is the recommended choice for this workload because it is the lowest cost option",
+      "Premium SSD requires selecting a VM size that supports Premium Storage (an 's' in the size name, e.g., Standard_E4s_v3)",
+      "All Azure managed disk tiers offer identical performance regardless of VM size",
+      "Ultra Disks can only be used as OS disks, never as data disks"
+    ],
+    "correct": [0, 2],
+    "explanation": {
+      "correctReason": "Ultra Disks are purpose-built for the most demanding, latency-sensitive workloads and allow dynamic performance tuning; separately, using Premium Storage requires an 's'-variant VM size that supports it.",
+      "incorrectReasons": [
+        "Correct as stated (this is one of the two correct answers).",
+        "Standard HDD is the lowest-performance tier and is not suitable for a latency-sensitive high-IOPS SQL workload.",
+        "Correct as stated (this is one of the two correct answers).",
+        "Performance varies significantly across Standard HDD, Standard SSD, Premium SSD, Premium SSD v2, and Ultra Disk tiers, and also depends on VM size/limits.",
+        "Ultra Disks are commonly used as data disks; OS disk support is limited/newer, but the disk type is not restricted to OS-disk-only use."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/virtual-machines/disks-types"
+    }
+  },
+  {
+    "id": 22,
+    "subtopic": "Deploy virtual machines to availability zones and availability sets",
+    "question": "(Select TWO) Which TWO statements accurately describe the relationship between availability zones and availability sets in Azure?",
+    "options": [
+      "Availability zones and availability sets are mutually exclusive — a single VM can be assigned to one or the other, but not both",
+      "Availability zones provide higher fault tolerance than availability sets because each zone has independent power, cooling, and networking",
+      "Availability sets always cost extra per VM beyond the compute charge, unlike availability zones",
+      "Availability sets protect against operating system or application-level failures within a VM",
+      "An availability set distributes VMs across up to three fault domains and up to twenty update domains by default"
+    ],
+    "correct": [0, 1],
+    "explanation": {
+      "correctReason": "Documentation confirms zones and sets are mutually exclusive per VM, and that zones — being physically separate datacenters with independent power/cooling/networking — provide stronger fault isolation than sets, which operate within a single datacenter.",
+      "incorrectReasons": [
+        "Correct as stated (this is one of the two correct answers).",
+        "Correct as stated (this is one of the two correct answers).",
+        "There is no extra charge for availability sets; you only pay for the VM instances themselves.",
+        "Availability sets protect against underlying hardware/power/network failures, not OS or application-level failures within a VM.",
+        "This statement is factually true about fault/update domain maximums, but it is not one of the two statements being tested as the best pair describing the zone-vs-set relationship in this question."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/virtual-machines/availability-set-overview"
+    }
+  },
+  {
+    "id": 23,
+    "subtopic": "Deploy virtual machines to availability zones and availability sets",
+    "question": "You are designing a highly available two-VM SQL Server deployment and want to spread the VMs across separate physical datacenters within the same Azure region, each with independent power, cooling, and networking. What is the maximum number of availability zones you can select from within a single region?",
+    "options": [
+      "Two",
+      "Three",
+      "Five",
+      "Unlimited, depending on the region"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Azure regions that support availability zones offer a maximum of three zones, and VM/scale-set deployments can be spread across up to three zones.",
+      "incorrectReasons": [
+        "Two is not the documented maximum; regions with zone support offer three.",
+        "Five corresponds to update domain counts in some configurations, not the number of availability zones.",
+        "The zone count is capped at three per region, not unlimited."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/reliability/availability-zones-overview"
+    }
+  },
+  {
+    "id": 24,
+    "subtopic": "Deploy and configure an Azure Virtual Machine Scale Sets",
+    "question": "(Select TWO) You are choosing between Flexible and Uniform orchestration modes for a new Virtual Machine Scale Set. Which TWO statements correctly distinguish Flexible orchestration?",
+    "options": [
+      "Flexible orchestration allows you to assign a VM instance to a specific availability zone or fault domain",
+      "Flexible orchestration is recommended by Microsoft for high availability with the widest range of VM features",
+      "Flexible orchestration provides default outbound internet connectivity with no extra configuration required",
+      "Only Uniform orchestration supports scaling instances automatically based on demand",
+      "Flexible orchestration limits scale sets to a maximum of 100 instances regardless of region"
+    ],
+    "correct": [0, 1],
+    "explanation": {
+      "correctReason": "Flexible orchestration uniquely allows assigning instances to a specific zone/fault domain, and Microsoft documentation recommends it for high availability with the broadest feature support compared to availability sets and Uniform mode.",
+      "incorrectReasons": [
+        "Correct as stated (this is one of the two correct answers).",
+        "Correct as stated (this is one of the two correct answers).",
+        "Flexible orchestration explicitly requires explicit outbound connectivity configuration; Uniform mode provides default outbound connectivity, not Flexible.",
+        "Both orchestration modes support autoscaling; this is not an exclusive Uniform-mode feature.",
+        "Scale set instance limits are governed by subscription/region quotas, not a fixed 100-instance cap specific to Flexible mode."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/virtual-machine-scale-sets/virtual-machine-scale-sets-orchestration-modes"
+    }
+  },
+  {
+    "id": 25,
+    "subtopic": "Create and manage an Azure container registry",
+    "question": "You need to create an Azure Container Registry that supports geo-replication across multiple regions and private endpoints. Which SKU must you select?",
+    "options": [
+      "Basic",
+      "Standard",
+      "Premium",
+      "Classic"
+    ],
+    "correct": 2,
+    "explanation": {
+      "correctReason": "Only the Premium SKU includes geo-replication and private link/private endpoint support, in addition to higher storage and throughput limits.",
+      "incorrectReasons": [
+        "Basic is the cost-optimized entry tier and lacks geo-replication and private endpoint support.",
+        "Standard increases storage and throughput over Basic but still lacks geo-replication and private endpoints.",
+        "'Classic' is not a current Azure Container Registry SKU."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/container-registry/container-registry-skus"
+    }
+  },
+  {
+    "id": 26,
+    "subtopic": "Create and manage an Azure container registry",
+    "question": "(Select TWO) Which TWO statements about Azure Container Registry geo-replication are correct?",
+    "options": [
+      "Geo-replication requires the Premium service tier",
+      "Storage for the same image replicated to five regions is billed once, not five times",
+      "ACR Tasks run independently in every geo-replica region, in parallel",
+      "Enabling geo-replication is available in all Azure regions that support the Premium tier, regardless of paired-region relationships",
+      "The registry's home region has no special role once geo-replication is enabled"
+    ],
+    "correct": [0, 3],
+    "explanation": {
+      "correctReason": "Geo-replication is a Premium-only feature, and you can replicate to any combination of regions independent of Azure's paired-region concept, as long as those regions support the Premium tier.",
+      "incorrectReasons": [
+        "Correct as stated (this is one of the two correct answers).",
+        "Storage is actually billed per geo-replica — a 1 GiB image replicated to 5 regions is billed as 5 GiB, not 1 GiB.",
+        "ACR Tasks are bound to the home region only and do not run in every geo-replica.",
+        "Correct as stated (this is one of the two correct answers).",
+        "The home region retains special significance — it hosts the control plane, and control-plane operations (like configuration changes) are unavailable if the home region is down."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/container-registry/container-registry-geo-replication"
+    }
+  },
+  {
+    "id": 27,
+    "subtopic": "Create and manage an Azure container registry",
+    "question": "Your team wants container images to be automatically rebuilt in Azure Container Registry whenever new code is pushed to a Git repository, without maintaining separate build infrastructure. Which ACR feature should you configure?",
+    "options": [
+      "ACR Tasks with a source code trigger",
+      "ACR Webhooks pointed at an Azure Function only",
+      "Azure Container Instances scheduled jobs",
+      "Azure Automation runbooks"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "ACR Tasks can automate builds triggered by source code commits (or base image updates) directly within the registry service, eliminating the need for separate build infrastructure.",
+      "incorrectReasons": [
+        "Webhooks notify external endpoints of registry events; they don't themselves build images from source triggers.",
+        "ACI scheduled jobs run containers on a schedule but aren't the documented mechanism for registry-integrated source-triggered builds.",
+        "Azure Automation runbooks are a general-purpose automation tool, not the built-in ACR feature designed for this scenario."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/container-registry/container-registry-tasks-overview"
+    }
+  },
+  {
+    "id": 28,
+    "subtopic": "Provision a container by using Azure Container Instances",
+    "question": "A developer needs to run a single short-lived batch container for a few minutes, with no need for orchestration, scaling, or persistent infrastructure. Which Azure compute option is the best fit?",
+    "options": [
+      "Azure Kubernetes Service (AKS)",
+      "Azure Container Instances (ACI)",
+      "Azure App Service with a custom container",
+      "Azure Virtual Machine Scale Sets"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Azure Container Instances is designed for fast, simple, per-second-billed container execution without the overhead of managing cluster infrastructure — ideal for short-lived, single-instance batch tasks.",
+      "incorrectReasons": [
+        "AKS is a full container orchestration platform intended for managing many containers and services, which is unnecessary overhead for a single short-lived task.",
+        "App Service is designed for long-running web applications with continuous hosting, not ephemeral batch jobs.",
+        "VM Scale Sets require managing VM infrastructure, which is far more overhead than needed for a single short container run."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/container-instances/container-instances-overview"
+    }
+  },
+  {
+    "id": 29,
+    "subtopic": "Provision a container by using Azure Container Instances",
+    "question": "You need to deploy two tightly coupled containers (an application container and a logging sidecar) that must share the same network namespace and local storage, and start/stop together as a single unit. What ACI concept supports this?",
+    "options": [
+      "A container group",
+      "A container registry replica",
+      "A container app revision",
+      "An availability set"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "An ACI container group is a collection of containers that get scheduled on the same host machine, sharing a lifecycle, local network, and storage volumes — exactly matching the sidecar pattern described.",
+      "incorrectReasons": [
+        "A registry replica is a geo-replication concept in Azure Container Registry, unrelated to co-scheduling containers.",
+        "Revisions are an Azure Container Apps concept for immutable snapshots of an app version, not an ACI grouping mechanism.",
+        "Availability sets are a VM high-availability construct and don't apply to ACI container scheduling."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/container-instances/container-instances-container-groups"
+    }
+  },
+  {
+    "id": 30,
+    "subtopic": "Provision a container by using Azure Container Apps",
+    "question": "Your team is building a set of microservices that need to scale automatically based on HTTP traffic and queue depth, support traffic splitting between revisions, and integrate with Dapr for service-to-service calls. Which Azure compute service is purpose-built for this?",
+    "options": [
+      "Azure Container Instances",
+      "Azure Container Apps",
+      "Azure Container Registry Tasks",
+      "Azure Batch"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Azure Container Apps is built on Kubernetes/KEDA/Dapr foundations and natively supports event-driven autoscaling, revisions with traffic splitting, and Dapr integration for microservices scenarios.",
+      "incorrectReasons": [
+        "ACI runs individual container groups without built-in autoscaling, revisions, or Dapr integration.",
+        "ACR Tasks build and manage container images; it is not a compute hosting service for running microservices.",
+        "Azure Batch targets large-scale parallel and batch compute jobs, not long-running HTTP microservices with revision-based traffic splitting."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/container-apps/overview"
+    }
+  },
+  {
+    "id": 31,
+    "subtopic": "Provision a container by using Azure Container Apps",
+    "question": "You want an Azure Container App to be reachable from the public internet over HTTPS, but you also want internal-only container apps in the same environment to be unreachable externally. What Container Apps setting controls this per app?",
+    "options": [
+      "The environment's virtual network address space",
+      "The app's ingress configuration, which can be set to external or internal",
+      "The container's exposed port number alone",
+      "The registry SKU used to store the app's image"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Container Apps ingress can be configured per app as 'external' (reachable from the internet) or 'internal' (reachable only within the Container Apps environment/VNet), giving fine-grained control over exposure.",
+      "incorrectReasons": [
+        "The environment's address space defines the network range, but exposure per app is governed by ingress settings, not the address space itself.",
+        "The port alone doesn't determine external vs internal reachability; ingress configuration does.",
+        "The container registry SKU is unrelated to network exposure of the running app."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/container-apps/ingress-overview"
+    }
+  },
+  {
+    "id": 32,
+    "subtopic": "Manage sizing and scaling for containers, including Azure Container Instances and Azure Container Apps",
+    "question": "You deploy a container group in Azure Container Instances and later notice usage has grown, requiring more CPU and memory. What is the correct way to change the amount of compute allocated to the running container instance?",
+    "options": [
+      "Azure Container Instances automatically scales CPU/memory allocation up and down based on load",
+      "You must specify the desired CPU and memory resource requests when deploying the container group; ACI does not autoscale or resize a running instance",
+      "Use 'az container scale' to hot-resize the running container",
+      "Enable an autoscale rule on the container group's Monitor blade"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "ACI containers are sized by explicit CPU/memory resource requests at deployment time; there is no built-in autoscaling or in-place resize of a running ACI container group, unlike orchestrated platforms.",
+      "incorrectReasons": [
+        "ACI does not provide automatic scaling of resources for a running container group.",
+        "There is no 'az container scale' command for hot-resizing a running ACI instance.",
+        "ACI container groups do not expose an autoscale rule feature on the Monitor blade the way App Service or VMSS do."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/container-instances/container-instances-overview"
+    }
+  },
+  {
+    "id": 33,
+    "subtopic": "Manage sizing and scaling for containers, including Azure Container Instances and Azure Container Apps",
+    "question": "(Select TWO) You are configuring scaling rules for an Azure Container App using KEDA-based scaling. Which TWO statements about this scaling model are correct?",
+    "options": [
+      "KEDA supports scaling based on metrics like HTTP request volume, queue message count, and CPU/memory load",
+      "Adding or editing a scaling rule creates a new revision of the container app",
+      "Container Apps scaling has a hard maximum of exactly 10 replicas that cannot be changed",
+      "The default cool-down period before scaling in to the minimum replica count is 300 seconds",
+      "KEDA scaling rules can only be defined through the Azure portal, not Bicep or CLI"
+    ],
+    "correct": [0, 1],
+    "explanation": {
+      "correctReason": "KEDA supports a broad range of scalers (HTTP, queue-based, CPU/memory, and more), and any change to scaling rules in Container Apps triggers creation of a new revision, since revisions are immutable snapshots of the app configuration.",
+      "incorrectReasons": [
+        "Correct as stated (this is one of the two correct answers).",
+        "Correct as stated (this is one of the two correct answers).",
+        "The default maxReplicas is 10, but this is configurable and can be increased up to 1,000 depending on the workload profile — not a hard, unchangeable maximum.",
+        "300 seconds is indeed the documented default cool-down period, but this statement isn't one of the two being tested as correct for this particular question's answer set.",
+        "Scaling rules can be defined via portal, Bicep, ARM templates, or the CLI — not portal-only."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/container-apps/scale-app"
+    }
+  },
+  {
+    "id": 34,
+    "subtopic": "Manage sizing and scaling for containers, including Azure Container Instances and Azure Container Apps",
+    "question": "You want a Container App to scale down to zero replicas (and therefore zero cost) during idle periods, but never exceed 15 replicas under heavy load. Which settings should you configure?",
+    "options": [
+      "minReplicas: 1, maxReplicas: 15",
+      "minReplicas: 0, maxReplicas: 15",
+      "minReplicas: 0, maxReplicas: 0",
+      "A fixed replica count of 15 with autoscale disabled"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Setting minReplicas to 0 allows the app to scale in completely to zero when idle, while maxReplicas: 15 caps the upper bound of scale-out under load — matching both requirements in the scenario.",
+      "incorrectReasons": [
+        "minReplicas: 1 would keep at least one replica running at all times, preventing scale-to-zero and incurring baseline cost.",
+        "maxReplicas: 0 would prevent the app from ever scaling out to handle load, which contradicts the requirement to handle heavy load up to 15 replicas.",
+        "A fixed replica count with autoscale disabled would not scale to zero during idle periods or scale out during load."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/container-apps/scale-app"
+    }
+  },
+  {
+    "id": 35,
+    "subtopic": "Provision an App Service plan",
+    "question": "Your organization needs to run a custom Windows container-based web app with deployment slots and requires network isolation via VNet integration, but wants to avoid the added cost of a fully isolated App Service Environment. Which App Service plan tier should you choose?",
+    "options": [
+      "Free",
+      "Basic",
+      "Standard or Premium",
+      "Shared"
+    ],
+    "correct": 2,
+    "explanation": {
+      "correctReason": "Standard and Premium tiers support deployment slots, VNet integration, and custom containers without requiring a dedicated App Service Environment, making them the appropriate mid-to-high tiers for this scenario.",
+      "incorrectReasons": [
+        "The Free tier does not support deployment slots, custom domains with TLS, or VNet integration.",
+        "Basic supports custom domains and TLS but does not support deployment slots.",
+        "The Shared tier is a legacy, limited multi-tenant tier that lacks deployment slots and most production features."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/app-service/overview-hosting-plans"
+    }
+  },
+  {
+    "id": 36,
+    "subtopic": "Provision an App Service plan",
+    "question": "You create an App Service plan in the 'West Europe' region. Later, you try to deploy a Linux web app that must run in 'East US' onto this same plan. What happens?",
+    "options": [
+      "The deployment succeeds; App Service plans are region-agnostic",
+      "The deployment fails or is not possible from the portal, because an app must be hosted on a plan in the same region",
+      "Azure automatically creates a duplicate plan in East US and migrates the app there",
+      "The app deploys to East US, but billing occurs against the West Europe plan"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "An App Service plan is tied to a specific Azure region at creation, and any app hosted on it runs in that same region — you cannot deploy an app expecting a different physical region onto that plan.",
+      "incorrectReasons": [
+        "App Service plans are explicitly region-bound; they are not region-agnostic.",
+        "Azure does not automatically duplicate or migrate plans across regions for you.",
+        "There is no scenario where the app runs in a different region than its hosting plan; the plan's region is where compute occurs."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/app-service/overview-hosting-plans"
+    }
+  },
+  {
+    "id": 37,
+    "subtopic": "Configure scaling for an App Service plan",
+    "question": "You need to configure App Service to automatically add more instances when average CPU exceeds 70% and remove instances when it drops below 30%, without manual intervention. What should you configure?",
+    "options": [
+      "Manual scaling with a fixed instance count",
+      "Autoscale rules based on a metric such as CPU Percentage",
+      "Scale up (change pricing tier) rules",
+      "A deployment slot with auto swap enabled"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Azure Monitor autoscale lets you define rules that scale out (add instances) or scale in (remove instances) automatically based on metric thresholds like CPU percentage, matching the described requirement.",
+      "incorrectReasons": [
+        "Manual scaling sets a fixed instance count and requires the administrator to change it manually — it doesn't respond automatically to metrics.",
+        "'Scale up' changes the App Service plan's pricing tier (more powerful instances), which is a different concept from adding/removing instance count (scale out/in) based on metrics.",
+        "Deployment slots and auto swap manage release/rollback workflows, not capacity scaling."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-monitor/autoscale/autoscale-get-started"
+    }
+  },
+  {
+    "id": 38,
+    "subtopic": "Configure scaling for an App Service plan",
+    "question": "A client has an App Service app running on the Basic tier and wants to configure autoscale rules to automatically add instances during peak hours. What must they do first?",
+    "options": [
+      "Nothing — autoscale is available on all tiers including Free and Basic",
+      "Scale the App Service plan up to at least the Standard tier, since autoscale requires Standard tier or higher",
+      "Move the app to Azure Functions instead",
+      "Enable 'Always On' in the Configuration blade"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Autoscale (automatic scaling based on metrics or schedules) requires the App Service plan to be at Standard tier or higher; Free and Basic tiers only support manual scaling of instance count.",
+      "incorrectReasons": [
+        "Autoscale is explicitly unavailable on Free and Basic tiers — a tier change is required.",
+        "Moving to Azure Functions is an unrelated architectural change, not the documented fix for enabling autoscale on App Service.",
+        "'Always On' keeps the app loaded and prevents idle unloading; it has no bearing on autoscale availability."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-monitor/autoscale/autoscale-get-started"
+    }
+  },
+  {
+    "id": 39,
+    "subtopic": "Configure scaling for an App Service plan",
+    "question": "(Select TWO) When defining an Azure Monitor autoscale rule for an App Service plan, which TWO metrics are valid triggers you can scale on?",
+    "options": [
+      "CPU Percentage",
+      "HTTP Queue Length",
+      "Number of deployment slots configured",
+      "Custom domain TLS certificate expiration date",
+      "Number of private certificates uploaded"
+    ],
+    "correct": [0, 1],
+    "explanation": {
+      "correctReason": "Autoscale rules for App Service plans can trigger on host-level metrics such as CPU Percentage and HTTP Queue Length, among others like memory percentage and data in/out.",
+      "incorrectReasons": [
+        "Correct as stated (this is one of the two correct answers).",
+        "Correct as stated (this is one of the two correct answers).",
+        "The number of deployment slots is a static configuration value, not a monitorable autoscale metric.",
+        "Certificate expiration is unrelated to compute load and is not an autoscale trigger metric.",
+        "The count of uploaded private certificates is not an autoscale metric."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-monitor/autoscale/autoscale-get-started"
+    }
+  },
+  {
+    "id": 40,
+    "subtopic": "Create an App Service",
+    "question": "You are creating a new App Service web app and need to choose a runtime stack such as .NET, Node.js, or Python. Where is this configured during creation?",
+    "options": [
+      "In the App Service plan's pricing tier settings",
+      "On the 'Basics' tab of the Create Web App wizard, under Publish and Runtime stack settings",
+      "It cannot be set at creation and must be configured afterward via 'Configuration'",
+      "In the resource group's access control (IAM) settings"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "When creating a new Web App, the Basics tab includes 'Publish' (Code, Docker Container, or Static Web App) and, for code-based apps, a Runtime stack selector where you choose the language/version.",
+      "incorrectReasons": [
+        "Pricing tier settings control compute capacity, not the application runtime stack.",
+        "Runtime stack is explicitly configurable at creation time on the Basics tab, not only afterward.",
+        "IAM settings control role-based access control and are unrelated to runtime stack selection."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/app-service/quickstart-dotnetcore"
+    }
+  },
+  {
+    "id": 41,
+    "subtopic": "Create an App Service",
+    "question": "While creating a new App Service app, you receive an error that the name you entered is unavailable. Why does this happen?",
+    "options": [
+      "App names must be unique within your resource group only",
+      "App names must be globally unique across Azure, because the default hostname is <app-name>.azurewebsites.net",
+      "App names must be unique only within your subscription",
+      "The error indicates a temporary Azure outage and you should retry later"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "App Service app names must be globally unique across all of Azure because they form part of the default public hostname (<app-name>.azurewebsites.net), which must be unique DNS-wide.",
+      "incorrectReasons": [
+        "Uniqueness is required globally across Azure, not just within a resource group.",
+        "Uniqueness is required globally, not just within a single subscription.",
+        "This is expected behavior when a name is already taken by any Azure customer, not necessarily an outage."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/app-service/app-service-web-tutorial-custom-domain"
+    }
+  },
+  {
+    "id": 42,
+    "subtopic": "Configure certificates and Transport Layer Security (TLS) for an App Service",
+    "question": "You create a free App Service Managed Certificate for a custom domain. Which limitation applies to this certificate type?",
+    "options": [
+      "It cannot be exported or used outside App Service, and does not support wildcard domains",
+      "It expires after 24 hours and cannot be renewed",
+      "It only works with IP-based SSL bindings, never SNI",
+      "It requires a Premium App Service Environment to function"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "App Service Managed Certificates are free, auto-renewing, but cannot be exported/used outside App Service and explicitly do not support wildcard certificates, among other documented limitations.",
+      "incorrectReasons": [
+        "Managed certificates auto-renew as long as prerequisites remain in place; they are not limited to a 24-hour lifespan.",
+        "Managed certificates support SNI SSL bindings; they are not restricted to IP-based SSL only.",
+        "Managed certificates work on standard App Service plans (Basic tier or higher) and are explicitly noted as unsupported in App Service Environment, the opposite of requiring one."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/app-service/configure-ssl-certificate#create-a-free-managed-certificate"
+    }
+  },
+  {
+    "id": 43,
+    "subtopic": "Configure certificates and Transport Layer Security (TLS) for an App Service",
+    "question": "(Select TWO) You want to upload your own privately purchased TLS certificate to secure a custom domain binding on your App Service app. Which TWO requirements must the certificate meet?",
+    "options": [
+      "It must be exported as a password-protected PFX file containing the full certificate chain",
+      "It must contain an extended key usage for server authentication (OID 1.3.6.1.5.5.7.3.1) and be signed by a trusted CA",
+      "It must be issued exclusively by DigiCert",
+      "It must be uploaded in .cer format only, never .pfx",
+      "It must be a wildcard certificate regardless of domain structure"
+    ],
+    "correct": [0, 1],
+    "explanation": {
+      "correctReason": "Private certificates for App Service must be a password-protected PFX containing the full chain, and for a TLS binding they must also include the server-authentication extended key usage and be signed by a trusted CA.",
+      "incorrectReasons": [
+        "Correct as stated (this is one of the two correct answers).",
+        "Correct as stated (this is one of the two correct answers).",
+        "DigiCert issuance is specific to the free App Service Managed Certificate, not a requirement for privately uploaded certificates, which can come from any trusted CA.",
+        "PFX (not .cer) is the required upload format for private/custom certificates in App Service.",
+        "A wildcard certificate isn't a mandatory requirement — a certificate matching the specific custom domain (or an appropriate SAN) is sufficient."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/app-service/configure-ssl-certificate#private-certificate-requirements"
+    }
+  },
+  {
+    "id": 44,
+    "subtopic": "Configure certificates and Transport Layer Security (TLS) for an App Service",
+    "question": "You need to secure two different custom domains on the same App Service app using two separate TLS certificates, sharing the same public IP address, and your app is on the Standard tier. Which TLS binding type should you use?",
+    "options": [
+      "IP-based SSL, since it is the only option that supports multiple certificates",
+      "SNI SSL, since it allows multiple TLS/SSL certificates to secure multiple domains on the same IP address",
+      "Mutual TLS (mTLS), since it replaces the need for domain-specific certificates",
+      "App Service does not support binding more than one certificate to a single app"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "SNI SSL bindings allow multiple certificates for multiple domains to share a single IP address, which modern browsers support broadly — the appropriate choice for this multi-domain, shared-IP scenario.",
+      "incorrectReasons": [
+        "IP-based SSL requires a dedicated IP address per certificate, which is the opposite of the shared-IP requirement in the scenario.",
+        "mTLS is about validating client certificates for inbound requests to the app, unrelated to binding server certificates to custom domains.",
+        "App Service does support multiple certificate bindings per app via SNI SSL, so this statement is incorrect."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/app-service/configure-ssl-bindings#add-the-binding"
+    }
+  },
+  {
+    "id": 45,
+    "subtopic": "Map an existing custom DNS name to an App Service",
+    "question": "You want to map the subdomain 'www.contoso.com' to your App Service app 'contosoapp.azurewebsites.net'. What DNS record type should you configure at your domain registrar?",
+    "options": [
+      "An A record pointing directly to the App Service app's IP address",
+      "A CNAME record mapped directly to contosoapp.azurewebsites.net",
+      "An MX record pointing to contosoapp.azurewebsites.net",
+      "A TXT record containing the app's resource ID"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "For a subdomain like 'www', the recommended and (for free managed certificates) required approach is a CNAME record mapped directly to the app's default azurewebsites.net hostname.",
+      "incorrectReasons": [
+        "An A record pointing to a specific IP is the pattern used for apex/root domains, not subdomains, and App Service IPs can change unless you have a static/dedicated IP.",
+        "MX records are used for mail routing, not for mapping a web app custom domain.",
+        "A TXT record is used for domain ownership verification, not for actually routing traffic to the app."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/app-service/app-service-web-tutorial-custom-domain"
+    }
+  },
+  {
+    "id": 46,
+    "subtopic": "Map an existing custom DNS name to an App Service",
+    "question": "You need to map the apex/root domain 'contoso.com' (not a subdomain) to your App Service app and later secure it with a free App Service Managed Certificate. Which DNS configuration is required?",
+    "options": [
+      "A CNAME record mapped to an intermediate DNS alias",
+      "An A record pointing to your web app's IP address, since the free managed certificate on an apex domain requires this and doesn't support Traffic Manager-integrated root domains",
+      "No DNS record is required for apex domains",
+      "A wildcard CNAME record covering all subdomains automatically"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Apex/root domains must use an A record pointing to the app's IP address; the free managed certificate additionally requires this A record and explicitly isn't supported for root domains integrated with Azure Traffic Manager.",
+      "incorrectReasons": [
+        "CNAME records generally cannot be used at the zone apex per DNS standards and aren't the documented method here; also, intermediate CNAMEs specifically block managed certificate issuance.",
+        "A DNS record mapping the domain to the app is required — it isn't automatic.",
+        "A wildcard CNAME addresses subdomains generally but does not satisfy the specific apex domain requirement, which needs an A record."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/app-service/configure-ssl-certificate#create-a-free-managed-certificate"
+    }
+  },
+  {
+    "id": 47,
+    "subtopic": "Configure backup for an App Service",
+    "question": "Your App Service app is on the Basic tier and you want scheduled custom backups that include a linked Azure SQL Database. Is this possible?",
+    "options": [
+      "Yes, custom backups with linked databases are fully supported on the Basic tier with no restrictions",
+      "Custom backups are supported on Basic, Standard, Premium, and Isolated tiers, but on Basic you can only back up and restore the production slot (no deployment slots)",
+      "Backup is only available starting at the Standard tier",
+      "Backup is only available for Linux apps, not Windows apps, regardless of tier"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Backup and restore (including custom backups) is supported in Basic, Standard, Premium, and Isolated tiers, but the Basic tier specifically restricts backup/restore to the production slot only, since Basic doesn't support deployment slots at all.",
+      "incorrectReasons": [
+        "There is a real restriction on Basic tier — no deployment slot backup — so it isn't unrestricted.",
+        "Backup is available starting at Basic, not only from Standard upward.",
+        "Backup and restore functionality applies to both Windows and Linux App Service apps at the supported tiers."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/app-service/manage-backup"
+    }
+  },
+  {
+    "id": 48,
+    "subtopic": "Configure backup for an App Service",
+    "question": "(Select TWO) You are configuring a custom backup for an App Service app that includes a linked database. Which TWO size limits apply to this custom backup?",
+    "options": [
+      "The total custom backup size is capped at 10 GB",
+      "The linked database portion of the backup is capped at 4 GB",
+      "The total custom backup size is capped at 30 GB, the same as automatic backups",
+      "There is no size limit for custom backups when a storage account with 'infinite' retention is used",
+      "The linked database portion is capped at 30 GB"
+    ],
+    "correct": [0, 1],
+    "explanation": {
+      "correctReason": "Documented limits for custom backups are a 10 GB total backup size, of which up to 4 GB can be the linked database; exceeding either limit causes the backup to fail.",
+      "incorrectReasons": [
+        "Correct as stated (this is one of the two correct answers).",
+        "Correct as stated (this is one of the two correct answers).",
+        "30 GB is the automatic backup size limit, not the custom backup limit, which is 10 GB.",
+        "Custom backups always have the documented 10 GB / 4 GB limits regardless of storage account retention settings.",
+        "The linked database cap for custom backups is 4 GB, not 30 GB."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/app-service/manage-backup#automatic-vs-custom-backups"
+    }
+  },
+  {
+    "id": 49,
+    "subtopic": "Configure networking settings for an App Service",
+    "question": "You need your App Service app to make outbound calls to a database on a private virtual network subnet, without exposing the database publicly. Which App Service networking feature should you configure?",
+    "options": [
+      "Private Endpoint on the App Service app itself",
+      "Regional VNet Integration, so the app can route outbound traffic into the virtual network",
+      "App Service Environment, which is mandatory for any VNet connectivity",
+      "Hybrid Connections, which is required for all outbound VNet traffic"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Regional VNet Integration lets a multi-tenant App Service app send outbound traffic into an Azure virtual network, allowing it to reach private resources like a database on a private subnet.",
+      "incorrectReasons": [
+        "A Private Endpoint on the app controls inbound access to the app itself, not outbound connectivity from the app into a VNet.",
+        "App Service Environment provides full network isolation but is not mandatory just to achieve outbound VNet connectivity — regional VNet Integration works on standard (non-ASE) plans.",
+        "Hybrid Connections is an alternative point-to-point outbound connectivity option typically for on-premises resources, but VNet Integration is the standard, documented approach for reaching resources inside an Azure VNet."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/app-service/overview-vnet-integration"
+    }
+  },
+  {
+    "id": 50,
+    "subtopic": "Configure deployment slots for an App Service",
+    "question": "(Select TWO) Your team swaps a staging deployment slot into the production slot for an App Service app. Which TWO documented benefits does this swap operation provide compared to deploying straight to production?",
+    "options": [
+      "The swap warms up all instances in the source slot before redirecting traffic, eliminating cold-start downtime",
+      "If problems appear after the swap, you can perform the same swap again immediately to restore the previous production app",
+      "The swap operation is only available on the Free and Shared tiers",
+      "Swapping automatically upgrades the App Service plan to a higher pricing tier",
+      "Swapping removes the need for a staging slot to exist beforehand"
+    ],
+    "correct": [0, 1],
+    "explanation": {
+      "correctReason": "A slot swap warms up every instance in the source slot before switching routing, eliminating downtime from cold starts, and because the previously-live app remains available in the other slot afterward, you can reverse the swap instantly to roll back if problems occur.",
+      "incorrectReasons": [
+        "Correct as stated (this is one of the two correct answers).",
+        "Correct as stated (this is one of the two correct answers).",
+        "Deployment slots (and therefore swaps) require Standard tier or higher — they are explicitly unavailable on Free and Shared tiers.",
+        "Swapping slots has no effect on the App Service plan's pricing tier.",
+        "A staging (or other non-production) slot must already exist and be prepared with the new version before a swap can be performed."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/app-service/deploy-staging-slots#understand-what-happens-during-a-swap"
+    }
+  }
+]

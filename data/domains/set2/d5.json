@@ -1,0 +1,1065 @@
+[
+  {
+    "id": 1,
+    "subtopic": "Interpret metrics in Azure Monitor",
+    "question": "An administrator opens the Metrics blade for a VM and sets the time range to the last 90 days to review CPU Percentage trends. The chart renders blank even though the metric is known to have data throughout that period. What is the most likely cause?",
+    "options": [
+      "A single metrics chart can display a maximum of 30 days of data even though the underlying data is retained for 93 days; the time range must be narrowed and then panned",
+      "Platform metrics are only retained for 30 days total, so data older than 30 days no longer exists",
+      "The VM must be sending metrics to a Log Analytics workspace before any chart can render",
+      "Metrics charts only support a maximum time range of 24 hours"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "While most platform and custom metrics are stored for 93 days, any single Metrics Explorer chart can display a maximum of 30 days of data at a time. The administrator should reduce the range to 30 days or less and pan across the chart to view the full retention window.",
+      "incorrectReasons": [
+        "Retention for platform and custom metrics is 93 days by default, not 30 days.",
+        "Charts render fine without a Log Analytics workspace; metrics are collected automatically for platform resources.",
+        "The maximum single-chart range is 30 days, not 24 hours; shorter ranges are also supported."
+      ],
+      "reference": "https://learn.microsoft.com/azure/azure-monitor/metrics/metrics-troubleshoot#chart-shows-no-data"
+    }
+  },
+  {
+    "id": 2,
+    "subtopic": "Interpret metrics in Azure Monitor",
+    "question": "A compliance team needs to analyze CPU and memory trends for a set of VMs going back nearly two years, well beyond the standard metrics retention window. What should the administrator configure to meet this requirement?",
+    "options": [
+      "Send platform metrics to a Log Analytics workspace using diagnostic settings so they can be queried and retained long-term",
+      "Manually export a CSV from the Metrics blade every 90 days and store it in Blob storage",
+      "Request Microsoft Support to extend the retention of Azure Monitor Metrics for the subscription",
+      "Enable Prometheus metrics, which are retained indefinitely by default"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Platform metrics are stored for only 93 days in Azure Monitor Metrics. To retain and analyze metric data for longer periods, you configure a diagnostic setting to send the metrics (AllMetrics) to a Log Analytics workspace, where retention can be configured up to two years or longer with archiving.",
+      "incorrectReasons": [
+        "Manual CSV exports are operationally unreliable and not the recommended long-term retention pattern.",
+        "Azure Monitor Metrics retention cannot be extended per-subscription through a support request.",
+        "Prometheus metrics are retained for 18 months, not indefinitely, and don't apply to standard VM platform metrics."
+      ],
+      "reference": "https://learn.microsoft.com/azure/azure-monitor/platform/tutorial-resource-logs#create-a-diagnostic-setting"
+    }
+  },
+  {
+    "id": 3,
+    "subtopic": "Interpret metrics in Azure Monitor",
+    "question": "Which statement correctly describes platform metrics in Azure Monitor?",
+    "options": [
+      "Platform metrics are collected automatically from Azure resources, require no configuration, and have no cost",
+      "Platform metrics must be explicitly enabled per resource and are billed based on data volume ingested",
+      "Platform metrics require an agent to be installed on every monitored resource",
+      "Platform metrics are only available for compute resources such as VMs and VM Scale Sets"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Platform metrics are collected from Azure resources automatically, require no configuration, and are provided at no additional cost, distinguishing them from custom metrics and advanced platform metrics.",
+      "incorrectReasons": [
+        "No explicit enablement or ingestion billing applies to platform metrics; that description applies more to custom or advanced platform metrics.",
+        "Platform metrics don't require agents; they are emitted directly by the Azure resource provider.",
+        "Platform metrics are available for a very wide range of resource types, not just compute."
+      ],
+      "reference": "https://learn.microsoft.com/azure/azure-monitor/metrics/data-platform-metrics"
+    }
+  },
+  {
+    "id": 4,
+    "subtopic": "Interpret metrics in Azure Monitor",
+    "question": "A platform team monitoring an AKS cluster wants to use PromQL and Grafana against Prometheus metrics collected by Azure Monitor. Which retention and query-span limitations apply?",
+    "options": [
+      "Prometheus metrics are stored for 93 days, and a single PromQL query can span up to 30 days",
+      "Prometheus metrics are stored for 18 months, and a single PromQL query can span up to 32 days",
+      "Prometheus metrics are stored indefinitely, and there is no limit on PromQL query span",
+      "Prometheus metrics are stored for 30 days, and a single PromQL query can span up to 7 days"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Prometheus metrics collected by Azure Monitor are stored for 18 months, but any individual PromQL query is limited to spanning a maximum of 32 days.",
+      "incorrectReasons": [
+        "93 days/30 days describes standard platform and custom metrics, not Prometheus metrics.",
+        "Prometheus metrics are not retained indefinitely; the retention window is 18 months.",
+        "30 days/7 days understates both the retention period and the allowed query span for Prometheus metrics."
+      ],
+      "reference": "https://learn.microsoft.com/azure/azure-monitor/metrics/data-platform-metrics#retention-of-metrics"
+    }
+  },
+  {
+    "id": 5,
+    "subtopic": "Interpret metrics in Azure Monitor",
+    "question": "Which TWO statements about Azure Monitor Metrics are correct? (Select TWO)",
+    "options": [
+      "Platform metrics are collected automatically at no additional cost",
+      "Custom metrics are collected from sources you configure, such as applications and agents on VMs",
+      "Every type of metric in Azure Monitor shares the exact same 93-day retention with no exceptions",
+      "A Log Analytics workspace must exist before any metric can be collected"
+    ],
+    "correct": [0, 1],
+    "explanation": {
+      "correctReason": "Platform metrics require no configuration and are free, while custom metrics come from sources you explicitly configure, such as applications, agents, and data collection rules.",
+      "incorrectReasons": [
+        "",
+        "",
+        "There are documented exceptions to the 93-day retention, such as classic guest OS metrics (14+ days) and Application Insights log-based metrics (31 days to 2 years).",
+        "Metrics collection does not require a Log Analytics workspace; that is only needed if you want to route metrics there via diagnostic settings for long-term querying."
+      ],
+      "reference": "https://learn.microsoft.com/azure/azure-monitor/metrics/data-platform-metrics"
+    }
+  },
+  {
+    "id": 6,
+    "subtopic": "Configure log settings in Azure Monitor",
+    "question": "An administrator needs a single Key Vault's diagnostic logs sent to both a Log Analytics workspace and an Event Hub simultaneously. What is the minimum configuration required?",
+    "options": [
+      "Create one diagnostic setting and select both destinations within it",
+      "Create two separate diagnostic settings, one for each destination",
+      "This is not possible; a resource can only send logs to one destination type",
+      "Configure it through Azure Policy since diagnostic settings only support a single destination"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "A single diagnostic setting can include multiple destinations of different types (for example, a Log Analytics workspace and an Event Hub) at the same time, so only one setting is needed here.",
+      "incorrectReasons": [
+        "Two settings aren't required when the destinations are of different types; one setting can hold both.",
+        "Diagnostic settings do support multiple destination types simultaneously.",
+        "Diagnostic settings are configured directly on the resource, not through Azure Policy for this scenario."
+      ],
+      "reference": "https://learn.microsoft.com/azure/azure-monitor/platform/diagnostic-settings#destinations"
+    }
+  },
+  {
+    "id": 7,
+    "subtopic": "Configure log settings in Azure Monitor",
+    "question": "For compliance reasons, a storage account must send the same log category to three separate Log Analytics workspaces. Can this be achieved with a single diagnostic setting?",
+    "options": [
+      "No; a single diagnostic setting can define no more than one destination of each type, so three separate diagnostic settings are required",
+      "Yes; you can add as many Log Analytics workspace destinations as needed within one diagnostic setting",
+      "No; only one diagnostic setting is allowed per resource in total, regardless of destination type",
+      "Yes, but only when using the Azure CLI, not the portal"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "A diagnostic setting can define no more than one destination of a given type (for example, one Log Analytics workspace). To send the same data to multiple workspaces, you must create multiple diagnostic settings, up to the maximum of five per resource.",
+      "incorrectReasons": [
+        "Only one Log Analytics workspace destination is allowed per diagnostic setting.",
+        "Multiple diagnostic settings per resource are allowed (up to five), just not multiple destinations of the same type within one setting.",
+        "This capability isn't limited to any particular client tool; the underlying one-per-type restriction is the same everywhere."
+      ],
+      "reference": "https://learn.microsoft.com/azure/azure-monitor/platform/diagnostic-settings#destinations"
+    }
+  },
+  {
+    "id": 8,
+    "subtopic": "Configure log settings in Azure Monitor",
+    "question": "What is the maximum number of diagnostic settings that can be created for a single Azure resource?",
+    "options": [
+      "1",
+      "3",
+      "5",
+      "Unlimited"
+    ],
+    "correct": 2,
+    "explanation": {
+      "correctReason": "Each Azure resource supports up to five diagnostic settings, allowing logs and metrics to be routed to different combinations of destinations.",
+      "incorrectReasons": [
+        "One setting would prevent sending different categories to different destinations without workarounds.",
+        "Three is not the documented limit.",
+        "The limit is capped at five, not unlimited."
+      ],
+      "reference": "https://learn.microsoft.com/azure/azure-monitor/platform/diagnostic-settings#destinations"
+    }
+  },
+  {
+    "id": 9,
+    "subtopic": "Configure log settings in Azure Monitor",
+    "question": "An administrator configures a diagnostic setting on a regional storage account to archive logs to a storage account and stream them to an Event Hub. What regional constraint applies to these two destinations?",
+    "options": [
+      "The destination storage account and Event Hub must be in the same region as the monitored resource",
+      "The destinations can be in any Azure region with no restriction",
+      "Only the Log Analytics workspace destination has a regional restriction",
+      "The restriction applies only when virtual networks are enabled on the resource"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "For regional resources, diagnostic settings require that Storage account and Event Hub destinations reside in the same region as the monitored resource. A Log Analytics workspace destination does not have this same-region requirement.",
+      "incorrectReasons": [
+        "There is a documented regional constraint for storage accounts and event hubs.",
+        "It is the Log Analytics workspace, not Storage/Event Hub, that lacks the same-region restriction.",
+        "The regional constraint applies regardless of whether virtual networks are enabled; VNets add an additional firewall bypass requirement, not the origin of the region rule."
+      ],
+      "reference": "https://learn.microsoft.com/azure/azure-monitor/platform/diagnostic-settings#destinations"
+    }
+  },
+  {
+    "id": 10,
+    "subtopic": "Configure log settings in Azure Monitor",
+    "question": "Which TWO destination types require the diagnostic setting's destination resource to reside in the same Azure region as the monitored resource? (Select TWO)",
+    "options": [
+      "Log Analytics workspace",
+      "Storage account",
+      "Event Hubs",
+      "Partner solution"
+    ],
+    "correct": [1, 2],
+    "explanation": {
+      "correctReason": "For regional resources, diagnostic settings require that Storage account and Event Hub destinations be in the same region as the monitored resource.",
+      "incorrectReasons": [
+        "A Log Analytics workspace destination does not need to match the resource's region.",
+        "",
+        "",
+        "Partner solution destinations follow their own placement rules defined by the partner integration, not this same-region constraint."
+      ],
+      "reference": "https://learn.microsoft.com/azure/azure-monitor/platform/diagnostic-settings#destinations"
+    }
+  },
+  {
+    "id": 11,
+    "subtopic": "Query and analyze logs in Azure Monitor",
+    "question": "An administrator wants a KQL query that reviews all Perf records from the last hour, groups them by ObjectName, and returns the count of records in each group. Which query is correct?",
+    "options": [
+      "Perf | where TimeGenerated > ago(1h) | summarize count() by ObjectName",
+      "Perf | where TimeGenerated > ago(1h) | project count() by ObjectName",
+      "Perf | where TimeGenerated > ago(1h) | extend count() by ObjectName",
+      "Perf | where TimeGenerated > ago(1h) | distinct ObjectName"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "The summarize operator with the by clause is used to group records by a column and apply aggregations such as count() to each group.",
+      "incorrectReasons": [
+        "project selects columns to return; it does not perform aggregation.",
+        "extend adds calculated columns; it does not group and aggregate rows.",
+        "distinct removes duplicate values but does not produce counts per group."
+      ],
+      "reference": "https://learn.microsoft.com/azure/azure-monitor/logs/get-started-queries#aggregate-and-group-results"
+    }
+  },
+  {
+    "id": 12,
+    "subtopic": "Query and analyze logs in Azure Monitor",
+    "question": "An administrator needs to run a single KQL query that combines the Update table from the current workspace with the Update table from two other Log Analytics workspaces identified by workspace ID. Which approach is correct?",
+    "options": [
+      "Use the union operator, referencing the other workspaces with workspace(\"<workspaceId>\").TableName",
+      "This scenario always requires a join, not a union, across workspaces",
+      "Cross-workspace queries are not supported in Azure Monitor Logs",
+      "Use Azure Monitor Metrics instead, since Logs cannot query multiple workspaces"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Azure Monitor Logs supports cross-resource queries using the union operator combined with the workspace() expression referencing each workspace by ID, allowing data from multiple workspaces to be combined in one query.",
+      "incorrectReasons": [
+        "join is used to correlate rows between tables on a key; union (or a scoping function) is the correct approach to combine the same table across workspaces.",
+        "Cross-workspace queries are explicitly supported using union and workspace().",
+        "Azure Monitor Metrics is a separate data platform and does not support this kind of cross-workspace log query."
+      ],
+      "reference": "https://learn.microsoft.com/azure/azure-monitor/logs/cross-workspace-query#use-functions-to-simplify-queries"
+    }
+  },
+  {
+    "id": 13,
+    "subtopic": "Query and analyze logs in Azure Monitor",
+    "question": "An administrator wants to build a chart showing hourly counts of sign-ins over time using KQL. Which construct correctly groups timestamps into hourly buckets within a summarize statement?",
+    "options": [
+      "summarize count() by bin(TimeGenerated, 1h)",
+      "where TimeGenerated == ago(1h)",
+      "project TimeGenerated between(1h)",
+      "render timechart by TimeGenerated"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "The bin() function groups a datetime column into fixed-size intervals (such as 1 hour), and used inside summarize ... by, it produces time-bucketed aggregations suitable for charting.",
+      "incorrectReasons": [
+        "ago(1h) calculates a point in time relative to now; it does not bucket values and using == would filter for an exact match, not a range.",
+        "between() is used inside a where clause to filter a range, not to bucket values for aggregation.",
+        "render timechart visualizes results but does not perform the time-bucketing itself; that still requires summarize with bin()."
+      ],
+      "reference": "https://learn.microsoft.com/azure/azure-monitor/logs/get-started-queries#aggregate-and-group-results"
+    }
+  },
+  {
+    "id": 14,
+    "subtopic": "Query and analyze logs in Azure Monitor",
+    "question": "What are the default and maximum data retention periods for a pay-as-you-go Log Analytics workspace?",
+    "options": [
+      "30 days default, up to 730 days (2 years) maximum",
+      "7 days default, 7 days maximum",
+      "90 days default, 1 year maximum",
+      "6 months default, unlimited maximum"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "A pay-as-you-go Log Analytics workspace defaults to 30 days of retention and can be configured up to a maximum of 730 days (2 years).",
+      "incorrectReasons": [
+        "7 days default/maximum describes the free tier, not pay-as-you-go.",
+        "90 days default and a 1-year cap do not match the documented values.",
+        "There is no unlimited retention option; 730 days is the documented maximum."
+      ],
+      "reference": "https://learn.microsoft.com/azure/azure-monitor/logs/data-retention-configure"
+    }
+  },
+  {
+    "id": 15,
+    "subtopic": "Query and analyze logs in Azure Monitor",
+    "question": "Which TWO statements correctly describe the KQL summarize operator? (Select TWO)",
+    "options": [
+      "It aggregates rows into groups based on one or more columns",
+      "It permanently renames the source table",
+      "It can calculate an aggregation such as count() for each group",
+      "It filters rows out of the result set based on a boolean condition"
+    ],
+    "correct": [0, 2],
+    "explanation": {
+      "correctReason": "summarize groups rows by specified columns (using by) and computes aggregations, such as count(), avg(), or sum(), for each resulting group.",
+      "incorrectReasons": [
+        "",
+        "summarize does not rename tables; that would require an operator like as or a let statement.",
+        "",
+        "Filtering rows by a boolean condition is the role of the where operator, not summarize."
+      ],
+      "reference": "https://learn.microsoft.com/azure/azure-monitor/logs/get-started-queries#aggregate-and-group-results"
+    }
+  },
+  {
+    "id": 16,
+    "subtopic": "Set up alert rules, action groups, and alert processing rules in Azure Monitor",
+    "question": "Azure Backup generates certain alerts automatically without an alert rule, but its alert source doesn't let you directly attach an action group. How can an administrator route these fired alerts to an email notification channel?",
+    "options": [
+      "Create an alert processing rule that applies an action group to the Azure Backup alerts",
+      "Enable diagnostic settings on the Recovery Services vault; this alone routes alerts to email",
+      "Attach the action group directly within the Azure Backup alert's built-in settings",
+      "Create a metric alert rule that mirrors the built-in backup alert logic"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Some alert sources, including Azure Backup alerts and VM Insights guest health alerts, don't let you specify action groups directly. Alert processing rules let you add action groups to these alert types after they fire.",
+      "incorrectReasons": [
+        "Diagnostic settings route logs/metrics to storage or analytics destinations; they don't attach action groups to already-fired alerts.",
+        "Built-in Azure Backup alerts do not expose a direct action group setting, which is exactly why alert processing rules exist for this case.",
+        "Recreating the logic as a metric alert rule is unnecessary and doesn't apply to alert types that are generated automatically outside of alert rules."
+      ],
+      "reference": "https://learn.microsoft.com/azure/azure-monitor/alerts/alerts-processing-rules#management-at-scale"
+    }
+  },
+  {
+    "id": 17,
+    "subtopic": "Set up alert rules, action groups, and alert processing rules in Azure Monitor",
+    "question": "A team has dozens of separate alert rules covering many VMs in a resource group. They need to suppress all notifications during a one-time overnight maintenance window without editing every alert rule individually. What is the recommended approach?",
+    "options": [
+      "Create an alert processing rule with a Suppression action, scoped to the resource group, scheduled for the maintenance window",
+      "Manually disable every individual alert rule before the window and re-enable them afterward",
+      "Temporarily delete the action groups used by the alert rules",
+      "Use the Mute actions setting on each alert rule separately"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Alert processing rules let you suppress notifications for a defined scope (such as a resource group) on a one-time or recurring schedule, without touching the individual alert rules. This avoids the error-prone process of disabling and re-enabling many rules.",
+      "incorrectReasons": [
+        "Manually toggling many alert rules is exactly the time-consuming, error-prone approach that alert processing rules are designed to avoid.",
+        "Deleting action groups affects unrelated alerts too and is not a supported or recommended suppression pattern.",
+        "Mute actions is configured per alert rule, which does not scale efficiently across many rules the way a single alert processing rule does."
+      ],
+      "reference": "https://learn.microsoft.com/azure/azure-monitor/alerts/alerts-processing-rules"
+    }
+  },
+  {
+    "id": 18,
+    "subtopic": "Set up alert rules, action groups, and alert processing rules in Azure Monitor",
+    "question": "A fired alert is affected by both a Suppression alert processing rule and a separate Apply action groups alert processing rule at the same time. What is the resulting behavior?",
+    "options": [
+      "Suppression takes priority, and the alert's action groups are suppressed",
+      "Apply action groups takes priority, and notifications are still sent",
+      "Both actions occur, resulting in duplicate notifications",
+      "The rule created most recently determines the outcome"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "The suppression action has a higher priority than the apply action groups action. If a fired alert is affected by both rule types, its action groups are suppressed.",
+      "incorrectReasons": [
+        "Apply action groups does not override suppression; suppression wins in a conflict.",
+        "Duplicate notifications don't occur here because suppression takes precedence over applying action groups.",
+        "Priority is determined by rule type (suppression wins), not by creation order."
+      ],
+      "reference": "https://learn.microsoft.com/azure/azure-monitor/alerts/alerts-processing-rules#scope-and-filters-for-alert-processing-rules"
+    }
+  },
+  {
+    "id": 19,
+    "subtopic": "Set up alert rules, action groups, and alert processing rules in Azure Monitor",
+    "question": "After an administrator creates a new alert processing rule, how long can it take before the rule begins affecting newly fired alerts?",
+    "options": [
+      "Up to 30 minutes",
+      "Immediately, with no propagation delay",
+      "Up to 24 hours",
+      "Up to 5 minutes"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "After you create or update an alert processing rule, it can take up to 30 minutes for the rule to take effect and start processing newly fired alerts. Alerts fired during this propagation window might not be affected.",
+      "incorrectReasons": [
+        "There is a documented propagation delay; the rule does not apply instantly.",
+        "24 hours overstates the documented propagation window.",
+        "5 minutes understates the documented propagation window of up to 30 minutes."
+      ],
+      "reference": "https://learn.microsoft.com/azure/azure-monitor/alerts/alerts-processing-rules#configure-an-alert-processing-rule"
+    }
+  },
+  {
+    "id": 20,
+    "subtopic": "Set up alert rules, action groups, and alert processing rules in Azure Monitor",
+    "question": "Which TWO statements about alert processing rules are correct? (Select TWO)",
+    "options": [
+      "They can add or suppress action groups on already-fired alerts",
+      "They generate new alerts when a monitored condition is met",
+      "They can be scoped to a single resource, a resource group, or an entire subscription",
+      "They eliminate the need to ever configure an action group"
+    ],
+    "correct": [0, 2],
+    "explanation": {
+      "correctReason": "Alert processing rules modify fired alerts by adding or suppressing action groups, and they can be scoped from a single resource up to an entire subscription within the same subscription as the rule.",
+      "incorrectReasons": [
+        "",
+        "Generating new alerts based on a condition is the role of an alert rule, not an alert processing rule, which only modifies already-fired alerts.",
+        "",
+        "Action groups are still required as the actual notification channels; alert processing rules control how and when they are applied, not replace them."
+      ],
+      "reference": "https://learn.microsoft.com/azure/azure-monitor/alerts/alerts-processing-rules"
+    }
+  },
+  {
+    "id": 21,
+    "subtopic": "Configure and interpret monitoring of virtual machines, storage accounts, and networks by using Azure Monitor Insights",
+    "question": "An administrator without any special role assignment reports being unable to view VM Insights performance charts for a virtual machine, even though the VM is properly onboarded. Which permission is required?",
+    "options": [
+      "Monitoring Reader permissions on the virtual machine and on the VM Insights Data Collection Rule (DCR)",
+      "Owner permissions on the entire subscription",
+      "Backup Contributor permissions on the Recovery Services vault",
+      "Log Analytics Contributor permissions only, with no VM-level role needed"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "To view VM Insights performance charts, a user must have Monitoring Reader permissions on both the virtual machine itself and on the VM Insights Data Collection Rule (DCR) associated with it.",
+      "incorrectReasons": [
+        "Subscription Owner is far broader than required and is not the specifically documented requirement.",
+        "Backup Contributor relates to Azure Backup, not VM Insights monitoring.",
+        "Log Analytics Contributor alone is not sufficient; Monitoring Reader is required on both the VM and its DCR."
+      ],
+      "reference": "https://learn.microsoft.com/azure/azure-monitor/vm/vminsights-performance#permissions-required"
+    }
+  },
+  {
+    "id": 22,
+    "subtopic": "Configure and interpret monitoring of virtual machines, storage accounts, and networks by using Azure Monitor Insights",
+    "question": "An administrator notices that the network chart in VM Insights shows more traffic than the network chart on the Azure VM's own Overview page for the same VM and time range. What explains this difference?",
+    "options": [
+      "VM Insights data is based on the guest VM and includes all inbound/outbound TCP/IP traffic, including inter-virtual-network traffic, while the VM Overview page shows only billed traffic measured at the host",
+      "VM Insights data is inaccurate and should not be trusted for network analysis",
+      "The VM Overview page includes inter-VNet traffic that VM Insights excludes",
+      "The two charts should always match exactly; any difference indicates a monitoring agent failure"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "The VM Overview network chart reflects the host's measurement of billed activity and excludes inter-virtual-network traffic, whereas VM Insights' Performance tab is based on guest VM data and shows all inbound and outbound TCP/IP traffic, including inter-VNet traffic. This is expected behavior, not an error.",
+      "incorrectReasons": [
+        "VM Insights data isn't inaccurate; it's simply scoped differently (guest-level, all traffic) than the host-level billed traffic view.",
+        "It's the VM Overview page that excludes inter-VNet traffic, not VM Insights.",
+        "A difference between the two charts is expected and documented, not evidence of an agent failure."
+      ],
+      "reference": "https://learn.microsoft.com/azure/azure-monitor/vm/vminsights-performance"
+    }
+  },
+  {
+    "id": 23,
+    "subtopic": "Configure and interpret monitoring of virtual machines, storage accounts, and networks by using Azure Monitor Insights",
+    "question": "Which Azure Monitor Insight provides a unified view of an Azure Storage account's performance, capacity, and availability without requiring extra configuration on the account?",
+    "options": [
+      "Storage Insights",
+      "VM Insights",
+      "Network Insights",
+      "Container Insights"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Storage Insights delivers a unified view of Azure Storage accounts' performance, capacity, and availability directly from the Insights hub in the Azure portal.",
+      "incorrectReasons": [
+        "VM Insights focuses on virtual machines and virtual machine scale sets, not storage accounts.",
+        "Network Insights focuses on network resource topology, health, and metrics.",
+        "Container Insights monitors container workloads on Azure Kubernetes Service, not storage accounts."
+      ],
+      "reference": "https://learn.microsoft.com/azure/azure-monitor/visualize/insights-overview#insights-and-curated-visualizations"
+    }
+  },
+  {
+    "id": 24,
+    "subtopic": "Configure and interpret monitoring of virtual machines, storage accounts, and networks by using Azure Monitor Insights",
+    "question": "In Network Insights' resource view for an Application Gateway, an administrator right-clicks a backend pool virtual machine to troubleshoot connectivity. Which two capabilities does this action provide direct access to?",
+    "options": [
+      "VM Insights and Network Watcher connection troubleshooting",
+      "Backup Center and Azure Site Recovery dashboards",
+      "Cost Management and Azure Advisor recommendations",
+      "Log Analytics workspace creation only"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "From the resource view of an Application Gateway in Network Insights, right-clicking a backend pool VM provides direct navigation to VM Insights and to Azure Network Watcher's connection troubleshooting tool, streamlining diagnosis of backend health issues.",
+      "incorrectReasons": [
+        "Backup Center and Site Recovery are unrelated to this specific Network Insights troubleshooting workflow.",
+        "Cost Management and Advisor are not part of the Network Insights resource view drill-down.",
+        "This action provides diagnostic tool access, not workspace creation."
+      ],
+      "reference": "https://learn.microsoft.com/azure/network-watcher/network-insights-overview#network-health-and-metrics"
+    }
+  },
+  {
+    "id": 25,
+    "subtopic": "Configure and interpret monitoring of virtual machines, storage accounts, and networks by using Azure Monitor Insights",
+    "question": "Which TWO of the following are documented limitations of VM Insights performance data collection? (Select TWO)",
+    "options": [
+      "Available memory isn't reported on some older Linux kernel versions, such as RHEL 6",
+      "Disk metrics are only available for data disks on Linux VMs using the XFS or EXT filesystem family",
+      "VM Insights cannot monitor Windows virtual machines at all",
+      "VM Insights performance data collection requires no Log Analytics workspace whatsoever"
+    ],
+    "correct": [0, 1],
+    "explanation": {
+      "correctReason": "Documented limitations include that available memory isn't reported on some older Linux kernels (below roughly 3.14), and that disk metrics for data disks on Linux are limited to VMs using the XFS or EXT filesystem family.",
+      "incorrectReasons": [
+        "",
+        "",
+        "VM Insights fully supports Windows VMs; this is not a limitation.",
+        "VM Insights relies on a Log Analytics workspace (via the logs-based experience) for its performance charts, so this statement is incorrect."
+      ],
+      "reference": "https://learn.microsoft.com/azure/azure-monitor/vm/vminsights-performance#limitations"
+    }
+  },
+  {
+    "id": 26,
+    "subtopic": "Use Azure Network Watcher and Connection Monitor",
+    "question": "Which Network Watcher capability provides continuous, unified network connectivity monitoring using TCP, ICMP, and HTTP tests, including hop-by-hop latency visualization along the network path?",
+    "options": [
+      "Connection Monitor",
+      "NSG flow logs",
+      "IP flow verify",
+      "Next hop"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Connection Monitor provides unified and continuous network connectivity monitoring, measuring aggregated packet loss and latency across TCP, ICMP, and HTTP tests, and visualizes the end-to-end network path with hop-level performance metrics.",
+      "incorrectReasons": [
+        "NSG flow logs capture information about IP traffic flowing through a network security group, not continuous synthetic connectivity tests.",
+        "IP flow verify is a point-in-time diagnostic to check whether a packet is allowed or denied, not continuous monitoring.",
+        "Next hop identifies the next hop type and IP for traffic from a VM; it is not a continuous monitoring capability."
+      ],
+      "reference": "https://learn.microsoft.com/azure/network-watcher/connection-monitor-overview"
+    }
+  },
+  {
+    "id": 27,
+    "subtopic": "Use Azure Network Watcher and Connection Monitor",
+    "question": "An administrator wants to configure an Azure VM as a source endpoint in Connection Monitor. What must be installed on that VM to enable this?",
+    "options": [
+      "The Network Watcher Agent (extension) for the appropriate OS",
+      "Only the legacy Log Analytics agent",
+      "Nothing; Azure VMs are automatically recognized as sources with no extension",
+      "The Azure Arc agent, since it applies to both Azure and on-premises sources"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "To monitor connectivity from an Azure VM or scale set, Connection Monitor must recognize it as a source, which requires installing the Network Watcher Agent (Network Watcher extension) for Windows or Linux on that VM.",
+      "incorrectReasons": [
+        "The Log Analytics agent is retired and is not the supported mechanism for enabling Azure VM sources in Connection Monitor.",
+        "An Azure VM must have the Network Watcher extension installed to be recognized as a monitoring source; it isn't automatic.",
+        "Azure Arc agent applies to on-premises/hybrid hosts, not to native Azure VMs, which use the Network Watcher extension instead."
+      ],
+      "reference": "https://learn.microsoft.com/azure/network-watcher/connection-monitor-overview#monitoring-agents"
+    }
+  },
+  {
+    "id": 28,
+    "subtopic": "Use Azure Network Watcher and Connection Monitor",
+    "question": "An administrator wants to use an on-premises host as a source endpoint in Connection Monitor. Which prerequisite steps are required for the on-premises host?",
+    "options": [
+      "Enable the Azure Arc agent on the host, then enable the Azure Monitor Agent",
+      "Install only the legacy Log Analytics agent on the host",
+      "Install the Network Watcher Agent extension, the same as for Azure VMs",
+      "No agent installation is required if the host has a public IP address"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "To monitor connectivity from an on-premises host, the host must be Arc-enabled (Azure Arc-enabled servers), and then the Azure Monitor Agent should be enabled on it. The legacy Log Analytics agent is no longer supported for this purpose.",
+      "incorrectReasons": [
+        "The Log Analytics agent is explicitly no longer supported for monitoring on-premises machines with Connection Monitor.",
+        "The Network Watcher extension applies to Azure VMs/scale sets, not on-premises hosts, which use Arc instead.",
+        "A public IP address does not remove the requirement to enable the Arc agent and Azure Monitor Agent on the host."
+      ],
+      "reference": "https://learn.microsoft.com/azure/network-watcher/connection-monitor-overview#monitoring-agents"
+    }
+  },
+  {
+    "id": 29,
+    "subtopic": "Use Azure Network Watcher and Connection Monitor",
+    "question": "Which TWO statements about Connection Monitor test states and thresholds are correct? (Select TWO)",
+    "options": [
+      "If no threshold is specified, a test reaches the Fail state when the percentage of failed checks is 100",
+      "When no threshold is specified, the default round-trip time (RTT) warning threshold for TCP or ICMP tests is 750 milliseconds",
+      "The Indeterminate state means the destination endpoint has permanently failed and will never recover",
+      "Connection Monitor reevaluates the status of a deallocated VM every 5 minutes"
+    ],
+    "correct": [0, 1],
+    "explanation": {
+      "correctReason": "Without a specified threshold, a test fails only when 100% of checks fail, and the automatically assigned RTT warning threshold for TCP/ICMP tests is 750 ms (10% for checks-failed percentage).",
+      "incorrectReasons": [
+        "",
+        "",
+        "Indeterminate simply means there is no data in the Log Analytics workspace at that time; it does not indicate permanent failure.",
+        "Connection Monitor reevaluates endpoint status once every 24 hours, not every 5 minutes, which is why deallocated VMs can briefly show as Indeterminate."
+      ],
+      "reference": "https://learn.microsoft.com/azure/network-watcher/connection-monitor-overview#analyze-monitoring-data-and-set-alerts"
+    }
+  },
+  {
+    "id": 30,
+    "subtopic": "Create a Recovery Services vault",
+    "question": "What is the default storage redundancy setting used when a new Recovery Services vault is created?",
+    "options": [
+      "Geo-redundant storage (GRS)",
+      "Locally redundant storage (LRS)",
+      "Zone-redundant storage (ZRS)",
+      "Read-access geo-redundant storage only, with no other option available"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "By default, newly created Recovery Services vaults use geo-redundant storage (GRS) to replicate backup data to a secondary paired region, protecting against region-wide outages.",
+      "incorrectReasons": [
+        "LRS is an available option that can be selected, but it is not the default for a newly created vault.",
+        "ZRS is available in supported regions but is not the vault's default redundancy setting.",
+        "GRS is the default, but it is not the only available option; LRS and ZRS can also be configured before the first backup."
+      ],
+      "reference": "https://learn.microsoft.com/azure/backup/backup-architecture#where-is-data-backed-up"
+    }
+  },
+  {
+    "id": 31,
+    "subtopic": "Create a Recovery Services vault",
+    "question": "What is the maximum number of Recovery Services vaults that can be created per supported Azure Backup region within a single subscription?",
+    "options": [
+      "500",
+      "50",
+      "25",
+      "There is no documented limit"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Azure allows up to 500 Recovery Services vaults per supported region of Azure Backup, per subscription. Additional subscriptions can be used if more vaults are required.",
+      "incorrectReasons": [
+        "50 significantly understates the documented per-region, per-subscription limit.",
+        "25 significantly understates the documented limit.",
+        "A limit of 500 per region per subscription is explicitly documented."
+      ],
+      "reference": "https://learn.microsoft.com/azure/backup/backup-azure-backup-faq#recovery-services-vault"
+    }
+  },
+  {
+    "id": 32,
+    "subtopic": "Create a Recovery Services vault",
+    "question": "Which TWO of the following datasource types are protected using a Recovery Services vault? (Select TWO)",
+    "options": [
+      "Azure Virtual Machines",
+      "SQL Server running in an Azure VM",
+      "Azure Database for PostgreSQL server",
+      "Azure Blobs"
+    ],
+    "correct": [0, 1],
+    "explanation": {
+      "correctReason": "Recovery Services vaults support datasources including Azure Virtual Machines, SQL in Azure VM, SAP HANA in Azure VM, Azure Files, and on-premises workloads via DPM/MABS/Backup agent.",
+      "incorrectReasons": [
+        "",
+        "",
+        "Azure Database for PostgreSQL server is protected using a Backup vault, not a Recovery Services vault.",
+        "Azure Blobs are protected using a Backup vault, not a Recovery Services vault."
+      ],
+      "reference": "https://learn.microsoft.com/azure/backup/backup-azure-backup-faq#what-are-the-various-vaults-supported-for-backup-and-restore"
+    }
+  },
+  {
+    "id": 33,
+    "subtopic": "Create an Azure Backup vault",
+    "question": "Which set of datasources requires a Backup vault (rather than a Recovery Services vault) for Azure Backup protection?",
+    "options": [
+      "Azure Disks, Azure Blobs, Azure Database for PostgreSQL server, and Kubernetes services (preview)",
+      "Azure Virtual Machines and SQL Server in Azure VM",
+      "Azure Files and SAP HANA in Azure VM",
+      "On-premises servers protected via System Center DPM"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Backup vaults are used to protect newer datasource types including Azure Disks, Azure Blobs, Azure Database for PostgreSQL server, and (in preview) Kubernetes services.",
+      "incorrectReasons": [
+        "Azure VMs and SQL in Azure VM are protected using Recovery Services vaults.",
+        "Azure Files and SAP HANA in Azure VM are protected using Recovery Services vaults.",
+        "On-premises DPM-protected workloads use Recovery Services vaults, not Backup vaults."
+      ],
+      "reference": "https://learn.microsoft.com/azure/backup/backup-azure-backup-faq#what-are-the-various-vaults-supported-for-backup-and-restore"
+    }
+  },
+  {
+    "id": 34,
+    "subtopic": "Create an Azure Backup vault",
+    "question": "An administrator needs to configure operational/vaulted backup for Azure Blob Storage containers. Which vault type must be created first?",
+    "options": [
+      "A Backup vault",
+      "A Recovery Services vault",
+      "Either vault type works identically for Blob backup",
+      "No vault is required; Blob backup is configured directly on the storage account"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Azure Blobs are one of the datasource types supported by a Backup vault, so a Backup vault must be created (or an existing one used) before configuring blob backup.",
+      "incorrectReasons": [
+        "Recovery Services vaults support VM, SQL-in-VM, Files, SAP HANA, and DPM/MABS datasources, not Azure Blobs.",
+        "The two vault types support different datasources; they are not interchangeable for this scenario.",
+        "Azure Backup always requires a vault (Recovery Services or Backup vault) to store recovery points and policies."
+      ],
+      "reference": "https://learn.microsoft.com/azure/backup/backup-support-matrix#vault-support"
+    }
+  },
+  {
+    "id": 35,
+    "subtopic": "Create an Azure Backup vault",
+    "question": "Which TWO statements about Backup vaults are correct? (Select TWO)",
+    "options": [
+      "Backup vaults support cross-subscription restore capabilities",
+      "Backup vaults and Recovery Services vaults share the same maximum limit of 500 vaults per region per subscription",
+      "Backup data stored in a Backup vault can be moved directly to another vault",
+      "Backup vaults directly support Azure Virtual Machine backup as a first-class datasource"
+    ],
+    "correct": [0, 1],
+    "explanation": {
+      "correctReason": "Backup vaults support cross-subscription restore, and like Recovery Services vaults, are capped at 500 vaults per supported region per subscription.",
+      "incorrectReasons": [
+        "",
+        "",
+        "Backup data stored in a vault cannot be moved to a different vault; this applies to both vault types.",
+        "Azure Virtual Machine backup uses a Recovery Services vault, not a Backup vault."
+      ],
+      "reference": "https://learn.microsoft.com/azure/backup/backup-support-matrix#vault-support"
+    }
+  },
+  {
+    "id": 36,
+    "subtopic": "Create and configure a backup policy",
+    "question": "What is the default Instant Restore snapshot retention period for a Standard sub-type Azure VM backup policy?",
+    "options": [
+      "2 days",
+      "5 days",
+      "7 days",
+      "30 days"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "For the Standard policy sub-type, Instant Restore snapshots default to a retention of 2 days, and this can be customized to a range of 1 to 5 days (fixed at 5 for weekly policies).",
+      "incorrectReasons": [
+        "5 days is the maximum configurable value for the Standard policy, not the default.",
+        "7 days is the default for the Enhanced policy sub-type, not Standard.",
+        "30 days is the maximum for the Enhanced policy sub-type, not applicable to Standard."
+      ],
+      "reference": "https://learn.microsoft.com/azure/backup/backup-instant-restore-capability#configure-snapshot-retention"
+    }
+  },
+  {
+    "id": 37,
+    "subtopic": "Create and configure a backup policy",
+    "question": "An administrator needs to configure Azure VM backups to run as frequently as every 4 hours (hourly-style backups). Which backup policy sub-type must be used?",
+    "options": [
+      "Enhanced policy",
+      "Standard policy",
+      "Either policy sub-type supports this frequency identically",
+      "Neither policy sub-type supports backups more often than once per day"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "The Enhanced policy sub-type supports Hourly, Daily, or Weekly backup schedules, allowing backups as frequently as every 4 hours, with a minimum RPO of 4 hours. The Standard policy only supports once-daily backups.",
+      "incorrectReasons": [
+        "The Standard policy sub-type supports only one backup per day, not hourly frequency.",
+        "The two sub-types are not equivalent; only Enhanced supports the hourly schedule.",
+        "Enhanced policy explicitly supports sub-daily (hourly) backup frequency."
+      ],
+      "reference": "https://learn.microsoft.com/azure/backup/backup-azure-vms-enhanced-policy#create-an-enhanced-policy-and-configure-the-vm-backup"
+    }
+  },
+  {
+    "id": 38,
+    "subtopic": "Create and configure a backup policy",
+    "question": "A VM currently protected with a Standard backup policy needs to be converted to a Trusted Launch VM using Premium SSD v2 disks, which require the Enhanced backup policy. What should the administrator understand before making this change?",
+    "options": [
+      "The VM must be switched to an Enhanced policy, and once switched, it cannot be reverted back to a Standard policy",
+      "Trusted Launch VMs cannot be backed up by Azure Backup under any policy type",
+      "The Standard policy already fully supports Premium SSD v2 and Ultra Disks, so no change is needed",
+      "The VM can freely switch back and forth between Standard and Enhanced policies at any time"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Trusted Launch VMs, Ultra Disks, and Premium SSD v2 require the Enhanced backup policy. Once a VM backup is enabled with an Enhanced policy, it cannot be switched back to Standard, so this is a one-way change the administrator must plan for.",
+      "incorrectReasons": [
+        "Trusted Launch VMs are supported by Azure Backup, but specifically require the Enhanced policy sub-type.",
+        "The Standard policy does not support Ultra Disks or Premium SSD v2; the Enhanced policy is required for those disk types.",
+        "The change from Standard to Enhanced is one-directional; a VM cannot be reverted to Standard afterward."
+      ],
+      "reference": "https://learn.microsoft.com/azure/backup/backup-azure-vms-enhanced-policy"
+    }
+  },
+  {
+    "id": 39,
+    "subtopic": "Create and configure a backup policy",
+    "question": "Which TWO statements about Azure VM backup policy retention are correct? (Select TWO)",
+    "options": [
+      "With the Enhanced policy sub-type, Instant Restore snapshot retention can be configured from 1 to 30 days",
+      "For weekly backup schedules using the Standard policy, snapshot retention is fixed at 5 days",
+      "On-demand backups automatically inherit and are governed by whatever retention is currently set in the assigned policy",
+      "Reducing a policy's retention period immediately and instantly deletes all now out-of-range recovery points"
+    ],
+    "correct": [0, 1],
+    "explanation": {
+      "correctReason": "The Enhanced policy allows Instant Restore snapshot retention from 1 to 30 days, and weekly Standard policies have snapshot retention fixed at 5 days.",
+      "incorrectReasons": [
+        "",
+        "",
+        "On-demand backups use custom retention specified at trigger time and are not governed by later changes to the assigned policy's retention.",
+        "Reducing retention causes older recovery points to be pruned during the next cleanup job, not instantly deleted."
+      ],
+      "reference": "https://learn.microsoft.com/azure/backup/backup-instant-restore-capability#configure-snapshot-retention"
+    }
+  },
+  {
+    "id": 40,
+    "subtopic": "Perform backup and restore operations by using Azure Backup",
+    "question": "An Azure VM was accidentally deleted, but valid recovery points still exist in the Recovery Services vault. The administrator wants to quickly bring the VM back up with default settings from a recovery point. Which restore option should be used?",
+    "options": [
+      "Create a new VM (restore to create a new virtual machine)",
+      "Replace existing, since the disks can be swapped in place",
+      "Restore disks only, and manually construct the VM using PowerShell from scratch",
+      "This isn't possible once the source VM has been deleted"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Azure Backup allows restoring a VM from its recovery points even after the source VM has been deleted, using the Restore to create a new virtual machine option, which performs original location or alternate location recovery.",
+      "incorrectReasons": [
+        "Replace existing requires an existing VM to attach restored disks to; it cannot be used once the source VM no longer exists.",
+        "While restoring disks and manually building the VM is technically an alternative, it is unnecessarily complex compared to the direct create-new-VM restore option.",
+        "Recovery is explicitly still possible after VM deletion, as long as recovery points exist in the vault."
+      ],
+      "reference": "https://learn.microsoft.com/azure/backup/backup-azure-vm-backup-faq#how-do-i-decide-whether-to-restore-disks-only-or-a-full-vm"
+    }
+  },
+  {
+    "id": 41,
+    "subtopic": "Perform backup and restore operations by using Azure Backup",
+    "question": "An administrator wants to restore a VM but needs to change its size and add configuration settings that didn't exist at backup time, using a customizable template before deployment. Which restore option is most appropriate?",
+    "options": [
+      "Restore disks, then customize the generated ARM template before deploying the VM",
+      "Replace existing, using the current VM's configuration",
+      "Create a new VM directly with default simple settings",
+      "Cross Subscription Restore, which is required for any configuration change"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "The Restore disks option generates a customizable ARM template alongside the restored disks, letting the administrator modify settings such as VM size or add configuration that wasn't present at backup time before creating the VM.",
+      "incorrectReasons": [
+        "Replace existing swaps disks on an existing VM using its current configuration; it doesn't support broad customization such as resizing.",
+        "Create a new VM quickly deploys with basic settings and doesn't provide the same level of customization as the disk-restore-plus-template approach.",
+        "Cross Subscription Restore addresses which subscription the restore targets, not general VM customization."
+      ],
+      "reference": "https://learn.microsoft.com/azure/backup/backup-azure-vm-backup-faq#how-do-i-decide-whether-to-restore-disks-only-or-a-full-vm"
+    }
+  },
+  {
+    "id": 42,
+    "subtopic": "Perform backup and restore operations by using Azure Backup",
+    "question": "An organization wants the ability to restore Azure VM backups into a secondary Azure paired region for audit/compliance drills, even when there is no actual outage in the primary region. Which capability enables this, and what vault configuration does it require?",
+    "options": [
+      "Cross Region Restore (CRR), which requires the Recovery Services vault to use geo-redundant storage (GRS)",
+      "Cross Subscription Restore, which requires no special storage redundancy",
+      "Replace existing, which works from any storage redundancy setting",
+      "Instant Restore, which relies solely on locally stored snapshots"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Cross Region Restore lets you restore Azure VMs in a secondary Azure paired region at any time, including for audit/compliance drills without an actual outage, and it requires the Recovery Services vault to use GRS.",
+      "incorrectReasons": [
+        "Cross Subscription Restore addresses restoring to a different subscription, not restoring into a secondary region.",
+        "Replace existing operates against the existing VM in its original location; it doesn't provide secondary-region restore capability.",
+        "Instant Restore uses locally stored snapshots in the same region for fast recovery; it does not provide secondary-region restore."
+      ],
+      "reference": "https://learn.microsoft.com/azure/backup/backup-azure-recovery-services-vault-overview#key-features"
+    }
+  },
+  {
+    "id": 43,
+    "subtopic": "Perform backup and restore operations by using Azure Backup",
+    "question": "Which TWO statements about Azure VM restore operations are correct? (Select TWO)",
+    "options": [
+      "The Restore disks option generates a customizable template that can be used before creating the VM",
+      "Cross Subscription Restore can be used together with Cross Region Restore and Cross Zonal Restore",
+      "The Replace existing option can be used even after the original VM has been permanently deleted",
+      "Restoring an Azure VM using PowerShell automatically creates and starts the running virtual machine"
+    ],
+    "correct": [0, 1],
+    "explanation": {
+      "correctReason": "Restore disks generates a customizable template for later deployment, and Cross Subscription Restore is designed to work together with Cross Region Restore and Cross Zonal Restore.",
+      "incorrectReasons": [
+        "",
+        "",
+        "Replace existing requires the current VM to still exist, since it swaps disks on that existing VM; it cannot be used if the VM was deleted.",
+        "With PowerShell, the restore operation only restores disks and configuration data; a separate step is required to actually create the virtual machine from the restored disks."
+      ],
+      "reference": "https://learn.microsoft.com/azure/backup/backup-azure-arm-restore-vms#restore-options"
+    }
+  },
+  {
+    "id": 44,
+    "subtopic": "Configure Azure Site Recovery for Azure resources",
+    "question": "An administrator is enabling Azure-to-Azure disaster recovery for a VM using Premium SSD v2 disks with a high rate of data change (high churn). Which default configuration does Azure Site Recovery use for this scenario?",
+    "options": [
+      "The High Churn option, using a Premium Block Blob type storage account",
+      "The Normal Churn option only, with no alternative available",
+      "A Standard LRS storage account regardless of churn rate",
+      "This scenario is not supported by Azure Site Recovery"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "For Premium SSD v2 and Ultra Disks, Azure Site Recovery uses High Churn by default along with a Premium Block Blob type storage account, supporting disaster recovery for VMs with high data change rates (up to 100 MB/s).",
+      "incorrectReasons": [
+        "Normal Churn is the default for most VMs, but High Churn is specifically used (and required) for Premium SSD v2/Ultra Disk scenarios.",
+        "A standard LRS storage account isn't the configuration used for high-churn replication with these disk types.",
+        "This scenario is explicitly supported through the High Churn feature."
+      ],
+      "reference": "https://learn.microsoft.com/azure/site-recovery/azure-to-azure-quickstart#enable-replication-for-the-azure-vm"
+    }
+  },
+  {
+    "id": 45,
+    "subtopic": "Configure Azure Site Recovery for Azure resources",
+    "question": "When enabling Azure Site Recovery replication for Azure VMs to another Azure region using the 'Enable replication' wizard, what is the maximum number of VMs that can be selected in a single wizard action?",
+    "options": [
+      "10",
+      "1",
+      "100",
+      "There is no limit"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "In the Enable replication wizard for Azure-to-Azure disaster recovery, you can select up to 10 VMs at a time for replication configuration.",
+      "incorrectReasons": [
+        "The wizard supports more than a single VM at a time; you can select up to 10.",
+        "100 exceeds the documented per-wizard-action limit of 10 VMs.",
+        "There is a documented limit of 10 VMs per wizard action."
+      ],
+      "reference": "https://learn.microsoft.com/azure/site-recovery/azure-to-azure-how-to-enable-replication#enable-replication"
+    }
+  },
+  {
+    "id": 46,
+    "subtopic": "Configure Azure Site Recovery for Azure resources",
+    "question": "Which TWO statements about configuring Azure-to-Azure Site Recovery replication settings are correct? (Select TWO)",
+    "options": [
+      "The target resource group can be located in any Azure region except the region hosting the source VMs",
+      "By default, Site Recovery creates a new target resource group with an 'asr' suffix in its name",
+      "The Recovery Services vault must always be located in the exact same region as the source VM",
+      "Global (cross-continent) disaster recovery between Azure regions is not supported by Site Recovery"
+    ],
+    "correct": [0, 1],
+    "explanation": {
+      "correctReason": "The target resource group's location can be any Azure region except the source region, and by default Site Recovery creates a new resource group in the target region with an 'asr' suffix if one doesn't already exist.",
+      "incorrectReasons": [
+        "",
+        "",
+        "The Recovery Services vault does not have to be in the same region as the source VM; for cross-regional DR the source location should differ from the vault's region.",
+        "Azure Site Recovery explicitly supports global disaster recovery, allowing replication and failover across continents."
+      ],
+      "reference": "https://learn.microsoft.com/azure/site-recovery/azure-to-azure-how-to-enable-replication#enable-replication"
+    }
+  },
+  {
+    "id": 47,
+    "subtopic": "Perform a failover to a secondary region by using Site Recovery",
+    "question": "A primary Azure region hosting replicated on-premises VMs experiences a complete outage, and Site Recovery can no longer process incoming replication data. Which recovery point option must be used to fail over?",
+    "options": [
+      "Latest Processed",
+      "Latest, since it always provides the lowest RPO regardless of outage conditions",
+      "Latest app-consistent, which is mandatory during any outage",
+      "A custom point-in-time snapshot created manually during the outage"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "When the source region is down, no further log processing is possible, so failover must use the Latest Processed recovery point, which is the most recent recovery point Site Recovery had already processed before the outage.",
+      "incorrectReasons": [
+        "The Latest option processes all data sent to Site Recovery at failover time, which isn't possible once the source region is down and log processing has stopped.",
+        "Latest app-consistent is one available option, but it is not specifically mandatory in every outage scenario, and it may be further behind than Latest Processed.",
+        "Manually creating a custom snapshot isn't a supported Site Recovery failover recovery point option."
+      ],
+      "reference": "https://learn.microsoft.com/azure/site-recovery/site-recovery-failover#run-a-failover"
+    }
+  },
+  {
+    "id": 48,
+    "subtopic": "Perform a failover to a secondary region by using Site Recovery",
+    "question": "Which TWO statements about Azure Site Recovery failover are correct? (Select TWO)",
+    "options": [
+      "Failover is not automatic; it must be manually initiated through the Azure portal or PowerShell",
+      "A single recovery plan can contain up to 100 protected instances",
+      "Recovery plans can only be used to fail over to Azure, never to fail back from Azure",
+      "Committing a failover has no effect on the previously failed-over Azure VM"
+    ],
+    "correct": [0, 1],
+    "explanation": {
+      "correctReason": "Failover in Azure Site Recovery must be manually triggered (via portal or PowerShell) rather than occurring automatically, and a recovery plan supports up to 100 protected instances.",
+      "incorrectReasons": [
+        "",
+        "",
+        "Recovery plans can be used for both failover to Azure and failback from Azure.",
+        "Committing a failover finalizes the operation, for example by removing the failed-over Azure VM once failback is committed; it is not a no-op step."
+      ],
+      "reference": "https://learn.microsoft.com/azure/site-recovery/recovery-plan-overview"
+    }
+  },
+  {
+    "id": 49,
+    "subtopic": "Configure and interpret reports and alerts for backups",
+    "question": "An administrator configured a Log Analytics workspace as the destination for Azure Backup diagnostic data to enable Backup Reports, but no reporting data appears yet. What should the administrator do to verify data flow, and how long can the initial data push take?",
+    "options": [
+      "Run the query 'CoreAzureBackup | take 1' in the workspace's Logs pane; the initial data push can take up to 24 hours",
+      "Assume the vault is misconfigured, since reporting data should appear within seconds",
+      "Check the Storage account instead, since Log Analytics is not used for backup reporting",
+      "Backup Reports are not supported through Log Analytics workspaces at all"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "To verify that reporting data has started flowing, you run the query CoreAzureBackup | take 1 in the configured Log Analytics workspace's Logs pane. The initial data push into the workspace may take up to 24 hours.",
+      "incorrectReasons": [
+        "Reporting data is not instantaneous; an initial delay of up to 24 hours is expected and documented.",
+        "Backup Reports are built on Azure Monitor Logs (Log Analytics), not a storage account.",
+        "Backup Reports are explicitly built on top of Log Analytics workspace data via diagnostic settings."
+      ],
+      "reference": "https://learn.microsoft.com/azure/backup/backup-azure-monitor-alert-faq#can-log-analytics-based-alerts-be-delayed"
+    }
+  },
+  {
+    "id": 50,
+    "subtopic": "Configure and interpret reports and alerts for backups",
+    "question": "Which TWO statements about Azure Backup monitoring, alerting, and reporting are correct? (Select TWO)",
+    "options": [
+      "Built-in Azure Monitor alerts cover scenarios like backup failures, restore failures, and disabling soft delete, without requiring a Log Analytics workspace",
+      "Custom Log Analytics-based alerts for backup events can be delayed roughly 20 to 30 minutes due to data push latency",
+      "Classic alerts in the Recovery Services vault are the recommended, forward-looking alerting solution going forward",
+      "Backup Reports data is automatically purged and unavailable after only 24 hours"
+    ],
+    "correct": [0, 1],
+    "explanation": {
+      "correctReason": "Built-in Azure Monitor alerts for Azure Backup work out of the box for critical scenarios without needing a Log Analytics workspace, while Log Analytics-based custom alerts can lag behind actual events by about 20 to 30 minutes because of data push latency.",
+      "incorrectReasons": [
+        "",
+        "",
+        "Classic alerts are the older solution and are being deprecated; Microsoft recommends migrating to built-in Azure Monitor based alerts.",
+        "Backup Reports data can be retained for up to 2 years in the Log Analytics workspace, not purged after 24 hours; 24 hours refers to the initial data push delay, not data retention."
+      ],
+      "reference": "https://learn.microsoft.com/azure/backup/monitoring-and-alerts-overview#monitoring-and-reporting-scenarios"
+    }
+  }
+]

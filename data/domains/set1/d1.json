@@ -23,7 +23,7 @@
   {
     "id": 2,
     "subtopic": "Create users and groups",
-    "question": "You are creating a new user account in Microsoft Entra ID using the Azure portal. Which TWO properties are mandatory to specify when creating a new cloud-native user? (Select TWO)",
+    "question": "You are creating a new cloud-native user in Microsoft Entra ID. Which TWO options below are required core fields on the Basics tab? (Select TWO)",
     "options": [
       "User principal name (UPN)",
       "Display name",
@@ -31,21 +31,24 @@
       "Job title",
       "Department"
     ],
-    "correct": [0, 1],
+    "correct": [
+      0,
+      1
+    ],
     "explanation": {
-      "correctReason": "When creating a new user in Microsoft Entra ID, the User Principal Name (UPN) and Display Name are mandatory fields required by the directory.",
+      "correctReason": "The Microsoft Entra user creation Basics tab requires a User principal name and Display name. Usage location, Job title, and Department are not required core fields for creating the user.",
       "incorrectReasons": [
-        "Usage location is required prior to assigning licenses, but not to create the basic user object.",
-        "Job title is an optional profile attribute.",
-        "Department is an optional organizational profile attribute."
+        "Usage location is used for licensing and location-dependent service requirements; it isn't a required core field for creating the user.",
+        "Job title is an optional profile property.",
+        "Department is an optional profile property."
       ],
-      "reference": "https://learn.microsoft.com/en-us/entra/identity/users/users-create-add"
+      "reference": "https://learn.microsoft.com/en-us/entra/fundamentals/how-to-create-delete-users#create-a-new-user"
     }
   },
   {
     "id": 3,
     "subtopic": "Manage user and group properties",
-    "question": "An employee named User1 takes a temporary leave of absence. You need to prevent User1 from signing in to all Azure and Microsoft 365 services immediately, while preserving all current permissions, group memberships, and licenses. What property should you update?",
+    "question": "An employee named User1 takes a temporary leave of absence. You need to prevent User1 from signing in to Azure and Microsoft 365 services while preserving the user's permissions, group memberships, and licenses. What property should you update?",
     "options": [
       "Set 'Usage location' to 'None'",
       "Set 'Account enabled' (Block sign-in) to 'No' (Yes to block sign-in)",
@@ -54,13 +57,13 @@
     ],
     "correct": 1,
     "explanation": {
-      "correctReason": "Disabling the account by blocking sign-in ('Account enabled' = No / 'Block sign-in' = Yes) revokes authentication capability immediately without deleting or modifying any user properties, roles, or license assignments.",
+      "correctReason": "Set Account enabled to No (Block sign-in). This prevents the account from signing in without deleting the user or intentionally changing the user's roles, group memberships, or license assignments.",
       "incorrectReasons": [
-        "Clearing usage location does not block authentication to services.",
-        "Removing assigned roles revokes privileges but leaves authentication active.",
-        "Job title is an informational field with no impact on authentication or security."
+        "Usage location is a profile and licensing-related property; changing it doesn't disable sign-in.",
+        "Removing assigned roles changes authorization but doesn't disable authentication.",
+        "Job title is an informational profile property and has no sign-in control function."
       ],
-      "reference": "https://learn.microsoft.com/en-us/entra/identity/users/users-edit-profile"
+      "reference": "https://learn.microsoft.com/en-us/entra/fundamentals/how-to-create-delete-users"
     }
   },
   {
@@ -81,7 +84,7 @@
         "Groups Administrator grants permissions to manage all groups across the entire directory.",
         "Being a standard member of a group does not permit managing group membership."
       ],
-      "reference": "https://learn.microsoft.com/en-us/entra/identity/users/groups-assign-owner"
+      "reference": "https://learn.microsoft.com/en-us/entra/fundamentals/how-to-manage-groups#add-members-or-owners-of-a-group"
     }
   },
   {
@@ -102,7 +105,7 @@
         "Administrative Units define scope boundaries for delegated administration.",
         "Access Reviews periodically audit group and role memberships for security compliance."
       ],
-      "reference": "https://learn.microsoft.com/en-us/entra/identity/users/licensing-groups-assign"
+      "reference": "https://learn.microsoft.com/en-us/microsoft-365/admin/manage/manage-group-licenses?view=o365-worldwide"
     }
   },
   {
@@ -116,7 +119,10 @@
       "The user is a member of more than one security group",
       "The user account lacks a configured alternative email address"
     ],
-    "correct": [0, 1],
+    "correct": [
+      0,
+      1
+    ],
     "explanation": {
       "correctReason": "License assignment fails if the tenant runs out of available license seats or if the target user account lacks a configured Usage Location (which is required to comply with regional data regulations).",
       "incorrectReasons": [
@@ -124,7 +130,7 @@
         "Users can safely belong to multiple security groups with different or overlapping license assignments.",
         "An alternative email address is optional and unrelated to license assignment."
       ],
-      "reference": "https://learn.microsoft.com/en-us/entra/identity/users/licensing-group-advanced#resolve-license-assignment-problems"
+      "reference": "https://learn.microsoft.com/en-us/entra/fundamentals/licensing-groups-resolve-problems"
     }
   },
   {
@@ -145,7 +151,7 @@
         "Creating internal managed accounts requires managing credentials internally and issuing tenant domain credentials.",
         "Workload identities represent software entities such as applications and service principals."
       ],
-      "reference": "https://learn.microsoft.com/en-us/entra/external-id/what-is-b2b"
+      "reference": "https://learn.microsoft.com/en-us/entra/external-id/add-users-administrator"
     }
   },
   {
@@ -166,7 +172,7 @@
         "Targeted domain restrictions allow or block guest invitations based on domain names.",
         "Self-service sign-up flows govern external user self-registration in customer-facing scenarios."
       ],
-      "reference": "https://learn.microsoft.com/en-us/entra/external-id/external-collaboration-settings-configure"
+      "reference": "https://learn.microsoft.com/en-us/entra/external-id/external-collaboration-settings-configure#configure-settings-in-the-portal"
     }
   },
   {
@@ -180,7 +186,10 @@
       "Temporary Access Pass (TAP)",
       "Security questions"
     ],
-    "correct": [0, 1],
+    "correct": [
+      0,
+      1
+    ],
     "explanation": {
       "correctReason": "Mobile app notification and Mobile phone (SMS/call) are supported authentication methods that users can register and use for SSPR verification.",
       "incorrectReasons": [
@@ -188,7 +197,7 @@
         "Temporary Access Pass is a time-limited passcode issued by administrators for onboarding or recovery, not a self-registered user method.",
         "Security questions require custom setup policies and are limited compared to standard modern authentication methods."
       ],
-      "reference": "https://learn.microsoft.com/en-us/entra/identity/authentication/concept-sspr-howitworks"
+      "reference": "https://learn.microsoft.com/en-us/entra/identity/authentication/concept-sspr-howitworks#authentication-methods"
     }
   },
   {
@@ -230,7 +239,7 @@
         "Contributor allows managing all resources (including virtual networks) but cannot grant access.",
         "User Access Administrator only manages user access and role assignments."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/role-based-access-control/built-in-roles#virtual-machine-contributor"
+      "reference": "https://learn.microsoft.com/en-us/azure/role-based-access-control/built-in-roles/compute#virtual-machine-contributor"
     }
   },
   {
@@ -251,7 +260,7 @@
         "Support Request Contributor alone cannot view resource details inside resource groups.",
         "Resource Policy Contributor manages Azure Policy definitions and assignments."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/role-based-access-control/built-in-roles"
+      "reference": "https://learn.microsoft.com/en-us/azure/role-based-access-control/built-in-roles#support-request-contributor"
     }
   },
   {
@@ -293,7 +302,7 @@
         "Subscription scope grants access across all storage accounts in the subscription.",
         "Resource Group scope grants access to all storage accounts within the resource group."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/role-based-access-control/scope-overview#resource-scope"
+      "reference": "https://learn.microsoft.com/en-us/azure/storage/blobs/assign-azure-role-data-access#assign-an-azure-role"
     }
   },
   {
@@ -320,20 +329,20 @@
   {
     "id": 16,
     "subtopic": "Interpret access assignments",
-    "question": "A user is unable to create virtual networks in a subscription. You inspect the user's role assignments and find:\n1. 'Contributor' assigned at the Resource Group scope.\n2. A 'Deny assignment' created by Azure Blueprints applied at the Subscription scope blocking `Microsoft.Network/virtualNetworks/write`.\n\nWhat is the user's effective capability regarding virtual network creation inside the resource group?",
+    "question": "A user is unable to create virtual networks in a subscription. You inspect the user's permissions and find:\n1. 'Contributor' assigned at the Resource Group scope.\n2. A deny assignment at the Subscription scope blocks `Microsoft.Network/virtualNetworks/write`.\n\nWhat is the user's effective capability regarding virtual network creation inside the resource group?",
     "options": [
       "The user can create virtual networks because the Resource Group assignment takes precedence.",
-      "The user cannot create virtual networks because Deny assignments take precedence over allow permissions.",
+      "The user cannot create virtual networks because the deny assignment blocks the action.",
       "The user can create virtual networks if they use Azure CLI instead of the Azure portal.",
       "The user can create virtual networks after restarting their browser session."
     ],
     "correct": 1,
     "explanation": {
-      "correctReason": "Deny assignments explicitly block actions even if a role assignment grants permission. Deny rules take precedence over allow rules across all scopes.",
+      "correctReason": "A deny assignment blocks specified actions even when an allow role assignment such as Contributor grants the action at a child scope. The user therefore cannot create the virtual network.",
       "incorrectReasons": [
-        "Child scope allow assignments cannot override system-enforced Deny assignments.",
-        "Management interface (CLI vs Portal) does not bypass RBAC evaluation.",
-        "Browser session resets do not change control plane authorization logic."
+        "An allow assignment at a child scope does not override a deny assignment that applies to the request.",
+        "RBAC authorization is evaluated regardless of whether the request comes from the portal, CLI, PowerShell, or another client.",
+        "Refreshing or restarting a browser session doesn't change the Azure authorization decision."
       ],
       "reference": "https://learn.microsoft.com/en-us/azure/role-based-access-control/deny-assignments"
     }
@@ -356,7 +365,7 @@
         "Disabled disables evaluation of the policy rule.",
         "Modify alters tags or metadata attributes during evaluation rather than blocking creation."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/governance/policy/concepts/effects#deny"
+      "reference": "https://learn.microsoft.com/en-us/azure/governance/policy/concepts/effect-deny"
     }
   },
   {
@@ -370,7 +379,10 @@
       "Policy effect: Deny",
       "Policy effect: Disabled"
     ],
-    "correct": [0, 1],
+    "correct": [
+      0,
+      1
+    ],
     "explanation": {
       "correctReason": "The 'Modify' effect adds or updates properties/tags during deployment. Because modifying resources requires authorization, a managed identity must be granted to the policy assignment to perform remediation.",
       "incorrectReasons": [
@@ -378,7 +390,7 @@
         "Deny blocks non-compliant resource creation altogether.",
         "Disabled deactivates rule execution."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/governance/policy/concepts/effects#modify"
+      "reference": "https://learn.microsoft.com/en-us/azure/governance/policy/concepts/effect-modify"
     }
   },
   {
@@ -392,7 +404,11 @@
       "Viewing the properties of resources inside RG-CoreInfrastructure",
       "Exporting an ARM template of RG-CoreInfrastructure"
     ],
-    "correct": [0, 1, 2],
+    "correct": [
+      0,
+      1,
+      2
+    ],
     "explanation": {
       "correctReason": "A 'Read-only' (ReadOnly) lock prevents modifying resource configurations, changing states (such as stopping/starting VMs), updating metadata (tags), and deleting resources.",
       "incorrectReasons": [
@@ -420,7 +436,7 @@
         "Write operations are permitted under CanNotDelete locks.",
         "Viewing access keys is a control plane listKeys action, allowed under CanNotDelete locks."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/lock-resources#considerations-before-applying-your-locks"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/lock-resources#understand-scope-of-locks"
     }
   },
   {
@@ -441,7 +457,7 @@
         "Deployment does not fail unless an active Azure Policy with a Deny effect explicitly blocks creation.",
         "There is no background process that automatically syncs tags from resource groups to child resources."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/tag-resources#tag-inheritance"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/tag-resources"
     }
   },
   {
@@ -483,7 +499,7 @@
         "Azure Monitor metrics remain mapped to the resource's underlying instance identifier.",
         "Disks are moved by reference without copying or recreating VHD storage structures."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/move-resource-group-and-subscription"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/move-resource-group-and-subscription#changed-resource-id"
     }
   },
   {
@@ -498,11 +514,11 @@
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "Deleting a resource group initiates an automated cascading deletion of all resources contained within that resource group.",
+      "correctReason": "Deleting a resource group initiates deletion of the resources contained in that resource group. Azure Resource Manager handles the cascading deletion; a separate manual deletion of each resource isn't normally required.",
       "incorrectReasons": [
-        "Azure Resource Manager handles dependency ordering and deletes child resources automatically.",
-        "Resources in Azure cannot exist without belonging to a resource group.",
-        "All member resources (including storage accounts and virtual disks) are deleted during resource group removal unless locked."
+        "The contained resources don't have to be manually deleted first; resource group deletion initiates their deletion.",
+        "The resources aren't orphaned; resources contained in the resource group are deleted as part of the operation, subject to applicable locks and service-specific behavior.",
+        "Deleting the resource group doesn't merely stop VMs or preserve storage accounts; the contained resources are deleted as part of the resource group deletion."
       ],
       "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/delete-resource-group"
     }
@@ -525,28 +541,28 @@
         "Azure Resource Explorer provides raw API views of deployed resources.",
         "Azure Service Health provides service incident status updates."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/cost-management-billing/manage/billing-subscription-transfer"
+      "reference": "https://learn.microsoft.com/en-us/azure/cost-management-billing/manage/mosp-ea-transfer"
     }
   },
   {
     "id": 26,
     "subtopic": "Manage subscriptions",
-    "question": "You need to increase the default subscription core quota limit for D-Series virtual machines in the East US region. What action should you take?",
+    "question": "You need to increase the VM-family vCPU quota for D-series virtual machines in the East US region. What action should you take?",
     "options": [
-      "Submit a 'Quota' support request in the Azure portal under Help + support.",
+      "Open the Quotas service in the Azure portal, select the relevant Compute quota, and submit a quota increase request.",
       "Assign the 'Quota Administrator' role to your user account.",
       "Modify the subscription JSON manifest in Azure Resource Explorer.",
-      "Create a new Azure Policy definition that grants additional vCPUs."
+      "Create an Azure Policy definition that grants additional vCPUs."
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "Subscription limits and regional vCPU core quotas are managed and elevated by submitting a Quota support request in the Azure portal.",
+      "correctReason": "Azure's current quota experience uses the Quotas service in the Azure portal. From the Compute quotas for the target region, you can request an increase for an adjustable VM-family quota; if the quota requires support, the Quotas experience provides the support-request path.",
       "incorrectReasons": [
-        "There is no standard built-in 'Quota Administrator' role that overrides hardware limits.",
-        "Subscription capacity limits are enforced on the host cloud infrastructure and cannot be changed via JSON manifests.",
-        "Azure Policy governs compliance rules; it cannot provision hardware cloud capacity."
+        "Assigning a role doesn't itself increase a service quota, and there is no standard built-in role that overrides quota limits.",
+        "Azure Resource Explorer cannot be used to edit the underlying subscription capacity limit.",
+        "Azure Policy governs resource configuration and compliance; it doesn't increase Azure service capacity quotas."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/azure-portal/supportability/per-vm-quota-requests"
+      "reference": "https://learn.microsoft.com/en-us/azure/quotas/per-vm-quota-requests"
     }
   },
   {
@@ -567,13 +583,13 @@
         "Log Analytics alerts analyze log queries rather than subscription billing accounts.",
         "Metric alerts monitor operational performance metrics of specific infrastructure resources."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/cost-management-billing/costs/tutorial-acm-create-budgets"
+      "reference": "https://learn.microsoft.com/en-us/azure/cost-management-billing/costs/tutorial-acm-create-budgets#trigger-an-action-group"
     }
   },
   {
     "id": 28,
     "subtopic": "Manage costs by using alerts, budgets, and Azure Advisor recommendations",
-    "question": "You want to identify virtual machines in your subscription that have been underutilized over the past 14 days so you can shut down or downsize them to optimize spending. Which Azure service directly provides these automated recommendations?",
+    "question": "You want to identify virtual machines in your subscription that have been underutilized using a 14-day lookback period so you can shut down or downsize them to optimize spending. Which Azure service directly provides these automated recommendations?",
     "options": [
       "Azure Advisor (Cost category)",
       "Azure Policy",
@@ -582,13 +598,13 @@
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "Azure Advisor analyzes resource telemetry and provides actionable recommendations in the Cost category, identifying underutilized or idle VMs for downsizing or shutdown.",
+      "correctReason": "Azure Advisor provides cost optimization recommendations for idle and underutilized virtual machines. Advisor supports configurable VM right-sizing lookback periods, including 14 days.",
       "incorrectReasons": [
-        "Azure Policy enforces governance rules during resource evaluation.",
-        "Azure Blueprints is a legacy environment orchestration tool.",
-        "Network Watcher provides network monitoring and diagnostic utilities."
+        "Azure Policy enforces governance and compliance rules; it doesn't provide Advisor-style VM right-sizing recommendations.",
+        "Azure Blueprints is a legacy governance service and isn't the service that provides VM utilization cost recommendations.",
+        "Network Watcher provides network monitoring and diagnostics rather than VM cost optimization recommendations."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/advisor/advisor-cost-recommendations"
+      "reference": "https://learn.microsoft.com/en-us/azure/advisor/advisor-cost-recommendations#optimize-virtual-machine-vm-or-virtual-machine-scale-set-vmss-spend-by-resizing-or-shutting-down-underutilized-instances"
     }
   },
   {
@@ -623,7 +639,10 @@
       "Management groups automatically replicate resource data across paired regions",
       "Only Global Administrators can view management groups"
     ],
-    "correct": [0, 1],
+    "correct": [
+      0,
+      1
+    ],
     "explanation": {
       "correctReason": "Management group hierarchies support up to 6 levels of depth and allow a parent management group to contain multiple child management groups or subscriptions.",
       "incorrectReasons": [
@@ -631,13 +650,13 @@
         "Management groups are organizational governance containers and do not perform storage replication.",
         "Permissions to management groups are governed by RBAC (e.g., Management Group Contributor), not exclusively Global Admin roles."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/governance/management-groups/overview#important-facts-about-management-groups"
+      "reference": "https://learn.microsoft.com/en-us/azure/governance/management-groups/overview#hierarchy-of-management-groups-and-subscriptions"
     }
   },
   {
     "id": 31,
     "subtopic": "Create users and groups",
-    "question": "You need to create a group in Microsoft Entra ID that can be assigned Azure RBAC roles. What setting must be configured during group creation?",
+    "question": "You need to create a Microsoft Entra ID group that can be assigned Microsoft Entra directory roles. What setting must be configured during group creation?",
     "options": [
       "Set 'Microsoft Entra roles can be assigned to the group' to 'Yes'",
       "Set 'Group type' to 'Microsoft 365'",
@@ -646,40 +665,40 @@
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "To assign Entra roles or ensure secure RBAC assignment boundaries, setting 'Microsoft Entra roles can be assigned to the group' to 'Yes' creates a role-assignable group.",
+      "correctReason": "Enabling 'Microsoft Entra roles can be assigned to the group' creates a role-assignable group that can be used for Microsoft Entra directory role assignments. Microsoft Entra automatically requires Assigned membership for such groups.",
       "incorrectReasons": [
-        "Role-assignable groups must be Security groups (or specifically configured), not standard Microsoft 365 collaborative groups.",
-        "Role-assignable groups must use 'Assigned' membership type; dynamic membership is not supported for role-assignable groups.",
-        "Self-service group management allows non-admins to manage groups, which is restricted on role-assignable groups."
+        "A role-assignable group must be a security group; selecting Microsoft 365 group type does not make a group role-assignable.",
+        "Role-assignable groups use Assigned membership; dynamic membership isn't supported for them.",
+        "Self-service group management is unrelated to making a group eligible for Microsoft Entra directory role assignment."
       ],
-      "reference": "https://learn.microsoft.com/en-us/entra/identity/role-based-access-control/groups-concept"
+      "reference": "https://learn.microsoft.com/en-us/entra/identity/role-based-access-control/groups-create-eligible"
     }
   },
   {
     "id": 32,
     "subtopic": "Manage user and group properties",
-    "question": "You need to view the administrative units (AUs) to which a specific user account belongs. Where in the Azure portal should you look?",
+    "question": "You need to verify which administrative units contain a specific Microsoft Entra user. Where should you look in the Microsoft Entra admin center?",
     "options": [
-      "Under the user's profile blade, select 'Administrative units'",
-      "Under 'Access Control (IAM)' at the Subscription blade",
-      "Under 'Microsoft Entra Connect' synchronization status",
-      "Under 'Audit logs' in Azure Monitor"
+      "Open Administrative units and inspect the Members list for the relevant administrative units",
+      "Open Access Control (IAM) at the Subscription scope",
+      "Open Microsoft Entra Connect synchronization status",
+      "Open Azure Monitor Audit logs"
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "In the Microsoft Entra admin center or Azure portal, navigating to a user's profile blade and selecting 'Administrative units' displays all AUs the user object belongs to.",
+      "correctReason": "Administrative units are Microsoft Entra containers for users, groups, and devices. Their membership can be viewed from the Administrative units area in the Microsoft Entra admin center.",
       "incorrectReasons": [
-        "Access Control (IAM) displays RBAC assignments, not Entra Administrative Unit membership.",
-        "Microsoft Entra Connect manages directory sync status, not object AU membership.",
-        "Audit logs record historical event logs, not current membership states."
+        "Azure RBAC Access Control (IAM) assignments are separate from Microsoft Entra administrative unit membership.",
+        "Microsoft Entra Connect synchronization status reports synchronization activity rather than current administrative unit membership.",
+        "Audit logs show historical events; they aren't the primary view for current administrative unit membership."
       ],
-      "reference": "https://learn.microsoft.com/en-us/entra/identity/administrative-units/about-administrative-units"
+      "reference": "https://learn.microsoft.com/en-us/entra/identity/role-based-access-control/administrative-units"
     }
   },
   {
     "id": 33,
     "subtopic": "Manage licenses in Microsoft Entra ID",
-    "question": "You remove a user from a group that has an assigned Enterprise Mobility + Security (EMS) E5 license. What happens to the license and user state?",
+    "question": "You remove a user from a group that has an assigned Enterprise Mobility + Security (EMS) E5 license. What happens to the group-based license assignment?",
     "options": [
       "The license assignment is immediately removed from the user, and the seat is freed in the tenant license pool.",
       "The license remains assigned to the user permanently until manually deleted by a tenant admin.",
@@ -688,13 +707,13 @@
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "When a user is removed from a group configured with group-based licensing, inherited licenses are removed from the user object and returned to the pool.",
+      "correctReason": "When group-based licensing processes the membership change, the inherited license assignment is removed from the user. The corresponding license capacity becomes available for reassignment.",
       "incorrectReasons": [
-        "Group-based licensing automatically manages license reclamation upon group removal.",
-        "Removing a license does not disable the user's Microsoft Entra identity.",
-        "Data retention policies dictate file preservation, not immediate purging upon group exit."
+        "Group-based licensing automatically manages inherited license assignment; the user doesn't retain the inherited license permanently.",
+        "Removing a group-based license doesn't disable the user's Microsoft Entra account.",
+        "Removing a group-based license doesn't by itself purge the user's OneDrive data without the applicable retention and deletion processes."
       ],
-      "reference": "https://learn.microsoft.com/en-us/entra/identity/users/licensing-groups-assign"
+      "reference": "https://learn.microsoft.com/en-us/microsoft-365/admin/manage/manage-group-licenses?view=o365-worldwide"
     }
   },
   {
@@ -715,13 +734,13 @@
         "Administrative Units are for internal scope delegation.",
         "Storage anonymous access bypasses authentication entirely and exposes data publicly."
       ],
-      "reference": "https://learn.microsoft.com/en-us/entra/external-id/cross-tenant-access-settings-b2b-collaboration"
+      "reference": "https://learn.microsoft.com/en-us/entra/external-id/cross-tenant-access-settings-b2b-collaboration#to-change-inbound-trust-settings-for-mfa-and-device-claims"
     }
   },
   {
     "id": 35,
     "subtopic": "Configure self-service password reset (SSPR)",
-    "question": "You need to ensure that when hybrid users reset their passwords using Microsoft Entra SSPR, their new passwords are synchronized back to your on-premises Active Directory Domain Services (AD DS) in real-time. Which feature must be enabled?",
+    "question": "You need to ensure that when hybrid users reset their passwords using Microsoft Entra SSPR, their new passwords are written back to on-premises Active Directory Domain Services (AD DS). Which feature must be enabled?",
     "options": [
       "Password writeback in Microsoft Entra Connect",
       "Password Hash Synchronization (PHS) without writeback",
@@ -730,11 +749,11 @@
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "Password writeback is a feature of Microsoft Entra Connect that allows password changes in Microsoft Entra ID (via SSPR) to be written back to on-premises AD DS.",
+      "correctReason": "Password writeback enables password changes and resets made in Microsoft Entra ID through SSPR to be written back to the on-premises AD DS environment.",
       "incorrectReasons": [
-        "PHS copies hashes from on-premises to the cloud, but does not write cloud resets back to on-premises without password writeback.",
-        "PTA validates passwords against on-premises domain controllers during sign-in, but does not perform password writeback for SSPR resets.",
-        "Microsoft Entra Domain Services is a managed domain in Azure, not a hybrid sync agent."
+        "Password Hash Synchronization synchronizes password hashes from on-premises to Microsoft Entra ID; it doesn't provide cloud-to-on-premises password reset writeback by itself.",
+        "Pass-through Authentication validates credentials against on-premises AD DS during sign-in but doesn't provide SSPR password writeback by itself.",
+        "Microsoft Entra Domain Services is a managed domain service in Azure and isn't the writeback mechanism for an on-premises AD DS deployment."
       ],
       "reference": "https://learn.microsoft.com/en-us/entra/identity/authentication/concept-sspr-writeback"
     }
@@ -820,7 +839,7 @@
         "DeployIfNotExists automatically deploys complementary resources if missing.",
         "Disabled turns off policy evaluation entirely."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/governance/policy/concepts/effects#audit"
+      "reference": "https://learn.microsoft.com/en-us/azure/governance/policy/concepts/effect-audit"
     }
   },
   {
@@ -918,7 +937,10 @@
       "Automatic conversion to Reserved Instances",
       "Enforcement of ReadOnly resource locks"
     ],
-    "correct": [0, 1],
+    "correct": [
+      0,
+      1
+    ],
     "explanation": {
       "correctReason": "Azure Cost Budgets support sending direct email alerts and triggering Azure Monitor Action Groups (which execute webhooks, logic apps, SMS, or runbooks).",
       "incorrectReasons": [
@@ -989,7 +1011,7 @@
         "Owner role is not required to create network security resources.",
         "Global Administrator is a Microsoft Entra directory role and is not required for Azure RBAC resource deployments."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/role-based-access-control/built-in-roles#network-contributor"
+      "reference": "https://learn.microsoft.com/en-us/azure/virtual-network/manage-network-security-group#permissions"
     }
   },
   {
@@ -1024,20 +1046,24 @@
       "Individual Virtual Machine scope",
       "Storage Container scope"
     ],
-    "correct": [0, 1, 2],
+    "correct": [
+      0,
+      1,
+      2
+    ],
     "explanation": {
       "correctReason": "Azure Cost Management budgets can be scoped at the Management Group, Subscription, or Resource Group level.",
       "incorrectReasons": [
         "Budgets are not directly defined at the individual VM instance target scope level.",
         "Budgets are not created at the granular storage container sub-resource scope level."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/cost-management-billing/costs/tutorial-acm-create-budgets#create-a-budget-in-the-azure-portal"
+      "reference": "https://learn.microsoft.com/en-us/azure/cost-management-billing/costs/tutorial-acm-create-budgets#prerequisites"
     }
   },
   {
     "id": 50,
     "subtopic": "Configure management groups",
-    "question": "You need to grant a user permission to create child management groups and assign policies at the management group level without granting them rights to resources inside the underlying subscriptions. Which built-in role should you assign to the user at the Management Group scope?",
+    "question": "You need to grant a user permission to create child management groups and manage the management-group structure, without granting the user permissions to manage resources in the underlying subscriptions. Which built-in role should you assign at the Management Group scope?",
     "options": [
       "Management Group Contributor",
       "Owner",
@@ -1046,13 +1072,13 @@
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "Management Group Contributor grants rights to manage management group properties, create child groups, and assign policies at the management group scope.",
+      "correctReason": "Management Group Contributor can create, rename, move, and delete management groups at the management-group scope. Its management-group permissions don't grant resource-management permissions in descendant subscriptions merely by assigning the role at the management-group scope.",
       "incorrectReasons": [
-        "Owner grants administrative rights over all subscriptions and resources contained within the management group hierarchy.",
-        "Resource Policy Contributor manages policy definitions but does not manage management group structures.",
-        "User Access Administrator manages user role assignments across resources."
+        "Owner grants full management-group permissions, including access assignment, and those permissions can inherit down the hierarchy; it is broader than required.",
+        "Resource Policy Contributor can assign policies but doesn't provide the management-group create/rename/delete permissions required here.",
+        "User Access Administrator manages access assignments and policy assignment permissions at the management-group scope but doesn't provide the management-group structure-management permissions required here."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/role-based-access-control/built-in-roles#management-group-contributor"
+      "reference": "https://learn.microsoft.com/en-us/azure/governance/management-groups/overview#initial-setup-of-management-groups"
     }
   }
 ]

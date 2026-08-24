@@ -1,0 +1,1074 @@
+[
+  {
+    "id": 1,
+    "subtopic": "Create users and groups",
+    "question": "You need to create 400 new employee accounts in Microsoft Entra ID from an HR export before the accounts sync to on-premises AD. You want the fastest supported method that does not require PowerShell. Which method should you use, and what is the minimum role required?",
+    "options": [
+      "Use Bulk create with a CSV template in the Microsoft Entra admin center as a User Administrator",
+      "Use Bulk create with a CSV template in the Microsoft Entra admin center as a Global Reader",
+      "Use New-MgUser with a CSV loop as a Groups Administrator",
+      "Use the Microsoft 365 admin center Add a user wizard one at a time as a Helpdesk Administrator"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Bulk create in the Microsoft Entra admin center lets an administrator download a CSV template, populate it, and upload it to create many users at once without invitation emails. The minimum role required to perform this bulk create operation is User Administrator.",
+      "incorrectReasons": [
+        "Global Reader is a read-only role and cannot create users.",
+        "New-MgUser is a valid PowerShell approach, but the scenario asks for a method that does not require PowerShell, and Groups Administrator is not the role documented for bulk user creation.",
+        "Adding users one at a time in the Microsoft 365 admin center works but is not the fastest method for 400 accounts, and Helpdesk Administrator has more limited permissions than User Administrator."
+      ],
+      "reference": "https://learn.microsoft.com/entra/identity/users/users-bulk-add"
+    }
+  },
+  {
+    "id": 2,
+    "subtopic": "Create users and groups",
+    "question": "Your company wants a Microsoft Entra security group that automatically contains only internal employees (not guest users), based on directory attributes, without manual membership updates. Which membership type and rule should you configure?",
+    "options": [
+      "Assigned membership with a saved search",
+      "Dynamic User membership with the rule (user.objectId -ne null) and (user.userType -eq \"Member\")",
+      "Dynamic Device membership with the rule (device.objectId -ne null)",
+      "Dynamic User membership with the rule (user.objectId -ne null) only"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "A dynamic membership group automatically adds and removes members as their attributes change. Combining the all-users expression with a filter on userType equal to Member excludes B2B guest accounts and includes only internal member users.",
+      "incorrectReasons": [
+        "Assigned groups require manual membership management, which contradicts the requirement for automatic membership.",
+        "Dynamic Device membership rules apply to device objects, not users, and cannot filter based on user type.",
+        "Using only (user.objectId -ne null) creates a dynamic group of all users, which includes both members and guest users, not just internal employees."
+      ],
+      "reference": "https://learn.microsoft.com/entra/identity/users/groups-dynamic-membership"
+    }
+  },
+  {
+    "id": 3,
+    "subtopic": "Create users and groups",
+    "question": "You are designing how a new dynamic membership group's rule will be constructed. Which statements about dynamic membership rules in Microsoft Entra ID are correct? (Select TWO)",
+    "options": [
+      "A single dynamic membership rule cannot mix user attributes and device attributes",
+      "The portal rule builder supports building rules with any number of expressions",
+      "You cannot manually add or remove a member from a dynamic membership group",
+      "Dynamic membership groups automatically convert to assigned groups once they reach 5,000 members"
+    ],
+    "correct": [
+      0,
+      2
+    ],
+    "explanation": {
+      "correctReason": "You can create dynamic groups for users or devices, but a rule cannot combine both user and device attributes in one group; also, because membership is calculated automatically, you cannot manually add or remove members from a dynamic membership group.",
+      "incorrectReasons": [
+        "The rule builder in the portal only supports up to five expressions; more require the text box editor.",
+        "Dynamic groups do not convert to assigned groups at any membership size; there is no such automatic conversion behavior."
+      ],
+      "reference": "https://learn.microsoft.com/entra/identity/users/groups-dynamic-membership"
+    }
+  },
+  {
+    "id": 4,
+    "subtopic": "Manage user and group properties",
+    "question": "Which statements about the 'usageLocation' user property in Microsoft Entra ID are correct? (Select TWO)",
+    "options": [
+      "usageLocation must be set before a license can be assigned to a user, because service availability and compliance vary by country or region",
+      "usageLocation can be edited at any time on a user's profile; it is not limited to being set only during account creation",
+      "usageLocation is automatically inferred from the user's IP address at every sign-in and cannot be manually overridden",
+      "usageLocation determines only the user's display language in the Microsoft 365 portal and has no effect on licensing"
+    ],
+    "correct": [
+      0,
+      1
+    ],
+    "explanation": {
+      "correctReason": "Microsoft Entra ID requires usageLocation to be populated before a license can be assigned, since licensing eligibility and service availability vary by country/region, and this attribute can be updated on a user's profile at any time, not only during initial creation.",
+      "incorrectReasons": [
+        "usageLocation is not auto-detected from sign-in IP; an administrator (or the user) must explicitly set it.",
+        "usageLocation directly affects licensing eligibility, not merely display language, which is a separate, unrelated setting."
+      ],
+      "reference": "https://learn.microsoft.com/entra/fundamentals/licensing"
+    }
+  },
+  {
+    "id": 5,
+    "subtopic": "Manage user and group properties",
+    "question": "You need to change the manager attribute for 30 users and enforce that a dynamic 'direct reports' group updates automatically afterward. Which action should you take, and what limitation should you be aware of?",
+    "options": [
+      "Update the Manager property on each user's profile; be aware that a direct-reports dynamic rule only includes the immediate reports of the specified manager, not the reports of those reports",
+      "Update the Manager property; be aware that direct-reports dynamic rules can be combined with any other membership rule expression",
+      "Update the Department property instead, since manager changes cannot trigger dynamic group updates",
+      "Create a distribution list instead of a security group, since only distribution lists support manager-based rules"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Setting the Manager property correctly on each user object allows a 'Direct Reports for' dynamic membership rule to update automatically, but this rule type only reflects the direct reports of the specified manager -- it cannot recurse to include reports of reports, and cannot be combined with other rule expressions.",
+      "incorrectReasons": [
+        "The direct-reports rule syntax specifically cannot be combined with any other membership rule expression.",
+        "Only Department changes are irrelevant here; Manager attribute changes do trigger re-evaluation of dynamic groups that reference the Manager property.",
+        "Distribution lists do not support dynamic/rule-based membership in this way; direct-reports rules apply to Microsoft Entra security or Microsoft 365 dynamic groups."
+      ],
+      "reference": "https://learn.microsoft.com/entra/identity/users/groups-dynamic-membership"
+    }
+  },
+  {
+    "id": 6,
+    "subtopic": "Manage user and group properties",
+    "question": "A group owner (who is not a directory role administrator) wants to change the group's description and add members to an assigned Microsoft 365 group they own. Can they do this by default?",
+    "options": [
+      "Yes, group owners can manage membership and basic properties of groups they own without a directory admin role",
+      "No, only a Groups Administrator can ever modify group properties",
+      "No, only the original creator's manager can modify group membership",
+      "Yes, but only for security groups, never for Microsoft 365 groups"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Group ownership in Microsoft Entra ID grants the owner rights to manage that specific group's membership and certain properties (such as description) without requiring a directory-wide administrative role.",
+      "incorrectReasons": [
+        "Groups Administrator is one way to manage groups, but it is not the only way -- designated owners also have delegated rights over their own groups.",
+        "There is no such restriction tied to the creator's manager; ownership, not organizational hierarchy, grants these rights.",
+        "Owner-based self-service management applies to both security groups and Microsoft 365 groups, not just security groups."
+      ],
+      "reference": "https://learn.microsoft.com/entra/fundamentals/licensing"
+    }
+  },
+  {
+    "id": 7,
+    "subtopic": "Manage licenses in Microsoft Entra ID",
+    "question": "Your organization wants licenses to be automatically assigned to new employees when they are added to the 'Sales' security group, and automatically removed when they leave the group, without any scripting. What should you implement?",
+    "options": [
+      "Group-based licensing by assigning the product license directly to the Sales group",
+      "A Logic App triggered on group membership changes that calls the Graph API to assign licenses",
+      "An Azure Policy assignment scoped to the Sales group",
+      "A conditional access policy that grants licenses when MFA is satisfied"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Group-based licensing lets an administrator assign one or more product licenses directly to a group; Microsoft Entra ID automatically assigns the license to new members and removes it when a user leaves the group, with no scripting required.",
+      "incorrectReasons": [
+        "A custom Logic App could technically work but requires scripting/automation, which the requirement explicitly avoids.",
+        "Azure Policy governs Azure resource configuration and compliance, not Microsoft Entra ID license assignment.",
+        "Conditional Access policies control access based on signals like MFA; they do not assign product licenses."
+      ],
+      "reference": "https://learn.microsoft.com/entra/fundamentals/licensing"
+    }
+  },
+  {
+    "id": 8,
+    "subtopic": "Manage licenses in Microsoft Entra ID",
+    "question": "After enabling group-based licensing for a group of 500 users, Advisor-style validation shows the license status for some users as 'Problem: not enough available licenses.' What is the most likely resolution?",
+    "options": [
+      "Purchase additional licenses of the assigned product so the total available covers all group members",
+      "Remove the group license and assign licenses individually to affected users, since group licensing does not support more than 100 users",
+      "Re-create the group as a dynamic group, which resolves license shortage errors automatically",
+      "Nothing can be done; group-based licensing fails permanently once a shortage occurs"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "A licensing problem status indicating insufficient available licenses means the tenant does not own enough seats of that product; purchasing more licenses resolves the shortage, and once available, they will apply to affected members automatically.",
+      "incorrectReasons": [
+        "Group-based licensing has no 100-user cap; the issue is the number of purchased licenses, not group size.",
+        "Changing group type to dynamic does not create additional purchased licenses and would not fix a shortage.",
+        "The condition is not permanent -- once enough licenses are available, the pending assignments succeed."
+      ],
+      "reference": "https://learn.microsoft.com/entra/fundamentals/licensing"
+    }
+  },
+  {
+    "id": 9,
+    "subtopic": "Manage licenses in Microsoft Entra ID",
+    "question": "Which statements about group-based licensing in Microsoft Entra ID are correct? (Select TWO)",
+    "options": [
+      "Group-based licensing works with both assigned and dynamic membership groups",
+      "Group-based licensing can be applied to security groups as well as Microsoft 365 groups",
+      "Group-based licensing requires that MFA be enabled for every member of the group",
+      "A group can have at most one product license assigned to it at any given time"
+    ],
+    "correct": [
+      0,
+      1
+    ],
+    "explanation": {
+      "correctReason": "Group-based licensing can be applied to any security group or Microsoft 365 group, whether its membership is assigned manually or determined dynamically by rules, giving administrators flexibility in how they organize license recipients.",
+      "incorrectReasons": [
+        "MFA enrollment is unrelated to whether group-based licensing can be configured or how it functions.",
+        "A group is not limited to a single product license; you can assign one or more product licenses to a group."
+      ],
+      "reference": "https://learn.microsoft.com/entra/fundamentals/licensing"
+    }
+  },
+  {
+    "id": 10,
+    "subtopic": "Manage external users",
+    "question": "You need to invite 25 external partners as B2B collaboration guest users and want the process to send them invitation emails automatically, rather than creating accounts silently. Which approach should you use?",
+    "options": [
+      "Bulk invite guest users using the CSV template designed for B2B invitations",
+      "Bulk create using the standard internal-user CSV template",
+      "Create the accounts with New-MgUser and set userType to Guest",
+      "Use group-based licensing to auto-provision guest accounts"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "The bulk invite process for B2B collaboration uses its own CSV template and sends invitation emails to each external user automatically, which is the intended workflow for onboarding many guests at once.",
+      "incorrectReasons": [
+        "The standard bulk create (internal user) template creates member accounts with passwords and does not send invitation emails; it's designed for internal users, not B2B guests.",
+        "Manually scripting user creation with a Guest userType would not by itself trigger the standard B2B invitation email flow used by the invitation process.",
+        "Group-based licensing manages license assignment, not the creation/invitation of guest user accounts."
+      ],
+      "reference": "https://learn.microsoft.com/entra/external-id/tutorial-bulk-invite"
+    }
+  },
+  {
+    "id": 11,
+    "subtopic": "Manage external users",
+    "question": "A B2B guest user was invited to your tenant and redeemed the invitation. Which statement correctly describes the guest account's default userType and its effect?",
+    "options": [
+      "The account is created with userType set to Guest, which by default has more limited directory read permissions than a Member account",
+      "The account is created with userType set to Member, identical in permissions to internal employees",
+      "The account has no userType attribute; it is tracked only in a separate B2B table",
+      "The account's userType is Guest only until the invitation is redeemed, after which it changes to Member automatically"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "B2B collaboration users are created in the directory with userType set to Guest. By default, guest users have restricted default directory permissions compared to member users, limiting what directory information they can see.",
+      "incorrectReasons": [
+        "Member userType is used for internal or fully trusted accounts, not standard B2B guests, and grants broader default permissions than Guest.",
+        "The userType attribute exists on every user object, including guests; there is no separate untracked table.",
+        "Redeeming the invitation does not change userType from Guest to Member; it remains Guest unless explicitly changed by an administrator."
+      ],
+      "reference": "https://learn.microsoft.com/entra/external-id/user-properties"
+    }
+  },
+  {
+    "id": 12,
+    "subtopic": "Manage external users",
+    "question": "Your security team wants to restrict which domains employees can invite as B2B guest collaborators, allowing only the domain 'partnerfirm.com' while blocking all others. Where should this be configured?",
+    "options": [
+      "External collaboration settings collaboration restrictions (allow/deny domain lists) in Microsoft Entra ID",
+      "Conditional Access named locations",
+      "Azure Policy assignment at the management group scope",
+      "The default SSPR authentication methods policy"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Microsoft Entra ID's external collaboration settings include collaboration restrictions that let administrators define an allow list or deny list of domains that can be invited for B2B collaboration.",
+      "incorrectReasons": [
+        "Conditional Access named locations define network/IP-based location conditions for sign-in, not which domains can be invited as guests.",
+        "Azure Policy governs Azure resource configuration and compliance, not Microsoft Entra B2B domain restrictions.",
+        "SSPR authentication methods policy configures password reset verification methods, unrelated to guest domain restrictions."
+      ],
+      "reference": "https://learn.microsoft.com/entra/external-id/allow-deny-list"
+    }
+  },
+  {
+    "id": 13,
+    "subtopic": "Manage external users",
+    "question": "Which of the following statements about Microsoft Entra B2B collaboration guest users are correct? (Select TWO)",
+    "options": [
+      "Guest users authenticate using their own identity provider or organization's credentials rather than a password created in your tenant",
+      "Guest users are always required to have an Azure AD/Entra account in their home tenant, with no other identity types supported",
+      "An administrator can convert a guest user's userType and adjust access, but the underlying object remains a distinct external identity",
+      "Guest users automatically receive the same default directory read permissions as internal Member users"
+    ],
+    "correct": [
+      0,
+      2
+    ],
+    "explanation": {
+      "correctReason": "B2B guest users typically sign in using credentials from their own organization or another supported identity provider rather than a password issued by the resource tenant, and administrators retain control to manage properties like userType, though the guest remains represented as an external identity object.",
+      "incorrectReasons": [
+        "B2B collaboration supports guests without an Entra account too, such as those using one-time passcode email verification or other supported identity providers, not exclusively Entra ID accounts.",
+        "By default, guest users have more restricted directory read permissions than Member users; they do not automatically get identical default permissions."
+      ],
+      "reference": "https://learn.microsoft.com/entra/external-id/user-properties"
+    }
+  },
+  {
+    "id": 14,
+    "subtopic": "Configure self-service password reset (SSPR)",
+    "question": "Which statements about the 'Number of methods required to reset' SSPR setting in Microsoft Entra ID are correct? (Select TWO)",
+    "options": [
+      "A user who has not registered at least the configured number of required methods cannot complete SSPR and must have an administrator reset their password instead",
+      "The value can be configured to either one or two required methods",
+      "The setting automatically lowers to one method for any user who has registered only one method",
+      "The reset succeeds without registered methods as long as the user answers a CAPTCHA"
+    ],
+    "correct": [
+      0,
+      1
+    ],
+    "explanation": {
+      "correctReason": "If a user hasn't registered the minimum number of required authentication methods, SSPR fails for them and an admin must reset the password manually; and administrators can set this required-methods value to either one or two.",
+      "incorrectReasons": [
+        "The organization-wide policy value is not silently reduced per user based on what they've registered; the configured requirement applies uniformly.",
+        "A CAPTCHA alone does not substitute for registered authentication methods in the SSPR verification flow."
+      ],
+      "reference": "https://learn.microsoft.com/entra/identity/authentication/concept-sspr-howitworks"
+    }
+  },
+  {
+    "id": 15,
+    "subtopic": "Configure self-service password reset (SSPR)",
+    "question": "Your organization enables SSPR and wants to make sure the Microsoft Authenticator app cannot be the only registered method for users who must satisfy a policy requiring one method for reset. What must you ensure?",
+    "options": [
+      "At least one additional authentication method besides Authenticator must also be enabled and selectable in the SSPR policy",
+      "Authenticator can always be the sole method regardless of policy, since it uses push notifications",
+      "Authenticator cannot be used for SSPR at all, under any configuration",
+      "Two instances of Authenticator registered on different phones satisfy the single-method requirement"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "When one method is required for reset, Microsoft Authenticator cannot be selected as the only available authentication method for the SSPR policy; at least one additional method must also be enabled.",
+      "incorrectReasons": [
+        "Authenticator specifically cannot be configured as the sole method when the policy requires one (or the sole two when requiring two); another method must be available.",
+        "Authenticator is a supported SSPR method, just not permitted as the exclusive method under this rule.",
+        "Registering Authenticator twice does not satisfy the 'at least one additional method' requirement, since it is still the same method type."
+      ],
+      "reference": "https://learn.microsoft.com/entra/identity/authentication/concept-sspr-howitworks"
+    }
+  },
+  {
+    "id": 16,
+    "subtopic": "Configure self-service password reset (SSPR)",
+    "question": "A helpdesk administrator reports that several Global Administrator accounts cannot reset their passwords using only a phone call verification, even though the tenant SSPR policy requires just one method for regular users. Why does this occur?",
+    "options": [
+      "Microsoft enforces a strong default two-gate password reset policy for accounts assigned Azure administrator roles, regardless of the general user policy",
+      "Global Administrators are never allowed to use SSPR under any circumstances",
+      "Phone call verification is deprecated and no longer works for any account type",
+      "This is a licensing issue; Global Administrators require a separate SSPR license SKU"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Microsoft enforces a strong default two-gate (two-method) password reset policy specifically for accounts holding Azure administrator directory roles, which overrides the one-method policy configured for standard users.",
+      "incorrectReasons": [
+        "Global Administrators can use SSPR, but under a stricter, Microsoft-enforced two-method policy rather than being blocked entirely.",
+        "Phone call verification remains a valid SSPR authentication method; it is not deprecated.",
+        "This behavior is a built-in security policy difference for admin roles, not a separate licensing requirement."
+      ],
+      "reference": "https://learn.microsoft.com/entra/identity/authentication/concept-sspr-policy"
+    }
+  },
+  {
+    "id": 17,
+    "subtopic": "Manage built-in Azure roles",
+    "question": "A team lead needs to manage access to Azure resources for their project team -- including assigning roles to other users -- but should not be able to manage the resources themselves (start/stop VMs, modify storage, etc.). Which built-in role should you assign?",
+    "options": [
+      "User Access Administrator",
+      "Owner",
+      "Contributor",
+      "Reader"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "User Access Administrator lets a user manage access (create and manage role assignments) to Azure resources at the assigned scope, without granting the ability to manage the resources themselves.",
+      "incorrectReasons": [
+        "Owner grants full access to manage resources AND assign roles, which is broader than required.",
+        "Contributor can manage resources but cannot assign roles to other users, which fails the requirement to manage access.",
+        "Reader can only view resources; it cannot assign roles or manage resources."
+      ],
+      "reference": "https://learn.microsoft.com/azure/role-based-access-control/built-in-roles"
+    }
+  },
+  {
+    "id": 18,
+    "subtopic": "Manage built-in Azure roles",
+    "question": "Which statement correctly distinguishes the built-in Contributor role from the Owner role in Azure RBAC?",
+    "options": [
+      "Contributor can create and manage all types of Azure resources but cannot grant access to others; Owner can do both",
+      "Contributor can grant access to others but cannot manage resources; Owner can only manage resources",
+      "Contributor and Owner have identical permissions in Azure RBAC",
+      "Contributor can only read resources; Owner is required for any write operation"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "The Contributor role grants full rights to create and manage all resource types, but explicitly does not allow assigning roles or granting access to other users. Owner has full access, including the ability to assign roles.",
+      "incorrectReasons": [
+        "This reverses the actual behavior -- Contributor cannot grant access, while Owner can both manage resources and grant access.",
+        "The two roles are not identical; Owner has the additional role-assignment capability that Contributor lacks.",
+        "Contributor is a write-capable role, not read-only; Reader is the read-only built-in role."
+      ],
+      "reference": "https://learn.microsoft.com/azure/role-based-access-control/built-in-roles"
+    }
+  },
+  {
+    "id": 19,
+    "subtopic": "Manage built-in Azure roles",
+    "question": "Which of the following are true about Azure built-in roles? (Select TWO)",
+    "options": [
+      "Built-in roles have their AssignableScopes property set to the root scope ('/'), making them available for assignment anywhere",
+      "Built-in roles cannot be assigned at the management group scope under any circumstances",
+      "Azure provides several hundred built-in roles covering common Azure job functions",
+      "Built-in roles cannot be used as a starting point for creating a custom role"
+    ],
+    "correct": [
+      0,
+      2
+    ],
+    "explanation": {
+      "correctReason": "Built-in roles have AssignableScopes set to '/' (root), meaning they can be assigned at any management group, subscription, resource group, or resource scope, and Azure ships with several hundred built-in roles that map to common job functions.",
+      "incorrectReasons": [
+        "Built-in roles such as Owner, Contributor, and Reader can be assigned at the management group scope; there's no such restriction.",
+        "Administrators commonly clone a built-in role's JSON as the starting point when authoring a new custom role."
+      ],
+      "reference": "https://learn.microsoft.com/azure/role-based-access-control/built-in-roles"
+    }
+  },
+  {
+    "id": 20,
+    "subtopic": "Assign roles at different scopes",
+    "question": "You assign the Contributor role to a user at the resource group level named 'RG-Prod'. The user should also be able to manage a single storage account named 'stgaudit' that lives in a different resource group, 'RG-Audit', without gaining access to anything else in RG-Audit. What should you do?",
+    "options": [
+      "Assign the Contributor role to the user directly at the scope of the 'stgaudit' storage account resource",
+      "Move the storage account into RG-Prod so the existing assignment applies",
+      "Assign Owner at the subscription scope so the user can reach the storage account",
+      "Nothing further is needed; the RG-Prod assignment already grants resource-level access anywhere in the subscription"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Azure RBAC role assignments can be scoped narrowly to an individual resource. Assigning Contributor directly at the scope of the storage account grants access to just that resource without affecting the rest of RG-Audit or requiring resource moves.",
+      "incorrectReasons": [
+        "Moving the resource changes its resource group membership and resource ID, which is unnecessary and has broader operational impact just to grant access.",
+        "Assigning Owner at the subscription scope grants excessive, unrelated permissions across the entire subscription.",
+        "A role assignment scoped to RG-Prod does not extend to resources in a different resource group."
+      ],
+      "reference": "https://learn.microsoft.com/azure/role-based-access-control/scope-overview"
+    }
+  },
+  {
+    "id": 21,
+    "subtopic": "Assign roles at different scopes",
+    "question": "A user has been assigned the Reader role at the subscription scope and the Contributor role at a specific resource group scope within that subscription. What is the user's effective permission on resources inside that resource group?",
+    "options": [
+      "Contributor, because Azure RBAC is additive and the more permissive role assignment at the narrower (or any relevant) scope applies",
+      "Reader only, because the subscription-level assignment always takes precedence over resource group assignments",
+      "The user has no access, because conflicting roles cancel each other out",
+      "The user must be assigned a single unified custom role before any access is granted"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Azure RBAC role assignments are additive: a user's effective permissions are the union of all role assignments that apply at or above the resource's scope. Since Contributor includes everything Reader does plus write, the effective permission within that resource group is Contributor.",
+      "incorrectReasons": [
+        "There is no rule where subscription-level assignments override more specific ones; effective permissions combine both, and the narrower Contributor assignment still fully applies.",
+        "Multiple role assignments do not cancel each other in Azure RBAC; they are combined additively.",
+        "No unification step is required; RBAC works by combining all applicable assignments automatically."
+      ],
+      "reference": "https://learn.microsoft.com/azure/role-based-access-control/scope-overview"
+    }
+  },
+  {
+    "id": 22,
+    "subtopic": "Assign roles at different scopes",
+    "question": "Your organization has 40 subscriptions organized under a management group named 'Production'. You need every current and future subscription placed under Production to automatically grant the security team's group the Security Reader role, without having to make 40 separate assignments each time a new subscription is added. What should you do?",
+    "options": [
+      "Assign the Security Reader role to the group at the 'Production' management group scope",
+      "Assign the Security Reader role to the group individually on each of the 40 subscriptions",
+      "Create a resource lock at the management group scope and grant the role through the lock",
+      "Add the group to the Global Administrator role, which automatically grants all subscription roles"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Role assignments made at a management group scope are inherited by all child management groups, subscriptions, and resources -- including subscriptions added later -- so a single assignment at the 'Production' management group covers current and future subscriptions.",
+      "incorrectReasons": [
+        "Assigning individually to 40 subscriptions is exactly the repetitive, non-scalable approach the scenario is trying to avoid, and it would not automatically cover future subscriptions.",
+        "Resource locks restrict deletion/modification; they have nothing to do with granting or inheriting RBAC role assignments.",
+        "Global Administrator is a Microsoft Entra ID directory role, not an automatic mechanism for granting Azure RBAC roles across subscriptions, and it is far broader than the least-privilege Security Reader requirement."
+      ],
+      "reference": "https://learn.microsoft.com/azure/role-based-access-control/scope-overview"
+    }
+  },
+  {
+    "id": 23,
+    "subtopic": "Assign roles at different scopes",
+    "question": "Which of the following are valid scopes at which an Azure RBAC role assignment can be created? (Select THREE)",
+    "options": [
+      "Management group",
+      "Subscription",
+      "Resource group",
+      "Microsoft Entra tenant SSPR policy"
+    ],
+    "correct": [
+      0,
+      1,
+      2
+    ],
+    "explanation": {
+      "correctReason": "Azure RBAC role assignments can be created at four levels of scope: management group, subscription, resource group, and individual resource -- with permissions inherited down the hierarchy.",
+      "incorrectReasons": [
+        "The SSPR authentication methods policy is a Microsoft Entra ID identity feature configuration, not an Azure Resource Manager scope where RBAC role assignments are created."
+      ],
+      "reference": "https://learn.microsoft.com/azure/role-based-access-control/scope-overview"
+    }
+  },
+  {
+    "id": 24,
+    "subtopic": "Interpret access assignments",
+    "question": "A user reports they cannot delete a virtual network even though they have been assigned the Owner role on the resource group containing it. As the administrator, what should you check first to explain this behavior?",
+    "options": [
+      "Whether a deny assignment or a resource lock (such as CanNotDelete) exists that blocks the delete operation regardless of RBAC permissions",
+      "Whether the user's Owner role assignment has expired after 90 days automatically",
+      "Whether the user needs to be assigned Owner again at the resource level specifically",
+      "Whether the subscription has run out of available role assignments"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Resource locks and deny assignments operate independently of and override standard RBAC permissions. Even an Owner cannot delete a resource if a CanNotDelete (or ReadOnly) lock is applied, or if a deny assignment explicitly blocks the action.",
+      "incorrectReasons": [
+        "Standard Azure RBAC role assignments do not expire automatically after 90 days by default; that behavior would require PIM-based eligible/time-bound assignments, which is a separate feature.",
+        "Since RBAC is additive and inherited, an Owner assignment on the resource group already covers the virtual network within it; reassigning at the resource level is unnecessary.",
+        "There is a large per-subscription role assignment limit, and reaching it would prevent making new assignments, not block an existing Owner from performing an action."
+      ],
+      "reference": "https://learn.microsoft.com/azure/azure-resource-manager/management/lock-resources"
+    }
+  },
+  {
+    "id": 25,
+    "subtopic": "Interpret access assignments",
+    "question": "You want to quickly determine why a specific user cannot perform an action on an Azure resource -- including both their effective RBAC role assignments and any deny assignments at that scope -- without manually reviewing every assignment. What tool should you use?",
+    "options": [
+      "The Check access feature on the resource's Access control (IAM) blade",
+      "Azure Advisor operational excellence recommendations",
+      "Cost Management access review reports",
+      "Microsoft Entra ID Identity Protection risk detections"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "The Check access feature in Access control (IAM) lets an administrator select a specific user, group, or service principal and see their effective role assignments and any deny assignments that apply at that scope.",
+      "incorrectReasons": [
+        "Azure Advisor evaluates configuration best practices around cost, reliability, performance, security, and operations -- it does not report per-user effective access.",
+        "Cost Management access reviews are not a real feature for evaluating RBAC access; Cost Management focuses on spending data.",
+        "Identity Protection evaluates sign-in and user risk, not effective Azure resource permissions."
+      ],
+      "reference": "https://learn.microsoft.com/azure/role-based-access-control/check-access"
+    }
+  },
+  {
+    "id": 26,
+    "subtopic": "Interpret access assignments",
+    "question": "A deny assignment exists at the subscription scope that blocks all users from deleting Key Vault resources, created automatically by an Azure Blueprint (now Template Specs/Landing Zone) deployment. A user has the Owner role at the same scope. What is the result when this user tries to delete a Key Vault?",
+    "options": [
+      "The delete operation is blocked, because deny assignments take precedence over any role assignment, including Owner",
+      "The delete operation succeeds, because Owner always overrides deny assignments",
+      "The delete operation succeeds only if the user is also a Global Administrator in Microsoft Entra ID",
+      "Deny assignments only apply to Contributor-level access and do not affect Owner"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Deny assignments block specified actions for all users, groups, and service principals regardless of their role assignments -- even users with the Owner role cannot perform an action explicitly blocked by a deny assignment at that scope.",
+      "incorrectReasons": [
+        "Owner does not override deny assignments; deny assignments are evaluated before role-based allow permissions and always win.",
+        "Microsoft Entra ID Global Administrator is a directory role, unrelated to Azure Resource Manager deny assignment evaluation, and does not bypass a deny assignment.",
+        "Deny assignments apply uniformly to all security principals and roles at the specified scope, not only to Contributor-level access."
+      ],
+      "reference": "https://learn.microsoft.com/azure/role-based-access-control/deny-assignments"
+    }
+  },
+  {
+    "id": 27,
+    "subtopic": "Implement and manage Azure Policy",
+    "question": "You assign a policy with the 'append' effect to automatically add a required tag to new storage accounts, and a separate policy with the 'deny' effect to block storage accounts without that tag. In what order does Azure Policy evaluate these effects on a new resource creation request?",
+    "options": [
+      "append is evaluated before deny, so the tag can be appended first, potentially preventing the deny policy from blocking the request",
+      "deny is always evaluated before append, so the resource creation is blocked before the tag can be appended",
+      "Both effects are evaluated simultaneously and the results are merged at random",
+      "append and deny cannot be assigned to the same resource type at the same scope"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "During evaluation of a new or updated resource, Azure Policy processes append and modify effects before deny. Since append can alter the request (for example, by adding the required tag), it may prevent a deny effect from triggering afterward.",
+      "incorrectReasons": [
+        "This reverses the actual order; deny is evaluated after append and modify, not before.",
+        "Evaluation follows a defined, deterministic order (disabled, then append/modify, then deny, then audit, and so on) -- it is not simultaneous or random.",
+        "There is no restriction preventing append and deny policies with different definitions from being assigned to the same resource type and scope."
+      ],
+      "reference": "https://learn.microsoft.com/azure/governance/policy/concepts/effect-basics"
+    }
+  },
+  {
+    "id": 28,
+    "subtopic": "Implement and manage Azure Policy",
+    "question": "You assign a policy definition with the 'auditIfNotExists' effect to check whether a Log Analytics diagnostic setting exists on every SQL database. An existing SQL database does not have this diagnostic setting configured. What is the resulting compliance state?",
+    "options": [
+      "Non-compliant, because the IF condition is true and the existence condition (diagnostic setting present) is false",
+      "Compliant, because auditIfNotExists never marks pre-existing resources as non-compliant",
+      "Error, because auditIfNotExists cannot evaluate existing resources",
+      "The resource is automatically remediated and marked compliant without any action"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "The auditIfNotExists effect evaluates to non-compliant when its IF condition is true (the resource type matches) and the specified existence condition (a related resource, like a diagnostic setting, existing) is false.",
+      "incorrectReasons": [
+        "auditIfNotExists absolutely can and does apply to pre-existing resources, marking them non-compliant if the referenced resource is missing.",
+        "This effect works correctly with regular compliance evaluation and produces a normal compliant/non-compliant state, not an error, under standard evaluation.",
+        "auditIfNotExists only reports non-compliance; it does not automatically remediate. A separate remediation task (often paired with deployIfNotExists) is required to create the missing resource."
+      ],
+      "reference": "https://learn.microsoft.com/azure/governance/policy/concepts/compliance-states"
+    }
+  },
+  {
+    "id": 29,
+    "subtopic": "Implement and manage Azure Policy",
+    "question": "Your governance team assigns a policy at the management group scope; however, a specific subscription within that management group should be entirely excluded from evaluation because it hosts a legacy migration project. What should you configure?",
+    "options": [
+      "Add the subscription to the policy assignment's 'Exclusions' (excluded scopes)",
+      "Delete and recreate the policy assignment at each individual subscription except the legacy one",
+      "Apply a resource lock to the subscription to bypass Policy evaluation",
+      "Set the policy effect to 'Disabled' for the entire management group"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "A policy assignment's exclusions (excluded scopes) let you exempt specific child scopes, such as one subscription within a management group, from that assignment's evaluation while leaving it active for the rest of the hierarchy.",
+      "incorrectReasons": [
+        "Recreating assignments individually per subscription is unnecessarily complex and error-prone compared to using a single exclusion on the existing assignment.",
+        "Resource locks prevent deletion/modification of resources; they have no effect on Azure Policy evaluation or compliance scanning.",
+        "Setting the effect to Disabled for the whole management group would stop enforcement everywhere, not just for the one subscription that needs to be excluded."
+      ],
+      "reference": "https://learn.microsoft.com/azure/governance/policy/concepts/assignment-structure"
+    }
+  },
+  {
+    "id": 30,
+    "subtopic": "Implement and manage Azure Policy",
+    "question": "Which of the following are valid Azure Policy definition effects? (Select THREE)",
+    "options": [
+      "deployIfNotExists",
+      "modify",
+      "auditIfNotExists",
+      "escalate"
+    ],
+    "correct": [
+      0,
+      1,
+      2
+    ],
+    "explanation": {
+      "correctReason": "deployIfNotExists, modify, and auditIfNotExists are all valid, documented Azure Policy effects, alongside others such as deny, audit, append, disabled, manual, and denyAction.",
+      "incorrectReasons": [
+        "'escalate' is not a defined Azure Policy effect; it does not appear in the supported list of policy definition effects."
+      ],
+      "reference": "https://learn.microsoft.com/azure/governance/policy/concepts/effect-basics"
+    }
+  },
+  {
+    "id": 31,
+    "subtopic": "Configure resource locks",
+    "question": "You apply a ReadOnly lock to a resource group containing a storage account. A user with the Storage Blob Data Contributor role attempts to upload a new blob to a container in that storage account. What happens?",
+    "options": [
+      "The upload succeeds, because the lock only restricts management plane (ARM) operations, not data plane operations like blob uploads",
+      "The upload fails, because ReadOnly locks also block all data plane operations",
+      "The upload succeeds only if the user is also assigned Owner",
+      "The lock has no effect until the resource group is redeployed"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Resource Manager locks apply only to management plane operations sent to https://management.azure.com. They restrict changes to resource configuration but do not affect data plane transactions -- so a blob upload, which is a data operation, is not blocked by a ReadOnly management lock.",
+      "incorrectReasons": [
+        "ReadOnly locks restrict configuration changes (management plane) but explicitly do not restrict data plane operations such as reading or writing blob data.",
+        "The user's role (Storage Blob Data Contributor) governs the data plane action; being Owner would not change how the ReadOnly lock affects data operations, since the lock doesn't apply to data plane at all.",
+        "Locks take effect immediately upon creation; no redeployment is required."
+      ],
+      "reference": "https://learn.microsoft.com/azure/azure-resource-manager/management/lock-resources"
+    }
+  },
+  {
+    "id": 32,
+    "subtopic": "Configure resource locks",
+    "question": "A resource group contains a virtual machine with a CanNotDelete lock applied directly to the VM. An administrator (who is also an Owner) attempts to delete the entire resource group. What is the outcome?",
+    "options": [
+      "The entire delete operation is blocked; a partial deletion that skips the locked VM is not possible",
+      "The resource group is deleted, and only the locked VM is skipped and left behind",
+      "The lock is automatically removed so the resource group deletion can proceed",
+      "The delete succeeds because CanNotDelete locks only apply to management group scope deletions"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "If any resource within a resource group has a Delete (CanNotDelete) lock, attempting to delete the resource group blocks the entire operation. A partial deletion that removes everything except the locked resource is not supported.",
+      "incorrectReasons": [
+        "Azure does not perform a partial delete that skips locked resources; the whole operation is prevented.",
+        "Resource locks are not auto-removed to accommodate a delete request; an administrator must explicitly remove the lock first.",
+        "CanNotDelete locks apply at whatever scope they're set (resource, resource group, or subscription), not only at management group scope, and here it is applied directly to the VM resource."
+      ],
+      "reference": "https://learn.microsoft.com/azure/azure-resource-manager/management/lock-resources"
+    }
+  },
+  {
+    "id": 33,
+    "subtopic": "Configure resource locks",
+    "question": "You need to allow up to 20 individual management locks to be applied within a single resource group scope for different resources. Is this within Azure's supported limits?",
+    "options": [
+      "Yes, the limit for management locks per unique scope is 20",
+      "No, the maximum is 5 locks per resource group",
+      "No, only one lock total is allowed per resource group regardless of resource count",
+      "Yes, there is no limit on the number of locks per scope"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Azure supports up to 20 management locks per unique scope. Since 20 locks fits exactly within this documented limit, the scenario is supported.",
+      "incorrectReasons": [
+        "5 is not the documented limit; the actual limit is 20 locks per unique scope.",
+        "Multiple locks (up to 20) are permitted at a given scope; it is not restricted to a single lock.",
+        "There is a defined limit (20) per unique scope, so it is not unlimited."
+      ],
+      "reference": "https://learn.microsoft.com/azure/azure-resource-manager/management/azure-subscription-service-limits"
+    }
+  },
+  {
+    "id": 34,
+    "subtopic": "Apply and manage tags on resources",
+    "question": "Your finance team wants every resource to be tagged with a 'CostCenter' value, and they need this enforced so that resources missing the tag simply cannot be created going forward, while inheriting the tag value automatically from the parent resource group when possible. Which combination of Azure Policy effects should you use for new resource creation?",
+    "options": [
+      "A 'modify' (or 'append') policy to inherit the tag value from the resource group, paired with a 'deny' policy for resources still missing the tag",
+      "An 'audit' policy alone, since audit effects automatically block noncompliant resource creation",
+      "A 'disabled' policy, since disabling policy always applies default tags automatically",
+      "Tags per resource or resource group; tags applied to the resource group are automatically inherited by every resource within it without any policy"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "A modify or append effect can add or inherit a tag value (for example, from the parent resource group) at creation time, while a deny effect blocks creation of resources that still lack the required tag after that step -- together enforcing consistent tagging.",
+      "incorrectReasons": [
+        "The audit effect only logs non-compliance; it does not block resource creation, so it cannot enforce the requirement by itself.",
+        "The disabled effect turns off the policy rule evaluation entirely; it does not apply any tags.",
+        "Tags applied to a resource group are NOT automatically inherited by the resources within it -- inheritance must be implemented explicitly, such as through Azure Policy."
+      ],
+      "reference": "https://learn.microsoft.com/azure/azure-resource-manager/management/tag-resources"
+    }
+  },
+  {
+    "id": 35,
+    "subtopic": "Apply and manage tags on resources",
+    "question": "You attempt to add a 51st unique tag name/value pair directly to a single storage account resource. What happens?",
+    "options": [
+      "The operation fails, because each resource (and resource group) supports a maximum of 50 tag name/value pairs",
+      "The operation succeeds, because there is no limit on tags per resource, only per subscription",
+      "The operation succeeds, but only the first 50 tags are billed",
+      "The tag is automatically converted into a JSON string appended to an existing tag without user action"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Each resource, resource group, and subscription supports a maximum of 50 tag name/value pairs; attempting to exceed this limit on a single resource causes the operation to fail.",
+      "incorrectReasons": [
+        "The 50-tag limit applies per resource (and per resource group and subscription), not solely at the subscription level.",
+        "There is no separate billing distinction; the write operation itself is blocked once the 50-tag cap is exceeded.",
+        "Combining multiple values into a JSON string under a single tag name is a manual workaround an administrator can choose to use, not something Azure performs automatically."
+      ],
+      "reference": "https://learn.microsoft.com/azure/azure-resource-manager/management/tag-resources"
+    }
+  },
+  {
+    "id": 36,
+    "subtopic": "Apply and manage tags on resources",
+    "question": "Which characters are NOT permitted in an Azure resource tag name?",
+    "options": [
+      "< > % & \\ ? /",
+      "Uppercase letters",
+      "Numbers",
+      "Hyphens and underscores"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Azure tag names cannot contain the characters <, >, %, &, \\, ?, or /. Beyond these restricted characters and the 512-character name / 256-character value length limits, tag names otherwise support letters, numbers, and common symbols.",
+      "incorrectReasons": [
+        "Uppercase letters are permitted in tag names; there is no such restriction.",
+        "Numbers are permitted in tag names (subject to certain resource-specific rules, such as some resources not allowing a tag name to start with a number).",
+        "Hyphens and underscores are commonly used and permitted characters in tag names."
+      ],
+      "reference": "https://learn.microsoft.com/azure/azure-resource-manager/management/tag-resources"
+    }
+  },
+  {
+    "id": 37,
+    "subtopic": "Manage resource groups",
+    "question": "You need to move a virtual network and its associated subnets from Resource Group A to Resource Group B within the same subscription. Both resource groups currently have no locks. What happens to resources during the move operation?",
+    "options": [
+      "Both the source and destination resource groups are locked for the duration of the move (up to 4 hours), but existing resources remain fully operational without downtime",
+      "All resources in both resource groups are deleted and redeployed from scratch",
+      "The move changes the physical Azure region of the virtual network to match the destination resource group",
+      "Only the resource group names change; resource IDs remain identical afterward"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "During a resource move, Azure Resource Manager locks the source and target resource groups so no create/delete/update operations can occur on them, for up to about four hours, but the resources continue to run normally without service interruption.",
+      "incorrectReasons": [
+        "A move operation changes metadata (resource group and possibly subscription) -- it does not delete and redeploy the underlying resources.",
+        "Moving a resource to a new resource group or subscription does not change its physical region/location.",
+        "Moving a resource changes its resource ID, since the resource group name is part of the ID path; any references to the old ID must be updated."
+      ],
+      "reference": "https://learn.microsoft.com/azure/azure-resource-manager/management/move-resource-group-and-subscription"
+    }
+  },
+  {
+    "id": 38,
+    "subtopic": "Manage resource groups",
+    "question": "You attempt to move an entire resource group, 'RG-Legacy', directly to a different Azure subscription using the standard move feature. What is the outcome?",
+    "options": [
+      "This is not supported; you cannot move a resource group itself to a new subscription, but you can move all the resources within it to a resource group in the target subscription",
+      "The resource group and all resources move successfully, including all tags, role assignments, and policies automatically carried over",
+      "The move succeeds, but only if the resource group contains fewer than 800 resources",
+      "The move succeeds only for resource groups that have a CanNotDelete lock applied"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Azure does not support moving a resource group object itself across subscriptions. Instead, you move the resources contained in it to a resource group in the destination subscription; settings like tags, role assignments, and policies do not transfer automatically and must be reapplied.",
+      "incorrectReasons": [
+        "Even where resource moves across subscriptions are possible, tags, role assignments, and policies are explicitly not carried over automatically.",
+        "The 800-resource limit applies to a single move operation's resource count, but it doesn't change the fundamental fact that resource groups themselves cannot be moved between subscriptions.",
+        "A CanNotDelete lock has no bearing on enabling resource-group-level subscription moves; that capability simply doesn't exist."
+      ],
+      "reference": "https://learn.microsoft.com/azure/azure-resource-manager/management/move-resource-group-and-subscription"
+    }
+  },
+  {
+    "id": 39,
+    "subtopic": "Manage resource groups",
+    "question": "Which of the following statements about moving Azure resources between resource groups or subscriptions are correct? (Select TWO)",
+    "options": [
+      "The destination subscription must be registered for the resource provider of the resource being moved, or the move fails",
+      "Only top-level (parent) resources should be specified in a move request; child resources move automatically with their parent",
+      "Moving a resource across subscriptions is supported even when the subscriptions belong to different Microsoft Entra tenants",
+      "A resource with a read-only lock on the source resource group can still be moved without issue"
+    ],
+    "correct": [
+      0,
+      1
+    ],
+    "explanation": {
+      "correctReason": "If the destination subscription isn't registered for the moved resource's provider namespace, the move fails with a registration error; and only parent resources need to be included in a move request, since child resources move automatically along with them.",
+      "incorrectReasons": [
+        "A cross-subscription move requires both subscriptions to be part of the same Microsoft Entra ID tenant; moving between different tenants this way is not supported.",
+        "Azure resources cannot be moved if a read-only lock exists on the source, destination resource group, or subscription; the lock must be removed first."
+      ],
+      "reference": "https://learn.microsoft.com/azure/azure-resource-manager/management/move-resource-group-and-subscription"
+    }
+  },
+  {
+    "id": 40,
+    "subtopic": "Manage subscriptions",
+    "question": "Your organization cancels an Azure subscription that still has several resource locks applied to production resources. What happens to those resources immediately after cancellation?",
+    "options": [
+      "The resource locks do not block the subscription cancellation; Azure deactivates the resources and only permanently deletes them after a waiting period",
+      "Cancellation fails outright until every lock is manually removed first",
+      "The resources are deleted immediately regardless of locks or waiting periods",
+      "Resource locks convert automatically into a permanent 'hold' that prevents cancellation indefinitely"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "A resource lock does not block subscription cancellation. When a subscription is canceled, Azure preserves resources by deactivating them rather than deleting them right away, and only permanently deletes them after a waiting period.",
+      "incorrectReasons": [
+        "Cancellation is not blocked by locks; the lock has no bearing on being able to cancel the subscription itself.",
+        "Resources are not deleted immediately -- there is a waiting/grace period before permanent deletion.",
+        "Locks do not prevent cancellation at all, permanently or otherwise; they only govern modify/delete operations on the still-active resource before cancellation."
+      ],
+      "reference": "https://learn.microsoft.com/azure/azure-resource-manager/management/lock-resources"
+    }
+  },
+  {
+    "id": 41,
+    "subtopic": "Manage subscriptions",
+    "question": "You need to update a custom RBAC role definition whose AssignableScopes includes a specific subscription. The update operation fails with a permissions-linked error referencing that subscription's state. What is a likely cause you should check?",
+    "options": [
+      "The subscription referenced in AssignableScopes has been disabled and needs to be reactivated before the custom role can be updated",
+      "Custom roles cannot ever be updated once created, only deleted and recreated",
+      "The role update failed because it exceeded the 5,000 custom roles per tenant limit",
+      "AssignableScopes cannot reference a subscription; only resource groups are supported"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "One documented cause of being unable to update or delete a custom role is that the role includes a subscription in its AssignableScopes and that subscription is in a disabled state; reactivating the subscription resolves the issue.",
+      "incorrectReasons": [
+        "Custom roles can be updated after creation using the portal, PowerShell, CLI, or REST API; they are not immutable once created.",
+        "The 5,000 custom roles per tenant limit is a creation-time cap on the total number of roles, not something that would specifically cause an update to fail due to a subscription reference.",
+        "AssignableScopes can include subscriptions (as well as management groups and resource groups), not only resource groups."
+      ],
+      "reference": "https://learn.microsoft.com/azure/role-based-access-control/troubleshooting"
+    }
+  },
+  {
+    "id": 42,
+    "subtopic": "Manage subscriptions",
+    "question": "An architect is designing an Azure environment and needs to know the maximum number of resource groups permitted per subscription. What is the documented limit?",
+    "options": [
+      "980",
+      "100",
+      "5,000",
+      "Unlimited"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "The documented Azure subscription limit for resource groups per subscription is 980.",
+      "incorrectReasons": [
+        "100 is well below the actual documented limit of 980 resource groups per subscription.",
+        "5,000 is not the resource-group-per-subscription limit; that figure is closer to other unrelated limits, such as custom roles per tenant.",
+        "There is a defined numeric limit (980); it is not unlimited."
+      ],
+      "reference": "https://learn.microsoft.com/azure/azure-resource-manager/management/azure-subscription-service-limits"
+    }
+  },
+  {
+    "id": 43,
+    "subtopic": "Manage costs by using alerts, budgets, and Azure Advisor recommendations",
+    "question": "You are configuring a budget in Cost Management for a subscription and want it to trigger an Action Group (which sends a mobile push notification and calls a Logic App) whenever forecasted spending is projected to exceed 90% of the budget. At what scopes can budgets call action groups?",
+    "options": [
+      "Subscription and resource group scopes only",
+      "Any scope, including individual resources",
+      "Management group scope only",
+      "Only Enterprise Agreement billing account scope"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Action groups triggered by budgets are currently supported only at the subscription and resource group scopes; budgets at other scopes cannot call an action group directly.",
+      "incorrectReasons": [
+        "Action group support for budgets is not available for individual resources; it's limited to subscription and resource group scopes.",
+        "Management group scope is not one of the two scopes that support action group integration with budgets.",
+        "Action group integration is defined by the subscription/resource group scope requirement, not restricted specifically to EA billing accounts."
+      ],
+      "reference": "https://learn.microsoft.com/azure/cost-management-billing/costs/tutorial-acm-create-budgets"
+    }
+  },
+  {
+    "id": 44,
+    "subtopic": "Manage costs by using alerts, budgets, and Azure Advisor recommendations",
+    "question": "When creating a budget in the Azure portal, how many actual-cost alert thresholds (with associated email addresses) can you configure for a single budget?",
+    "options": [
+      "Up to five thresholds and five email addresses",
+      "Exactly one threshold with one email address",
+      "Up to fifty thresholds",
+      "Unlimited thresholds"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "A budget requires at least one cost threshold and corresponding email address, and optionally supports up to five thresholds with up to five email addresses in a single budget.",
+      "incorrectReasons": [
+        "While one threshold is the minimum required, up to five are supported -- the limit is not fixed at exactly one.",
+        "Fifty exceeds the documented maximum of five thresholds per budget.",
+        "There is a documented maximum of five thresholds; it is not unlimited."
+      ],
+      "reference": "https://learn.microsoft.com/azure/cost-management-billing/costs/tutorial-acm-create-budgets"
+    }
+  },
+  {
+    "id": 45,
+    "subtopic": "Manage costs by using alerts, budgets, and Azure Advisor recommendations",
+    "question": "Your finance team is reviewing an Azure Advisor 'Cost' recommendation and wants to know its purpose relative to the other Advisor categories. What does the Cost category specifically evaluate?",
+    "options": [
+      "Opportunities to optimize and reduce your overall Azure spending",
+      "Threats and vulnerabilities that could lead to security breaches",
+      "The continuity and resiliency of business-critical applications",
+      "Process, workflow efficiency, and deployment best practices"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "The Cost category in Azure Advisor is specifically focused on identifying opportunities to optimize and reduce overall Azure spending, distinct from the other four Advisor categories.",
+      "incorrectReasons": [
+        "This describes the Security category, which detects threats and vulnerabilities, not Cost.",
+        "This describes the Reliability category, which addresses business continuity of critical applications.",
+        "This describes the Operational Excellence category, focused on process/workflow efficiency and deployment practices."
+      ],
+      "reference": "https://learn.microsoft.com/azure/advisor/advisor-overview"
+    }
+  },
+  {
+    "id": 46,
+    "subtopic": "Manage costs by using alerts, budgets, and Azure Advisor recommendations",
+    "question": "Which statements about Azure budgets in Cost Management are correct? (Select TWO)",
+    "options": [
+      "Budgets can be configured to alert based on either actual cost or forecasted cost",
+      "Cost and usage data used to evaluate budgets is typically available within 8-24 hours, and budgets are evaluated against this data roughly every 24 hours",
+      "Budgets automatically stop or throttle resource consumption once the threshold is exceeded",
+      "A budget, once created, can never be edited or deleted before its expiration date"
+    ],
+    "correct": [
+      0,
+      1
+    ],
+    "explanation": {
+      "correctReason": "Budgets support both actual cost alerts and forecasted cost alerts based on projected spending trends, and the underlying cost/usage data typically becomes available within 8-24 hours with budgets evaluated against it approximately every 24 hours.",
+      "incorrectReasons": [
+        "Budgets are purely a notification/tracking mechanism -- exceeding a budget threshold does not stop, throttle, or otherwise affect actual resource consumption.",
+        "Budgets can be edited or deleted at any time; they are not locked until expiration."
+      ],
+      "reference": "https://learn.microsoft.com/azure/cost-management-billing/costs/tutorial-acm-create-budgets"
+    }
+  },
+  {
+    "id": 47,
+    "subtopic": "Configure management groups",
+    "question": "Your organization is designing a management group hierarchy to reflect eight distinct organizational divisions, each requiring its own nested sub-divisions for policy scoping, going five levels deep below the divisions. Including the root, is this design within Azure's supported limits?",
+    "options": [
+      "Yes, provided the total depth (root plus additional levels) does not exceed the root level plus 6 levels, not counting the subscription level",
+      "No, Azure supports a maximum of 3 levels of management groups total",
+      "No, only one management group is allowed directly under the root",
+      "Yes, because management group depth is unlimited"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "A management group tree supports up to six levels of depth in addition to the root level (and this does not include the subscription level), so a hierarchy with divisions plus five nested levels below them needs to be checked against this total, but the platform itself supports up to root + 6 levels.",
+      "incorrectReasons": [
+        "3 levels is far short of the actual documented limit of root plus 6 levels.",
+        "Multiple management groups can exist directly under the root; there's no one-child restriction.",
+        "Depth is not unlimited -- there is a specific documented limit of root plus 6 levels."
+      ],
+      "reference": "https://learn.microsoft.com/azure/governance/management-groups/overview"
+    }
+  },
+  {
+    "id": 48,
+    "subtopic": "Configure management groups",
+    "question": "By default, when a new Azure subscription is created in a tenant that already has a custom management group hierarchy, where does the new subscription initially appear?",
+    "options": [
+      "Under the tenant root management group, unless a default management group has been explicitly configured",
+      "Under whichever management group the creating user's home department maps to automatically",
+      "It remains outside all management groups until manually assigned",
+      "Under a management group named 'Unassigned' that Azure creates automatically for every tenant"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "By default, every new subscription in a tenant is placed under the tenant root management group. Administrators can override this behavior by explicitly configuring a different default management group for new subscriptions.",
+      "incorrectReasons": [
+        "There's no automatic department-based placement; subscription placement is governed by the tenant's default management group setting, not organizational metadata.",
+        "New subscriptions are always placed somewhere in the hierarchy (the root management group by default); they don't remain unassigned.",
+        "There's no built-in 'Unassigned' management group automatically created; the default landing spot is the root management group unless changed."
+      ],
+      "reference": "https://learn.microsoft.com/azure/governance/management-groups/how-to/protect-resource-hierarchy"
+    }
+  },
+  {
+    "id": 49,
+    "subtopic": "Configure management groups",
+    "question": "You want to move a subscription from Management Group A to Management Group B. You are directly assigned the Owner role on the subscription (not inherited from Management Group A). Which permission requirements apply to complete this move?",
+    "options": [
+      "You need management group write and role assignment write permissions on the subscription, management group write access on Management Group B, and management group write access on Management Group A",
+      "No permissions are required as long as you are a Microsoft Entra ID Global Reader",
+      "You must be a Global Administrator in Microsoft Entra ID; Azure RBAC roles are insufficient",
+      "Only permissions on the destination management group (B) are required; the source management group's permissions are irrelevant"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Moving a subscription to a new parent management group requires management group write and role assignment write permissions on the subscription itself, plus management group write access on both the target (new parent) and the existing (current parent) management groups -- unless one of those is the root management group, which has no permission requirement.",
+      "incorrectReasons": [
+        "Global Reader is a read-only role and does not grant the write permissions needed to move a subscription between management groups.",
+        "Global Administrator in Microsoft Entra ID is not, by itself, sufficient or required; the needed permissions are Azure RBAC permissions such as Owner or Management Group Contributor on the relevant scopes.",
+        "Permissions are required on both the destination and the existing (current) parent management group, not just the destination, unless one of them is the root."
+      ],
+      "reference": "https://learn.microsoft.com/azure/governance/management-groups/overview"
+    }
+  },
+  {
+    "id": 50,
+    "subtopic": "Configure management groups",
+    "question": "Which of the following are true about Azure management groups? (Select TWO)",
+    "options": [
+      "Each management group and subscription can have only one direct parent management group",
+      "A single Microsoft Entra tenant supports up to 10,000 management groups",
+      "Management groups directly contain and store Azure resources, similar to resource groups",
+      "Deleting a management group automatically deletes every subscription that was contained within it"
+    ],
+    "correct": [
+      0,
+      1
+    ],
+    "explanation": {
+      "correctReason": "Each management group or subscription supports exactly one direct parent, forming a strict hierarchy, and a single Microsoft Entra tenant supports up to 10,000 management groups.",
+      "incorrectReasons": [
+        "Management groups organize subscriptions (and other management groups) for governance purposes; they do not directly contain Azure resources the way resource groups do.",
+        "Deleting a management group does not delete the subscriptions within it; a management group must be empty (no child subscriptions or management groups) before it can be deleted, and any subscriptions must first be moved elsewhere."
+      ],
+      "reference": "https://learn.microsoft.com/azure/governance/management-groups/overview"
+    }
+  }
+]

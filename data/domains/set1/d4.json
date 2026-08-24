@@ -17,7 +17,7 @@
         "Azure Bastion requires a subnet named 'AzureBastionSubnet', but its minimum subnet size is /26 (or /27 depending on legacy SKU, but recommended /26), not strictly requiring /24.",
         "Application Gateway v2 requires a dedicated subnet that contains only application gateways."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-faq"
+      "reference": "https://learn.microsoft.com/azure/virtual-network/virtual-networks-faq#configuration"
     }
   },
   {
@@ -31,7 +31,10 @@
       "Stop and deallocate all 15 virtual machines in Subnet1 before adding address space.",
       "Change Subnet1's range to 10.0.0.0/20 directly in Azure Portal."
     ],
-    "correct": [1, 2],
+    "correct": [
+      1,
+      2
+    ],
     "explanation": {
       "correctReason": "Azure allows adding secondary IP address ranges to existing VNets dynamically without downtime or deallocating VMs. Once the secondary address space 10.2.0.0/16 is added, you can create Subnet2 within that range.",
       "incorrectReasons": [
@@ -39,28 +42,28 @@
         "Stopping/deallocating VMs is not required when adding address space to an existing VNet.",
         "Existing subnet ranges cannot be modified directly if they are in use by resources without removing the resources first."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/virtual-network/virtual-network-manage-subnet"
+      "reference": "https://learn.microsoft.com/azure/virtual-network/manage-virtual-network#add-or-remove-an-address-range-using-the-azure-portal"
     }
   },
   {
     "id": 3,
     "subtopic": "Create and configure virtual network peering",
-    "question": "You have two virtual networks named VNetA (10.1.0.0/16) and VNetB (10.2.0.0/16). You configure virtual network peering between VNetA and VNetB. You want VMs in VNetB to route traffic to the internet through a Firewall NVA deployed in VNetA's gateway subnet. Which setting must be enabled on the VNetA side of the peering configuration?",
+    "question": "You have two virtual networks named VNetA (10.1.0.0/16) and VNetB (10.2.0.0/16). You configure VNet peering and a UDR in VNetB that sends 0.0.0.0/0 to the private IP of a Firewall NVA in VNetA. Which setting must be enabled on the VNetA side of the peering to allow the NVA-forwarded traffic to return to VNetB?",
     "options": [
       "Allow virtual network access",
       "Allow forwarded traffic",
       "Allow gateway transit",
       "Use remote gateways"
     ],
-    "correct": 2,
+    "correct": 1,
     "explanation": {
-      "correctReason": "'Allow gateway transit' must be enabled on VNetA (the hub network containing the gateway/NVA) to allow VNetB to use VNetA's gateway.",
+      "correctReason": "'Allow forwarded traffic' must be enabled on the VNetA side of the peering so traffic forwarded by the NVA in VNetA can cross the peering to VNetB. The UDR in VNetB is also required to send the traffic to the NVA.",
       "incorrectReasons": [
-        "'Allow virtual network access' enables basic VM-to-VM communication between the peered VNets.",
-        "'Allow forwarded traffic' allows traffic not originating from inside the VNet to pass through, but for gateway sharing specifically, gateway transit settings are required.",
-        "'Use remote gateways' must be enabled on VNetB (the spoke network), not VNetA."
+        "'Allow virtual network access' permits ordinary communication between the peered VNets, but it doesn't by itself permit traffic forwarded by an NVA.",
+        "'Allow gateway transit' is for using a virtual network gateway in the remote VNet; the scenario uses an NVA, not a gateway.",
+        "'Use remote gateways' is used by a VNet to use a gateway or Route Server in the peered VNet; it isn't the setting for NVA forwarding."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/virtual-network/virtual-network-manage-peering"
+      "reference": "https://learn.microsoft.com/azure/virtual-network/virtual-network-manage-peering#create-a-virtual-network-peering"
     }
   },
   {
@@ -81,7 +84,7 @@
         "NSG rules do not affect the control-plane status of VNet peering.",
         "Virtual Network Gateways do not prevent peering creation."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/virtual-network/virtual-network-peering-overview"
+      "reference": "https://learn.microsoft.com/azure/virtual-network/virtual-network-manage-peering#create-a-virtual-network-peering"
     }
   },
   {
@@ -89,20 +92,20 @@
     "subtopic": "Configure public IP addresses",
     "question": "You need to assign a public IP address to a critical workload running on an Azure Virtual Machine. The IP address must remain constant even if the virtual machine is stopped (deallocated). Which Public IP configuration should you choose?",
     "options": [
-      "Basic SKU with Dynamic allocation",
+      "Standard SKU with Dynamic allocation",
       "Standard SKU with Static allocation",
-      "Basic SKU with Static allocation",
-      "Standard SKU with Dynamic allocation"
+      "Standardv2 SKU with Dynamic allocation",
+      "An ephemeral public IP allocation"
     ],
     "correct": 1,
     "explanation": {
-      "correctReason": "Standard SKU Public IP addresses only support Static allocation, ensuring the IP address never changes regardless of VM lifecycle states (stop/deallocate).",
+      "correctReason": "Standard SKU public IP addresses use static allocation, so the address remains assigned when the VM is stopped (deallocated).",
       "incorrectReasons": [
-        "Basic SKU dynamic IPs change whenever the resource is stopped/deallocated.",
-        "Basic SKU static IPs stay assigned, but Basic SKU is deprecated and lacks zone redundancy and default-secure features.",
-        "Standard SKU Public IPs do not support Dynamic allocation; they are Static by default."
+        "Standard SKU public IP addresses don't support dynamic allocation.",
+        "Standardv2 public IP addresses don't support dynamic allocation.",
+        "Ephemeral public IP allocation isn't a supported Azure Public IP configuration for a VM NIC."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/virtual-network/ip-services/public-ip-addresses"
+      "reference": "https://learn.microsoft.com/azure/virtual-network/ip-services/public-ip-addresses#sku"
     }
   },
   {
@@ -116,7 +119,10 @@
       "Supports dynamic IP allocation",
       "Can be assigned to Basic Load Balancers"
     ],
-    "correct": [1, 2],
+    "correct": [
+      1,
+      2
+    ],
     "explanation": {
       "correctReason": "Standard SKU Public IP addresses are secure by default (require Network Security Groups to allow inbound traffic) and support availability zone scenarios (Zone-redundant or Zonal).",
       "incorrectReasons": [
@@ -124,7 +130,7 @@
         "Standard SKU Public IPs only use Static allocation, not dynamic.",
         "Standard SKU Public IPs cannot be attached to Basic SKU resources like Basic Load Balancers."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/virtual-network/ip-services/public-ip-addresses"
+      "reference": "https://learn.microsoft.com/azure/virtual-network/ip-services/public-ip-addresses#sku"
     }
   },
   {
@@ -145,7 +151,7 @@
         "IP forwarding must be manually enabled on the NVA NIC in Azure; creating a UDR does not enable it automatically.",
         "Service Endpoints create specific system routes (/32 or precise ranges) that override the 0.0.0.0/0 UDR."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-udr-overview"
+      "reference": "https://learn.microsoft.com/azure/virtual-network/virtual-networks-udr-overview#0.0.0.0/0-address-prefix"
     }
   },
   {
@@ -166,7 +172,7 @@
         "Route 3 is the least specific prefix (/0).",
         "Azure does not perform random load balancing across routes with different prefix lengths."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-udr-overview#how-azure-selects-a-route"
+      "reference": "https://learn.microsoft.com/azure/virtual-network/virtual-networks-udr-overview#how-azure-selects-routes-for-traffic-routing"
     }
   },
   {
@@ -179,15 +185,15 @@
       "VPN Troubleshoot",
       "Packet Capture"
     ],
-    "correct": 1,
+    "correct": 0,
     "explanation": {
-      "correctReason": "IP Flow Verify checks whether a packet is allowed or denied to/from a VM based on effective NSG security rules (and directional parameters). It quickly reveals if an NSG is blocking traffic.",
+      "correctReason": "Connection Troubleshoot is the better first check when you need to determine whether connectivity is failing because of routing, NSG rules, or another hop-level issue. It tests the connection path and reports detected issues.",
       "incorrectReasons": [
-        "Connection Troubleshoot tests end-to-end TCP connections including routing, NSGs, and latency, but IP Flow Verify specifically isolates NSG rule filtering per packet flow.",
-        "VPN Troubleshoot is used for virtual network gateway and site-to-site connection issues.",
-        "Packet Capture captures network packets for detailed Wireshark analysis, which takes longer than a quick IP Flow Verify check."
+        "IP Flow Verify focuses on whether a specific flow is allowed or denied by NSG rules; it doesn't provide the complete route/path diagnosis.",
+        "VPN Troubleshoot is intended for VPN gateway and VPN connection troubleshooting.",
+        "Packet Capture records packets for detailed analysis; it isn't the first-choice tool for quickly identifying a route or NSG blocking issue."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/network-watcher/network-watcher-ip-flow-verify-overview"
+      "reference": "https://learn.microsoft.com/azure/network-watcher/connection-troubleshoot-overview"
     }
   },
   {
@@ -196,19 +202,19 @@
     "question": "You are troubleshooting outbound connectivity from VM1 to an external website. You want to see the exact hop-by-hop path packets take from VM1 to the target IP address. Which Azure Network Watcher feature should you use?",
     "options": [
       "IP Flow Verify",
+      "Connection Troubleshoot",
       "Next Hop",
-      "NSG Diagnostic Logs",
       "Connection Monitor"
     ],
     "correct": 1,
     "explanation": {
-      "correctReason": "Next Hop allows you to detect if traffic is being routed to the intended destination by showing the next hop type and IP address for a specific destination IP.",
+      "correctReason": "Connection Troubleshoot tests the connection path and returns hop information, helping you see the path from the source toward the destination and identify where the connection fails.",
       "incorrectReasons": [
-        "IP Flow Verify checks whether NSG rules allow or deny traffic.",
-        "NSG Diagnostic Logs log allowed and denied traffic flows.",
-        "Connection Monitor provides continuous monitoring of connectivity over time rather than a quick single-point route check."
+        "IP Flow Verify determines whether a flow is allowed or denied by NSG rules.",
+        "Next Hop reports the selected next hop type, IP address, and route table for a specific destination; it doesn't provide the complete hop-by-hop path.",
+        "Connection Monitor provides ongoing connectivity monitoring rather than the point-in-time hop-by-hop diagnostic requested here."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/network-watcher/network-watcher-next-hop-overview"
+      "reference": "https://learn.microsoft.com/azure/network-watcher/connection-troubleshoot-overview"
     }
   },
   {
@@ -229,13 +235,13 @@
         "UDR controls packet routing, not traffic filtering.",
         "NAT Gateway handles outbound internet connectivity for subnets."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/virtual-network/application-security-groups"
+      "reference": "https://learn.microsoft.com/azure/virtual-network/application-security-groups"
     }
   },
   {
     "id": 12,
     "subtopic": "Create and configure network security groups (NSGs) and application security groups",
-    "question": "You assign an Application Security Group named `WebServers-ASG` to the NICs of VM1 and VM2. You want to create an NSG rule that allows HTTPS traffic from the internet to these servers. Which configuration should you use for the inbound NSG rule? (Select TWO)",
+    "question": "You assign an Application Security Group named `WebServers-ASG` to the NICs of VM1 and VM2. You want an inbound NSG rule to allow HTTPS traffic from the internet to these servers. Assume the destination port is 443. Which TWO source/destination settings should you use? (Select TWO)",
     "options": [
       "Source: Service Tag `Internet`",
       "Destination: Application Security Group `WebServers-ASG`",
@@ -243,15 +249,18 @@
       "Destination: Service Tag `VirtualNetwork`",
       "Destination Port: 80"
     ],
-    "correct": [0, 1],
+    "correct": [
+      0,
+      1
+    ],
     "explanation": {
-      "correctReason": "To allow inbound HTTPS traffic from the internet to the web servers, the source must be set to the `Internet` service tag, and the destination must be set to the `WebServers-ASG` Application Security Group with destination port 443.",
+      "correctReason": "For inbound HTTPS traffic from the internet to the web servers, use the `Internet` service tag as the source and `WebServers-ASG` as the destination. The destination port is 443 as specified in the question.",
       "incorrectReasons": [
-        "`WebServers-ASG` is the destination of the inbound web traffic, not the source.",
-        "Destination `VirtualNetwork` would allow all VNet IPs rather than specifically targeting the ASG.",
-        "HTTPS uses port 443, not port 80."
+        "`WebServers-ASG` is the destination group for the web servers; using it as the source would not represent traffic originating from the internet.",
+        "`VirtualNetwork` as the destination targets the VNet address space rather than specifically targeting the web-server ASG.",
+        "Port 80 is HTTP, not HTTPS; the question specifies destination port 443."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/virtual-network/application-security-groups"
+      "reference": "https://learn.microsoft.com/azure/virtual-network/application-security-groups"
     }
   },
   {
@@ -272,7 +281,7 @@
         "Default rules are only evaluated if no custom rule matches.",
         "There is no conflict mechanism; processing stops at the first rule match."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/virtual-network/network-security-groups-overview"
+      "reference": "https://learn.microsoft.com/azure/virtual-network/network-security-groups-overview#security-rules"
     }
   },
   {
@@ -293,13 +302,13 @@
         "Both NSGs are evaluated sequentially if traffic is allowed by the first.",
         "Rules are not merged; they are two distinct evaluation gates."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/virtual-network/network-security-groups-overview#how-network-security-groups-work"
+      "reference": "https://learn.microsoft.com/azure/virtual-network/network-security-groups-overview#security-rules"
     }
   },
   {
     "id": 15,
     "subtopic": "Implement Azure Bastion",
-    "question": "You need to deploy Azure Bastion to secure administrative RDP and SSH access to VMs in VNet1. Which requirement must be met during deployment?",
+    "question": "You need to deploy a dedicated Azure Bastion host (Basic, Standard, or Premium) to secure administrative RDP and SSH access to VMs in VNet1. Which requirement must be met during deployment?",
     "options": [
       "Azure Bastion must be deployed into a subnet named `AzureBastionSubnet`.",
       "Azure Bastion host requires a User-Defined Route pointing default traffic to an NVA.",
@@ -308,13 +317,13 @@
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "Azure Bastion requires a dedicated subnet named explicitly `AzureBastionSubnet` with a prefix size of /26 or larger.",
+      "correctReason": "A dedicated Azure Bastion deployment (Basic, Standard, or Premium) requires a dedicated subnet named `AzureBastionSubnet`; current deployments require a /26 prefix or larger.",
       "incorrectReasons": [
-        "Azure Bastion subnets should not have restrictive UDRs (such as 0.0.0.0/0 to NVA) as Bastion requires direct management plane internet egress.",
-        "VMs do not need public IP addresses; Azure Bastion connects using private IP addresses.",
-        "Azure Bastion does not require AD domain joining."
+        "A UDR sending default traffic to an NVA isn't a general Bastion deployment requirement.",
+        "Target VMs don't need public IP addresses; Bastion connects to them using their private IP addresses.",
+        "Azure Bastion doesn't require the Bastion host to be joined to an Active Directory domain."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/bastion/bastion-overview"
+      "reference": "https://learn.microsoft.com/azure/bastion/configuration-settings#subnet"
     }
   },
   {
@@ -323,20 +332,23 @@
     "question": "You deploy Azure Bastion in VNet1. Administrators report they cannot RDP into VMs in VNet2, which is peered with VNet1. What should you verify to enable Azure Bastion access across the VNet peering? (Select TWO)",
     "options": [
       "The VNet peering between VNet1 and VNet2 is in the 'Connected' state.",
-      "'Allow virtual network access' is enabled on the VNet peering from VNet1 to VNet2.",
-      "A Bastion host must be deployed in VNet2 as Bastion cannot traverse peering.",
+      "'Allow virtual network access' is enabled on the VNet1-to-VNet2 peering.",
+      "A Bastion host must be deployed in VNet2 because Bastion cannot traverse peering.",
       "VMs in VNet2 must have public IP addresses attached.",
-      "The Azure Bastion SKU must be Standard or higher if using native client support cross-peering."
+      "The Bastion SKU must be Standard or higher for browser-based RDP to a peered VM."
     ],
-    "correct": [0, 1],
+    "correct": [
+      0,
+      1
+    ],
     "explanation": {
-      "correctReason": "Azure Bastion supports IP-based connection and peering traversal. To connect to VMs in peered VNets, the peering status must be Connected, and VNet access must be allowed.",
+      "correctReason": "The peering must be established and allow virtual network access from VNet1 to VNet2. A Bastion host deployed in VNet1 can connect to supported VMs in a peered VNet.",
       "incorrectReasons": [
-        "Azure Bastion supports peered VNets; a separate Bastion in VNet2 is not strictly required.",
-        "Target VMs do not require public IP addresses.",
-        "Basic SKU Bastion also supports peered VNets within the same region via Azure Portal."
+        "A Bastion host can serve VMs in a peered VNet; a second Bastion in VNet2 isn't required for this scenario.",
+        "Target VMs don't require public IP addresses for Bastion connections.",
+        "Browser-based Bastion connections are available on all current Bastion SKU tiers; Standard or higher is required for native-client support, not ordinary browser-based RDP."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/bastion/vnet-peering"
+      "reference": "https://learn.microsoft.com/azure/bastion/vnet-peering"
     }
   },
   {
@@ -357,7 +369,7 @@
         "VPN Gateways are not involved in Service Endpoint communication.",
         "Azure Firewall is not required unless explicitly forced via UDRs, though Service Endpoints bypass default internet UDRs."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/virtual-network/virtual-network-service-endpoints-overview"
+      "reference": "https://learn.microsoft.com/azure/virtual-network/virtual-network-service-endpoints-overview#key-benefits"
     }
   },
   {
@@ -378,7 +390,7 @@
         "ASGs group virtual machine network interfaces, not PaaS endpoints.",
         "Private Link uses Private Endpoints with private IPs, but for existing Service Endpoints, Service Endpoint Policies fulfill the exact requirement."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/virtual-network/virtual-network-service-endpoint-policies-overview"
+      "reference": "https://learn.microsoft.com/azure/virtual-network/virtual-network-service-endpoint-policies-overview"
     }
   },
   {
@@ -386,20 +398,20 @@
     "subtopic": "Configure private endpoints for Azure PaaS",
     "question": "You create a Private Endpoint for an Azure SQL Database in Subnet1. Which of the following statements correctly describes the outcome of this deployment?",
     "options": [
-      "The Azure SQL Database receives a private IP address assigned from Subnet1's address range.",
-      "The Azure SQL Database public IP address is automatically removed and disabled for all users worldwide.",
-      "Virtual machines outside VNet1 can access the database private IP address without any routing or VPN.",
+      "The Private Endpoint creates a network interface with a private IP address from Subnet1 for the SQL private-link connection.",
+      "The Azure SQL Database public endpoint is automatically removed and disabled for all users worldwide.",
+      "Virtual machines outside VNet1 can access the private IP without any routing or VPN.",
       "Service Endpoints must be enabled on Subnet1 before creating the Private Endpoint."
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "A Private Endpoint creates a Network Interface (NIC) in your specified VNet subnet, assigning a private IP address from that subnet to the PaaS service.",
+      "correctReason": "A Private Endpoint creates a network interface in the selected subnet and assigns it a private IP address from that subnet for the private-link connection to Azure SQL Database.",
       "incorrectReasons": [
-        "Creating a Private Endpoint does not automatically disable the public endpoint unless public network access is explicitly disabled on the Azure SQL instance.",
-        "External resources need VPN, ExpressRoute, or VNet Peering to reach private IP addresses in VNet1.",
-        "Private Endpoints do not require Service Endpoints."
+        "Creating a Private Endpoint doesn't automatically disable the public endpoint; public network access must be configured separately.",
+        "Clients outside VNet1 need connectivity such as VNet peering, VPN, or ExpressRoute to reach the private IP.",
+        "Private Endpoints don't require Service Endpoints."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/private-link/private-endpoint-overview"
+      "reference": "https://learn.microsoft.com/azure/private-link/private-endpoint-overview"
     }
   },
   {
@@ -420,7 +432,7 @@
         "Public DNS records should point CNAMEs to the `privatelink` zone, not directly expose private IPs in public records.",
         "Private DNS Resolver is for hybrid DNS resolution, not strictly required for local VNet-linked Private DNS resolution."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/private-link/private-endpoint-dns"
+      "reference": "https://learn.microsoft.com/azure/private-link/private-endpoint-dns"
     }
   },
   {
@@ -441,7 +453,7 @@
         "Azure Active Directory (Entra ID) is for identity, not public DNS hosting.",
         "HTTP redirect rules do not delegate domain DNS authoritative resolution."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/dns/dns-delegate-domain-azure-dns"
+      "reference": "https://learn.microsoft.com/azure/dns/dns-delegate-domain-azure-dns"
     }
   },
   {
@@ -462,7 +474,7 @@
         "Manual creation is not required when auto-registration is enabled.",
         "Private DNS zones do not register records in public DNS."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/dns/private-dns-overview"
+      "reference": "https://learn.microsoft.com/azure/dns/private-dns-overview"
     }
   },
   {
@@ -483,7 +495,7 @@
         "APIPA addresses are automatic private IP addresses used when DHCP fails.",
         "Global Anycast IPs are used by services like Azure Front Door."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/load-balancer/load-balancer-overview"
+      "reference": "https://learn.microsoft.com/azure/load-balancer/manage#portal-settings"
     }
   },
   {
@@ -498,13 +510,13 @@
     ],
     "correct": 1,
     "explanation": {
-      "correctReason": "Client IP persistence (2-tuple: Source IP, Destination IP) routes successive requests from the same client IP address to the same backend instance.",
+      "correctReason": "Client IP (2-tuple) persistence uses the source IP and destination IP to keep subsequent flows from the same client/destination pair on the same backend instance.",
       "incorrectReasons": [
-        "None (5-tuple: Source IP, Source Port, Destination IP, Destination Port, Protocol) distributes requests randomly across pool members without affinity.",
-        "Client IP and protocol (3-tuple) uses Source IP, Destination IP, and Protocol.",
-        "Cookie-based affinity is a feature of Layer 7 load balancers (Application Gateway), not Azure Network Load Balancer (Layer 4)."
+        "None uses the default 5-tuple hash (source IP, source port, destination IP, destination port, and protocol); it isn't a session-persistence mode.",
+        "Client IP and protocol (3-tuple) uses source IP, destination IP, and protocol, so it isn't the requested 2-tuple mode.",
+        "Cookie-based affinity is associated with Layer 7 application delivery scenarios such as Application Gateway, not Azure Load Balancer."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/load-balancer/load-balancer-distribution-mode"
+      "reference": "https://learn.microsoft.com/azure/load-balancer/load-balancer-distribution-mode"
     }
   },
   {
@@ -518,7 +530,10 @@
       "Outbound internet connectivity is disabled on the backend VMs.",
       "The load balancer SKU is Basic instead of Standard."
     ],
-    "correct": [0, 1],
+    "correct": [
+      0,
+      1
+    ],
     "explanation": {
       "correctReason": "If an NSG blocks the probe traffic (or probe IP `168.63.129.16`) or if the service listening on the probed port is not running, the health probe fails and marks the instance as unhealthy.",
       "incorrectReasons": [
@@ -526,7 +541,7 @@
         "Backend instances do not require outbound internet access to respond to health probes from `168.63.129.16`.",
         "Load balancer SKU mismatch prevents pool assignment but does not dynamically mark running probes unhealthy."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/load-balancer/load-balancer-troubleshoot-health-probe-status"
+      "reference": "https://learn.microsoft.com/azure/load-balancer/load-balancer-custom-probe-overview"
     }
   },
   {
@@ -547,7 +562,7 @@
         "Azure manages intra-VNet routing natively without needing a dedicated router appliance.",
         "VNet Peering is used to connect separate virtual networks, not subnets inside the same VNet."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-overview"
+      "reference": "https://learn.microsoft.com/azure/virtual-network/virtual-networks-overview"
     }
   },
   {
@@ -568,7 +583,7 @@
         "Rebooting virtual machines has no effect on control plane network peering configurations.",
         "Routing to Internet would break private traffic routing."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/virtual-network/virtual-network-manage-peering#sync-peering"
+      "reference": "https://learn.microsoft.com/azure/virtual-network/update-virtual-network-peering-address-space#add-an-address-range"
     }
   },
   {
@@ -582,7 +597,10 @@
       "Dynamic allocation mode assignment",
       "Unrestricted inbound traffic without an NSG"
     ],
-    "correct": [0, 1],
+    "correct": [
+      0,
+      1
+    ],
     "explanation": {
       "correctReason": "Standard SKU Public IPs can be assigned directly to VM network interfaces or to Standard Load Balancers.",
       "incorrectReasons": [
@@ -590,7 +608,7 @@
         "Standard SKU Public IPs only support Static allocation.",
         "Standard SKU Public IPs are secure by default and block traffic unless NSG rules permit it."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/virtual-network/ip-services/public-ip-addresses"
+      "reference": "https://learn.microsoft.com/azure/virtual-network/ip-services/public-ip-addresses#sku"
     }
   },
   {
@@ -611,13 +629,13 @@
         "Virtual network gateway next hop type is for Azure VPN/ExpressRoute gateways, not Azure Firewall NICs.",
         "Address prefix '*' is invalid in route tables; 0.0.0.0/0 must be used."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-udr-overview"
+      "reference": "https://learn.microsoft.com/azure/virtual-network/virtual-networks-udr-overview#user-defined-routes"
     }
   },
   {
     "id": 30,
     "subtopic": "Troubleshoot network connectivity",
-    "question": "You use Azure Network Watcher Connection Troubleshoot to test connection from VM1 to an external endpoint `http://www.contoso.com`. The test fails. The status output shows `Degraded` with hop details indicating `UserRuleDeny`. What does this indicate?",
+    "question": "You use Azure Network Watcher Connection Troubleshoot to test a connection from VM1 to an external endpoint. The results show an issue of type `NetworkSecurityRule` and the matched rule name is `UserRuleDeny`. What does this indicate?",
     "options": [
       "A custom Network Security Group rule is blocking the connection.",
       "A system route is misconfigured in the Azure core backbone.",
@@ -626,13 +644,13 @@
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "`UserRuleDeny` in Network Watcher diagnostic tools specifically indicates that a custom Network Security Group (NSG) rule was matched and denied the packet flow.",
+      "correctReason": "A `NetworkSecurityRule` issue with a matched custom rule such as `UserRuleDeny` indicates that an NSG rule is denying the traffic.",
       "incorrectReasons": [
-        "System routes are managed by Azure and rarely fail; routing issues present as 'RouteTable' errors.",
-        "Physical host disconnects present as agent unreachability.",
-        "DNS resolution failures indicate DNS lookup errors prior to network evaluation."
+        "A routing problem is reported through route-related diagnostics such as `UserDefinedRoute` or `RouteMissing`, not a matched NSG rule.",
+        "A physical host cable failure isn't represented as a matched custom NSG rule.",
+        "A DNS problem is reported as a DNS resolution issue, not as a matched NSG rule."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/network-watcher/network-watcher-connectivity-portal"
+      "reference": "https://learn.microsoft.com/azure/network-watcher/connection-troubleshoot-overview#response"
     }
   },
   {
@@ -653,7 +671,7 @@
         "`DenyAllInBound` (Priority 65500) blocks all traffic not explicitly allowed by higher priority rules.",
         "There is no default rule named `AllowInternetInBound`."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/virtual-network/network-security-groups-overview#default-security-rules"
+      "reference": "https://learn.microsoft.com/azure/virtual-network/network-security-groups-overview#default-security-rules"
     }
   },
   {
@@ -674,13 +692,13 @@
         "Network Watcher Topology draws a visual diagram of resources but doesn't list rule evaluations.",
         "Azure Firewall Policy Manager manages centralized Azure Firewall policies."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/virtual-network/diagnose-network-traffic-filter-problem"
+      "reference": "https://learn.microsoft.com/azure/network-watcher/effective-security-rules-overview"
     }
   },
   {
     "id": 33,
     "subtopic": "Implement Azure Bastion",
-    "question": "You plan to deploy Azure Bastion using the Azure CLI. Which parameter must be passed when creating the Bastion resource?",
+    "question": "You plan to deploy a dedicated Azure Bastion host using Azure CLI (Basic, Standard, or Premium). Which parameter is used to supply the required public IP address when creating the Bastion resource?",
     "options": [
       "--public-ip-address",
       "--express-route-circuit",
@@ -689,13 +707,13 @@
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "Azure Bastion host requires a Public IP address (Standard SKU) for administrators to establish secure TLS connections from their web browser/client.",
+      "correctReason": "Dedicated Bastion deployments require a Standard SKU static public IP, and the Azure CLI create command uses `--public-ip-address` to supply that public IP resource.",
       "incorrectReasons": [
-        "ExpressRoute circuits are for hybrid network connectivity, not required for Azure Bastion.",
-        "Active Directory tenant details are managed by Azure CLI authentication context.",
-        "Local gateways are used in S2S VPN tunnels."
+        "An ExpressRoute circuit isn't a required Bastion deployment parameter.",
+        "The Microsoft Entra tenant is determined by the Azure account and subscription context; it isn't a Bastion create parameter.",
+        "A local network gateway is a VPN resource and isn't required to deploy Bastion."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/bastion/bastion-create-host-cli"
+      "reference": "https://learn.microsoft.com/azure/bastion/create-host-cli"
     }
   },
   {
@@ -710,11 +728,13 @@
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "`Microsoft.KeyVault` is the correct resource provider service tag used when enabling Service Endpoints for Azure Key Vault on a subnet.",
+      "correctReason": "`Microsoft.KeyVault` is the service endpoint name for Azure Key Vault and is the value selected when enabling the service endpoint on a subnet.",
       "incorrectReasons": [
-        "`Microsoft.Vaults`, `Microsoft.AzureKeyVault`, and `Microsoft.Security` are incorrect or non-existent service endpoint provider names."
+        "`Microsoft.Vaults` isn't the service endpoint name for Azure Key Vault.",
+        "`Microsoft.AzureKeyVault` isn't the service endpoint name used for the Azure Key Vault service endpoint.",
+        "`Microsoft.Security` isn't the service endpoint name for Azure Key Vault."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/virtual-network/virtual-network-service-endpoints-overview"
+      "reference": "https://learn.microsoft.com/azure/virtual-network/virtual-network-service-endpoints-overview"
     }
   },
   {
@@ -735,7 +755,7 @@
         "127.0.0.1 refers to the local host itself.",
         "Dynamic public IPs belong to public endpoint architectures."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/private-link/private-endpoint-overview"
+      "reference": "https://learn.microsoft.com/azure/private-link/private-endpoint-overview"
     }
   },
   {
@@ -756,7 +776,7 @@
         "Blocking port 53 would prevent DNS resolution entirely.",
         "Security Center DNS monitoring does not control record auto-registration settings."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/dns/private-dns-overview"
+      "reference": "https://learn.microsoft.com/azure/dns/private-dns-overview"
     }
   },
   {
@@ -770,7 +790,10 @@
       "To allow inbound HTTP requests from any source IP",
       "To enable BGP routing protocol on backend VMs"
     ],
-    "correct": [0, 1],
+    "correct": [
+      0,
+      1
+    ],
     "explanation": {
       "correctReason": "Outbound rules allow you to explicitly configure outbound SNAT for backend virtual machines, defining which public IPs/prefixes are used for egress traffic.",
       "incorrectReasons": [
@@ -778,7 +801,7 @@
         "Inbound traffic is configured using inbound load balancing rules or NAT rules, not outbound rules.",
         "BGP routing is a gateway protocol, not managed via load balancer outbound rules."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/load-balancer/load-balancer-outbound-connections"
+      "reference": "https://learn.microsoft.com/azure/load-balancer/load-balancer-outbound-connections#outbound-rules"
     }
   },
   {
@@ -792,7 +815,10 @@
       "Check if VM2 has a public IP assigned.",
       "Check if the load balancer has exceeded its maximum virtual network limit."
     ],
-    "correct": [0, 1],
+    "correct": [
+      0,
+      1
+    ],
     "explanation": {
       "correctReason": "If VM2 fails health probe checks, the load balancer stops directing traffic to it. A common cause is an NSG blocking `168.63.129.16` (the Azure probe IP) or the local service application being down on VM2.",
       "incorrectReasons": [
@@ -800,7 +826,7 @@
         "Backend pool VMs behind a Standard Load Balancer do not require public IP addresses.",
         "Load Balancer limits do not cause single-VM selectively degraded behavior."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/load-balancer/load-balancer-troubleshoot-health-probe-status"
+      "reference": "https://learn.microsoft.com/azure/load-balancer/load-balancer-custom-probe-overview#probe-down-behavior"
     }
   },
   {
@@ -821,7 +847,7 @@
         "UDRs route traffic; they do not assign static IP leases to NICs.",
         "Entra ID manages identities, not network IP assignments."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/virtual-network/ip-services/virtual-network-network-interface-addresses"
+      "reference": "https://learn.microsoft.com/azure/virtual-network/ip-services/virtual-network-network-interface-addresses"
     }
   },
   {
@@ -842,28 +868,28 @@
         "'Allow forwarded traffic' enables NVAs to route traffic, but peering itself remains non-transitive.",
         "Subscription boundaries do not alter the non-transitive nature of peering."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/virtual-network/virtual-network-peering-overview"
+      "reference": "https://learn.microsoft.com/azure/virtual-network/virtual-network-manage-peering#requirements-and-constraints"
     }
   },
   {
     "id": 41,
     "subtopic": "Configure public IP addresses",
-    "question": "Which of the following Azure resources CANNOT be assigned a Standard SKU Public IP address?",
+    "question": "Which public IP SKU is incompatible with a Standard Azure Load Balancer frontend configuration?",
     "options": [
-      "Basic Load Balancer",
-      "Azure Firewall",
-      "Standard Load Balancer",
-      "Virtual Machine Network Interface"
+      "Basic SKU public IP",
+      "Standard SKU public IP",
+      "Standard SKU zone-redundant public IP",
+      "Standard SKU zonal public IP"
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "Basic SKU resources (such as Basic Load Balancer) cannot be mixed with Standard SKU resources like Standard Public IPs.",
+      "correctReason": "A Standard Load Balancer frontend requires a Standard SKU public IP. A Basic SKU public IP isn't supported.",
       "incorrectReasons": [
-        "Azure Firewall requires Standard SKU Public IPs.",
-        "Standard Load Balancer requires Standard SKU Public IPs.",
-        "Virtual Machine NICs fully support Standard SKU Public IPs."
+        "Standard SKU public IPs are the supported public IP type for a Standard Load Balancer frontend.",
+        "A zone-redundant Standard SKU public IP is a supported Standard public IP configuration.",
+        "A zonal Standard SKU public IP is a supported Standard public IP configuration."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/virtual-network/ip-services/public-ip-addresses"
+      "reference": "https://learn.microsoft.com/azure/load-balancer/skus#sku-comparison"
     }
   },
   {
@@ -884,7 +910,7 @@
         "`Internet` routes traffic out to the internet.",
         "`Virtual network gateway` routes traffic to an ExpressRoute or VPN gateway."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-udr-overview#next-hop-types"
+      "reference": "https://learn.microsoft.com/azure/virtual-network/virtual-networks-udr-overview#next-hop-types"
     }
   },
   {
@@ -905,7 +931,7 @@
         "NSG Flow Logs log metadata (source IP, dest IP, port, action) into Storage/Log Analytics, not actual pcap payloads.",
         "Security Group View displays configured security rules."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/network-watcher/network-watcher-packet-capture-overview"
+      "reference": "https://learn.microsoft.com/azure/network-watcher/network-watcher-packet-capture-overview"
     }
   },
   {
@@ -926,7 +952,7 @@
         "65000 to 65500 is reserved for built-in default system rules.",
         "1000 to 20000 is within range, but the full valid range is 100 to 4096."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/virtual-network/network-security-groups-overview"
+      "reference": "https://learn.microsoft.com/azure/virtual-network/network-security-groups-overview#security-rules"
     }
   },
   {
@@ -947,29 +973,32 @@
         "The default DenyAllOutBound rule has priority 65500, which comes after custom rules.",
         "NSG rules do not load balance traffic."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/virtual-network/network-security-groups-overview"
+      "reference": "https://learn.microsoft.com/azure/virtual-network/network-security-groups-overview#security-rules"
     }
   },
   {
     "id": 46,
     "subtopic": "Implement Azure Bastion",
-    "question": "Which Azure Bastion SKU features are required to support native client (RDP/SSH via local command prompt/CLI) and file upload/download via Azure Portal? (Select TWO)",
+    "question": "Which TWO statements about Azure Bastion are correct for native-client connections and file transfer? (Select TWO)",
     "options": [
-      "Standard SKU for Native Client support",
-      "Standard SKU for file transfer capabilities in web portal",
-      "Basic SKU for Native Client support",
-      "Developer SKU for custom VNet Peering",
-      "Basic SKU allows uploading files up to 10GB"
+      "Standard SKU or higher is required for native-client support.",
+      "File upload/download through Bastion uses a native RDP or SSH client and requires Standard SKU or higher.",
+      "Basic SKU supports native-client connections.",
+      "File upload/download is supported directly through the Azure portal browser client.",
+      "Developer SKU supports native-client connections and file transfer."
     ],
-    "correct": [0, 1],
+    "correct": [
+      0,
+      1
+    ],
     "explanation": {
-      "correctReason": "Native client support (connecting via local Az CLI / mstsc / ssh) and advanced features like web portal file transfer require upgrading Azure Bastion to the Standard SKU.",
+      "correctReason": "Native-client support requires Standard or Premium. File transfer through Bastion is supported with native RDP/SSH clients and also requires Standard or higher.",
       "incorrectReasons": [
-        "Basic SKU does not support native client connection or full file upload/download features.",
-        "Developer SKU is a lightweight SKU designed for single-VNet non-customizable testing.",
-        "Basic SKU has limited file copy capabilities (text clipboard copy only)."
+        "Basic SKU doesn't support native-client connections.",
+        "The file-transfer feature isn't provided directly through the Azure portal browser client; use a supported native client.",
+        "Developer SKU doesn't provide native-client support or the dedicated file-transfer feature."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/bastion/configuration-settings"
+      "reference": "https://learn.microsoft.com/azure/bastion/vm-upload-download-native"
     }
   },
   {
@@ -990,7 +1019,7 @@
         "VPN Gateway or ExpressRoute are not required for Service Endpoints.",
         "There is no additional charge for using Virtual Network Service Endpoints in Azure."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/virtual-network/virtual-network-service-endpoints-overview"
+      "reference": "https://learn.microsoft.com/azure/virtual-network/virtual-network-service-endpoints-overview#pricing-and-limits"
     }
   },
   {
@@ -1004,7 +1033,10 @@
       "A UDR on Subnet1 setting 0.0.0.0/0 to On-Premises",
       "Azure Bastion configured with SQL Server Management Studio (SSMS) extension"
     ],
-    "correct": [0, 1],
+    "correct": [
+      0,
+      1
+    ],
     "explanation": {
       "correctReason": "On-premises resources require hybrid connectivity (VPN or ExpressRoute) to reach private IPs in Azure, along with DNS integration (via Azure DNS Private Resolver or DNS VM) so on-premises clients can resolve the PaaS FQDN to the Private Endpoint IP.",
       "incorrectReasons": [
@@ -1012,7 +1044,7 @@
         "UDR 0.0.0.0/0 to on-premises is for forced tunneling of internet traffic, not for resolving private PaaS endpoints.",
         "Azure Bastion is for administrative management (RDP/SSH) to VMs, not direct PaaS connection routing for on-premises clients."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/private-link/private-endpoint-dns"
+      "reference": "https://learn.microsoft.com/azure/private-link/private-endpoint-dns"
     }
   },
   {
@@ -1033,7 +1065,7 @@
         "TTL has no relation to network latency.",
         "TTL does not perform health checks on target IP addresses."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/dns/dns-overview"
+      "reference": "https://learn.microsoft.com/azure/dns/dns-overview"
     }
   },
   {
@@ -1054,7 +1086,7 @@
         "15 seconds would correspond to 3 failed attempts.",
         "30 seconds is incorrect based on the specified parameters."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/load-balancer/load-balancer-custom-probe-overview"
+      "reference": "https://learn.microsoft.com/azure/load-balancer/load-balancer-custom-probe-overview#probe-threshold"
     }
   }
 ]

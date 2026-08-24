@@ -17,7 +17,7 @@
         "Azure Activity Log records subscription-level events and control-plane operations, not performance metrics.",
         "Azure Service Health provides information about Azure service outages, planned maintenance, and health advisories."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/azure-monitor/essentials/metrics-getting-started"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-monitor/metrics/analyze-metrics"
     }
   },
   {
@@ -38,7 +38,7 @@
         "Sum adds all sampled values together, which is useful for request counts but not for evaluating latency thresholds.",
         "Count shows the total number of recorded events or samples, not latency duration."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/azure-monitor/essentials/metrics-aggregation-explained"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-monitor/metrics/analyze-metrics"
     }
   },
   {
@@ -53,11 +53,11 @@
     ],
     "correct": 1,
     "explanation": {
-      "correctReason": "Azure Storage accounts provide low-cost blob storage ideal for long-term data archiving and compliance compliance retention beyond a year.",
+      "correctReason": "Azure Storage accounts provide a cost-effective destination for archiving diagnostic data for long-term retention. You can use storage lifecycle management to control retention and tiering.",
       "incorrectReasons": [
-        "Log Analytics workspaces incur higher storage and ingestion costs for long-term retention compared to Azure Blob Storage.",
-        "Event Hubs is a streaming ingestion service used to push data to third-party SIEMs or real-time pipelines, not a long-term storage solution.",
-        "Partner solutions involve third-party integrations which generally incur extra software and infrastructure overhead."
+        "A Log Analytics workspace is useful for querying and analyzing logs, but long-term retention can cost more than archiving the data in Azure Storage.",
+        "Event Hubs is designed for streaming monitoring data to consumers and isn't a long-term archive.",
+        "Partner solutions can be valid destinations for supported integrations, but they don't specifically provide the low-cost long-term archive described in the scenario."
       ],
       "reference": "https://learn.microsoft.com/en-us/azure/azure-monitor/essentials/diagnostic-settings"
     }
@@ -73,7 +73,10 @@
       "Diagnostic Extension (WAD/LAD)",
       "Azure Automation State Configuration"
     ],
-    "correct": [0, 2],
+    "correct": [
+      0,
+      2
+    ],
     "explanation": {
       "correctReason": "The Azure Monitor Agent (AMA) combined with Data Collection Rules (DCR) is Microsoft's standard solution for collecting guest OS logs and metrics centrally across Windows and Linux VMs.",
       "incorrectReasons": [
@@ -123,7 +126,7 @@
         "`search '7d'` searches text content for the string '7d' rather than evaluating datetime.",
         "`distinct` returns unique resource names without counting the total log records generated."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/azure-monitor/logs/get-started-queries"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-monitor/logs/get-started-queries#aggregate-and-group-results"
     }
   },
   {
@@ -173,21 +176,24 @@
     "subtopic": "Set up alert rules, action groups, and alert processing rules in Azure Monitor",
     "question": "You need to configure an Action Group in Azure Monitor that automatically opens an incident ticket in your ITSM system and sends an SMS to the on-call engineer. Which actions should be added to the Action Group configuration? (Select TWO)",
     "options": [
-      "ITSM action",
+      "Secure Webhook action configured for a supported ITSM system",
       "SMS/Email/Push/Voice action",
       "Webhook action pointing to GitHub",
       "Event Hub receiver",
       "Logic App action"
     ],
-    "correct": [0, 1],
+    "correct": [
+      0,
+      1
+    ],
     "explanation": {
-      "correctReason": "Action Groups support native ITSM connections to integrations like ServiceNow or System Center, as well as direct SMS notifications under the SMS/Email/Push/Voice category.",
+      "correctReason": "Use a Secure Webhook action for supported ITSM integrations such as ServiceNow ITOM or BMC Helix, and use the SMS/Email/Push/Voice action for the on-call engineer. The legacy ServiceNow ITSM action is deprecated.",
       "incorrectReasons": [
-        "Webhook to GitHub is not a standard incident management integration out of the box.",
-        "Event Hub receiver streams telemetry data rather than directly opening incident tickets or sending personal SMS alerts.",
-        "Logic Apps can perform automations, but native ITSM and SMS action types directly meet the prompt requirements without extra workflow development."
+        "GitHub is not the ITSM destination in the scenario, and a generic webhook to GitHub doesn't create the required ITSM incident.",
+        "Event Hubs streams data and doesn't directly provide an ITSM incident or SMS notification.",
+        "A Logic App can implement an ITSM workflow, but the question asks for the action types that directly satisfy the requirements; Secure Webhook plus SMS/Email/Push/Voice does so for supported ITSM integrations."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/azure-monitor/alerts/action-groups"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-monitor/alerts/it-service-management-connector-secure-webhook-connections-azure-configuration"
     }
   },
   {
@@ -201,7 +207,10 @@
       "Security Baseline",
       "Backup Compliance"
     ],
-    "correct": [0, 1],
+    "correct": [
+      0,
+      1
+    ],
     "explanation": {
       "correctReason": "VM Insights provides two core curated experiences: 'Performance' (charts key guest OS metrics) and 'Map' (automatically discovers application components and maps processes and dependencies).",
       "incorrectReasons": [
@@ -230,13 +239,13 @@
         "Data In/Out shows throughput numbers, not response error codes.",
         "Diagnostic logs contain detailed transaction entries, but the curated Transactions tab in Storage Insights gives immediate aggregated visual breakdowns."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/azure-monitor/insights/storage-insights-overview"
+      "reference": "https://learn.microsoft.com/en-us/azure/storage/common/storage-insights-overview#detailed-storage-workbooks"
     }
   },
   {
     "id": 12,
     "subtopic": "Use Azure Network Watcher and Connection Monitor",
-    "question": "You suspect that an Network Security Group (NSG) rule is blocking TCP traffic on port 443 from VM1 to an external server. Which Azure Network Watcher tool allows you to perform an immediate, ad-hoc check to verify if packets are being dropped by security rules?",
+    "question": "You suspect that an NSG rule is blocking TCP traffic on port 443 from VM1 to an external server. Which Azure Network Watcher tool provides an immediate, ad-hoc check of whether the flow is allowed or denied by security rules?",
     "options": [
       "IP flow verify",
       "Connection Monitor",
@@ -278,7 +287,7 @@
   {
     "id": 14,
     "subtopic": "Use Azure Network Watcher and Connection Monitor",
-    "question": "You need to determine the effective route taken by packets leaving VM1 destined for an IP address of 10.2.0.4, to verify if traffic is being correctly forwarded to a Network Virtual Appliance (NVA). Which Network Watcher feature provides this information?",
+    "question": "You need to determine the next hop selected for traffic leaving VM1 and destined for 10.2.0.4, to verify whether the route sends traffic to a Network Virtual Appliance (NVA). Which Network Watcher feature provides this information?",
     "options": [
       "Next hop",
       "IP flow verify",
@@ -314,7 +323,7 @@
         "Key Vault stores cryptographic keys, secrets, and certificates.",
         "Storage account Blob containers hold raw data but cannot act as native management vaults for IaaS VM backups."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/backup/backup-vault-overview"
+      "reference": "https://learn.microsoft.com/en-us/azure/backup/backup-azure-recovery-services-vault-overview"
     }
   },
   {
@@ -335,7 +344,7 @@
         "Once items are registered or backed up in the vault, changing the storage redundancy setting is restricted or requires unregistering all items.",
         "ZRS is not the default setting for a newly created Recovery Services vault."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/backup/backup-create-recovery-services-vault"
+      "reference": "https://learn.microsoft.com/en-us/azure/backup/backup-create-recovery-services-vault#set-storage-redundancy"
     }
   },
   {
@@ -356,7 +365,7 @@
         "Multi-User Authorization (MUA) requires approval via Resource Guard before critical operations, but is not enabled by default.",
         "Cross Region Restore allows restoring data in a secondary paired region, not preventing local deletion."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/backup/backup-azure-security-feature-cloud"
+      "reference": "https://learn.microsoft.com/en-us/azure/backup/secure-by-default#soft-delete-retention-period"
     }
   },
   {
@@ -370,7 +379,10 @@
       "SQL Server on Azure VMs",
       "Azure Files (Share)"
     ],
-    "correct": [0, 2],
+    "correct": [
+      0,
+      2
+    ],
     "explanation": {
       "correctReason": "Azure Backup vaults manage newer workload backups including Azure Blobs, Azure Disks, Azure Database for PostgreSQL, and AKS clusters.",
       "incorrectReasons": [
@@ -384,7 +396,7 @@
   {
     "id": 19,
     "subtopic": "Create an Azure Backup vault",
-    "question": "You are creating an Azure Backup vault to protect operational snapshots of Azure Managed Disks. You require high availability across data centers within the local region. Which storage redundancy setting should you configure for the vault?",
+    "question": "You are backing up an Azure Managed Disk by using Azure Backup. You require the operational backup snapshots to be zone-resilient within the same Azure region. In a region that supports zone-redundant storage (ZRS), what redundancy do the incremental backup snapshots use by default?",
     "options": [
       "Zone-redundant storage (ZRS)",
       "Locally redundant storage (LRS)",
@@ -393,13 +405,13 @@
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "Zone-redundant storage (ZRS) replicates backup data across availability zones within the same region, protecting against data center failures while staying within the region.",
+      "correctReason": "Azure Disk Backup currently uses the operational snapshot tier. In regions that support ZRS, the incremental snapshots are stored on zone-redundant storage by default.",
       "incorrectReasons": [
-        "LRS replicates data only within a single physical data center in the region.",
-        "GRS replicates data to a secondary paired region hundreds of miles away.",
-        "RA-GRS provides read access in a secondary region, exceeding local region requirements."
+        "LRS is not the default redundancy for the operational snapshots in ZRS-supported regions.",
+        "GRS isn't used for the operational snapshots created by Azure Disk Backup.",
+        "RA-GRS isn't the storage redundancy used for Azure Disk Backup operational snapshots."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/backup/backup-vault-overview#redundancy-in-azure-backup-vault"
+      "reference": "https://learn.microsoft.com/en-us/azure/backup/back-up-managed-disks-tutorial#configure-backup"
     }
   },
   {
@@ -420,7 +432,7 @@
         "There is no 'Basic' VM policy tier in Azure Backup.",
         "Archive tier is a storage tier for long-term retention points, not a backup policy framework level."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/backup/backup-azure-vms-enhanced-policy-concept"
+      "reference": "https://learn.microsoft.com/en-us/azure/backup/backup-azure-vms-enhanced-policy"
     }
   },
   {
@@ -447,23 +459,26 @@
   {
     "id": 22,
     "subtopic": "Create and configure a backup policy",
-    "question": "You need to back up an Azure VM once per day and move recovery points older than 90 days to the Vault-Archive tier to save costs. Which of the following conditions must be met for a recovery point to be eligible for move to the Archive tier? (Select TWO)",
+    "question": "Which TWO statements about moving an Azure VM recovery point to the Azure Backup Archive tier are true? (Select TWO)",
     "options": [
-      "The recovery point must be in the Vault-Standard tier.",
-      "The remaining retention period of the recovery point must be at least 180 days.",
-      "The recovery point must be an operational snapshot on local disk.",
+      "The recovery point must be in the Vault-standard tier before it is moved to Archive.",
+      "The recovery point must have at least 6 months of retention remaining.",
       "The VM must be powered off during the archiving operation.",
-      "The policy must use GRS or ZRS redundancy."
+      "The vault must use ZRS redundancy.",
+      "Operational snapshots can be moved directly to Archive without a Vault-standard recovery point."
     ],
-    "correct": [0, 1],
+    "correct": [
+      0,
+      1
+    ],
     "explanation": {
-      "correctReason": "To move a VM recovery point to Archive, it must be in the Vault-Standard tier and have a remaining retention duration of at least 180 days (due to minimum archive retention rules).",
+      "correctReason": "For Azure VM recovery points, Microsoft documents that the recovery point must be in the Vault-standard tier and have at least 6 months of retention remaining. Additional eligibility rules also apply, including that only monthly and yearly recovery points are supported and dependency conditions must be satisfied.",
       "incorrectReasons": [
-        "Operational snapshots on local disk cannot be archived directly without first residing in Vault-Standard.",
-        "VMs do not need to be powered off when backup points are moved to the Archive tier.",
-        "LRS vaults also support Smart Tiering/Archive for supported workloads."
+        "The VM doesn't need to be powered off to move an eligible recovery point to Archive.",
+        "Archive tier isn't supported on vaults configured with ZRS.",
+        "Operational snapshots aren't moved directly to Archive; the supported archive workflow is for eligible Vault-standard recovery points."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/backup/archive-tier-policy"
+      "reference": "https://learn.microsoft.com/en-us/azure/backup/archive-tier-support"
     }
   },
   {
@@ -498,7 +513,10 @@
       "A new Public IP address with identical DNS name",
       "A new Load Balancer rule"
     ],
-    "correct": [0, 1],
+    "correct": [
+      0,
+      1
+    ],
     "explanation": {
       "correctReason": "When using 'Create new virtual machine' in Azure Backup, Azure creates new managed disks from the backup snapshot and builds a new VM entity attached to those disks.",
       "incorrectReasons": [
@@ -506,7 +524,7 @@
         "Public IP addresses are not automatically recreated or assigned DNS names by the restore process.",
         "Load Balancer rules are managed on Azure Load Balancers and are independent of VM disk restore operations."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/backup/backup-azure-arm-vms-prepare"
+      "reference": "https://learn.microsoft.com/en-us/azure/backup/backup-azure-arm-restore-vms"
     }
   },
   {
@@ -527,7 +545,7 @@
         "VM Scale Set instances cannot act as target agents for MARS system state restores directly.",
         "MARS does not convert system state backups into Azure Managed Disk snapshots."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/backup/backup-azure-restore-windows-server"
+      "reference": "https://learn.microsoft.com/en-us/azure/backup/backup-azure-restore-system-state"
     }
   },
   {
@@ -590,7 +608,7 @@
         "Proximity Placement Groups reduce network latency by physically co-locating compute resources in a single data center.",
         "Network Security Groups control network access using filtering rules."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/site-recovery/azure-to-azure-concept-multi-vm-component"
+      "reference": "https://learn.microsoft.com/en-us/azure/site-recovery/azure-to-azure-concept-multi-vm-consistency"
     }
   },
   {
@@ -638,44 +656,47 @@
   {
     "id": 31,
     "subtopic": "Configure and interpret reports and alerts for backups",
-    "question": "You need to view centralized backup operational reports spanning multiple subscriptions, vaults, and workloads across your organization for compliance auditing. Which feature in Azure Portal provides built-in Power BI integration and cross-vault backup reporting?",
+    "question": "You need to view centralized Azure Backup operational reports spanning multiple subscriptions, Recovery Services vaults, and workloads. Which feature in Backup Center provides these reports?",
     "options": [
       "Backup Reports in Backup Center",
-      "Log Analytics Workspace Workspace Summary",
+      "Log Analytics Workspace Summary",
       "Azure Advisor Recommendations",
       "Azure Cost Management"
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "Backup Reports (accessed via Azure Backup Center) uses Azure Monitor logs and Power BI to aggregate cross-subscription, cross-vault backup health and compliance statistics.",
+      "correctReason": "Backup Reports in Backup Center provide centralized reporting across vaults and subscriptions. The reports use data sent to Log Analytics workspaces and provide views such as Summary, Backup Items, Usage, and Jobs.",
       "incorrectReasons": [
-        "Workspace Summary gives generic log counts, not tailored backup compliance reports.",
-        "Azure Advisor offers optimization tips, not comprehensive backup history reporting.",
-        "Azure Cost Management tracks financial spend, not backup policy success/failure metrics."
+        "Log Analytics Workspace Summary is a general workspace view, not the Azure Backup reporting experience.",
+        "Azure Advisor provides recommendations rather than centralized backup operational reports.",
+        "Azure Cost Management focuses on spending and cost analysis, not backup job and protection reporting."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/backup/configure-reports"
+      "reference": "https://learn.microsoft.com/en-us/azure/backup/backup-center-obtain-insights#get-started-with-backup-center"
     }
   },
   {
     "id": 32,
     "subtopic": "Configure and interpret reports and alerts for backups",
-    "question": "You need to receive real-time email alerts whenever an Azure Backup job fails or backup data is deleted. Where should you configure backup alerts using Azure Monitor integrations? (Select TWO)",
+    "question": "Azure Backup generates built-in Azure Monitor alerts for critical scenarios such as backup job failures and deletion of backup data. Which TWO components should you use to send email notifications for those alerts? (Select TWO)",
     "options": [
-      "Azure Monitor Alerts for Backup in Backup Center",
-      "Built-in Azure Backup alerts with Action Groups",
-      "Storage Account Event Grid triggers",
+      "Built-in Azure Monitor alerts for Azure Backup",
+      "An Azure Monitor Action Group",
       "Network Watcher alert rules",
-      "Service Health notifications"
+      "Azure Storage lifecycle management",
+      "An Azure Service Health notification"
     ],
-    "correct": [0, 1],
+    "correct": [
+      0,
+      1
+    ],
     "explanation": {
-      "correctReason": "Azure Backup integrates directly with Azure Monitor alerts, accessible in Backup Center, allowing standard Action Groups (email, SMS, ITSM) to fire on backup failures.",
+      "correctReason": "Azure Backup provides built-in Azure Monitor alerts for scenarios such as backup failures and deletion of backup data. An Action Group supplies the notification channel, such as email, for those alerts.",
       "incorrectReasons": [
-        "Storage Account Event Grid handles container events, not Recovery Services vault backup failures.",
-        "Network Watcher handles network topology and traffic testing.",
-        "Service Health alerts on platform-wide Azure infrastructure incidents, not individual job-level backup failures."
+        "Network Watcher alerting is for network monitoring, not Azure Backup job and security alerts.",
+        "Storage lifecycle management controls blob data movement and deletion, not Azure Backup alert notifications.",
+        "Service Health reports Azure service/platform health events rather than individual Azure Backup job failures or backup-data deletions."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/backup/backup-center-monitor-operate"
+      "reference": "https://learn.microsoft.com/en-us/azure/backup/backup-azure-monitoring-alerts"
     }
   },
   {
@@ -696,49 +717,49 @@
         "Protocol identifies HTTP vs HTTPS traffic counts.",
         "IP Address is not a default dimension available on App Service Plan performance metrics."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/azure-monitor/essentials/metrics-charts"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-monitor/reference/supported-metrics/microsoft-web-serverfarms-metrics"
     }
   },
   {
     "id": 34,
     "subtopic": "Configure log settings in Azure Monitor",
-    "question": "You are configuring diagnostic settings for a Network Security Group (NSG) to capture traffic statistics. Which log category must be enabled to collect NSG Flow Logs or Diagnostic Analytics data?",
+    "question": "You are configuring diagnostic settings for a Network Security Group (NSG). Which log category records entries for NSG rules applied to virtual machines?",
     "options": [
-      "NetworkSecurityGroupEvent",
-      "NetworkSecurityGroupRuleCounter",
-      "AllLogs",
-      "Administrative"
+      "Event",
+      "Rule counter",
+      "Administrative",
+      "ServiceHealth"
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "'NetworkSecurityGroupEvent' (and Rule Counters) is the diagnostic log category for capturing NSG rule evaluation and event entries.",
+      "correctReason": "The Event category records entries for NSG rules applied to virtual machines, based on a MAC address.",
       "incorrectReasons": [
-        "NetworkSecurityGroupRuleCounter only records rule counter statistics, missing rule execution event details.",
-        "AllLogs is a wildcard selection in Diagnostic settings but NetworkSecurityGroupEvent specifically addresses NSG operational logging.",
-        "Administrative is an Activity Log category, not an NSG diagnostic log category."
+        "Rule counter records how many times each NSG rule is applied, rather than the individual event entries described in the question.",
+        "Administrative is an Azure Activity Log category, not an NSG resource-log category.",
+        "ServiceHealth is related to Azure service health events, not NSG resource logs."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/vnet-verify-security-group-connectivity"
+      "reference": "https://learn.microsoft.com/en-us/azure/virtual-network/virtual-network-nsg-manage-log#log-categories"
     }
   },
   {
     "id": 35,
     "subtopic": "Query and analyze logs in Azure Monitor",
-    "question": "You need to write a KQL query to calculate the total data ingested (in Gigabytes) per computer in the `Perf` table over the last 24 hours. Which KQL function converts the raw `Quantity` bytes to Gigabytes?",
+    "question": "You need to calculate the average CPU counter value for each computer in the `Perf` table over the last 24 hours. Which KQL query structure achieves this requirement?",
     "options": [
-      "summarize TotalGB = sum(Quantity) / 1024 / 1024 / 1024 by Computer",
-      "summarize TotalGB = count(Quantity) / 1000 by Computer",
-      "summarize TotalGB = avg(Quantity) / 1024 by Computer",
-      "summarize TotalGB = max(Quantity) / 1000000 by Computer"
+      "Perf | where TimeGenerated > ago(24h) | where CounterName == \"% Processor Time\" and InstanceName == \"_Total\" | summarize AvgCPU = avg(CounterValue) by Computer",
+      "Perf | where TimeGenerated == 24h | summarize AvgCPU = count(CounterValue) by Computer",
+      "Perf | project Computer, CounterValue | order by Computer asc",
+      "Perf | where CounterValue > 50 | summarize AvgCPU = max(CounterValue) by Computer"
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "Dividing the sum of byte values (`sum(Quantity)`) three times by 1024 (or $1024^3$) converts bytes to Gigabytes (GB).",
+      "correctReason": "The query filters the last 24 hours, selects the CPU counter, and uses `summarize avg(CounterValue) by Computer` to calculate an average for each computer.",
       "incorrectReasons": [
-        "`count()` counts rows rather than summing numeric byte quantities.",
-        "`avg()` calculates the average sample size instead of total aggregate volume ingested.",
-        "`max()` evaluates peak sample size rather than total data size."
+        "`TimeGenerated == 24h` isn't a valid way to express a relative time range, and `count()` counts rows rather than averaging CPU values.",
+        "`project` and `order by` select and sort rows; they don't calculate the requested grouped average.",
+        "This filters to values above 50 and calculates a maximum, which is not the requested average CPU value."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/azure-monitor/logs/log-standard-properties"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-monitor/logs/get-started-queries#aggregate-and-group-results"
     }
   },
   {
@@ -759,7 +780,7 @@
         "Log Analytics search alerts can query resource groups, but native Metric Alerts targeting a Resource Group scope are cleaner and evaluate continuously.",
         "Azure Policy enforces compliance configurations, but scoping metric alerts directly to resource groups is natively supported."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/azure-monitor/alerts/alerts-metric-overview"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-monitor/vm/monitor-virtual-machine-alerts#scaling-alert-rules"
     }
   },
   {
@@ -780,7 +801,7 @@
         "Traffic Analytics focuses on IP flow patterns and user traffic patterns.",
         "Connection Monitor provides latency and synthetic connectivity test metrics."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/azure-monitor/insights/network-insights-overview"
+      "reference": "https://learn.microsoft.com/en-us/azure/network-watcher/network-insights-overview#network-health-and-metrics"
     }
   },
   {
@@ -795,7 +816,11 @@
       "Network Security Group flow log path",
       "Azure Automation account name"
     ],
-    "correct": [0, 1, 2],
+    "correct": [
+      0,
+      1,
+      2
+    ],
     "explanation": {
       "correctReason": "A Connection Monitor test group requires three main components: Source endpoints, Destination endpoints, and Test configurations (specifying protocol like TCP/ICMP and target port).",
       "incorrectReasons": [
@@ -809,22 +834,22 @@
   {
     "id": 39,
     "subtopic": "Create a Recovery Services vault",
-    "question": "You need to prevent unauthorized administrators from disabling Soft Delete or reducing backup retention periods in your Recovery Services vault. Which Azure Backup feature permanently locks vault security settings against modification?",
+    "question": "You have enabled an immutable vault and want to permanently prevent backup data from being deleted before its policy-defined expiry or retention periods from being reduced. Which state of the immutable vault provides this permanent protection?",
     "options": [
-      "Vault Immutable Capable / Immutable Vault",
-      "Azure Role-Based Access Control (RBAC)",
-      "Resource Locks (ReadOnly)",
-      "Multi-Factor Authentication (MFA)"
+      "Locked immutable vault",
+      "Azure RBAC",
+      "ReadOnly resource lock",
+      "Multi-factor authentication (MFA)"
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "Enabling Immutable Vault locks the vault settings permanently, preventing any user (including global admins and Microsoft support) from disabling soft delete or reducing retention periods.",
+      "correctReason": "Locking immutability makes the setting irreversible and prevents backup data from being deleted before expiry or retention periods from being reduced.",
       "incorrectReasons": [
-        "RBAC roles can be reassigned or overridden by Subscription Owners.",
-        "Resource Locks prevent ARM resource deletion or modifications, but do not lock internal vault policy rules like soft delete timeouts.",
-        "MFA reinforces user identity verification but does not permanently lock vault compliance policies."
+        "RBAC controls authorization but doesn't itself make the vault's immutability setting irreversible.",
+        "A resource lock protects the Azure resource from deletion or certain management operations; it doesn't provide the backup-specific immutable retention guarantees.",
+        "MFA strengthens authentication but doesn't enforce immutable backup retention."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/backup/backup-azure-immutable-vault"
+      "reference": "https://learn.microsoft.com/en-us/azure/backup/backup-azure-immutable-vault-concept"
     }
   },
   {
@@ -845,28 +870,28 @@
         "Disk snapshot export applies to Managed Disks, not Azure Storage Blobs.",
         "ASR delta replication is used for VM disaster recovery failover."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/backup/blob-backup-overview"
+      "reference": "https://learn.microsoft.com/en-us/azure/backup/blob-backup-overview#how-the-azure-blobs-backup-works"
     }
   },
   {
     "id": 41,
     "subtopic": "Create and configure a backup policy",
-    "question": "You need to create a backup policy for Azure Files file shares. What is the maximum retention period supported for daily, weekly, monthly, and yearly backups when using Recovery Services vaults for Azure Files?",
+    "question": "When using the Vault-standard tier for Azure Files backup in a Recovery Services vault, what is the maximum retention period for yearly recovery points?",
     "options": [
-      "10 years (200 years for vault tier)",
+      "99 years",
+      "10 years",
       "30 days",
-      "1 year",
-      "99 years"
+      "200 years"
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "Azure Files backup policies in Recovery Services vaults support long-term retention (LTR) up to 10 years for snapshots and up to 200 years for vault-standard tiering.",
+      "correctReason": "The current Azure Files backup support matrix lists a maximum of 99 years for yearly recovery points in the Vault-standard tier.",
       "incorrectReasons": [
-        "30 days is the default short-term operational snapshot retention limit.",
-        "1 year is an arbitrary lower bound; LTR extends up to 10 years or more.",
-        "99 years is the maximum retention limit for MARS backups, whereas Azure Files supports up to 200 years in vault tier."
+        "10 years is the maximum for yearly snapshot-tier recovery points, not Vault-standard yearly recovery points.",
+        "30 days is the maximum snapshot retention in the Vault-standard tier, not the maximum yearly recovery-point retention.",
+        "200 years isn't the current Vault-standard yearly retention limit for Azure Files."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/backup/azure-file-share-backup-overview"
+      "reference": "https://learn.microsoft.com/en-us/azure/backup/azure-file-share-support-matrix#retention-limits"
     }
   },
   {
@@ -887,7 +912,7 @@
         "MARS file recovery restores files to an operating system, not full VM infrastructure entities.",
         "Site Recovery is for disaster recovery replication, not restoring deleted backups from a Recovery Services vault."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/backup/backup-azure-arm-vms-prepare#restore-options"
+      "reference": "https://learn.microsoft.com/en-us/azure/backup/backup-azure-arm-restore-vms#restore-options"
     }
   },
   {
@@ -901,7 +926,10 @@
       "Proximity Placement Group",
       "System-Assigned Managed Identity"
     ],
-    "correct": [0, 1],
+    "correct": [
+      0,
+      1
+    ],
     "explanation": {
       "correctReason": "When configuring target settings in ASR, you can specify target high availability options such as placing the VM into a target Availability Set or placing it in a specific Availability Zone.",
       "incorrectReasons": [
@@ -930,7 +958,7 @@
         "Replication is not canceled during a test.",
         "Replication only reverses direction during the 'Re-protect' phase following an actual failover."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/site-recovery/azure-to-azure-troubleshoot-test-failover"
+      "reference": "https://learn.microsoft.com/en-us/azure/site-recovery/azure-to-azure-how-to-test-failover"
     }
   },
   {
@@ -957,22 +985,22 @@
   {
     "id": 46,
     "subtopic": "Interpret metrics in Azure Monitor",
-    "question": "You need to set up a dashboard in Azure Monitor to track both server response time and total HTTP requests for an App Service. You want to see these metrics side-by-side with different Y-axis scale ranges. How can you achieve this in Metrics Explorer?",
+    "question": "You need to monitor server response time and total HTTP requests for an App Service, but the metrics have very different units and scales. What is the recommended way to display them in Metrics Explorer?",
     "options": [
-      "Add two metrics to the same chart and enable secondary Y-axis or create a split multi-chart layout",
+      "Create separate metric charts for the metrics rather than mixing different units on one chart",
       "Convert the metrics into KQL logs",
       "Create an Activity Log filter",
-      "Export metrics to CSV and import into Excel"
+      "Export metrics to CSV and import them into Excel"
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "Metrics Explorer allows plotting multiple metric lines on a single chart with separate scales or creating multiple chart panes within the same view.",
+      "correctReason": "Microsoft recommends using separate charts when metrics have different units or significantly different scales. Metrics Explorer supports multiple charts in the same view.",
       "incorrectReasons": [
-        "Converting metrics to logs is unnecessary since Metrics Explorer handles multi-metric charting directly.",
-        "Activity Log filters track control operations, not numeric metrics like response time or HTTP counts.",
-        "Exporting to CSV is a manual offline process that does not build a dynamic Azure Monitor dashboard."
+        "Converting metrics to logs isn't required for charting them in Metrics Explorer.",
+        "Activity Log filters operate on control-plane activity, not resource metrics.",
+        "CSV export is an offline workaround and isn't the recommended Metrics Explorer visualization."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/azure-monitor/essentials/metrics-charts"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-monitor/metrics/analyze-metrics#view-multiple-metric-lines-and-charts"
     }
   },
   {
@@ -993,7 +1021,7 @@
         "Storage Account lifecycle rules apply to blob containers, not workspace log tables.",
         "Data Collection Rules control log collection filters, not workspace storage retention periods."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/azure-monitor/logs/manage-cost-storage#change-the-data-retention-period"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-monitor/logs/data-retention-configure"
     }
   },
   {
@@ -1014,28 +1042,28 @@
         "`project` selects specific columns to display without summarizing numeric data.",
         "`where` filters rows based on a boolean predicate."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/azure-monitor/logs/get-started-queries#group-results-using-summarize"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-monitor/logs/get-started-queries#aggregate-and-group-results"
     }
   },
   {
     "id": 49,
     "subtopic": "Use Azure Network Watcher and Connection Monitor",
-    "question": "You are auditing security rules on a network. You want to view packet flow metadata (source IP, destination IP, port, protocol, and allowed/denied action) passing through Network Security Groups. Which Network Watcher feature provides this detailed log data?",
+    "question": "You are auditing IP traffic metadata for a virtual network and want to see source/destination IPs, ports, protocol, and allowed/denied action. Which current Network Watcher feature should you use?",
     "options": [
-      "NSG flow logs",
+      "Virtual network flow logs",
       "IP flow verify",
       "Next hop",
       "VPN Troubleshoot"
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "NSG flow logs log 5-tuple IP traffic flow data passing through Network Security Groups to a storage account or Traffic Analytics workspace.",
+      "correctReason": "Virtual network flow logs provide flow metadata for traffic in a virtual network, including source and destination information, ports, protocol, and flow status.",
       "incorrectReasons": [
-        "IP flow verify tests a single packet flow ad-hoc rather than generating log telemetry for all traffic.",
-        "Next hop identifies routing decisions to destination IPs.",
-        "VPN Troubleshoot evaluates health on Virtual Network Gateways."
+        "IP flow verify performs an ad-hoc NSG authorization check for a specified flow; it doesn't provide a continuous traffic log.",
+        "Next hop reports the routing next hop for a destination IP.",
+        "VPN Troubleshoot diagnoses VPN gateway and connection issues rather than providing general traffic flow logs."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/network-watcher/nsg-flow-logging-overview"
+      "reference": "https://learn.microsoft.com/en-us/azure/network-watcher/vnet-flow-logs-overview"
     }
   },
   {
@@ -1058,5 +1086,5 @@
       ],
       "reference": "https://learn.microsoft.com/en-us/azure/backup/backup-azure-arm-vms-prepare#cross-region-restore"
     }
-  ]
+  }
 ]

@@ -66,6 +66,7 @@ async function loadScores(uid) {
       rows += `
         <tr>
           <td class="quiz-title-cell">${data.quizTitle || "AZ-104 Quiz"}</td>
+          <td class="set-cell">${data.quizSet || "N/A"}</td>
           <td class="score-cell">${data.score} / ${data.totalQuestions} (${data.percentage}%)</td>
           <td>${data.timeTaken || "N/A"}</td>
           <td>${dateStr}</td>
@@ -77,7 +78,7 @@ async function loadScores(uid) {
           <td><button class="delete-score-btn btn btn-danger" data-id="${docId}">Delete</button></td>
         </tr>
         <tr class="review-row" id="review-row-${docId}" style="display: none;">
-          <td colspan="6"><div class="review-panel" id="review-panel-${docId}"></div></td>
+          <td colspan="7"><div class="review-panel" id="review-panel-${docId}"></div></td>
         </tr>
       `;
     });
@@ -88,6 +89,7 @@ async function loadScores(uid) {
           <thead>
             <tr>
               <th>Name</th>
+              <th>Set</th>
               <th>Score</th>
               <th>Time Spent</th>
               <th>Date</th>

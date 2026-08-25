@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <title>AZ-104 Detailed CLI &amp; PowerShell Command Guide - Quiz Bank</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- APP HEADER -->
+  <header class="header">
+    <div class="header-top">
+      <div>
+        <h1 class="page-title">AZ-104 Command Deep Dive</h1>
+        <p class="page-subtitle">Comprehensive Azure CLI &amp; PowerShell Reference for Certification Prep</p>
+      </div>
+      
+      <div id="auth-container">
+        <button id="sign-in-btn" class="btn btn-light">Sign In with Google</button>
+        <div id="user-info" class="user-info-bar" style="display: none;">
+          <span id="user-name" class="user-name-text"></span>
+          <a href="index.html" class="btn btn-light">🏠 Home</a>
+          <a href="dashboard.html" class="btn btn-light">📊 Dashboard</a>
+          <button id="sign-out-btn" class="btn btn-danger">Sign Out</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT CONTAINER -->
+  <main class="container">
+
+    <!-- References Bar -->
+    <div class="card card--bar">
+      <span class="ref-bar-label">📚 References:</span>
+      <nav class="ref-bar-nav">
+        <a href="references/identity.html" class="btn ref-link">Identity</a>
+        <a href="references/storage.html" class="btn ref-link">Storage</a>
+        <a href="references/compute.html" class="btn ref-link">Compute</a>
+        <a href="references/networking.html" class="btn ref-link">Networking</a>
+        <a href="references/monitoring.html" class="btn ref-link">Monitoring</a>
+        <a href="limits.html" class="btn ref-link">📋 Limits &amp; Quotas</a>
+        <a href="commands.html" class="btn ref-link active">⚡ CLI &amp; PowerShell</a>
+      </nav>
+    </div>
+
+    <!-- TOP NAVIGATION & HUB LINK -->
+    <div class="card card--panel">
+      <div class="limits-hub-bar">
+        <div class="limits-hub-bar__title">
+          📌 Jump to Exam Domain:
+        </div>
+        <div class="limits-hub-bar__jumps">
+          <a href="#identity" class="btn ref-link">Identity &amp; Governance (20–25%)</a>
+          <a href="#storage" class="btn ref-link">Storage (15–20%)</a>
+          <a href="#compute" class="btn ref-link">Compute (20–25%)</a>
+          <a href="#networking" class="btn ref-link">Networking (15–20%)</a>
+          <a href="#monitoring" class="btn ref-link">Monitoring &amp; Backup (10–15%)</a>
+        </div>
+      </div>
+      
+      <hr class="limits-hub-divider">
+      
+      <div class="limits-hub-footer">
+        <span>📖 Official Microsoft Learn Command Directories:</span>
+        <a href="https://learn.microsoft.com/en-us/cli/azure/reference-index" target="_blank" rel="noopener noreferrer" class="ms-learn-link">
+          Azure CLI Command Index ↗
+        </a>
+        <a href="https://learn.microsoft.com/en-us/powershell/azure/get-started-azureps" target="_blank" rel="noopener noreferrer" class="ms-learn-link">
+          Azure PowerShell Cmdlet Reference ↗
+        </a>
+        <a href="https://learn.microsoft.com/en-us/powershell/microsoftgraph/overview" target="_blank" rel="noopener noreferrer" class="ms-learn-link">
+          Microsoft Graph PowerShell SDK ↗
+        </a>
+      </div>
+    </div>
+
+    <!-- 1. IDENTITY & GOVERNANCE -->
+    <section id="identity" class="domain-section">
+      <div class="domain-title">
+        <div>
+          <span>Identity &amp; Governance</span>
+          <span class="domain-title__percentage">(20–25% of Exam Scope)</span>
+        </div>
+        <div>
+          <a href="https://learn.microsoft.com/en-us/cli/azure/role" target="_blank" rel="noopener noreferrer" class="ms-learn-link">
+            Entra &amp; RBAC CLI Docs ↗
+          </a>
+        </div>
+      </div>
+      
+      <table class="limits-table">
+        <thead>
+          <tr>
+            <th>Scenario / Action</th>
+            <th>Azure CLI Syntax (`az`)</th>
+            <th>Azure PowerShell Syntax (`Az` / `Mg`)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Authentication &amp; Scope Switch</strong></td>
+            <td><code>az login</code><br><code>az account set --subscription "SubID-or-Name"</code></td>
+            <td><code>Connect-AzAccount</code><br><code>Set-AzContext -Subscription "SubID-or-Name"</code><br><br><strong>Microsoft Graph:</strong><br><code>Connect-MgGraph -Scopes "User.ReadWrite.All"</code></td>
+          </tr>
+          <tr>
+            <td><strong>Create Tenant User</strong></td>
+            <td><code>az ad user create --display-name "User01" --user-principal-name "user01@domain.com" --password &lt;pwd&gt;</code></td>
+            <td><code>$PasswordProfile = @{ Password = "&lt;securePwd&gt;" }</code><br><code>New-MgUser -DisplayName "User01" -PasswordProfile $PasswordProfile -AccountEnabled -MailNickName "User01" -UserPrincipalName "user01@domain.com"</code></td>
+          </tr>
+          <tr>
+            <td><strong>Invite B2B Guest User</strong></td>
+            <td><code>az ad invite create --email-address "user@ext.com" --redirect-url "https://myapps.microsoft.com"</code></td>
+            <td><code>New-MgInvitation -InvitedUserEmailAddress "user@ext.com" -InviteRedirectUrl "https://myapps.microsoft.com" -SendInvitationMessage</code></td>
+          </tr>
+          <tr>
+            <td><strong>Create Security Group</strong></td>
+            <td><code>az ad group create --display-name "SecGroup01" --mail-nickname "secgroup01"</code></td>
+            <td><code>New-MgGroup -DisplayName "SecGroup01" -Description "Security group" -MailEnabled:$false -SecurityEnabled -MailNickName "secgroup01"</code></td>
+          </tr>
+          <tr>
+            <td><strong>Create Custom RBAC Role</strong></td>
+            <td><code>az role definition create --role-definition @customrole.json</code></td>
+            <td><code>New-AzRoleDefinition -InputFile "customrole.json"</code></td>
+          </tr>
+          <tr>
+            <td><strong>Assign RBAC Role at Scope</strong></td>
+            <td><code>az role assignment create --assignee "user@domain.com" --role "Virtual Machine Contributor" --scope "/subscriptions/&lt;subId&gt;/resourceGroups/&lt;rg&gt;"</code></td>
+            <td><code>New-AzRoleAssignment -SignInName "user@domain.com" -RoleDefinitionName "Virtual Machine Contributor" -ResourceGroupName &lt;rg&gt;</code></td>
+          </tr>
+          <tr>
+            <td><strong>Resource Lock Management</strong></td>
+            <td><code>az lock create --name "NoDelete" --lock-type CanNotDelete --resource-group &lt;rg&gt;</code></td>
+            <td><code>New-AzResourceLock -LockName "NoDelete" -LockLevel CanNotDelete -ResourceGroupName &lt;rg&gt;</code></td>
+          </tr>
+          <tr>
+            <td><strong>Apply &amp; Merge Tags</strong></td>
+            <td><code>az tag update --resource-id &lt;resId&gt; --operation merge --tags Dept=Finance CostCenter=102</code></td>
+            <td><code>Update-AzTag -ResourceId &lt;resId&gt; -Tag @{Dept="Finance"; CostCenter="102"} -Operation Merge</code></td>
+          </tr>
+          <tr>
+            <td><strong>Management Group Hierarchy</strong></td>
+            <td><code>az account management-group create --name "MG-Prod" --display-name "Production MG" --parent "Root-MG-ID"</code></td>
+            <td><code>New-AzManagementGroup -GroupName "MG-Prod" -DisplayName "Production MG" -ParentId "/providers/Microsoft.Management/managementGroups/Root-MG-ID"</code></td>
+          </tr>
+        </tbody>
+      </table>
+      
+      <h4 class="domain-note-heading">AZ-104 Exam Critical Rules:</h4>
+      <ul class="notes-list">
+        <li><strong>Microsoft Graph for Entra objects:</strong> Use the <code>Microsoft.Graph</code> PowerShell SDK for Entra user and group management. For user creation, the current exam-relevant pattern is <code>Connect-MgGraph -Scopes "User.ReadWrite.All"</code> followed by <code>New-MgUser</code> with a <code>PasswordProfile</code>, <code>AccountEnabled</code>, <code>MailNickName</code>, and <code>UserPrincipalName</code>. Guest invitations use <code>New-MgInvitation</code>.</li>
+        <li><strong>Role Definition File:</strong> Custom roles require explicit <code>Actions</code>, <code>NotActions</code>, and <code>AssignableScopes</code>. <code>AssignableScopes</code> can be defined at management groups, subscriptions, or resource groups, but <em>not</em> individual resource scopes.</li>
+        <li><strong>Lock Inheritance:</strong> <code>CanNotDelete</code> prevents deletion; <code>ReadOnly</code> prevents modifications and deletions (e.g., reading storage account keys is blocked under <code>ReadOnly</code> because key retrieval is an HTTP POST action).</li>
+        <li><strong>Tagging Behavior:</strong> Tags are not inherited down to nested child resources automatically. Use Azure Policy to enforce tag inheritance.</li>
+      </ul>
+    </section>
+
+    <!-- 2. STORAGE -->
+    <section id="storage" class="domain-section">
+      <div class="domain-title">
+        <div>
+          <span>Storage</span>
+          <span class="domain-title__percentage">(15–20% of Exam Scope)</span>
+        </div>
+        <div>
+          <a href="https://learn.microsoft.com/en-us/cli/azure/storage" target="_blank" rel="noopener noreferrer" class="ms-learn-link">
+            Storage CLI Docs ↗
+          </a>
+        </div>
+      </div>
+      
+      <table class="limits-table">
+        <thead>
+          <tr>
+            <th>Scenario / Action</th>
+            <th>Azure CLI Syntax (`az`)</th>
+            <th>Azure PowerShell Syntax (`Az`)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Provision Storage Account</strong></td>
+            <td><code>az storage account create -g &lt;rg&gt; -n &lt;stName&gt; -l eastus --sku Standard_GRS --kind StorageV2 --min-tls-version TLS1_2</code></td>
+            <td><code>New-AzStorageAccount -ResourceGroupName &lt;rg&gt; -Name &lt;stName&gt; -Location "eastus" -SkuName "Standard_GRS" -Kind "StorageV2" -MinimumTlsVersion "TLS1_2"</code></td>
+          </tr>
+          <tr>
+            <td><strong>Account Access Key Rotation</strong></td>
+            <td><code>az storage account keys renew -g &lt;rg&gt; -n &lt;stName&gt; --key key2</code></td>
+            <td><code>New-AzStorageAccountKey -ResourceGroupName &lt;rg&gt; -Name &lt;stName&gt; -KeyName "key2"</code></td>
+          </tr>
+          <tr>
+            <td><strong>Blob Tier Lifecycle &amp; Rehydration</strong></td>
+            <td><code>az storage blob set-tier -c "archive-container" -n "doc.pdf" --tier Cool --rehydrate-priority High --account-name &lt;stName&gt;</code></td>
+            <td><code>$blob = Get-AzStorageBlob -Container "archive-container" -Blob "doc.pdf" -Context $ctx</code><br><code>$blob.BlobClient.SetAccessTier("Cool", $null, "Standard")</code><br><em>For Archive → Hot/Cool rehydration, use the target tier and appropriate rehydrate priority.</em></td>
+          </tr>
+          <tr>
+            <td><strong>Stored Access Policy (SAP)</strong></td>
+            <td><code>az storage container policy create --account-name &lt;stName&gt; -c "data" -n "ReadPolicy" --permissions r --expiry 2026-12-31T23:59:00Z</code></td>
+            <td><code>New-AzStorageContainerStoredAccessPolicy -Container "data" -Policy "ReadPolicy" -Permission "r" -ExpiryTime "2026-12-31T23:59:00Z" -Context $ctx</code></td>
+          </tr>
+          <tr>
+            <td><strong>User Delegation SAS Token</strong></td>
+            <td><code>az storage container generate-sas --account-name &lt;stName&gt; -n "data" --permissions r --expiry 2026-12-31T23:59:00Z --auth-mode login --as-user</code></td>
+            <td><code>$userCtx = New-AzStorageContext -StorageAccountName &lt;stName&gt; -UseConnectedAccount</code><br><code>New-AzStorageContainerSASToken -Name "data" -Permission r -Context $userCtx</code></td>
+          </tr>
+          <tr>
+            <td><strong>Azure File Share &amp; Quota</strong></td>
+            <td><code>az storage share create --account-name &lt;stName&gt; -n "smbshare" --quota 1024</code></td>
+            <td><code>New-AzStorageShare -Name "smbshare" -QuotaGiB 1024 -Context $ctx</code></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h4 class="domain-note-heading">AZ-104 Exam Critical Rules:</h4>
+      <ul class="notes-list">
+        <li><strong>SAS Security:</strong> A <em>User Delegation SAS</em> uses Entra ID credentials and is more secure than Account or Service SAS tokens backed by storage access keys.</li>
+        <li><strong>Stored Access Policy:</strong> Modifying or deleting a Stored Access Policy immediately revokes all active SAS tokens associated with that policy without needing to regenerate storage account keys.</li>
+        <li><strong>Blob Rehydration:</strong> Changing a blob from <code>Archive</code> to <code>Hot</code>/<code>Cool</code> requires rehydration. High priority rehydration processes faster but costs more.</li>
+      </ul>
+    </section>
+
+    <!-- 3. COMPUTE -->
+    <section id="compute" class="domain-section">
+      <div class="domain-title">
+        <div>
+          <span>Compute</span>
+          <span class="domain-title__percentage">(20–25% of Exam Scope)</span>
+        </div>
+        <div>
+          <a href="https://learn.microsoft.com/en-us/cli/azure/vm" target="_blank" rel="noopener noreferrer" class="ms-learn-link">
+            Compute CLI Docs ↗
+          </a>
+        </div>
+      </div>
+      
+      <table class="limits-table">
+        <thead>
+          <tr>
+            <th>Scenario / Action</th>
+            <th>Azure CLI Syntax (`az`)</th>
+            <th>Azure PowerShell Syntax (`Az`)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Provision VM with Availability Zone</strong></td>
+            <td><code>az vm create -g &lt;rg&gt; -n "VM-Zone1" --image Win2022Datacenter --zone 1 --size Standard_D2s_v5 --admin-username "azureuser" --admin-password &lt;pwd&gt;</code></td>
+            <td><code>New-AzVM -ResourceGroupName &lt;rg&gt; -Name "VM-Zone1" -Location "eastus" -Zone "1" -Size "Standard_D2s_v5" -Image "Win2022Datacenter"</code></td>
+          </tr>
+          <tr>
+            <td><strong>Deallocate &amp; Resize VM</strong></td>
+            <td><code>az vm deallocate -g &lt;rg&gt; -n "VM01"</code><br><code>az vm resize -g &lt;rg&gt; -n "VM01" --size Standard_D4s_v5</code><br><code>az vm start -g &lt;rg&gt; -n "VM01"</code></td>
+            <td><code>Stop-AzVM -ResourceGroupName &lt;rg&gt; -Name "VM01" -Force</code><br><code>$vm = Get-AzVM -ResourceGroupName &lt;rg&gt; -Name "VM01"</code><br><code>$vm.HardwareProfile.VmSize = "Standard_D4s_v5"</code><br><code>Update-AzVM -VM $vm -ResourceGroupName &lt;rg&gt;</code></td>
+          </tr>
+          <tr>
+            <td><strong>Attach &amp; Expand Managed Disk</strong></td>
+            <td><code>az vm disk attach -g &lt;rg&gt; --vm-name "VM01" --name "DataDisk1" --size-gb 256 --new</code></td>
+            <td><code>$vm = Get-AzVM -ResourceGroupName &lt;rg&gt; -Name "VM01"</code><br><code>$vm = Add-AzVMDataDisk -VM $vm -Name "DataDisk1" -CreateOption Empty -DiskSizeInGB 256 -Lun 0</code><br><code>Update-AzVM -VM $vm -ResourceGroupName &lt;rg&gt;</code></td>
+          </tr>
+          <tr>
+            <td><strong>Custom Script Extension Execution</strong></td>
+            <td><code>az vm extension set -g &lt;rg&gt; --vm-name "VM01" -n CustomScript --publisher Microsoft.Compute --settings '{"fileUris": ["https://.../script.ps1"],"commandToExecute": "powershell -ExecutionPolicy Unrestricted -File script.ps1"}'</code></td>
+            <td><code>Set-AzVMExtension -ResourceGroupName &lt;rg&gt; -VMName "VM01" -Name "CustomScript" -Publisher "Microsoft.Compute" -ExtensionType "CustomScript" -Settings @{"fileUris"=@("https://.../script.ps1");"commandToExecute"="powershell -ExecutionPolicy Unrestricted -File script.ps1"}</code></td>
+          </tr>
+          <tr>
+            <td><strong>VMSS Autoscale Rule Provisioning</strong></td>
+            <td><code>az monitor autoscale create -g &lt;rg&gt; --resource "VMSS01" --resource-type "Microsoft.Compute/virtualMachineScaleSets" --min-count 2 --max-count 10 --count 2</code></td>
+            <td><code>$rule = New-AzAutoscaleRule -MetricName "Percentage CPU" -MetricTriggerThresholdOperator GreaterThan -MetricTriggerThreshold 70 -ScaleActionDirection Increase -ScaleActionValue "1"</code><br><code>Add-AzAutoscaleSetting -ResourceGroupName &lt;rg&gt; -Name "ScaleOutRule" -TargetResourceId &lt;vmssId&gt; -AutoscaleRule $rule</code></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h4 class="domain-note-heading">AZ-104 Exam Critical Rules:</h4>
+      <ul class="notes-list">
+        <li><strong>Resize Constraints:</strong> Resizing a VM to a series supported by the current host cluster can happen while running; otherwise, the VM must be <em>Deallocated</em> first.</li>
+        <li><strong>VMSS Upgrades:</strong> Scale Sets with <code>Manual</code> upgrade policies require explicitly running <code>az vmss update-instances</code> to roll out new image versions to existing instances.</li>
+      </ul>
+    </section>
+
+    <!-- 4. NETWORKING -->
+    <section id="networking" class="domain-section">
+      <div class="domain-title">
+        <div>
+          <span>Networking</span>
+          <span class="domain-title__percentage">(15–20% of Exam Scope)</span>
+        </div>
+        <div>
+          <a href="https://learn.microsoft.com/en-us/cli/azure/network" target="_blank" rel="noopener noreferrer" class="ms-learn-link">
+            Networking CLI Docs ↗
+          </a>
+        </div>
+      </div>
+      
+      <table class="limits-table">
+        <thead>
+          <tr>
+            <th>Scenario / Action</th>
+            <th>Azure CLI Syntax (`az`)</th>
+            <th>Azure PowerShell Syntax (`Az`)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>VNet &amp; Subnets Setup</strong></td>
+            <td><code>az network vnet create -g &lt;rg&gt; -n "VNet1" --address-prefixes 10.0.0.0/16 --subnet-name "Frontend" --subnet-prefixes 10.0.1.0/24</code></td>
+            <td><code>$sub = New-AzVirtualNetworkSubnetConfig -Name "Frontend" -AddressPrefix "10.0.1.0/24"</code><br><code>New-AzVirtualNetwork -ResourceGroupName &lt;rg&gt; -Name "VNet1" -AddressPrefix "10.0.0.0/16" -Subnet $sub</code></td>
+          </tr>
+          <tr>
+            <td><strong>NSG Priority Rule Setup</strong></td>
+            <td><code>az network nsg rule create -g &lt;rg&gt; --nsg-name "NSG-Web" -n "AllowHTTP" --priority 100 --direction Inbound --access Allow --protocol Tcp --destination-port-ranges 80</code></td>
+            <td><code>$nsg = Get-AzNetworkSecurityGroup -ResourceGroupName &lt;rg&gt; -Name "NSG-Web"</code><br><code>$nsg | Add-AzNetworkSecurityRuleConfig -Name "AllowHTTP" -Priority 100 -Direction Inbound -Access Allow -Protocol Tcp -DestinationPortRange 80 | Set-AzNetworkSecurityGroup</code></td>
+          </tr>
+          <tr>
+            <td><strong>Bi-directional VNet Peering</strong></td>
+            <td><code>az network vnet peering create -g &lt;rg&gt; -n "VNet1-to-VNet2" --vnet-name "VNet1" --remote-vnet &lt;vnet2Id&gt; --allow-vnet-access --allow-forwarded-traffic</code></td>
+            <td><code>$vnet1 = Get-AzVirtualNetwork -ResourceGroupName &lt;rg&gt; -Name "VNet1"</code><br><code>$vnet2 = Get-AzVirtualNetwork -ResourceGroupName &lt;rg&gt; -Name "VNet2"</code><br><code>Add-AzVirtualNetworkPeering -Name "VNet1-to-VNet2" -VirtualNetwork $vnet1 -RemoteVirtualNetworkId $vnet2.Id -AllowVirtualNetworkAccess -AllowForwardedTraffic</code><br><code>Add-AzVirtualNetworkPeering -Name "VNet2-to-VNet1" -VirtualNetwork $vnet2 -RemoteVirtualNetworkId $vnet1.Id -AllowVirtualNetworkAccess -AllowForwardedTraffic</code></td>
+          </tr>
+          <tr>
+            <td><strong>User-Defined Route (UDR) Override</strong></td>
+            <td><code>az network route-table create -g &lt;rg&gt; -n "RT-NVA"</code><br><code>az network route-table route create -g &lt;rg&gt; --route-table-name "RT-NVA" -n "DefaultToNVA" --address-prefix 0.0.0.0/0 --next-hop-type VirtualAppliance --next-hop-ip-address 10.0.2.4</code></td>
+            <td><code>$route = New-AzRouteConfig -Name "DefaultToNVA" -AddressPrefix "0.0.0.0/0" -NextHopType "VirtualAppliance" -NextHopIpAddress "10.0.2.4"</code><br><code>New-AzRouteTable -ResourceGroupName &lt;rg&gt; -Name "RT-NVA" -Route $route</code></td>
+          </tr>
+          <tr>
+            <td><strong>Private Endpoint Creation</strong></td>
+            <td><code>az network private-endpoint create -g &lt;rg&gt; -n "PE-Storage" --vnet-name "VNet1" --subnet "Frontend" --private-connection-resource-id &lt;stId&gt; --group-id blob --connection-name "PE-Conn"</code></td>
+            <td><code>$sub = Get-AzVirtualNetwork -ResourceGroupName &lt;rg&gt; -Name "VNet1" | Get-AzVirtualNetworkSubnetConfig -Name "Frontend"</code><br><code>$link = New-AzPrivateLinkServiceConnection -Name "PE-Conn" -PrivateLinkServiceId &lt;stId&gt; -GroupID "blob"</code><br><code>New-AzPrivateEndpoint -ResourceGroupName &lt;rg&gt; -Name "PE-Storage" -Subnet $sub -PrivateLinkServiceConnection $link</code></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h4 class="domain-note-heading">AZ-104 Exam Critical Rules:</h4>
+      <ul class="notes-list">
+        <li><strong>Routing Order:</strong> Traffic routes according to <strong>Longest Prefix Match (LPM)</strong> first. If two routes match identically, UDR overrides Default System Routes.</li>
+        <li><strong>Subnet IP Allocation:</strong> Azure reserves 5 IP addresses per subnet (first 4 and last 1). E.g., for <code>10.0.0.0/24</code>, <code>10.0.0.0</code> through <code>10.0.0.3</code> and <code>10.0.0.255</code> are reserved.</li>
+      </ul>
+    </section>
+
+    <!-- 5. MONITORING & BACKUP -->
+    <section id="monitoring" class="domain-section">
+      <div class="domain-title">
+        <div>
+          <span>Monitoring &amp; Backup</span>
+          <span class="domain-title__percentage">(10–15% of Exam Scope)</span>
+        </div>
+        <div>
+          <a href="https://learn.microsoft.com/en-us/cli/azure/monitor" target="_blank" rel="noopener noreferrer" class="ms-learn-link">
+            Azure Monitor CLI Docs ↗
+          </a>
+        </div>
+      </div>
+      
+      <table class="limits-table">
+        <thead>
+          <tr>
+            <th>Scenario / Action</th>
+            <th>Azure CLI Syntax (`az`)</th>
+            <th>Azure PowerShell Syntax (`Az`)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Network Watcher IP Flow Verify</strong></td>
+            <td><code>az network watcher test-ip-flow -g &lt;rg&gt; --vm "VM01" --direction Inbound --protocol TCP --local "10.0.1.4:80" --remote "20.50.100.5:12345"</code></td>
+            <td><code>Test-AzNetworkWatcherIPFlow -ResourceGroupName &lt;rg&gt; -TargetVirtualMachineId &lt;vmId&gt; -Direction Inbound -Protocol TCP -LocalIPAddress "10.0.1.4" -LocalPort 80 -RemoteIPAddress "20.50.100.5" -RemotePort 12345</code></td>
+          </tr>
+          <tr>
+            <td><strong>Log Analytics Workspace Queries</strong></td>
+            <td><code>az monitor log-analytics query --workspace &lt;wsId&gt; --analytics-query "AzureActivity | summarize count() by ResourceGroup"</code></td>
+            <td><code>Invoke-AzOperationalInsightsQuery -WorkspaceId &lt;wsId&gt; -Query "AzureActivity | summarize count() by ResourceGroup"</code></td>
+          </tr>
+          <tr>
+            <td><strong>Action Group Alert Target Setup</strong></td>
+            <td><code>az monitor action-group create -g &lt;rg&gt; -n "OnCallTeam" --short-name "OnCall" --action email admin "admin@domain.com"</code></td>
+            <td><code>$email = New-AzActionGroupReceiver -Name "admin" -EmailReceiver -EmailAddress "admin@domain.com"</code><br><code>Set-AzActionGroup -ResourceGroupName &lt;rg&gt; -Name "OnCallTeam" -ShortName "OnCall" -Receiver $email</code></td>
+          </tr>
+          <tr>
+            <td><strong>VM Backup &amp; Instant Restore</strong></td>
+            <td><code>az backup protection enable-for-vm -g &lt;rg&gt; -v "Vault1" --vm &lt;vmId&gt; -p "DefaultPolicy"</code></td>
+            <td><code>Enable-AzRecoveryServicesBackupProtection -ResourceGroupName &lt;rg&gt; -VaultId &lt;vaultId&gt; -Name "VM01" -Policy &lt;policyObj&gt;</code></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h4 class="domain-note-heading">AZ-104 Exam Critical Rules:</h4>
+      <ul class="notes-list">
+        <li><strong>Network Watcher Diagnostics:</strong> Use <code>IP Flow Verify</code> to isolate NSG rule blocks, and <code>Next Hop</code> to diagnose missing or incorrect UDR routes.</li>
+        <li><strong>Alert Suppression:</strong> Use <em>Alert Processing Rules</em> to mute notification actions during scheduled maintenance without altering the triggering logic of the alert rule itself.</li>
+      </ul>
+    </section>
+
+  </main>
+
+  <script type="module" src="js/commands.js"></script>
+</body>
+</html>

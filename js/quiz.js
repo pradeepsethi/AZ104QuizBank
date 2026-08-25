@@ -43,6 +43,7 @@ let userAnswers = {};
 let incorrectQuestionsLog = {};
 let selectedMultiIndices = new Set();
 let activeQuizTitle = "AZ-104 Practice Quiz";
+let activeQuizSet = "set1";
 let timerInterval = null;
 let totalTimeSeconds = 100 * 60;
 let timeRemaining = totalTimeSeconds;
@@ -98,6 +99,8 @@ document.addEventListener("DOMContentLoaded", async () => {
       };
     }
   }
+
+  activeQuizSet = mode === "complete" ? exam : currentSet;
 
   if (title) {
     activeQuizTitle = decodeURIComponent(title);
@@ -450,6 +453,7 @@ async function finishQuiz() {
 
       await addDoc(collection(db, "users", currentUser.uid, "scores"), {
         quizTitle: activeQuizTitle,
+        quizSet: activeQuizSet,
         score: correctCount,
         totalQuestions: currentQuestions.length,
         percentage: percentage,

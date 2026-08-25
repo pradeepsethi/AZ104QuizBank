@@ -40,7 +40,6 @@ const authReady = new Promise((resolve) => {
 let currentQuestions = [];
 let currentQuestionIndex = 0;
 let userAnswers = {};
-let incorrectQuestionsLog = {};
 let selectedMultiIndices = new Set();
 let activeQuizTitle = "AZ-104 Practice Quiz";
 let timerInterval = null;
@@ -148,7 +147,6 @@ document.addEventListener("DOMContentLoaded", async () => {
       });
 
       userAnswers = {};
-      incorrectQuestionsLog = {};
       currentQuestionIndex = 0;
       renderPalette();
       loadQuestion();
@@ -366,21 +364,6 @@ function handleAnswerSelect(selectedIndices, correctIndices, explanationHTML) {
                     selectedIndices.every(idx => correctIndices.includes(idx));
 
   userAnswers[currentQuestionIndex] = { selectedIndices, isCorrect };
-
-  if (!isCorrect) {
-    const q = currentQuestions[currentQuestionIndex];
-    incorrectQuestionsLog[currentQuestionIndex] = {
-      question: q.question ? q.question.trim() : "",
-      subtopic: q.subtopic || null,
-      options: q.options || [],
-      correctIndices: correctIndices,
-      selectedIndices: selectedIndices,
-      explanation: q.explanation || null
-    };
-  } else {
-    delete incorrectQuestionsLog[currentQuestionIndex];
-  }
-
   renderPalette();
 
   const buttons = document.querySelectorAll("#options-container .option-btn");
@@ -446,16 +429,13 @@ async function finishQuiz() {
 
   if (currentUser) {
     try {
-      const incorrectQuestionsPayload = Object.values(incorrectQuestionsLog);
-
       await addDoc(collection(db, "users", currentUser.uid, "scores"), {
         quizTitle: activeQuizTitle,
         score: correctCount,
         totalQuestions: currentQuestions.length,
         percentage: percentage,
         timeTaken: timeTakenStr,
-        timestamp: serverTimestamp(),
-        incorrectQuestions: incorrectQuestionsPayload
+        timestamp: serverTimestamp()
       });
       if (statusElem) {
         statusElem.classList.add("status-success");

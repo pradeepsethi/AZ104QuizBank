@@ -410,38 +410,6 @@ code {
   font-size: 12px;
 }
 
-.scores-table .review-btn {
-  padding: 6px 12px;
-  font-size: 12px;
-  white-space: nowrap;
-}
-
-.review-row td {
-  background-color: var(--bg-color);
-  white-space: normal;
-}
-
-.review-panel {
-  padding: 5px 10px 15px;
-}
-
-.review-question {
-  padding: 15px 0;
-  border-bottom: 1px solid var(--border-color-light);
-}
-
-.review-question:last-child {
-  border-bottom: none;
-}
-
-.review-question .options-container {
-  margin-top: 12px;
-}
-
-.review-option {
-  cursor: default;
-}
-
 .text-muted {
   color: var(--text-muted);
 }

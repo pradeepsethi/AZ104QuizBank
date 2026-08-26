@@ -1,4 +1,4 @@
-# AZ-104: Microsoft Azure Administrator Practice Bank
+# AZ-104: Microsoft Azure Administrator Practice Bank 
 
 An interactive web-based practice quiz bank and exam preparation application designed for the **AZ-104: Microsoft Azure Administrator** certification. It combines topic/domain-level quizzes, full-length mock exams, a reference library for the five exam domains, a quota/limits cheat sheet, and Google-authenticated score tracking — all as a static site backed by Firebase.
 

@@ -5,17 +5,17 @@
     "question": "You review a Bicep file containing the following resource declaration:\n\nresource stg 'Microsoft.Storage/storageAccounts@2023-01-01' = {\n  name: 'appstg${uniqueString(resourceGroup().id)}'\n  location: 'eastus'\n  sku: {\n    name: 'Standard_LRS'\n  }\n  kind: 'StorageV2'\n}\n\nWhat is the primary function of the uniqueString(resourceGroup().id) function in this declaration?",
     "options": [
       "Generates a completely random string every time the Bicep template is deployed.",
-      "Creates a globally unique, deterministic hash based on the subscription and resource group ID.",
+      "Creates a deterministic 13-character hash based on the resource group ID.",
       "Converts the resource group ID into a GUID format required for Azure Storage naming.",
       "Ensures the storage account name is encrypted prior to deployment."
     ],
     "correct": 1,
     "explanation": {
-      "correctReason": "The uniqueString() function creates a deterministic 13-character hash based on the provided parameters (in this case, the resourceGroup().id). Re-deploying to the same resource group yields the exact same string, satisfying storage account global uniqueness and idempotency.",
+      "correctReason": "The uniqueString() function creates a deterministic 13-character hash from the supplied value. Using resourceGroup().id makes the result deterministic for that resource group; it isn't a random or globally unique string.",
       "incorrectReasons": [
-        "uniqueString() is deterministic, not random; same inputs produce the same output.",
-        "It does not create a standard GUID, but rather a 13-character alphanumeric string.",
-        "It is used for unique naming, not for encryption of resource names."
+        "uniqueString() is deterministic, not random; the same input produces the same output.",
+        "uniqueString() returns a 13-character hash string, not a GUID.",
+        "It is used to generate deterministic values for naming and other identifiers, not to encrypt resource names."
       ],
       "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/bicep-functions-string#uniquestring"
     }
@@ -27,18 +27,18 @@
     "options": [
       "The value is stored in plain text in the deployment history but hidden from the Azure Portal UI.",
       "The parameter value is automatically stored in Azure Key Vault upon template deployment.",
-      "The parameter value is masked in deployment logs and deployment history and cannot be retrieved after deployment.",
+      "The parameter value isn't saved in deployment history or logged.",
       "The value must be provided as a Base64-encoded string in the parameter file."
     ],
     "correct": 2,
     "explanation": {
-      "correctReason": "Parameters marked with the 'securestring' (or 'secureObject') type in ARM templates are treated as secure and are not logged or saved in deployment history or telemetry.",
+      "correctReason": "A secureString parameter value isn't saved to deployment history and isn't logged. Declaring the parameter as secureString protects the parameter value from being exposed through deployment history or logs.",
       "incorrectReasons": [
-        "Secure parameters are never saved in plain text in deployment history.",
-        "Declaring securestring does not automatically save values to Key Vault unless explicitly configured.",
-        "Base64 encoding is not required for securestring inputs."
+        "Secure parameters aren't saved in plain text in deployment history.",
+        "Declaring a parameter as secureString doesn't automatically store its value in Azure Key Vault.",
+        "Base64 encoding isn't required for secureString parameter values."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/templates/data-types#secure-strings-and-objects"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/templates/parameters#secure-parameters"
     }
   },
   {
@@ -74,11 +74,11 @@
     ],
     "correct": 1,
     "explanation": {
-      "correctReason": "The dependsOn property creates an explicit dependency, directing Azure Resource Manager to complete deployment of the referenced resource (NIC) before initiating deployment of the VM.",
+      "correctReason": "The dependsOn property creates an explicit deployment dependency. Azure Resource Manager waits for the referenced Network Interface deployment to complete before deploying the Virtual Machine; unrelated resources can still deploy in parallel.",
       "incorrectReasons": [
-        "dependsOn forces sequential deployment, not parallel.",
-        "It establishes deployment sequencing, not resource locks.",
-        "It controls deployment order, not runtime network connectivity."
+        "dependsOn establishes the specified dependency; it doesn't require every resource in the template to deploy sequentially.",
+        "It controls deployment sequencing and doesn't create a resource lock.",
+        "It controls deployment order and doesn't configure runtime network connectivity."
       ],
       "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/templates/resource-dependency"
     }
@@ -269,7 +269,7 @@
         "Identity properties belong in the top level of resource definition, not inside 'properties'.",
         "'UserAssigned' requires specifying target user identity resource IDs."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/active-directory/managed-identities-azure-resources/qs-configure-template-windows-vm"
+      "reference": "https://learn.microsoft.com/en-us/entra/identity/managed-identities-azure-resources/how-to-configure-managed-identities#system-assigned-managed-identity"
     }
   },
   {
@@ -401,22 +401,22 @@
   {
     "id": 20,
     "subtopic": "Modify an existing Azure Resource Manager template",
-    "question": "You modify an ARM template to deploy a diagnostic setting for a Virtual Network. The diagnostic setting must be created as a child resource of the Virtual Network.\n\nHow should the child resource 'type' and 'name' be formatted in the template?",
+    "question": "You modify an ARM template to deploy a diagnostic setting for a Virtual Network. The diagnostic setting is an extension resource applied to the Virtual Network.\n\nWhich type and name combination correctly identifies the diagnostic setting when it is declared at the root level of the ARM template?",
     "options": [
-      "type: \"Microsoft.Network/virtualNetworks/providers/diagnosticSettings\", name: \"[concat(parameters('vnetName'), '/Microsoft.Insights/serviceSettings')]\"",
-      "type: \"Microsoft.Insights/diagnosticSettings\", name: \"[concat(parameters('vnetName'), '/', parameters('diagSettingName'))]\"",
+      "type: \"Microsoft.Insights/diagnosticSettings\", name: \"[parameters('diagSettingName')]\", scope: \"[resourceId('Microsoft.Network/virtualNetworks', parameters('vnetName'))]\"",
       "type: \"Microsoft.Network/virtualNetworks/diagnosticSettings\", name: \"[concat(parameters('vnetName'), '/', parameters('diagSettingName'))]\"",
-      "type: \"Microsoft.Insights/diagnosticSettings\", name: \"[parameters('diagSettingName')]\""
+      "type: \"Microsoft.Insights/diagnosticSettings\", name: \"[concat(parameters('vnetName'), '/', parameters('diagSettingName'))]\"",
+      "type: \"Microsoft.Network/virtualNetworks/providers/diagnosticSettings\", name: \"[parameters('diagSettingName')]\""
     ],
-    "correct": 1,
+    "correct": 0,
     "explanation": {
-      "correctReason": "Extension resources or child resources defined at the root level of an ARM template combine parent name and child name in the `name` property (`vnetName/diagName`) and use the child/extension type (`Microsoft.Insights/diagnosticSettings`).",
+      "correctReason": "Microsoft.Insights/diagnosticSettings is an extension resource. At the root level, the ARM template uses the diagnosticSettings type, the diagnostic setting name, and the scope property to associate it with the Virtual Network.",
       "incorrectReasons": [
-        "The provider diagnostic settings type formatting is incorrect.",
-        "'Microsoft.Network/virtualNetworks/diagnosticSettings' is an invalid resource type.",
-        "Without parent name prefix in the name property, ARM cannot link an extension/child resource defined at root."
+        "Microsoft.Network/virtualNetworks/diagnosticSettings isn't the resource type for Azure Monitor diagnostic settings.",
+        "The diagnostic setting name isn't formed by concatenating the Virtual Network name with the diagnostic setting name when scope is supplied separately.",
+        "This type/name combination doesn't correctly associate the extension resource with the Virtual Network; the root-level extension-resource form uses Microsoft.Insights/diagnosticSettings with scope."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/templates/child-resource-name-type"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/templates/scope-extension-resources"
     }
   },
   {
@@ -464,7 +464,7 @@
   {
     "id": 23,
     "subtopic": "Modify an existing Bicep file",
-    "question": "You are modifying a Bicep file to add output values. You need to output the primary connection string of a deployed Storage Account.\n\nWhich output statement in Bicep is correct?",
+    "question": "You are modifying a Bicep file to add output values. You need to output the primary access key of a deployed Storage Account.\n\nWhich output statement in Bicep is correct?",
     "options": [
       "output primaryEndpoint string = stgAccount.properties.primaryEndpoints.blob",
       "output primaryKey string = stgAccount.listKeys().keys[0].value",
@@ -473,13 +473,13 @@
     ],
     "correct": 1,
     "explanation": {
-      "correctReason": "In Bicep, runtime resource functions like `listKeys()` can be called directly on symbolic resource names (`stgAccount.listKeys().keys[0].value`).",
+      "correctReason": "In Bicep, the listKeys() runtime function can be called on a symbolic Storage Account resource. The first returned key is accessed with stgAccount.listKeys().keys[0].value.",
       "incorrectReasons": [
-        "primaryEndpoints.blob provides the blob URL, not the access key or full connection string.",
-        "While listKeys(id, apiVersion) works in ARM, the native Bicep symbolic call `stgAccount.listKeys()` is the preferred and clean syntax.",
-        "stgAccount does not expose a `.keys[0]` array directly without invoking listKeys()."
+        "primaryEndpoints.blob is the Blob service endpoint URL, not a storage account access key.",
+        "The symbolic-resource form stgAccount.listKeys() is the appropriate Bicep syntax for this example; the ARM-style listKeys(resourceId, apiVersion) form isn't the statement shown here.",
+        "The Storage Account resource doesn't expose a keys array directly; listKeys() must be called to retrieve the keys."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/scenarios-storage#list-keys"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/bicep-functions-resource#listkeys"
     }
   },
   {
@@ -695,7 +695,7 @@
   {
     "id": 34,
     "subtopic": "Deploy resources by using an Azure Resource Manager template or a Bicep file",
-    "question": "You are deploying a Bicep file across multiple subscriptions. What targetScope declaration and deployment command must be used?",
+    "question": "You are deploying a Bicep file at the Azure subscription scope. What targetScope declaration and Azure CLI deployment command should you use?",
     "options": [
       "Set `targetScope = 'tenant'` and use `az deployment tenant create`.",
       "Set `targetScope = 'managementGroup'` and use `az deployment mg create`.",
@@ -704,11 +704,11 @@
     ],
     "correct": 2,
     "explanation": {
-      "correctReason": "To deploy resources at the subscription scope (or delegate deployments across subscriptions using modules), set `targetScope = 'subscription'` and use `az deployment sub create`.",
+      "correctReason": "A Bicep file targeting the subscription scope uses `targetScope = 'subscription'` and is deployed with `az deployment sub create`.",
       "incorrectReasons": [
-        "Tenant scope is used for tenant-wide policies and management groups, not subscription-wide deployments.",
-        "Management group scope targets management group hierarchy levels.",
-        "Resource group scope cannot deploy subscription-level constructs directly without higher scope targeting."
+        "Tenant scope targets the Azure tenant and uses `az deployment tenant create`.",
+        "Management group scope targets a management group and uses `az deployment mg create`.",
+        "Resource group scope uses `targetScope = 'resourceGroup'` and `az deployment group create`; it isn't the subscription-scope combination requested."
       ],
       "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/deploy-to-subscription"
     }
@@ -758,20 +758,20 @@
   {
     "id": 37,
     "subtopic": "Deploy resources by using an Azure Resource Manager template or a Bicep file",
-    "question": "You need to deploy a Bicep file from a Cloud Shell Bash session. Which command updates or installs the Bicep CLI tool in Azure CLI automatically when executing a deployment?",
+    "question": "You need to deploy a Bicep file from a Cloud Shell Bash session. What happens to the Bicep CLI when Azure CLI executes a command that requires it?",
     "options": [
-      "Azure CLI automatically installs/upgrades Bicep CLI when running `az deployment group create` with a `.bicep` file.",
+      "Azure CLI automatically installs the Bicep CLI when a command is executed that requires it.",
       "You must manually run `sudo apt install bicep` prior to any deployment.",
       "You must convert the Bicep file manually using `bicep build` before running `az deployment`.",
       "You must use PowerShell because Azure CLI does not support Bicep natively."
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "Azure CLI has built-in integration for Bicep and automatically installs or updates the Bicep CLI binary when a Bicep command/file is executed.",
+      "correctReason": "Azure CLI automatically installs its self-contained Bicep CLI instance when a command that requires Bicep is executed. You don't need to manually install Bicep CLI for Azure CLI deployments.",
       "incorrectReasons": [
-        "Manual OS installation via apt is not required.",
-        "Azure CLI transparently transpiles Bicep files on the fly during deployment.",
-        "Azure CLI fully supports Bicep natively across Linux, macOS, Windows, and Cloud Shell."
+        "Manual OS installation isn't required when using Azure CLI; Azure CLI manages its own self-contained Bicep CLI instance.",
+        "Azure CLI can deploy a local Bicep file directly; you don't need to run bicep build manually first.",
+        "Azure CLI supports Bicep deployments; PowerShell isn't required."
       ],
       "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/install#azure-cli"
     }
@@ -949,20 +949,20 @@
     "subtopic": "Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file",
     "question": "When exporting a resource group as an ARM template, which type of information is automatically EXCLUDED from the generated template for security reasons?",
     "options": [
-      "Secret values like administrator passwords, certificates, and access keys.",
+      "Secret values such as administrator passwords and access keys.",
       "Resource names and locations.",
       "Subnet IP address prefixes.",
       "Tag keys and tag values."
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "Export template operations do not export secrets, key vault values, or admin passwords for security reasons; these parameters are set to null/empty in the exported template.",
+      "correctReason": "Exported templates don't include sensitive secret values such as administrator passwords and access keys. Such values must be supplied separately when the template is reused.",
       "incorrectReasons": [
-        "Resource names and locations are non-sensitive structural properties and are always exported.",
-        "Subnet prefixes are structural networking properties and are exported.",
-        "Tags are non-sensitive metadata and are included in exports."
+        "Resource names and locations are normal resource properties and can be included in an exported template.",
+        "Subnet address prefixes are structural networking properties and can be included in an export.",
+        "Tag keys and values are non-secret resource metadata and can be included in an export."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/templates/export-template-portal#single-resource-export"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/templates/export-template-portal#choose-the-right-export-option"
     }
   },
   {
@@ -1010,20 +1010,20 @@
   {
     "id": 49,
     "subtopic": "Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file",
-    "question": "Which option should you pass to `az group export` if you want to exclude resource tags from the exported ARM template?",
+    "question": "Which Azure CLI option should you pass to `az group export` if you want to exclude resource-name parameterization from the exported ARM template?",
     "options": [
-      "--skip-resource-parameterization or --options SkipResourceName",
-      "--options SkipAllParams",
-      "--options NoTags",
-      "--skip-tags"
+      "--skip-resource-name-params",
+      "--skip-all-params",
+      "--include-parameter-default-value",
+      "--resource-ids"
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "The `--options` flag for `az group export` supports parameters such as `SkipResourceName` or `IncludeParameterDefaultValue` to customize export behaviors.",
+      "correctReason": "The `--skip-resource-name-params` option tells `az group export` not to parameterize resource names; the exported template uses the current resource names directly.",
       "incorrectReasons": [
-        "--options SkipAllParams is not a valid Azure CLI export option parameter.",
-        "--options NoTags is not a valid Azure CLI export option keyword.",
-        "--skip-tags is not a valid flag on az group export."
+        "`--skip-all-params` skips all parameterization, not specifically resource-name parameterization.",
+        "`--include-parameter-default-value` adds current values as parameter defaults; it doesn't exclude resource-name parameterization.",
+        "`--resource-ids` filters which resources are exported; it doesn't control parameterization."
       ],
       "reference": "https://learn.microsoft.com/en-us/cli/azure/group#az-group-export"
     }
@@ -1046,7 +1046,7 @@
         "Resource locks are not required to export templates.",
         "Template export works across almost all Azure resource types, subject to individual provider schema support."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/templates/export-template-portal#considerations-when-exporting-templates"
+      "reference": "https://learn.microsoft.com/en-us/azure/virtual-machines/extensions/export-templates"
     }
   }
 ]

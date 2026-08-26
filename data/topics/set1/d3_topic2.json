@@ -1,1 +1,1052 @@
-[{"id": 1,"subtopic": "Create a virtual machine","question": "You are creating a Linux virtual machine in Azure using the CLI. You want the VM to automatically generate and use SSH keys for authentication. Which parameter should you include in the 'az vm create' command?","options": ["--generate-ssh-keys","--ssh-key-value","--authentication-type ssh","--admin-username root"],"correct": 0,"explanation": {"correctReason": "The --generate-ssh-keys parameter automatically generates a public and private key pair if they do not exist and stores them in the default directory.","incorrectReasons": ["--ssh-key-value is used to provide an existing public key string or file path.","--authentication-type ssh is a valid parameter but does not trigger the generation of keys.","--admin-username root is generally discouraged; default Azure Linux images usually require a non-root user."],"reference": "https://learn.microsoft.com/en-us/cli/azure/vm?view=azure-cli-latest#az-vm-create"}},{"id": 2,"subtopic": "Create a virtual machine","question": "You need to deploy a Windows VM that must run a script immediately after it is provisioned to install specific software. Which feature should you use?","options": ["Custom Script Extension","Azure Automation Runbook","Just-In-Time (JIT) access","Desired State Configuration (DSC)"],"correct": 0,"explanation": {"correctReason": "The Custom Script Extension downloads and executes scripts on Azure virtual machines, making it ideal for post-deployment configuration.","incorrectReasons": ["Azure Automation Runbooks are for orchestrating tasks across many resources, not specifically for initial VM provisioning.","JIT access is a security feature to limit exposure to management ports.","While DSC can configure a VM, the Custom Script Extension is the standard direct method for running a simple post-deployment script."],"reference": "https://learn.microsoft.com/en-us/azure/virtual-machines/extensions/custom-script-windows"}},{"id": 3,"subtopic": "Create a virtual machine","question": "You are deploying a VM that will be used for a legacy application requiring a specific static private IP address. At which stage should you ensure this IP is permanently assigned?","options": ["During VM creation in the Networking tab","After the VM is created, by logging into the OS and setting a static IP","On the Network Interface (NIC) resource properties after deployment","In the Virtual Network subnet settings"],"correct": 2,"explanation": {"correctReason": "To ensure a static private IP, you must configure the IP configuration of the Network Interface (NIC) resource in Azure to 'Static'.","incorrectReasons": ["Setting it during creation is possible, but the 'Permanent' nature is managed at the NIC resource level.","Setting a static IP inside the Guest OS is strongly discouraged in Azure as it can lead to connectivity loss if the Azure DHCP doesn't match.","Subnet settings define ranges but do not assign specific static IPs to individual resources."],"reference": "https://learn.microsoft.com/en-us/azure/virtual-network/virtual-network-network-interface-addresses"}},{"id": 4,"subtopic": "Create a virtual machine","question": "Which of the following OS images is NOT available for selection in the standard Azure Marketplace during VM creation?","options": ["Ubuntu Server 22.04 LTS","Windows 10 Pro (Multi-session)","macOS Monterey","Red Hat Enterprise Linux 8"],"correct": 2,"explanation": {"correctReason": "macOS is not available as a standard Azure Virtual Machine OS; Azure compute is based on x86/x64 hardware (except for specific ARM offerings which still don't support macOS).","incorrectReasons": ["Ubuntu is a primary Linux distribution available in Azure.","Windows 10 Multi-session is available, particularly for Azure Virtual Desktop scenarios.","RHEL is a major enterprise Linux partner for Azure."],"reference": "https://learn.microsoft.com/en-us/azure/virtual-machines/linux-azure-overview"}},{"id": 5,"subtopic": "Create a virtual machine","question": "You want to capture a specialized image of an existing Windows VM to create multiple identical clones. What is the first step you must perform inside the VM before capturing?","options": ["Run Sysprep with /generalize and /oobe","Disable the Windows Firewall","Delete the temporary D: drive","Stop the VM from the Azure Portal"],"correct": 0,"explanation": {"correctReason": "Sysprep generalizes the Windows installation by removing system-specific information like SID, allowing the image to be reused safely.","incorrectReasons": ["Disabling the firewall is not a requirement for capturing an image.","The D: drive is temporary and managed by Azure; you don't need to delete it manually.","Stopping the VM is a later step in the Azure capture process, but generalization happens inside the OS first."],"reference": "https://learn.microsoft.com/en-us/azure/virtual-machines/windows/capture-image-resource"}},{"id": 6,"subtopic": "Create a virtual machine","question": "You need to identify why a Windows VM failed to start. Which feature provides a screenshot of the VM's console at the time of the failure?","options": ["Azure Monitor Metrics","Boot Diagnostics","Serial Console","Resource Health"],"correct": 1,"explanation": {"correctReason": "Boot Diagnostics captures console output and screenshots of the VM during the boot process to help troubleshoot startup issues.","incorrectReasons": ["Azure Monitor Metrics show performance data like CPU/RAM but not console screenshots.","Serial Console provides an interactive text-based console but doesn't store startup screenshots automatically for review like diagnostics.","Resource Health tells you if the underlying platform is healthy, not what is happening inside the VM's boot process."],"reference": "https://learn.microsoft.com/en-us/azure/virtual-machines/boot-diagnostics"}},{"id": 7,"subtopic": "Create a virtual machine","question": "When creating a VM, you enable 'Spot Instance'. What is the primary characteristic of this VM type?","options": ["It offers the highest SLA for production workloads","It uses unused Azure capacity at a deep discount but can be evicted at any time","It is reserved for a 1-year or 3-year term to reduce costs","It includes a free managed public IP address"],"correct": 1,"explanation": {"correctReason": "Spot instances take advantage of unutilized capacity for significant savings, with the trade-off that Azure can reclaim the capacity when needed.","incorrectReasons": ["Spot instances have no SLA for availability as they can be evicted.","Reserved instances are the ones with 1-year or 3-year commitments.","Spot instances do not change the pricing or availability of public IP addresses."],"reference": "https://learn.microsoft.com/en-us/azure/virtual-machines/spot-vms"}},{"id": 8,"subtopic": "Configure Azure Disk Encryption","question": "To enable Azure Disk Encryption (ADE) on a VM, which resource is mandatory for storing the encryption keys?","options": ["Azure Key Vault","Azure Storage Account (Blob)","Azure Dedicated Host","Azure Managed HSM"],"correct": 0,"explanation": {"correctReason": "Azure Disk Encryption requires an Azure Key Vault to store and manage the disk encryption keys and secrets.","incorrectReasons": ["Storage accounts store the virtual disks (VHDs) but not the encryption keys for ADE.","Dedicated hosts provide hardware isolation but aren't key management solutions.","While HSMs are related to security, the standard ADE integration is with Key Vault."],"reference": "https://learn.microsoft.com/en-us/azure/virtual-machines/windows/disk-encryption-overview"}},{"id": 9,"subtopic": "Configure Azure Disk Encryption","question": "When configuring an Azure Key Vault for use with Disk Encryption, which access policy setting must be explicitly enabled?","options": ["Azure Virtual Machines for deployment","Azure Resource Manager for template deployment","Azure Disk Encryption for volume encryption","Azure Backup for vault access"],"correct": 2,"explanation": {"correctReason": "The Key Vault access policy must have the 'Azure Disk Encryption for volume encryption' bit set so that the ADE extension can retrieve keys.","incorrectReasons": ["Virtual Machines for deployment allows VMs to retrieve certificates.","Resource Manager for template deployment allows ARM to pull secrets during deployment.","Azure Backup is for recovery services, not the encryption process itself."],"reference": "https://learn.microsoft.com/en-us/azure/virtual-machines/windows/disk-encryption-key-vault"}},{"id": 10,"subtopic": "Configure Azure Disk Encryption","question": "Which tool is used to encrypt the disks of a Linux VM using Azure Disk Encryption?","options": ["BitLocker","dm-crypt","TrueCrypt","Azure Backup"],"correct": 1,"explanation": {"correctReason": "ADE for Linux uses the industry-standard dm-crypt subsystem to provide volume encryption.","incorrectReasons": ["BitLocker is used for Windows volume encryption.","TrueCrypt is a third-party tool not integrated into ADE.","Azure Backup is a data protection service, not an encryption engine."],"reference": "https://learn.microsoft.com/en-us/azure/virtual-machines/linux/disk-encryption-overview"}},{"id": 11,"subtopic": "Configure Azure Disk Encryption","question": "You are preparing to encrypt a Windows VM. You need to ensure that the encryption process can be recovered if something goes wrong. What is a critical prerequisite before running the ADE command?","options": ["Take a snapshot or backup of the VM","Increase the VM size to at least D-Series","Disable the Windows Update service","Attach a new empty data disk to the VM"],"correct": 0,"explanation": {"correctReason": "Microsoft strongly recommends taking a snapshot or backup before enabling encryption, as any failure during the encryption process could lead to data loss.","incorrectReasons": ["ADE works on most sizes, including A and B series, though performance varies.","Windows Update should generally be enabled for security, though not a prerequisite for ADE.","You don't need a new disk; ADE encrypts existing OS and data disks."],"reference": "https://learn.microsoft.com/en-us/azure/virtual-machines/windows/disk-encryption-overview"}},{"id": 12,"subtopic": "Configure Azure Disk Encryption","question": "Which of the following VM types does NOT support Azure Disk Encryption?","options": ["Basic tier VMs","General purpose D-series VMs","Compute optimized F-series VMs","Memory optimized M-series VMs"],"correct": 0,"explanation": {"correctReason": "Basic tier VMs do not support Azure Disk Encryption. Standard tier or higher is required.","incorrectReasons": ["D-series VMs are standard and fully support ADE.","F-series VMs are standard and fully support ADE.","M-series VMs are high-end standard VMs and support ADE."],"reference": "https://learn.microsoft.com/en-us/azure/virtual-machines/windows/disk-encryption-overview"}},{"id": 13,"subtopic": "Configure Azure Disk Encryption","question": "You have enabled Azure Disk Encryption on a VM. You now want to encrypt a newly attached data disk. What should you do?","options": ["Nothing, new disks are automatically encrypted","Run the Set-AzVMDiskEncryptionExtension command again","Format the disk using BitLocker manually inside the OS","Restart the VM"],"correct": 1,"explanation": {"correctReason": "When you add a new disk to an already encrypted VM, you must re-run the encryption command to include the new volume.","incorrectReasons": ["Encryption is not automatically applied to newly added disks at the volume level (ADE).","While you could use BitLocker manually, using the Azure command ensures integration with Key Vault for management.","Restarting the VM does not trigger encryption on new volumes."],"reference": "https://learn.microsoft.com/en-us/azure/virtual-machines/windows/disk-encryption-windows"}},{"id": 14,"subtopic": "Configure Azure Disk Encryption","question": "What happens to a Windows VM during the initial process of enabling Azure Disk Encryption on the OS drive?","options": ["The VM is rebooted automatically","The VM remains fully operational without downtime","The VM is deleted and recreated","The VM is moved to a different host"],"correct": 0,"explanation": {"correctReason": "Enabling ADE on the OS drive of a Windows VM requires a reboot to initialize the BitLocker encryption process.","incorrectReasons": ["Data disk encryption can sometimes happen without a reboot, but OS disk encryption always requires one.","The VM is not deleted; the encryption is applied to the existing resource.","The VM stays on its current host unless a separate platform maintenance event occurs."],"reference": "https://learn.microsoft.com/en-us/azure/virtual-machines/windows/disk-encryption-windows"}},{"id": 15,"subtopic": "Move a virtual machine to another resource group, subscription, or region","question": "You need to move a VM from 'ResourceGroupA' to 'ResourceGroupB'. Which of the following is true regarding the VM's Resource ID?","options": ["The Resource ID remains exactly the same","The Resource ID changes to reflect the new resource group name","The Resource ID is replaced by a GUID","The VM does not have a Resource ID"],"correct": 1,"explanation": {"correctReason": "An Azure Resource ID includes the name of the resource group; therefore, moving the resource to a new group changes its ID path.","incorrectReasons": ["Because the path includes /resourceGroups/{name}/, it cannot remain the same.","Resource IDs are hierarchical paths, not just GUIDs.","Every resource in Azure has a unique Resource ID."],"reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/move-resource-log-and-autoscaling"}},{"id": 16,"subtopic": "Move a virtual machine to another resource group, subscription, or region","question": "You are moving a VM to another subscription. What must be true about the source and destination subscriptions?","options": ["They must exist within the same Azure AD (Entra ID) tenant","They must be in different regions","They must have the same billing owner","They must have the same number of resources"],"correct": 0,"explanation": {"correctReason": "For a standard resource move between subscriptions, both subscriptions must be associated with the same Azure AD tenant.","incorrectReasons": ["They do not need to be in different regions; region is independent of subscription.","Billing ownership does not prevent a move as long as the tenant is the same.","Resource count is irrelevant to move capability."],"reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/move-limitations/virtual-machines-move-limitations"}},{"id": 17,"subtopic": "Move a virtual machine to another resource group, subscription, or region","question": "You attempt to move a VM to another resource group, but the move fails. You notice a 'CanNotDelete' lock on the VM. What should you do?","options": ["The lock does not affect moves, so check the network connection","Remove the lock before initiating the move","Change the lock to 'ReadOnly'","Wait for the lock to expire"],"correct": 1,"explanation": {"correctReason": "Locks prevent management operations like moving or deleting; the lock must be removed before the move can proceed.","incorrectReasons": ["A CanNotDelete lock specifically blocks a move because the operation involves removing the resource from the source group.","ReadOnly locks are even more restrictive and also block moves.","Azure resource locks do not expire; they must be manually deleted."],"reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/lock-resources"}},{"id": 18,"subtopic": "Move a virtual machine to another resource group, subscription, or region","question": "You need to move a VM from the East US region to the West US region. What is the recommended tool to facilitate this move with minimal complexity?","options": ["Azure Resource Mover","Azure Backup","The 'Move' button in the Portal","Azure Data Box"],"correct": 0,"explanation": {"correctReason": "Azure Resource Mover is specifically designed to manage the move of resources across Azure regions.","incorrectReasons": ["Azure Backup can be used to restore in another region, but it's a disaster recovery tool, not a move orchestrator.","The standard 'Move' button only supports moves between resource groups and subscriptions, not regions.","Azure Data Box is for moving massive amounts of offline data, not active VM resources."],"reference": "https://learn.microsoft.com/en-us/azure/resource-mover/overview"}},{"id": 19,"subtopic": "Move a virtual machine to another resource group, subscription, or region","question": "When moving a VM to a new resource group, which associated resource is typically NOT moved automatically unless specified?","options": ["Managed Disks","Network Interface (NIC)","Public IP Address","All associated resources must be moved together"],"correct": 3,"explanation": {"correctReason": "In Azure, a VM and its dependent resources (disks, NICs) should be moved together to maintain functionality and avoid 'orphan' resources in different groups.","incorrectReasons": ["Managed Disks are part of the core compute unit and move with the VM.","The NIC is essential for connectivity and should move with the VM.","The Public IP is also moved along with the NIC it is associated with."],"reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/move-limitations/virtual-machines-move-limitations"}},{"id": 20,"subtopic": "Move a virtual machine to another resource group, subscription, or region","question": "Which state must a VM be in to perform a move between subscriptions?","options": ["Stopped (Deallocated)","Running","Paused","The VM can be in any state"],"correct": 3,"explanation": {"correctReason": "While some resources require downtime, standard Azure Managed Disks VMs can be moved while they are in any state, including Running.","incorrectReasons": ["Deallocation is not a strict requirement for moving modern Managed Disk VMs.","Running is allowed, but the state doesn't dictate move eligibility.","Azure VMs don't have a specific 'Paused' state in this context."],"reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/move-limitations/virtual-machines-move-limitations"}},{"id": 21,"subtopic": "Move a virtual machine to another resource group, subscription, or region","question": "You move a VM to a new subscription. What happens to the Backup data stored in a Recovery Services Vault in the old subscription?","options": ["The backup data is moved automatically","The backup data remains in the old vault and is no longer linked to the VM","The backup data is deleted","The move operation will be blocked until backups are deleted"],"correct": 1,"explanation": {"correctReason": "Recovery Services Vaults do not move their content automatically with the resource; backup history stays in the source vault.","incorrectReasons": ["Moving a VM does not trigger a move of its vault data.","Azure does not delete your backup data during a resource move.","A move is not blocked, but you may need to re-configure backup in the new location."],"reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/move-limitations/virtual-machines-move-limitations"}},{"id": 22,"subtopic": "Manage virtual machine sizes","question": "You need to resize an existing Azure VM. Which of the following will always happen if the new size is not available on the current hardware cluster?","options": ["The VM will be rebooted","The VM will be moved to a new region","The resize operation will fail instantly","A second VM will be created"],"correct": 0,"explanation": {"correctReason": "Resizing a VM requires it to be stopped and restarted on hardware that supports the new size, resulting in a reboot.","incorrectReasons": ["Resizing does not move a VM to a new region.","If the size isn't on the cluster, it reboots to a new cluster, but it only fails if that size is unavailable in the entire region.","Resizing modifies the existing resource rather than creating a new one."],"reference": "https://learn.microsoft.com/en-us/azure/virtual-machines/sizes"}},{"id": 23,"subtopic": "Manage virtual machine sizes","question": "A developer needs a VM that can handle occasional bursts of high CPU usage but is otherwise mostly idle. Which VM family is the most cost-effective for this?","options": ["B-series","D-series","F-series","M-series"],"correct": 0,"explanation": {"correctReason": "B-series VMs are 'burstable' and allow users to accumulate credits when CPU usage is low to use during bursts.","incorrectReasons": ["D-series is general purpose and more expensive for idle workloads.","F-series is compute-optimized and provides consistent high performance.","M-series is for massive memory workloads and is very expensive."],"reference": "https://learn.microsoft.com/en-us/azure/virtual-machines/sizes-b-series-burstable"}},{"id": 24,"subtopic": "Manage virtual machine sizes","question": "You are running out of memory on a Standard_D2s_v3 VM. You want to double the memory without significantly increasing the number of vCPUs. Which size should you choose?","options": ["Standard_D4s_v3","Standard_E2s_v3","Standard_F2s_v3","Standard_B2s"],"correct": 1,"explanation": {"correctReason": "The E-series (Ev3) is memory-optimized and provides a higher memory-to-vCPU ratio compared to the D-series.","incorrectReasons": ["Standard_D4s_v3 doubles the memory but also doubles the vCPUs, increasing cost more than necessary.","F-series is compute-optimized and has less memory per vCPU.","B2s has the same vCPU/Memory ratio as the D-series but with burstable performance."],"reference": "https://learn.microsoft.com/en-us/azure/virtual-machines/ev3-esv3-series"}},{"id": 25,"subtopic": "Manage virtual machine sizes","question": "You attempt to resize a VM in the Azure Portal, but the desired size does not appear in the list. What is the most likely reason?","options": ["The VM is currently running","The current hardware cluster does not support the new size","The VM has a Read-Only lock","The size is only available for Linux VMs"],"correct": 1,"explanation": {"correctReason": "If a VM is running, Azure only shows sizes available on its current cluster. Deallocating the VM often reveals more sizes available in the wider region.","incorrectReasons": ["The VM being running doesn't hide sizes, but it limits them. However, deallocating is the standard fix to see all regional sizes.","Locks block the operation but usually don't hide the options in the UI list.","Most sizes are OS-agnostic."],"reference": "https://learn.microsoft.com/en-us/azure/virtual-machines/resize-vm"}},{"id": 26,"subtopic": "Manage virtual machine sizes","question": "What is the Azure Compute Unit (ACU)?","options": ["A measurement of the cost of a VM","A way to compare CPU performance across different VM sizes","The amount of memory assigned to a VM","The number of disks a VM can support"],"correct": 1,"explanation": {"correctReason": "ACU is used to compare the relative compute (CPU) performance between various Azure VM families and sizes.","incorrectReasons": ["Cost is measured in currency, not ACU.","Memory is measured in GB.","Disk support is a fixed limit per VM size, not measured in ACUs."],"reference": "https://learn.microsoft.com/en-us/azure/virtual-machines/acu"}},{"id": 27,"subtopic": "Manage virtual machine sizes","question": "Which VM size family is designed specifically for high-performance computing (HPC) workloads and includes RDMA-enabled network interfaces?","options": ["H-series","G-series","Ls-series","NV-series"],"correct": 0,"explanation": {"correctReason": "H-series VMs are optimized for high-performance computing and often include InfiniBand/RDMA for low-latency communication.","incorrectReasons": ["G-series is a legacy 'Godzilla' size for large memory/storage but not specific to HPC/RDMA.","Ls-series is storage-optimized with local NVMe.","NV-series is GPU-optimized for visualization."],"reference": "https://learn.microsoft.com/en-us/azure/virtual-machines/h-series"}},{"id": 28,"subtopic": "Manage virtual machine sizes","question": "You need to reduce the cost of a VM that is only needed during business hours. What is the most effective way to stop billing for compute resources?","options": ["Shut down the VM from within the Guest OS","Stop the VM from the Azure Portal","Delete the VM and recreate it daily","Remove all attached data disks"],"correct": 1,"explanation": {"correctReason": "Stopping the VM from the Portal (or via CLI/PowerShell) puts it into the 'Stopped (Deallocated)' state, which stops compute charges.","incorrectReasons": ["Shutting down inside the OS stops the process but keeps the VM 'Stopped', not 'Deallocated', so compute charges continue.","Deleting and recreating is overly complex and risks data loss/configuration errors.","Disks are billed separately from compute; removing them doesn't stop compute charges."],"reference": "https://learn.microsoft.com/en-us/azure/virtual-machines/states-billing"}},{"id": 29,"subtopic": "Manage virtual machine disks","question": "What is the maximum size of a single Azure Managed Data Disk (Ultra Disk)?","options": ["4 TB","32 TB","64 TB","128 TB"],"correct": 2,"explanation": {"correctReason": "Ultra Disks and Premium SSD v2 support sizes up to 64 TiB.","incorrectReasons": ["4 TB was an older limit for standard disks.","32 TB is the limit for Premium SSD (v1).","128 TB is currently not a standard single disk size limit in Azure."],"reference": "https://learn.microsoft.com/en-us/azure/virtual-machines/disks-types#ultra-disk"}},{"id": 30,"subtopic": "Manage virtual machine disks","question": "You need to attach a data disk to a VM that provides the highest possible IOPS and lowest latency for a database workload. Which disk type should you choose?","options": ["Premium SSD","Standard SSD","Standard HDD","Ultra Disk"],"correct": 3,"explanation": {"correctReason": "Ultra Disks provide the highest performance in Azure, with configurable IOPS and throughput and sub-millisecond latency.","incorrectReasons": ["Premium SSD is high performance but second to Ultra Disk.","Standard SSD is for web servers and light workloads.","Standard HDD is for backup and infrequent access."],"reference": "https://learn.microsoft.com/en-us/azure/virtual-machines/disks-types#ultra-disk"}},{"id": 31,"subtopic": "Manage virtual machine disks","question": "You have a VM with a Premium SSD. You need to increase the disk size from 128 GB to 512 GB. Which of the following is required?","options": ["The VM must be deallocated","The VM must be running","A new VM must be created","The disk must be detached first"],"correct": 0,"explanation": {"correctReason": "For most VM sizes and disk types, expanding an Azure disk requires the VM to be in a deallocated state (though some newer features allow live expansion, AZ-104 generally tests the standard requirement).","incorrectReasons": ["Expansion while running is a newer, specific feature and not the universal baseline.","You do not need to recreate the VM to expand a disk.","You can expand it while attached as long as the VM is deallocated."],"reference": "https://learn.microsoft.com/en-us/azure/virtual-machines/windows/expand-os-disk"}},{"id": 32,"subtopic": "Manage virtual machine disks","question": "What is the function of the temporary disk (usually drive D: on Windows, /dev/sdb1 on Linux) on an Azure VM?","options": ["To store the OS page file and temporary data","To store persistent application data","To hold the system backup","To host the Azure Disk Encryption keys"],"correct": 0,"explanation": {"correctReason": "The temporary disk is used for page files, swap space, and transient data that does not need to persist across reboots or deallocations.","incorrectReasons": ["The temporary disk is non-persistent; data is lost if the VM is moved to a new host.","Backups should be stored in a vault or on persistent managed disks.","ADE keys are stored in Azure Key Vault."],"reference": "https://learn.microsoft.com/en-us/azure/virtual-machines/managed-disks-overview#temporary-disk"}},{"id": 33,"subtopic": "Manage virtual machine disks","question": "Which feature allows you to take a read-only, point-in-time copy of a managed disk?","options": ["Snapshot","Availability Set","Incremental Backup","Disk Copy"],"correct": 0,"explanation": {"correctReason": "A snapshot is a full or incremental copy of a managed disk that can be used to create new disks or restore a VM to a previous state.","incorrectReasons": ["Availability Sets are for high availability, not data copying.","Incremental Backup is part of Azure Backup services, not a direct disk feature.","Disk Copy is not a specific Azure resource name."],"reference": "https://learn.microsoft.com/en-us/azure/virtual-machines/snapshot-copy-managed-disk"}},{"id": 34,"subtopic": "Manage virtual machine disks","question": "You have a Standard SSD data disk. You want to change it to a Premium SSD to improve performance. What is the correct procedure?","options": ["Change the configuration in the Disk 'Configuration' blade","Delete the disk and restore from backup as Premium","This change is not possible","Use the Azure Migrator tool"],"correct": 0,"explanation": {"correctReason": "Azure allows you to switch between managed disk types (e.g., Standard to Premium) directly in the Portal or via CLI/PowerShell by updating the AccountType property.","incorrectReasons": ["Restoring from backup is slow and unnecessary for a simple tier change.","Managed disks are flexible and support tier changes.","Azure Migrator is for moving whole environments or on-premises servers."],"reference": "https://learn.microsoft.com/en-us/azure/virtual-machines/disks-convert-types"}},{"id": 35,"subtopic": "Manage virtual machine disks","question": "What is 'Host Caching' in the context of Azure VM disks?","options": ["A way to cache disk data in the VM's local RAM or SSD for faster access","A method to distribute disk load across multiple storage accounts","A security feature that encrypts data at the host level","A load balancer for disk IOPS"],"correct": 0,"explanation": {"correctReason": "Host caching uses the host's memory/SSD to store frequently accessed data, reducing latency and potentially increasing throughput (Read-only or Read/Write).","incorrectReasons": ["Storage accounts are a different layer of the stack.","Encryption at host is a separate security feature.","Host caching is about speed, not load balancing across different disks."],"reference": "https://learn.microsoft.com/en-us/azure/virtual-machines/disks-performance#caching"}},{"id": 36,"subtopic": "Deploy virtual machines to availability zones and availability sets","question": "You need to deploy two VMs for a web application. You want to protect against hardware failures within a single data center. Which feature should you use?","options": ["Availability Set","Availability Zone","Virtual Machine Scale Set","Geographic Replication"],"correct": 0,"explanation": {"correctReason": "Availability Sets protect against hardware failures within a data center by distributing VMs across different Update and Fault domains.","incorrectReasons": ["Availability Zones protect against the failure of an entire data center, not just hardware within one.","VMSS is for scaling, though it can use availability sets/zones.","Geographic Replication is for regional disasters."],"reference": "https://learn.microsoft.com/en-us/azure/virtual-machines/availability-set-overview"}},{"id": 37,"subtopic": "Deploy virtual machines to availability zones and availability sets","question": "In an Availability Set, what is the purpose of an 'Update Domain'?","options": ["To ensure VMs are not all rebooted at the same time during planned maintenance","To protect against physical power failures","To define which region the VM is updated in","To manage Windows Update settings"],"correct": 0,"explanation": {"correctReason": "Update Domains ensure that only a portion of the VMs in an Availability Set are rebooted at any given time during Azure platform updates.","incorrectReasons": ["Fault Domains protect against physical power and network failures.","Update Domains are internal to a data center/set, not regional.","Guest OS updates are managed by the user, not the update domain."],"reference": "https://learn.microsoft.com/en-us/azure/virtual-machines/availability-set-overview"}},{"id": 38,"subtopic": "Deploy virtual machines to availability zones and availability sets","question": "Which of the following offers the highest availability SLA for virtual machines in Azure?","options": ["Two or more VMs in an Availability Zone","Two or more VMs in an Availability Set","A single VM with Premium SSD","Two or more VMs in different Regions"],"correct": 0,"explanation": {"correctReason": "Availability Zones (99.99% SLA) provide higher protection than Availability Sets (99.95%) because they protect against entire data center outages.","incorrectReasons": ["Availability Sets offer 99.95% SLA.","Single VM with Premium SSD offers 99.9% SLA.","While multi-region is more resilient, the standard Azure 'High Availability' SLAs focus on Availability Zones."],"reference": "https://learn.microsoft.com/en-us/azure/virtual-machines/availability"}},{"id": 39,"subtopic": "Deploy virtual machines to availability zones and availability sets","question": "You are deploying a VM into an Availability Zone. How many Availability Zones are typically available in an Azure region that supports them?","options": ["1","2","3","5"],"correct": 2,"explanation": {"correctReason": "Most Azure regions that support Availability Zones offer at least three distinct zones.","incorrectReasons": ["One zone provides no redundancy.","Two is a minimum for some services, but 3 is the Azure standard.","Azure does not currently offer a standard of 5 zones per region."],"reference": "https://learn.microsoft.com/en-us/azure/reliability/availability-zones-overview"}},{"id": 40,"subtopic": "Deploy virtual machines to availability zones and availability sets","question": "What is a 'Proximity Placement Group'?","options": ["A grouping of VMs to ensure they are physically close to each other for low latency","A way to group VMs in different regions for backup","A security group for VMs in the same subnet","A method to place VMs in different availability zones"],"correct": 0,"explanation": {"correctReason": "Proximity Placement Groups are used to minimize network latency between VMs by ensuring they are located in the same physical data center.","incorrectReasons": ["Regional grouping is for DR, not proximity.","Security groups (NSGs) handle network filtering.","Availability Zones deliberately place VMs further apart, the opposite of a Proximity Placement Group."],"reference": "https://learn.microsoft.com/en-us/azure/virtual-machines/co-location"}},{"id": 41,"subtopic": "Deploy virtual machines to availability zones and availability sets","question": "Can you add an existing VM to an Availability Set after it has been created?","options": ["Yes, via the Portal","Yes, but only using PowerShell","No, the VM must be created within the Availability Set","Yes, if the VM is deallocated"],"correct": 2,"explanation": {"correctReason": "A VM must be assigned to an Availability Set during its creation. You cannot add an existing VM to an Availability Set later without recreating it.","incorrectReasons": ["There is no Portal option for this.","PowerShell cannot move a VM into a set without deletion/recreation.","Deallocation does not change the metadata assignment requirement."],"reference": "https://learn.microsoft.com/en-us/azure/virtual-machines/availability-set-overview"}},{"id": 42,"subtopic": "Deploy virtual machines to availability zones and availability sets","question": "What is the maximum number of Fault Domains you can typically configure for an Availability Set?","options": ["2 or 3 (depending on region)","5","10","20"],"correct": 0,"explanation": {"correctReason": "The number of Fault Domains is limited to 2 or 3 depending on the region's hardware capabilities.","incorrectReasons": ["5 is a common number for Update Domains, not Fault Domains.","10 is not a standard Fault Domain limit.","20 is the maximum number of Update Domains, not Fault Domains."],"reference": "https://learn.microsoft.com/en-us/azure/virtual-machines/availability-set-overview"}},{"id": 43,"subtopic": "Deploy and configure an Azure Virtual Machine Scale Sets","question": "What is the primary benefit of using a Virtual Machine Scale Set (VMSS)?","options": ["Automatic scaling of VM instances based on demand","Automatic backup of all VMs","Providing a static IP for every VM","Assigning unique DNS names to each instance"],"correct": 0,"explanation": {"correctReason": "VMSS allows you to create and manage a group of load-balanced VMs that can automatically increase or decrease in number based on demand or a defined schedule.","incorrectReasons": ["Backup is handled by Azure Backup, not inherently by VMSS scaling.","VMSS instances usually share a load balancer and don't require individual public static IPs.","While possible, unique DNS names aren't the primary purpose; scaling is."],"reference": "https://learn.microsoft.com/en-us/azure/virtual-machine-scale-sets/overview"}},{"id": 44,"subtopic": "Deploy and configure an Azure Virtual Machine Scale Sets","question": "You want to ensure that a VMSS automatically adds instances when the average CPU usage across the set exceeds 75%. Which feature should you configure?","options": ["Autoscale rules","Update Policy","Fault Domains","Load Balancer Health Probes"],"correct": 0,"explanation": {"correctReason": "Autoscale rules define the metrics (like CPU) and thresholds required to trigger scaling actions.","incorrectReasons": ["Update Policy defines how instances are updated when the scale set model changes.","Fault Domains are for high availability placement, not scaling triggers.","Health Probes tell the load balancer if an instance is healthy, but they don't trigger scaling."],"reference": "https://learn.microsoft.com/en-us/azure/virtual-machine-scale-sets/virtual-machine-scale-sets-autoscale-overview"}},{"id": 45,"subtopic": "Deploy and configure an Azure Virtual Machine Scale Sets","question": "You have a VMSS with a 'Manual' upgrade policy. You update the VMSS model to use a newer version of the OS image. What happens to the existing instances?","options": ["They are updated automatically","They continue to run the old version until they are manually updated","They are deleted immediately","The update is blocked until all instances are stopped"],"correct": 1,"explanation": {"correctReason": "With a Manual upgrade policy, existing instances are not updated to the new model until you manually trigger the upgrade on those specific instances.","incorrectReasons": ["Automatic updates only happen with the 'Automatic' or 'Rolling' policy.","Azure does not delete running instances just because a model changed.","The update is applied to the model (future instances), it's not blocked."],"reference": "https://learn.microsoft.com/en-us/azure/virtual-machine-scale-sets/virtual-machine-scale-sets-upgrade-scale-set"}},{"id": 46,"subtopic": "Deploy and configure an Azure Virtual Machine Scale Sets","question": "What is 'Overprovisioning' in an Azure Virtual Machine Scale Set?","options": ["The practice of spinning up more VMs than requested to ensure successful deployment","Assigning more RAM than a VM can actually use","Using a larger VM size than required","Creating more scale sets than the subscription limit allows"],"correct": 0,"explanation": {"correctReason": "Overprovisioning is a setting where VMSS spins up more instances than requested to account for potential deployment failures; once the desired number are successful, the extras are deleted.","incorrectReasons": ["RAM assignment is part of the VM size definition.","Right-sizing is the opposite of using a larger size than required.","Subscription limits cannot be exceeded by overprovisioning."],"reference": "https://learn.microsoft.com/en-us/azure/virtual-machine-scale-sets/virtual-machine-scale-sets-design-overview#overprovisioning"}},{"id": 47,"subtopic": "Deploy and configure an Azure Virtual Machine Scale Sets","question": "You need to distribute VMSS instances across multiple data centers in a region. Which setting should you use?","options": ["Availability Zones","Availability Sets","Placement Groups","Subnets"],"correct": 0,"explanation": {"correctReason": "By selecting multiple Availability Zones for a VMSS, Azure distributes the instances across different data centers within the region.","incorrectReasons": ["Availability Sets are within a single data center.","Placement Groups can be used to manage how many VMs are in a group but zones are the regional data center unit.","Subnets are networking constructs and don't guarantee physical distribution."],"reference": "https://learn.microsoft.com/en-us/azure/virtual-machine-scale-sets/virtual-machine-scale-sets-use-availability-zones"}},{"id": 48,"subtopic": "Deploy and configure an Azure Virtual Machine Scale Sets","question": "Which protocol is typically used by a Load Balancer to determine if a VMSS instance is ready to receive traffic?","options": ["Health Probe (HTTP/TCP)","RDP","SSH","SNMP"],"correct": 0,"explanation": {"correctReason": "Azure Load Balancer uses Health Probes (typically via HTTP, HTTPS, or TCP) to monitor the health of instances in a scale set.","incorrectReasons": ["RDP is for remote management of Windows.","SSH is for remote management of Linux.","SNMP is for network monitoring but not the standard Azure health check mechanism."],"reference": "https://learn.microsoft.com/en-us/azure/load-balancer/load-balancer-custom-probe-overview"}},{"id": 49,"subtopic": "Deploy and configure an Azure Virtual Machine Scale Sets","question": "You want to deploy a VMSS that uses a custom-configured OS image. Where should you store this image for use with the scale set?","options": ["Azure Compute Gallery (Shared Image Gallery)","An Azure Storage Account container","A local drive on the administrator's PC","Azure Key Vault"],"correct": 0,"explanation": {"correctReason": "Azure Compute Gallery is the recommended way to manage and share custom VM images across subscriptions and regions.","incorrectReasons": ["While images were once stored as blobs, Compute Gallery is the modern, scalable standard.","Local drives cannot be accessed by Azure during automated scaling.","Key Vault stores secrets and keys, not OS images."],"reference": "https://learn.microsoft.com/en-us/azure/virtual-machines/shared-image-galleries"}},{"id": 50,"subtopic": "Deploy and configure an Azure Virtual Machine Scale Sets","question": "Which VMSS orchestration mode allows for the greatest flexibility and the use of heterogeneous VM sizes within the same set?","options": ["Flexible","Uniform","Static","Manual"],"correct": 0,"explanation": {"correctReason": "Flexible orchestration mode allows you to mix different VM sizes and types within the same scale set and offers better control over individual VMs.","incorrectReasons": ["Uniform orchestration mode requires all VMs in the set to be identical clones.","Static and Manual are not names of VMSS orchestration modes.","Manual refers to an upgrade policy, not the orchestration mode."],"reference": "https://learn.microsoft.com/en-us/azure/virtual-machine-scale-sets/virtual-machine-scale-sets-orchestration-modes"}}]
+[
+  {
+    "id": 1,
+    "subtopic": "Create a virtual machine",
+    "question": "You are creating a Linux virtual machine in Azure using the CLI. You want the VM to automatically generate and use SSH keys for authentication. Which parameter should you include in the 'az vm create' command?",
+    "options": [
+      "--generate-ssh-keys",
+      "--ssh-key-value",
+      "--authentication-type ssh",
+      "--admin-username root"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "The --generate-ssh-keys parameter automatically generates a public and private key pair if they do not exist and stores them in the default directory.",
+      "incorrectReasons": [
+        "--ssh-key-value is used to provide an existing public key string or file path.",
+        "--authentication-type ssh is a valid parameter but does not trigger the generation of keys.",
+        "--admin-username root is generally discouraged; default Azure Linux images usually require a non-root user."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/virtual-machines/linux/create-ssh-keys-detailed#generate-keys-automatically-during-deployment"
+    }
+  },
+  {
+    "id": 2,
+    "subtopic": "Create a virtual machine",
+    "question": "You need to deploy a Windows VM that must run a script immediately after it is provisioned to install specific software. Which feature should you use?",
+    "options": [
+      "Custom Script Extension",
+      "Azure Automation Runbook",
+      "Just-In-Time (JIT) access",
+      "Desired State Configuration (DSC)"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "The Custom Script Extension downloads and executes scripts on Azure virtual machines, making it ideal for post-deployment configuration.",
+      "incorrectReasons": [
+        "Azure Automation Runbooks are for orchestrating tasks across many resources, not specifically for initial VM provisioning.",
+        "JIT access is a security feature to limit exposure to management ports.",
+        "While DSC can configure a VM, the Custom Script Extension is the standard direct method for running a simple post-deployment script."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/virtual-machines/extensions/custom-script-windows"
+    }
+  },
+  {
+    "id": 3,
+    "subtopic": "Create a virtual machine",
+    "question": "You need a VM with a specific static private IP address. Where should you configure the private IP allocation method?",
+    "options": [
+      "On the VM's Network Interface (NIC) IP configuration",
+      "Inside the guest operating system network settings",
+      "In the virtual network subnet settings",
+      "On the VM's operating system disk"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "The private IP allocation method is configured on the NIC's IP configuration. Set Allocation to Static and, when required, specify the private IP address.",
+      "incorrectReasons": [
+        "Changing the address only inside the guest OS doesn't configure the Azure NIC and can cause connectivity problems.",
+        "A subnet defines an address range; it doesn't assign a specific private IP to an individual VM.",
+        "The OS disk has no role in private IP allocation."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/virtual-network/ip-services/virtual-networks-static-private-ip"
+    }
+  },
+  {
+    "id": 4,
+    "subtopic": "Create a virtual machine",
+    "question": "Which of the following is NOT an Azure Marketplace VM image option?",
+    "options": [
+      "Ubuntu Server 22.04 LTS",
+      "Windows Enterprise multi-session",
+      "Red Hat Enterprise Linux",
+      "macOS Monterey"
+    ],
+    "correct": 3,
+    "explanation": {
+      "correctReason": "macOS Monterey isn't offered as a standard Azure VM Marketplace image. Ubuntu, Windows Enterprise multi-session, and RHEL images are available in supported Azure scenarios.",
+      "incorrectReasons": [
+        "Ubuntu Server images are available in Azure Marketplace.",
+        "Windows Enterprise multi-session images are available through Azure Marketplace for Azure Virtual Desktop.",
+        "Red Hat Enterprise Linux is an Azure Marketplace VM image family."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/virtual-machines/overview"
+    }
+  },
+  {
+    "id": 5,
+    "subtopic": "Create a virtual machine",
+    "question": "You want to capture a specialized image of an existing Windows VM to create multiple identical clones. What is the first step you must perform inside the VM before capturing?",
+    "options": [
+      "Run Sysprep with /generalize and /oobe",
+      "Disable the Windows Firewall",
+      "Delete the temporary D: drive",
+      "Stop the VM from the Azure Portal"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Sysprep generalizes the Windows installation by removing system-specific information like SID, allowing the image to be reused safely.",
+      "incorrectReasons": [
+        "Disabling the firewall is not a requirement for capturing an image.",
+        "The D: drive is temporary and managed by Azure; you don't need to delete it manually.",
+        "Stopping the VM is a later step in the Azure capture process, but generalization happens inside the OS first."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/virtual-machines/windows/capture-image-resource"
+    }
+  },
+  {
+    "id": 6,
+    "subtopic": "Create a virtual machine",
+    "question": "You need to identify why a Windows VM failed to start. Which feature provides a screenshot of the VM's console at the time of the failure?",
+    "options": [
+      "Azure Monitor Metrics",
+      "Boot Diagnostics",
+      "Serial Console",
+      "Resource Health"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Boot Diagnostics captures console output and screenshots of the VM during the boot process to help troubleshoot startup issues.",
+      "incorrectReasons": [
+        "Azure Monitor Metrics show performance data like CPU/RAM but not console screenshots.",
+        "Serial Console provides an interactive text-based console but doesn't store startup screenshots automatically for review like diagnostics.",
+        "Resource Health tells you if the underlying platform is healthy, not what is happening inside the VM's boot process."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/virtual-machines/boot-diagnostics"
+    }
+  },
+  {
+    "id": 7,
+    "subtopic": "Create a virtual machine",
+    "question": "When creating a VM, you enable 'Spot Instance'. What is the primary characteristic of this VM type?",
+    "options": [
+      "It offers the highest SLA for production workloads",
+      "It uses unused Azure capacity at a deep discount but can be evicted at any time",
+      "It is reserved for a 1-year or 3-year term to reduce costs",
+      "It includes a free managed public IP address"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Spot instances take advantage of unutilized capacity for significant savings, with the trade-off that Azure can reclaim the capacity when needed.",
+      "incorrectReasons": [
+        "Spot instances have no SLA for availability as they can be evicted.",
+        "Reserved instances are the ones with 1-year or 3-year commitments.",
+        "Spot instances do not change the pricing or availability of public IP addresses."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/virtual-machines/spot-vms"
+    }
+  },
+  {
+    "id": 8,
+    "subtopic": "Configure Azure Disk Encryption",
+    "question": "Which Azure feature encrypts data stored on the VM host, including the temporary disk and OS/data disk caches?",
+    "options": [
+      "Encryption at host",
+      "Azure Disk Encryption",
+      "Azure Backup",
+      "Azure Dedicated Host"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Encryption at host encrypts data stored on the VM host and data flowing to Azure Storage, including temporary-disk data and disk caches.",
+      "incorrectReasons": [
+        "Azure Disk Encryption encrypts OS and data volumes inside the VM and is a separate technology that Microsoft is retiring in 2028.",
+        "Azure Backup provides backup and recovery; it isn't the VM-host encryption feature.",
+        "A Dedicated Host provides dedicated physical host capacity but isn't itself the disk-encryption mechanism."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/virtual-machines/disk-encryption#encryption-at-host---end-to-end-encryption-for-your-vm-data"
+    }
+  },
+  {
+    "id": 9,
+    "subtopic": "Configure Azure Disk Encryption",
+    "question": "You want to enable encryption at host on an existing Azure VM. What must you do before the existing VM is encrypted?",
+    "options": [
+      "Deallocate the VM, then reallocate it after enabling encryption at host",
+      "Delete and recreate the VM",
+      "Attach a second NIC",
+      "Enable Azure Disk Encryption first"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Existing VMs must be deallocated and reallocated for encryption at host to take effect.",
+      "incorrectReasons": [
+        "The VM doesn't need to be deleted and recreated.",
+        "A second NIC isn't required for encryption at host.",
+        "Azure Disk Encryption is a separate technology, and encryption at host cannot be enabled on a VM that currently or ever had ADE enabled."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/virtual-machines/disks-enable-host-based-encryption-portal"
+    }
+  },
+  {
+    "id": 10,
+    "subtopic": "Configure Azure Disk Encryption",
+    "question": "How can you determine whether a VM size supports encryption at host?",
+    "options": [
+      "Check the VM SKU capability EncryptionAtHostSupported=True",
+      "Check whether the VM has a Premium SSD attached",
+      "Check whether the VM is in an availability set",
+      "Check whether the VM has a public IP address"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Microsoft documents checking the VM SKU capability named EncryptionAtHostSupported and confirming its value is True.",
+      "incorrectReasons": [
+        "A Premium SSD isn't what determines whether the VM size supports encryption at host.",
+        "Availability sets don't determine encryption-at-host support.",
+        "A public IP address has no bearing on encryption-at-host support."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/virtual-machines/linux/disks-enable-host-based-encryption-cli#finding-supported-vm-sizes"
+    }
+  },
+  {
+    "id": 11,
+    "subtopic": "Configure Azure Disk Encryption",
+    "question": "When enabling encryption at host for a new VM, which key-management choice can be used without creating an Azure Key Vault?",
+    "options": [
+      "Platform-managed keys",
+      "Customer-managed keys",
+      "A Recovery Services vault key",
+      "A storage-account access key"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Encryption at host can be enabled using platform-managed keys without first creating a Key Vault and disk encryption set.",
+      "incorrectReasons": [
+        "Customer-managed keys require an Azure Key Vault and a disk encryption set.",
+        "A Recovery Services vault is used for backup and recovery, not as the key store for this configuration.",
+        "A storage-account access key is not a disk-encryption key-management option."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/virtual-machines/disks-enable-host-based-encryption-portal#deploy-a-vm-with-platform-managed-keys"
+    }
+  },
+  {
+    "id": 12,
+    "subtopic": "Configure Azure Disk Encryption",
+    "question": "Which statement about encryption at host support is correct?",
+    "options": [
+      "Legacy VM sizes aren't supported; the VM size must expose EncryptionAtHostSupported=True",
+      "Every Azure VM size supports encryption at host",
+      "Only M-series VMs support encryption at host",
+      "Encryption at host requires a Premium SSD"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Microsoft states that legacy VM sizes aren't supported and recommends checking the EncryptionAtHostSupported capability for the VM SKU.",
+      "incorrectReasons": [
+        "Not every Azure VM size supports the feature.",
+        "Encryption at host isn't restricted to M-series VMs.",
+        "A Premium SSD isn't a universal prerequisite for encryption at host."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/virtual-machines/linux/disks-enable-host-based-encryption-cli#finding-supported-vm-sizes"
+    }
+  },
+  {
+    "id": 13,
+    "subtopic": "Configure Azure Disk Encryption",
+    "question": "You enable encryption at host on an existing VM. What happens to the VM's temporary disk and disk caches?",
+    "options": [
+      "They are encrypted at rest on the VM host",
+      "They are deleted",
+      "They remain unencrypted",
+      "They are automatically moved to Azure Key Vault"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Encryption at host encrypts temporary-disk data and OS/data disk caches stored on the VM host.",
+      "incorrectReasons": [
+        "The feature doesn't require deleting the temporary disk.",
+        "The temporary disk and caches are specifically included in the host-level encryption behavior.",
+        "Key Vault is used for customer-managed key scenarios, but the data isn't moved into Key Vault."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/virtual-machines/disk-encryption#encryption-at-host---end-to-end-encryption-for-your-vm-data"
+    }
+  },
+  {
+    "id": 14,
+    "subtopic": "Configure Azure Disk Encryption",
+    "question": "Which statement is true when encryption at host is enabled on an existing VM?",
+    "options": [
+      "The VM must be deallocated and reallocated for the encryption to take effect",
+      "The VM is deleted and recreated automatically",
+      "The VM must be moved to another Azure region",
+      "The VM must have a new public IP address"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Microsoft requires existing VMs to be deallocated and reallocated before encryption at host takes effect.",
+      "incorrectReasons": [
+        "Azure doesn't automatically delete and recreate the VM.",
+        "Changing regions isn't required.",
+        "A new public IP address isn't a prerequisite for encryption at host."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/virtual-machines/disks-enable-host-based-encryption-portal"
+    }
+  },
+  {
+    "id": 15,
+    "subtopic": "Move a virtual machine to another resource group, subscription, or region",
+    "question": "You need to move a VM from 'ResourceGroupA' to 'ResourceGroupB'. Which of the following is true regarding the VM's Resource ID?",
+    "options": [
+      "The Resource ID remains exactly the same",
+      "The Resource ID changes to reflect the new resource group name",
+      "The Resource ID is replaced by a GUID",
+      "The VM does not have a Resource ID"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "An Azure Resource ID includes the name of the resource group; therefore, moving the resource to a new group changes its ID path.",
+      "incorrectReasons": [
+        "Because the path includes /resourceGroups/{name}/, it cannot remain the same.",
+        "Resource IDs are hierarchical paths, not just GUIDs.",
+        "Every resource in Azure has a unique Resource ID."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/move-resource-group-and-subscription"
+    }
+  },
+  {
+    "id": 16,
+    "subtopic": "Move a virtual machine to another resource group, subscription, or region",
+    "question": "You are moving a VM to another subscription. What must be true about the source and destination subscriptions?",
+    "options": [
+      "They must exist within the same Azure AD (Entra ID) tenant",
+      "They must be in different regions",
+      "They must have the same billing owner",
+      "They must have the same number of resources"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "For a standard resource move between subscriptions, both subscriptions must be associated with the same Azure AD tenant.",
+      "incorrectReasons": [
+        "They do not need to be in different regions; region is independent of subscription.",
+        "Billing ownership does not prevent a move as long as the tenant is the same.",
+        "Resource count is irrelevant to move capability."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/move-resource-group-and-subscription"
+    }
+  },
+  {
+    "id": 17,
+    "subtopic": "Move a virtual machine to another resource group, subscription, or region",
+    "question": "You attempt to move a VM to another resource group, but the move fails. You notice a 'CanNotDelete' lock on the VM. What should you do?",
+    "options": [
+      "The lock does not affect moves, so check the network connection",
+      "Remove the lock before initiating the move",
+      "Change the lock to 'ReadOnly'",
+      "Wait for the lock to expire"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Locks prevent management operations like moving or deleting; the lock must be removed before the move can proceed.",
+      "incorrectReasons": [
+        "A CanNotDelete lock specifically blocks a move because the operation involves removing the resource from the source group.",
+        "ReadOnly locks are even more restrictive and also block moves.",
+        "Azure resource locks do not expire; they must be manually deleted."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/lock-resources"
+    }
+  },
+  {
+    "id": 18,
+    "subtopic": "Move a virtual machine to another resource group, subscription, or region",
+    "question": "You need to move a VM from the East US region to the West US region. What is the recommended tool to facilitate this move with minimal complexity?",
+    "options": [
+      "Azure Resource Mover",
+      "Azure Backup",
+      "The 'Move' button in the Portal",
+      "Azure Data Box"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Azure Resource Mover is specifically designed to manage the move of resources across Azure regions.",
+      "incorrectReasons": [
+        "Azure Backup can be used to restore in another region, but it's a disaster recovery tool, not a move orchestrator.",
+        "The standard 'Move' button only supports moves between resource groups and subscriptions, not regions.",
+        "Azure Data Box is for moving massive amounts of offline data, not active VM resources."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/resource-mover/overview#move-across-regions"
+    }
+  },
+  {
+    "id": 19,
+    "subtopic": "Move a virtual machine to another resource group, subscription, or region",
+    "question": "When moving a VM to another resource group, which statement about its dependent resources is correct?",
+    "options": [
+      "The VM's child resources move with it, but separate dependent resources such as disks and NICs must be included in the move as required",
+      "Only the VM moves; its disks are always left behind",
+      "The NIC and disks are automatically moved even when they aren't included in the move request",
+      "A VM can be moved without considering its dependent resources"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Azure move operations require the resources needed by the VM to be included as appropriate; only child resources of a parent resource move automatically. A VM's managed disks and NIC are separate top-level resources.",
+      "incorrectReasons": [
+        "Managed disks aren't child resources of the VM and aren't automatically moved merely because the VM is selected.",
+        "The NIC and disks don't automatically move unless they are included as required resources.",
+        "Ignoring dependencies can cause the move to fail or break the VM configuration."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/move-resource-group-and-subscription"
+    }
+  },
+  {
+    "id": 20,
+    "subtopic": "Move a virtual machine to another resource group, subscription, or region",
+    "question": "Which state must a VM be in to perform a move between subscriptions?",
+    "options": [
+      "Stopped (Deallocated)",
+      "Running",
+      "Paused",
+      "The VM can be in any state"
+    ],
+    "correct": 3,
+    "explanation": {
+      "correctReason": "While some resources require downtime, standard Azure Managed Disks VMs can be moved while they are in any state, including Running.",
+      "incorrectReasons": [
+        "Deallocation is not a strict requirement for moving modern Managed Disk VMs.",
+        "Running is allowed, but the state doesn't dictate move eligibility.",
+        "Azure VMs don't have a specific 'Paused' state in this context."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/move-resource-group-and-subscription"
+    }
+  },
+  {
+    "id": 21,
+    "subtopic": "Move a virtual machine to another resource group, subscription, or region",
+    "question": "You move a VM to a new subscription. What happens to the Backup data stored in a Recovery Services Vault in the old subscription?",
+    "options": [
+      "The backup data is moved automatically",
+      "The backup data remains in the old vault and is no longer linked to the VM",
+      "The backup data is deleted",
+      "The move operation will be blocked until backups are deleted"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Recovery Services Vaults do not move their content automatically with the resource; backup history stays in the source vault.",
+      "incorrectReasons": [
+        "Moving a VM does not trigger a move of its vault data.",
+        "Azure does not delete your backup data during a resource move.",
+        "A move is not blocked, but you may need to re-configure backup in the new location."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/backup/backup-azure-move-recovery-services-vault"
+    }
+  },
+  {
+    "id": 22,
+    "subtopic": "Manage virtual machine sizes",
+    "question": "You need to resize an existing Azure VM to a size that isn't available on its current hardware cluster. What must you do before the resize can proceed?",
+    "options": [
+      "Deallocate the VM",
+      "Move the VM to another Azure region",
+      "Create a second VM",
+      "Delete the VM's managed disks"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "If the requested size isn't available on the current hardware cluster, Microsoft requires the VM to be deallocated before resizing so Azure can allocate it on suitable hardware.",
+      "incorrectReasons": [
+        "Changing regions isn't a prerequisite for a normal resize.",
+        "A second VM isn't required for resizing the existing VM.",
+        "Managed disks don't need to be deleted to resize a VM."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/resize-vm"
+    }
+  },
+  {
+    "id": 23,
+    "subtopic": "Manage virtual machine sizes",
+    "question": "A developer needs a VM that can handle occasional bursts of high CPU usage but is otherwise mostly idle. Which VM family is the most cost-effective for this?",
+    "options": [
+      "B-series",
+      "D-series",
+      "F-series",
+      "M-series"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "B-series VMs are 'burstable' and allow users to accumulate credits when CPU usage is low to use during bursts.",
+      "incorrectReasons": [
+        "D-series is general purpose and more expensive for idle workloads.",
+        "F-series is compute-optimized and provides consistent high performance.",
+        "M-series is for massive memory workloads and is very expensive."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/virtual-machines/sizes-b-series-burstable"
+    }
+  },
+  {
+    "id": 24,
+    "subtopic": "Manage virtual machine sizes",
+    "question": "You are running out of memory on a Standard_D2s_v3 VM. You want to double the memory without significantly increasing the number of vCPUs. Which size should you choose?",
+    "options": [
+      "Standard_D4s_v3",
+      "Standard_E2s_v3",
+      "Standard_F2s_v3",
+      "Standard_B2s"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "The E-series (Ev3) is memory-optimized and provides a higher memory-to-vCPU ratio compared to the D-series.",
+      "incorrectReasons": [
+        "Standard_D4s_v3 doubles the memory but also doubles the vCPUs, increasing cost more than necessary.",
+        "F-series is compute-optimized and has less memory per vCPU.",
+        "B2s has the same vCPU/Memory ratio as the D-series but with burstable performance."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/memory-optimized/ev3-esv3-series"
+    }
+  },
+  {
+    "id": 25,
+    "subtopic": "Manage virtual machine sizes",
+    "question": "You are resizing a running VM and the size you want isn't shown in the Azure portal. What is the standard next step to reveal more compatible sizes?",
+    "options": [
+      "Stop (deallocate) the VM and check the available sizes again",
+      "Delete the VM",
+      "Change the VM's operating system",
+      "Create a new subscription"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "If a running VM doesn't show the desired size, stopping (deallocating) it can reveal additional compatible sizes because the size might not be available on the current hardware cluster.",
+      "incorrectReasons": [
+        "Deleting the VM isn't required for a normal resize.",
+        "The guest operating system doesn't determine the general availability of VM sizes in this way.",
+        "A new subscription isn't required to resize a VM."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/resize-vm"
+    }
+  },
+  {
+    "id": 26,
+    "subtopic": "Manage virtual machine sizes",
+    "question": "What is the Azure Compute Unit (ACU)?",
+    "options": [
+      "A measurement of the cost of a VM",
+      "A way to compare CPU performance across different VM sizes",
+      "The amount of memory assigned to a VM",
+      "The number of disks a VM can support"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "ACU is used to compare the relative compute (CPU) performance between various Azure VM families and sizes.",
+      "incorrectReasons": [
+        "Cost is measured in currency, not ACU.",
+        "Memory is measured in GB.",
+        "Disk support is a fixed limit per VM size, not measured in ACUs."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/virtual-machines/acu"
+    }
+  },
+  {
+    "id": 27,
+    "subtopic": "Manage virtual machine sizes",
+    "question": "Which Azure VM family is designed for high-performance computing (HPC) workloads and includes RDMA-capable sizes?",
+    "options": [
+      "H-series",
+      "G-series",
+      "L-series",
+      "NV-series"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "H-series HPC families, including HB and HC series, are designed for compute-intensive HPC workloads, and many H-series sizes provide InfiniBand/RDMA networking.",
+      "incorrectReasons": [
+        "G-series is a large-memory legacy family, not the Azure HPC family identified here.",
+        "L-series is storage optimized for high-throughput and low-latency storage workloads.",
+        "NV-series is GPU optimized for graphics and visualization workloads."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/overview#high-performance-compute"
+    }
+  },
+  {
+    "id": 28,
+    "subtopic": "Manage virtual machine sizes",
+    "question": "You need to reduce the cost of a VM that is only needed during business hours. What is the most effective way to stop billing for compute resources?",
+    "options": [
+      "Shut down the VM from within the Guest OS",
+      "Stop the VM from the Azure Portal",
+      "Delete the VM and recreate it daily",
+      "Remove all attached data disks"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Stopping the VM from the Portal (or via CLI/PowerShell) puts it into the 'Stopped (Deallocated)' state, which stops compute charges.",
+      "incorrectReasons": [
+        "Shutting down inside the OS stops the process but keeps the VM 'Stopped', not 'Deallocated', so compute charges continue.",
+        "Deleting and recreating is overly complex and risks data loss/configuration errors.",
+        "Disks are billed separately from compute; removing them doesn't stop compute charges."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/virtual-machines/states-billing#power-states-and-billing"
+    }
+  },
+  {
+    "id": 29,
+    "subtopic": "Manage virtual machine disks",
+    "question": "What is the maximum size of a single Azure Managed Data Disk (Ultra Disk)?",
+    "options": [
+      "4 TB",
+      "32 TB",
+      "64 TB",
+      "128 TB"
+    ],
+    "correct": 2,
+    "explanation": {
+      "correctReason": "Ultra Disks and Premium SSD v2 support sizes up to 64 TiB.",
+      "incorrectReasons": [
+        "4 TB was an older limit for standard disks.",
+        "32 TB is the limit for Premium SSD (v1).",
+        "128 TB is currently not a standard single disk size limit in Azure."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/virtual-machines/disks-types#ultra-disks"
+    }
+  },
+  {
+    "id": 30,
+    "subtopic": "Manage virtual machine disks",
+    "question": "You need to attach a data disk to a VM that provides the highest possible IOPS and lowest latency for a database workload. Which disk type should you choose?",
+    "options": [
+      "Premium SSD",
+      "Standard SSD",
+      "Standard HDD",
+      "Ultra Disk"
+    ],
+    "correct": 3,
+    "explanation": {
+      "correctReason": "Ultra Disks provide the highest performance in Azure, with configurable IOPS and throughput and sub-millisecond latency.",
+      "incorrectReasons": [
+        "Premium SSD is high performance but second to Ultra Disk.",
+        "Standard SSD is for web servers and light workloads.",
+        "Standard HDD is for backup and infrequent access."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/virtual-machines/disks-types#ultra-disks"
+    }
+  },
+  {
+    "id": 31,
+    "subtopic": "Manage virtual machine disks",
+    "question": "You have a VM with a 128-GB Premium SSD data disk and need to expand it to 512 GB. What is required?",
+    "options": [
+      "The VM can remain running; online expansion is supported for this Premium SSD data-disk scenario",
+      "The VM must always be deallocated",
+      "The disk must be detached first",
+      "A new VM must be created"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Microsoft supports online expansion for Premium SSD data disks in this size range, so deallocation isn't required for this scenario.",
+      "incorrectReasons": [
+        "Deallocation is required for disk types or expansion scenarios that don't support online resize, but not for this specified Premium SSD data disk expansion.",
+        "The disk doesn't need to be detached for supported online expansion.",
+        "A new VM isn't required to expand the managed data disk."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/virtual-machines/windows/expand-disks#expand-without-downtime"
+    }
+  },
+  {
+    "id": 32,
+    "subtopic": "Manage virtual machine disks",
+    "question": "What is the function of the temporary disk (usually drive D: on Windows, /dev/sdb1 on Linux) on an Azure VM?",
+    "options": [
+      "To store the OS page file and temporary data",
+      "To store persistent application data",
+      "To hold the system backup",
+      "To host the Azure Disk Encryption keys"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "The temporary disk is used for page files, swap space, and transient data that does not need to persist across reboots or deallocations.",
+      "incorrectReasons": [
+        "The temporary disk is non-persistent; data is lost if the VM is moved to a new host.",
+        "Backups should be stored in a vault or on persistent managed disks.",
+        "ADE keys are stored in Azure Key Vault."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/virtual-machines/managed-disks-overview#temporary-disk"
+    }
+  },
+  {
+    "id": 33,
+    "subtopic": "Manage virtual machine disks",
+    "question": "Which feature allows you to take a read-only, point-in-time copy of a managed disk?",
+    "options": [
+      "Snapshot",
+      "Availability Set",
+      "Incremental Backup",
+      "Disk Copy"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "A snapshot is a full or incremental copy of a managed disk that can be used to create new disks or restore a VM to a previous state.",
+      "incorrectReasons": [
+        "Availability Sets are for high availability, not data copying.",
+        "Incremental Backup is part of Azure Backup services, not a direct disk feature.",
+        "Disk Copy is not a specific Azure resource name."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/virtual-machines/snapshot-copy-managed-disk"
+    }
+  },
+  {
+    "id": 34,
+    "subtopic": "Manage virtual machine disks",
+    "question": "You have a Standard SSD data disk and want to change its disk type to Premium SSD. What is the correct procedure?",
+    "options": [
+      "Stop the VM if it is running, open the disk's Size + performance settings, change Account type to Premium SSD, and save",
+      "Delete the disk and restore it from backup",
+      "This change isn't possible",
+      "Use Azure Migrate to convert the disk"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Microsoft supports changing an existing managed disk from Standard SSD to Premium SSD. In the portal, stop the VM if necessary, open the disk, select Size + performance, change Account type, and save.",
+      "incorrectReasons": [
+        "A backup restore isn't required for a supported disk-type conversion.",
+        "Managed disks can be converted between supported disk types.",
+        "Azure Migrate isn't the tool used for a managed-disk SKU conversion."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/virtual-machines/disks-convert-types#change-the-type-of-an-individual-managed-disk"
+    }
+  },
+  {
+    "id": 35,
+    "subtopic": "Manage virtual machine disks",
+    "question": "What is 'Host Caching' in the context of Azure VM disks?",
+    "options": [
+      "A way to cache disk data in the VM's local RAM or SSD for faster access",
+      "A method to distribute disk load across multiple storage accounts",
+      "A security feature that encrypts data at the host level",
+      "A load balancer for disk IOPS"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Host caching uses the host's memory/SSD to store frequently accessed data, reducing latency and potentially increasing throughput (Read-only or Read/Write).",
+      "incorrectReasons": [
+        "Storage accounts are a different layer of the stack.",
+        "Encryption at host is a separate security feature.",
+        "Host caching is about speed, not load balancing across different disks."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/virtual-machines/disks-performance#caching"
+    }
+  },
+  {
+    "id": 36,
+    "subtopic": "Deploy virtual machines to availability zones and availability sets",
+    "question": "You need to deploy two VMs for a web application. You want to protect against hardware failures within a single data center. Which feature should you use?",
+    "options": [
+      "Availability Set",
+      "Availability Zone",
+      "Virtual Machine Scale Set",
+      "Geographic Replication"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Availability Sets protect against hardware failures within a data center by distributing VMs across different Update and Fault domains.",
+      "incorrectReasons": [
+        "Availability Zones protect against the failure of an entire data center, not just hardware within one.",
+        "VMSS is for scaling, though it can use availability sets/zones.",
+        "Geographic Replication is for regional disasters."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/virtual-machines/availability-set-overview"
+    }
+  },
+  {
+    "id": 37,
+    "subtopic": "Deploy virtual machines to availability zones and availability sets",
+    "question": "In an Availability Set, what is the purpose of an 'Update Domain'?",
+    "options": [
+      "To ensure VMs are not all rebooted at the same time during planned maintenance",
+      "To protect against physical power failures",
+      "To define which region the VM is updated in",
+      "To manage Windows Update settings"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Update Domains ensure that only a portion of the VMs in an Availability Set are rebooted at any given time during Azure platform updates.",
+      "incorrectReasons": [
+        "Fault Domains protect against physical power and network failures.",
+        "Update Domains are internal to a data center/set, not regional.",
+        "Guest OS updates are managed by the user, not the update domain."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/virtual-machines/availability-set-overview#how-do-availability-sets-work"
+    }
+  },
+  {
+    "id": 38,
+    "subtopic": "Deploy virtual machines to availability zones and availability sets",
+    "question": "Which VM deployment option provides the 99.99% Azure VM availability SLA?",
+    "options": [
+      "Two or more VMs deployed across Availability Zones",
+      "Two or more VMs in an Availability Set",
+      "A single VM with Premium SSD",
+      "A single VM deployed in two regions"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Azure documents a 99.99% availability SLA for two or more VMs deployed across Availability Zones. Availability sets provide a 99.95% SLA with two or more VMs.",
+      "incorrectReasons": [
+        "Two or more VMs in an Availability Set provide a 99.95% SLA.",
+        "Premium SSD doesn't by itself provide a 99.99% VM availability SLA for a single VM.",
+        "A single VM cannot be deployed in two regions; multi-region architectures use separate resources and are not the single VM SLA option described here."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/virtual-machines/availability"
+    }
+  },
+  {
+    "id": 39,
+    "subtopic": "Deploy virtual machines to availability zones and availability sets",
+    "question": "You are deploying a VM into an Availability Zone. How many Availability Zones are typically available in an Azure region that supports them?",
+    "options": [
+      "1",
+      "2",
+      "3",
+      "5"
+    ],
+    "correct": 2,
+    "explanation": {
+      "correctReason": "Most Azure regions that support Availability Zones offer at least three distinct zones.",
+      "incorrectReasons": [
+        "One zone provides no redundancy.",
+        "Two is a minimum for some services, but 3 is the Azure standard.",
+        "Azure does not currently offer a standard of 5 zones per region."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/reliability/availability-zones-overview"
+    }
+  },
+  {
+    "id": 40,
+    "subtopic": "Deploy virtual machines to availability zones and availability sets",
+    "question": "What is a 'Proximity Placement Group'?",
+    "options": [
+      "A grouping of VMs to ensure they are physically close to each other for low latency",
+      "A way to group VMs in different regions for backup",
+      "A security group for VMs in the same subnet",
+      "A method to place VMs in different availability zones"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Proximity Placement Groups are used to minimize network latency between VMs by ensuring they are located in the same physical data center.",
+      "incorrectReasons": [
+        "Regional grouping is for DR, not proximity.",
+        "Security groups (NSGs) handle network filtering.",
+        "Availability Zones deliberately place VMs further apart, the opposite of a Proximity Placement Group."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/virtual-machines/co-location"
+    }
+  },
+  {
+    "id": 41,
+    "subtopic": "Deploy virtual machines to availability zones and availability sets",
+    "question": "Can you add an existing VM to an Availability Set after it has been created?",
+    "options": [
+      "Yes, via the Portal",
+      "Yes, but only using PowerShell",
+      "No, the VM must be created within the Availability Set",
+      "Yes, if the VM is deallocated"
+    ],
+    "correct": 2,
+    "explanation": {
+      "correctReason": "A VM must be assigned to an Availability Set during its creation. You cannot add an existing VM to an Availability Set later without recreating it.",
+      "incorrectReasons": [
+        "There is no Portal option for this.",
+        "PowerShell cannot move a VM into a set without deletion/recreation.",
+        "Deallocation does not change the metadata assignment requirement."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/virtual-machines/windows/change-availability-set"
+    }
+  },
+  {
+    "id": 42,
+    "subtopic": "Deploy virtual machines to availability zones and availability sets",
+    "question": "What is the maximum number of fault domains supported by an Azure Availability Set?",
+    "options": [
+      "3",
+      "5",
+      "10",
+      "20"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "An Azure Availability Set can have up to three fault domains. The number of update domains can be up to 20.",
+      "incorrectReasons": [
+        "Five isn't the maximum number of fault domains.",
+        "Ten isn't the maximum number of fault domains.",
+        "Twenty is the maximum number of update domains, not fault domains."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/virtual-machines/availability-set-overview#how-do-availability-sets-work"
+    }
+  },
+  {
+    "id": 43,
+    "subtopic": "Deploy and configure an Azure Virtual Machine Scale Sets",
+    "question": "What is the primary benefit of using a Virtual Machine Scale Set (VMSS)?",
+    "options": [
+      "Automatic scaling of VM instances based on demand",
+      "Automatic backup of all VMs",
+      "Providing a static IP for every VM",
+      "Assigning unique DNS names to each instance"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "VMSS allows you to create and manage a group of load-balanced VMs that can automatically increase or decrease in number based on demand or a defined schedule.",
+      "incorrectReasons": [
+        "Backup is handled by Azure Backup, not inherently by VMSS scaling.",
+        "VMSS instances usually share a load balancer and don't require individual public static IPs.",
+        "While possible, unique DNS names aren't the primary purpose; scaling is."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/virtual-machine-scale-sets/overview"
+    }
+  },
+  {
+    "id": 44,
+    "subtopic": "Deploy and configure an Azure Virtual Machine Scale Sets",
+    "question": "You want to ensure that a VMSS automatically adds instances when the average CPU usage across the set exceeds 75%. Which feature should you configure?",
+    "options": [
+      "Autoscale rules",
+      "Update Policy",
+      "Fault Domains",
+      "Load Balancer Health Probes"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Autoscale rules define the metrics (like CPU) and thresholds required to trigger scaling actions.",
+      "incorrectReasons": [
+        "Update Policy defines how instances are updated when the scale set model changes.",
+        "Fault Domains are for high availability placement, not scaling triggers.",
+        "Health Probes tell the load balancer if an instance is healthy, but they don't trigger scaling."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/virtual-machine-scale-sets/virtual-machine-scale-sets-autoscale-overview"
+    }
+  },
+  {
+    "id": 45,
+    "subtopic": "Deploy and configure an Azure Virtual Machine Scale Sets",
+    "question": "You have a VMSS with a 'Manual' upgrade policy. You update the VMSS model to use a newer version of the OS image. What happens to the existing instances?",
+    "options": [
+      "They are updated automatically",
+      "They continue to run the old version until they are manually updated",
+      "They are deleted immediately",
+      "The update is blocked until all instances are stopped"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "With a Manual upgrade policy, existing instances are not updated to the new model until you manually trigger the upgrade on those specific instances.",
+      "incorrectReasons": [
+        "Automatic updates only happen with the 'Automatic' or 'Rolling' policy.",
+        "Azure does not delete running instances just because a model changed.",
+        "The update is applied to the model (future instances), it's not blocked."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/virtual-machine-scale-sets/virtual-machine-scale-sets-upgrade-policy"
+    }
+  },
+  {
+    "id": 46,
+    "subtopic": "Deploy and configure an Azure Virtual Machine Scale Sets",
+    "question": "What is 'Overprovisioning' in an Azure Virtual Machine Scale Set?",
+    "options": [
+      "The practice of spinning up more VMs than requested to ensure successful deployment",
+      "Assigning more RAM than a VM can actually use",
+      "Using a larger VM size than required",
+      "Creating more scale sets than the subscription limit allows"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Overprovisioning is a setting where VMSS spins up more instances than requested to account for potential deployment failures; once the desired number are successful, the extras are deleted.",
+      "incorrectReasons": [
+        "RAM assignment is part of the VM size definition.",
+        "Right-sizing is the opposite of using a larger size than required.",
+        "Subscription limits cannot be exceeded by overprovisioning."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/virtual-machine-scale-sets/virtual-machine-scale-sets-placement-groups#checklist-for-using-large-scale-sets"
+    }
+  },
+  {
+    "id": 47,
+    "subtopic": "Deploy and configure an Azure Virtual Machine Scale Sets",
+    "question": "You need to distribute VMSS instances across multiple data centers in a region. Which setting should you use?",
+    "options": [
+      "Availability Zones",
+      "Availability Sets",
+      "Placement Groups",
+      "Subnets"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "By selecting multiple Availability Zones for a VMSS, Azure distributes the instances across different data centers within the region.",
+      "incorrectReasons": [
+        "Availability Sets are within a single data center.",
+        "Placement Groups can be used to manage how many VMs are in a group but zones are the regional data center unit.",
+        "Subnets are networking constructs and don't guarantee physical distribution."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/virtual-machine-scale-sets/virtual-machine-scale-sets-use-availability-zones"
+    }
+  },
+  {
+    "id": 48,
+    "subtopic": "Deploy and configure an Azure Virtual Machine Scale Sets",
+    "question": "What mechanism does an Azure Load Balancer use to determine whether a VMSS instance is healthy enough to receive traffic?",
+    "options": [
+      "A health probe",
+      "RDP",
+      "SSH",
+      "SNMP"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Azure Load Balancer uses health probes to determine whether backend instances are healthy and should receive traffic.",
+      "incorrectReasons": [
+        "RDP is a remote-management protocol for Windows and isn't the Load Balancer health mechanism.",
+        "SSH is a remote-management protocol for Linux and isn't the Load Balancer health mechanism.",
+        "SNMP is a network-management protocol and isn't the standard Azure Load Balancer health mechanism."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/load-balancer/load-balancer-custom-probe-overview"
+    }
+  },
+  {
+    "id": 49,
+    "subtopic": "Deploy and configure an Azure Virtual Machine Scale Sets",
+    "question": "You want to deploy a VMSS that uses a custom-configured OS image. Where should you store this image for use with the scale set?",
+    "options": [
+      "Azure Compute Gallery (Shared Image Gallery)",
+      "An Azure Storage Account container",
+      "A local drive on the administrator's PC",
+      "Azure Key Vault"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Azure Compute Gallery is the recommended way to manage and share custom VM images across subscriptions and regions.",
+      "incorrectReasons": [
+        "While images were once stored as blobs, Compute Gallery is the modern, scalable standard.",
+        "Local drives cannot be accessed by Azure during automated scaling.",
+        "Key Vault stores secrets and keys, not OS images."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/virtual-machines/shared-image-galleries"
+    }
+  },
+  {
+    "id": 50,
+    "subtopic": "Deploy and configure an Azure Virtual Machine Scale Sets",
+    "question": "Which VMSS orchestration mode allows for the greatest flexibility and the use of heterogeneous VM sizes within the same set?",
+    "options": [
+      "Flexible",
+      "Uniform",
+      "Static",
+      "Manual"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Flexible orchestration mode allows you to mix different VM sizes and types within the same scale set and offers better control over individual VMs.",
+      "incorrectReasons": [
+        "Uniform orchestration mode requires all VMs in the set to be identical clones.",
+        "Static and Manual are not names of VMSS orchestration modes.",
+        "Manual refers to an upgrade policy, not the orchestration mode."
+      ],
+      "reference": "https://learn.microsoft.com/en-us/azure/virtual-machine-scale-sets/virtual-machine-scale-sets-orchestration-modes"
+    }
+  }
+]

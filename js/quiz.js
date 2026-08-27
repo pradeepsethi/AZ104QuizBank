@@ -490,9 +490,10 @@ function showError(msg) {
   if (quizCard) quizCard.innerHTML = `<div class="error-message">${msg}</div>`;
 }
 
-// Looks up how many times the signed-in user has previously completed a quiz
-// with this exact title (across all question sets) and shows a small summary
-// under the page title: attempt count, best score, and when it was last taken.
+// Looks up how many times the signed-in user has previously completed this
+// exact quiz — same title AND same question set — and shows a small summary
+// next to the Question Set dropdown: attempt count, best score, and when it
+// was last taken. Switching sets re-runs this for the newly selected set.
 async function showAttemptIndicator() {
   const indicatorElem = document.getElementById("attempt-indicator");
   if (!indicatorElem || !currentUser || !activeQuizTitle) return;
@@ -501,18 +502,19 @@ async function showAttemptIndicator() {
   indicatorElem.textContent = "Checking attempt history…";
 
   try {
-    // Note: intentionally NOT combined with orderBy() here — a where() + orderBy()
-    // on different fields requires a Firestore composite index to exist first.
-    // We sort client-side instead so this works out of the box.
+    // Note: two equality (==) filters on different fields do NOT require a
+    // Firestore composite index — only combining where() with orderBy() on a
+    // different field does. So this stays index-free.
     const q = query(
       collection(db, "users", currentUser.uid, "scores"),
-      where("quizTitle", "==", activeQuizTitle)
+      where("quizTitle", "==", activeQuizTitle),
+      where("quizSet", "==", activeQuizSet)
     );
     const snapshot = await getDocs(q);
 
     if (snapshot.empty) {
       indicatorElem.classList.add("attempt-indicator--new");
-      indicatorElem.textContent = "🆕 First time attempting this quiz";
+      indicatorElem.textContent = `🆕 First time on ${activeQuizSet}`;
       return;
     }
 
@@ -540,7 +542,7 @@ async function showAttemptIndicator() {
     const lastPct = latestData ? (latestData.percentage ?? "N/A") : "N/A";
 
     indicatorElem.classList.add("attempt-indicator--attempted");
-    indicatorElem.textContent = `🔁 Attempted ${timesLabel} · Best: ${bestPercentage}% · Last: ${lastPct}% on ${lastDateStr}`;
+    indicatorElem.textContent = `🔁 Attempted ${timesLabel} on ${activeQuizSet} · Best: ${bestPercentage}% · Last: ${lastPct}% on ${lastDateStr}`;
   } catch (error) {
     console.error("Error checking attempt history:", error);
     indicatorElem.textContent = "";

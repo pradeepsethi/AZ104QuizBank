@@ -1,5 +1,5 @@
 import { getAuth, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+import { getFirestore, collection, addDoc, getDocs, query, where, orderBy, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 import { app, saveUserProfile } from "./firebase-config.js";
 
 const auth = getAuth(app);
@@ -109,6 +109,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (quizTitleElem) quizTitleElem.textContent = activeQuizTitle;
     if (quizTitleTag) quizTitleTag.textContent = activeQuizTitle;
   }
+
+  showAttemptIndicator();
 
   startTimer();
 
@@ -486,4 +488,54 @@ async function finishQuiz() {
 function showError(msg) {
   const quizCard = document.getElementById("quiz-card");
   if (quizCard) quizCard.innerHTML = `<div class="error-message">${msg}</div>`;
+}
+
+// Looks up how many times the signed-in user has previously completed a quiz
+// with this exact title (across all question sets) and shows a small summary
+// under the page title: attempt count, best score, and when it was last taken.
+async function showAttemptIndicator() {
+  const indicatorElem = document.getElementById("attempt-indicator");
+  if (!indicatorElem || !currentUser || !activeQuizTitle) return;
+
+  indicatorElem.className = "attempt-indicator";
+  indicatorElem.textContent = "Checking attempt history…";
+
+  try {
+    const q = query(
+      collection(db, "users", currentUser.uid, "scores"),
+      where("quizTitle", "==", activeQuizTitle),
+      orderBy("timestamp", "desc")
+    );
+    const snapshot = await getDocs(q);
+
+    if (snapshot.empty) {
+      indicatorElem.classList.add("attempt-indicator--new");
+      indicatorElem.textContent = "🆕 First time attempting this quiz";
+      return;
+    }
+
+    let attemptCount = 0;
+    let bestPercentage = -Infinity;
+    let latestData = null;
+
+    snapshot.forEach((docSnap) => {
+      const data = docSnap.data();
+      attemptCount += 1;
+      const pct = typeof data.percentage === "number" ? data.percentage : parseFloat(data.percentage) || 0;
+      if (pct > bestPercentage) bestPercentage = pct;
+      if (!latestData) latestData = data; // snapshot is ordered desc, so first doc is the latest
+    });
+
+    const timesLabel = attemptCount === 1 ? "1 time" : `${attemptCount} times`;
+    const lastDateStr = latestData && latestData.timestamp
+      ? new Date(latestData.timestamp.toDate()).toLocaleDateString()
+      : "N/A";
+    const lastPct = latestData ? (latestData.percentage ?? "N/A") : "N/A";
+
+    indicatorElem.classList.add("attempt-indicator--attempted");
+    indicatorElem.textContent = `🔁 Attempted ${timesLabel} · Best: ${bestPercentage}% · Last: ${lastPct}% on ${lastDateStr}`;
+  } catch (error) {
+    console.error("Error checking attempt history:", error);
+    indicatorElem.textContent = "";
+  }
 }

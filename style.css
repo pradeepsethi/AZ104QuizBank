@@ -114,6 +114,21 @@ code {
   opacity: 0.9;
 }
 
+.attempt-indicator {
+  margin: 6px 0 0 0;
+  font-size: 12px;
+  min-height: 15px;
+}
+
+.attempt-indicator--new {
+  opacity: 0.85;
+}
+
+.attempt-indicator--attempted {
+  font-weight: 600;
+  opacity: 0.95;
+}
+
 /* ---------- Auth / user info ---------- */
 
 #auth-container {

@@ -1,5 +1,5 @@
 import { getAuth, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-import { getFirestore, collection, addDoc, getDocs, query, where, orderBy, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+import { getFirestore, collection, addDoc, getDocs, query, where, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 import { app, saveUserProfile } from "./firebase-config.js";
 
 const auth = getAuth(app);
@@ -501,10 +501,12 @@ async function showAttemptIndicator() {
   indicatorElem.textContent = "Checking attempt history…";
 
   try {
+    // Note: intentionally NOT combined with orderBy() here — a where() + orderBy()
+    // on different fields requires a Firestore composite index to exist first.
+    // We sort client-side instead so this works out of the box.
     const q = query(
       collection(db, "users", currentUser.uid, "scores"),
-      where("quizTitle", "==", activeQuizTitle),
-      orderBy("timestamp", "desc")
+      where("quizTitle", "==", activeQuizTitle)
     );
     const snapshot = await getDocs(q);
 
@@ -517,13 +519,18 @@ async function showAttemptIndicator() {
     let attemptCount = 0;
     let bestPercentage = -Infinity;
     let latestData = null;
+    let latestMs = -Infinity;
 
     snapshot.forEach((docSnap) => {
       const data = docSnap.data();
       attemptCount += 1;
       const pct = typeof data.percentage === "number" ? data.percentage : parseFloat(data.percentage) || 0;
       if (pct > bestPercentage) bestPercentage = pct;
-      if (!latestData) latestData = data; // snapshot is ordered desc, so first doc is the latest
+      const ms = data.timestamp ? data.timestamp.toDate().getTime() : 0;
+      if (ms >= latestMs) {
+        latestMs = ms;
+        latestData = data;
+      }
     });
 
     const timesLabel = attemptCount === 1 ? "1 time" : `${attemptCount} times`;

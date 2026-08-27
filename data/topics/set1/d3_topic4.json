@@ -1,1052 +1,1052 @@
 [
   {
     "id": 1,
-    "subtopic": "Provision an App Service plan",
-    "question": "You plan to deploy a web application to Azure App Service. The application requires custom domain support, manual scaling up to 3 instances, and daily automated backups. You need to select the most cost-effective App Service plan tier that meets these requirements.",
+    "subtopic": "Interpret an Azure Resource Manager template or a Bicep file",
+    "question": "You review a Bicep file containing the following resource declaration:\n\nresource stg 'Microsoft.Storage/storageAccounts@2023-01-01' = {\n  name: 'appstg${uniqueString(resourceGroup().id)}'\n  location: 'eastus'\n  sku: {\n    name: 'Standard_LRS'\n  }\n  kind: 'StorageV2'\n}\n\nWhat is the primary function of the uniqueString(resourceGroup().id) function in this declaration?",
     "options": [
-      "Free (F1)",
-      "Basic (B1)",
-      "Standard (S1)",
-      "Premium (P1v3)"
+      "Generates a completely random string every time the Bicep template is deployed.",
+      "Creates a deterministic 13-character hash based on the resource group ID.",
+      "Converts the resource group ID into a GUID format required for Azure Storage naming.",
+      "Ensures the storage account name is encrypted prior to deployment."
     ],
-    "correct": 2,
+    "correct": 1,
     "explanation": {
-      "correctReason": "The Standard (S1) tier is the lowest pricing tier that supports automated backups, custom domains, and auto/manual scaling up to 10 instances.",
+      "correctReason": "The uniqueString() function creates a deterministic 13-character hash from the supplied value. Using resourceGroup().id makes the result deterministic for that resource group; it isn't a random or globally unique string.",
       "incorrectReasons": [
-        "The Free (F1) tier does not support custom domains, scaling beyond 1 instance, or backups.",
-        "The Basic (B1) tier supports custom domains and scaling up to 3 instances, but it does not support automated backups.",
-        "The Premium (P1v3) tier meets all requirements but is more expensive than the Standard tier."
+        "uniqueString() is deterministic, not random; the same input produces the same output.",
+        "uniqueString() returns a 13-character hash string, not a GUID.",
+        "It is used to generate deterministic values for naming and other identifiers, not to encrypt resource names."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/app-service/overview-hosting-plans"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/bicep-functions-string#uniquestring"
     }
   },
   {
     "id": 2,
-    "subtopic": "Provision an App Service plan",
-    "question": "You have an App Service plan hosted on Linux in the East US region. You attempt to create a second Linux web app in a different resource group and select the existing App Service plan, but the plan does not appear in the selection list. What is the most likely cause of this issue?",
+    "subtopic": "Interpret an Azure Resource Manager template or a Bicep file",
+    "question": "You examine an ARM JSON template that contains the following parameter definition:\n\n\"adminPassword\": {\n  \"type\": \"securestring\", \"metadata\": {\n    \"description\": \"Administrator password for the VM.\"\n  }\n}\n\nWhich statement accurately describes how Azure Resource Manager handles this parameter?",
     "options": [
-      "The new web app is being created in a different Azure subscription than the resource group.",
-      "Linux web apps cannot share an App Service plan with other Linux web apps.",
-      "The web app deployment attempt is targeting a different Azure region than the App Service plan.",
-      "The original App Service plan is configured with the Free tier which limits app creation."
+      "The value is stored in plain text in the deployment history but hidden from the Azure Portal UI.",
+      "The parameter value is automatically stored in Azure Key Vault upon template deployment.",
+      "The parameter value isn't saved in deployment history or logged.",
+      "The value must be provided as a Base64-encoded string in the parameter file."
     ],
     "correct": 2,
     "explanation": {
-      "correctReason": "An App Service plan is tied to a specific region. An App Service can only be associated with an App Service plan located in the same region.",
+      "correctReason": "A secureString parameter value isn't saved to deployment history and isn't logged. Declaring the parameter as secureString protects the parameter value from being exposed through deployment history or logs.",
       "incorrectReasons": [
-        "An App Service plan can host multiple apps across different resource groups within the same subscription and region.",
-        "Multiple Linux web apps can share the same App Service plan.",
-        "The Free tier allows hosting up to 10 apps per plan."
+        "Secure parameters aren't saved in plain text in deployment history.",
+        "Declaring a parameter as secureString doesn't automatically store its value in Azure Key Vault.",
+        "Base64 encoding isn't required for secureString parameter values."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/app-service/overview-hosting-plans#where-is-my-app-running"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/templates/parameters#secure-parameters"
     }
   },
   {
     "id": 3,
-    "subtopic": "Provision an App Service plan",
-    "question": "An enterprise requires hosting an Azure Web App inside an isolated, dedicated compute environment with private network access to an Azure Virtual Network. Which App Service plan deployment option should you choose?",
+    "subtopic": "Interpret an Azure Resource Manager template or a Bicep file",
+    "question": "You inspect a Bicep file that includes an existing resource reference:\n\nresource vnet 'Microsoft.Network/virtualNetworks@2023-05-01' existing = {\n  name: 'prod-vnet'\n}\n\nHow does Bicep treat this resource during deployment?",
     "options": [
-      "Standard plan with VNet Integration",
-      "Premium v3 plan with Private Endpoints",
-      "App Service Environment (ASEv3)",
-      "Isolated v2 App Service Plan"
+      "It provisions a new Virtual Network named 'prod-vnet' if it does not exist.",
+      "It updates the configuration of the existing Virtual Network named 'prod-vnet'.",
+      "It reads the state and properties of an existing Virtual Network without modifying or deploying it.",
+      "It deletes and recreates the Virtual Network named 'prod-vnet' to ensure clean state."
     ],
     "correct": 2,
     "explanation": {
-      "correctReason": "App Service Environment (ASEv3) provides a completely isolated and dedicated environment for running Azure App Service apps securely at high scale.",
+      "correctReason": "The 'existing' keyword in Bicep allows referencing a pre-existing resource to read its properties (like resource ID or subnet IDs) without deploying or updating that resource.",
       "incorrectReasons": [
-        "Standard plan with VNet Integration provides outbound connectivity but does not host the app in an isolated dedicated environment.",
-        "Premium v3 with Private Endpoints secures inbound access but does not run on isolated single-tenant infrastructure.",
-        "Isolated v2 is the pricing SKU tier associated with ASEv3, but ASEv3 is the underlying Azure hosting resource configuration for isolated workloads."
+        "It will fail if the resource does not exist because it does not provision missing resources.",
+        "It is read-only and does not update existing resources.",
+        "It does not delete or re-create the resource."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/app-service/environment/overview"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/existing-resource"
     }
   },
   {
     "id": 4,
-    "subtopic": "Provision an App Service plan",
-    "question": "You have a single App Service plan hosting five web applications. Traffic to one web app increases significantly, causing high CPU utilization on the underlying virtual instances. How does this impact the other four web apps?",
+    "subtopic": "Interpret an Azure Resource Manager template or a Bicep file",
+    "question": "An ARM template defines the following section:\n\n\"resources\": [\n  {\n    \"type\": \"Microsoft.Compute/virtualMachines\",\n    \"name\": \"[parameters('vmName')]\",\n    \"dependsOn\": [\n      \"[resourceId('Microsoft.Network/networkInterfaces', parameters('nicName'))]\"\n    ]\n  }\n]\n\nWhat is the impact of the 'dependsOn' element in this ARM template?",
     "options": [
-      "The other four web apps are unaffected because App Service isolates CPU resources per web app.",
-      "The other four web apps experience performance degradation because all apps share the same compute resources.",
-      "The remaining four web apps automatically move to a new dedicated App Service plan.",
-      "Azure automatically throttles traffic strictly to the single high-traffic web app while preserving baseline CPU for others."
+      "It causes the Virtual Machine and Network Interface to be created simultaneously in parallel.",
+      "It ensures Azure Resource Manager deploys the Network Interface before attempting to deploy the Virtual Machine.",
+      "It creates an automatic lock on the Network Interface preventing deletion.",
+      "It configures a network connection between the VM and the Network Interface at runtime."
     ],
     "correct": 1,
     "explanation": {
-      "correctReason": "All web applications configured within the same App Service plan run on the same virtual machine instances and share the underlying CPU, memory, and disk resources.",
+      "correctReason": "The dependsOn property creates an explicit deployment dependency. Azure Resource Manager waits for the referenced Network Interface deployment to complete before deploying the Virtual Machine; unrelated resources can still deploy in parallel.",
       "incorrectReasons": [
-        "App Service does not enforce hard CPU resource isolation between web apps within the same plan.",
-        "Azure does not automatically migrate web apps to separate App Service plans upon high utilization.",
-        "Azure App Service does not dynamically throttle incoming HTTP requests based on per-app CPU allocations within a shared plan."
+        "dependsOn establishes the specified dependency; it doesn't require every resource in the template to deploy sequentially.",
+        "It controls deployment sequencing and doesn't create a resource lock.",
+        "It controls deployment order and doesn't configure runtime network connectivity."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/app-service/overview-hosting-plans#how-does-my-app-run-and-scale"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/templates/resource-dependency"
     }
   },
   {
     "id": 5,
-    "subtopic": "Provision an App Service plan",
-    "question": "You need to migrate an Azure App Service plan from the Basic (B1) tier to the Standard (S1) tier using the Azure CLI. Which command should you run?",
+    "subtopic": "Interpret an Azure Resource Manager template or a Bicep file",
+    "question": "You are reviewing a Bicep module declaration:\n\nmodule vnetModule './vnet.bicep' = {\n  name: 'vnetDeploy'\n  params: {\n    vnetAddressPrefix: '10.0.0.0/16'\n  }\n}\n\nWhat does this construct achieve?",
     "options": [
-      "az appservice plan update --name MyPlan --resource-group MyRG --sku S1",
-      "az webapp update --name MyPlan --resource-group MyRG --plan S1",
-      "az appservice plan scale --name MyPlan --resource-group MyRG --tier Standard",
-      "az webapp scale --name MyPlan --resource-group MyRG --sku S1"
+      "Downloads and executes a remote Bicep module from Azure Container Registry.",
+      "References and deploys a local Bicep file ('vnet.bicep') passing 'vnetAddressPrefix' as a parameter.",
+      "Exports the current Bicep state into a file named 'vnet.bicep'.",
+      "Validates the syntax of 'vnet.bicep' without provisioning resources."
     ],
-    "correct": 0,
+    "correct": 1,
     "explanation": {
-      "correctReason": "The command 'az appservice plan update' with the '--sku' parameter is used to change the pricing tier/SKU of an existing App Service plan.",
+      "correctReason": "The 'module' keyword in Bicep allows composing templates by calling child Bicep files (here a local file path './vnet.bicep') and passing values to its defined parameters.",
       "incorrectReasons": [
-        "'az webapp update' updates settings for a specific web application, not the underlying hosting plan SKU.",
-        "'az appservice plan scale' is not a valid Azure CLI command syntax for changing plan tiers.",
-        "'az webapp scale' is not a valid Azure CLI command for updating App Service plans."
+        "This references a local file path, not an ACR registry path.",
+        "It deploys the module, rather than exporting template state.",
+        "It provisions the resources defined inside vnet.bicep, rather than performing a syntax-only dry run."
       ],
-      "reference": "https://learn.microsoft.com/en-us/cli/azure/appservice/plan#az-appservice-plan-update"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/modules"
     }
   },
   {
     "id": 6,
-    "subtopic": "Provision an App Service plan",
-    "question": "You are creating a new Linux-based Azure Web App using an Azure Resource Manager (ARM) template. Which property in the App Service plan resource definition specifies that the OS platform is Linux?",
+    "subtopic": "Interpret an Azure Resource Manager template or a Bicep file",
+    "question": "In an ARM JSON template, you see the expression:\n\n\"[concat('vm-', uniqueString(resourceGroup().id))]\"\n\nWhich Bicep string interpolation equivalent corresponds to this ARM expression?",
     "options": [
-      "\"operatingSystem\": \"Linux\"",
-      "\"kind\": \"linux\"",
-      "\"reserved\": true",
-      "\"isLinux\": true"
+      "'vm-${uniqueString(resourceGroup().id)}'",
+      "concat('vm-', uniqueString(resourceGroup().id))",
+      "'vm-' + uniqueString(resourceGroup().id)",
+      "\"vm-${uniqueString(resourceGroup().id)}\""
     ],
-    "correct": 2,
+    "correct": 0,
     "explanation": {
-      "correctReason": "In Azure Resource Manager templates, setting the property \"reserved\": true on an Azure App Service plan (Microsoft.Web/serverfarms) configures it as a Linux App Service plan.",
+      "correctReason": "In Bicep, string interpolation uses single quotes with the `${expression}` syntax. Thus `'vm-${uniqueString(resourceGroup().id)}'` is the exact equivalent.",
       "incorrectReasons": [
-        "\"operatingSystem\": \"Linux\" is not a valid ARM template property for serverfarms resources.",
-        "\"kind\": \"linux\" is often used on web app resources (Microsoft.Web/sites), but for Linux App Service plans, \"reserved\": true must be specified.",
-        "\"isLinux\": true is not a recognized ARM schema property for Azure App Service plans."
+        "Bicep uses single quotes for string literals and interpolation.",
+        "The string addition sign '+' is not valid string interpolation syntax in Bicep.",
+        "Double quotes are not used for string literals or string interpolation in Bicep."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/templates/microsoft.web/serverfarms"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/data-types#strings"
     }
   },
   {
     "id": 7,
-    "subtopic": "Configure scaling for an App Service plan",
-    "question": "You configure an autoscale rule for an App Service plan based on average CPU percentage. The rule increases instance count by 1 when CPU exceeds 70% for 10 minutes. You notice the plan scales up during peak times but fails to scale down when CPU drops below 20%. What is the most likely cause?",
+    "subtopic": "Interpret an Azure Resource Manager template or a Bicep file",
+    "question": "You analyze a Bicep resource that includes a loop:\n\nresource storageAccounts 'Microsoft.Storage/storageAccounts@2023-01-01' = [for name in accountNames: {\n  name: name\n  location: 'eastus'\n  sku: { name: 'Standard_LRS' }\n  kind: 'StorageV2'\n}]\n\nAssuming 'accountNames' is an array of 3 strings, what will Bicep create?",
     "options": [
-      "Scale-in rules are not automatically created when scale-out rules are defined; a scale-in rule must be manually added.",
-      "The scale-in rule cool-down period defaults to 24 hours.",
-      "The minimum instance count in the autoscale profile is set to the current max instance limit.",
-      "Autoscale scale-in is only supported in the Isolated tier."
+      "A single storage account named with the comma-separated values of accountNames.",
+      "Three separate storage accounts deployed in parallel using names from the array.",
+      "A storage account with three containers named after the array elements.",
+      "A storage account deployment that fails because loops are not supported on resource level."
     ],
-    "correct": 0,
+    "correct": 1,
     "explanation": {
-      "correctReason": "Autoscale rules operate independently. Creating a scale-out rule does not automatically generate a corresponding scale-in rule. You must explicitly configure scale-in rules.",
+      "correctReason": "Bicep array iteration `[for name in accountNames: { ... }]` loops over each element in the array and provisions a separate resource instance for each entry. By default, resources in loops deploy in parallel.",
       "incorrectReasons": [
-        "The default cool-down period is typically 5 to 10 minutes, not 24 hours.",
-        "If minimum instance count equaled max instance count, scale-out wouldn't have occurred in the first place.",
-        "Scale-in functionality is supported across Standard, Premium, and Isolated tiers."
+        "It creates individual resources for each array item, not one combined resource.",
+        "It provisions top-level storage accounts, not storage containers inside an account.",
+        "Resource loops are fully supported in Bicep."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/azure-monitor/autoscale/autoscale-best-practices"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/loops"
     }
   },
   {
     "id": 8,
-    "subtopic": "Configure scaling for an App Service plan",
-    "question": "You need to scale an App Service plan from 2 instances to 5 instances during a scheduled promotional event occurring every Friday from 18:00 to 22:00. Which scaling method should you configure?",
+    "subtopic": "Interpret an Azure Resource Manager template or a Bicep file",
+    "question": "Consider the following targetScope declaration at the top of a Bicep file:\n\ntargetScope = 'subscription'\n\nWhich Azure resources can be directly provisioned in this Bicep file?",
     "options": [
-      "Scale up the App Service plan SKU using rule-based metrics.",
-      "Configure an autoscale profile with a schedule-based condition specifying recurrence.",
-      "Configure automatic scaling with memory utilization threshold set to 50%.",
-      "Use Azure Automation Runbooks to scale out manually."
+      "Virtual Machine, Virtual Network, and Storage Account.",
+      "Resource Groups, Role Assignments, and Policy Definitions.",
+      "Management Groups and Tenant-level Policy Definitions only.",
+      "Storage Account Blob Containers and Subnets."
     ],
     "correct": 1,
     "explanation": {
-      "correctReason": "Azure App Service autoscale allows setting schedule-based rules (specific dates or recurring schedules) to adjust instance counts for known traffic spikes.",
+      "correctReason": "When targetScope is set to 'subscription', the template deploys resources directly at the subscription level, such as Resource Groups, Policy Definitions, and Role Assignments.",
       "incorrectReasons": [
-        "Scaling up changes instance compute size (hardware tier), not the number of instances (scale out).",
-        "Metric-based autoscale triggers on resource thresholds rather than specific scheduled times.",
-        "Using Azure Automation Runbooks is unnecessarily complex when native scheduled autoscale conditions exist."
+        "VMs, VNets, and Storage Accounts reside inside resource groups, not directly at the subscription target scope unless deployed via nested/module deployments.",
+        "Management groups are at 'managementGroup' targetScope.",
+        "Containers and subnets are child resources inside resource group scoped resources."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/azure-monitor/autoscale/autoscale-types"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/deploy-to-subscription"
     }
   },
   {
     "id": 9,
-    "subtopic": "Configure scaling for an App Service plan",
-    "question": "What is the key difference between 'Scaling Up' and 'Scaling Out' an App Service plan?",
+    "subtopic": "Interpret an Azure Resource Manager template or a Bicep file",
+    "question": "An ARM template includes an outputs section:\n\n\"outputs\": {\n  \"fqdn\": {\n    \"type\": \"string\",\n    \"value\": \"[reference(resourceId('Microsoft.Network/publicIPAddresses', parameters('publicIPName'))).dnsSettings.fqdn]\"\n  }\n}\n\nWhat is the purpose of this outputs section?",
     "options": [
-      "Scaling up adds more instance virtual machines; scaling out increases CPU and RAM on existing instances.",
-      "Scaling up increases CPU and memory by changing the pricing tier; scaling out increases the number of VM instances running the app.",
-      "Scaling up alters the custom domain configuration; scaling out changes the region hosting the app.",
-      "Scaling up is automated; scaling out can only be performed manually."
+      "To set the DNS FQDN parameter value before deployment starts.",
+      "To return the calculated fully qualified domain name of the Public IP back to the user or deployment engine after deployment.",
+      "To create a runtime dynamic DNS record in Azure DNS.",
+      "To store the FQDN inside Azure Key Vault."
     ],
     "correct": 1,
     "explanation": {
-      "correctReason": "Scale Up means upgrading to a higher pricing tier to get more CPU, RAM, and features. Scale Out means increasing the number of VM instances that host your application.",
+      "correctReason": "The 'outputs' section of an ARM template retrieves values from deployed resources and returns them in the deployment results, allowing scripts or calling templates to consume them.",
       "incorrectReasons": [
-        "This reverses the definitions of scale up and scale out.",
-        "Scaling up/out does not affect custom domain configurations or region deployment.",
-        "Both scale up and scale out can be managed manually or via automated triggers depending on configuration."
+        "Outputs execute after deployment, not before.",
+        "Outputs simply return strings; they do not configure Azure DNS records.",
+        "It returns output data to the caller, not to Key Vault automatically."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/app-service/manage-scale-up"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/templates/template-outputs"
     }
   },
   {
     "id": 10,
-    "subtopic": "Configure scaling for an App Service plan",
-    "question": "You configure an autoscale metric rule with a scale-out trigger when CPU average is > 80% for 5 minutes, and a scale-in trigger when CPU average is < 60% for 5 minutes. Why is a buffer gap between scale-out (80%) and scale-in (60%) thresholds recommended?",
+    "subtopic": "Interpret an Azure Resource Manager template or a Bicep file",
+    "question": "You see the following Bicep conditional resource definition:\n\nresource appGateway 'Microsoft.Network/applicationGateways@2023-05-01' = if (deployAppGateway) {\n  name: 'prod-agw'\n  location: location\n}\n\nWhat happens when the parameter 'deployAppGateway' is evaluated as false during deployment?",
     "options": [
-      "To prevent flapping, where the autoscale engine continuously triggers opposing scale-out and scale-in actions.",
-      "To ensure Azure App Service backup processes run without performance degradation.",
-      "Because Azure App Service requires at least a 20% margin for health probe evaluation.",
-      "To comply with Azure SLA requirements for high availability."
+      "The deployment fails with a syntax error.",
+      "The Application Gateway resource is skipped and not deployed.",
+      "The Application Gateway is deleted if it currently exists in the resource group.",
+      "The Application Gateway is deployed in a disabled state."
     ],
-    "correct": 0,
+    "correct": 1,
     "explanation": {
-      "correctReason": "Flapping occurs when scale-out and scale-in thresholds are too close. Adding a sufficient buffer ensures that scaling in does not immediately cause CPU usage to spike above the scale-out threshold.",
+      "correctReason": "In Bicep, the `if (condition)` construct determines if a resource is included in deployment. If the condition is false, Azure Resource Manager skips provisioning that resource.",
       "incorrectReasons": [
-        "Backup operations are independent of autoscale threshold margins.",
-        "Health probes operate independently of autoscale metric gap margins.",
-        "Azure App Service SLA guarantees uptime based on tier and multi-instance deployment, not autoscale metric thresholds."
+        "Conditional deployment is standard Bicep syntax and will not throw a syntax error.",
+        "Conditional deployments skip creation; in Incremental mode (default), existing resources are not deleted.",
+        "The resource is skipped completely, not created in a disabled state."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/azure-monitor/autoscale/autoscale-best-practices#autoscale-concepts"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/conditional-resource-deployment"
     }
   },
   {
     "id": 11,
-    "subtopic": "Configure scaling for an App Service plan",
-    "question": "You have configured an App Service plan on the Standard (S1) tier. What is the maximum number of instances you can scale out to using autoscale rules?",
+    "subtopic": "Modify an existing Azure Resource Manager template",
+    "question": "You have an existing ARM template deploying a Storage Account. You must update it to ensure all traffic to the storage account requires HTTPS encryption.\n\nWhich property inside the storage account 'properties' block should you add or modify?",
     "options": [
-      "3",
-      "10",
-      "20",
-      "30"
+      "\"supportsHttpsTrafficOnly\": true",
+      "\"enableHttpsEncryption\": true",
+      "\"minimumTlsVersion\": \"TLS1_2\"",
+      "\"allowBlobPublicAccess\": false"
     ],
-    "correct": 1,
+    "correct": 0,
     "explanation": {
-      "correctReason": "The Standard tier (S1, S2, S3) supports scaling up to a maximum of 10 instances.",
+      "correctReason": "The ARM property `supportsHttpsTrafficOnly: true` under `properties` forces the storage account to accept requests only from secure connections (HTTPS).",
       "incorrectReasons": [
-        "3 is the limit for the Basic tier.",
-        "20 is the maximum instance limit for Premium v2 / Premium v3 tiers.",
-        "30 is the maximum instance limit for Isolated v2 tiers in App Service Environment."
+        "'enableHttpsEncryption' is not a valid property on Microsoft.Storage/storageAccounts.",
+        "'minimumTlsVersion' enforces minimum TLS standards, but does not enforce HTTPS over HTTP on its own.",
+        "'allowBlobPublicAccess' controls anonymous public read access to blobs, not protocol transport encryption."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/app-service/overview-hosting-plans"
+      "reference": "https://learn.microsoft.com/en-us/azure/storage/common/storage-require-secure-transfer"
     }
   },
   {
     "id": 12,
-    "subtopic": "Configure scaling for an App Service plan",
-    "question": "You configure Automatic Scaling (autoscale without rules) on a Premium v3 App Service plan. How does Azure manage the instance scale decisions in this mode?",
+    "subtopic": "Modify an existing Azure Resource Manager template",
+    "question": "You need to modify an ARM template so that it retrieves a database administrator password directly from an existing Azure Key Vault during deployment without hardcoding secrets in parameter files.\n\nHow should you configure the parameter reference in your ARM parameter JSON file?",
     "options": [
-      "Azure automatically adjusts instance count between predefined minimum and maximum limits based on HTTP request traffic and load patterns.",
-      "Azure automatically upgrades your pricing tier from P1v3 to P3v3 as CPU usage increases.",
-      "Azure creates additional App Service plans in adjacent regions automatically.",
-      "Azure adjusts CPU cores on individual virtual instances dynamically while keeping instance count fixed."
+      "\"adminPassword\": { \"value\": \"[getSecret('myKeyVault', 'dbPassword')]\" }",
+      "\"adminPassword\": { \"reference\": { \"keyVault\": { \"id\": \"/subscriptions/.../vaults/myKeyVault\" }, \"secretName\": \"dbPassword\" } }",
+      "\"adminPassword\": { \"keyVaultSecret\": \"dbPassword\", \"vaultName\": \"myKeyVault\" }",
+      "\"adminPassword\": { \"type\": \"KeyVaultReference\", \"secret\": \"dbPassword\" }"
     ],
-    "correct": 0,
+    "correct": 1,
     "explanation": {
-      "correctReason": "Automatic scaling automatically scales instance counts based on incoming web traffic and platform health signals without requiring manual metric rule definitions.",
+      "correctReason": "In ARM parameter files, referencing keyVault with resource ID and secretName inside the `reference` block allows ARM to fetch the secret dynamically from Azure Key Vault during execution.",
       "incorrectReasons": [
-        "Automatic scaling adjusts instance count (scale out), not pricing tier hardware specs (scale up).",
-        "Automatic scaling does not deploy resources across multiple regions automatically.",
-        "App Service virtual machine instance CPU/RAM allocations are fixed per tier; instance counts are scaled."
+        "getSecret is not a valid parameter file wrapper function for ARM template parameter files.",
+        "'keyVaultSecret' is invalid syntax in ARM parameters files.",
+        "'KeyVaultReference' is not a valid parameter object type."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/app-service/manage-scale-automatic"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/templates/key-vault-parameter"
     }
   },
   {
     "id": 13,
-    "subtopic": "Create an App Service",
-    "question": "You are creating a Linux web app in Azure App Service. You want to run a custom Docker container stored in a private Azure Container Registry (ACR). Which information must you provide during App Service creation?",
+    "subtopic": "Modify an existing Azure Resource Manager template",
+    "question": "An existing ARM template deploys a Virtual Machine. You must modify the template to enable System-Assigned Managed Identity on the virtual machine.\n\nWhich snippet must you add under the VM resource object?",
     "options": [
-      "ACR server URL, container image name with tag, and ACR access credentials or managed identity access.",
-      "Azure Storage account connection string and Dockerfile raw source code.",
-      "Kubernetes deployment manifest file and ACR admin password.",
-      "Virtual network subnet ID and SSH public key."
+      "\"identity\": { \"type\": \"SystemAssigned\" }",
+      "\"managedIdentity\": { \"enabled\": true }",
+      "\"properties\": { \"systemIdentity\": \"Enabled\" }",
+      "\"identity\": { \"type\": \"UserAssigned\" }"
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "To deploy a custom container to Azure App Service, you must specify the registry server URL, full image tag name, and registry authentication details (or admin credentials/managed identity).",
+      "correctReason": "To assign a system-managed identity to a Virtual Machine resource in ARM, you add the `\"identity\": { \"type\": \"SystemAssigned\" }` property directly under the resource root object.",
       "incorrectReasons": [
-        "App Service containers pull built Docker images from registries; they do not build Dockerfiles from raw source code using Storage accounts during baseline creation.",
-        "App Service native container instances do not consume Kubernetes deployment manifests.",
-        "Virtual network subnets and SSH keys are optional networking/management settings, not fundamental prerequisites for pulling custom images."
+        "'managedIdentity' is not a standard ARM schema property for VM identity.",
+        "Identity properties belong in the top level of resource definition, not inside 'properties'.",
+        "'UserAssigned' requires specifying target user identity resource IDs."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/app-service/configure-custom-container"
+      "reference": "https://learn.microsoft.com/en-us/entra/identity/managed-identities-azure-resources/how-to-configure-managed-identities#system-assigned-managed-identity"
     }
   },
   {
     "id": 14,
-    "subtopic": "Create an App Service",
-    "question": "You need to deploy a Node.js web application to Azure App Service. What feature allows App Service to pull code directly from a GitHub repository and deploy on every main branch push?",
+    "subtopic": "Modify an existing Azure Resource Manager template",
+    "question": "You are updating an ARM template to restrict allowable deployment locations for all resources to 'East US' and 'West US'.\n\nHow should you modify the parameter definition for 'location'?",
     "options": [
-      "App Service Continuous Deployment (Deployment Center)",
-      "App Service Extensions",
-      "Azure Automation Hybrid Worker",
-      "Kudu WebJobs Scheduler"
+      "\"location\": { \"type\": \"string\", \"allowedValues\": [ \"eastus\", \"westus\" ] }",
+      "\"location\": { \"type\": \"string\", \"restrictions\": [ \"eastus\", \"westus\" ] }",
+      "\"location\": { \"type\": \"string\", \"validation\": { \"locations\": [ \"eastus\", \"westus\" ] } }",
+      "\"location\": { \"type\": \"string\", \"defaultValue\": [ \"eastus\", \"westus\" ] }"
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "Deployment Center in App Service integrates directly with GitHub, DevOps, and Bitbucket to set up continuous integration/continuous deployment (CI/CD) pipelines.",
+      "correctReason": "In ARM template parameter definitions, `allowedValues` specifies an explicit array of permitted values, causing deployment validation to fail if any other value is provided.",
       "incorrectReasons": [
-        "App Service Extensions are add-on modules for managing application runtimes or monitoring tools.",
-        "Azure Automation Hybrid Worker is used for executing runbooks on on-premises or cross-cloud servers.",
-        "WebJobs are used to run background tasks inside an App Service, not manage source code CI/CD."
+        "'restrictions' is not a valid ARM parameter constraint property.",
+        "'validation' is not the correct ARM parameter schema element.",
+        "'defaultValue' sets a single default string value, not a list of permitted values."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/app-service/deploy-continuous-git"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/templates/parameters#allowed-values"
     }
   },
   {
     "id": 15,
-    "subtopic": "Create an App Service",
-    "question": "You plan to create an App Service named `app-finance-prod`. Which default public domain name will be assigned to this web application?",
+    "subtopic": "Modify an existing Azure Resource Manager template",
+    "question": "An existing ARM template creates a Storage Account. You are asked to add a tag named 'Environment' with the value specified in a template parameter named 'envParam'.\n\nWhich code snippet must be placed within the storage account resource definition?",
     "options": [
-      "`app-finance-prod.azurewebsites.net`",
-      "`app-finance-prod.cloudapp.azure.com`",
-      "`app-finance-prod.trafficmanager.net`",
-      "`app-finance-prod.blob.core.windows.net`"
+      "\"tags\": { \"Environment\": \"[parameters('envParam')]\" }",
+      "\"properties\": { \"tags\": [ { \"Environment\": \"[parameters('envParam')]\" } ] }",
+      "\"metadata\": { \"Environment\": \"[parameters('envParam')]\" }",
+      "\"tags\": [ \"Environment=[parameters('envParam')]\" ]"
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "Azure App Service web applications are assigned default FQDNs ending in `.azurewebsites.net` based on the web app name.",
+      "correctReason": "In ARM resource definitions, resource tags are key-value string pairs defined at the resource level in a `tags` object block.",
       "incorrectReasons": [
-        "`.cloudapp.azure.com` is used for Azure Virtual Machines / public IP addresses.",
-        "`.trafficmanager.net` is reserved for Azure Traffic Manager profiles.",
-        "`.blob.core.windows.net` is reserved for Azure Blob Storage endpoints."
+        "Tags are top-level resource properties, not nested under `properties` as an array.",
+        "Metadata is used for documentation descriptions inside parameter/output declarations.",
+        "Tags must be key-value pairs inside an object `{ ... }`, not string arrays."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/app-service/overview"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/templates/template-syntax#tags"
     }
   },
   {
     "id": 16,
-    "subtopic": "Create an App Service",
-    "question": "You create an Azure Web App using runtime stack .NET 8. After creation, you need to configure an environment variable named `DB_CONNECTION` securely. Where should you add this variable in the Azure Portal?",
+    "subtopic": "Modify an existing Azure Resource Manager template",
+    "question": "You need to update an ARM template that provisions a Virtual Network. You must add a dynamic variable that combines the environment prefix parameter ('prod') with the string '-vnet'.\n\nWhich snippet correctly declares this variable in the variables section?",
     "options": [
-      "App Service > Environment variables (Application settings)",
-      "App Service > Properties > Configuration keys",
-      "App Service Plan > Custom Settings",
-      "App Service > Console > Application Host config"
+      "\"vnetName\": \"[concat(parameters('envPrefix'), '-vnet')]\"",
+      "\"vnetName\": \"parameters('envPrefix') + '-vnet'\"",
+      "\"vnetName\": \"${parameters('envPrefix')}-vnet\"",
+      "\"vnetName\": \"[join(parameters('envPrefix'), '-vnet')]\""
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "Application Settings under the Environment Variables blade store key-value pairs exposed to application code as environment variables at runtime.",
+      "correctReason": "In ARM JSON templates, string concatenation uses the expression `\"[concat(parameters('envPrefix'), '-vnet')]\"`.",
       "incorrectReasons": [
-        "There is no 'Configuration keys' tab under Web App Properties.",
-        "App Service Plans do not store web application environment variables.",
-        "Manual configuration edits inside the App Service Console host config are not persistent or supported for application settings management."
+        "The '+' operator is not valid ARM JSON syntax for string concatenation.",
+        "`${...}` syntax is Bicep string interpolation, not standard ARM JSON syntax.",
+        "join() function in ARM joins array elements with a delimiter, whereas concat combines strings."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/app-service/configure-common"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/templates/template-functions-string#concat"
     }
   },
   {
     "id": 17,
-    "subtopic": "Create an App Service",
-    "question": "You deploy an Azure App Service using Azure CLI command `az webapp create`. Which parameter is mandatory during execution?",
+    "subtopic": "Modify an existing Azure Resource Manager template",
+    "question": "You have an ARM template deploying a SQL Database. You need to modify the template to ensure that existing resources in the target resource group are deleted if they are not explicitly defined in the ARM template.\n\nWhich deployment option or template setting achieves this outcome?",
     "options": [
-      "--plan",
-      "--custom-domain",
-      "--startup-file",
-      "--vnet"
+      "Set the deployment mode to Complete.",
+      "Set the deployment mode to Incremental.",
+      "Add `\"mode\": \"Purge\"` into the ARM template schema.",
+      "Set `\"resources\": [ \"mode\": \"Overwrite\" ]` in the template properties."
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "When creating a web app via `az webapp create`, `--plan` (specifying the target App Service plan name or ID) is required along with `--name` and `--resource-group`.",
+      "correctReason": "In Complete deployment mode, Azure Resource Manager deletes resources that exist in the resource group but are not specified in the template.",
       "incorrectReasons": [
-        "--custom-domain is optional and configured after standard app provision.",
-        "--startup-file is optional, used primarily when executing custom startup scripts on Linux containers.",
-        "--vnet is optional for binding virtual network integration."
+        "Incremental mode (default) leaves existing resources in the resource group untouched if they are not in the template.",
+        "'Purge' is not a valid ARM deployment mode.",
+        "'Overwrite' is not a valid resource block setting."
       ],
-      "reference": "https://learn.microsoft.com/en-us/cli/azure/webapp#az-webapp-create"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/templates/deployment-modes"
     }
   },
   {
     "id": 18,
-    "subtopic": "Create an App Service",
-    "question": "You need to host a static HTML website with minimal operational cost. What feature should you consider before choosing an Azure App Service plan?",
+    "subtopic": "Modify an existing Azure Resource Manager template",
+    "question": "You need to modify an ARM JSON template to copy/loop the creation of multiple subnets inside a Virtual Network resource definition.\n\nWhich property block should you insert inside the subnets definition to perform array iteration?",
     "options": [
-      "Azure Storage static website hosting",
-      "Azure Container Instances with Linux NGINX",
-      "App Service Environment with static IP",
-      "Azure Virtual Machine Scale Sets"
+      "\"copy\": [ { \"name\": \"subnets\", \"count\": \"[length(parameters('subnetArray'))]\", \"input\": { ... } } ]",
+      "\"foreach\": \"subnet in parameters('subnetArray')\"",
+      "\"loop\": { \"array\": \"[parameters('subnetArray')]\" }",
+      "\"repeat\": { \"count\": \"[length(parameters('subnetArray'))]\" }"
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "For purely static website content (HTML, CSS, JS), Azure Storage static website hosting provides an extremely low-cost, serverless solution without requiring an App Service plan.",
+      "correctReason": "In ARM templates, resource or child resource iteration uses the `copy` element, specifying name, count, and input template structures.",
       "incorrectReasons": [
-        "ACI incurs higher hourly compute costs compared to object storage for static web hosting.",
-        "App Service Environment is an enterprise single-tenant compute platform with high base cost.",
-        "VM Scale Sets require manual management and continuous compute instance running costs."
+        "foreach is Bicep language constructs or Azure Logic Apps, not ARM JSON schema.",
+        "'loop' is not a valid ARM JSON template syntax block.",
+        "'repeat' is not a valid keyword for ARM template iterations."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/storage/blobs/storage-blob-static-website"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/templates/copy-properties"
     }
   },
   {
     "id": 19,
-    "subtopic": "Configure certificates and Transport Layer Security (TLS) for an App Service",
-    "question": "You want to bind a custom domain `www.contoso.com` on your Azure Web App using HTTPS without paying for a third-party SSL/TLS certificate. Which native feature should you use?",
+    "subtopic": "Modify an existing Azure Resource Manager template",
+    "question": "An ARM template fails during deployment because a Virtual Machine resource attempts to launch before its dependent Network Interface finishes deploying.\n\nHow should you modify the Virtual Machine resource element in the ARM template to resolve this deployment ordering error?",
     "options": [
-      "App Service Managed Certificate",
-      "Azure Key Vault Self-Signed Certificate",
-      "Azure DNS Free SSL Binding",
-      "App Service Basic Certificate SKU"
+      "Add the Network Interface resource ID to the VM's `dependsOn` array.",
+      "Set `\"priority\": \"High\"` on the Network Interface resource block.",
+      "Move the VM resource definition above the Network Interface resource definition in the template.",
+      "Add `\"provisionAfter\": \"nicResource\"` to the VM resource object."
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "App Service Managed Certificates provide free, fully managed TLS certificates for custom domain bindings that renew automatically.",
+      "correctReason": "Adding explicit dependencies using the `dependsOn` array forces ARM to wait until dependent resources complete provisioning before starting the dependent resource.",
       "incorrectReasons": [
-        "Self-signed certificates trigger security warnings in user browsers.",
-        "Azure DNS is a domain hosting service and does not issue SSL/TLS certificates directly.",
-        "There is no 'Basic Certificate SKU'; App Service Managed Certificates are free for supported custom domains."
+        "Priority settings do not dictate ARM deployment dependency sequencing.",
+        "JSON object ordering inside the file does not dictate ARM execution order.",
+        "'provisionAfter' is not a valid property in ARM JSON schema."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/app-service/configure-ssl-bindings#create-a-free-managed-certificate"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/templates/resource-dependency"
     }
   },
   {
     "id": 20,
-    "subtopic": "Configure certificates and Transport Layer Security (TLS) for an App Service",
-    "question": "You need to enforce HTTPS traffic for all requests coming to your Azure Web App and block legacy TLS 1.0/1.1 requests. Which two settings in the App Service TLS/SSL settings blade must you configure?",
+    "subtopic": "Modify an existing Azure Resource Manager template",
+    "question": "You modify an ARM template to deploy a diagnostic setting for a Virtual Network. The diagnostic setting is an extension resource applied to the Virtual Network.\n\nWhich type and name combination correctly identifies the diagnostic setting when it is declared at the root level of the ARM template?",
     "options": [
-      "Set 'HTTPS Only' to On and set 'Minimum TLS Version' to 1.2.",
-      "Set 'Client Certificate Mode' to Require and set 'HTTP Version' to 2.0.",
-      "Set 'FTPS State' to Disabled and set 'Managed Certificate' to Enforce.",
-      "Set 'Private Endpoint' to Required and set 'TLS Cipher Suites' to Strict."
+      "type: \"Microsoft.Insights/diagnosticSettings\", name: \"[parameters('diagSettingName')]\", scope: \"[resourceId('Microsoft.Network/virtualNetworks', parameters('vnetName'))]\"",
+      "type: \"Microsoft.Network/virtualNetworks/diagnosticSettings\", name: \"[concat(parameters('vnetName'), '/', parameters('diagSettingName'))]\"",
+      "type: \"Microsoft.Insights/diagnosticSettings\", name: \"[concat(parameters('vnetName'), '/', parameters('diagSettingName'))]\"",
+      "type: \"Microsoft.Network/virtualNetworks/providers/diagnosticSettings\", name: \"[parameters('diagSettingName')]\""
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "Enabling 'HTTPS Only' redirects all HTTP requests to HTTPS, and configuring 'Minimum TLS Version' to 1.2 rejects connections using older TLS standards.",
+      "correctReason": "Microsoft.Insights/diagnosticSettings is an extension resource. At the root level, the ARM template uses the diagnosticSettings type, the diagnostic setting name, and the scope property to associate it with the Virtual Network.",
       "incorrectReasons": [
-        "Client Certificate Mode enforces mTLS client authentication, which is not required for standard HTTPS enforcement.",
-        "FTPS settings control file deployment protocol security, not web application HTTP/HTTPS traffic.",
-        "Private Endpoint isolates internal network ingress, not public HTTPS/TLS version configuration."
+        "Microsoft.Network/virtualNetworks/diagnosticSettings isn't the resource type for Azure Monitor diagnostic settings.",
+        "The diagnostic setting name isn't formed by concatenating the Virtual Network name with the diagnostic setting name when scope is supplied separately.",
+        "This type/name combination doesn't correctly associate the extension resource with the Virtual Network; the root-level extension-resource form uses Microsoft.Insights/diagnosticSettings with scope."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/app-service/configure-ssl-bindings#enforce-https"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/templates/scope-extension-resources"
     }
   },
   {
     "id": 21,
-    "subtopic": "Configure certificates and Transport Layer Security (TLS) for an App Service",
-    "question": "You import a custom PFX certificate into Azure App Service to configure an SNI SSL binding. What condition must be met before creating the TLS binding?",
+    "subtopic": "Modify an existing Bicep file",
+    "question": "You are modifying an existing Bicep file provisioning an Azure App Service Plan. You must update the SKU to 'P1v3'.\n\nWhich update correctly configures the SKU property in Bicep?",
     "options": [
-      "The custom domain name must already be mapped to the web app.",
-      "The App Service plan must be in the Free or Shared tier.",
-      "The Web App must have private endpoints enabled.",
-      "The certificate must be exported as an unencrypted CER file."
+      "sku: {\n  name: 'P1v3'\n  tier: 'PremiumV3'\n}",
+      "sku: 'P1v3'",
+      "properties: {\n  skuName: 'P1v3'\n}",
+      "sku: {\n  capacity: 'P1v3'\n}"
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "You can only bind an SSL/TLS certificate to a custom domain that has already been successfully mapped to the target Azure App Service.",
+      "correctReason": "In Bicep, resource SKUs are specified as an object containing at least the `name` property (and optionally tier/capacity/size). For App Service Plan, `sku: { name: 'P1v3', tier: 'PremiumV3' }` is correct syntax.",
       "incorrectReasons": [
-        "Free and Shared tiers do not support custom SSL bindings.",
-        "Private Endpoints are independent of custom domain SSL/TLS certificate bindings.",
-        "Custom certificates must be password-protected PFX files containing the private key, not CER files."
+        "sku is an object, not a plain string value in App Service Plan resource definition.",
+        "sku details belong in the root `sku` object block, not nested inside `properties`.",
+        "capacity indicates instance count (e.g., 1, 2), not SKU tier name."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/app-service/configure-ssl-bindings"
+      "reference": "https://learn.microsoft.com/en-us/azure/templates/microsoft.web/serverfarms?pivots=deployment-language-bicep"
     }
   },
   {
     "id": 22,
-    "subtopic": "Configure certificates and Transport Layer Security (TLS) for an App Service",
-    "question": "You store SSL/TLS certificates in Azure Key Vault. You want your App Service to automatically import and renew the certificate directly from the vault. What must you configure on the App Service?",
+    "subtopic": "Modify an existing Bicep file",
+    "question": "You have a Bicep file deploying a Storage Account. You must modify it to allow parameters to default to the location of the resource group into which it is deployed.\n\nWhich parameter declaration is correct in Bicep?",
     "options": [
-      "A Managed Identity on the Web App and an Access Policy/RBAC role grant on Key Vault.",
-      "An App Service Extension for Key Vault sync.",
-      "An IP restriction rule allowing Key Vault service tags.",
-      "A Continuous Deployment pipeline in Azure DevOps."
+      "param location string = resourceGroup().location",
+      "param location string = deployment().location",
+      "param location string = getResourceGroupLocation()",
+      "var location = resourceGroup().location"
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "To securely fetch certificates from Azure Key Vault, the App Service requires a Managed Identity (System-Assigned or User-Assigned) that is granted 'Get' secrets/certificates permission in Key Vault.",
+      "correctReason": "In Bicep, assigning `= resourceGroup().location` as default value for a parameter sets it dynamically to the target resource group's location.",
       "incorrectReasons": [
-        "App Service extensions are not used for Key Vault certificate bindings.",
-        "IP restrictions filter inbound app traffic, not outbound authentication to Key Vault.",
-        "Azure DevOps pipelines are not required for native App Service-Key Vault certificate integration."
+        "deployment().location returns the location where deployment metadata is stored, not necessarily target resources.",
+        "getResourceGroupLocation() is not a valid Bicep function.",
+        "Declaring it as a variable (`var`) prevents external consumers from overriding the value if needed."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/app-service/configure-ssl-certificate-in-key-vault"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/bicep-functions-resource#resourcegroup"
     }
   },
   {
     "id": 23,
-    "subtopic": "Configure certificates and Transport Layer Security (TLS) for an App Service",
-    "question": "What type of SSL binding should you select when configuring SSL for an App Service where multiple domain bindings share a single public IP address on standard Azure infrastructure?",
+    "subtopic": "Modify an existing Bicep file",
+    "question": "You are modifying a Bicep file to add output values. You need to output the primary access key of a deployed Storage Account.\n\nWhich output statement in Bicep is correct?",
     "options": [
-      "SNI SSL (Server Name Indication)",
-      "IP-based SSL",
-      "Mutual TLS (mTLS)",
-      "Wildcard Private SSL"
+      "output primaryEndpoint string = stgAccount.properties.primaryEndpoints.blob",
+      "output primaryKey string = stgAccount.listKeys().keys[0].value",
+      "output connectionString string = listKeys(stgAccount.id, stgAccount.apiVersion).keys[0].value",
+      "output key string = stgAccount.keys[0]"
     ],
-    "correct": 0,
+    "correct": 1,
     "explanation": {
-      "correctReason": "SNI SSL (Server Name Indication) allows multiple domain SSL bindings to share a single public IP address. IP-based SSL requires a dedicated IP address (incurring additional cost).",
+      "correctReason": "In Bicep, the listKeys() runtime function can be called on a symbolic Storage Account resource. The first returned key is accessed with stgAccount.listKeys().keys[0].value.",
       "incorrectReasons": [
-        "IP-based SSL assigns a dedicated IP address to the web app, which is not necessary for standard shared IP hosting.",
-        "Mutual TLS (mTLS) is an authentication protocol requiring client certificates, not a domain binding type.",
-        "Wildcard Private SSL is not an Azure App Service SSL binding selection option."
+        "primaryEndpoints.blob is the Blob service endpoint URL, not a storage account access key.",
+        "The symbolic-resource form stgAccount.listKeys() is the appropriate Bicep syntax for this example; the ARM-style listKeys(resourceId, apiVersion) form isn't the statement shown here.",
+        "The Storage Account resource doesn't expose a keys array directly; listKeys() must be called to retrieve the keys."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/app-service/configure-ssl-bindings#bind-tls-certificate"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/bicep-functions-resource#listkeys"
     }
   },
   {
     "id": 24,
-    "subtopic": "Configure certificates and Transport Layer Security (TLS) for an App Service",
-    "question": "You need to require client applications to present a valid X.509 client certificate when establishing a connection to your Azure Web App. Which configuration setting should you enable?",
+    "subtopic": "Modify an existing Bicep file",
+    "question": "You need to modify a Bicep template so that a Key Vault secret is created as a child resource inside a Key Vault resource.\n\nWhich syntax correctly defines the secret nested within or as a child resource of the Key Vault ('kv') in Bicep?",
     "options": [
-      "Incoming client certificates (Client certificate mode set to Require)",
-      "HTTPS Only setting enabled",
-      "Minimum TLS Version set to 1.3",
-      "App Service Authentication (Easy Auth) with Azure AD"
+      "resource secret 'Microsoft.KeyVault/vaults/secrets@2023-02-01' = {\n  parent: kv\n  name: 'dbSecret'\n  properties: { value: secretValue }\n}",
+      "resource secret 'Microsoft.KeyVault/secrets@2023-02-01' = {\n  vaultName: kv.name\n  name: 'dbSecret'\n  properties: { value: secretValue }\n}",
+      "resource secret 'Microsoft.KeyVault/vaults/secrets@2023-02-01' = {\n  name: 'dbSecret'\n  properties: { vault: kv.id, value: secretValue }\n}",
+      "resource secret 'Microsoft.KeyVault/vaults/secrets@2023-02-01' = {\n  dependsOn: [ kv ]\n  name: 'dbSecret'\n  properties: { value: secretValue }\n}"
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "Setting 'Client certificate mode' to 'Require' enforces TLS mutual authentication (mTLS), prompting incoming clients to provide a valid client certificate.",
+      "correctReason": "In Bicep, child resources defined at the root file level must specify the `parent` property referencing the symbolic name of the parent resource, alongside the full resource type (`Microsoft.KeyVault/vaults/secrets`).",
       "incorrectReasons": [
-        "HTTPS Only enforces encrypted HTTP connection, but does not require client certificate credentials.",
-        "Minimum TLS Version specifies acceptable cipher/handshake protocol versions, not client certificate presentation.",
-        "Easy Auth handles user identity tokens (OAuth2/OIDC), not certificate-based mTLS handshake."
+        "Microsoft.KeyVault/secrets is an incorrect resource type string.",
+        "Providing properties.vault is not how parent-child relationships are declared in Bicep.",
+        "dependsOn alone without parent reference or child type path name (`kv/dbSecret`) is invalid."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/app-service/app-service-web-configure-tls-mutual-auth"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/child-resource-name-type"
     }
   },
   {
     "id": 25,
-    "subtopic": "Map an existing custom DNS name to an App Service",
-    "question": "You own the domain `contoso.com` and want to map `app.contoso.com` to your Azure Web App `webapp-prod.azurewebsites.net`. Which DNS record type is recommended for mapping this subdomain?",
+    "subtopic": "Modify an existing Bicep file",
+    "question": "You are modifying a Bicep template to deploy a Linux Virtual Machine. You must configure the SSH key from a public key string parameter.\n\nWhich property path in the Virtual Machine resource should you populate in Bicep?",
     "options": [
-      "CNAME record",
-      "A record",
-      "PTR record",
-      "SRV record"
+      "properties.osProfile.linuxConfiguration.ssh.publicKeys",
+      "properties.hardwareProfile.sshKeys",
+      "properties.osProfile.windowsConfiguration.ssh",
+      "properties.storageProfile.sshKeys"
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "A CNAME record maps a subdomain alias (`app.contoso.com`) directly to the target host canonical name (`webapp-prod.azurewebsites.net`).",
+      "correctReason": "In ARM/Bicep VM resource schema, SSH public keys for Linux VMs are configured under `properties.osProfile.linuxConfiguration.ssh.publicKeys` array.",
       "incorrectReasons": [
-        "An A record maps a hostname directly to an IP address, which requires manual IP validation and TXT records for verification.",
-        "PTR records perform reverse DNS lookups (IP to domain name).",
-        "SRV records are used to locate specific service ports, not web app hostnames."
+        "hardwareProfile controls VM sizes (CPU/RAM).",
+        "windowsConfiguration is used for Windows VMs, not Linux SSH keys.",
+        "storageProfile controls OS and Data disk attachments."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/app-service/app-service-web-tutorial-custom-domain"
+      "reference": "https://learn.microsoft.com/en-us/azure/templates/microsoft.compute/virtualmachines?pivots=deployment-language-bicep"
     }
   },
   {
     "id": 26,
-    "subtopic": "Map an existing custom DNS name to an App Service",
-    "question": "You want to map the root apex domain `contoso.com` to an Azure Web App. Which two DNS records must you create in your public DNS host?",
+    "subtopic": "Modify an existing Bicep file",
+    "question": "You need to update a Bicep file to add a decorator that limits an integer parameter 'vmCount' between 1 and 5.\n\nWhich decorators should you place above the parameter declaration in Bicep?",
     "options": [
-      "An A record mapping `contoso.com` to the web app IP address, and a TXT record `asuid.contoso.com` with the App Service verification ID.",
-      "A CNAME record mapping `contoso.com` to `webapp.azurewebsites.net`, and an MX record.",
-      "A PTR record mapping the IP address to `contoso.com`, and a SRV record.",
-      "An NS record delegating `contoso.com` to `azurewebsites.net`."
+      "@minValue(1)\n@maxValue(5)\nparam vmCount int",
+      "@range(1, 5)\nparam vmCount int",
+      "@min(1)\n@max(5)\nparam vmCount int",
+      "@limit(1, 5)\nparam vmCount int"
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "Root apex domains (`contoso.com`) cannot standardly use CNAME records. They require an A record pointing to the app's IP address and a TXT verification record (`asuid`) containing the verification ID provided by Azure.",
+      "correctReason": "In Bicep, integer range parameter constraints use `@minValue(number)` and `@maxValue(number)` decorators.",
       "incorrectReasons": [
-        "Standard DNS RFCs forbid CNAME records at the root domain level.",
-        "PTR and SRV records are not used for web app custom domain validation.",
-        "Delegating root NS to `azurewebsites.net` is invalid."
+        "@range is not a valid parameter decorator in Bicep syntax.",
+        "@min and @max are functions, not parameter constraint decorators in Bicep.",
+        "@limit is not a standard Bicep decorator."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/app-service/app-service-web-tutorial-custom-domain#map-an-a-record"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/parameters#decorators"
     }
   },
   {
     "id": 27,
-    "subtopic": "Map an existing custom DNS name to an App Service",
-    "question": "You plan to migrate active domain traffic `sales.contoso.com` to Azure App Service without experiencing domain downtime during mapping validation. Which verification DNS record should you create beforehand?",
+    "subtopic": "Modify an existing Bicep file",
+    "question": "You are editing a Bicep file and want to add detailed description metadata to a parameter so other administrators understand its purpose in Azure Portal UI.\n\nWhich Bicep decorator should you use?",
     "options": [
-      "Create an `awverify` CNAME record pointing to `awverify.<webappname>.azurewebsites.net`.",
-      "Create an `asuid` PTR record pointing to the local host.",
-      "Create a CAA record pointing to Microsoft CA.",
-      "Create an SOA record in Azure DNS."
+      "@description('Description text here')",
+      "@metadata({ description: 'Description text here' })",
+      "@help('Description text here')",
+      "@doc('Description text here')"
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "Using `awverify` (or `asuid` TXT records) allows pre-verifying domain ownership with Azure before updating the main production CNAME/A record, preventing downtime.",
+      "correctReason": "The `@description('...')` decorator is the standard Bicep decorator used to document parameters, resources, and outputs.",
       "incorrectReasons": [
-        "PTR records perform reverse IP resolution and do not verify domain ownership.",
-        "CAA records define authorized Certificate Authorities for issuance, not domain ownership for Azure App Service.",
-        "SOA records define authority for zones, not individual domain verification."
+        "While metadata objects exist in ARM JSON, `@description` is the native and preferred Bicep decorator.",
+        "@help is not a valid Bicep decorator.",
+        "@doc is not a valid Bicep decorator."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/app-service/app-service-web-tutorial-custom-domain#map-a-cname-record"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/parameters#description"
     }
   },
   {
     "id": 28,
-    "subtopic": "Map an existing custom DNS name to an App Service",
-    "question": "Where in the Azure Portal do you retrieve the Custom Domain Verification ID required when configuring domain verification TXT records?",
+    "subtopic": "Modify an existing Bicep file",
+    "question": "You need to update a Bicep template so that a Network Security Group (NSG) rule is conditionally created only when an environment parameter equals 'prod'.\n\nWhich Bicep code modification is correct?",
     "options": [
-      "App Service > Custom domains blade",
-      "App Service > Application settings blade",
-      "App Service Plan > Overview blade",
-      "Subscription > Resource providers blade"
+      "resource nsgRule 'Microsoft.Network/networkSecurityGroups/securityRules@2023-05-01' = if (env == 'prod') { ... }",
+      "resource nsgRule 'Microsoft.Network/networkSecurityGroups/securityRules@2023-05-01' = where (env == 'prod') { ... }",
+      "resource nsgRule 'Microsoft.Network/networkSecurityGroups/securityRules@2023-05-01' = switch (env) { 'prod': { ... } }",
+      "resource nsgRule 'Microsoft.Network/networkSecurityGroups/securityRules@2023-05-01' = condition (env == 'prod') { ... }"
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "The Custom Domain Verification ID is displayed directly inside the 'Custom domains' blade of the specific App Service in the Azure Portal.",
+      "correctReason": "Bicep conditional resource deployment uses the syntax `resource <symbolic-name> '<type>@<api-version>' = if (<condition>) { ... }`.",
       "incorrectReasons": [
-        "Application settings store application environment variables, not domain verification IDs.",
-        "App Service Plan Overview shows underlying hosting specs, not web app domain ownership IDs.",
-        "Resource providers manages resource registration at subscription level."
+        "'where' is not a Bicep resource conditional keyword.",
+        "'switch' is not used for conditional resource definitions in Bicep.",
+        "'condition' is not a valid keyword for conditional resources in Bicep."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/app-service/app-service-web-tutorial-custom-domain#get-a-domain-verification-id"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/conditional-resource-deployment"
     }
   },
   {
     "id": 29,
-    "subtopic": "Map an existing custom DNS name to an App Service",
-    "question": "You map a custom domain `shop.contoso.com` to an App Service. When users browse to `shop.contoso.com`, they see an `404 Not Found` error page served by Azure App Service. What is the most likely cause?",
+    "subtopic": "Modify an existing Bicep file",
+    "question": "You need to modify a Bicep file to reference a Virtual Network deployed in a different Resource Group named 'rg-networking'.\n\nHow should you declare the existing Virtual Network in Bicep?",
     "options": [
-      "The DNS record points to the Azure IP/hostname, but the custom domain binding was not added in the App Service settings.",
-      "The App Service plan is using the Standard pricing tier.",
-      "The web app does not have an active Key Vault Integration.",
-      "The web app application setting `WEBSITE_RUN_FROM_PACKAGE` is set to 1."
+      "resource vnet 'Microsoft.Network/virtualNetworks@2023-05-01' existing = {\n  name: 'core-vnet'\n  scope: resourceGroup('rg-networking')\n}",
+      "resource vnet 'Microsoft.Network/virtualNetworks@2023-05-01' existing = {\n  name: 'core-vnet'\n  resourceGroup: 'rg-networking'\n}",
+      "resource vnet 'Microsoft.Network/virtualNetworks@2023-05-01' = {\n  name: 'core-vnet'\n  scope: 'rg-networking'\n}",
+      "resource vnet 'Microsoft.Network/virtualNetworks@2023-05-01' existing = {\n  name: 'rg-networking/core-vnet'\n}"
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "If DNS is configured correctly to route to Azure's web app endpoint, but the custom domain host name has not been explicitly registered in the App Service Custom Domains blade, Azure App Service returns a 404 page.",
+      "correctReason": "To reference an existing resource in another resource group, use the `existing` keyword and set `scope: resourceGroup('other-rg-name')`.",
       "incorrectReasons": [
-        "Standard pricing tier fully supports custom domain bindings.",
-        "Key Vault Integration is not required to serve custom domain web content.",
-        "WEBSITE_RUN_FROM_PACKAGE controls deployment runtime storage, not DNS mapping errors."
+        "'resourceGroup' is not a direct property inside existing resource blocks in Bicep; `scope` must be used.",
+        "Missing the 'existing' keyword will attempt to provision a new resource rather than reference an existing one.",
+        "Placing resource group in the name string is invalid resource naming syntax."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/app-service/app-service-web-troubleshoot-custom-domain-naming"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/existing-resource#resource-in-different-scope"
     }
   },
   {
     "id": 30,
-    "subtopic": "Map an existing custom DNS name to an App Service",
-    "question": "You purchase a custom domain directly through the Azure Portal using Azure App Service Domain. Which Azure resource automatically manages the DNS zone for this domain?",
+    "subtopic": "Modify an existing Bicep file",
+    "question": "You have a Bicep template that needs to pass an array of subnet objects into a Virtual Network resource.\n\nWhich variable declaration syntax correctly defines a complex object array in Bicep?",
     "options": [
-      "Azure DNS Zone",
-      "Azure Traffic Manager",
-      "Azure Front Door",
-      "Azure Network Watcher"
+      "var subnets = [\n  {\n    name: 'Subnet-1'\n    properties: { addressPrefix: '10.0.1.0/24' }\n  }\n  {\n    name: 'Subnet-2'\n    properties: { addressPrefix: '10.0.2.0/24' }\n  }\n]",
+      "var subnets = Array(\n  Object(name='Subnet-1', addressPrefix='10.0.1.0/24'),\n  Object(name='Subnet-2', addressPrefix='10.0.2.0/24')\n)",
+      "var subnets = {\n  'Subnet-1': '10.0.1.0/24',\n  'Subnet-2': '10.0.2.0/24'\n}",
+      "var subnets = [\n  \"Subnet-1: 10.0.1.0/24\",\n  \"Subnet-2: 10.0.2.0/24\"\n]"
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "App Service Domains purchased in Azure use Azure DNS zones behind the scenes to host and manage the domain's DNS records.",
+      "correctReason": "In Bicep, arrays are declared with square brackets `[...]` and object elements are formatted with key-value pairs without needing commas between array elements.",
       "incorrectReasons": [
-        "Traffic Manager is a DNS-based traffic load balancer, not a domain DNS host zone.",
-        "Azure Front Door is a global content delivery network and web application firewall.",
-        "Network Watcher provides network monitoring and diagnostic tools."
+        "Array() and Object() are not valid Bicep syntax constructs.",
+        "This defines an object key-value map, not an array of subnet objects required by Azure VNet schema.",
+        "This defines an array of strings, not subnet object definitions."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/app-service/custom-dns-web-site-buydomains-web-app"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/data-types#arrays"
     }
   },
   {
     "id": 31,
-    "subtopic": "Configure backup for an App Service",
-    "question": "You need to configure automated daily backups for an Azure Web App. Which requirement must be satisfied regarding the storage destination?",
+    "subtopic": "Deploy resources by using an Azure Resource Manager template or a Bicep file",
+    "question": "You need to deploy a local Bicep file named 'main.bicep' to a resource group named 'rg-app' using Azure CLI.\n\nWhich command should you execute?",
     "options": [
-      "An Azure Storage account and Blob Container must be configured with a SAS URL or managed identity access.",
-      "An Azure File Share mapped via NFS must be mounted to the App Service.",
-      "An Azure Key Vault must be attached to store backup encryption keys.",
-      "An Azure Recovery Services Vault must be provisioned in the same resource group."
+      "az deployment group create --resource-group rg-app --template-file main.bicep",
+      "az group deployment create --name rg-app --file main.bicep",
+      "az bicep deploy --resource-group rg-app --template-file main.bicep",
+      "az resource deployment create --resource-group rg-app --bicep-file main.bicep"
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "App Service backups require an Azure Blob Storage container with a shared access signature (SAS) URL or system/user-assigned managed identity configured for access.",
+      "correctReason": "The standard Azure CLI command to deploy Bicep or ARM templates at resource group scope is `az deployment group create --resource-group <rg-name> --template-file <file>`.",
       "incorrectReasons": [
-        "App Service backups save to Azure Blob storage, not NFS File Shares.",
-        "Key Vault is not required to establish native App Service automated backups.",
-        "App Service native backups write directly to Blob Storage, not to a Recovery Services Vault."
+        "'az group deployment create' is deprecated legacy Azure CLI syntax.",
+        "'az bicep deploy' is not a valid Azure CLI deployment command.",
+        "'az resource deployment create' is not a valid Azure CLI command."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/app-service/manage-backup"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/deploy-cli"
     }
   },
   {
     "id": 32,
-    "subtopic": "Configure backup for an App Service",
-    "question": "What is included by default in an Azure App Service native backup?",
+    "subtopic": "Deploy resources by using an Azure Resource Manager template or a Bicep file",
+    "question": "You need to deploy an ARM template ('template.json') and parameter file ('parameters.json') to a resource group named 'rg-data' using Azure PowerShell.\n\nWhich cmdlet and parameters should you run?",
     "options": [
-      "Application configuration, app files in web root, and connected SQL databases if configured in the backup settings.",
-      "The entire underlying Virtual Machine OS snapshot and disk image.",
-      "Azure Virtual Network infrastructure state and public IP configurations.",
-      "All Application Insights telemetry logs from the past 30 days."
+      "New-AzResourceGroupDeployment -ResourceGroupName 'rg-data' -TemplateFile 'template.json' -TemplateParameterFile 'parameters.json'",
+      "New-AzDeployment -ResourceGroupName 'rg-data' -TemplateFile 'template.json' -ParameterFile 'parameters.json'",
+      "Start-AzARMTemplateDeployment -ResourceGroup 'rg-data' -File 'template.json' -ParamFile 'parameters.json'",
+      "Deploy-AzTemplate -ResourceGroupName 'rg-data' -Template 'template.json' -Parameters 'parameters.json'"
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "App Service backups include application content (file system), application configuration, and optionally linked databases (such as Azure SQL Database or MySQL).",
+      "correctReason": "In Azure PowerShell, `New-AzResourceGroupDeployment` is used to deploy resources to a resource group scope using `-TemplateFile` and `-TemplateParameterFile`.",
       "incorrectReasons": [
-        "App Service is PaaS; OS and VM infrastructure snapshots are managed by Azure, not included in web app backups.",
-        "Networking resources (VNETs, IPs) are subscription infrastructure resources not saved by App Service web backups.",
-        "Telemetry logs are stored in Log Analytics / Application Insights, not the App Service backup archive."
+        "New-AzDeployment defaults to subscription-level scope deployment, missing -ResourceGroupName requirements.",
+        "Start-AzARMTemplateDeployment is not a valid Azure PowerShell cmdlet.",
+        "Deploy-AzTemplate is not a valid Azure PowerShell cmdlet."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/app-service/manage-backup#what-gets-backed-up"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/templates/deploy-powershell"
     }
   },
   {
     "id": 33,
-    "subtopic": "Configure backup for an App Service",
-    "question": "You need to exclude a large log directory named `App_Data\\Logs` from the automated App Service backup to keep the backup file size under limits. How can you accomplish this?",
+    "subtopic": "Deploy resources by using an Azure Resource Manager template or a Bicep file",
+    "question": "You want to preview changes before deploying a Bicep file to a resource group to see which resources will be created, modified, or destroyed.\n\nWhich Azure CLI command option provides this change analysis?",
     "options": [
-      "Create a text file named `skipbackup.txt` inside the `App_Data\\Logs` directory.",
-      "Add `exclude-folder = Logs` to the `web.config` file.",
-      "Set the application setting `WEBSITE_EXCLUDE_BACKUP_FOLDERS` to `App_Data\\Logs`.",
-      "Configure an Azure Storage lifecycle rule to block log ingestion."
+      "az deployment group what-if --resource-group rg-app --template-file main.bicep",
+      "az deployment group validate --resource-group rg-app --template-file main.bicep",
+      "az bicep preview --resource-group rg-app --template-file main.bicep",
+      "az deployment group create --resource-group rg-app --template-file main.bicep --dry-run"
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "Placing a file named `skipbackup.txt` in a folder instructs the App Service backup engine to exclude that folder (and its subdirectories) from the backup.",
+      "correctReason": "The `az deployment group what-if` command generates a what-if operation that displays predicted changes to resources prior to actual execution.",
       "incorrectReasons": [
-        "`web.config` is used for IIS application settings, not App Service backup exclusion instructions.",
-        "`WEBSITE_EXCLUDE_BACKUP_FOLDERS` is not a valid default App Service environment variable.",
-        "Azure Storage lifecycle management affects stored blobs, not source folder exclusions on the Web App local file system."
+        "'validate' checks template syntax and ARM schema validation, but does not display a full diff of state changes.",
+        "'az bicep preview' is not a valid CLI command.",
+        "--dry-run is not a valid parameter flag for az deployment group create."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/app-service/manage-backup#exclude-files-and-databases"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/templates/deploy-what-if"
     }
   },
   {
     "id": 34,
-    "subtopic": "Configure backup for an App Service",
-    "question": "You have an App Service hosted on the Basic (B1) plan. You attempt to configure the Backup feature in the Azure Portal, but the Backup option is disabled. What should you do to resolve this?",
+    "subtopic": "Deploy resources by using an Azure Resource Manager template or a Bicep file",
+    "question": "You are deploying a Bicep file at the Azure subscription scope. What targetScope declaration and Azure CLI deployment command should you use?",
     "options": [
-      "Scale up the App Service plan to Standard (S1) or higher tier.",
-      "Enable Azure Key Vault integration for the web app.",
-      "Grant Owner rights to your user account on the resource group.",
-      "Create an Azure Recovery Services vault in the same region."
+      "Set `targetScope = 'tenant'` and use `az deployment tenant create`.",
+      "Set `targetScope = 'managementGroup'` and use `az deployment mg create`.",
+      "Set `targetScope = 'subscription'` and use `az deployment sub create`.",
+      "Set `targetScope = 'resourceGroup'` and use `az deployment group create`."
     ],
-    "correct": 0,
+    "correct": 2,
     "explanation": {
-      "correctReason": "The native backup and restore feature requires an App Service plan running in the Standard, Premium, or Isolated tier. It is not supported on Free, Shared, or Basic tiers.",
+      "correctReason": "A Bicep file targeting the subscription scope uses `targetScope = 'subscription'` and is deployed with `az deployment sub create`.",
       "incorrectReasons": [
-        "Key Vault integration does not unlock the App Service Backup feature.",
-        "Resource permissions do not bypass pricing tier feature limitations.",
-        "App Service backups do not depend on Recovery Services Vaults."
+        "Tenant scope targets the Azure tenant and uses `az deployment tenant create`.",
+        "Management group scope targets a management group and uses `az deployment mg create`.",
+        "Resource group scope uses `targetScope = 'resourceGroup'` and `az deployment group create`; it isn't the subscription-scope combination requested."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/app-service/manage-backup#requirements"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/deploy-to-subscription"
     }
   },
   {
     "id": 35,
-    "subtopic": "Configure backup for an App Service",
-    "question": "What is the maximum allowed size limit for a single custom App Service application backup (including database if configured)?",
+    "subtopic": "Deploy resources by using an Azure Resource Manager template or a Bicep file",
+    "question": "You deploy an ARM template using Azure CLI and pass parameters inline. Which parameter syntax is correct for passing inline parameters?",
     "options": [
-      "10 GB",
-      "2 GB",
-      "100 GB",
-      "1 TB"
+      "az deployment group create --resource-group rg-app --template-file main.json --parameters adminUsername='azureuser' storageSku='Standard_GRS'",
+      "az deployment group create --resource-group rg-app --template-file main.json --inline-parameters \"adminUsername=azureuser;storageSku=Standard_GRS\"",
+      "az deployment group create --resource-group rg-app --template-file main.json --args adminUsername='azureuser' storageSku='Standard_GRS'",
+      "az deployment group create --resource-group rg-app --template-file main.json --vars \"adminUsername:azureuser\""
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "The maximum backup size supported for an App Service web app (content and connected database combined) is 10 GB. If this limit is exceeded, the backup will fail.",
+      "correctReason": "In Azure CLI, inline parameters are supplied using `--parameters key=value key2=value2`.",
       "incorrectReasons": [
-        "2 GB is lower than the actual 10 GB limit.",
-        "100 GB exceeds the native 10 GB single web app backup limit.",
-        "1 TB far exceeds the allowed single backup limit."
+        "--inline-parameters is not a valid Azure CLI flag.",
+        "--args is not the parameter flag for Azure CLI deployment commands.",
+        "--vars is not a valid parameter flag."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/app-service/manage-backup#requirements"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/templates/deploy-cli#inline-parameters"
     }
   },
   {
     "id": 36,
-    "subtopic": "Configure backup for an App Service",
-    "question": "You need to restore a previously backed-up Azure Web App to a different web app instance in another region. What must be true about the target destination App Service plan?",
+    "subtopic": "Deploy resources by using an Azure Resource Manager template or a Bicep file",
+    "question": "You are deploying resources using an ARM template. You receive a `DeploymentFailed` error with an inner error code of `InvalidTemplateDeployment`.\n\nWhere in the Azure Portal should you look to find the exact resource deployment error details?",
     "options": [
-      "The target web app must be in an App Service plan that is in the Standard, Premium, or Isolated tier.",
-      "The target web app must use the exact same resource group name and subscription ID as the source.",
-      "The target web app must be configured with Linux runtime even if source was Windows.",
-      "The target web app must already have the exact custom domain attached."
+      "In the Resource Group's 'Deployments' blade under deployment history.",
+      "In Azure Advisor recommendations for the resource group.",
+      "In Azure Service Health log history.",
+      "In the Costs & Billing management blade."
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "To perform a restore (even across regions/apps), the target host must be running in a tier that supports the backup/restore feature (Standard, Premium, or Isolated).",
+      "correctReason": "The 'Deployments' blade under a Resource Group contains the detailed logs, operation details, and raw error JSON for all ARM deployments initiated in that resource group.",
       "incorrectReasons": [
-        "Restores can be executed across different resource groups within the same subscription.",
-        "Restores must target compatible runtime environments (Windows to Windows, Linux to Linux).",
-        "Custom domains are not required on the target app prior to restoring app files."
+        "Azure Advisor provides optimization suggestions, not deployment execution logs.",
+        "Service Health logs global Azure service issues, not individual ARM template deployment failures.",
+        "Cost Management tracks spending, not deployment execution details."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/app-service/restore-app"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/templates/common-deployment-errors"
     }
   },
   {
     "id": 37,
-    "subtopic": "Configure networking settings for an App Service",
-    "question": "You need to enable your Azure Web App to securely query an Azure SQL Database that is restricted to a private virtual network subnet. Which feature should you configure on the Web App?",
+    "subtopic": "Deploy resources by using an Azure Resource Manager template or a Bicep file",
+    "question": "You need to deploy a Bicep file from a Cloud Shell Bash session. What happens to the Bicep CLI when Azure CLI executes a command that requires it?",
     "options": [
-      "VNet Integration (regional)",
-      "Access Restrictions (IP filtering)",
-      "Hybrid Connections",
-      "Cross-Origin Resource Sharing (CORS)"
+      "Azure CLI automatically installs the Bicep CLI when a command is executed that requires it.",
+      "You must manually run `sudo apt install bicep` prior to any deployment.",
+      "You must convert the Bicep file manually using `bicep build` before running `az deployment`.",
+      "You must use PowerShell because Azure CLI does not support Bicep natively."
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "Regional VNet Integration gives your web app outbound access to resources connected to or endpoints inside an Azure Virtual Network.",
+      "correctReason": "Azure CLI automatically installs its self-contained Bicep CLI instance when a command that requires Bicep is executed. You don't need to manually install Bicep CLI for Azure CLI deployments.",
       "incorrectReasons": [
-        "Access Restrictions manage inbound HTTP request traffic filtering, not outbound backend access.",
-        "Hybrid Connections are designed for connecting to on-premises resources via Relay, not native Azure subnets.",
-        "CORS enables browser-based cross-domain HTTP requests, not backend database connectivity."
+        "Manual OS installation isn't required when using Azure CLI; Azure CLI manages its own self-contained Bicep CLI instance.",
+        "Azure CLI can deploy a local Bicep file directly; you don't need to run bicep build manually first.",
+        "Azure CLI supports Bicep deployments; PowerShell isn't required."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/app-service/overview-vnet-integration"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/install#azure-cli"
     }
   },
   {
     "id": 38,
-    "subtopic": "Configure networking settings for an App Service",
-    "question": "You want to ensure that incoming public Internet traffic CANNOT reach your web application directly. All traffic must originate exclusively from an Azure Application Gateway. What is the most direct way to enforce this?",
+    "subtopic": "Deploy resources by using an Azure Resource Manager template or a Bicep file",
+    "question": "You need to execute a deployment using an ARM template stored in a private Azure Blob Storage container.\n\nWhat must you generate and append to the template URI so ARM can access the file during deployment?",
     "options": [
-      "Configure Access Restrictions on the App Service with an IP/Service Tag rule restricting access to the Application Gateway public IP or VNet subnet.",
-      "Configure VNet Integration on the App Service and disable DNS lookup.",
-      "Disable the 'HTTPS Only' flag on the App Service.",
-      "Enable CORS for the Application Gateway URL."
+      "A Shared Access Signature (SAS) token with Read permission.",
+      "An SSH public key.",
+      "An Azure AD Bearer token appended to the HTTP header.",
+      "A Management Certificate thumbprint."
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "Access Restrictions act as a firewall for incoming requests to your web app, allowing you to create allow/deny rules based on IP ranges, VNet subnets, or Service Tags.",
+      "correctReason": "When deployment templates are hosted in private storage accounts, providing a URI with a Shared Access Signature (SAS) token granting Read access enables ARM to download the file during deployment.",
       "incorrectReasons": [
-        "VNet Integration manages outbound web app traffic, not inbound traffic security control.",
-        "Disabling HTTPS Only weakens security and does not block public access.",
-        "CORS controls browser web API access, not network-level IP access restrictions."
+        "SSH public keys are used for Linux authentication, not HTTP blob authorization.",
+        "ARM template deployment parameters pass template URIs directly, where SAS tokens are standard URI authentication tokens.",
+        "Management Certificates are legacy tools and not used for Blob template access."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/app-service/app-service-ip-restrictions"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/templates/secure-template-azure-blob"
     }
   },
   {
     "id": 39,
-    "subtopic": "Configure networking settings for an App Service",
-    "question": "You want to assign a private IP address within a Virtual Network to your Azure App Service for incoming traffic. Which Azure networking feature must you deploy?",
+    "subtopic": "Deploy resources by using an Azure Resource Manager template or a Bicep file",
+    "question": "You deploy an ARM template using Azure PowerShell `New-AzResourceGroupDeployment`. You need to pass an object parameter directly from a PowerShell hashtable variable `$params`.\n\nWhich command syntax is correct?",
     "options": [
-      "Private Endpoint",
-      "Service Endpoint",
-      "VNet Integration",
-      "Azure ExpressRoute"
+      "New-AzResourceGroupDeployment -ResourceGroupName 'rg-app' -TemplateFile 'main.json' -TemplateParameterObject $params",
+      "New-AzResourceGroupDeployment -ResourceGroupName 'rg-app' -TemplateFile 'main.json' -Hashtable $params",
+      "New-AzResourceGroupDeployment -ResourceGroupName 'rg-app' -TemplateFile 'main.json' -ParameterList $params",
+      "New-AzResourceGroupDeployment -ResourceGroupName 'rg-app' -TemplateFile 'main.json' @params"
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "An Azure Private Endpoint uses a network interface (NIC) in your VNet, bringing the App Service inside your virtual network and assigning it a private IP address for inbound traffic.",
+      "correctReason": "The `-TemplateParameterObject` parameter accepts a PowerShell hashtable of parameter names and values for ARM template deployment.",
       "incorrectReasons": [
-        "Service Endpoints secure direct connectivity to Azure services over the Azure backbone, but do not assign a private IP inside your VNet to the App Service.",
-        "VNet Integration provides outbound connectivity from the App Service to your VNet.",
-        "ExpressRoute provides private physical cross-premise connectivity, not native PaaS inbound private IP bindings."
+        "-Hashtable is not a valid parameter name for New-AzResourceGroupDeployment.",
+        "-ParameterList is not a valid parameter name for New-AzResourceGroupDeployment.",
+        "Splatting `@params` works only if hashtable keys match cmdlet parameter names, whereas `-TemplateParameterObject` passes template parameters specifically."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/app-service/networking/private-endpoints"
+      "reference": "https://learn.microsoft.com/en-us/powershell/module/az.resources/new-azresourcegroupdeployment"
     }
   },
   {
     "id": 40,
-    "subtopic": "Configure networking settings for an App Service",
-    "question": "You are integrating an App Service with a Virtual Network subnet using regional VNet Integration. Which requirement applies to the designated subnet?",
+    "subtopic": "Deploy resources by using an Azure Resource Manager template or a Bicep file",
+    "question": "When deploying a Bicep file in Incremental deployment mode, what happens to existing resources in the targeted resource group that are NOT defined in the Bicep template?",
     "options": [
-      "The subnet must be delegated to `Microsoft.Web/serverFarms` and contain no other non-App Service resources.",
-      "The subnet must have an active Application Gateway attached to it.",
-      "The subnet must be located in a different region than the App Service plan.",
-      "The subnet must have Network Security Groups completely disabled."
+      "The existing resources are left unchanged.",
+      "The existing resources are automatically deleted.",
+      "The existing resources are moved to a stopped/disabled state.",
+      "The deployment fails with an error indicating unknown resources exist."
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "Subnets used for regional VNet Integration must be delegated to `Microsoft.Web/serverFarms` and can only be used by Azure App Service plans.",
+      "correctReason": "In Incremental mode (the default mode for ARM/Bicep deployments), resources defined in the template are added or updated, while existing resources not in the template remain completely unchanged.",
       "incorrectReasons": [
-        "Subnets used for App Service VNet Integration should not contain Application Gateways.",
-        "Regional VNet Integration requires the VNet to be in the same region as the App Service plan.",
-        "Network Security Groups (NSGs) can be used on the integrated subnet, provided proper outbound rules are present."
+        "Deletion of unlisted resources occurs only in Complete deployment mode.",
+        "Incremental deployment does not stop or disable unreferenced resources.",
+        "Incremental deployment handles unreferenced resources gracefully without throwing errors."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/app-service/overview-vnet-integration#how-regional-vnet-integration-works"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/templates/deployment-modes#incremental-deployment-mode"
     }
   },
   {
     "id": 41,
-    "subtopic": "Configure networking settings for an App Service",
-    "question": "An enterprise web app needs to connect to an on-premises Microsoft SQL Server over a non-standard port without setting up a full VPN or VNet Integration. Which feature is specifically designed for this connectivity scenario?",
+    "subtopic": "Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file",
+    "question": "You have an existing ARM JSON template named 'azuredeploy.json'. You need to convert this template into a Bicep file named 'main.bicep' using the Bicep CLI.\n\nWhich command should you run?",
     "options": [
-      "Azure App Service Hybrid Connections",
-      "Azure ExpressRoute Direct",
-      "Azure Front Door Private Link",
-      "Virtual Network Peering"
+      "bicep decompile azuredeploy.json",
+      "bicep convert azuredeploy.json --out main.bicep",
+      "bicep import azuredeploy.json",
+      "az bicep export --template-file azuredeploy.json"
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "Hybrid Connections rely on Azure Relay to establish secure outbound TCP connections to on-premises resources (host/port) without requiring VNet integration or inbound firewall changes.",
+      "correctReason": "The `bicep decompile` command decompiles ARM JSON templates into Bicep source code files.",
       "incorrectReasons": [
-        "ExpressRoute Direct is a dedicated high-bandwidth cross-premise physical link.",
-        "Front Door Private Link connects global edge networks to Azure private endpoints.",
-        "Virtual Network Peering connects two Azure virtual networks within the cloud."
+        "'bicep convert' is not a valid Bicep CLI command; the term used is 'decompile'.",
+        "'bicep import' is not a valid Bicep CLI command for template conversion.",
+        "'az bicep export' is not a valid command."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/app-service/app-service-hybrid-connections"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/decompile"
     }
   },
   {
     "id": 42,
-    "subtopic": "Configure networking settings for an App Service",
-    "question": "You need to configure Cross-Origin Resource Sharing (CORS) on your Web App to allow browser requests only from `https://www.contoso.com`. What should you enter in the Allowed Origins list?",
+    "subtopic": "Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file",
+    "question": "You want to export an ARM template representing the current state of an existing resource group named 'rg-production' using Azure CLI.\n\nWhich command should you execute?",
     "options": [
-      "`https://www.contoso.com`",
-      "`*`",
-      "`https://www.contoso.com/*`",
-      "`www.contoso.com`"
+      "az group export --name rg-production",
+      "az deployment group export --resource-group rg-production",
+      "az resource export --group rg-production",
+      "az bicep export --resource-group rg-production"
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "CORS origins must specify the exact scheme, domain, and optional port without trailing wildcard paths (`https://www.contoso.com`).",
+      "correctReason": "The Azure CLI command `az group export --name <rg-name>` exports the resources present in a specified resource group as an ARM template.",
       "incorrectReasons": [
-        "`*` allows all domains, which violates the requirement to restrict to the specified domain.",
-        "`https://www.contoso.com/*` includes a path component, which is invalid syntax for CORS origin headers.",
-        "`www.contoso.com` omits the HTTP/HTTPS scheme, which is required."
+        "'az deployment group export' is used to export specific historic deployment templates, not current RG live state.",
+        "'az resource export' is not a valid group-level export command.",
+        "'az bicep export' is not a valid Azure CLI command."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/app-service/app-service-web-tutorial-rest-api"
+      "reference": "https://learn.microsoft.com/en-us/cli/azure/group#az-group-export"
     }
   },
   {
     "id": 43,
-    "subtopic": "Configure deployment slots for an App Service",
-    "question": "You create a deployment slot named `staging` for your production Azure Web App. What is the URL format used to access the staging slot directly?",
+    "subtopic": "Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file",
+    "question": "You convert a complex ARM template into Bicep using `bicep decompile`. What should you do immediately after decompilation?",
     "options": [
-      "`<app-name>-staging.azurewebsites.net`",
-      "`<app-name>.azurewebsites.net/staging`",
-      "`staging.<app-name>.azurewebsites.net`",
-      "`<app-name>.staging.azurewebsites.net`"
+      "Review and refine the Bicep code because decompilation is a best-effort process and warnings or errors may exist.",
+      "Deploy the file immediately to production without inspection because decompilation produces 100% verified code.",
+      "Manually convert all parameters to JSON parameter files as Bicep does not support inline parameters.",
+      "Run `bicep compile` to verify that the file outputs valid YAML."
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "Azure App Service deployment slots are fully functional web apps accessible via the naming pattern `<app-name>-<slot-name>.azurewebsites.net`.",
+      "correctReason": "Decompiling ARM JSON to Bicep is a best-effort process. The Bicep CLI might issue warnings or fix-ups (like lost dependencies or comments), requiring human review.",
       "incorrectReasons": [
-        "Slots are not exposed as URL subpaths.",
-        "Slot names are appended with a hyphen, not used as a domain prefix.",
-        "Slot names are inserted before the azurewebsites.net domain using a hyphen."
+        "Decompilation is best-effort and requires manual inspection before production deployment.",
+        "Bicep supports parameters natively within Bicep syntax and parameter files.",
+        "Bicep compiles into ARM JSON, not YAML."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/app-service/deploy-staging-slots"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/decompile"
     }
   },
   {
     "id": 44,
-    "subtopic": "Configure deployment slots for an App Service",
-    "question": "You perform a slot swap between the `staging` slot and the `production` slot. Which setting is swapped between the two slots by default?",
+    "subtopic": "Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file",
+    "question": "You need to export an ARM template for a specific Virtual Machine named 'vm-app1' in resource group 'rg-app' using Azure PowerShell.\n\nWhich cmdlet should you use?",
     "options": [
-      "Application content and files",
-      "Publishing credentials",
-      "Custom domain names and bindings",
-      "Sticky Application settings configured as 'Slot setting'"
+      "Export-AzResourceGroup -ResourceGroupName 'rg-app' -Resource '/subscriptions/.../resourceGroups/rg-app/providers/Microsoft.Compute/virtualMachines/vm-app1'",
+      "Export-AzVM -Name 'vm-app1' -ResourceGroupName 'rg-app'",
+      "Get-AzVM -Name 'vm-app1' -ResourceGroupName 'rg-app' | Export-AzTemplate",
+      "Save-AzARMTemplate -ResourceName 'vm-app1' -ResourceGroup 'rg-app'"
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "During a slot swap, application code, container configurations, and non-sticky application settings are swapped between production and staging.",
+      "correctReason": "The `Export-AzResourceGroup` cmdlet exports a resource group template, and using the `-Resource` parameter limits the exported template to specified resource IDs.",
       "incorrectReasons": [
-        "Publishing credentials remain tied to the specific slot instance.",
-        "Custom domain names and SSL bindings are sticky to the slot and do not swap.",
-        "Application settings explicitly marked as 'Slot setting' remain with their respective slot during a swap."
+        "Export-AzVM is not a standard cmdlet for exporting ARM JSON templates.",
+        "Export-AzTemplate is not a valid Azure PowerShell cmdlet.",
+        "Save-AzARMTemplate is not a valid cmdlet."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/app-service/deploy-staging-slots#what-happens-during-a-swap"
+      "reference": "https://learn.microsoft.com/en-us/powershell/module/az.resources/export-azresourcegroup"
     }
   },
   {
     "id": 45,
-    "subtopic": "Configure deployment slots for an App Service",
-    "question": "You want an application setting named `DATABASE_URL` to remain attached to the `staging` slot and NOT be copied to production when a slot swap occurs. What should you do?",
+    "subtopic": "Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file",
+    "question": "You build a Bicep file named 'main.bicep'. You want to compile it manually to inspect the resulting ARM JSON template before submitting it to a CI/CD pipeline.\n\nWhich command should you execute?",
     "options": [
-      "Check the 'Deployment slot setting' checkbox for `DATABASE_URL` in the slot configuration.",
-      "Encrypt the setting value using Azure Key Vault.",
-      "Set `DATABASE_URL` as read-only in the App Service plan.",
-      "Name the setting `STAGING_DATABASE_URL`."
+      "bicep build main.bicep",
+      "bicep compile main.bicep",
+      "az bicep convert main.bicep",
+      "bicep transpile main.bicep"
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "Marking an application setting or connection string as a 'Deployment slot setting' (sticky setting) ensures that it stays with the slot during swap operations.",
+      "correctReason": "The `bicep build main.bicep` command compiles the Bicep code into an ARM JSON template file (`main.json`).",
       "incorrectReasons": [
-        "Key Vault references will still swap unless marked as a sticky slot setting.",
-        "App Service settings do not support setting individual settings as read-only.",
-        "Naming convention changes do not prevent default non-sticky settings from swapping."
+        "'bicep compile' is not the CLI command name; the command is `build`.",
+        "'az bicep convert' is invalid CLI syntax.",
+        "'bicep transpile' is not a valid command name."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/app-service/deploy-staging-slots#which-settings-are-swapped"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/bicep-cli#build"
     }
   },
   {
     "id": 46,
-    "subtopic": "Configure deployment slots for an App Service",
-    "question": "You perform a swap with preview from `staging` to `production`. What advantage does a swap with preview offer over a standard swap?",
+    "subtopic": "Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file",
+    "question": "When exporting a resource group as an ARM template, which type of information is automatically EXCLUDED from the generated template for security reasons?",
     "options": [
-      "It applies production settings to the staging slot and allows testing the target configuration before completing the swap.",
-      "It automatically runs load testing scripts hosted in Azure DevOps.",
-      "It doubles the memory on the App Service plan during the swap window.",
-      "It guarantees zero DNS propagation delay globally."
+      "Secret values such as administrator passwords and access keys.",
+      "Resource names and locations.",
+      "Subnet IP address prefixes.",
+      "Tag keys and tag values."
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "Swap with preview applies production configuration settings (like connection strings) to the source/staging slot first, letting you verify app behavior before completing the final swap.",
+      "correctReason": "Exported templates don't include sensitive secret values such as administrator passwords and access keys. Such values must be supplied separately when the template is reused.",
       "incorrectReasons": [
-        "Swap with preview does not automatically run load testing scripts.",
-        "Swap with preview does not alter instance hardware pricing tiers or RAM.",
-        "DNS propagation delay is governed by TTL settings, which swap with preview does not modify."
+        "Resource names and locations are normal resource properties and can be included in an exported template.",
+        "Subnet address prefixes are structural networking properties and can be included in an export.",
+        "Tag keys and values are non-secret resource metadata and can be included in an export."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/app-service/deploy-staging-slots#swap-with-preview"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/templates/export-template-portal#choose-the-right-export-option"
     }
   },
   {
     "id": 47,
-    "subtopic": "Configure deployment slots for an App Service",
-    "question": "You need to route 10% of production user traffic to a newly deployed web application version in a `staging` deployment slot to conduct canary testing. Which feature should you use?",
+    "subtopic": "Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file",
+    "question": "You navigate to Azure Portal to download the template used during a historical deployment that occurred last week.\n\nWhere in the Azure Portal can you download this original ARM deployment template?",
     "options": [
-      "Testing in Production (Traffic Routing %)",
-      "Azure Traffic Manager Weighted Routing",
-      "App Service Auto-Heal rules",
-      "Azure Front Door URL Rewrite"
+      "Select the Resource Group -> 'Deployments' -> Click the specific deployment name -> Click 'Template'.",
+      "Select the Resource Group -> 'Export template'.",
+      "Select Activity log -> Filter by 'Create deployment' -> Click 'Download JSON'.",
+      "Select Azure Monitor -> Logs -> Run `AzureDiagnostics` query."
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "The 'Testing in production' feature allows you to specify percentage traffic distribution between production and existing deployment slots within the same App Service.",
+      "correctReason": "The exact ARM template used for a specific past deployment is preserved in the Resource Group's 'Deployments' history blade under the 'Template' tab.",
       "incorrectReasons": [
-        "Traffic Manager distributes across separate endpoints/regions, whereas Testing in Production routes traffic natively between slots within a single App Service.",
-        "Auto-Heal executes actions (like restarts) based on app diagnostic metrics.",
-        "URL Rewrite alters request path structures, not percentage-based slot traffic balancing."
+        "'Export template' under Resource Group exports the CURRENT live state of resources, not the past deployment template.",
+        "Activity logs track event operations, not full deployment ARM template JSON definitions.",
+        "Log Analytics diagnostics store telemetry logs, not original deployment templates."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/app-service/deploy-staging-slots#route-traffic"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/templates/export-template-portal#export-template-after-deployment"
     }
   },
   {
     "id": 48,
-    "subtopic": "Configure deployment slots for an App Service",
-    "question": "What is the minimum App Service plan pricing tier required to support Deployment Slots?",
+    "subtopic": "Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file",
+    "question": "You are converting an ARM JSON template to Bicep using Azure CLI. Which command decompiles an ARM JSON template 'template.json' into Bicep code directly using Azure CLI?",
     "options": [
-      "Standard",
-      "Basic",
-      "Free",
-      "Shared"
+      "az bicep decompile --file template.json",
+      "az deployment group decompile --template-file template.json",
+      "az group export --template-file template.json --bicep",
+      "az bicep convert --file template.json"
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "Deployment slots are supported on Standard, Premium, and Isolated tiers. Standard tier supports up to 5 deployment slots per app.",
+      "correctReason": "Azure CLI wraps Bicep commands via `az bicep`; `az bicep decompile --file <path>` decompiles an ARM JSON template into Bicep.",
       "incorrectReasons": [
-        "Basic tier supports custom domains and SSL, but does not support deployment slots.",
-        "Free tier does not support deployment slots.",
-        "Shared tier does not support deployment slots."
+        "'az deployment group decompile' is invalid command syntax.",
+        "'az group export' does not accept a `--bicep` conversion flag.",
+        "'az bicep convert' is not a valid Azure CLI Bicep subcommand."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/app-service/overview-hosting-plans"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/bicep-cli#decompile"
     }
   },
   {
     "id": 49,
-    "subtopic": "Configure scaling for an App Service plan",
-    "question": "You want to configure scale-out behavior based on memory usage. What Azure Service collects performance metrics and triggers the autoscale mechanism for App Service plans?",
+    "subtopic": "Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file",
+    "question": "Which Azure CLI option should you pass to `az group export` if you want to exclude resource-name parameterization from the exported ARM template?",
     "options": [
-      "Azure Monitor",
-      "Azure Advisor",
-      "Azure Traffic Manager",
-      "Application Insights"
+      "--skip-resource-name-params",
+      "--skip-all-params",
+      "--include-parameter-default-value",
+      "--resource-ids"
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "Azure Monitor provides core platform metrics (such as CPU Percentage, Memory Percentage, Data In/Out) and powers the autoscale rule engine.",
+      "correctReason": "The `--skip-resource-name-params` option tells `az group export` not to parameterize resource names; the exported template uses the current resource names directly.",
       "incorrectReasons": [
-        "Azure Advisor provides security, cost, and best-practice recommendations.",
-        "Traffic Manager balances incoming traffic across endpoints.",
-        "Application Insights provides application performance monitoring (APM) and telemetry, but autoscale rules integrate directly through Azure Monitor metrics platform."
+        "`--skip-all-params` skips all parameterization, not specifically resource-name parameterization.",
+        "`--include-parameter-default-value` adds current values as parameter defaults; it doesn't exclude resource-name parameterization.",
+        "`--resource-ids` filters which resources are exported; it doesn't control parameterization."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/azure-monitor/autoscale/autoscale-overview"
+      "reference": "https://learn.microsoft.com/en-us/cli/azure/group#az-group-export"
     }
   },
   {
     "id": 50,
-    "subtopic": "Configure networking settings for an App Service",
-    "question": "You configure Access Restrictions on an Azure Web App to block public access. However, developers report they can still access the App Service SCM / Kudu management site (`<app-name>.scm.azurewebsites.net`). How should you restrict access to the SCM site?",
+    "subtopic": "Export a deployment as an Azure Resource Manager template or convert an Azure Resource Manager template to a Bicep file",
+    "question": "You export a resource group containing custom virtual machine extensions. When reviewing the exported ARM template, you notice some extension configuration properties are missing.\n\nWhy might properties be missing from an exported ARM template?",
     "options": [
-      "Configure the dedicated 'SCM site access restrictions' tab or check 'Use main site restrictions for SCM'.",
-      "Disable the deployment slot setting.",
-      "Remove all custom DNS CNAME entries.",
-      "Scale down the App Service plan to Basic."
+      "Export template provides a snapshot based on resource provider export schemas; resources or extensions that do not support export will omit unsupported properties.",
+      "The Azure account executing the export lacked Subscription Owner permissions.",
+      "Exporting templates requires the target resource group to be placed in ReadOnly lock state.",
+      "Exporting templates only works for Microsoft.Storage and Microsoft.Network resources."
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "The SCM (Kudu) site has its own independent access restriction rules by default. You must configure rules under the SCM tab or check the setting to match main site restrictions.",
+      "correctReason": "Export template feature relies on each Azure resource provider supporting export. If a resource or extension does not fully support template export schema, those details are omitted or exported incomplete.",
       "incorrectReasons": [
-        "Disabling slot settings does not block SCM management endpoint access.",
-        "Custom DNS entries do not control default `*.scm.azurewebsites.net` management endpoint filtering.",
-        "Scaling down pricing tiers does not configure network restriction filters for management endpoints."
+        "Read permissions on the resource group are sufficient to read resource definitions for export; Owner role is not required.",
+        "Resource locks are not required to export templates.",
+        "Template export works across almost all Azure resource types, subject to individual provider schema support."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/app-service/app-service-ip-restrictions#scm-site"
+      "reference": "https://learn.microsoft.com/en-us/azure/virtual-machines/extensions/export-templates"
     }
   }
 ]

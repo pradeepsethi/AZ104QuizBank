@@ -107,22 +107,22 @@
   {
     "id": 6,
     "subtopic": "Create and configure virtual networks and subnets",
-    "question": "You need to enable communication between VMs in VNet1 and an On-Premises network via ExpressRoute. You must create the gateway subnet. Which restriction applies to the GatewaySubnet?",
+    "question": "You need to enable communication between VMs in VNet1 and an on-premises network via ExpressRoute. You must create the gateway subnet. Which restriction applies specifically to Network Security Groups on GatewaySubnet?",
     "options": [
       "It cannot have a Network Security Group (NSG) associated with it.",
-      "It cannot contain any standard Virtual Machines.",
+      "It must have a Network Security Group (NSG) associated with it.",
       "It must use a /24 subnet mask exclusively.",
       "It must be configured with a custom DNS server."
     ],
-    "correct": 1,
+    "correct": 0,
     "explanation": {
-      "correctReason": "The GatewaySubnet is reserved exclusively for virtual network gateway resources (VPN or ExpressRoute gateways). You must not deploy standard VMs or other resources into the GatewaySubnet.",
+      "correctReason": "Microsoft Learn states that NSGs on GatewaySubnet aren't supported. Associating an NSG can cause a VPN or ExpressRoute gateway to stop functioning as expected.",
       "incorrectReasons": [
-        "While NSGs were historically discouraged on GatewaySubnet, Microsoft now supports specific NSGs on GatewaySubnet with certain rules; however, deploying regular VMs is strictly prohibited.",
-        "GatewaySubnet recommends /27 or larger (/27, /26), but is not restricted exclusively to /24.",
-        "Custom DNS servers can be used for the VNet, but are not a mandatory prerequisite restriction specifically for GatewaySubnet creation."
+        "NSGs aren't supported on GatewaySubnet; associating one can interfere with the virtual network gateway.",
+        "An NSG isn't required on GatewaySubnet and isn't supported there.",
+        "GatewaySubnet can use different prefix sizes; /24 isn't mandatory."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/vpn-gateway/vpn-gateway-about-vpn-gateway-settings#gwsub"
+      "reference": "https://learn.microsoft.com/en-us/azure/vpn-gateway/tutorial-site-to-site-portal#create-a-gateway-subnet"
     }
   },
   {
@@ -265,9 +265,9 @@
     "explanation": {
       "correctReason": "To share a gateway over peering, the VNet with the gateway (VNet1) must enable 'Allow gateway transit', and the spoke VNet (VNet2) must enable 'Use the remote virtual network's gateway'.",
       "incorrectReasons": [
-        "Reversing these settings causes peering failure because VNet2 owns no gateway to share.",
+        "Reversing the settings does not establish the intended gateway-transit relationship: the VNet that owns the gateway must allow gateway transit, while the remote VNet must use the remote gateway.",
         "'Allow forwarded traffic' allows traffic not originating from inside the local VNet, but does not configure gateway transit.",
-        "A VNet cannot use a remote gateway if it already has its own gateway deployed."
+        "A second VPN Gateway in VNet2 isn't required; VNet2 can use VNet1's gateway through gateway transit."
       ],
       "reference": "https://learn.microsoft.com/en-us/azure/vpn-gateway/vpn-gateway-peering-gateway-transit"
     }
@@ -275,7 +275,7 @@
   {
     "id": 14,
     "subtopic": "Create and configure virtual network peering",
-    "question": "You attempt to create a VNet peering between VNet1 (10.0.0.0/16) and VNet2 (10.0.10.0/20). The creation fails. What is the most likely reason for the failure?",
+    "question": "You attempt to create VNet peering between VNet1 (10.0.0.0/16) and VNet2 (10.0.10.0/24). The creation fails. What is the most likely reason for the failure?",
     "options": [
       "The address spaces of VNet1 and VNet2 overlap.",
       "VNet1 and VNet2 are in different Azure subscriptions.",
@@ -284,7 +284,7 @@
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "10.0.10.0/20 ranges from 10.0.0.0 to 10.0.15.255, which falls inside VNet1's address space (10.0.0.0 to 10.0.255.255). Azure blocks VNet peering if address ranges overlap.",
+      "correctReason": "10.0.10.0/24 is entirely within VNet1's 10.0.0.0/16 address space, so the address spaces overlap. Azure doesn't allow VNet peering between VNets with overlapping address spaces.",
       "incorrectReasons": [
         "Azure supports cross-subscription VNet peering.",
         "Azure supports Global VNet Peering across different Azure regions.",
@@ -455,7 +455,8 @@
       "correctReason": "Azure requires matching SKUs for Public IPs and Load Balancers. A Standard Load Balancer requires a Standard SKU Public IP.",
       "incorrectReasons": [
         "Basic SKU Public IPs cannot be attached to Standard SKU Load Balancers.",
-        "There is no 'Premium SKU' or 'Free SKU' for Azure Public IP addresses."
+        "There is no Premium SKU for Azure Public IP addresses.",
+        "There is no Free SKU for Azure Public IP addresses."
       ],
       "reference": "https://learn.microsoft.com/en-us/azure/virtual-network/ip-services/public-ip-addresses#sku"
     }
@@ -505,22 +506,22 @@
   {
     "id": 25,
     "subtopic": "Configure public IP addresses",
-    "question": "You deallocate a Virtual Machine that has a Basic Public IP with Dynamic assignment. What happens to the Public IP address?",
+    "question": "You have a virtual machine with a Standard SKU Public IP address using static allocation. You deallocate the virtual machine. What happens to the Public IP address?",
     "options": [
-      "The IP address remains assigned to the VM indefinitely.",
+      "The IP address remains associated with the VM's network interface and is retained.",
       "The IP address is released and may change when the VM is restarted.",
-      "The IP address converts automatically to a Standard Static IP.",
-      "The IP address is deleted permanently along with the Public IP resource."
+      "The IP address converts automatically to a dynamic Basic Public IP.",
+      "The Public IP resource is deleted permanently along with the VM."
     ],
-    "correct": 1,
+    "correct": 0,
     "explanation": {
-      "correctReason": "Dynamic Basic Public IPs are released when the resource (VM) is stopped/deallocated. When restarted, a new IP address from the pool is assigned.",
+      "correctReason": "A Standard SKU Public IP uses static allocation. Deallocating the VM doesn't release or change the public IP address; the Public IP resource remains associated with the VM's network interface.",
       "incorrectReasons": [
-        "Dynamic IP addresses are not retained during VM deallocation.",
-        "Dynamic IP addresses do not automatically convert to Standard Static SKU.",
-        "The Public IP resource object remains in the subscription, but its underlying IP address allocation is released."
+        "A static Standard Public IP remains allocated; deallocating the VM doesn't cause the address to change.",
+        "Standard Public IPs don't automatically convert to a dynamic Basic Public IP.",
+        "Deallocating a VM doesn't delete its separately managed Public IP resource."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/virtual-network/ip-services/public-ip-addresses#allocation-method"
+      "reference": "https://learn.microsoft.com/en-us/azure/virtual-network/ip-services/public-ip-addresses"
     }
   },
   {
@@ -904,22 +905,22 @@
   {
     "id": 44,
     "subtopic": "Troubleshoot network connectivity",
-    "question": "You need to log all raw IP traffic flowing through a specific Network Security Group, including allowed and denied flows with source/destination IPs and ports. What feature should you enable?",
+    "question": "You need to log IP traffic flowing through a virtual network, including source and destination IPs, ports, protocols, and flow actions. What feature should you enable for a new deployment?",
     "options": [
-      "NSG Flow Logs (VNet Flow Logs)",
+      "Virtual Network (VNet) Flow Logs",
       "Azure Activity Logs",
       "Diagnostic Settings on Virtual Network",
       "Azure Monitor Metrics"
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "NSG Flow Logs / VNet Flow Logs record IP traffic flow details (source, destination, port, protocol, decision) passing through network security groups.",
+      "correctReason": "VNet Flow Logs record flow metadata such as source and destination IP addresses, ports, protocol, and action for traffic in a virtual network. Microsoft recommends VNet Flow Logs for new deployments.",
       "incorrectReasons": [
-        "Azure Activity Logs record management operations (control plane), not individual data plane network packet flows.",
-        "VNet diagnostic settings capture operational logs, but not detailed 5-tuple flow records.",
-        "Azure Monitor Metrics provides numerical aggregated performance counters, not individual traffic flow logs."
+        "Azure Activity Logs record Azure control-plane management operations, not per-flow network traffic metadata.",
+        "Generic VNet diagnostic settings don't provide the VNet flow-log records described in the question.",
+        "Azure Monitor Metrics provide aggregated numerical measurements rather than individual network flow records."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/network-watcher/nsg-flow-logs-overview"
+      "reference": "https://learn.microsoft.com/en-us/azure/network-watcher/vnet-flow-logs-overview"
     }
   },
   {
@@ -1030,20 +1031,20 @@
   {
     "id": 50,
     "subtopic": "Troubleshoot network connectivity",
-    "question": "You need to analyze traffic flow visual trends, top talkers, and application protocols based on NSG Flow Logs data. Which Azure service integrates with NSG Flow Logs to provide rich visual dashboards?",
+    "question": "You need to analyze traffic-flow trends, top talkers, and application protocols using VNet Flow Logs data. Which Azure service processes flow-log data to provide visual dashboards?",
     "options": [
       "Traffic Analytics",
-      "Azure Sentinel (Microsoft Defender for Cloud)",
+      "Microsoft Defender for Cloud",
       "Network Watcher IP Flow Verify",
       "Azure Service Health"
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "Traffic Analytics is a cloud-based solution that processes NSG/VNet Flow Logs and enriches them with intelligence to provide visual dashboards on traffic, user activity, and security risks.",
+      "correctReason": "Traffic Analytics processes flow-log data and provides visualization and analysis of traffic patterns, including top talkers and other network traffic insights.",
       "incorrectReasons": [
-        "Microsoft Defender for Cloud uses security logs for threat protection, but Traffic Analytics specifically generates the network traffic visualization dashboards from flow logs.",
-        "IP Flow Verify is an ad-hoc test tool, not a logging visualization platform.",
-        "Azure Service Health alerts on platform service outages, not customer VNet traffic flow analytics."
+        "Microsoft Defender for Cloud provides cloud security posture and threat-protection capabilities; it isn't the Network Watcher service that processes flow logs into traffic-analysis dashboards.",
+        "IP Flow Verify is an on-demand connectivity filtering test, not a flow-log visualization service.",
+        "Azure Service Health reports Azure service incidents and health information, not customer VNet traffic analytics."
       ],
       "reference": "https://learn.microsoft.com/en-us/azure/network-watcher/traffic-analytics"
     }

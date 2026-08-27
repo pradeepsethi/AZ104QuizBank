@@ -17,7 +17,7 @@
         "Blocking port 443 outbound would prevent HTTPS communication with Azure Storage.",
         "Service Bus endpoints are used for messaging services, not for securing Azure Blob/File storage accounts."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/storage/common/storage-network-security#grant-access-from-a-virtual-network"
+      "reference": "https://learn.microsoft.com/azure/storage/common/storage-network-security#virtual-network-rules"
     }
   },
   {
@@ -38,7 +38,7 @@
         "Allowing '0.0.0.0/0' grants unrestricted access to the entire public internet.",
         "Anonymous access allows unauthenticated reads over the internet, which violates the security policy."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/storage/common/storage-network-security#exceptions"
+      "reference": "https://learn.microsoft.com/azure/storage/common/storage-network-security#exceptions-for-trusted-azure-services-and-network-security"
     }
   },
   {
@@ -59,7 +59,7 @@
         "The Azure portal does not override storage firewall restrictions; requests originate from the user's browser client IP.",
         "Custom domains are used for custom web endpoints and have no bearing on firewall IP allow lists."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/storage/common/storage-network-security#grant-access-from-an-internet-ip-range"
+      "reference": "https://learn.microsoft.com/azure/storage/common/storage-network-security#ip-network-rules"
     }
   },
   {
@@ -80,7 +80,7 @@
         "ExpressRoute Public Peering is deprecated and uses public IP routes rather than private VNet IPs.",
         "IP firewall rules allow traffic over the storage account's public endpoint, which routes over the internet/public network."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/storage/common/storage-private-endpoints"
+      "reference": "https://learn.microsoft.com/azure/storage/common/storage-private-endpoints"
     }
   },
   {
@@ -101,7 +101,7 @@
         "NSG rules filter network traffic; they do not perform domain name resolution.",
         "UDRs route IP traffic at Layer 3; they do not resolve DNS hostnames."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/storage/common/storage-private-endpoints#dns-changes-for-private-endpoints"
+      "reference": "https://learn.microsoft.com/azure/storage/common/storage-private-endpoints#dns-changes-for-private-endpoints"
     }
   },
   {
@@ -122,7 +122,7 @@
         "NSGs cannot be attached directly to Azure Storage PaaS resources.",
         "Container public access levels control anonymous access, not VNet subnet firewall filtering."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/storage/common/storage-network-security#grant-access-from-a-virtual-network"
+      "reference": "https://learn.microsoft.com/azure/storage/common/storage-network-security#virtual-network-rules"
     }
   },
   {
@@ -143,7 +143,7 @@
         "Service Endpoint policies apply to Azure subnets, not directly to on-premises routers.",
         "Virtual network rules require Azure VNet subnets, not standalone external IP addresses."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/storage/common/storage-network-security#grant-access-from-an-internet-ip-range"
+      "reference": "https://learn.microsoft.com/azure/storage/common/storage-network-security#ip-network-rules"
     }
   },
   {
@@ -151,20 +151,20 @@
     "subtopic": "Configure Azure Storage firewalls and virtual networks",
     "question": "Which setting on an Azure Storage account ensures that data transfer between clients and Azure Storage requires HTTPS encryption and rejects unencrypted HTTP requests?",
     "options": [
-      "Secure transfer required (Enable HTTPSEnternal / EnableSecureTransfer)",
+      "Secure transfer required",
       "Infrastructure encryption",
       "Blob versioning",
       "Minimum TLS version set to 1.0"
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "'Secure transfer required' forces all incoming requests to use HTTPS rather than HTTP, rejecting unencrypted communication.",
+      "correctReason": "The Secure transfer required property forces requests to the storage account to use HTTPS. Requests made over HTTP are rejected.",
       "incorrectReasons": [
-        "Infrastructure encryption enables double encryption at rest at the storage service layer, not transport security.",
-        "Blob versioning maintains historical states of blobs, not transit protocol security.",
-        "TLS 1.0 is an older protocol; while it enforces TLS, 'Secure transfer required' is the primary setting to block unencrypted HTTP."
+        "Infrastructure encryption provides an additional encryption layer for data at rest; it does not enforce HTTPS for client connections.",
+        "Blob versioning preserves previous blob versions; it does not enforce the transport protocol.",
+        "A minimum TLS version controls the TLS version used for secure connections; it does not by itself express the requirement to reject unencrypted HTTP."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/storage/common/storage-require-secure-transfer"
+      "reference": "https://learn.microsoft.com/azure/storage/common/storage-require-secure-transfer"
     }
   },
   {
@@ -185,7 +185,7 @@
         "Disabling secure transfer allows plain HTTP traffic, lowering security further.",
         "NSGs cannot be attached directly to PaaS Azure Storage accounts."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/storage/blobs/anonymous-read-access-prevent"
+      "reference": "https://learn.microsoft.com/azure/storage/blobs/anonymous-read-access-prevent"
     }
   },
   {
@@ -206,7 +206,7 @@
         "Anonymous container access exposes data publicly and bypasses network authentication controls.",
         "Application Gateway is an HTTP/HTTPS load balancer and is not required for storage endpoint connections."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/storage/common/storage-network-security#grant-access-from-a-virtual-network"
+      "reference": "https://learn.microsoft.com/azure/storage/common/storage-network-security#virtual-network-rules"
     }
   },
   {
@@ -227,7 +227,7 @@
         "User Delegation SAS uses Microsoft Entra credentials instead of storage account access keys.",
         "Directory SAS specifically targets Azure Data Lake Storage Gen2 directory operations."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/storage/common/storage-sas-overview#types-of-shared-access-signatures"
+      "reference": "https://learn.microsoft.com/azure/storage/common/storage-sas-overview#types-of-shared-access-signatures"
     }
   },
   {
@@ -248,7 +248,7 @@
         "Account SAS is signed using account access keys.",
         "Stored Access SAS is not a distinct type; stored access policies back Service SAS signed with account keys."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/storage/blobs/storage-blob-user-delegation-sas-create-portal"
+      "reference": "https://learn.microsoft.com/rest/api/storageservices/create-user-delegation-sas"
     }
   },
   {
@@ -269,7 +269,7 @@
         "Full Control grants read and delete permissions, violating the restriction.",
         "Delete and Read grants read/delete access without write capabilities."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/storage/common/storage-sas-overview#how-a-shared-access-signature-works"
+      "reference": "https://learn.microsoft.com/rest/api/storageservices/create-service-sas#construct-a-service-sas"
     }
   },
   {
@@ -290,7 +290,7 @@
         "`ss` (Signed Services) specifies the accessible storage services (e.g., Blob, File) for an Account SAS.",
         "`st` (Signed Start time) specifies the start time for the SAS token validity."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/storage/common/storage-sas-overview#sas-token-parameters"
+      "reference": "https://learn.microsoft.com/azure/storage/common/storage-sas-overview"
     }
   },
   {
@@ -311,7 +311,7 @@
         "`sr=c` sets resource scope to container, not transport encryption protocols.",
         "`sp=r` limits operations to Read actions."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/storage/common/storage-sas-overview#specify-http-or-https"
+      "reference": "https://learn.microsoft.com/azure/storage/common/storage-sas-overview#best-practices-when-using-sas"
     }
   },
   {
@@ -332,7 +332,7 @@
         "Account SAS tokens cannot be associated with stored access policies; only Service SAS can.",
         "Account SAS tokens are not tied to Microsoft Entra user accounts; User Delegation SAS tokens are."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/storage/common/storage-sas-overview#revoke-a-sas"
+      "reference": "https://learn.microsoft.com/rest/api/storageservices/create-service-sas#lifetime-and-revocation-of-a-shared-access-signature"
     }
   },
   {
@@ -353,7 +353,7 @@
         "Permissions are designated by `sp` (`r` for read).",
         "Protocols are specified by `spr` (e.g., `https`)."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/storage/common/storage-sas-overview#sas-token-parameters"
+      "reference": "https://learn.microsoft.com/rest/api/storageservices/create-service-sas#construct-a-service-sas"
     }
   },
   {
@@ -374,7 +374,7 @@
         "Subscription/Resource group Owner lacks explicit data plane permissions required for blob storage actions unless data roles are assigned.",
         "Generic Reader lacks specific storage data plane permissions."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/storage/blobs/storage-blob-user-delegation-sas-create-portal#assign-permissions"
+      "reference": "https://learn.microsoft.com/rest/api/storageservices/get-user-delegation-key#authorization"
     }
   },
   {
@@ -395,7 +395,7 @@
         "A User Delegation SAS currently applies only to Blob and Queue storage individually via Entra ID keys.",
         "A Blob SAS only applies to Blob storage."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/storage/common/storage-sas-overview#types-of-shared-access-signatures"
+      "reference": "https://learn.microsoft.com/azure/storage/common/storage-sas-overview#types-of-shared-access-signatures"
     }
   },
   {
@@ -416,7 +416,7 @@
         "No fallback access mode is applied upon SAS expiration.",
         "Expired requests are denied immediately; they are not queued."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/storage/common/storage-sas-overview#how-a-shared-access-signature-works"
+      "reference": "https://learn.microsoft.com/azure/storage/common/storage-sas-overview#sas-token"
     }
   },
   {
@@ -437,7 +437,7 @@
         "Conditional Access applies to Entra ID users, not individual Service SAS tokens.",
         "Lifecycle Management moves or deletes blobs based on age, not access policy revocation."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/storage/blobs/storage-stored-access-policy-define-oop"
+      "reference": "https://learn.microsoft.com/rest/api/storageservices/define-stored-access-policy"
     }
   },
   {
@@ -458,7 +458,7 @@
         "50 is incorrect.",
         "100 is incorrect."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/storage/blobs/storage-stored-access-policy-define-oop#establishing-a-stored-access-policy"
+      "reference": "https://learn.microsoft.com/rest/api/storageservices/define-stored-access-policy#create-or-modify-a-stored-access-policy"
     }
   },
   {
@@ -479,7 +479,7 @@
         "File shares support stored access policies.",
         "Queues support stored access policies."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/storage/blobs/storage-stored-access-policy-define-oop"
+      "reference": "https://learn.microsoft.com/rest/api/storageservices/define-stored-access-policy"
     }
   },
   {
@@ -500,7 +500,7 @@
         "Deletion revokes access rather than enabling anonymous access.",
         "The token signature relies on policy validation and does not fall back to shared key permissions."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/storage/blobs/storage-stored-access-policy-define-oop#modifying-or-revoking-a-stored-access-policy"
+      "reference": "https://learn.microsoft.com/rest/api/storageservices/create-service-sas#lifetime-and-revocation-of-a-shared-access-signature"
     }
   },
   {
@@ -521,7 +521,7 @@
         "Re-issuing all 20 tokens requires client application redeployment/configuration changes.",
         "Resource tags do not control storage data plane access permissions or token expiration."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/storage/blobs/storage-stored-access-policy-define-oop#modifying-or-revoking-a-stored-access-policy"
+      "reference": "https://learn.microsoft.com/rest/api/storageservices/define-stored-access-policy#modify-or-revoke-a-stored-access-policy"
     }
   },
   {
@@ -542,7 +542,7 @@
         "`sig` holds the cryptographic HMAC signature.",
         "`se` specifies explicit expiry when not overridden by a policy."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/storage/common/storage-sas-overview#sas-token-parameters"
+      "reference": "https://learn.microsoft.com/rest/api/storageservices/create-service-sas#construct-a-service-sas"
     }
   },
   {
@@ -563,7 +563,7 @@
         "Stored access policies exist only at the container/share/queue/table level, not account-wide.",
         "There is no 'Disabled' status holding tier for excess access policies."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/storage/blobs/storage-stored-access-policy-define-oop#establishing-a-stored-access-policy"
+      "reference": "https://learn.microsoft.com/rest/api/storageservices/define-stored-access-policy#create-or-modify-a-stored-access-policy"
     }
   },
   {
@@ -584,28 +584,28 @@
         "Network actions relate to VNet routing, not blob operations.",
         "Encrypt, Decrypt, Wrap are Key Vault cryptographic key operations."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/storage/blobs/storage-stored-access-policy-define-oop"
+      "reference": "https://learn.microsoft.com/rest/api/storageservices/define-stored-access-policy"
     }
   },
   {
     "id": 29,
     "subtopic": "Configure stored access policies",
-    "question": "A developer specifies both an explicit expiry date in the SAS token (`se`) and links the SAS to a Stored Access Policy that also defines an expiry date. Which expiry date takes precedence?",
+    "question": "When creating a Service SAS that references a Stored Access Policy, how should the SAS URI handle the start time (`st`), expiry (`se`), and permissions (`sp`) that are defined by the policy?",
     "options": [
-      "If both are provided, the SAS signature validation fails unless the policy identifier parameter (`si`) is used alone without overriding inline parameters or values match policy rules.",
-      "The inline SAS token expiry date always overrides the stored access policy.",
-      "The stored access policy expiry date always overrides the inline token.",
-      "The system picks whichever expiry date is earlier."
+      "Omit `st`, `se`, and `sp` from the SAS URI because those constraints are supplied by the Stored Access Policy.",
+      "Include `st`, `se`, and `sp` in the SAS URI; the inline values override the policy.",
+      "Include both sets of values; Azure automatically uses whichever expiry is earlier.",
+      "Include only `se`; the policy supplies `st` and `sp` but `se` is always required in the URI."
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "When using a Stored Access Policy (`si`), specifying parameters like expiry (`se`) or permissions (`sp`) in the SAS URI that conflict or duplicate the policy can cause signature validation errors unless properly constructed according to SAS specifications.",
+      "correctReason": "A Service SAS associated with a Stored Access Policy must omit any SAS URI parameters that are specified by the policy. In particular, `st`, `se`, and `sp` must be omitted when the policy supplies those constraints.",
       "incorrectReasons": [
-        "Inline tokens do not automatically override policies if cryptographic signature checks fail.",
-        "It is not an automatic override mechanism; parameters must align with signature generation rules.",
-        "Azure Storage checks signatures strictly against signed string elements rather than picking arbitrary earlier dates."
+        "Inline values do not override a Stored Access Policy; the same parameter cannot be specified both on the SAS URI and the policy.",
+        "Azure does not select the earlier of duplicate policy and URI values because duplicate specification is not permitted.",
+        "If `se` is specified by the Stored Access Policy, it must be omitted from the SAS URI."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/storage/common/storage-sas-overview"
+      "reference": "https://learn.microsoft.com/rest/api/storageservices/create-service-sas#construct-a-service-sas"
     }
   },
   {
@@ -626,7 +626,7 @@
         "Regenerating keys breaks all key-based SAS tokens across the account rather than selectively suspending 'VendorAccess'.",
         "Disabling public access affects anonymous requests, not SAS-authenticated calls."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/storage/blobs/storage-stored-access-policy-define-oop#modifying-or-revoking-a-stored-access-policy"
+      "reference": "https://learn.microsoft.com/rest/api/storageservices/define-stored-access-policy#modify-or-revoke-a-stored-access-policy"
     }
   },
   {
@@ -647,13 +647,13 @@
         "Regenerating both keys simultaneously causes total application downtime.",
         "Storage accounts have two fixed key slots (key1/key2); you cannot arbitrarily create 'key3'."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/storage/common/storage-account-keys-manage#key-rotation-workflow"
+      "reference": "https://learn.microsoft.com/azure/storage/common/storage-account-keys-manage#manually-rotate-access-keys"
     }
   },
   {
     "id": 32,
     "subtopic": "Manage access keys",
-    "question": "You need to prevent users from accessing an Azure Storage account using Shared Key (access key) authorization, forcing all users to authenticate via Microsoft Entra ID. Which setting should you configure?",
+    "question": "You need to prevent users and applications from accessing an Azure Storage account by using Shared Key (account access key) authorization. Which setting should you configure?",
     "options": [
       "Set 'Allow storage account key access' (SharedKeyAccessAllowed) to 'Disabled'.",
       "Delete key1 and key2 from the Azure Portal.",
@@ -662,13 +662,13 @@
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "Disabling Shared Key access (`SharedKeyAccessAllowed = false`) causes Azure Storage to reject any incoming requests authenticated with account access keys, requiring Microsoft Entra ID authentication.",
+      "correctReason": "Disabling Shared Key access (`SharedKeyAccessAllowed = false`) causes Azure Storage to reject requests authenticated with account access keys and SAS tokens signed with those keys. Microsoft Entra ID and user delegation SAS can still be used where supported.",
       "incorrectReasons": [
-        "Account access keys (key1 and key2) cannot be deleted; they can only be regenerated or disabled via policy.",
-        "Disabling secure transfer impacts HTTPS requirements, not authentication modes.",
-        "Denying default network rules blocks network traffic, not specifically key-based access over authorized networks."
+        "Storage account access keys aren't deleted; they can be regenerated, but regeneration isn't the setting used to disable Shared Key authorization.",
+        "Secure transfer controls whether requests use HTTPS; it does not select the authentication mechanism.",
+        "A default network deny rule restricts network sources, not the authentication method."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/storage/common/shared-key-authorization-prevent"
+      "reference": "https://learn.microsoft.com/azure/storage/common/shared-key-authorization-prevent"
     }
   },
   {
@@ -689,7 +689,7 @@
         "User Delegation SAS relies on data plane roles, but key listing allows standard key-signed SAS creation.",
         "Storage Account Contributor permits full management of storage account settings."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/role-based-access-control/built-in-roles#storage-account-contributor"
+      "reference": "https://learn.microsoft.com/azure/storage/common/authorization-resource-provider#assign-management-permissions-with-azure-role-based-access-control-azure-rbac"
     }
   },
   {
@@ -710,7 +710,7 @@
         "Azure Storage Tables store structured NoSQL data and require authentication credentials to access.",
         "Azure Security Center (Defender for Cloud) provides security posture monitoring, not secret management."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/key-vault/secrets/quick-create-portal"
+      "reference": "https://learn.microsoft.com/azure/key-vault/secrets/quick-create-portal"
     }
   },
   {
@@ -731,7 +731,7 @@
         "'Configuration' contains settings like Secure Transfer, TLS version, and Shared Key access toggles.",
         "'Diagnostic settings' manages logging export destinations."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/storage/common/storage-account-keys-manage"
+      "reference": "https://learn.microsoft.com/azure/storage/common/storage-account-keys-manage#manually-rotate-access-keys"
     }
   },
   {
@@ -739,41 +739,41 @@
     "subtopic": "Manage access keys",
     "question": "What is the primary security risk associated with using Storage Account Access Keys for application data access?",
     "options": [
-      "Access keys provide full administrative access to all data plane and control plane operations for the entire storage account and cannot be scoped to specific resources or limited lifetimes.",
+      "Access keys provide full access to the storage account's data and can be used to generate SAS tokens; they aren't scoped to individual resources or users.",
       "Access keys expire automatically every 30 days, breaking applications unexpectedly.",
       "Access keys do not support HTTPS connection strings.",
-      "Access keys require complex Microsoft Entra ID user login prompts for background daemon services."
+      "Access keys require interactive Microsoft Entra ID sign-in prompts for background services."
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "Storage account access keys grant unrestricted full control over all services and data in the account without built-in expiration or fine-grained scoping.",
+      "correctReason": "Storage account access keys provide full access to the storage account's data and can be used to generate SAS tokens. They are shared secrets rather than fine-grained, identity-scoped credentials.",
       "incorrectReasons": [
-        "Access keys do not expire automatically; they remain valid until regenerated.",
-        "Access keys support both HTTP and HTTPS connection strings.",
-        "Access keys bypass Entra ID prompts, which is why compromised keys pose a severe threat."
+        "Access keys do not expire automatically every 30 days; they remain valid until regenerated.",
+        "Storage account access keys can be used in connection strings that specify HTTPS endpoints.",
+        "Shared Key authorization does not require interactive Microsoft Entra ID sign-in prompts, which is one reason compromised keys are risky."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/storage/common/storage-account-keys-manage"
+      "reference": "https://learn.microsoft.com/azure/storage/common/storage-account-keys-manage#protect-your-access-keys"
     }
   },
   {
     "id": 37,
     "subtopic": "Manage access keys",
-    "question": "You need to automate periodic rotation of Azure Storage account keys without manual administrator intervention. What service integration natively manages and rotates storage account keys and stores them as Key Vault secrets?",
+    "question": "You need to automate periodic rotation of Azure Storage account access keys and keep the current key securely in Azure Key Vault. Which Microsoft-supported solution is appropriate?",
     "options": [
-      "Azure Key Vault Managed Storage Account Keys",
-      "Azure Automation Runbooks using plain text scripts",
-      "Azure Event Grid with Logic Apps",
-      "Azure Advisor"
+      "Use an Azure Key Vault secret with the documented Event Grid + Azure Function dual-key rotation pattern.",
+      "Enable Azure Key Vault cryptographic-key auto-rotation on the storage account access key.",
+      "Use Azure Advisor to regenerate the storage account keys automatically.",
+      "Enable Storage Lifecycle Management to rotate the storage account access keys."
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "Azure Key Vault Managed Storage Accounts integrate with Azure Storage to automatically manage key rotation and sync updated key secrets into Key Vault.",
+      "correctReason": "Microsoft documents an automation pattern that stores the storage account key in Azure Key Vault and uses a SecretNearExpiry event with an Azure Function to regenerate the alternate storage key and update the Key Vault secret.",
       "incorrectReasons": [
-        "Custom runbooks can accomplish this, but Key Vault Managed Storage Accounts provide native, built-in management.",
-        "Event Grid/Logic Apps require custom code development rather than native KV storage account key management.",
-        "Azure Advisor offers optimization recommendations but does not automate key rotation."
+        "Azure Key Vault key auto-rotation is for Key Vault cryptographic keys; it does not directly rotate Azure Storage account access keys.",
+        "Azure Advisor provides recommendations and does not regenerate storage account access keys.",
+        "Storage Lifecycle Management manages blob data based on lifecycle rules; it does not rotate storage account access keys."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/key-vault/secrets/overview-storage-keys"
+      "reference": "https://learn.microsoft.com/azure/key-vault/secrets/tutorial-rotation-dual"
     }
   },
   {
@@ -794,7 +794,7 @@
         "Contributor can list keys across all resources in the scope.",
         "Owner has full permissions including listing keys."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/role-based-access-control/built-in-roles#reader"
+      "reference": "https://learn.microsoft.com/azure/storage/common/authorization-resource-provider#assign-management-permissions-with-azure-role-based-access-control-azure-rbac"
     }
   },
   {
@@ -815,28 +815,28 @@
         "Portal browsing using Entra ID authentication remains functional.",
         "User Delegation SAS tokens use Entra ID delegation keys rather than Shared Keys and remain functional."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/storage/common/shared-key-authorization-prevent"
+      "reference": "https://learn.microsoft.com/azure/storage/common/shared-key-authorization-prevent"
     }
   },
   {
     "id": 40,
     "subtopic": "Manage access keys",
-    "question": "Which Azure CLI command is used to regenerate 'key1' for a storage account named 'staccount1' in resource group 'rg1'?",
+    "question": "Which Azure CLI command is used to regenerate the primary access key (key1) for a storage account named `staccount1` in resource group `rg1`?",
     "options": [
-      "az storage account keys renew --account-name staccount1 --resource-group rg1 --key-name key1",
-      "az storage account keys renew --account-name staccount1 --resource-group rg1 --key-name key1",
-      "az storage account keys renew --account-name staccount1 --resource-group rg1 --key-name key1",
-      "az storage account keys renew --account-name staccount1 --resource-group rg1 --key-name key1"
+      "az storage account keys renew --account-name staccount1 --resource-group rg1 --key primary",
+      "az storage account keys renew --account-name staccount1 --resource-group rg1 --key key1",
+      "az storage account keys regenerate --account-name staccount1 --resource-group rg1 --key primary",
+      "az storage account keys renew --account-name staccount1 --resource-group rg1 --key secondary"
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "The command `az storage account keys renew --account-name staccount1 --resource-group rg1 --key-name key1` regenerates the specified key.",
+      "correctReason": "Azure CLI identifies the two storage account access keys as `primary` and `secondary`. The `az storage account keys renew` command with `--key primary` regenerates key1.",
       "incorrectReasons": [
-        "Duplicate option placeholder evaluation.",
-        "Duplicate option placeholder evaluation.",
-        "Duplicate option placeholder evaluation."
+        "`key1` is the common descriptive name for the primary key, but the Azure CLI command expects the value `primary` for this parameter.",
+        "`az storage account keys regenerate` is not the documented Azure CLI command for this operation.",
+        "`secondary` targets key2, not the primary key1."
       ],
-      "reference": "https://learn.microsoft.com/en-us/cli/azure/storage/account/keys#az-storage-account-keys-renew"
+      "reference": "https://learn.microsoft.com/azure/storage/common/storage-account-keys-manage#manually-rotate-access-keys"
     }
   },
   {
@@ -857,7 +857,7 @@
         "Disabling public network access restricts networking; it does not configure identity authentication.",
         "App Registrations manage OAuth web scenarios, not SMB Kerberos authentication for file shares."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/storage/files/storage-files-identity-auth-active-directory-enable"
+      "reference": "https://learn.microsoft.com/azure/storage/files/storage-files-identity-ad-ds-enable"
     }
   },
   {
@@ -878,7 +878,7 @@
         "Storage Account Contributor manages management-plane settings, not target file/directory permissions.",
         "Reader provides control-plane read-only access, not SMB file data access."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/storage/files/storage-files-identity-ad-ds-assign-permissions"
+      "reference": "https://learn.microsoft.com/azure/role-based-access-control/built-in-roles/storage#storage-file-data-smb-share-contributor"
     }
   },
   {
@@ -899,28 +899,28 @@
         "Firewalls and SAS tokens govern IP access and temporary tokens, not AD identity permissions.",
         "Container access levels apply to Blob storage, not Azure Files."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/storage/files/storage-files-identity-auth-active-directory-enable#overview"
+      "reference": "https://learn.microsoft.com/azure/storage/files/storage-files-identity-assign-share-level-permissions"
     }
   },
   {
     "id": 44,
     "subtopic": "Configure identity-based access for Azure Files",
-    "question": "Which Azure RBAC role grants administrative privileges to change NTFS ACL permissions on an Azure File share for identity-based access?",
+    "question": "Which built-in Azure RBAC role grants read, write, delete, and modify-ACL permissions on Azure Files over SMB?",
     "options": [
       "Storage File Data SMB Share Elevated Contributor",
       "Storage File Data SMB Share Contributor",
       "Storage File Data SMB Share Reader",
-      "Owner"
+      "Storage Account Contributor"
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "'Storage File Data SMB Share Elevated Contributor' allows users to read, write, delete, and modify NTFS Windows ACLs on files and directories within Azure File shares.",
+      "correctReason": "Storage File Data SMB Share Elevated Contributor grants read, write, delete, and modify-ACL permissions on files and directories in Azure file shares over SMB.",
       "incorrectReasons": [
-        "Storage File Data SMB Share Contributor allows read/write/delete but does not allow modifying Windows ACL ownership/permissions.",
-        "Storage File Data SMB Share Reader allows read-only access.",
-        "Azure RBAC Owner role grants management plane control, not automated Windows ACL elevated rights over SMB unless data roles are assigned."
+        "Storage File Data SMB Share Contributor grants read, write, and delete access but not modify-ACL permissions.",
+        "Storage File Data SMB Share Reader grants read access only.",
+        "Storage Account Contributor manages the storage account at the management plane and is not the SMB data role for modifying file ACLs."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/storage/files/storage-files-identity-ad-ds-assign-permissions"
+      "reference": "https://learn.microsoft.com/azure/role-based-access-control/built-in-roles/storage#storage-file-data-smb-share-elevated-contributor"
     }
   },
   {
@@ -941,7 +941,7 @@
         "Azure Files SMB does not support unauthenticated anonymous access.",
         "NTLMv1 is insecure and obsolete; Azure Files identity access uses Kerberos."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/storage/files/storage-files-identity-auth-entra-kerberos-enable"
+      "reference": "https://learn.microsoft.com/azure/storage/files/storage-files-identity-auth-hybrid-identities-enable"
     }
   },
   {
@@ -952,17 +952,17 @@
       "Storage File Data SMB Share Reader",
       "Reader",
       "Storage Blob Data Reader",
-      "Storage File Data Privileged Reader"
+      "Storage Account Contributor"
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "'Storage File Data SMB Share Reader' allows read access to files and directories in Azure File shares over SMB.",
+      "correctReason": "Storage File Data SMB Share Reader grants read access to files and directories in Azure file shares over SMB.",
       "incorrectReasons": [
-        "Generic 'Reader' role grants access to control plane metadata only, not SMB file data.",
-        "Storage Blob Data Reader applies exclusively to Blob storage.",
-        "Storage File Data Privileged Reader is not the standard built-in role for user SMB share read access."
+        "The generic Reader role provides management-plane read access to Azure resources, not SMB file data access.",
+        "Storage Blob Data Reader applies to Blob Storage data, not Azure Files.",
+        "Storage Account Contributor is a management-plane role and does not provide SMB file data permissions."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/storage/files/storage-files-identity-ad-ds-assign-permissions"
+      "reference": "https://learn.microsoft.com/azure/role-based-access-control/built-in-roles/storage#storage-file-data-smb-share-reader"
     }
   },
   {
@@ -983,70 +983,70 @@
         "Port 3389 is Remote Desktop Protocol (RDP).",
         "Port 53 is DNS resolution."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/storage/files/storage-how-to-use-files-windows"
+      "reference": "https://learn.microsoft.com/azure/storage/files/storage-how-to-use-files-windows"
     }
   },
   {
     "id": 48,
     "subtopic": "Configure identity-based access for Azure Files",
-    "question": "If an ISP blocks outbound TCP port 445, which feature can be used to access Azure File shares securely over HTTPS without requiring port 445?",
+    "question": "An ISP blocks outbound TCP port 445 from your on-premises clients. Which approach can provide access to Azure file data without requiring SMB over TCP 445?",
     "options": [
-      "Azure File Sync or REST API / AzCopy / Azure Portal",
-      "ExpressRoute Direct Peering only",
-      "FTP Server Role",
-      "Telnet endpoint"
+      "Use Azure File Sync to cache/synchronize files to an on-premises Windows Server, or use HTTPS-based Azure Files REST tooling such as AzCopy where supported.",
+      "Use ExpressRoute Direct Peering only; SMB always requires no additional configuration.",
+      "Install the FTP Server role on the client and connect directly to the Azure file share.",
+      "Use Telnet to establish an encrypted session to the file share."
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "When TCP port 445 is blocked by ISPs, users can access files via REST APIs, tools like AzCopy, Azure Portal, or cache files locally using Azure File Sync over port 443.",
+      "correctReason": "Azure File Sync can synchronize Azure file data with an on-premises Windows Server, while Azure Files also exposes HTTPS-based REST operations and tools such as AzCopy. These approaches avoid requiring direct SMB connectivity from the client over TCP 445.",
       "incorrectReasons": [
-        "ExpressRoute Direct bypasses public routes but SMB traffic over it still uses port 445 internally.",
-        "FTP is not a native protocol for direct Azure Files access without custom server intermediaries.",
-        "Telnet is an unencrypted legacy terminal protocol."
+        "ExpressRoute does not make SMB independent of its protocol requirements; a direct SMB client still uses TCP 445.",
+        "FTP is not the native protocol for Azure Files access and does not turn an Azure file share into an FTP endpoint.",
+        "Telnet is not an encrypted file-transfer protocol and is not an Azure Files access method."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/storage/files/storage-files-troubleshoot-connectivity-problems"
+      "reference": "https://learn.microsoft.com/azure/storage/files/storage-files-troubleshoot-connectivity-problems"
     }
   },
   {
     "id": 49,
     "subtopic": "Configure identity-based access for Azure Files",
-    "question": "You configure default share-level permissions on an Azure Storage account for Azure Files. What is the purpose of setting a default share-level permission?",
+    "question": "You configure a default share-level permission on an Azure Storage account for Azure Files. What is its purpose?",
     "options": [
-      "It grants a baseline share-level permission to all authenticated Microsoft Entra users or groups who do not have an explicit RBAC role assignment on the share.",
-      "It disables NTFS ACL checking across all subfolders.",
-      "It automatically converts all blob containers into file shares.",
+      "It grants the selected baseline share-level permission to all authenticated users and groups that can authenticate against the identity source configured for the storage account.",
+      "It disables NTFS ACL checks across all subfolders.",
+      "It automatically converts blob containers into file shares.",
       "It grants anonymous users read access to file shares."
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "Default share-level permissions grant a fallback share-level RBAC permission to any authenticated identity in the directory that lacks an explicit role assignment.",
+      "correctReason": "A default share-level permission applies a baseline Azure Files share-level role to all authenticated users and groups associated with the configured identity source. The default is None until configured.",
       "incorrectReasons": [
-        "Default share-level permissions do not bypass or disable directory/file NTFS ACL checks.",
-        "It does not convert blob containers to file shares.",
-        "Default share-level permissions require authenticated users; they do not enable anonymous access."
+        "Default share-level permissions do not bypass Windows ACLs on files and directories.",
+        "The setting does not change Blob Storage resources into file shares.",
+        "The setting applies to authenticated identities and does not enable anonymous access."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/storage/files/storage-files-identity-ad-ds-assign-permissions#assign-share-level-permissions-to-all-authenticated-identities"
+      "reference": "https://learn.microsoft.com/azure/storage/files/storage-files-identity-assign-share-level-permissions#share-level-permissions-for-all-authenticated-identities"
     }
   },
   {
     "id": 50,
     "subtopic": "Configure identity-based access for Azure Files",
-    "question": "Which tool can an administrator use from a Windows client to view and modify NTFS ACL permissions on an Azure File share mounted via identity-based authentication?",
+    "question": "For an Azure Files SMB share using Microsoft Entra Kerberos with a cloud-only identity, which tool can be used to configure directory- and file-level ACLs?",
     "options": [
-      "Windows File Explorer (Properties -> Security tab) or `icacls` command-line utility",
+      "Azure portal (or the PowerShell RestSetAcls module)",
+      "Windows File Explorer or `icacls` from the client",
       "Azure Network Security Group flow logs",
-      "Azure Advisor optimization portal",
       "Azure Resource Graph Explorer"
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "Once mounted with elevated share permissions, administrators can manage standard NTFS ACLs using Windows File Explorer or the native `icacls` command-line tool.",
+      "correctReason": "For Microsoft Entra Kerberos with cloud-only identities, Microsoft documents Azure portal or the RestSetAcls PowerShell module for configuring directory- and file-level permissions. Windows File Explorer and icacls are not supported for cloud-only Microsoft Entra Kerberos in this scenario.",
       "incorrectReasons": [
-        "NSG flow logs capture IP traffic details, not file system NTFS ACL permissions.",
-        "Azure Advisor provides configuration recommendations.",
-        "Resource Graph queries ARM metadata, not NTFS file ACLs inside SMB shares."
+        "For cloud-only Microsoft Entra Kerberos, Windows File Explorer and icacls aren't supported for configuring these ACLs.",
+        "NSG flow logs provide network-flow information and do not configure file-system ACLs.",
+        "Resource Graph queries Azure resource metadata and does not modify NTFS-style file ACLs."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/storage/files/storage-files-identity-ad-ds-configure-permissions"
+      "reference": "https://learn.microsoft.com/azure/storage/files/storage-files-identity-configure-file-level-permissions"
     }
   }
 ]

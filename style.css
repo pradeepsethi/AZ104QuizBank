@@ -115,18 +115,17 @@ code {
 }
 
 .attempt-indicator {
-  margin: 6px 0 0 0;
   font-size: 12px;
-  min-height: 15px;
+  color: var(--text-muted);
+  margin-left: 4px;
 }
 
 .attempt-indicator--new {
-  opacity: 0.85;
+  font-style: italic;
 }
 
 .attempt-indicator--attempted {
-  font-weight: 600;
-  opacity: 0.95;
+  font-weight: 500;
 }
 
 /* ---------- Auth / user info ---------- */

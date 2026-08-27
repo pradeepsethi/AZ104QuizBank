@@ -14,6 +14,16 @@ const signOutBtn = document.getElementById("sign-out-btn");
 
 let currentUser = null;
 let scoreDataMap = {};
+let allScores = []; // [{ id, data }], populated fresh on every loadScores()
+let currentSort = { key: "timestamp", dir: "desc" }; // persists across reloads/deletes
+
+const SORTABLE_COLUMNS = [
+  { key: "quizTitle", label: "Name" },
+  { key: "quizSet", label: "Set" },
+  { key: "percentage", label: "Score" },
+  { key: "timeTaken", label: "Time Spent" },
+  { key: "timestamp", label: "Date" },
+];
 
 if (signOutBtn) {
   signOutBtn.onclick = () => signOut(auth).then(() => window.location.href = "index.html");
@@ -54,75 +64,139 @@ async function loadScores(uid) {
       return;
     }
 
-    let rows = "";
     scoreDataMap = {};
+    allScores = [];
     querySnapshot.forEach((documentSnap) => {
       const data = documentSnap.data();
       const docId = documentSnap.id;
       scoreDataMap[docId] = data;
-      const dateStr = data.timestamp ? new Date(data.timestamp.toDate()).toLocaleString() : "N/A";
-      const incorrectCount = Array.isArray(data.incorrectQuestions) ? data.incorrectQuestions.length : 0;
-
-      rows += `
-        <tr>
-          <td class="quiz-title-cell">${data.quizTitle || "AZ-104 Quiz"}</td>
-          <td class="set-cell">${data.quizSet || "N/A"}</td>
-          <td class="score-cell">${data.score} / ${data.totalQuestions} (${data.percentage}%)</td>
-          <td>${data.timeTaken || "N/A"}</td>
-          <td>${dateStr}</td>
-          <td>
-            ${incorrectCount > 0
-              ? `<button class="review-btn btn btn-neutral" data-id="${docId}">🔍 Review (${incorrectCount})</button>`
-              : `<span class="text-muted">—</span>`}
-          </td>
-          <td><button class="delete-score-btn btn btn-danger" data-id="${docId}">Delete</button></td>
-        </tr>
-        <tr class="review-row" id="review-row-${docId}" style="display: none;">
-          <td colspan="7"><div class="review-panel" id="review-panel-${docId}"></div></td>
-        </tr>
-      `;
+      allScores.push({ id: docId, data });
     });
 
-    scoresContainer.innerHTML = `
-      <div class="scores-table-wrap">
-        <table class="scores-table">
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Set</th>
-              <th>Score</th>
-              <th>Time Spent</th>
-              <th>Date</th>
-              <th>Incorrect Questions</th>
-              <th>Delete</th>
-            </tr>
-          </thead>
-          <tbody>
-            ${rows}
-          </tbody>
-        </table>
-      </div>
-    `;
-
-    document.querySelectorAll(".delete-score-btn").forEach((btn) => {
-      btn.onclick = (e) => {
-        const scoreId = e.target.getAttribute("data-id");
-        if (confirm("Are you sure you want to delete this score record?")) {
-          deleteScore(uid, scoreId);
-        }
-      };
-    });
-
-    document.querySelectorAll(".review-btn").forEach((btn) => {
-      btn.onclick = (e) => {
-        const docId = e.currentTarget.getAttribute("data-id");
-        toggleReview(docId, e.currentTarget);
-      };
-    });
+    renderTable(uid);
   } catch (error) {
     console.error("Error loading scores:", error);
     scoresContainer.innerHTML = `<p class="text-danger">Error loading scores: ${error.message}</p>`;
   }
+}
+
+// Converts a "timeTaken" string like "5m 32s" (see quiz.js) into total seconds for sorting.
+function parseTimeTakenSeconds(str) {
+  if (!str) return 0;
+  const match = String(str).match(/(\d+)\s*m\s*(\d+)\s*s/i);
+  if (!match) return 0;
+  return parseInt(match[1], 10) * 60 + parseInt(match[2], 10);
+}
+
+function getSortValue(data, key) {
+  switch (key) {
+    case "quizTitle":
+      return (data.quizTitle || "AZ-104 Quiz").toLowerCase();
+    case "quizSet":
+      return (data.quizSet || "").toLowerCase();
+    case "percentage":
+      return typeof data.percentage === "number" ? data.percentage : parseFloat(data.percentage) || 0;
+    case "timeTaken":
+      return parseTimeTakenSeconds(data.timeTaken);
+    case "timestamp":
+      return data.timestamp ? data.timestamp.toDate().getTime() : 0;
+    default:
+      return 0;
+  }
+}
+
+function getSortedScores() {
+  const { key, dir } = currentSort;
+  const sorted = [...allScores].sort((a, b) => {
+    const va = getSortValue(a.data, key);
+    const vb = getSortValue(b.data, key);
+    if (va < vb) return dir === "asc" ? -1 : 1;
+    if (va > vb) return dir === "asc" ? 1 : -1;
+    return 0;
+  });
+  return sorted;
+}
+
+function renderTable(uid) {
+  const sortedScores = getSortedScores();
+
+  let rows = "";
+  sortedScores.forEach(({ id: docId, data }) => {
+    const dateStr = data.timestamp ? new Date(data.timestamp.toDate()).toLocaleString() : "N/A";
+    const incorrectCount = Array.isArray(data.incorrectQuestions) ? data.incorrectQuestions.length : 0;
+
+    rows += `
+      <tr>
+        <td class="quiz-title-cell">${data.quizTitle || "AZ-104 Quiz"}</td>
+        <td class="set-cell">${data.quizSet || "N/A"}</td>
+        <td class="score-cell">${data.score} / ${data.totalQuestions} (${data.percentage}%)</td>
+        <td>${data.timeTaken || "N/A"}</td>
+        <td>${dateStr}</td>
+        <td>
+          ${incorrectCount > 0
+            ? `<button class="review-btn btn btn-neutral" data-id="${docId}">🔍 Review (${incorrectCount})</button>`
+            : `<span class="text-muted">—</span>`}
+        </td>
+        <td><button class="delete-score-btn btn btn-danger" data-id="${docId}">Delete</button></td>
+      </tr>
+      <tr class="review-row" id="review-row-${docId}" style="display: none;">
+        <td colspan="7"><div class="review-panel" id="review-panel-${docId}"></div></td>
+      </tr>
+    `;
+  });
+
+  const headerCells = SORTABLE_COLUMNS.map(({ key, label }) => {
+    const isActive = currentSort.key === key;
+    const ariaSort = isActive ? (currentSort.dir === "asc" ? "ascending" : "descending") : "none";
+    const indicator = isActive ? (currentSort.dir === "asc" ? "▲" : "▼") : "";
+    return `<th class="sortable${isActive ? " sortable--active" : ""}" data-sort-key="${key}" aria-sort="${ariaSort}">${label}<span class="sort-indicator">${indicator}</span></th>`;
+  }).join("\n              ");
+
+  scoresContainer.innerHTML = `
+    <div class="scores-table-wrap">
+      <table class="scores-table">
+        <thead>
+          <tr>
+            ${headerCells}
+            <th>Incorrect Questions</th>
+            <th>Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${rows}
+        </tbody>
+      </table>
+    </div>
+  `;
+
+  document.querySelectorAll(".scores-table th.sortable").forEach((th) => {
+    th.onclick = () => {
+      const key = th.getAttribute("data-sort-key");
+      if (currentSort.key === key) {
+        currentSort.dir = currentSort.dir === "asc" ? "desc" : "asc";
+      } else {
+        currentSort.key = key;
+        currentSort.dir = key === "timestamp" ? "desc" : "asc";
+      }
+      renderTable(uid);
+    };
+  });
+
+  document.querySelectorAll(".delete-score-btn").forEach((btn) => {
+    btn.onclick = (e) => {
+      const scoreId = e.target.getAttribute("data-id");
+      if (confirm("Are you sure you want to delete this score record?")) {
+        deleteScore(uid, scoreId);
+      }
+    };
+  });
+
+  document.querySelectorAll(".review-btn").forEach((btn) => {
+    btn.onclick = (e) => {
+      const docId = e.currentTarget.getAttribute("data-id");
+      toggleReview(docId, e.currentTarget);
+    };
+  });
 }
 
 function toggleReview(docId, btnElem) {

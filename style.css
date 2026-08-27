@@ -391,6 +391,25 @@ code {
   font-weight: 600;
 }
 
+.scores-table th.sortable {
+  cursor: pointer;
+  user-select: none;
+}
+
+.scores-table th.sortable:hover {
+  background-color: #ebebeb;
+}
+
+.scores-table th.sortable--active {
+  color: var(--primary-color);
+}
+
+.scores-table .sort-indicator {
+  display: inline-block;
+  margin-left: 6px;
+  font-size: 11px;
+}
+
 .scores-table tbody tr:nth-child(even) {
   background-color: #faf9f8;
 }

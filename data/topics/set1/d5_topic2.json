@@ -17,28 +17,28 @@
         "Zone-redundant storage (ZRS) replicates data across three availability zones in the primary region, but not to a secondary region hundreds of miles away.",
         "Standard GRS is the minimum requirement for cross-region protection; disables Cross Region Restore if configured as basic GRS without explicit CRR, but GRS is the correct replication type setting needed."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/backup/backup-create-recovery-services-vault"
+      "reference": "https://learn.microsoft.com/en-us/azure/backup/backup-create-recovery-services-vault#set-storage-redundancy"
     }
   },
   {
     "id": 2,
     "subtopic": "Create a Recovery Services vault",
-    "question": "You have an Azure Recovery Services vault named Vault1 that already contains registered VM backups. You need to change the storage redundancy setting of Vault1 from Geo-redundant storage (GRS) to Locally-redundant storage (LRS). What must you do first?",
+    "question": "You have an Azure Recovery Services vault named Vault1 that already contains registered VM backups. You need to change the storage redundancy setting of Vault1 from Geo-redundant storage (GRS) to Locally-redundant storage (LRS), and you don't need to preserve the existing backup data. What must you do before changing the redundancy setting?",
     "options": [
       "Disable soft delete on Vault1.",
       "Stop backup and delete all backed-up items in Vault1.",
       "Modify the backup policy attached to the virtual machines.",
       "Move the Recovery Services vault to a new resource group."
     ],
-    "correct": 1,
+    "correct": 0,
     "explanation": {
-      "correctReason": "Once backup items are registered and protected within a Recovery Services vault, the storage redundancy type (GRS/LRS) cannot be changed until all protected items are unprotected and deleted.",
+      "correctReason": "For the destructive GRS-to-LRS workaround, you must first disable soft delete, then stop protection and delete the existing backup data. The storage replication setting is locked after backup is configured.",
       "incorrectReasons": [
-        "Disabling soft delete alone does not allow changing storage redundancy if backed-up items still exist.",
-        "Modifying backup policies does not unregister backup items or clear stored recovery points.",
-        "Moving the vault to another resource group does not reset storage redundancy settings."
+        "Stopping backup and deleting the backup data is required after soft delete is disabled; it is not the first step.",
+        "Changing a backup policy doesn't unlock the vault's storage replication setting.",
+        "Moving the vault to another resource group doesn't change the storage replication setting."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/backup/backup-create-recovery-services-vault#set-storage-redundancy"
+      "reference": "https://learn.microsoft.com/en-us/azure/backup/backup-create-recovery-services-vault#modify-default-settings"
     }
   },
   {
@@ -59,7 +59,7 @@
         "Soft Delete retains deleted backup data for 14 extra days to protect against accidental deletion, but does not provide secondary region restore access during primary outage.",
         "Azure Backup Center auto-remediation is for policy compliance enforcement, not secondary region data recovery."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/backup/backup-azure-arm-restore-vms#cross-region-restore"
+      "reference": "https://learn.microsoft.com/en-us/azure/backup/backup-create-recovery-services-vault#set-cross-region-restore"
     }
   },
   {
@@ -80,7 +80,7 @@
         "sku.name defines the vault tier (Standard/RS0).",
         "properties.encryption.keyVaultProperties configures customer-managed keys (CMK) for encryption."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/backup/backup-azure-security-feature-cloud"
+      "reference": "https://learn.microsoft.com/en-us/azure/templates/microsoft.recoveryservices/vaults#property-values"
     }
   },
   {
@@ -106,7 +106,7 @@
   },
   {
     "id": 6,
-    "subtopic": "Create me Azure Backup vault",
+    "subtopic": "Create a Backup vault",
     "question": "You need to back up Azure Blobs in a storage account and Azure Disks using native Azure Backup capabilities. Which type of vault must you create?",
     "options": [
       "Recovery Services vault",
@@ -122,28 +122,28 @@
         "Azure Key Vault stores secrets, keys, and certificates.",
         "Azure Automation accounts run operational scripts and runbooks."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/backup/backup-vault-overview"
+      "reference": "https://learn.microsoft.com/en-us/azure/backup/backup-azure-backup-faq#what-are-the-various-vaults-supported-for-backup-and-restore-"
     }
   },
   {
     "id": 7,
     "subtopic": "Create a Backup vault",
-    "question": "You create a Backup vault named BVault1 to perform operational backups of Azure Disks. You need to assign the appropriate managed identity permissions so BVault1 can take snapshots of the managed disks. Which managed identity type and role assignment are required?",
+    "question": "You create a Backup vault named BVault1 to perform operational backups of Azure managed disks. Which permissions should BVault1's system-assigned managed identity have?",
     "options": [
-      "System-assigned managed identity with Disk Snapshot Contributor role on the resource group containing the disks.",
+      "Disk Backup Reader on the source disk and Disk Snapshot Contributor on the resource group used to store and manage the disk snapshots.",
       "User-assigned managed identity with Backup Contributor role on BVault1.",
       "System-assigned managed identity with Key Vault Crypto Officer role on Azure Key Vault.",
       "User-assigned managed identity with Virtual Machine Contributor role on the VM."
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "To perform operational backups of Azure Disks, the Backup vault's system-assigned managed identity requires the Disk Snapshot Contributor role on the resource group where the target disks reside.",
+      "correctReason": "Azure Disk Backup requires the Backup vault's system-assigned managed identity to read the source disk and to create and manage snapshots in the snapshot resource group. Microsoft documents the Disk Backup Reader and Disk Snapshot Contributor roles for these purposes.",
       "incorrectReasons": [
-        "Backup Contributor on BVault1 allows managing the vault itself, not creating snapshots in disk resource groups.",
-        "Key Vault Crypto Officer manages keys, not disk snapshots.",
-        "Virtual Machine Contributor is not required for disk snapshot operations."
+        "Backup Contributor on the vault does not provide the required source-disk and snapshot-resource-group permissions for Azure Disk Backup.",
+        "Key Vault Crypto Officer manages cryptographic keys and doesn't grant permissions to create or manage disk snapshots.",
+        "Virtual Machine Contributor is not the documented least-privilege role set for Azure Disk Backup of managed disks."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/backup/disk-backup-overview"
+      "reference": "https://learn.microsoft.com/en-us/azure/backup/back-up-managed-disks-tutorial#configure-backup"
     }
   },
   {
@@ -152,19 +152,19 @@
     "question": "You plan to configure continuous backup for Azure Blob storage using an Azure Backup vault. Which type of backup tier does operational backup for Azure Blobs utilize?",
     "options": [
       "Vault standard tier",
-      "Operational tier (local continuous backup)",
+      "Operational backup (continuous/local backup)",
       "Archive tier",
       "Cold tier"
     ],
     "correct": 1,
     "explanation": {
-      "correctReason": "Operational backup for Azure Blobs is a local backup solution that utilizes blob point-in-time restore capabilities (Operational tier) directly within the source storage account.",
+      "correctReason": "Operational backup for Azure Blobs is continuous, local data protection. The backup data remains in the source storage account and uses blob point-in-time restore capabilities rather than being copied into a backup-vault storage tier.",
       "incorrectReasons": [
-        "Vault standard tier moves data into a separate backup vault storage, which applies to vaulted blob backup, not standard operational backup.",
-        "Archive tier is an access tier within storage accounts, not a backup tier mode.",
-        "Cold tier is an online access tier for infrequently accessed data."
+        "Vault-Standard is associated with vaulted backup, where backup data is copied to the Backup vault.",
+        "Archive is a storage/backup tier used for long-term retention scenarios; it isn't the operational backup mode for continuous blob protection.",
+        "Cold is an Azure Storage access tier, not the operational backup mode."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/backup/blob-backup-overview"
+      "reference": "https://learn.microsoft.com/en-us/azure/backup/blob-backup-overview#protection"
     }
   },
   {
@@ -185,7 +185,7 @@
         "Geo-redundant storage (GRS) replicates data across primary and secondary regions.",
         "Read-access geo-redundant storage (RA-GRS) provides read access in the secondary region."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/backup/backup-vault-overview#storage-redundancy"
+      "reference": "https://learn.microsoft.com/en-us/azure/backup/backup-vault-overview#storage-settings-in-the-backup-vault"
     }
   },
   {
@@ -227,7 +227,7 @@
         "Weekly is supported but is less frequent than daily.",
         "Hourly backups require an Enhanced policy tier, not standard policies."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/backup/backup-azure-vms-first-look-arm#backup-policy"
+      "reference": "https://learn.microsoft.com/en-us/azure/backup/backup-azure-vms-enhanced-policy#create-an-enhanced-policy-and-configure-the-vm-backup"
     }
   },
   {
@@ -235,20 +235,20 @@
     "subtopic": "Create and configure a backup policy",
     "question": "You are creating an Enhanced backup policy for Azure Virtual Machines in a Recovery Services vault. Which feature is supported in Enhanced backup policies that is NOT available in Standard backup policies?",
     "options": [
-      "Multiple backups per day and Trusted Launch VM protection",
+      "Multiple backups per day",
       "File-level restore for Linux VMs",
       "Geo-redundant storage replication",
       "Soft delete protection for 14 days"
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "Enhanced backup policies support hourly backups (multiple backups per day), crash-consistent snapshots every 4 hours, and support for Trusted Launch and Confidential VMs.",
+      "correctReason": "The Enhanced Azure VM backup policy supports multiple backups per day, with hourly scheduling as frequently as every 4 hours. Standard policy provides one scheduled backup per day.",
       "incorrectReasons": [
-        "File-level restore is available in standard policies.",
-        "Geo-redundant storage is configured at the vault level, not policy level.",
-        "Soft delete is a vault-level security property."
+        "File-level recovery is not the distinguishing feature of Enhanced VM backup policy.",
+        "Geo-redundant storage is configured at the vault level, not as the defining difference between Standard and Enhanced VM backup policies.",
+        "Soft delete is a vault-level security feature, not an Enhanced-policy-only feature."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/backup/backup-azure-vms-enhanced-policy"
+      "reference": "https://learn.microsoft.com/en-us/azure/backup/backup-azure-vms-enhanced-policy#create-an-enhanced-policy-and-configure-the-vm-backup"
     }
   },
   {
@@ -263,34 +263,34 @@
     ],
     "correct": 2,
     "explanation": {
-      "correctReason": "When a backup point meets multiple retention criteria (Daily, Weekly, Monthly), Azure Backup retains the point according to the longest specified retention period, which is 12 months.",
+      "correctReason": "The recovery point created on the first Sunday qualifies for the monthly retention rule, so it is retained for the configured 12 months. Azure Backup applies retention rules based on the applicable retention criteria; the periods are not added together.",
       "incorrectReasons": [
-        "30 days is the daily retention limit, but the monthly rule overrides it.",
-        "12 weeks is shorter than 12 months.",
-        "Retention periods are not cumulative (12 months + 30 days)."
+        "Thirty days is the daily retention setting, but this recovery point also qualifies for the monthly retention rule.",
+        "Twelve weeks is the weekly retention setting, but the point also qualifies for the monthly retention rule.",
+        "The point is retained for 12 months by the monthly rule; retention periods are not cumulative."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/backup/backup-architecture#retention-logic"
+      "reference": "https://learn.microsoft.com/en-us/azure/backup/backup-azure-vm-backup-faq#how-long-can-i-retain-backup-points-of-azure-vms-using-the-backup-policy"
     }
   },
   {
     "id": 14,
     "subtopic": "Create and configure a backup policy",
-    "question": "You have an Azure File share named Share1 in a storage account named sa1. You want to configure backup for Share1 with an RPO of 4 hours. Which backup policy tier should you use?",
+    "question": "You have an Azure File share named Share1. You need multiple backup recovery points per day, with backups scheduled every 4 hours. Which Azure Files backup configuration should you use?",
     "options": [
-      "Standard policy with snapshot retention",
-      "Enhanced policy for Azure Files",
-      "Vaulted policy for Azure Files",
-      "Operational backup policy for Azure Files"
+      "Snapshot tier with a daily schedule",
+      "Vault-Standard tier with an hourly schedule set to every 4 hours",
+      "Vaulted backup with a weekly-only schedule",
+      "Operational backup for Azure Blobs"
     ],
     "correct": 1,
     "explanation": {
-      "correctReason": "Enhanced backup policies for Azure Files support multiple snapshots per day (up to every 4 hours), meeting the 4-hour RPO requirement.",
+      "correctReason": "Azure Files supports an hourly backup schedule for the Vault-Standard tier. An interval of 4 hours provides multiple backup jobs per day.",
       "incorrectReasons": [
-        "Standard Azure Files backup policies support only daily backups (24-hour RPO).",
-        "Vaulted policy moves data to vault tier but follows daily schedules unless enhanced.",
-        "Operational backup relies on standard snapshot policies limited to daily frequency unless using enhanced."
+        "A daily schedule does not provide backups every 4 hours.",
+        "A weekly-only schedule cannot meet a 4-hour backup frequency requirement.",
+        "Operational backup for Azure Blobs applies to Azure Blob Storage, not Azure Files."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/backup/azure-file-share-backup-overview"
+      "reference": "https://learn.microsoft.com/en-us/azure/backup/manage-afs-backup#create-a-new-policy"
     }
   },
   {
@@ -311,7 +311,7 @@
         "Recovery point creation timestamps cannot be altered retrospectively.",
         "Existing recovery points do not automatically expire in 24 hours."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/backup/backup-azure-vms-first-look-arm#modify-a-backup-policy"
+      "reference": "https://learn.microsoft.com/en-us/azure/backup/backup-azure-manage-vms#manage-backup-policy-for-a-vm"
     }
   },
   {
@@ -359,49 +359,49 @@
   {
     "id": 18,
     "subtopic": "Perform backup and restore operations by using Azure Backup",
-    "question": "You perform an ad-hoc (Backup Now) operation on an Azure Virtual Machine from the Recovery Services vault. How is the retention period determined for this ad-hoc backup?",
+    "question": "You perform an ad-hoc (Backup Now) operation on an Azure virtual machine from the Recovery Services vault. How is the retention period for that on-demand backup determined?",
     "options": [
       "It automatically inherits the daily retention setting from the associated backup policy.",
-      "You must specify a 'Retain Until' date during the Backup Now configuration (up to 99 years).",
-      "Ad-hoc backups are permanently retained until manually deleted.",
-      "Ad-hoc backups are automatically deleted after 30 days."
+      "You specify a Retain Until date when you run Backup Now; the on-demand backup uses that custom retention.",
+      "The backup is permanently retained until manually deleted.",
+      "The backup is automatically deleted after 30 days."
     ],
     "correct": 1,
     "explanation": {
-      "correctReason": "When executing an ad-hoc backup (Backup Now), Azure Backup prompts you to define a custom 'Retain Until' date, which can range from 1 to 9999 days.",
+      "correctReason": "For an on-demand Azure VM backup, you specify the date until which the recovery point is retained in the Backup Now operation. This retention is separate from the scheduled backup retention in the policy.",
       "incorrectReasons": [
-        "Ad-hoc backups do not automatically adopt the backup policy's daily retention schedule.",
-        "Ad-hoc backups do not stay forever by default; an expiration date must be selected.",
-        "They are not hardcoded to 30 days unless selected."
+        "On-demand VM backups use the retention value specified when Backup Now is triggered rather than automatically inheriting the policy's daily retention.",
+        "An on-demand backup isn't permanently retained by default.",
+        "Thirty days is not a universal fixed retention period for on-demand VM backups; the Retain Until date is specified when the backup is triggered."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/backup/backup-azure-troubleshoot-vm-backup#run-an-on-demand-backup"
+      "reference": "https://learn.microsoft.com/en-us/azure/backup/backup-azure-manage-vms#run-an-on-demand-backup"
     }
   },
   {
     "id": 19,
     "subtopic": "Perform backup and restore operations by using Azure Backup",
-    "question": "You are restoring an Azure VM disk from a Recovery Services vault to a target staging storage account. Which permission does the vault's managed identity require on the staging storage account?",
+    "question": "You are restoring a managed Azure VM by using a managed identity. Which built-in role can be assigned on the staging storage account and target resource group to allow the VM restore operation?",
     "options": [
-      "Storage Blob Data Contributor",
+      "VM restore operator",
       "Storage Account Contributor",
       "Storage Blob Data Reader",
-      "Owner"
+      "Reader"
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "To restore disk VHDs into a staging storage account, Azure Backup uses the vault identity which requires the Storage Blob Data Contributor role to write the restored blobs.",
+      "correctReason": "Microsoft documents the VM restore operator role as an option for granting the required permissions on the staging location (storage account) and target resource group for a managed-identity VM restore.",
       "incorrectReasons": [
-        "Storage Account Contributor manages management plane settings, not data plane blob writing.",
-        "Storage Blob Data Reader provides read-only access, which is insufficient for writing restored VHD blobs.",
-        "Owner provides excessive privileges and is not required."
+        "Storage Account Contributor manages storage-account resources but is not the documented built-in restore role for this scenario.",
+        "Storage Blob Data Reader is read-only data-plane access and doesn't provide the complete permissions required by the VM restore operation.",
+        "Reader provides read-only management-plane access and isn't sufficient to perform the restore."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/backup/backup-azure-arm-restore-vms#restore-disks"
+      "reference": "https://learn.microsoft.com/en-us/azure/backup/backup-azure-arm-restore-vms#restore-vms-with-managed-identities"
     }
   },
   {
     "id": 20,
     "subtopic": "Perform backup and restore operations by using Azure Backup",
-    "question": "A user accidentally deleted a file from an Azure File Share named Share1. The share is protected by Azure Backup. You need to restore only the deleted file to its original location. What should you do?",
+    "question": "A user accidentally deleted a file from an Azure File Share named Share1. Share1 is protected by Azure Backup using the snapshot tier. You need to restore only the deleted file to its original or an alternate file share. What should you do?",
     "options": [
       "Restore the entire storage account from the vault.",
       "Use Azure Backup File Recovery to restore the specific file directly to the original or alternate file share location.",
@@ -410,13 +410,13 @@
     ],
     "correct": 1,
     "explanation": {
-      "correctReason": "Azure Backup for Azure File Shares allows restoring individual files or folders directly from snapshot/vault recovery points to the original or alternate file share.",
+      "correctReason": "For an Azure File Share protected with the snapshot tier, Azure Backup supports item-level recovery, allowing individual files or folders to be restored to the original or an alternate file share.",
       "incorrectReasons": [
-        "Restoring the entire storage account is unnecessary and disruptive.",
-        "Azure File Share backups use native Azure Storage snapshots, not VHD mounts.",
-        "OS disk replacement applies to Azure VMs, not Azure File Shares."
+        "Restoring an entire storage account is unnecessary when only one file is required.",
+        "VHD staging and AzCopy are not the documented method for item-level restore of an Azure Files snapshot backup.",
+        "OS disk replacement applies to Azure VM disk recovery, not Azure Files."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/backup/restore-afs"
+      "reference": "https://learn.microsoft.com/en-us/azure/backup/azure-file-share-support-matrix#retention-limits"
     }
   },
   {
@@ -424,20 +424,20 @@
     "subtopic": "Configure Azure Site Recovery for Azure resources",
     "question": "You are configuring Azure Site Recovery (ASR) to replicate Azure virtual machines from East US to West US. Which component is automatically created in the target region during disaster recovery enablement?",
     "options": [
-      "Target resource group, target virtual network, and cache storage account",
+      "Target resource group, target virtual network/subnet, and replica managed disks",
       "Target Recovery Services vault only",
       "ExpressRoute circuit and VPN Gateway",
       "Azure Load Balancer with public IP"
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "When enabling ASR replication for Azure VMs, Azure helps automatically configure or select target resources including target resource group, target VNet, and a cache storage account in the primary region.",
+      "correctReason": "When enabling Azure-to-Azure replication, Site Recovery can automatically create target resources such as a target resource group, target VNet/subnet, and replica managed disks in the target region.",
       "incorrectReasons": [
-        "The target Recovery Services vault is placed in the target region, but networking and cache storage accounts are also critical infrastructure created/mapped.",
-        "ExpressRoute and VPN gateways are not auto-created by ASR enabling workflows.",
-        "Load balancers are not automatically created unless configured in network mapping."
+        "A target Recovery Services vault isn't the component automatically created as the sole target resource; you select the vault used for Site Recovery.",
+        "ExpressRoute circuits and VPN gateways aren't automatically created by Site Recovery.",
+        "An Azure Load Balancer and public IP aren't automatically created simply by enabling replication."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/site-recovery/azure-to-azure-architecture"
+      "reference": "https://learn.microsoft.com/en-us/azure/site-recovery/azure-to-azure-architecture#target-resources"
     }
   },
   {
@@ -458,7 +458,7 @@
         "VM extension executes local snapshot coordination but frequency is driven by policy.",
         "Azure Backup Policy is separate from Azure Site Recovery replication policies."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/site-recovery/azure-to-azure-how-to-enable-replication#configure-replication-settings"
+      "reference": "https://learn.microsoft.com/en-us/azure/site-recovery/azure-to-azure-how-to-enable-replication#enable-replication"
     }
   },
   {
@@ -500,7 +500,7 @@
         "Azure Monitor Agent collects system logs and metrics.",
         "Antimalware extension provides security scanning."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/site-recovery/azure-to-azure-architecture#extension-updates"
+      "reference": "https://learn.microsoft.com/en-us/azure/site-recovery/azure-to-azure-tutorial-enable-replication"
     }
   },
   {
@@ -521,7 +521,7 @@
         "Public IP addresses are region-specific and cannot be preserved across regions directly.",
         "ExpressRoute Global Reach connects ExpressRoute circuits together, not target VM IP allocations."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/site-recovery/azure-to-azure-network-mapping-cloud-hyperv#retain-ip-addresses"
+      "reference": "https://learn.microsoft.com/en-us/azure/site-recovery/azure-to-azure-network-mapping#set-up-ip-addressing-for-target-virtual-machines"
     }
   },
   {
@@ -542,7 +542,7 @@
         "Unplanned failover initiates emergency failover assumes primary site failure.",
         "Reprotect configures reverse replication after a successful actual failover."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/site-recovery/azure-to-azure-test-failover-howto"
+      "reference": "https://learn.microsoft.com/en-us/azure/site-recovery/site-recovery-test-failover-to-azure"
     }
   },
   {
@@ -563,7 +563,7 @@
         "Reprotect is used after an actual failover to start replication back to the primary region.",
         "Disabling replication removes ASR protection entirely."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/site-recovery/azure-to-azure-test-failover-cleanup"
+      "reference": "https://learn.microsoft.com/en-us/azure/site-recovery/site-recovery-test-failover-to-azure#run-a-test-failover"
     }
   },
   {
@@ -584,28 +584,28 @@
         "Cleanup failover applies to test failovers.",
         "Disable protection removes protection configuration completely."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/site-recovery/azure-to-azure-how-to-reprotect"
+      "reference": "https://learn.microsoft.com/en-us/azure/site-recovery/azure-to-azure-tutorial-failover-failback"
     }
   },
   {
     "id": 29,
     "subtopic": "Perform a failover to a secondary region by using Site Recovery",
-    "question": "You execute a Planned Failover of an Azure VM using Azure Site Recovery. What happens to the source virtual machine in the primary region during this process?",
+    "question": "You execute a Planned Failover of an Azure VM using Azure Site Recovery and the source VM is reachable. What does Site Recovery attempt to do before starting the failover?",
     "options": [
       "The source VM is automatically deleted.",
-      "The source VM is shut down and turned off gracefully before data is synchronized.",
+      "It attempts to shut down the source VM before beginning the failover.",
       "The source VM remains running alongside the target VM.",
       "The source VM is backed up to an Azure Blob container and archived."
     ],
     "correct": 1,
     "explanation": {
-      "correctReason": "A planned failover ensures zero data loss by shutting down the source VM gracefully, syncing remaining delta changes, and then bringing up the target VM.",
+      "correctReason": "For a planned failover, Site Recovery attempts to shut down the source VM before triggering failover so that the latest changes can be synchronized. The failover can continue even if the shutdown attempt fails.",
       "incorrectReasons": [
-        "The source VM is not deleted automatically; it remains stopped until reprotect/failback occurs.",
-        "Running both simultaneously leads to split-brain scenario.",
-        "The VM is not archived to blob container."
+        "Site Recovery doesn't automatically delete the source VM as part of the planned failover.",
+        "The source VM is not intended to remain running alongside the failed-over target VM.",
+        "The VM isn't backed up to a Blob container and archived as part of planned failover."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/site-recovery/site-recovery-failover"
+      "reference": "https://learn.microsoft.com/en-us/azure/site-recovery/site-recovery-failover#run-a-failover"
     }
   },
   {
@@ -626,28 +626,28 @@
         "Complete DR is not a formal ASR action name.",
         "Consolidate points is not an ASR action."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/site-recovery/site-recovery-failover#commit"
+      "reference": "https://learn.microsoft.com/en-us/azure/site-recovery/site-recovery-failover#run-a-failover"
     }
   },
   {
     "id": 31,
     "subtopic": "Configure and interpret reports and alerts for backups",
-    "question": "You need to configure email notifications whenever an Azure Backup job fails for any virtual machine in your subscription. What is the most efficient native way to enable these alert notifications?",
+    "question": "You need email notifications whenever an Azure Backup job fails for a virtual machine. What is the recommended native alerting approach?",
     "options": [
-      "Configure Azure Monitor alerts using Diagnostic Settings routed to a Log Analytics workspace.",
-      "Enable Built-in Azure Backup alerts and configure Preferred Email Notifications in Backup Center.",
-      "Create a custom PowerShell script running on an Automation Hybrid Worker.",
+      "Configure a Log Analytics alert by exporting all vault diagnostics and writing a custom query.",
+      "Use the built-in Azure Monitor Backup Job Failure alert and route it through an Azure Monitor action group.",
+      "Create a PowerShell script on an Automation Hybrid Worker that polls backup jobs.",
       "Enable Azure Advisor security alerts."
     ],
     "correct": 1,
     "explanation": {
-      "correctReason": "Azure Backup provides built-in alerts and allows setting 'Preferred Email Notifications' directly in Backup Center or Recovery Services vault parameters for critical backup failures.",
+      "correctReason": "Azure Backup provides built-in Azure Monitor alerts for job-failure scenarios. Azure Monitor action groups can route these alerts to email and other notification channels.",
       "incorrectReasons": [
-        "Routing through Log Analytics requires custom KQL queries and alert rules, which is less direct than built-in backup email notifications.",
-        "Powershell automation scripts add unnecessary operational overhead for built-in capabilities.",
-        "Azure Advisor provides recommendation optimizations, not backup failure alerts."
+        "Log Analytics alerts are useful for custom alert logic, but they aren't required for the native built-in job-failure alert.",
+        "A custom polling script adds unnecessary operational overhead when built-in Azure Monitor alerts are available.",
+        "Azure Advisor recommendations aren't the native source for Azure Backup job-failure alerts."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/backup/backup-azure-monitoring-built-in-monitor"
+      "reference": "https://learn.microsoft.com/en-us/azure/backup/monitoring-and-alerts-overview#azure-monitor-alerts-for-azure-backup"
     }
   },
   {
@@ -655,20 +655,20 @@
     "subtopic": "Configure and interpret reports and alerts for backups",
     "question": "You want to analyze long-term historical trends (up to 1 year) of backup storage consumption and backup job success rates across multiple Recovery Services vaults. Which tool should you configure?",
     "options": [
-      "Azure Backup Reports with Log Analytics workspace and Storage Account",
+      "Azure Backup Reports with a Log Analytics workspace",
       "Azure Activity Log export to Event Hub",
       "Azure Resource Graph Explorer queries",
       "Azure Service Health dashboard"
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "Azure Backup Reports uses Azure Monitor logs (Log Analytics) and Power BI / Workbook templates to aggregate long-term reporting data across vaults, subscriptions, and regions.",
+      "correctReason": "Azure Backup Reports use data stored in Log Analytics and provide historical views across vaults, subscriptions, and regions. The Log Analytics retention period can be configured to keep historical data for the required period.",
       "incorrectReasons": [
-        "Activity Log tracks control plane management events, not long-term backup data metrics.",
-        "Resource Graph Explorer queries current state of Azure resources, not historical trend data over 1 year.",
-        "Azure Service Health monitors Azure platform outages."
+        "Exporting Activity Log data to Event Hub isn't the Azure Backup Reports solution for backup storage and job trends.",
+        "Resource Graph is primarily for querying current resource state and isn't the underlying historical data store for Backup Reports.",
+        "Service Health reports Azure platform health and outages rather than backup consumption and job trends."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/backup/configure-reports"
+      "reference": "https://learn.microsoft.com/en-us/azure/backup/configure-reports#get-started"
     }
   },
   {
@@ -689,28 +689,28 @@
         "AddonAzureBackupStorage tracks storage consumption and billing metrics.",
         "AzureDiagnostics is the legacy Azure-diagnostics schema table."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/backup/backup-azure-diagnostic-events#azure-monitor-logs-data-model"
+      "reference": "https://learn.microsoft.com/en-us/azure/backup/backup-azure-reports-data-model#addonazurebackupjobs"
     }
   },
   {
     "id": 34,
     "subtopic": "Configure and interpret reports and alerts for backups",
-    "question": "You need to ensure that an Azure Monitor action group sends an SMS notification to the IT On-Call team whenever a backup item's soft delete state is triggered or disabled. Which alert source should you monitor?",
+    "question": "You need an Azure Monitor action group to send an SMS notification when the soft delete feature is disabled on a Recovery Services vault. Which alert should you monitor?",
     "options": [
-      "Azure Backup Built-in Alerts (Azure Monitor alerts for Backup)",
+      "Azure Backup built-in Azure Monitor security alert: Soft Delete Disabled for Vault",
       "Azure Metrics - Disk Read Bytes",
       "Azure Security Center Recommendations",
       "Network Watcher Flow Logs"
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "Azure Backup integrates with Azure Monitor Alerts to fire firing events for security events like disabling soft delete or deleting backup data.",
+      "correctReason": "Azure Backup provides a built-in Azure Monitor security alert for the scenario where soft delete is disabled on a Recovery Services vault. Azure Monitor action groups can route the alert to SMS and other supported channels.",
       "incorrectReasons": [
-        "Disk Read Bytes measures disk throughput, not vault security actions.",
-        "Security Center Recommendations are advisory, not real-time alert triggers.",
-        "Network Watcher flow logs capture IP traffic streams."
+        "Disk Read Bytes measures disk activity and isn't a backup-vault security alert.",
+        "Microsoft Defender for Cloud recommendations aren't the native Azure Backup alert for disabling soft delete.",
+        "Network Watcher flow logs contain network traffic telemetry and don't report Recovery Services vault soft-delete changes."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/backup/backup-azure-monitoring-built-in-monitor#azure-monitor-alerts-for-azure-backup"
+      "reference": "https://learn.microsoft.com/en-us/azure/backup/monitoring-and-alerts-overview#azure-monitor-alerts-for-azure-backup"
     }
   },
   {
@@ -731,7 +731,7 @@
         "Backup Center provides cross-subscription backup compliance views.",
         "Backup Center allows creating and assigning backup policies."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/backup/backup-center-overview"
+      "reference": "https://learn.microsoft.com/en-us/azure/backup/backup-center-actions#create-a-new-backup-policy"
     }
   },
   {
@@ -773,28 +773,28 @@
         "Operational tier keeps snapshots locally within the source storage account, not in a vault storage tier.",
         "Key Vault manages cryptographic keys."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/backup/blob-backup-support-matrix"
+      "reference": "https://learn.microsoft.com/en-us/azure/backup/blob-backup-overview#protection"
     }
   },
   {
     "id": 38,
     "subtopic": "Create and configure a backup policy",
-    "question": "You are creating a backup policy for Azure Virtual Machines. You want to retain monthly backups taken on the last day of each month for 5 years. What is the maximum retention period allowed for monthly recovery points in an Azure VM backup policy?",
+    "question": "You are creating an Azure Virtual Machine backup policy. What is the maximum retention period allowed for monthly recovery points?",
     "options": [
       "365 days",
-      "10 years (120 months / 9999 days)",
+      "1,188 months (99 years)",
       "1 year",
       "3 years"
     ],
     "correct": 1,
     "explanation": {
-      "correctReason": "Azure Backup allows retaining monthly and yearly backup recovery points for up to 9999 days (or 10 years / 120 months).",
+      "correctReason": "For Azure VM backup policies, the maximum retention for monthly backup points is 1,188 months.",
       "incorrectReasons": [
-        "365 days is not the upper limit for monthly retention.",
-        "1 year is less than the supported maximum retention.",
-        "3 years is supported but is not the maximum capacity limit."
+        "365 days is not the maximum monthly retention.",
+        "One year is less than the supported maximum monthly retention.",
+        "Three years is supported but is not the maximum."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/backup/backup-azure-vms-first-look-arm#retention-policy-settings"
+      "reference": "https://learn.microsoft.com/en-us/azure/backup/backup-azure-vm-backup-faq#how-long-can-i-retain-backup-points-of-azure-vms-using-the-backup-policy"
     }
   },
   {
@@ -815,28 +815,28 @@
         "Target Resource Group is selected during the wizard.",
         "Target VNet and Subnet are selected during the restore wizard."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/backup/backup-azure-arm-restore-vms#create-a-vm-from-a-restore-point"
+      "reference": "https://learn.microsoft.com/en-us/azure/backup/backup-azure-arm-restore-vms#create-a-vm"
     }
   },
   {
     "id": 40,
     "subtopic": "Configure Azure Site Recovery for Azure resources",
-    "question": "You are preparing to protect an Azure VM using Azure Site Recovery. The VM has one OS disk and two data disks attached. Which disk type is NOT supported by Azure Site Recovery for replication?",
+    "question": "You are protecting a Windows Server Failover Cluster (WSFC) on Azure VMs with Azure Site Recovery using shared managed disks. Which disk type is NOT supported for the shared-disk Site Recovery scenario?",
     "options": [
       "Standard HDD",
       "Standard SSD",
       "Premium SSD",
-      "Shared Managed Disks (multi-attach enabled)"
+      "Ultra Disk"
     ],
-    "correct": 3,
+    "correct": 0,
     "explanation": {
-      "correctReason": "Shared Managed Disks (enabled with maxShares for multi-node clustering) are currently not supported for Azure Site Recovery replication.",
+      "correctReason": "For Azure Site Recovery shared-disk protection, the documented supported shared disk types are Standard SSD, Premium SSD, Premium SSD v2, and Ultra disks. Standard HDD isn't listed as a supported shared-disk type.",
       "incorrectReasons": [
-        "Standard HDD managed disks are fully supported by ASR.",
-        "Standard SSD managed disks are fully supported by ASR.",
-        "Premium SSD managed disks are fully supported by ASR."
+        "Standard SSD is supported for shared-disk Azure Site Recovery scenarios.",
+        "Premium SSD is supported for shared-disk Azure Site Recovery scenarios.",
+        "Ultra Disk is supported for shared-disk Azure Site Recovery scenarios."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/site-recovery/azure-to-azure-support-matrix#disk-types-support"
+      "reference": "https://learn.microsoft.com/en-us/azure/site-recovery/shared-disk-support-matrix"
     }
   },
   {
@@ -857,7 +857,7 @@
         "Public IPs are not mandatory for test failover validation.",
         "Test networks must reside in the target secondary region where replica VMs are spun up."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/site-recovery/azure-to-azure-test-failover-howto#network-configuration"
+      "reference": "https://learn.microsoft.com/en-us/azure/site-recovery/site-recovery-test-failover-to-azure"
     }
   },
   {
@@ -899,7 +899,7 @@
         "Recovery Services vaults do not host key management blades natively.",
         "Automation variables are not valid key sources for vault encryption."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/backup/encryption-at-rest-with-customer-managed-keys"
+      "reference": "https://learn.microsoft.com/en-us/azure/backup/encryption-at-rest-with-cmk"
     }
   },
   {
@@ -983,49 +983,49 @@
         "DNS zones map hostnames to IP addresses, not zone placement.",
         "Vault SKU properties manage pricing tiers."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/site-recovery/azure-to-azure-how-to-enable-replication#configure-target-resources"
+      "reference": "https://learn.microsoft.com/en-us/azure/site-recovery/azure-to-azure-how-to-enable-replication#enable-replication"
     }
   },
   {
     "id": 48,
     "subtopic": "Perform a failover to a secondary region by using Site Recovery",
-    "question": "You initiate an unplanned failover for a group of Azure VMs. You select the latest processed recovery point. What is the difference between selecting 'Latest' versus 'Latest app-consistent' recovery point?",
+    "question": "During an unplanned Azure Site Recovery failover, you can choose the 'Latest' or 'Latest app-consistent' recovery point. Which statement correctly describes these choices?",
     "options": [
-      "'Latest' processes all data sent to ASR service providing lowest RPO (crash-consistent), while 'Latest app-consistent' guarantees application memory and transactions are in a consistent state.",
+      "'Latest' first processes all data that has been sent to Site Recovery to create a recovery point, providing the lowest achievable RPO; 'Latest app-consistent' uses the latest application-consistent recovery point processed by Site Recovery.",
       "'Latest' performs a full backup before failover.",
       "'Latest app-consistent' is only available for Linux operating systems.",
       "'Latest' requires shutting down the secondary region host."
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "'Latest' point processes all data received (crash-consistent snapshot), giving lowest RPO. 'Latest app-consistent' uses VSS/app-hooks snapshots ensuring application state/memory consistency.",
+      "correctReason": "The Latest option processes all data already sent to Site Recovery before failover, providing the lowest achievable RPO. Latest app-consistent uses the most recent application-consistent recovery point processed by Site Recovery.",
       "incorrectReasons": [
-        "'Latest' does not trigger a full backup during an emergency unplanned failover.",
-        "App-consistent snapshots are supported on Windows (VSS) and Linux (custom scripts).",
-        "Secondary region hosts do not require manual shutdown."
+        "Latest does not perform a full backup before failover; it processes replicated data already sent to the Site Recovery service.",
+        "Latest app-consistent is supported for both Windows and Linux scenarios where application consistency is configured.",
+        "Selecting a recovery point doesn't require shutting down a host in the secondary region."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/site-recovery/azure-to-azure-architecture#recovery-points"
+      "reference": "https://learn.microsoft.com/en-us/azure/site-recovery/site-recovery-failover#run-a-failover"
     }
   },
   {
     "id": 49,
     "subtopic": "Configure and interpret reports and alerts for backups",
-    "question": "You want to configure an automated alert when a backup vault's storage usage exceeds 5 TB. Which monitoring feature provides threshold metrics for Backup Vault storage consumption?",
+    "question": "You want to configure an automated alert when Azure Backup reports unhealthy backup jobs for a vault. Which Azure Monitor metric provides a health signal that can be used for a metric alert?",
     "options": [
-      "Azure Monitor Metrics for Backup Vaults",
+      "Backup Health Events",
       "Azure Network Watcher Connection Monitor",
       "Azure Storage Explorer Metrics",
       "Azure Event Grid System Topics"
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "Azure Backup vaults emit standard Azure Monitor metrics (such as Backup Health Events, Vault Health, and Backup Storage Used) that support threshold alert rules.",
+      "correctReason": "Azure Backup exposes the Backup Health Events metric through Azure Monitor. You can create metric alert rules based on this health signal and route notifications through Azure Monitor action groups.",
       "incorrectReasons": [
-        "Network Watcher tracks network connectivity metrics.",
-        "Storage Explorer is a client management tool, not an alerting platform.",
-        "Event Grid routes events, but Azure Monitor Metrics handles metric threshold alerts directly."
+        "Network Watcher Connection Monitor measures network connectivity rather than backup health.",
+        "Storage Explorer is a client tool and doesn't provide Azure Monitor alert metrics for Backup vaults.",
+        "Event Grid system topics route events but aren't the Azure Backup health metric used for this metric-alert scenario."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/backup/backup-azure-monitoring-use-azuremonitor"
+      "reference": "https://learn.microsoft.com/en-us/azure/backup/metrics-overview#supported-metrics"
     }
   },
   {
@@ -1033,18 +1033,18 @@
     "subtopic": "Create a Recovery Services vault",
     "question": "You need to prevent accidental or malicious deletion of a Recovery Services vault that contains critical VM backups. What feature should you apply to the vault in the Azure portal?",
     "options": [
-      "CanNotDelete (Delete) Resource Lock",
+      "Delete resource lock",
       "ReadOnly Resource Lock",
       "Azure Storage Immutability Policy",
       "Azure App Service Authentication"
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "Applying a 'CanNotDelete' (Delete) resource lock on the Recovery Services vault prevents authorized users from deleting the vault resource while permitting normal backup/restore operations.",
+      "correctReason": "A Delete resource lock prevents deletion of the Recovery Services vault resource while allowing normal write operations that aren't blocked by the lock.",
       "incorrectReasons": [
-        "ReadOnly locks prevent writing or modifying backup configurations and daily operations.",
-        "Storage immutability policies apply to blob containers, not Recovery Services vault ARM resources directly.",
-        "App Service authentication secures web applications."
+        "A ReadOnly lock prevents write operations as well as deletion, so it can interfere with normal backup administration.",
+        "Azure Storage immutability policies apply to supported storage data and aren't a resource lock on the Recovery Services vault itself.",
+        "App Service Authentication is unrelated to protecting an Azure Backup vault."
       ],
       "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/lock-resources"
     }

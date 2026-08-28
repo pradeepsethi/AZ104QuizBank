@@ -17,7 +17,7 @@
         "Count returns the number of data points collected in the interval, not the intensity of the CPU load.",
         "Minimum shows the lowest recorded utilization in each interval, which will not highlight peak usage spikes."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/azure-monitor/essentials/metrics-aggregation-explained"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-monitor/metrics/metrics-aggregation-explained"
     }
   },
   {
@@ -38,7 +38,7 @@
         "Metric namespace filtering changes the scope of available metrics (e.g., Guest vs Platform), but does not break down a multi-dimensional metric.",
         "Diagnostic settings stream logs and metrics to external targets, but do not manipulate chart visual dimensions."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/azure-monitor/essentials/metrics-getting-started#apply-dimension-filters-and-splitting"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-monitor/metrics/analyze-metrics#use-dimension-filters-and-splitting"
     }
   },
   {
@@ -59,7 +59,7 @@
         "The Azure Dependency Agent discovers process connections and dependencies for Map features, but does not publish standard OS memory performance counters.",
         "VMSS extensions are for scaling groups of VMs, not for enabling guest performance counter collection on a standard VM."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/azure-monitor/agents/azure-monitor-agent-overview"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-monitor/metrics/data-platform-metrics#data-collection"
     }
   },
   {
@@ -101,7 +101,7 @@
         "Dynamic alert rules evaluate metrics over short windows (e.g., past 5-15 minutes), not year-long historical storage.",
         "Azure Advisor provides recommendations based on short-term telemetry, but does not alter metric retention policy."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/azure-monitor/essentials/metrics-supported"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-monitor/metrics/data-platform-metrics#retention-of-metrics"
     }
   },
   {
@@ -122,7 +122,7 @@
         "Diagnostic Settings route logs/metrics to storage/workspaces, but do not build visual monitoring dashboards.",
         "Alert Processing Rules modify alert notification actions, not dashboard visualizations."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/azure-portal/azure-portal-dashboards"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-monitor/metrics/analyze-metrics"
     }
   },
   {
@@ -164,7 +164,7 @@
         "180 days is not a default retention threshold for Azure platform metrics.",
         "365 days requires diagnostic export to Log Analytics, Storage, or Data Explorer."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/azure-monitor/essentials/data-platform-metrics#retention-of-metrics"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-monitor/metrics/data-platform-metrics#retention-of-metrics"
     }
   },
   {
@@ -185,7 +185,7 @@
         "Workspace Keys were used by the legacy Log Analytics agent (MMA), which is deprecated.",
         "Automation Runbooks execute scripts and tasks, but do not collect VM guest log telemetry."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/azure-monitor/essentials/data-collection-rule-overview"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-monitor/vm/data-collection"
     }
   },
   {
@@ -206,7 +206,7 @@
         "Event Hubs are used for real-time streaming to third-party SIEMs or external consumers, not long-term storage.",
         "Partner solutions stream logs to external third-party services, which usually incurs extra licensing and processing costs."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/azure-monitor/essentials/diagnostic-settings"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-monitor/platform/diagnostic-settings"
     }
   },
   {
@@ -227,7 +227,7 @@
         "Table configuration manages schema and retention per table, but does not initiate Activity Log ingestion routing.",
         "Security policies enforce defender configurations, not broad Activity Log diagnostic export."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/azure-monitor/essentials/activity-log#legacy-collection-methods"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-monitor/platform/activity-log#export-activity-log"
     }
   },
   {
@@ -235,20 +235,20 @@
     "subtopic": "Configure log settings in Azure Monitor",
     "question": "You have a Log Analytics workspace named LAW1. To minimize costs, you want to set the interactive data retention period for LAW1 to 30 days, while keeping historical data for 2 years in a low-cost, searchable format for compliance. Which table-level feature should you configure?",
     "options": [
-      "Total retention (Data Archive)",
+      "Table-level total retention (including archive)",
       "Cap Ingestion daily limit",
       "Workspace Data Export",
       "Resource-context permissions"
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "Azure Log Analytics supports configuring Interactive Retention (e.g., 30 days) and Total Retention/Archive (up to 7 years). Archived data remains retrievable via search jobs at lower storage rates.",
+      "correctReason": "Log Analytics tables can have a shorter Analytics retention period and longer Total retention. Archived data can be retained for long-term compliance and retrieved with search jobs, so this supports keeping two years of historical data while limiting interactive retention.",
       "incorrectReasons": [
         "Daily ingestion caps restrict how many GBs are ingested per day to prevent unexpected bill spikes, but do not manage historical log retention.",
         "Workspace Data Export streams incoming data continuously to Storage/Event Hub, but does not configure Log Analytics table archive policy natively.",
         "Resource-context permissions control RBAC access scopes, not data retention policies."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/azure-monitor/logs/data-retention-archive"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-monitor/logs/data-retention-configure"
     }
   },
   {
@@ -269,7 +269,7 @@
         "Sequential local CLI scripts take time and do not enforce compliance for newly created future VMs.",
         "Custom Script Extensions write custom code that requires maintenance and bypasses native Azure Monitor DCR governance."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/azure-monitor/agents/azure-monitor-agent-policy-default"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-monitor/agents/azure-monitor-agent-policy"
     }
   },
   {
@@ -290,7 +290,7 @@
         "Archiving to storage creates batch blob files, which introduces latency and is not ideal for real-time SIEM ingestion.",
         "Azure Advisor generates optimization recommendations, not custom streaming endpoints."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/azure-monitor/essentials/diagnostic-settings"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-monitor/essentials/stream-monitoring-data-event-hubs"
     }
   },
   {
@@ -298,20 +298,20 @@
     "subtopic": "Configure log settings in Azure Monitor",
     "question": "You create a custom log table in a Log Analytics workspace. Which log table plan type offers reduced ingestion costs for basic troubleshooting logs where analytical features like join operations and alerts are not required?",
     "options": [
-      "Basic Logs",
+      "Basic table plan",
       "Analytics Logs",
       "Archive Logs",
       "Standard Logs"
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "The Basic Logs plan reduces ingestion cost per GB for high-volume verbose logs. Basic logs support simple debugging queries but do not support advanced KQL (e.g., joins, summaries) or alert rules.",
+      "correctReason": "The Basic table plan is intended for lower-cost ingestion of high-volume, verbose data when full Analytics capabilities aren't required. It has more limited query and feature support than the Analytics plan.",
       "incorrectReasons": [
-        "Analytics Logs is the default tier that supports full KQL capabilities, alerting, and joins, but carries standard ingestion rates.",
-        "Archive Logs refers to the long-term storage state for inactive historical data, not active table ingestion plan tiers.",
+        "The Analytics table plan provides the full interactive query capabilities and is appropriate when advanced analysis is required.",
+        "Archive refers to long-term retention of data; it isn't a table plan named 'Archive Logs'.",
         "Standard Logs is not a formal table plan designation in Log Analytics."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/azure-monitor/logs/basic-logs-configure"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-monitor/logs/data-platform-logs#table-plans"
     }
   },
   {
@@ -332,7 +332,7 @@
         "Network Watcher flow logs process IP flow telemetry, not Linux OS Syslog messages.",
         "Editing local OS cron tasks does not manage the telemetry collection rules defined by Azure Monitor Agent."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/azure-monitor/essentials/data-collection-rule-overview"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-monitor/data-collection/data-collection-rule-samples#collect-vm-client-data"
     }
   },
   {
@@ -374,7 +374,7 @@
         "The `extend` operator creates calculated custom columns and appends them to existing dataset rows without performing aggregations.",
         "The `render` operator instructs Azure Monitor how to visualize output results (e.g., `render barchart`), but does not calculate average metrics."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/data-explorer/kusto/query/summarize-operator"
+      "reference": "https://learn.microsoft.com/en-us/kusto/query/summarize-operator"
     }
   },
   {
@@ -395,7 +395,7 @@
         "`summarize` requires an aggregation function (e.g., `avg()`, `sum()`) along with a `by` grouping clause.",
         "`where` filters existing rows based on boolean predicate conditions; it cannot define or append new calculated columns."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/data-explorer/kusto/query/extend-operator"
+      "reference": "https://learn.microsoft.com/en-us/kusto/query/extend-operator"
     }
   },
   {
@@ -416,13 +416,13 @@
         "`project` selects columns without aggregating data over time, and pie charts are unsuitable for time-series trends.",
         "`order by` sorts raw records without binning or rendering visual time charts."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/data-explorer/kusto/query/bin-function"
+      "reference": "https://learn.microsoft.com/en-us/kusto/query/bin-function"
     }
   },
   {
     "id": 21,
     "subtopic": "Query and analyze logs in Azure Monitor",
-    "question": "You are querying the `Syslog` table for failed login attempts on Linux VMs. You want to retrieve records where the `SyslogMessage` column contains the text string 'Failed password' regardless of character casing. Which operator is most performant and appropriate?",
+    "question": "You are querying the `Syslog` table for failed login attempts on Linux VMs. You want to retrieve records where the `SyslogMessage` column contains the text string 'Failed password' regardless of character casing. Which operator should you use?",
     "options": [
       "where SyslogMessage contains_cs 'Failed password'",
       "where SyslogMessage contains 'failed password'",
@@ -431,13 +431,13 @@
     ],
     "correct": 1,
     "explanation": {
-      "correctReason": "The `contains` operator performs case-insensitive substring searching within text fields, finding matches anywhere inside `SyslogMessage` regardless of letter casing.",
+      "correctReason": "The `contains` operator performs a case-insensitive substring search, so it finds the phrase within `SyslogMessage` regardless of letter casing.",
       "incorrectReasons": [
-        "`contains_cs` is case-sensitive, meaning searching for 'Failed password' would miss messages containing 'failed password' or 'FAILED PASSWORD'.",
+        "`contains_cs` is case-sensitive, so it can miss messages whose casing differs from 'Failed password'.",
         "The `==` operator requires an exact string match for the entire field value, which will fail because Syslog entries contain additional timestamps, usernames, and process IDs.",
         "`startswith` only matches strings that begin with the exact text, ignoring messages where 'failed password' appears mid-sentence."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/data-explorer/kusto/query/contains-operator"
+      "reference": "https://learn.microsoft.com/en-us/kusto/query/contains-operator"
     }
   },
   {
@@ -479,7 +479,7 @@
         "The `lookup` operator extends a primary table with fields looked up from a reference table based on matching keys.",
         "The `render` operator formats existing output into visual charts (e.g., table, bar chart)."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/data-explorer/kusto/query/union-operator"
+      "reference": "https://learn.microsoft.com/en-us/kusto/query/union-operator"
     }
   },
   {
@@ -500,7 +500,7 @@
         "`summarize count(10)` is invalid syntax for selecting recent rows.",
         "`project-away` removes named columns from a table schema; it does not filter row counts."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/data-explorer/kusto/query/top-operator"
+      "reference": "https://learn.microsoft.com/en-us/kusto/query/top-operator"
     }
   },
   {
@@ -521,7 +521,7 @@
         "While KQL log alerts can query ingested Activity Log tables, using native Activity Log signals provides zero-cost, direct control plane alerting without needing workspace ingestion.",
         "Resource Health signals monitor platform availability and infrastructure failures, not intentional user actions like stopping a VM."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/azure-monitor/alerts/alerts-activity-log"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-monitor/alerts/alerts-types#activity-log-alerts"
     }
   },
   {
@@ -542,7 +542,7 @@
         "Metric Alert Rules define the evaluation criteria and thresholds, but delegate the notification mechanism to attached Action Groups.",
         "Data Collection Rules configure telemetry ingestion paths from agents to workspaces, not alert notifications."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/azure-monitor/alerts/action-groups"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-monitor/alerts/alerts-overview"
     }
   },
   {
@@ -590,7 +590,7 @@
   {
     "id": 29,
     "subtopic": "Set up alert rules, action groups, and alert processing rules in Azure Monitor",
-    "question": "You need an alert to fire whenever an Azure Virtual Machine disk has less than 10% free space remaining. You configure a metric alert rule. Which aggregation and threshold setting combination correctly evaluates this condition?",
+    "question": "You need an alert to fire whenever a guest operating system logical disk on an Azure Virtual Machine has less than 10% free space remaining. You have configured the guest metric for free disk percentage. Which aggregation and threshold setting combination correctly evaluates this condition?",
     "options": [
       "Aggregation: Minimum, Operator: Less than, Threshold: 10",
       "Aggregation: Maximum, Operator: Greater than, Threshold: 90",
@@ -599,13 +599,13 @@
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "To alert when free space drops dangerously low, evaluate the Minimum available disk space during the time window, checking if it is 'Less than' the threshold value of 10%.",
+      "correctReason": "For a free-space percentage metric, using Minimum with 'Less than' 10 detects when the lowest observed free-space percentage in the evaluation window falls below 10%.",
       "incorrectReasons": [
-        "Evaluating Maximum with 'Greater than 90' checks peak disk space, which is the opposite of detecting low remaining capacity.",
+        "Maximum with 'Greater than 90' checks for high values rather than detecting low free-space percentage.",
         "Total sums disk space values across samples, producing an invalid aggregate comparison.",
-        "Evaluating Average with 'Greater than 10' triggers when disk space is healthy (above 10%), generating constant false positives."
+        "Average with 'Greater than 10' evaluates the opposite condition and would not detect low free-space percentage."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/azure-monitor/alerts/alerts-metric"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-monitor/alerts/alerts-types#metric-alerts"
     }
   },
   {
@@ -626,7 +626,7 @@
         "Period and Frequency control query execution timing, not notification repeat counts.",
         "Log ingestion and workspace data retention are configured independently of alert rule evaluation parameters."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/azure-monitor/alerts/alerts-unified-log"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-monitor/alerts/alerts-create-log-alert-rule"
     }
   },
   {
@@ -647,7 +647,7 @@
         "Multi-resource metric alerts evaluate multiple targets for a single rule condition, but do not attach action groups globally to other distinct alert rules.",
         "Diagnostic settings export raw diagnostic logs, but do not manage alert action triggers."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/azure-monitor/alerts/alerts-processing-rules"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-monitor/alerts/alerts-processing-rules#management-at-scale"
     }
   },
   {
@@ -665,16 +665,16 @@
       "correctReason": "When the underlying condition that triggered an alert clears (e.g., CPU drops back below 80%), Azure Monitor metric alerts automatically switch the alert condition state to Resolved.",
       "incorrectReasons": [
         "Fired indicates that the condition currently violates the alert rule threshold.",
-        "Acknowledged is an user-assigned administrative state indicating a team member is investigating.",
-        "Closed is a user-assigned state indicating investigation work is complete."
+        "Acknowledged is not the alert condition state. It is one of the user-response values that can be assigned to an alert instance.",
+        "Closed is not the alert condition state. It is one of the user-response values that can be assigned to an alert instance."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/azure-monitor/alerts/alerts-overview#alert-states"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-monitor/alerts/alerts-overview#alerts-and-state"
     }
   },
   {
     "id": 33,
     "subtopic": "Configure and interpret monitoring of virtual machines, storage accounts, and networks by using Azure Monitor Insights",
-    "question": "You enable VM Insights on a set of Azure Virtual Machines. You want to view live network connection dependencies, active ports, and connected third-party processes for a specific VM. Which view in VM Insights provides this visual topology?",
+    "question": "A virtual machine already has VM Insights Map enabled. You want to view its network connection dependencies, active ports, and connected processes. Which VM Insights view provides this visual topology?",
     "options": [
       "Map view",
       "Performance view",
@@ -683,11 +683,11 @@
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "The Map view in VM Insights uses data collected by the Dependency Agent to display active network connections, incoming/outgoing process dependencies, and open ports.",
+      "correctReason": "For an existing VM Insights deployment with Map enabled, the Map view uses dependency data to display processes, network connections, and dependencies.",
       "incorrectReasons": [
-        "Performance view presents trend charts for CPU, Memory, Disk IOPS, and Network throughput, but does not show process dependency maps.",
-        "Overview view displays high-level health summaries and resource lists, without visual process interconnection topology.",
-        "Key Vault view is part of Storage/Key Vault Insights, not VM Insights."
+        "Performance view presents guest performance metrics; it doesn't provide the process-dependency topology.",
+        "Overview provides high-level monitoring information rather than the process-dependency topology.",
+        "Key Vault view isn't a VM Insights view for process and network dependencies."
       ],
       "reference": "https://learn.microsoft.com/en-us/azure/azure-monitor/vm/vminsights-maps"
     }
@@ -731,28 +731,28 @@
         "Network Insights visualizes telemetry; packet capture files are managed by Network Watcher and incur storage costs.",
         "Network Insights is a monitoring tool and does not allow editing or injecting BGP routes directly."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/azure-monitor/insights/network-insights-overview"
+      "reference": "https://learn.microsoft.com/en-us/azure/network-watcher/network-insights-overview"
     }
   },
   {
     "id": 36,
     "subtopic": "Configure and interpret monitoring of virtual machines, storage accounts, and networks by using Azure Monitor Insights",
-    "question": "To fully enable VM Insights (including Map and Performance features) on a Windows Virtual Machine using current Azure best practices, which agent or combination of agents must be deployed?",
+    "question": "You want to enable VM Insights Performance monitoring on a Windows virtual machine using current Azure Monitor guidance. Which agent is required for the Performance features?",
     "options": [
-      "Azure Monitor Agent (AMA) and Dependency Agent",
-      "Legacy Log Analytics Agent (MMA) only",
-      "Network Watcher Agent only",
-      "Diagnostics Extension (WAD) only"
+      "Azure Monitor Agent (AMA)",
+      "Legacy Log Analytics Agent (MMA)",
+      "Network Watcher Agent",
+      "Dependency Agent"
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "VM Insights requires the Azure Monitor Agent (AMA) for performance telemetry ingestion into Log Analytics and the Dependency Agent to capture process connection maps.",
+      "correctReason": "VM Insights Performance monitoring uses the Azure Monitor Agent (AMA), with a Data Collection Rule defining the performance data collected. The Dependency Agent is only used for the deprecated Map experience.",
       "incorrectReasons": [
-        "The legacy Microsoft Monitoring Agent (MMA) is deprecated.",
-        "The Network Watcher agent handles packet captures and connection monitoring, but does not power VM Insights performance workbooks or process maps.",
-        "Windows Azure Diagnostics (WAD) extension writes metrics to Storage tables, which does not support native VM Insights Map views."
+        "The legacy Log Analytics Agent (MMA) is deprecated and retired for Azure Monitor scenarios; use AMA instead.",
+        "The Network Watcher Agent supports Network Watcher connectivity and packet-capture features, not VM Insights Performance monitoring.",
+        "The Dependency Agent is not required for VM Insights Performance monitoring; it is associated with the deprecated Map experience."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/azure-monitor/vm/vminsights-enable-overview"
+      "reference": "https://learn.microsoft.com/en-us/azure/azure-monitor/vm/vminsights-migrate-agent"
     }
   },
   {
@@ -823,20 +823,20 @@
     "subtopic": "Configure and interpret monitoring of virtual machines, storage accounts, and networks by using Azure Monitor Insights",
     "question": "You open Network Insights to review your Azure Application Gateways. You notice that backend pool instances for an App Gateway are failing health checks. Where in Network Insights can you view the health status of these backend targets?",
     "options": [
-      "Functional Components / Resource Health view",
+      "Application Gateway resource view",
       "Flow Log Analysis tab",
       "Connection Monitor tab",
       "IP Flow Verify blade"
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "Network Insights aggregates resource topology and health, allowing administrators to inspect Application Gateway functional components and backend health probe results directly.",
+      "correctReason": "In Network Insights, the Application Gateway resource view shows the front-end IPs, listeners, rules, and backend pools, with connecting lines that provide details based on backend pool health.",
       "incorrectReasons": [
-        "Flow Log Analysis evaluates packet-level NSG traffic flows, not Application Gateway HTTP health probe states.",
-        "Connection Monitor measures synthetic TCP/ICMP ping connectivity between endpoints, not native Application Gateway backend pool probes.",
-        "IP Flow Verify is a Network Watcher tool for testing NSG rules against 5-tuple traffic filters."
+        "Flow Log Analysis isn't the Network Insights view for Application Gateway backend-pool health.",
+        "Connection Monitor tests connectivity between endpoints; it isn't the native Application Gateway backend health view.",
+        "IP Flow Verify tests whether a particular flow is allowed or denied by security rules; it doesn't display Application Gateway backend health."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/azure-monitor/insights/network-insights-overview"
+      "reference": "https://learn.microsoft.com/en-us/azure/network-watcher/network-insights-overview#network-health-and-metrics"
     }
   },
   {
@@ -857,7 +857,7 @@
         "VPN Troubleshoot diagnoses virtual network gateways and site-to-site tunnels, not local VNet NSG filter rules.",
         "Connection Troubleshoot checks end-to-end connectivity including routing and DNS, but IP Flow Verify specifically isolates NSG rule blocks faster."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/network-watcher/diagnose-vm-network-traffic-filtering-problem"
+      "reference": "https://learn.microsoft.com/en-us/azure/network-watcher/ip-flow-verify-overview"
     }
   },
   {
@@ -878,7 +878,7 @@
         "NSG Diagnostic checks effective NSG rules for a VM, but does not display route table next hops.",
         "Connection Monitor performs continuous latency and connectivity test probing, but Next Hop is the direct tool for single-point routing diagnostic lookup."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/network-watcher/diagnose-vm-network-routing-problem"
+      "reference": "https://learn.microsoft.com/en-us/azure/network-watcher/network-watcher-next-hop-overview"
     }
   },
   {
@@ -905,22 +905,22 @@
   {
     "id": 44,
     "subtopic": "Use Azure Network Watcher and Connection Monitor",
-    "question": "You enable NSG Flow Logs for an Network Security Group in Subnet1. Where are the generated flow log JSON files saved, and what additional feature can be enabled for advanced traffic visualization?",
+    "question": "You configure Virtual Network Flow Logs for a virtual network. Where are the generated flow-log JSON records stored, and which feature can provide advanced traffic visualization?",
     "options": [
-      "Saved to an Azure Storage Account; enable Traffic Analytics for Log Analytics visualization",
+      "Saved to an Azure Storage Account; enable Traffic Analytics for visualization",
       "Saved directly to Azure Key Vault; enable Azure Sentinel for visualization",
       "Saved to local VM OS drive C:\\Logs; enable Network Watcher extension",
       "Saved to Azure Advisor; enable Security Center"
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "NSG Flow Logs write raw JSON data to an Azure Storage Account. Enabling Traffic Analytics processes these logs and uploads rich insights into a Log Analytics workspace for visualization.",
+      "correctReason": "Virtual network flow logs write JSON flow data to an Azure Storage account. Traffic Analytics can process flow-log data to provide visualization and analysis.",
       "incorrectReasons": [
-        "Key Vault stores cryptographic secrets and certificates, not raw network flow telemetry.",
-        "Flow logs are processed at the SDN infrastructure layer and stored in Azure Storage, not on individual guest VM local disks.",
-        "Azure Advisor provides configuration recommendations, not log storage or network flow analysis."
+        "Key Vault stores secrets, keys, and certificates; it isn't the storage destination for virtual network flow logs.",
+        "Flow logs are generated by the Azure networking platform and stored in Azure Storage, not on a VM's local OS disk.",
+        "Azure Advisor provides recommendations; it isn't the storage destination or flow-log visualization service."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/network-watcher/nsg-flow-logs-overview"
+      "reference": "https://learn.microsoft.com/en-us/azure/network-watcher/vnet-flow-logs-overview"
     }
   },
   {
@@ -941,7 +941,7 @@
         "Log Analytics stores text/JSON log tables, not raw binary packet trace files.",
         "Azure Key Vault is designed for storing keys, secrets, and certificates, not network trace files."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/network-watcher/network-watcher-packet-capture-overview"
+      "reference": "https://learn.microsoft.com/en-us/azure/network-watcher/packet-capture-overview"
     }
   },
   {
@@ -962,7 +962,7 @@
         "Next Hop determines VM outbound routing targets, not VPN gateway tunnel IPSec state.",
         "Topology renders visual network infrastructure diagrams, but does not run health diagnostics on VPN gateways."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/network-watcher/network-watcher-vpn-troubleshoot"
+      "reference": "https://learn.microsoft.com/en-us/azure/network-watcher/vpn-troubleshoot-overview"
     }
   },
   {
@@ -983,7 +983,7 @@
         "Dependency Agent maps network connections for VM Insights, but does not provide Network Watcher packet capture capabilities.",
         "Hybrid Workers execute automation runbooks on-premises, which is unrelated to Azure Network Watcher."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/network-watcher/frequently-asked-questions"
+      "reference": "https://learn.microsoft.com/en-us/azure/network-watcher/frequently-asked-questions#network-watcher-agent"
     }
   },
   {
@@ -1004,7 +1004,7 @@
         "Connection Monitor is a diagnostic tool and does not dynamically rewrite or update NSG rules.",
         "Connection Monitor isolates routing issues, but does not automatically modify or delete User Defined Routes."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/network-watcher/connection-monitor-overview"
+      "reference": "https://learn.microsoft.com/en-us/azure/network-watcher/connection-monitor-overview#diagnose-issues-in-your-network"
     }
   },
   {
@@ -1025,7 +1025,7 @@
         "Connection Monitor tracks latency and reachability test metrics, not static VNet resource topology diagrams.",
         "Traffic Analytics provides dashboard visualizations of IP flow log traffic data, not resource topology mapping."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/network-watcher/view-network-topology"
+      "reference": "https://learn.microsoft.com/en-us/azure/network-watcher/network-insights-topology"
     }
   },
   {
@@ -1046,7 +1046,7 @@
         "1 minute is a valid frequency, but 30 seconds is the minimum supported interval.",
         "5 minutes is too long for high-frequency connection probing requirements."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/network-watcher/connection-monitor-overview"
+      "reference": "https://learn.microsoft.com/en-us/azure/network-watcher/connection-monitor-create-using-portal#create-test-groups-in-a-connection-monitor"
     }
   }
 ]

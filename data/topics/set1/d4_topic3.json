@@ -86,7 +86,7 @@
   {
     "id": 5,
     "subtopic": "Configure Azure DNS",
-    "question": "You manage an Azure Private DNS zone named internal.contoso.com. You need to grant a developer named Dev1 rights to add and update DNS records in the zone without giving them permission to modify virtual network links or delete the zone. Which Azure RBAC role should you assign to Dev1?",
+    "question": "You manage an Azure Private DNS zone named internal.contoso.com. Dev1 needs to create, update, and delete DNS records in the zone, but must not be able to manage the virtual networks to which the zone is linked. Which built-in Azure RBAC role should you assign to Dev1?",
     "options": [
       "DNS Zone Contributor",
       "Private DNS Zone Contributor",
@@ -95,34 +95,34 @@
     ],
     "correct": 1,
     "explanation": {
-      "correctReason": "The Private DNS Zone Contributor role lets users manage private DNS zones and records, but does not grant rights to link virtual networks unless combined with permissions on the VNets.",
+      "correctReason": "The Private DNS Zone Contributor role lets Dev1 manage private DNS zone resources, including DNS records, but it does not grant management permissions over the virtual networks linked to the zone.",
       "incorrectReasons": [
-        "DNS Zone Contributor is intended for public Azure DNS zones, not Private DNS zones.",
-        "Network Contributor grants broad access to manage all network resources, exceeding the minimum required permissions.",
-        "Reader provides read-only access and does not allow creating or updating DNS records."
+        "DNS Zone Contributor applies to public Azure DNS zones, not private DNS zones.",
+        "Network Contributor grants broad permissions to manage virtual network resources and is not the least targeted role for private DNS zone management.",
+        "Reader provides read-only access and cannot create or update DNS records."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/dns/dns-protect-zones-recordsets#azure-rbac"
+      "reference": "https://learn.microsoft.com/en-us/azure/role-based-access-control/built-in-roles/networking#private-dns-zone-contributor"
     }
   },
   {
     "id": 6,
     "subtopic": "Configure Azure DNS",
-    "question": "You want to configure reverse DNS lookup in Azure DNS for a public IP address assigned to an Azure VM. Which setting must you configure on the Public IP Address resource?",
+    "question": "You need to configure reverse DNS for an Azure public IP address assigned to a VM. Which property of the Public IP Address resource should you configure?",
     "options": [
+      "Reverse FQDN (reverseFqdn).",
       "Domain name label (FQDN) in the Public IP configuration.",
       "PTR record in a Private DNS zone linked to the VNet.",
-      "Alias record in an Azure Public DNS zone.",
-      "NS record delegating reverse lookup to Azure."
+      "Alias record in an Azure Public DNS zone."
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "To set up reverse DNS for Azure-owned public IP addresses, you specify a Domain Name Label on the Public IP resource properties, which automatically configures the reverse PTR record managed by Microsoft.",
+      "correctReason": "For an Azure public IP address, specifying the reverse FQDN creates a PTR record in the corresponding in-addr.arpa reverse DNS zone that points to that FQDN.",
       "incorrectReasons": [
-        "Private DNS zones handle internal private IP resolution, not public IP reverse DNS lookups.",
-        "Alias records map domains to resources, not IP addresses to domain reverse lookups.",
-        "Reverse DNS for Microsoft-owned IP ranges is handled by Microsoft infrastructure, not delegated via customer NS records."
+        "The domain name label creates a forward A record/FQDN for the public IP; it is not the property used to configure reverse DNS.",
+        "Private DNS zones are for private name resolution and are not used to configure reverse DNS for an Azure public IP address.",
+        "Alias records provide resource-based aliasing for forward DNS records; they do not configure reverse PTR records."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/dns/dns-reverse-dns-for-azure-services"
+      "reference": "https://learn.microsoft.com/en-us/azure/virtual-network/ip-services/public-ip-addresses#reverse-dns"
     }
   },
   {
@@ -149,22 +149,22 @@
   {
     "id": 8,
     "subtopic": "Configure Azure DNS",
-    "question": "You create a record set named app in the Azure DNS zone contoso.com with two A records pointing to 10.0.0.4 and 10.0.0.5. What happens when a client sends a DNS request for app.contoso.com?",
+    "question": "You create a record set named app in the Azure DNS zone contoso.com with two A records pointing to 10.0.0.4 and 10.0.0.5. What does Azure DNS return when a client queries app.contoso.com?",
     "options": [
-      "Azure DNS returns both IP addresses, and the client chooses one based on DNS round-robin.",
+      "Azure DNS returns both IP addresses in the DNS response; resolvers or clients can use the returned addresses.",
       "Azure DNS performs health probes and returns only the active IP address.",
       "Azure DNS always returns 10.0.0.4 unless it goes offline.",
       "Azure DNS rejects record sets containing multiple IP addresses for the same hostname."
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "An A record set in Azure DNS can contain multiple IP addresses. Azure DNS returns all IP addresses in the record set to the querying client, which uses standard client-side round-robin behavior.",
+      "correctReason": "An A record set can contain multiple IP addresses, and Azure DNS returns the records in the set in the DNS response. Azure DNS does not perform health probing for ordinary A record sets.",
       "incorrectReasons": [
-        "Azure DNS does not perform health probing on standard A record sets (that requires Azure Load Balancer or Traffic Manager).",
-        "Azure DNS does not prioritize the first listed IP address exclusively.",
-        "Record sets naturally support multiple IP entries of the same type."
+        "Azure DNS does not perform health probing for ordinary A record sets.",
+        "Azure DNS does not designate the first A record as the active address and fail over automatically.",
+        "Multiple A records are supported in a single record set."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/dns/dns-zones-records#record-sets"
+      "reference": "https://learn.microsoft.com/en-us/azure/dns/dns-zones-records"
     }
   },
   {
@@ -191,22 +191,22 @@
   {
     "id": 10,
     "subtopic": "Configure Azure DNS",
-    "question": "You attempt to delete a Virtual Network Link attached to a Private DNS zone, but the operation fails. What is the most likely cause?",
+    "question": "A Private DNS zone is linked to a VNet with auto-registration enabled. You need to remove the virtual network link. What happens to the auto-registered VM records when the link is removed?",
     "options": [
-      "Auto-registration is currently active and virtual machines are using the link.",
-      "The Private DNS zone is locked by the Azure platform automatically.",
-      "The linked VNet contains an active Azure ExpressRoute gateway.",
-      "The Private DNS zone must be deleted before deleting any network links."
+      "The auto-registered records associated with that VNet are removed from the private DNS zone.",
+      "The link cannot be deleted until all VMs in the VNet are deleted.",
+      "The records are converted automatically to public DNS records.",
+      "The private DNS zone is deleted automatically with the link."
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "Virtual network links cannot be deleted while auto-registration is processing or active until registered records are cleared, or the link deletion must cleanly handle unregistering instances.",
+      "correctReason": "Auto-registration manages VM records for the linked VNet. When the link is removed, the auto-registered records associated with that VNet are removed from the private DNS zone.",
       "incorrectReasons": [
-        "Azure platform does not place automatic permanent locks on Private DNS zones.",
-        "ExpressRoute gateways do not block Virtual Network Link deletion directly.",
-        "Network links must be deleted before a Private DNS zone can be deleted, not the other way around."
+        "Deleting the link does not require deleting the VMs first.",
+        "Private DNS records are not converted into public DNS records when a link is removed.",
+        "Removing a virtual network link does not delete the private DNS zone itself."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/dns/private-dns-virtual-network-links"
+      "reference": "https://learn.microsoft.com/en-us/azure/dns/private-dns-autoregistration"
     }
   },
   {
@@ -338,7 +338,7 @@
   {
     "id": 17,
     "subtopic": "Configure an internal or public load balancer",
-    "question": "You are deploying a Standard Azure Load Balancer to distribute traffic across two backend virtual machines. What type of IP address configuration is required for the backend VMs to receive traffic from a Standard Load Balancer?",
+    "question": "You are deploying a Standard Azure Load Balancer to distribute traffic to backend virtual machines. Which network security requirement must be met for the backend VMs to receive inbound load-balanced traffic?",
     "options": [
       "The backend VM network interfaces must be attached to a subnet with Network Security Groups configured or explicitly allowed.",
       "The backend VMs must have Public IP addresses attached directly to their NICs.",
@@ -347,34 +347,34 @@
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "Standard Load Balancer operates on a default-secure model. Backend virtual machines attached to a Standard Load Balancer will not receive traffic unless Network Security Groups explicitly allow inbound traffic.",
+      "correctReason": "Standard Load Balancer is secure by default. An NSG must allow the required inbound load-balanced traffic to the backend instances; otherwise the traffic is blocked.",
       "incorrectReasons": [
-        "Standard Load Balancer backend VMs do not require public IP addresses attached directly to their NICs.",
-        "Availability Sets are not mandatory; Standard Load Balancer supports VMs in virtual network subnets, scale sets, or availability zones.",
-        "Both dynamic and static private IP allocations are supported on backend VM NICs."
+        "Backend VMs do not require public IP addresses to receive traffic from a public load balancer.",
+        "Availability Sets are not required; Standard Load Balancer supports other backend deployment patterns.",
+        "Static private IP allocation is supported; backend NICs do not have to use dynamic private IP addresses."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/load-balancer/load-balancer-overview#securebydefault"
+      "reference": "https://learn.microsoft.com/en-us/azure/load-balancer/skus#sku-comparison"
     }
   },
   {
     "id": 18,
     "subtopic": "Configure an internal or public load balancer",
-    "question": "You need to route incoming traffic on public IP 20.10.5.10 port 80 to backend VM1 on port 8080, and traffic on port 443 to backend VM1 on port 8443. Which Azure Load Balancer component allows mapping specific frontend ports to different backend ports on the same instance pool?",
+    "question": "You need to route traffic arriving at a public Load Balancer frontend on port 80 to backend port 8080, and traffic arriving on port 443 to backend port 8443, using the same backend pool. Which configuration should you use?",
     "options": [
-      "Load balancing rules with port redirection configured.",
-      "Inbound NAT rules.",
-      "Outbound rules with port translation.",
-      "Health probes with custom HTTP headers."
+      "Two load-balancing rules, each specifying its frontend port and corresponding backend port.",
+      "An inbound NAT rule, because it can balance traffic across the backend pool.",
+      "An outbound rule with port translation.",
+      "A health probe with a custom HTTP path."
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "Standard Load Balancer load balancing rules allow configuring floating IP or port translation (frontend port vs. backend port) to redirect incoming traffic to designated target ports.",
+      "correctReason": "Each load-balancing rule can specify a frontend port and a different backend port. Creating separate rules for ports 80 and 443 lets the same backend pool receive traffic on ports 8080 and 8443 respectively.",
       "incorrectReasons": [
-        "Inbound NAT rules map traffic to a single specific backend VM instance, rather than balancing across a load balanced pool.",
-        "Outbound rules handle egress traffic initiated from backend VMs to the internet.",
-        "Health probes monitor backend health status, not traffic port redirection."
+        "Inbound NAT rules provide direct mapping to a specific backend instance or backend NAT pool; they are not the normal mechanism for load balancing a service across a backend pool.",
+        "Outbound rules configure SNAT for connections initiated by backend instances; they do not map inbound frontend ports to backend ports.",
+        "Health probes determine backend health and do not perform frontend-to-backend port translation."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/load-balancer/load-balancer-components#load-balancing-rules"
+      "reference": "https://learn.microsoft.com/en-us/azure/load-balancer/manage-rules-how-to#load-balancing-rules"
     }
   },
   {
@@ -536,13 +536,13 @@
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "The default TCP idle timeout for Azure Load Balancer rules is 4 minutes. It can be configured between 4 and 30 minutes.",
+      "correctReason": "The default TCP idle timeout for Azure Standard Load Balancer rules and inbound NAT rules is 4 minutes. The configurable range is 4 to 100 minutes.",
       "incorrectReasons": [
-        "30 seconds is lower than the default 4-minute idle timeout.",
-        "15 minutes is within the configurable range (4-30 minutes), but is not the default value.",
-        "60 minutes exceeds the maximum configurable limit of 30 minutes for standard rules."
+        "30 seconds is below the supported minimum for Standard Load Balancer rules.",
+        "15 minutes is supported, but it is not the default value.",
+        "60 minutes is supported, but it is not the default value and is not the maximum."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/load-balancer/load-balancer-tcp-idle-timeout"
+      "reference": "https://learn.microsoft.com/en-us/azure/load-balancer/load-balancer-tcp-reset#configurable-tcp-idle-timeout"
     }
   },
   {
@@ -710,13 +710,13 @@
         "A probe interval of 5 seconds is normal and valid for monitoring instance health.",
         "Both static and dynamic internal IP configurations work fine with load balancers."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/load-balancer/troubleshoot-load-balancer-concurrent-connections"
+      "reference": "https://learn.microsoft.com/en-us/troubleshoot/azure/load-balancer/troubleshoot-load-balancer-health-probe-failures"
     }
   },
   {
     "id": 35,
     "subtopic": "Troubleshoot load balancing",
-    "question": "In the Azure Portal, you notice that all backend virtual machines in a load balancer backend pool are marked as 'Unhealthy' by the health probe. What is the immediate behavior of the Azure Load Balancer for incoming data packets?",
+    "question": "In the Azure Portal, all backend virtual machines in a Standard Load Balancer backend pool are marked as Unhealthy by the health probe. What is the immediate behavior for new flows?",
     "options": [
       "The load balancer stops routing traffic to all backend instances, causing client requests to fail.",
       "The load balancer routes traffic to a randomly selected VM regardless of probe state.",
@@ -725,13 +725,13 @@
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "When health probes mark all backend instances as unhealthy, the load balancer stops forwarding new connections to the backend pool, resulting in connection timeouts for clients.",
+      "correctReason": "When all backend instances are unhealthy, Standard Load Balancer sends no new flows to the backend pool. Established TCP flows can continue, so the original statement should distinguish new flows from existing connections.",
       "incorrectReasons": [
-        "Unlike some basic legacy appliances, Azure Load Balancer drops traffic when all instances fail health probes rather than routing traffic to unhealthy instances.",
-        "Load balancers do not issue VM reboot commands automatically upon health probe failure.",
-        "Regional load balancers do not perform multi-region failover natively without Traffic Manager or Front Door."
+        "Standard Load Balancer does not deliberately route new flows to an unhealthy VM.",
+        "A health-probe failure does not cause the Load Balancer to restart backend VMs.",
+        "A regional Load Balancer does not automatically fail over to a secondary Azure region; cross-region designs require an appropriate cross-region or global solution."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/load-balancer/load-balancer-custom-probe-overview#probe-health"
+      "reference": "https://learn.microsoft.com/en-us/azure/load-balancer/load-balancer-custom-probe-overview#probe-down-behavior"
     }
   },
   {
@@ -809,19 +809,19 @@
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "The default TCP idle timeout is 4 minutes. If no data is sent across an idle connection during this window, the load balancer drops the connection state. Increasing the idle timeout (up to 30 minutes) or enabling TCP keep-alives prevents drops.",
+      "correctReason": "The default TCP idle timeout is 4 minutes. For Standard Load Balancer rules and inbound NAT rules, the timeout can be increased up to 100 minutes, or TCP keep-alives can be used to keep the connection active.",
       "incorrectReasons": [
-        "Basic SKU Load Balancers also enforce a 4-minute default idle timeout.",
-        "Health probe intervals monitor backend VM availability, but do not maintain client session idle timeouts.",
-        "IP allocation type (static vs dynamic) does not affect TCP connection idle timeouts."
+        "Changing the SKU to Basic is not an appropriate solution; Basic Load Balancer was retired on September 30, 2025.",
+        "Health probe frequency determines backend health and does not keep an idle client connection alive.",
+        "Static versus dynamic private IP allocation does not determine the TCP idle timeout."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/load-balancer/load-balancer-tcp-idle-timeout"
+      "reference": "https://learn.microsoft.com/en-us/azure/load-balancer/load-balancer-tcp-reset#configurable-tcp-idle-timeout"
     }
   },
   {
     "id": 40,
     "subtopic": "Troubleshoot load balancing",
-    "question": "You deploy an Azure Standard Public Load Balancer, but backend virtual machines fail to download packages from the internet. The VMs do not have instance-level Public IP addresses attached. What is the cause of the egress failure?",
+    "question": "You create a VM in a private subnet behind a Standard Public Load Balancer. The VM has no public IP and no NAT Gateway or Load Balancer outbound rule is configured. The VM cannot download packages from the internet. What is the cause?",
     "options": [
       "Standard Load Balancer does not provide default outbound SNAT access without an explicit Outbound Rule or NAT Gateway.",
       "The backend VMs must be configured with an Azure Internal Load Balancer.",
@@ -830,19 +830,19 @@
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "Unlike Basic Load Balancer, Standard Load Balancer enforces a secure default posture. Outbound internet access via SNAT requires configuring an explicit Outbound Rule, attaching a NAT Gateway to the subnet, or assigning a Public IP directly to the VM.",
+      "correctReason": "A private subnet does not provide default outbound internet access. The VM needs an explicit outbound connectivity method such as a NAT Gateway, a Load Balancer outbound rule, or a directly associated public IP.",
       "incorrectReasons": [
-        "Internal Load Balancers provide no internet egress capabilities by design.",
-        "There is no service endpoint for general Internet egress.",
-        "Standard Load Balancers do not restrict traffic to internal Microsoft networks; they simply require explicit outbound configuration."
+        "An internal Load Balancer is not required to provide internet egress and does not itself provide public outbound connectivity.",
+        "Azure service endpoints are for accessing supported Azure services privately; they do not provide general internet egress.",
+        "Standard Load Balancer does not restrict outbound traffic to Microsoft internal networks; the issue is the absence of an explicit outbound method."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/load-balancer/load-balancer-outbound-connections"
+      "reference": "https://learn.microsoft.com/en-us/azure/virtual-network/ip-services/default-outbound-access"
     }
   },
   {
     "id": 41,
     "subtopic": "Troubleshoot load balancing",
-    "question": "You observe high SNAT Port Exhaustion metrics on your Standard Public Load Balancer in Azure Monitor. What is the most effective solution to eliminate SNAT port exhaustion for outbound connections?",
+    "question": "You observe high SNAT port usage on a Standard Public Load Balancer. The backend VMs generate many outbound internet connections. Which solution avoids relying on Load Balancer SNAT for these outbound connections?",
     "options": [
       "Deploy an Azure NAT Gateway on the backend VM subnet.",
       "Increase the health probe frequency to 2 seconds.",
@@ -851,11 +851,11 @@
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "Azure NAT Gateway provides fully managed, highly scalable outbound internet connectivity for subnets, eliminating SNAT port exhaustion issues common with fixed load balancer outbound allocations.",
+      "correctReason": "A NAT Gateway provides dedicated, scalable outbound connectivity for the subnet, so outbound connections use NAT Gateway SNAT rather than the Load Balancer outbound SNAT allocation.",
       "incorrectReasons": [
-        "Health probe frequency manages inbound instance health checks, not outbound SNAT allocation.",
-        "IP allocation mode (static vs dynamic) does not increase the number of available SNAT ports per IP.",
-        "HA Ports rules affect internal inbound port distribution, not outbound SNAT capacity."
+        "Health probe frequency affects backend health monitoring, not SNAT port allocation.",
+        "Changing public IP allocation from static to dynamic does not increase SNAT capacity.",
+        "HA Ports controls inbound load balancing across ports and does not provide outbound SNAT capacity."
       ],
       "reference": "https://learn.microsoft.com/en-us/azure/nat-gateway/nat-overview"
     }
@@ -905,70 +905,70 @@
   {
     "id": 44,
     "subtopic": "Troubleshoot load balancing",
-    "question": "An administrator attempts to add a Virtual Machine located in VNetB to the backend pool of an Azure Load Balancer located in VNetA. The operation fails. What is the cause of the failure?",
+    "question": "An administrator attempts to add a VM located in VNetB to the backend pool of an Azure Load Balancer whose backend pool is in VNetA. The operation fails. What is the cause?",
     "options": [
-      "A Load Balancer backend pool can only contain network interfaces from Virtual Machines located in the same Virtual Network as the Load Balancer (or peered VNets if supported by configuration limits).",
+      "The backend pool scope is a single virtual network, so the VM must be in the same VNet as the Load Balancer backend pool.",
       "VNetB is missing an Azure Private DNS zone link.",
       "VMs in VNetB do not have accelerated networking enabled.",
       "Load Balancers only support VMs created in default resource groups."
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "Backend instances attached to an Azure Load Balancer must reside in the same Virtual Network as the load balancer frontend (or regional peered VNets for specific Standard Load Balancer configurations). Across unpeered VNets, instances cannot be added.",
+      "correctReason": "Azure Load Balancer backend pools have a single-virtual-network scope. A backend VM or VMSS instance must belong to the same virtual network as the backend pool.",
       "incorrectReasons": [
-        "Private DNS zone links do not govern load balancer backend pool membership constraints.",
-        "Accelerated networking is an optional performance feature, not a requirement for backend pool inclusion.",
-        "Resource group naming or structure has no impact on backend pool eligibility."
+        "Private DNS zone links do not determine Load Balancer backend pool membership.",
+        "Accelerated networking is not required for a VM to be a backend pool member.",
+        "Resource group naming or structure does not determine backend pool eligibility."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/load-balancer/load-balancer-components#backend-pool"
+      "reference": "https://learn.microsoft.com/en-us/azure/load-balancer/components#backend-pool"
     }
   },
   {
     "id": 45,
     "subtopic": "Troubleshoot load balancing",
-    "question": "You configure an Azure Load Balancer with a health probe probing port 443 (HTTPS). The probe continuously reports backend instances as unhealthy, even though IIS is running and accepting HTTPS traffic locally. What is a common cause related to certificate validation?",
+    "question": "You configure an HTTPS health probe on port 443. IIS is running and accepts HTTPS connections locally, but the Load Balancer marks the backend unhealthy. Which application behavior can cause the probe to fail?",
     "options": [
-      "The backend web server expects a specific host header or fails the SSL handshake because the probe requires an HTTP 200 OK response from the explicit path.",
-      "HTTPS probes require the backend VM to have a public CA-signed SSL certificate attached to its Azure NIC.",
-      "Azure Load Balancer health probes do not support port 443.",
-      "HTTPS probes only work when floating IP is explicitly enabled."
+      "The application requires a specific host name/host header or does not return HTTP 200 to the probe request.",
+      "The VM must have a public CA-signed certificate attached to its Azure NIC.",
+      "Azure Load Balancer does not support HTTPS health probes.",
+      "HTTPS probes work only when Floating IP is enabled."
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "HTTPS health probes perform an SSL/TLS handshake and issue an HTTP GET request to the path specified. If the application requires specific client headers, redirects (HTTP 301/302), or fails the SSL handshake, the probe marks the instance unhealthy.",
+      "correctReason": "An HTTPS probe performs an HTTPS request to the configured path. The backend must successfully respond to the probe; application behavior such as requiring a specific host name or returning a non-200 response can cause the probe to fail. HTTPS probes do not use a configurable hostname in the probe definition.",
       "incorrectReasons": [
-        "Health probes do not validate public CA trust chains on backend VM self-signed certificates during probing.",
-        "HTTPS probes on port 443 are fully supported by Azure Load Balancer.",
-        "Floating IP is independent of HTTPS health probe execution."
+        "A certificate is configured on the backend application, not attached to the Azure NIC, and the probe does not require a public CA-signed certificate.",
+        "Standard Load Balancer supports HTTPS health probes.",
+        "Floating IP is unrelated to whether an HTTPS health probe can execute."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/load-balancer/load-balancer-custom-probe-overview#http-hp"
+      "reference": "https://learn.microsoft.com/en-us/azure/load-balancer/load-balancer-custom-probe-overview#probe-source-ip-address"
     }
   },
   {
     "id": 46,
     "subtopic": "Troubleshoot load balancing",
-    "question": "You use Azure Monitor Diagnostic Settings to troubleshoot an Azure Load Balancer. Which log table in Log Analytics stores operational event logs such as rule modifications and health status events?",
+    "question": "You use Azure Monitor diagnostic settings to collect Azure Load Balancer health event logs in a Log Analytics workspace. Which Log Analytics table stores these health events?",
     "options": [
-      "AzureDiagnostics (or AzureActivity for management events)",
+      "ALBHealthEvent",
       "Syslog",
       "NetworkSecurityGroupEvent",
       "W3CIISLog"
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "Azure Load Balancer resource diagnostic logs and health status changes are routed to Log Analytics under the `AzureDiagnostics` table, while control plane operations log to `AzureActivity`.",
+      "correctReason": "Current Standard Load Balancer health event logs use the LoadBalancerHealthEvent diagnostic category and are stored in the ALBHealthEvent Log Analytics table.",
       "incorrectReasons": [
-        "Syslog collects Linux guest OS system logs, not Azure platform load balancer logs.",
-        "NetworkSecurityGroupEvent logs NSG flow evaluation logs.",
-        "W3CIISLog logs web server access logs inside Windows guest OS instances."
+        "Syslog contains guest operating system logs rather than Azure Load Balancer health event logs.",
+        "NetworkSecurityGroupEvent is associated with NSG event logging, not Load Balancer health events.",
+        "W3CIISLog contains IIS web server logs from Windows workloads, not Azure Load Balancer resource logs."
       ],
-      "reference": "https://learn.microsoft.com/en-us/azure/load-balancer/load-balancer-monitor-log"
+      "reference": "https://learn.microsoft.com/en-us/azure/load-balancer/load-balancer-health-event-logs"
     }
   },
   {
     "id": 47,
     "subtopic": "Troubleshoot load balancing",
-    "question": "Users report that traffic balances unevenly across three backend VMs in a load balancer pool. VM1 receives 80% of requests, while VM2 and VM3 receive 10% each. What configuration should you inspect first?",
+    "question": "Users report that traffic is heavily concentrated on VM1. The application is behind an Azure Load Balancer, and you discover that the load-balancing rule uses Client IP session persistence while many users reach the service through the same NAT gateway. Which setting explains the uneven distribution?",
     "options": [
       "Session Persistence settings on the load balancing rule.",
       "Health probe protocol settings.",
@@ -977,11 +977,11 @@
     ],
     "correct": 0,
     "explanation": {
-      "correctReason": "If Session Persistence (sticky sessions) is enabled (e.g., Client IP persistence), a large proxy or NAT gateway originating many client requests from a single source IP address will funnel all those requests to a single backend VM (VM1).",
+      "correctReason": "Client IP session persistence maps successive connections from the same source IP to the same backend instance. If many users share one NAT source IP, those users can be concentrated on one backend VM.",
       "incorrectReasons": [
-        "Health probes dictate whether an instance receives traffic or not (binary healthy/unhealthy), not percentage distribution among healthy instances.",
-        "Subnet mask settings do not influence load balancer hash distribution algorithms.",
-        "Public IP SKU (Standard vs Basic) does not alter session persistence distribution behavior."
+        "Health probes determine whether a backend is healthy and eligible; they do not by themselves pin clients to a specific backend.",
+        "The backend subnet mask does not configure Load Balancer session-affinity behavior.",
+        "The frontend Public IP SKU does not determine session persistence distribution."
       ],
       "reference": "https://learn.microsoft.com/en-us/azure/load-balancer/load-balancer-distribution-mode"
     }

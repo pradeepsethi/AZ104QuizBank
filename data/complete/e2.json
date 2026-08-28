@@ -1,0 +1,1108 @@
+[
+  {
+    "id": 1,
+    "subtopic": "Create users and groups",
+    "question": "Your organization is onboarding 400 employees. Each employee must receive an individual cloud-only Microsoft Entra user account, and users in the Finance department must automatically become members of a Finance security group when their Department attribute is Finance. Which configuration best meets the requirements?",
+    "options": [
+      "Create an assigned security group and manually add every Finance user",
+      "Create the users and create a dynamic user security group with a rule based on the Department attribute",
+      "Create a Microsoft 365 group and use a static membership list",
+      "Create a distribution group and configure mail routing based on Department"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "A dynamic user security group evaluates user attributes and automatically adds or removes members as those attributes change.",
+      "incorrectReasons": [
+        "An assigned group requires manual membership management and does not automatically evaluate Department.",
+        "A Microsoft 365 group is not the appropriate mechanism for this security-group membership requirement.",
+        "A distribution group does not provide the required dynamic security-group membership behavior."
+      ],
+      "reference": "[https://learn.microsoft.com/en-us/entra/identity/users/groups-create-rule](https://learn.microsoft.com/en-us/entra/identity/users/groups-create-rule)"
+    },
+    "reference": "https://learn.microsoft.com/en-us/entra/identity/users/groups-create-rule"
+  },
+  {
+    "id": 2,
+    "subtopic": "Manage user and group properties",
+    "question": "A dynamic group must contain only users who are employees and whose Department attribute is Finance. Guest users must be excluded automatically. Which rule should you configure?",
+    "options": [
+      "(user.department -eq \"Finance\")",
+      "(user.department -eq \"Finance\") and (user.userType -eq \"Member\")",
+      "(user.userType -eq \"Guest\") and (user.department -eq \"Finance\")",
+      "(user.department -ne \"Finance\") or (user.userType -eq \"Member\")"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Combining Department = Finance with userType = Member limits membership to Finance users who are tenant members, excluding guests.",
+      "incorrectReasons": [
+        "This can include guest users whose Department is Finance.",
+        "This rule selects guests in Finance rather than excluding guests.",
+        "This includes users outside Finance and does not enforce the required Finance-only condition."
+      ],
+      "reference": "[https://learn.microsoft.com/en-us/entra/identity/users/groups-dynamic-membership](https://learn.microsoft.com/en-us/entra/identity/users/groups-dynamic-membership)"
+    },
+    "reference": "https://learn.microsoft.com/en-us/entra/identity/users/groups-dynamic-membership"
+  },
+  {
+    "id": 3,
+    "subtopic": "Manage licenses in Microsoft Entra ID",
+    "question": "An administrator must ensure that every member of the Sales security group receives the same Microsoft Entra ID license. New Sales employees should receive the license automatically, and users removed from Sales should no longer receive the group-provided license. What should the administrator use?",
+    "options": [
+      "Assign the license individually to every current Sales user",
+      "Assign the license to the Sales group",
+      "Create a resource lock on the Sales group",
+      "Create an Azure Policy assignment targeting Sales users"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Group-based licensing assigns licenses to group members and automatically applies or removes the assignment as membership changes.",
+      "incorrectReasons": [
+        "Individual assignment does not automatically handle future membership changes.",
+        "Resource locks apply to Azure resources and do not manage Entra licenses.",
+        "Azure Policy governs Azure resources and does not assign Microsoft Entra licenses."
+      ],
+      "reference": "[https://learn.microsoft.com/en-us/entra/identity/users/licensing-groups-assign](https://learn.microsoft.com/en-us/entra/identity/users/licensing-groups-assign)"
+    },
+    "reference": "https://learn.microsoft.com/en-us/entra/identity/users/licensing-groups-assign"
+  },
+  {
+    "id": 4,
+    "subtopic": "Manage external users",
+    "question": "A project team needs to collaborate with an external consultant. The consultant must authenticate using their existing organizational identity and should appear in the tenant as a guest rather than as a regular member account. Which approach should you use?",
+    "options": [
+      "Create a cloud-only member user with a temporary password",
+      "Invite the consultant as a Microsoft Entra B2B guest user",
+      "Create a managed identity for the consultant",
+      "Create a service principal and provide the consultant its credentials"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Microsoft Entra B2B collaboration lets an external user access resources as a guest while authenticating with their external identity.",
+      "incorrectReasons": [
+        "A cloud-only member account creates a tenant-managed identity rather than using the consultant's external identity.",
+        "Managed identities are intended for Azure resources, not human external collaborators.",
+        "Service principals represent applications or automation identities rather than external human collaborators."
+      ],
+      "reference": "[https://learn.microsoft.com/en-us/entra/external-id/what-is-b2b](https://learn.microsoft.com/en-us/entra/external-id/what-is-b2b)"
+    },
+    "reference": "https://learn.microsoft.com/en-us/entra/external-id/what-is-b2b"
+  },
+  {
+    "id": 5,
+    "subtopic": "Configure self-service password reset (SSPR)",
+    "question": "You need to pilot SSPR for 75 users before enabling it tenant-wide. Which configuration should you use in Microsoft Entra ID?",
+    "options": [
+      "Set SSPR to None and configure a password policy",
+      "Set SSPR to Selected and specify the pilot group",
+      "Set SSPR to All and exclude the pilot group",
+      "Enable SSPR only through Azure Policy"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "SSPR can be enabled for Selected users by selecting a Microsoft Entra group, allowing a controlled pilot.",
+      "incorrectReasons": [
+        "None disables SSPR rather than enabling the pilot.",
+        "All enables SSPR broadly rather than limiting it to the pilot.",
+        "Azure Policy is not the configuration mechanism for Microsoft Entra SSPR."
+      ],
+      "reference": "[https://learn.microsoft.com/en-us/entra/identity/authentication/tutorial-enable-sspr](https://learn.microsoft.com/en-us/entra/identity/authentication/tutorial-enable-sspr)"
+    },
+    "reference": "https://learn.microsoft.com/en-us/entra/identity/authentication/tutorial-enable-sspr"
+  },
+  {
+    "id": 6,
+    "subtopic": "Manage built-in Azure roles",
+    "question": "A help-desk administrator must be able to view Azure resources and diagnose configuration issues but must not create, modify, or delete resources. Which built-in role is most appropriate?",
+    "options": [
+      "Owner",
+      "Contributor",
+      "Reader",
+      "User Access Administrator"
+    ],
+    "correct": 2,
+    "explanation": {
+      "correctReason": "Reader provides read-only access to Azure resources without allowing resource changes.",
+      "incorrectReasons": [
+        "Owner includes full resource management and permission-management capabilities.",
+        "Contributor can create, modify, and delete resources.",
+        "User Access Administrator is intended primarily for managing access assignments rather than read-only resource inspection."
+      ],
+      "reference": "[https://learn.microsoft.com/en-us/azure/role-based-access-control/built-in-roles](https://learn.microsoft.com/en-us/azure/role-based-access-control/built-in-roles)"
+    },
+    "reference": "https://learn.microsoft.com/en-us/azure/role-based-access-control/built-in-roles"
+  },
+  {
+    "id": 7,
+    "subtopic": "Assign roles at different scopes",
+    "question": "An administrator must allow a team to manage virtual machines in one resource group without granting access to other resource groups in the subscription. At which scope should the Contributor role be assigned?",
+    "options": [
+      "Management group",
+      "Subscription",
+      "Target resource group",
+      "Tenant"
+    ],
+    "correct": 2,
+    "explanation": {
+      "correctReason": "Assigning Contributor at the target resource-group scope limits the inherited permissions to resources within that resource group.",
+      "incorrectReasons": [
+        "A management-group assignment would potentially apply to multiple subscriptions.",
+        "A subscription-level assignment is broader than required.",
+        "Tenant is not an Azure RBAC resource scope for this assignment."
+      ],
+      "reference": "[https://learn.microsoft.com/en-us/azure/role-based-access-control/scope-overview](https://learn.microsoft.com/en-us/azure/role-based-access-control/scope-overview)"
+    },
+    "reference": "https://learn.microsoft.com/en-us/azure/role-based-access-control/scope-overview"
+  },
+  {
+    "id": 8,
+    "subtopic": "Interpret access assignments",
+    "question": "A user has Reader access directly on a VM and Contributor access inherited from the VM's resource group. What effective Azure RBAC permission level does the user have on the VM?",
+    "options": [
+      "Reader only",
+      "Contributor",
+      "Owner",
+      "No access because the assignments conflict"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Azure RBAC permissions from applicable assignments are additive. The Contributor assignment grants Contributor permissions on the VM.",
+      "incorrectReasons": [
+        "The broader Contributor assignment provides more permissions than Reader.",
+        "Owner would grant more permissions than the scenario specifies.",
+        "RBAC assignments do not conflict in this way; applicable permissions are combined."
+      ],
+      "reference": "[https://learn.microsoft.com/en-us/azure/role-based-access-control/overview](https://learn.microsoft.com/en-us/azure/role-based-access-control/overview)"
+    },
+    "reference": "https://learn.microsoft.com/en-us/azure/role-based-access-control/overview"
+  },
+  {
+    "id": 9,
+    "subtopic": "Implement and manage Azure Policy",
+    "question": "Your organization requires every storage account to use TLS 1.2 or later. Existing noncompliant resources should be identified, while deployments that violate the requirement should be blocked. Which policy effect should be used for the enforcement requirement?",
+    "options": [
+      "Audit",
+      "Deny",
+      "Disabled",
+      "Append"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "The Deny effect prevents resource creation or update operations that violate the policy condition.",
+      "incorrectReasons": [
+        "Audit reports noncompliance but does not block the deployment.",
+        "Disabled prevents the policy from evaluating resources.",
+        "Append adds properties to requests where applicable but is not the required direct blocking mechanism here."
+      ],
+      "reference": "[https://learn.microsoft.com/en-us/azure/governance/policy/concepts/effect-deny](https://learn.microsoft.com/en-us/azure/governance/policy/concepts/effect-deny)"
+    },
+    "reference": "https://learn.microsoft.com/en-us/azure/governance/policy/concepts/effect-deny"
+  },
+  {
+    "id": 10,
+    "subtopic": "Configure resource locks",
+    "question": "A production storage account must remain usable by applications, but administrators must not accidentally delete the storage account. Which lock should you apply?",
+    "options": [
+      "ReadOnly",
+      "CanNotDelete",
+      "DeleteOnly",
+      "No lock; use an NSG"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "CanNotDelete prevents deletion while allowing normal read and write operations.",
+      "incorrectReasons": [
+        "ReadOnly prevents write operations in addition to deletion.",
+        "DeleteOnly is not an Azure resource lock level.",
+        "NSGs control network traffic and do not protect resources from deletion."
+      ],
+      "reference": "[https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/lock-resources](https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/lock-resources)"
+    },
+    "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/lock-resources"
+  },
+  {
+    "id": 11,
+    "subtopic": "Apply and manage tags on resources",
+    "question": "A company requires all resources to have a CostCenter tag. Administrators must be prevented from deploying resources that do not contain the tag. Which Azure governance mechanism should enforce this requirement?",
+    "options": [
+      "Resource lock",
+      "Azure Policy with a Deny effect",
+      "Network security group",
+      "Azure Advisor"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Azure Policy can evaluate the presence of a tag and use Deny to prevent creation or updates that violate the requirement.",
+      "incorrectReasons": [
+        "Locks control delete or write behavior and do not validate tags.",
+        "NSGs govern network traffic rather than resource metadata.",
+        "Advisor provides recommendations and does not enforce mandatory tags."
+      ],
+      "reference": "[https://learn.microsoft.com/en-us/azure/governance/policy/concepts/effect-deny](https://learn.microsoft.com/en-us/azure/governance/policy/concepts/effect-deny)"
+    },
+    "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/tag-resources"
+  },
+  {
+    "id": 12,
+    "subtopic": "Manage resource groups",
+    "question": "An application consists of a VM, NIC, managed disk, and public IP in the same resource group. You need to delete the entire application and all those resources together. What is the most appropriate administrative action?",
+    "options": [
+      "Delete each resource individually",
+      "Delete the resource group",
+      "Delete only the VM",
+      "Remove the resource group's tags"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Deleting a resource group deletes the resources contained in that resource group.",
+      "incorrectReasons": [
+        "Individual deletion is unnecessary when the complete resource group is disposable.",
+        "Deleting only the VM leaves associated resources behind.",
+        "Tags have no effect on resource deletion."
+      ],
+      "reference": "[https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/manage-resource-groups-portal](https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/manage-resource-groups-portal)"
+    },
+    "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/manage-resource-groups-portal"
+  },
+  {
+    "id": 13,
+    "subtopic": "Manage subscriptions",
+    "question": "A company wants to organize several Azure subscriptions under a common governance boundary so that Azure Policy assignments and RBAC can be managed centrally. Which Azure construct should be used?",
+    "options": [
+      "Resource group",
+      "Management group",
+      "Availability set",
+      "Storage account"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Management groups organize subscriptions into a hierarchy and provide a scope for governance and access management.",
+      "incorrectReasons": [
+        "Resource groups contain Azure resources and cannot organize subscriptions.",
+        "Availability sets are VM availability constructs.",
+        "Storage accounts provide data storage rather than subscription governance."
+      ],
+      "reference": "[https://learn.microsoft.com/en-us/azure/governance/management-groups/overview](https://learn.microsoft.com/en-us/azure/governance/management-groups/overview)"
+    },
+    "reference": "https://learn.microsoft.com/en-us/azure/governance/management-groups/overview"
+  },
+  {
+    "id": 14,
+    "subtopic": "Manage costs by using alerts, budgets, and Azure Advisor recommendations",
+    "question": "Finance wants notification when monthly spending reaches 80% of a defined departmental threshold, but the threshold must not itself stop resource consumption. What should you configure?",
+    "options": [
+      "A resource lock",
+      "An Azure budget with an alert threshold",
+      "An NSG rule",
+      "A management group"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Azure Cost Management budgets can define spending thresholds and generate alerts when configured thresholds are reached.",
+      "incorrectReasons": [
+        "A resource lock controls resource operations rather than spending.",
+        "NSGs control network traffic.",
+        "Management groups organize subscriptions and governance but do not themselves provide the requested threshold alert."
+      ],
+      "reference": "[https://learn.microsoft.com/en-us/azure/cost-management-billing/costs/tutorial-acm-create-budgets](https://learn.microsoft.com/en-us/azure/cost-management-billing/costs/tutorial-acm-create-budgets)"
+    },
+    "reference": "https://learn.microsoft.com/en-us/azure/cost-management-billing/costs/tutorial-acm-create-budgets"
+  },
+  {
+    "id": 15,
+    "subtopic": "Configure management groups",
+    "question": "You have separate Production and Development subscriptions. A policy assigned at a parent management group must apply to both subscriptions. What should you do?",
+    "options": [
+      "Assign the policy separately to every resource",
+      "Assign the policy to the parent management group",
+      "Assign the policy only to the Production resource group",
+      "Assign the policy to an individual VM"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Policy assignments at a management-group scope can be inherited by descendant subscriptions and resources.",
+      "incorrectReasons": [
+        "Per-resource assignments create unnecessary administrative overhead.",
+        "A Production resource group cannot govern the Development subscription.",
+        "An individual VM is too narrow and cannot govern both subscriptions."
+      ],
+      "reference": "[https://learn.microsoft.com/en-us/azure/governance/management-groups/overview](https://learn.microsoft.com/en-us/azure/governance/management-groups/overview)"
+    },
+    "reference": "https://learn.microsoft.com/en-us/azure/governance/management-groups/overview"
+  },
+  {
+    "id": 16,
+    "subtopic": "Configure Azure Storage firewalls and virtual networks",
+    "question": "A storage account must reject public network traffic except from two approved virtual network subnets. Which configuration should you implement?",
+    "options": [
+      "Allow access from all networks and use blob containers for security",
+      "Configure the storage firewall for selected virtual networks and add the approved subnets",
+      "Use only an Azure resource lock",
+      "Enable anonymous blob access"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Storage networking can restrict access to selected virtual networks and subnets through the storage account network rules.",
+      "incorrectReasons": [
+        "Allowing all networks does not satisfy the network restriction.",
+        "Resource locks do not restrict network access.",
+        "Anonymous access weakens security and does not restrict traffic to approved subnets."
+      ],
+      "reference": "[https://learn.microsoft.com/en-us/azure/storage/common/storage-network-security](https://learn.microsoft.com/en-us/azure/storage/common/storage-network-security)"
+    },
+    "reference": "https://learn.microsoft.com/en-us/azure/storage/common/storage-network-security"
+  },
+  {
+    "id": 17,
+    "subtopic": "Create and use shared access signature (SAS) tokens",
+    "question": "An application needs temporary read access to a specific blob without receiving the storage account key. The access must expire automatically after two hours. Which authorization mechanism is most appropriate?",
+    "options": [
+      "Storage account access key",
+      "SAS token scoped to the blob with read permission and a two-hour expiry",
+      "Owner role at the subscription scope",
+      "Resource lock"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "A SAS can grant limited permissions and a bounded validity period without exposing the storage account key.",
+      "incorrectReasons": [
+        "An account key provides broad access and is not appropriately scoped or time-limited.",
+        "Owner is an Azure RBAC role and is unrelated to scoped blob delegation.",
+        "A resource lock does not grant data access."
+      ],
+      "reference": "[https://learn.microsoft.com/en-us/azure/storage/common/storage-sas-overview](https://learn.microsoft.com/en-us/azure/storage/common/storage-sas-overview)"
+    },
+    "reference": "https://learn.microsoft.com/en-us/azure/storage/common/storage-sas-overview"
+  },
+  {
+    "id": 18,
+    "subtopic": "Configure stored access policies",
+    "question": "A service uses SAS tokens tied to a blob container. Security operations must be able to revoke all SAS tokens associated with the service without changing the storage account access key. What should be configured?",
+    "options": [
+      "A stored access policy on the container",
+      "A ReadOnly resource lock",
+      "A public IP address",
+      "A management group"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "A stored access policy can centralize permissions and validity for service SAS tokens and can be changed or deleted to revoke associated access.",
+      "incorrectReasons": [
+        "A resource lock does not control SAS authorization.",
+        "A public IP address does not provide SAS revocation.",
+        "Management groups govern subscriptions rather than storage authorization."
+      ],
+      "reference": "[https://learn.microsoft.com/en-us/azure/storage/blobs/sas-service-create](https://learn.microsoft.com/en-us/azure/storage/blobs/sas-service-create)"
+    },
+    "reference": "https://learn.microsoft.com/en-us/rest/api/storageservices/create-service-sas"
+  },
+  {
+    "id": 19,
+    "subtopic": "Manage access keys",
+    "question": "A legacy application authenticates to a storage account using key1. You need to rotate the credential with minimal downtime. Which sequence is safest?",
+    "options": [
+      "Regenerate key1 immediately and do not change the application",
+      "Update the application to use key2, regenerate key1, then update the application to the new key1 if required",
+      "Delete the storage account and recreate it",
+      "Regenerate both keys simultaneously"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Storage accounts provide two keys so one can remain active while the other is rotated, allowing a staged credential change.",
+      "incorrectReasons": [
+        "Regenerating the key currently used by the application can immediately break authentication.",
+        "Recreating the storage account is unnecessary and disruptive.",
+        "Regenerating both keys simultaneously invalidates both existing credentials."
+      ],
+      "reference": "[https://learn.microsoft.com/en-us/azure/storage/common/storage-account-keys-manage](https://learn.microsoft.com/en-us/azure/storage/common/storage-account-keys-manage)"
+    },
+    "reference": "https://learn.microsoft.com/en-us/azure/storage/common/storage-account-keys-manage"
+  },
+  {
+    "id": 20,
+    "subtopic": "Configure identity-based access for Azure Files",
+    "question": "Users must access an Azure Files share using their organizational identities rather than a storage account key. NTFS-style share permissions must also be enforceable. Which capability should you configure?",
+    "options": [
+      "Anonymous blob access",
+      "Identity-based authentication for Azure Files",
+      "A public load balancer",
+      "Azure Storage lifecycle management"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Identity-based Azure Files authentication enables users to access file shares using directory identities and supports authorization through share and file/directory permissions.",
+      "incorrectReasons": [
+        "Anonymous blob access is unrelated to authenticated Azure Files access.",
+        "A load balancer does not provide file-share authentication.",
+        "Lifecycle management manages data tiers and deletion, not user authentication."
+      ],
+      "reference": "[https://learn.microsoft.com/en-us/azure/storage/files/storage-files-active-directory-overview](https://learn.microsoft.com/en-us/azure/storage/files/storage-files-active-directory-overview)"
+    },
+    "reference": "https://learn.microsoft.com/en-us/azure/storage/files/storage-files-active-directory-overview"
+  },
+  {
+    "id": 21,
+    "subtopic": "Create and configure storage accounts",
+    "question": "An application stores block blobs and requires standard Azure Storage functionality with HTTPS-only access. Which storage account configuration is appropriate for a new general-purpose deployment?",
+    "options": [
+      "A standard general-purpose v2 storage account with Secure transfer required enabled",
+      "A classic storage account",
+      "An Azure DNS zone",
+      "An Azure Backup vault"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "A standard general-purpose v2 account is the recommended general-purpose account type for blob workloads, and enabling Secure transfer required rejects requests made over HTTP.",
+      "incorrectReasons": [
+        "Classic storage accounts are legacy and should not be selected for a new deployment.",
+        "Azure DNS zones provide name resolution and do not provide blob storage.",
+        "Azure Backup vaults provide backup management rather than primary blob storage."
+      ],
+      "reference": "[https://learn.microsoft.com/en-us/azure/storage/common/storage-account-overview](https://learn.microsoft.com/en-us/azure/storage/common/storage-account-overview)"
+    },
+    "reference": "https://learn.microsoft.com/en-us/azure/storage/common/storage-require-secure-transfer"
+  },
+  {
+    "id": 22,
+    "subtopic": "Configure Azure Storage redundancy",
+    "question": "A production storage account must keep synchronous copies in separate availability zones within its primary Azure region. Which redundancy option should you select?",
+    "options": [
+      "LRS",
+      "ZRS",
+      "GRS",
+      "RA-GRS"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Zone-redundant storage synchronously replicates data across availability zones in the primary region.",
+      "incorrectReasons": [
+        "LRS maintains copies within a single physical location in the primary region.",
+        "GRS replicates to a secondary region and does not describe the required primary-region zone redundancy.",
+        "RA-GRS provides read access to a geo-secondary but is not the requested primary-region zone-only design."
+      ],
+      "reference": "[https://learn.microsoft.com/en-us/azure/storage/common/storage-redundancy](https://learn.microsoft.com/en-us/azure/storage/common/storage-redundancy)"
+    },
+    "reference": "https://learn.microsoft.com/en-us/azure/storage/common/storage-redundancy"
+  },
+  {
+    "id": 23,
+    "subtopic": "Configure object replication",
+    "question": "A company wants block blobs written to a source storage account to be asynchronously replicated to a destination storage account for processing. Both accounts must support the required object-replication features. Which storage feature should you configure?",
+    "options": [
+      "Object replication",
+      "Azure Files snapshots",
+      "Resource locks",
+      "Azure DNS private zones"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Azure Blob object replication asynchronously copies block blobs between storage accounts according to replication policies.",
+      "incorrectReasons": [
+        "Azure Files snapshots apply to Azure file shares rather than cross-account blob replication.",
+        "Resource locks protect resources from deletion or modification and do not replicate data.",
+        "Private DNS zones provide name resolution rather than data replication."
+      ],
+      "reference": "[https://learn.microsoft.com/en-us/azure/storage/blobs/object-replication-introduction](https://learn.microsoft.com/en-us/azure/storage/blobs/object-replication-introduction)"
+    },
+    "reference": "https://learn.microsoft.com/en-us/azure/storage/blobs/object-replication-overview"
+  },
+  {
+    "id": 24,
+    "subtopic": "Configure storage account encryption",
+    "question": "Security policy requires a storage account to use a customer-managed key stored in Azure Key Vault. Which storage security capability should you configure?",
+    "options": [
+      "Customer-managed keys for Azure Storage encryption",
+      "A public container access level",
+      "An NSG on the storage account",
+      "Blob lifecycle management"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Azure Storage supports customer-managed keys for encryption at rest, with the key maintained in a supported key-management service such as Key Vault.",
+      "incorrectReasons": [
+        "Container access levels govern data access and do not select the encryption key.",
+        "NSGs do not directly secure storage account data-plane access in this manner.",
+        "Lifecycle management controls blob movement or deletion rather than encryption keys."
+      ],
+      "reference": "[https://learn.microsoft.com/en-us/azure/storage/common/customer-managed-keys-overview](https://learn.microsoft.com/en-us/azure/storage/common/customer-managed-keys-overview)"
+    },
+    "reference": "https://learn.microsoft.com/en-us/azure/storage/common/customer-managed-keys-overview"
+  },
+  {
+    "id": 25,
+    "subtopic": "Manage data by using Azure Storage Explorer and AzCopy",
+    "question": "You need to transfer several terabytes of blob data from one Azure Storage account to another using a command-line data-transfer utility optimized for high-performance copying. Which tool should you use?",
+    "options": [
+      "Azure Policy",
+      "AzCopy",
+      "Azure DNS",
+      "Azure Advisor"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "AzCopy is Microsoft's command-line utility for high-performance data transfer to and from Azure Storage.",
+      "incorrectReasons": [
+        "Azure Policy governs resource compliance rather than transferring storage data.",
+        "Azure DNS manages DNS zones and records.",
+        "Azure Advisor provides recommendations and does not perform bulk storage transfers."
+      ],
+      "reference": "[https://learn.microsoft.com/en-us/azure/storage/common/storage-use-azcopy-v10](https://learn.microsoft.com/en-us/azure/storage/common/storage-use-azcopy-v10)"
+    },
+    "reference": "https://learn.microsoft.com/en-us/azure/storage/common/storage-use-azcopy-v10"
+  },
+  {
+    "id": 26,
+    "subtopic": "Create and configure a file share in Azure Storage",
+    "question": "A department needs an SMB file share in Azure Storage with a 5-TiB quota. Which resource should you create inside a suitable storage account?",
+    "options": [
+      "Blob container with a 5-TiB quota",
+      "Azure file share with a configured quota",
+      "Table with a 5-TiB quota",
+      "Queue with a 5-TiB quota"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "An Azure file share provides the SMB file-share abstraction and supports configuring a share quota.",
+      "incorrectReasons": [
+        "Blob containers store blobs and do not provide an SMB file-share quota.",
+        "Table Storage is for NoSQL entities rather than SMB files.",
+        "Queue Storage is for messages rather than file data."
+      ],
+      "reference": "[https://learn.microsoft.com/en-us/azure/storage/files/storage-how-to-create-file-share](https://learn.microsoft.com/en-us/azure/storage/files/storage-how-to-create-file-share)"
+    },
+    "reference": "https://learn.microsoft.com/en-us/azure/storage/files/storage-how-to-create-file-share"
+  },
+  {
+    "id": 27,
+    "subtopic": "Create and configure a container in Blob Storage",
+    "question": "An application requires private blob storage. Only authenticated clients with appropriate authorization should access the blobs. Which container access configuration should you choose?",
+    "options": [
+      "Blob anonymous access",
+      "Container anonymous access",
+      "Private access",
+      "Public read access for all Azure users"
+    ],
+    "correct": 2,
+    "explanation": {
+      "correctReason": "Private container access prevents anonymous public access; authorized clients must use an appropriate authenticated authorization method.",
+      "incorrectReasons": [
+        "Blob anonymous access permits public access to individual blobs.",
+        "Container anonymous access permits public access to blobs in the container.",
+        "Azure Storage does not use this configuration as an equivalent authenticated authorization boundary."
+      ],
+      "reference": "[https://learn.microsoft.com/en-us/azure/storage/blobs/anonymous-read-access-configure](https://learn.microsoft.com/en-us/azure/storage/blobs/anonymous-read-access-configure)"
+    },
+    "reference": "https://learn.microsoft.com/en-us/azure/storage/blobs/anonymous-read-access-configure"
+  },
+  {
+    "id": 28,
+    "subtopic": "Configure storage tiers",
+    "question": "A blob workload contains data that is accessed frequently for the first month and then rarely accessed but must remain immediately available. Which access tier is most appropriate after the first month?",
+    "options": [
+      "Hot",
+      "Cool",
+      "Archive",
+      "Premium page blob tier"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "The cool tier is intended for data that is infrequently accessed but remains online and available without archive rehydration.",
+      "incorrectReasons": [
+        "Hot is optimized for frequently accessed data and may not minimize storage cost for infrequent access.",
+        "Archive is offline and requires rehydration before normal access.",
+        "Premium page blob storage is a different storage model and does not provide the requested blob access-tier behavior."
+      ],
+      "reference": "[https://learn.microsoft.com/en-us/azure/storage/blobs/access-tiers-overview](https://learn.microsoft.com/en-us/azure/storage/blobs/access-tiers-overview)"
+    },
+    "reference": "https://learn.microsoft.com/en-us/azure/storage/blobs/access-tiers-overview"
+  },
+  {
+    "id": 29,
+    "subtopic": "Configure soft delete for blobs and containers",
+    "question": "Administrators must be able to recover accidentally deleted blobs for 14 days. Which feature should be enabled on the storage account?",
+    "options": [
+      "Blob soft delete with an appropriate retention period",
+      "A ReadOnly resource lock",
+      "A public container",
+      "Object replication only"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Blob soft delete retains deleted blobs for a configured retention period so they can be restored during that period.",
+      "incorrectReasons": [
+        "A resource lock protects the resource itself but does not provide deleted-blob recovery.",
+        "Public access does not provide deletion recovery.",
+        "Object replication provides replication rather than the required deleted-object recovery mechanism."
+      ],
+      "reference": "[https://learn.microsoft.com/en-us/azure/storage/blobs/soft-delete-blob-overview](https://learn.microsoft.com/en-us/azure/storage/blobs/soft-delete-blob-overview)"
+    },
+    "reference": "https://learn.microsoft.com/en-us/azure/storage/blobs/soft-delete-blob-overview"
+  },
+  {
+    "id": 30,
+    "subtopic": "Configure snapshots and soft delete for Azure Files",
+    "question": "A user accidentally overwrites files in an Azure file share. The administrator needs a point-in-time copy of the share that can be used to restore files. Which feature should be used?",
+    "options": [
+      "Azure Files share snapshot",
+      "Blob versioning",
+      "Azure Policy",
+      "Storage account access key"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Azure Files share snapshots provide point-in-time copies of a file share that can be used for recovery.",
+      "incorrectReasons": [
+        "Blob versioning applies to blobs rather than Azure file shares.",
+        "Azure Policy governs resource configuration and does not create file-share recovery points.",
+        "An access key authenticates to storage and does not create snapshots."
+      ],
+      "reference": "[https://learn.microsoft.com/en-us/azure/storage/files/storage-snapshots-files](https://learn.microsoft.com/en-us/azure/storage/files/storage-snapshots-files)"
+    },
+    "reference": "https://learn.microsoft.com/en-us/azure/storage/files/storage-snapshots-files"
+  },
+  {
+    "id": 31,
+    "subtopic": "Configure blob lifecycle management",
+    "question": "A storage account contains application logs. Logs should move from Hot to Cool after 30 days and be deleted after 365 days. Which feature should implement this automatically?",
+    "options": [
+      "Blob lifecycle management policy",
+      "Resource lock",
+      "Azure RBAC Contributor",
+      "Storage account firewall"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Lifecycle management rules can automatically transition blobs between access tiers and delete blobs based on age conditions.",
+      "incorrectReasons": [
+        "Resource locks do not perform data lifecycle operations.",
+        "Contributor grants management permissions but does not automate data lifecycle transitions.",
+        "Firewalls restrict network access rather than manage blob age."
+      ],
+      "reference": "[https://learn.microsoft.com/en-us/azure/storage/blobs/lifecycle-management-overview](https://learn.microsoft.com/en-us/azure/storage/blobs/lifecycle-management-overview)"
+    },
+    "reference": "https://learn.microsoft.com/en-us/azure/storage/blobs/lifecycle-management-overview"
+  },
+  {
+    "id": 32,
+    "subtopic": "Configure blob versioning",
+    "question": "An application frequently overwrites configuration blobs. The team needs to retain previous blob states so that an earlier version can be recovered. Which feature should you enable?",
+    "options": [
+      "Blob versioning",
+      "Azure DNS",
+      "NSG flow logs",
+      "Resource locks"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Blob versioning automatically maintains previous versions of blobs when supported writes modify or replace them.",
+      "incorrectReasons": [
+        "Azure DNS does not provide blob recovery.",
+        "NSG flow logs record network traffic information.",
+        "Resource locks protect Azure resources rather than retaining previous blob versions."
+      ],
+      "reference": "[https://learn.microsoft.com/en-us/azure/storage/blobs/versioning-overview](https://learn.microsoft.com/en-us/azure/storage/blobs/versioning-overview)"
+    },
+    "reference": "https://learn.microsoft.com/en-us/azure/storage/blobs/versioning-overview"
+  },
+  {
+    "id": 33,
+    "subtopic": "Interpret an Azure Resource Manager template or a Bicep file",
+    "question": "A Bicep file declares a storage account resource and then references that resource's name when constructing another resource. The deployment engine must determine the dependency automatically. What Bicep behavior enables this?",
+    "options": [
+      "Implicit dependency created by a resource reference",
+      "A resource lock",
+      "An NSG association",
+      "A management-group assignment"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Bicep can infer dependencies from symbolic resource references, creating the required deployment ordering without an explicit dependsOn in many cases.",
+      "incorrectReasons": [
+        "Resource locks are governance controls and do not determine deployment dependency ordering.",
+        "NSGs control network traffic rather than ARM deployment dependencies.",
+        "Management-group assignments are governance constructs rather than resource dependency declarations."
+      ],
+      "reference": "[https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/resource-dependencies](https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/resource-dependencies)"
+    },
+    "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/resource-dependencies"
+  },
+  {
+    "id": 34,
+    "subtopic": "Modify an existing Bicep file",
+    "question": "A Bicep deployment currently creates a storage account with a hard-coded name. The same file must be reusable across environments with different storage account names. What should you change?",
+    "options": [
+      "Replace the hard-coded name with a parameter and reference that parameter in the resource declaration",
+      "Create a resource lock",
+      "Move the resource into a management group",
+      "Replace the Bicep file with an NSG"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Bicep parameters allow deployment-specific values such as resource names to be supplied without changing the template.",
+      "incorrectReasons": [
+        "Resource locks do not make templates reusable.",
+        "Management groups do not parameterize Bicep resources.",
+        "An NSG is unrelated to infrastructure-as-code parameterization."
+      ],
+      "reference": "[https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/parameters](https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/parameters)"
+    },
+    "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/parameters"
+  },
+  {
+    "id": 35,
+    "subtopic": "Deploy resources by using an ARM template or Bicep file",
+    "question": "A deployment must create resources consistently across three resource groups. The infrastructure team wants to use one reusable declarative definition with environment-specific values supplied at deployment time. Which approach is most appropriate?",
+    "options": [
+      "Use a Bicep file with parameters and deploy it to the required scopes",
+      "Create every resource manually in the portal",
+      "Use an NSG as the deployment definition",
+      "Use a resource lock as the deployment definition"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Bicep provides declarative infrastructure definitions and parameters that can be reused across deployments.",
+      "incorrectReasons": [
+        "Manual portal deployment does not provide the requested reusable infrastructure definition.",
+        "NSGs are networking resources, not deployment templates.",
+        "Resource locks protect resources and are not deployment definitions."
+      ],
+      "reference": "[https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/deploy-cli](https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/deploy-cli)"
+    },
+    "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/deploy-cli"
+  },
+  {
+    "id": 36,
+    "subtopic": "Export a deployment as an ARM template or convert an ARM template to Bicep",
+    "question": "An administrator has an existing ARM JSON template and wants to manage the infrastructure using Bicep. Which Microsoft-supported conversion approach should be used?",
+    "options": [
+      "Use the ARM-to-Bicep decompilation capability",
+      "Rename the .json file to .bicep",
+      "Import the JSON into Azure DNS",
+      "Convert the template by creating an NSG"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "The Azure CLI Bicep tooling provides decompilation from ARM JSON templates to Bicep.",
+      "incorrectReasons": [
+        "Changing the extension does not convert ARM JSON syntax into Bicep.",
+        "Azure DNS is unrelated to template conversion.",
+        "An NSG is a network resource and cannot convert templates."
+      ],
+      "reference": "[https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/decompile](https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/decompile)"
+    },
+    "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/decompile"
+  },
+  {
+    "id": 37,
+    "subtopic": "Create a virtual machine",
+    "question": "A new Azure VM must use a managed OS disk, be deployed into an existing subnet, and have a network interface connected to that subnet. Which resource dependency is required before the VM can use the subnet?",
+    "options": [
+      "The VM's network interface must be created and associated with the subnet",
+      "A storage container must be created",
+      "A management group must be created",
+      "An Azure DNS private zone must be created"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "The VM is connected to the virtual network through its NIC, and the NIC must be associated with the target subnet.",
+      "incorrectReasons": [
+        "A blob container is not required for a managed-disk VM's subnet connection.",
+        "Management groups are unrelated to VM network attachment.",
+        "A private DNS zone is not a prerequisite for attaching the VM to the subnet."
+      ],
+      "reference": "[https://learn.microsoft.com/en-us/azure/virtual-machines/windows/quick-create-portal](https://learn.microsoft.com/en-us/azure/virtual-machines/windows/quick-create-portal)"
+    },
+    "reference": "https://learn.microsoft.com/en-us/azure/virtual-machines/windows/quick-create-portal"
+  },
+  {
+    "id": 38,
+    "subtopic": "Configure encryption for Azure virtual machines",
+    "question": "A compliance requirement states that new Azure VMs should encrypt VM disks at the host, rather than using the retiring Azure Disk Encryption approach. Which solution should you implement?",
+    "options": [
+      "Encryption at host for Azure virtual machines",
+      "A network security group",
+      "Blob lifecycle management",
+      "Azure DNS"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Encryption at host encrypts the VM's server-side data, including OS and data disks, at the host level and is the recommended approach for new VMs instead of Azure Disk Encryption.",
+      "incorrectReasons": [
+        "Network security groups control network traffic and do not provide host-level disk encryption.",
+        "Blob lifecycle management controls blob data movement and deletion rather than VM disk encryption.",
+        "Azure DNS provides name resolution and does not encrypt VM disks."
+      ],
+      "reference": "[https://learn.microsoft.com/en-us/azure/virtual-machines/disk-encryption-overview](https://learn.microsoft.com/en-us/azure/virtual-machines/disk-encryption-overview)"
+    },
+    "reference": "https://learn.microsoft.com/en-us/azure/virtual-machines/disk-encryption"
+  },
+  {
+    "id": 39,
+    "subtopic": "Move a virtual machine to another resource group, subscription, or region",
+    "question": "A VM and its dependent resources must be moved from ResourceGroupA to ResourceGroupB within the same subscription. What should the administrator verify before initiating the move?",
+    "options": [
+      "That all resources being moved and their dependencies support the move operation",
+      "That the VM has an anonymous public IP",
+      "That the VM is converted to an unmanaged disk",
+      "That the resource group has a storage container"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Azure resource moves have resource-type and dependency requirements, so the administrator must validate that the VM and associated resources support the intended move.",
+      "incorrectReasons": [
+        "Anonymous public IP access is unrelated to resource move eligibility.",
+        "Unmanaged disks are not required for moving a supported VM.",
+        "A storage container is unrelated to resource-group moves."
+      ],
+      "reference": "[https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/move-resource-group-and-subscription](https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/move-resource-group-and-subscription)"
+    },
+    "reference": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/move-resource-group-and-subscription"
+  },
+  {
+    "id": 40,
+    "subtopic": "Manage virtual machine sizes",
+    "question": "A VM is consistently CPU constrained, but the current region has no capacity for its current size. The administrator wants to select a larger supported VM size. What should be checked before resizing?",
+    "options": [
+      "Available VM sizes in the VM's region and compatibility with the VM configuration",
+      "Only the storage account's blob access tier",
+      "Only the DNS TTL",
+      "Whether the VM has an Azure Files snapshot"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "VM size availability varies by region and VM configuration, so the administrator must select a supported size available in the region.",
+      "incorrectReasons": [
+        "Blob access tiers do not determine VM size availability.",
+        "DNS TTL does not determine supported VM sizes.",
+        "Azure Files snapshots are unrelated to VM compute sizing."
+      ],
+      "reference": "[https://learn.microsoft.com/en-us/azure/virtual-machines/sizes](https://learn.microsoft.com/en-us/azure/virtual-machines/sizes)"
+    },
+    "reference": "https://learn.microsoft.com/en-us/azure/virtual-machines/sizes"
+  },
+  {
+    "id": 41,
+    "subtopic": "Manage virtual machine disks",
+    "question": "A database VM requires additional persistent storage for its data files. The OS disk should remain unchanged. Which action should you perform?",
+    "options": [
+      "Attach an additional managed data disk to the VM",
+      "Replace the OS disk with a blob container",
+      "Add an Azure DNS record",
+      "Create a resource lock on the VM"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Managed data disks provide persistent block storage that can be attached to a VM independently of the OS disk.",
+      "incorrectReasons": [
+        "Blob containers are object storage and cannot replace a VM data disk in this manner.",
+        "DNS records do not provide persistent block storage.",
+        "A resource lock protects the VM but does not add storage."
+      ],
+      "reference": "[https://learn.microsoft.com/en-us/azure/virtual-machines/managed-disks-overview](https://learn.microsoft.com/en-us/azure/virtual-machines/managed-disks-overview)"
+    },
+    "reference": "https://learn.microsoft.com/en-us/azure/virtual-machines/managed-disks-overview"
+  },
+  {
+    "id": 42,
+    "subtopic": "Deploy virtual machines to availability zones and availability sets",
+    "question": "A highly available application requires two VMs in the same Azure region to be isolated across separate physical availability zones. Which deployment choice should you use?",
+    "options": [
+      "Place both VMs in one availability set",
+      "Deploy the VMs into different availability zones",
+      "Deploy both VMs into the same subnet without zones",
+      "Use a storage account access key"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Availability zones are physically separate locations within an Azure region and provide zone-level VM resiliency.",
+      "incorrectReasons": [
+        "An availability set provides fault and update domain separation but does not provide the requested zone separation.",
+        "A subnet alone does not guarantee physical-zone separation.",
+        "Storage credentials have no relationship to VM placement."
+      ],
+      "reference": "[https://learn.microsoft.com/en-us/azure/virtual-machines/availability](https://learn.microsoft.com/en-us/azure/virtual-machines/availability)"
+    },
+    "reference": "https://learn.microsoft.com/en-us/azure/virtual-machines/availability"
+  },
+  {
+    "id": 43,
+    "subtopic": "Deploy and configure an Azure Virtual Machine Scale Set",
+    "question": "A web workload has unpredictable demand. The team wants the number of identical VMs to increase when CPU utilization is high and decrease when demand falls. Which capability should be configured?",
+    "options": [
+      "VM Scale Set autoscale",
+      "Resource lock",
+      "Blob versioning",
+      "Azure DNS private zone"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "VM Scale Sets can automatically adjust the number of VM instances according to autoscale rules and metrics.",
+      "incorrectReasons": [
+        "Resource locks do not scale compute capacity.",
+        "Blob versioning preserves previous blob states.",
+        "Private DNS zones provide name resolution rather than compute scaling."
+      ],
+      "reference": "[https://learn.microsoft.com/en-us/azure/virtual-machine-scale-sets/virtual-machine-scale-sets-autoscale-overview](https://learn.microsoft.com/en-us/azure/virtual-machine-scale-sets/virtual-machine-scale-sets-autoscale-overview)"
+    },
+    "reference": "https://learn.microsoft.com/en-us/azure/virtual-machine-scale-sets/virtual-machine-scale-sets-autoscale-overview"
+  },
+  {
+    "id": 44,
+    "subtopic": "Create and manage an Azure container registry",
+    "question": "A development team needs a private registry for container images that will later be pulled by Azure workloads. Which Azure service should you provision?",
+    "options": [
+      "Azure Container Registry",
+      "Azure Load Balancer",
+      "Azure DNS",
+      "Azure Backup vault"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Azure Container Registry provides managed private registries for storing and managing container images and artifacts.",
+      "incorrectReasons": [
+        "Load Balancer distributes network traffic and does not store container images.",
+        "Azure DNS provides name resolution.",
+        "Backup vaults manage backup data rather than container image registries."
+      ],
+      "reference": "[https://learn.microsoft.com/en-us/azure/container-registry/container-registry-intro](https://learn.microsoft.com/en-us/azure/container-registry/container-registry-intro)"
+    },
+    "reference": "https://learn.microsoft.com/en-us/azure/container-registry/container-registry-intro"
+  },
+  {
+    "id": 45,
+    "subtopic": "Provision a container by using Azure Container Instances",
+    "question": "A batch job requires a single container that starts, performs a task, and then stops. The organization does not want to manage VMs or a Kubernetes cluster. Which service is most appropriate?",
+    "options": [
+      "Azure Container Instances",
+      "Azure Virtual Machine Scale Sets",
+      "Azure DNS",
+      "Azure Policy"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Azure Container Instances provides serverless container execution without requiring VM or Kubernetes infrastructure management.",
+      "incorrectReasons": [
+        "VM Scale Sets require VM infrastructure and are not the simplest solution for this container-only batch workload.",
+        "Azure DNS provides name resolution.",
+        "Azure Policy provides governance rather than container execution."
+      ],
+      "reference": "[https://learn.microsoft.com/en-us/azure/container-instances/container-instances-overview](https://learn.microsoft.com/en-us/azure/container-instances/container-instances-overview)"
+    },
+    "reference": "https://learn.microsoft.com/en-us/azure/container-instances/container-instances-overview"
+  },
+  {
+    "id": 46,
+    "subtopic": "Provision a container by using Azure Container Apps",
+    "question": "A team needs a containerized HTTP application with managed ingress, revisions, and event-driven autoscaling without managing Kubernetes nodes. Which Azure service should they select?",
+    "options": [
+      "Azure Container Apps",
+      "Azure Files",
+      "Azure Storage Explorer",
+      "Azure Resource Manager locks"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "Azure Container Apps provides managed container hosting with ingress, revisions, and autoscaling capabilities without requiring direct Kubernetes cluster management.",
+      "incorrectReasons": [
+        "Azure Files provides file storage rather than container application hosting.",
+        "Storage Explorer is a client tool for managing storage data.",
+        "Resource locks protect Azure resources and do not host applications."
+      ],
+      "reference": "[https://learn.microsoft.com/en-us/azure/container-apps/overview](https://learn.microsoft.com/en-us/azure/container-apps/overview)"
+    },
+    "reference": "https://learn.microsoft.com/en-us/azure/container-apps/overview"
+  },
+  {
+    "id": 47,
+    "subtopic": "Provision an App Service plan",
+    "question": "Three App Service web apps need to share the same compute capacity and pricing tier. What should you do?",
+    "options": [
+      "Create three separate App Service plans",
+      "Create one App Service plan and deploy all three apps into it",
+      "Create one storage account for each app",
+      "Create one Azure Policy for each app"
+    ],
+    "correct": 1,
+    "explanation": {
+      "correctReason": "Multiple App Service apps can run in the same App Service plan and share its compute resources and pricing tier.",
+      "incorrectReasons": [
+        "Separate plans unnecessarily isolate the apps and require separate plan resources.",
+        "Storage accounts do not provide App Service compute capacity.",
+        "Azure Policy does not provide application compute capacity."
+      ],
+      "reference": "[https://learn.microsoft.com/en-us/azure/app-service/overview-hosting-plans](https://learn.microsoft.com/en-us/azure/app-service/overview-hosting-plans)"
+    },
+    "reference": "https://learn.microsoft.com/en-us/azure/app-service/overview-hosting-plans"
+  },
+  {
+    "id": 48,
+    "subtopic": "Configure scaling for an App Service plan",
+    "question": "An App Service application experiences predictable increases in traffic during business hours. The team wants additional instances during those hours and fewer instances overnight. Which capability should be configured?",
+    "options": [
+      "App Service autoscale",
+      "A resource lock",
+      "A storage SAS",
+      "A private DNS zone"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "App Service autoscale can adjust instance count according to configured schedules and metrics, subject to the plan's capabilities.",
+      "incorrectReasons": [
+        "Resource locks do not change instance capacity.",
+        "SAS controls storage access rather than application scaling.",
+        "Private DNS controls name resolution rather than instance count."
+      ],
+      "reference": "[https://learn.microsoft.com/en-us/azure/app-service/manage-scale-up](https://learn.microsoft.com/en-us/azure/app-service/manage-scale-up)"
+    },
+    "reference": "https://learn.microsoft.com/en-us/azure/azure-monitor/autoscale/autoscale-get-started"
+  },
+  {
+    "id": 49,
+    "subtopic": "Create an App Service and configure certificates and TLS",
+    "question": "A production web app is mapped to a custom HTTPS hostname. The administrator needs to bind a certificate to the hostname so clients can establish TLS connections. What App Service configuration is required?",
+    "options": [
+      "Configure the custom domain and add an appropriate TLS/SSL certificate binding",
+      "Configure a storage container",
+      "Create an NSG on the App Service plan",
+      "Create a VM availability set"
+    ],
+    "correct": 0,
+    "explanation": {
+      "correctReason": "App Service supports custom domains and TLS/SSL bindings that associate a certificate with the custom hostname.",
+      "incorrectReasons": [
+        "A storage container is unrelated to App Service TLS configuration.",
+        "NSGs are not the mechanism for binding a certificate to an App Service hostname.",
+        "Availability sets apply to VMs rather than App Service."
+      ],
+      "reference": "[https://learn.microsoft.com/en-us/azure/app-service/configure-ssl-certificate](https://learn.microsoft.com/en-us/azure/app-service/configure-ssl-certificate)"
+    },
+    "reference": "https://learn.microsoft.com/en-us/azure/app-service/configure-ssl-bindings"
+  },
+  {
+    "id": 50,
+    "subtopic": "Configure and manage virtual networks, secure access, monitoring, and backup",
+    "question": "A production Azure application has a VM in a subnet, an Azure Storage account that must be privately reachable, and an Azure Load Balancer in front of application VMs. The operations team also needs to diagnose intermittent connectivity, receive alerts when VM availability fails, and recover the VMs after a regional outage. Which THREE Azure capabilities should be included? (Select THREE)",
+    "options": [
+      "Private endpoint for the Storage account",
+      "Azure Monitor alert rule based on the VM availability metric",
+      "Azure Site Recovery for VM disaster recovery",
+      "Anonymous blob access",
+      "Public container access",
+      "Delete the VMs after every failed health probe"
+    ],
+    "correct": [
+      0,
+      1,
+      2
+    ],
+    "explanation": {
+      "correctReason": "A private endpoint provides private connectivity to the Storage account, an Azure Monitor alert rule can notify when the VM availability metric indicates a failure, and Azure Site Recovery provides VM disaster-recovery and failover capabilities.",
+      "incorrectReasons": [
+        "Anonymous blob access exposes data publicly and conflicts with the private-access requirement.",
+        "Public container access conflicts with the requirement for private Storage access.",
+        "Deleting VMs after a health-probe failure is not a disaster-recovery strategy and would destroy production workloads."
+      ],
+      "reference": "[https://learn.microsoft.com/en-us/azure/private-link/private-endpoint-overview](https://learn.microsoft.com/en-us/azure/private-link/private-endpoint-overview)"
+    },
+    "reference": "https://learn.microsoft.com/en-us/azure/azure-monitor/vm/monitor-virtual-machine-alerts"
+  }
+]
